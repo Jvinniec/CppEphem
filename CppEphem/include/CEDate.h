@@ -13,21 +13,27 @@
 #include <string>
 #include <vector>
 
+// CppEphem HEADERS
+#include "CETime.h"
+
 // SOFA HEADER
 #include "sofa.h"
 
-enum CEDateFormat {JD, MJD, GREGORIAN} ;
+enum CEDateFormat {JD,              // Julian Date
+                   MJD,             // Modified Julian Date
+                   GREGORIAN} ;     // Gregorian calendar
 
 class CEDate {
 public:
     // Default constructor
     CEDate() {} ;
     // Constructor from some date format
-    CEDate(double time, CEDateFormat time_format=CEDateFormat::JD) ;
+    CEDate(double date, CEDateFormat date_format=CEDateFormat::JD) ;
+    CEDate(std::vector<double> date) ;
     // Copy constructor
     CEDate(const CEDate& other) ;
     // Destructor
-    virtual ~CEDate() {}
+    virtual ~CEDate() ;
     
     // Method that can be used to change the date that is stored in this object
     virtual void SetDate(double date, CEDateFormat time_format=CEDateFormat::JD) ;

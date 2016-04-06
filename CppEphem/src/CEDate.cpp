@@ -14,14 +14,34 @@
 
 //_______________________________________________________________
 CEDate::CEDate(double date, CEDateFormat date_format) :
-julian_date_(0.0),
-mod_julian_date_(0.0),
-gregorian_date_(0.0),
-gregorian_date_vect_(std::vector<double>(4,0.0))
+    julian_date_(0.0),
+    mod_julian_date_(0.0),
+    gregorian_date_(0.0),
+    gregorian_date_vect_(std::vector<double>(4,0.0))
 {
     // Use the SetDate function to set the actual time
     SetDate(date, date_format) ;
 }
+
+//_______________________________________________________________
+CEDate::CEDate(std::vector<double> date) :
+    julian_date_(0.0),
+    mod_julian_date_(0.0),
+    gregorian_date_(0.0),
+    gregorian_date_vect_(std::vector<double>(4,0.0))
+{
+    // First get the gregorian date double from the vector, then set the date
+    SetDate(GregorianVect2Gregorian(date), CEDateFormat::GREGORIAN) ;
+}
+
+//_______________________________________________________________
+// Copy constructor
+CEDate::CEDate(const CEDate& other) :
+    julian_date_(other.julian_date_),
+    mod_julian_date_(other.mod_julian_date_),
+    gregorian_date_(other.gregorian_date_),
+    gregorian_date_vect_(other.gregorian_date_vect_)
+{}
 
 #pragma mark - Public Methods
 

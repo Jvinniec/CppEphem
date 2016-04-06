@@ -9,12 +9,28 @@
 #include "CECoordinates.h"
 
 //__________________________________________________________
+// Default constructor
+CECoordinates::CECoordinates() :
+    xcoord_(0.0),
+    ycoord_(0.0),
+    coord_type_(CECoordinateType::J2000)
+{}
+
+//__________________________________________________________
 // Primary constructor
-CECoordinates::CECoordinates(double xcoord, double ycoord, const std::string& coord_system) :
+CECoordinates::CECoordinates(double xcoord, double ycoord,
+                             CECoordinateType coord_type,
+                             CEAngleType angle_type) :
     xcoord_(xcoord),
     ycoord_(ycoord),
-    coord_system_(coord_system)
-{}
+    coord_type_(coord_type)
+{
+    // If we've been given the coordinates in degrees, convert to radians
+    if (angle_type == CEAngleType::DEGREES) {
+        xcoord_ *= DD2R ;
+        ycoord_ *= DD2R ;
+    }
+}
 
 
 //__________________________________________________________
@@ -22,5 +38,5 @@ CECoordinates::CECoordinates(double xcoord, double ycoord, const std::string& co
 CECoordinates::CECoordinates(const CECoordinates& other) :
     xcoord_(other.xcoord_),
     ycoord_(other.ycoord_),
-    coord_system_(other.coord_system_)
+    coord_type_(other.coord_type_)
 {}

@@ -11,7 +11,13 @@
 
 #include <string>
 
-# define RadToDeg 
+// CppEphem HEADERS
+#include "CENamespace.h"
+
+// SOFA HEADER
+#include "sofa.h"
+
+using namespace CppEphem ;
 
 // The following enum specifies what the
 enum CECoordinateType {J2000,           // RA, Dec
@@ -23,26 +29,29 @@ enum CECoordinateType {J2000,           // RA, Dec
 class CECoordinates {
 public:
     // Default constructor
-    CECoordinates() {} ;
-    // Primary constructor
-    CECoordinates(double xcoord, double ycoord, CECoordinateType coord_type) ;
+    CECoordinates() ;
+    // Primary constructor (NOTE: xcoord & ycoord are expected to be in radians by default
+    CECoordinates(double xcoord, double ycoord,
+                  CECoordinateType coord_type,
+                  CEAngleType angle_type=CEAngleType::RADIANS) ;
     // Copy onstructor
     CECoordinates(const CECoordinates& other) ;
     // Destructor
     virtual ~CECoordinates() {} ;
     
     // Methods for accessing the coordinate information
-    double GetXCoordinate_Deg() {return xcoord_;}
-    double GetYCoordinate_Deg() {return ycoord_;}
+    double XCoordinate_Deg() {return xcoord_ * DR2D ;}
+    double YCoordinate_Deg() {return ycoord_ * DR2D ;}
+    double XCoordinate_Rad() {return xcoord_ ;}
+    double YCoordinate_Rad() {return ycoord_ ;}
     CECoordinateType GetCoordSystem() {return coord_type_;}
-    
     
     
 protected:
     // Coordinate variables
-    double xcoord_ ;                // X coordinate
-    double ycoord_ ;                // Y coordinate
-    CECoordinateType coord_type_ ;  // Coordinate system to which 'xcoord_' and "ycoord_' belong
+    double xcoord_ ;                // X coordinate (radians)
+    double ycoord_ ;                // Y coordinate (radians)
+    CECoordinateType coord_type_ ;  // Coordinate system to which 'xcoord_' and 'ycoord_' belong
                                     // Possible values are "J2000", "GALACTIC", "LOCAL", and "GEOGRAPHIC"
     
     // If we're specifying the coordinates in the form of a
