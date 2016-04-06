@@ -13,12 +13,19 @@
 
 # define RadToDeg 
 
+// The following enum specifies what the
+enum CECoordinateType {J2000,           // RA, Dec
+                       GALACTIC,        // Galacitc longitude, latitude
+                       LOCAL,           // Altitude, azimuth
+                       GEOGRAPHIC} ;    // Geographic longitude, latitude
+
+// Initiate the class that holds the coordinate information
 class CECoordinates {
 public:
     // Default constructor
     CECoordinates() {} ;
     // Primary constructor
-    CECoordinates(double xcoord, double ycoord, const std::string& coord_system) ;
+    CECoordinates(double xcoord, double ycoord, CECoordinateType coord_type) ;
     // Copy onstructor
     CECoordinates(const CECoordinates& other) ;
     // Destructor
@@ -27,14 +34,18 @@ public:
     // Methods for accessing the coordinate information
     double GetXCoordinate_Deg() {return xcoord_;}
     double GetYCoordinate_Deg() {return ycoord_;}
-    std::string GetCoordSystem() {return coord_system_;}
+    CECoordinateType GetCoordSystem() {return coord_type_;}
+    
+    
     
 protected:
     // Coordinate variables
-    double xcoord_ ;            // X coordinate
-    double ycoord_ ;            // Y coordinate
-    std::string coord_system_ ; // Coordinate system to which 'xcoord_' and "ycoord_' belong
-                                // Possible values are "J2000", "GALACTIC", "LOCAL"
+    double xcoord_ ;                // X coordinate
+    double ycoord_ ;                // Y coordinate
+    CECoordinateType coord_type_ ;  // Coordinate system to which 'xcoord_' and "ycoord_' belong
+                                    // Possible values are "J2000", "GALACTIC", "LOCAL", and "GEOGRAPHIC"
+    
+    // If we're specifying the coordinates in the form of a
     
 private:
     
