@@ -1,0 +1,29 @@
+This documents the AstroCoordinates package.
+
+Author: Joshua V. Cardenzana
+Creation Date: March 2016
+
+DISCLAIMER:
+----------------------------------------------------------
+The author above had no connection or involvement in the
+development of the SOFA software. Their software is included
+in this package because it is the standard provided by the
+International Astronomical Union (IAU). I dont claim to own
+their code. You can view the readme file in the sofa directory
+for more information on this software. (Can I not be sued now?)
+
+PURPOSE:
+----------------------------------------------------------
+The purpose of this package is to leverage the Standards
+Of Fundamental Astronomy (SOFA) package in order to allow
+simple coordinate conversion routines. This should allow
+converting between [RA,Dec], [Galactice Long, Lat], and
+local sky coordinates.
+
+Here is a list of purposes I wish this code to serve:
+* Basic coordinate conversion routines
+  - J2000 (RA,Dec)
+  - Galactic (Long, Lat)
+  - Local Sky (Az, Alt)
+* Planet ephemeris
+  - Planet positions
