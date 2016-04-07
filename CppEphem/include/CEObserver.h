@@ -41,13 +41,13 @@ public:
     
     // Get the current time vector
     CETime CurrentTime() {return current_time_ ;}
-    std::vector<double> CurrentTimeVect() {return current_time_ ;}
+    std::vector<double> CurrentTimeVect() {return std::vector<double>(0) ;}
     
     /****************************************************
      * Methods for setting the underlying observer info
      ****************************************************/
-    void SetGeographicCoordinates(CECoordinates new_geo_coords_) ;
-    void SetLongitude(
+//    void SetGeographicCoordinates(CECoordinates new_geo_coords_) ;
+//    void SetLongitude(
     
 protected:
     // Variables which define the observer

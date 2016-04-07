@@ -2,10 +2,14 @@
 dnl Initialize the build system
 dnl DONT FORGET TO CHANGE THE VERSION!
 AC_INIT([CppEphem],[MASTER],[jvinniec@gmail.com])
-AC_CONFIG_SRCDIR([CppEphem/src])
+AC_CONFIG_SRCDIR([CppEphem/src/mjd2jd.cpp])
+
+echo "================================================="
+echo " Configuring ${PACKAGE_NAME} - ${PACKAGE_VERSION}"
+echo "================================================="
 
 dnl Run the automake stuff
-AC_CONFIG_MACROS_DIRS([m4])
+AC_CONFIG_MACRO_DIRS([m4])
 AM_INIT_AUTOMAKE([subdir-objects -Wall -Werror])
 
 dnl Make sure there is a c++ compiler installed
@@ -20,7 +24,7 @@ LT_INIT
 dnl This variable will be used to specify special compile options
 special_exec=
 CppEphem_CPPFLAGS=
-curDir = ${PWD}
+curDir=${PWD}
 dnl #################################
 dnl SOFA PACKAGE OPTIONS
 dnl #################################
@@ -56,19 +60,22 @@ fi
 
 dnl The following is true if none of the '--with-sofa...' options
 dnl were specified
-if test "x$with_sofa$with_sofa_include$with_sofa_lib" = x ; then
-   sofalibs="-L@abs_top_builddir@/sofa/20150209_a/c/src -lsofa_c ${sofalibs}"
-   sofa_CXXFLAGS="-I@abs_top_builddir@/sofa/20150209_a/c/src ${sofa_CXXFLAGS}"
+if test "x$with_sofa$with_sofa_incdir$with_sofa_libdir" = x ; then
+   sofalibs="-L${curDir}/sofa/20150209_a/c/src -lsofa_c ${sofalibs}"
+   sofa_CXXFLAGS="-I${curDir}/sofa/20150209_a/c/src ${sofa_CXXFLAGS}"
 fi
 
+echo "$sofa_CXXFLAGS"
+echo "$sofalibs"
+
 dnl Add the include flags and the library search paths
-LIBS="${wcslibs} ${LIBS}"
+LIBS="${sofalibs} ${LIBS}"
 
 dnl Library checks
 have_sofa=no
-AC_CHECK_LIB([sofa_c],[iaucal2jd],
+AC_CHECK_LIB([sofa_c],[iauJd2cal],
 	[have_sofa=yes],
-	[AC_MSG_ERROR([sofa library does not contain 'iaucal2jd'])])
+	[AC_MSG_ERROR([sofa library does not contain 'iauJd2cal'])])
 
 if test "x${have_sofa}" != xyes; then
    echo "------------------------------------"
@@ -110,6 +117,9 @@ dnl #################################
 dnl Specify the Makefile locations
 dnl #################################
 AC_CONFIG_FILES([Makefile CppEphem/src/Makefile])
+
+dnl 
+AC_OUTPUT
 
 dnl Print some helpful information to the user
 echo \

@@ -22,7 +22,7 @@ using namespace CppEphem ;
 // The following enum specifies what the
 enum CECoordinateType {J2000,           // RA, Dec
                        GALACTIC,        // Galacitc longitude, latitude
-                       LOCAL,           // Altitude, azimuth
+                       LOCALSKY,           // Altitude, azimuth
                        GEOGRAPHIC} ;    // Geographic longitude, latitude
 
 // Initiate the class that holds the coordinate information

@@ -13,16 +13,18 @@ int main(int argc, const char * argv[]) {
     // Check that we've been passed an actual argument
     if (argc < 2) {
         // Print some usage information
-        std::cout << "\nUSAGE: mjd2jd <modified julian date>\n\n" ;
+        std::cout << "\nUSAGE: mjd2jd <modified julian date>\n" ;
+        std::cout << "RETURNED: Julian Date\n\n" ;
         return 0 ;
     }
 
     // Convert the input variable to a double
     double mjd = std::stod(std::string(argv[1])) ;
     
-    std::cout << std::endl;
-    std::cout << "\tModified Julian Date: " << mjd << std::endl;
-    std::cout << "\tJulian Date: " << CEDate::MJD2JD(mjd) << std::endl;
+//    std::printf("\tModified Julian Date: %f\n", mjd) ;
+//    std::printf("\tJulian Date: %f\n", CEDate::MJD2JD(mjd)) ;
+    
+    std::printf("%f\n", CEDate::MJD2JD(mjd)) ;
     
     return 0 ;
 }

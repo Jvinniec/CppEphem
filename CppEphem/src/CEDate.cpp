@@ -179,7 +179,7 @@ double CEDate::GregorianVect2JD(std::vector<double> gregorian)
     
     // Return the sum of the two filled date values which represents
     // the Julian date
-    return mjd_factor + mjd ;
+    return mjd_factor + mjd + gregorian[3] ;
 }
 
 //_______________________________________________________________

@@ -33,12 +33,12 @@ public:
     // Copy constructor
     CEDate(const CEDate& other) ;
     // Destructor
-    virtual ~CEDate() ;
+    virtual ~CEDate() {} ;
     
     // Method that can be used to change the date that is stored in this object
     virtual void SetDate(double date, CEDateFormat time_format=CEDateFormat::JD) ;
     // Method for setting the dates from the Gregorian
-    virtual void SetDate(std::vector<double> date) ;
+    virtual void SetDate(std::vector<double> date) {} ;
     
     /***********************************************************
      * Methods for getting the stored date in the various formats

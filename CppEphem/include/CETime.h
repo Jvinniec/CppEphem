@@ -24,12 +24,19 @@ public:
     // Default constructor
     CETime() ;
     // Primary constructor
-    CETime(double time, CETimeType time_format = CETimeType::UTC) ;
+    CETime(double time, CETimeType time_format=CETimeType::UTC) ;
     CETime(std::vector<double> time, CETimeType time_format=CETimeType::UTC) ;
     // Copy constructor
     CETime(const CETime& other) ;
     // Destructor
     virtual ~CETime() ;
+    
+    void SetTime(double time, CETimeType time_format=CETimeType::UTC) ;
+    
+    /*******************************************
+     * Convert between the various time types
+     *******************************************/
+    
     
 protected:
     // Variables for storing the time in various formats
