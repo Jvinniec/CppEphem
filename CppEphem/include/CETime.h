@@ -16,8 +16,8 @@
 //      UTC   - Coordinate Universal Time
 //      GAST  - Greenwich Apparent Sidereal Time
 //      LAST  - Local Apparent Sidereal Time
-//      LOCAL - Local time (defined as the UTC + timezone_shift_)
-enum CETimeType {UTC, GAST, LAST, LOCAL} ;
+//      LOCALTIME - Local time (defined as the UTC + timezone_shift_)
+enum CETimeType {UTC, GAST, LAST, LOCALTIME} ;
 
 class CETime {
 public:
@@ -46,7 +46,7 @@ protected:
     // element 2 - seconds
     // element 3 - fractional seconds
     // Note that the times are actually not connected with each other
-    std::vector<double> utc_ ;
+    std::vector<double> time_ ;
     
 private:
     

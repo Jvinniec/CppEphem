@@ -168,13 +168,21 @@ double CEDate::GregorianVect2JD(std::vector<double> gregorian)
     double mjd_factor(0.0), mjd(0.0) ;
     
     // Now use the sofa function for converting to julian date
-    if (iauCal2jd(int(gregorian[0]), int(gregorian[1]),
-                  int(gregorian[2]), &mjd_factor, &mjd)) {
-        std::cerr << "[WARNING] CEDate::JD2GregorianVect() :: Bad date ("
-                  << "Y=" << gregorian[0] << ", "
-                  << "M=" << gregorian[1] << ", "
-                  << "D=" << gregorian[2]+gregorian[3] << ")!" << std::endl ;
-        return 0 ;
+    int err_code = iauCal2jd(int(gregorian[0]), int(gregorian[1]),
+                             int(gregorian[2]), &mjd_factor, &mjd) ;
+    if (err_code) {
+        std::cerr << "[WARNING] CEDate::GregorianVect2JD() :: Bad ";
+        if (err_code == -1) {
+            std::cerr << "year (" << gregorian[0] << "). Make sure the year is larger than -4800." << std::endl ;
+            return 0.0 ;
+        } else if (err_code == -2) {
+            std::cerr << "month (" << gregorian[1] << "). Make sure this number is in the range 1 -> 12." << std::endl ;
+            return 0.0 ;
+        } else if (err_code == -3) {
+            std::cerr << "day (" << gregorian[2] << ")" << std::endl ;
+            // Note that in this case, a julian date was still calculated
+            // so we can go ahead and return it
+        }
     }
     
     // Return the sum of the two filled date values which represents

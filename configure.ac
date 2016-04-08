@@ -75,7 +75,10 @@ dnl Library checks
 have_sofa=no
 AC_CHECK_LIB([sofa_c],[iauJd2cal],
 	[have_sofa=yes],
-	[AC_MSG_ERROR([sofa library does not contain 'iauJd2cal'])])
+	[AC_MSG_ERROR([sofa library does not contain 'iauJd2cal']) have_sofa=no])
+AC_CHECK_LIB([sofa_c],[iauCal2jd],
+	[have_sofa=yes],
+	[AC_MSG_ERROR([sofa library does not contain 'iauCal2jd'])])
 
 if test "x${have_sofa}" != xyes; then
    echo "------------------------------------"

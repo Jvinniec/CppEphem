@@ -11,25 +11,33 @@
 
 //_______________________________________
 CETime::CETime() :
-    utc_(std::vector<double>(4,0.0))
+    time_(std::vector<double>(4,0.0))
 {}
 
 
 //_______________________________________
 CETime::CETime(double time, CETimeType time_format) :
-    utc_(std::vector<double>(4,0.0))
+    time_(std::vector<double>(4,0.0))
 {}
 
 
 //_______________________________________
 CETime::CETime(std::vector<double> time, CETimeType time_format) :
-    utc_(std::vector<double>(4,0.0))
-{}
+    time_(std::vector<double>(4,0.0))
+{
+    // Just in case the passed "time" variable isnt the same length
+    for (int i=0; i<time.size(); i++) {
+        time_[i] = time[i] ;
+        // In case "time" has more than 4 elements,
+        // quit when we've stored the first 4
+        if (i==3) break ;
+    }
+}
 
 
 //_______________________________________
 CETime::CETime(const CETime& other) :
-    utc_(other.utc_)
+    time_(other.time_)
 {}
 
 
