@@ -9,6 +9,7 @@
 #ifndef CETime_h
 #define CETime_h
 
+#include <cmath>
 #include <stdio.h>
 #include <vector>
 
@@ -32,6 +33,13 @@ public:
     virtual ~CETime() ;
     
     void SetTime(double time, CETimeType time_format=CETimeType::UTC) ;
+    void SetHours(double hours)
+        {time_[0] = hours ;}
+    void SetMinutes(double minutes)
+        {time_[1] = minutes ;}
+    void SetSeconds(double seconds)
+        {time_[2] = std::floor(seconds) ;
+         time_[3] = seconds-time_[2] ;}
     
     /*******************************************
      * Convert between the various time types

@@ -19,16 +19,16 @@
 // SOFA HEADER
 #include "sofa.h"
 
-enum CEDateFormat {JD,              // Julian Date
-                   MJD,             // Modified Julian Date
-                   GREGORIAN} ;     // Gregorian calendar
+enum CEDateType {JD,              // Julian Date
+                 MJD,             // Modified Julian Date
+                 GREGORIAN} ;     // Gregorian calendar (year, month, day)
 
 class CEDate {
 public:
     // Default constructor
     CEDate() {} ;
     // Constructor from some date format
-    CEDate(double date, CEDateFormat date_format=CEDateFormat::JD) ;
+    CEDate(double date, CEDateType date_format=CEDateType::JD) ;
     CEDate(std::vector<double> date) ;
     // Copy constructor
     CEDate(const CEDate& other) ;
@@ -36,14 +36,14 @@ public:
     virtual ~CEDate() {} ;
     
     // Method that can be used to change the date that is stored in this object
-    virtual void SetDate(double date, CEDateFormat time_format=CEDateFormat::JD) ;
+    virtual void SetDate(double date, CEDateType time_format=CEDateType::JD) ;
     // Method for setting the dates from the Gregorian
     virtual void SetDate(std::vector<double> date) {} ;
     
     /***********************************************************
      * Methods for getting the stored date in the various formats
      ***********************************************************/
-    double GetDate(CEDateFormat time_format=CEDateFormat::JD) ;
+    double GetDate(CEDateType time_format=CEDateType::JD) ;
     double JD() {return julian_date_ ;}
     double MJD() {return mod_julian_date_ ;}
     double Gregorian() {return gregorian_date_ ;}
@@ -75,6 +75,12 @@ public:
     // Gets the stored SOFA Julian date to Mod Julian date factor
     static inline double GetMJD2JDFactor() {return DJM0;}
     
+    // Get the dut1 variable (i.e. UT1-UTC) associated with a given date
+    static double dut1(double date, CEDateType date_type=CEDateType::JD) ;
+    double dut1() ;
+    static double dut1Error(double date, CEDateType date_type=CEDateType::JD) ;
+    double dut1Error() ;
+    
     // Methods for converting between the double and vector<double> version of
     // the Gregorian date format
     static double GregorianVect2Gregorian(std::vector<double> gregorian) ;
@@ -87,6 +93,7 @@ protected:
     double gregorian_date_ ;                // gregorian calendar date. Format is YYYYMMDD.<date fraction>
     std::vector<double> gregorian_date_vect_ ;   // Vector containing the gregorian calendar date
                                             // 0 - Year, 1 - Month, 2 - date, 3 - date fraction
+    
     
 private:
     

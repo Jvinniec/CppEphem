@@ -8,16 +8,19 @@ AM_CXXFLAGS = -std=c++11 -I../include -I./ $(sofa_CXXFLAGS)
 AM_CFLAGS = 
 
 lib_LTLIBRARIES = libcppephem.la
-libcppephem_la_SOURCES = CECoordinates.cpp \
-			CEDate.cpp \
-			CEObserver.cpp \
-			CETime.cpp
+libcppephem_la_SOURCES = CEBody.cpp \
+                        CECoordinates.cpp \
+                        CEDate.cpp \
+                        CENamespace.cpp \
+                        CEObserver.cpp \
+                        CETime.cpp
 libcppephem_la_HEADERS = ../include/CppEphem.h \
-			../include/CENamespace.h \
-			../include/CECoordinates.h \
-			../include/CEDate.h \
-			../include/CEObserver.h \
-			../include/CETime.h
+                        ../include/CEBody.h \
+                        ../include/CECoordinates.h \
+                        ../include/CEDate.h \
+                        ../include/CENamespace.h \
+                        ../include/CEObserver.h \
+                        ../include/CETime.h
 libcppephem_la_CPPFLAGS = $(CppEphem_CPPFLAGS)
 libcppephem_la_LIBADD=$(LIBS)
 libcppephem_ladir=$(libdir)

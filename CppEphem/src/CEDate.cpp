@@ -11,9 +11,10 @@
 #include <stdio.h>
 
 #include "CEDate.h"
+#include "CENamespace.h"
 
 //_______________________________________________________________
-CEDate::CEDate(double date, CEDateFormat date_format) :
+CEDate::CEDate(double date, CEDateType date_format) :
     julian_date_(0.0),
     mod_julian_date_(0.0),
     gregorian_date_(0.0),
@@ -31,7 +32,7 @@ CEDate::CEDate(std::vector<double> date) :
     gregorian_date_vect_(std::vector<double>(4,0.0))
 {
     // First get the gregorian date double from the vector, then set the date
-    SetDate(GregorianVect2Gregorian(date), CEDateFormat::GREGORIAN) ;
+    SetDate(GregorianVect2Gregorian(date), CEDateType::GREGORIAN) ;
 }
 
 //_______________________________________________________________
@@ -46,22 +47,22 @@ CEDate::CEDate(const CEDate& other) :
 #pragma mark - Public Methods
 
 //_______________________________________________________________
-void CEDate::SetDate(double date, CEDateFormat time_format)
+void CEDate::SetDate(double date, CEDateType time_format)
 {
     // Fill the internal date storage objects based on the format of the input "date"
-    if (time_format == CEDateFormat::JD) {
+    if (time_format == CEDateType::JD) {
         // Save information based on julian date input
         julian_date_ = date ;
         mod_julian_date_ = JD2MJD(date) ;
         gregorian_date_ = JD2Gregorian(date) ;
         gregorian_date_vect_ = JD2GregorianVect(date) ;
-    } else if (time_format == CEDateFormat::MJD) {
+    } else if (time_format == CEDateType::MJD) {
         // Save information based on modified julian date input
         julian_date_ = MJD2JD(date) ;
         mod_julian_date_ = date ;
         gregorian_date_ = MJD2Gregorian(date) ;
         gregorian_date_vect_ = MJD2GregorianVect(date) ;
-    } else if (time_format == CEDateFormat::GREGORIAN) {
+    } else if (time_format == CEDateType::GREGORIAN) {
         // Save information based on gregorian date input
         julian_date_ = Gregorian2JD(date) ;
         mod_julian_date_ = Gregorian2MJD(date) ;
@@ -71,14 +72,14 @@ void CEDate::SetDate(double date, CEDateFormat time_format)
 }
 
 //_______________________________________________________________
-double CEDate::GetDate(CEDateFormat time_format)
+double CEDate::GetDate(CEDateType time_format)
 {
     // Return the julian date if requested
-    if (time_format == CEDateFormat::JD) {
+    if (time_format == CEDateType::JD) {
         return JD() ;
-    } else if (time_format == CEDateFormat::MJD) {
+    } else if (time_format == CEDateType::MJD) {
         return MJD() ;
-    } else if (time_format == CEDateFormat::GREGORIAN) {
+    } else if (time_format == CEDateType::GREGORIAN) {
         return Gregorian() ;
     } else {
         throw std::runtime_error("[ERROR] CEDate::GetDate() :: Unrecognized time format!") ;
@@ -210,6 +211,36 @@ double CEDate::GregorianVect2MJD(std::vector<double> gregorian)
 
 
 #pragma mark - Helper Methods
+
+//_______________________________________________________________
+double CEDate::dut1(double date, CEDateType date_type)
+{
+    // Create an object from the date information
+    CEDate input_date(date, date_type) ;
+    // Return the DUT1 value at this date
+    return input_date.dut1() ;
+}
+
+//_______________________________________________________________
+double CEDate::dut1()
+{
+    // return the value associated with 'UT1-UTC'
+    return CppEphem::dut1(mod_julian_date_) ;
+}
+
+//_______________________________________________________________
+double CEDate::dut1Error(double date, CEDateType date_type)
+{
+    CEDate input_date(date, date_type) ;
+    return input_date.dut1Error() ;
+}
+
+//_______________________________________________________________
+double CEDate::dut1Error()
+{
+    // Return the error on the dut1 value
+    return CppEphem::dut1Error(mod_julian_date_) ;
+}
 
 //_______________________________________________________________
 double CEDate::GregorianVect2Gregorian(std::vector<double> gregorian)
