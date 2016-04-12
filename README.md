@@ -63,18 +63,24 @@ you should be able to build the software very easily using the
 standard "./configure -> make -> make install" method. Here is
 a bit more detail.
 
-1. Download the repository as described above in "Downloading the code"
-2. Make sure that the "configure" file exists in the top directory. If not, then do:
-```bash
-. autogen.sh
-```
-3. Configure the software (note the "prefix" option is optional):
-```bash
-./configure [--prefix=/your/install/directory]
-```
-4. Build the code
-```bash
-make
-```
+First, download the repository as described above in "Downloading 
+the code". Second, make sure that the "configure" file exists in 
+the top directory. If not, then do:
+
+``` . autogen.sh ```
+
+Third, configure the software (note the "prefix" option is optional):
+
+``` ./configure [--prefix=/your/install/directory] ```
+
+Fourth, build the code:
+
+``` make ```
+
+Finally, to install the code in an accesible manner (i.e. so that 
+your PATH and (DY)LD_LIBRARY_PATH environment variables know where
+the executables and libraries are) type:
+
+``` make install ```
 
 And that should do it.
