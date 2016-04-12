@@ -26,8 +26,7 @@ using namespace CppEphem ;
 enum CECoordinateType {CIRS,            // RA, Dec (referenced at the center of the Earth)
                        ICRS,            // RA, Dec (referenced at the barycenter of the solarsystem)
                        GALACTIC,        // Galacitc longitude, latitude
-                       OBSERVED,        // Azimuth, Zenith (requires additional observer information)
-                       GEOGRAPHIC} ;    // Geographic longitude, latitude (obviously cannot convert to other coordinates)
+                       OBSERVED};       // Azimuth, Zenith (requires additional observer information)
 
 // Initiate the class that holds the coordinate information
 class CECoordinates {
@@ -87,12 +86,26 @@ public:
                              double *hour_angle=nullptr) ;      // Hour angle for coordinates
     
     // Convert from ICRS to other coordinates
-    static void ICRS2ICRS(double input_ra, double input_dec, double *return_ra, double *return_dec) ;
-    static void ICRS2Galactic(double ra, double dec, double *glon, double *glat) ;
-    static void ICRS2Observed(double ra, double dec, double *az, double *zen) ;
+    static void ICRS2CIRS(double input_ra, double input_dec, double *return_ra, double *return_dec,
+                          CEDate date=CEDate(DJ00, CEDateType::JD)) ;
+    static void ICRS2Galactic(double ra, double dec, double *glon, double *glat,
+                          CEDate date=CEDate(DJ00, CEDateType::JD)) ;
+    static int ICRS2Observed(double ra, double dec,             // RA, Dec in CIRS coordinates
+                             double *az, double *zen,           // Azimuth, zenith angle
+                             CEObserver observer,
+                             CEAngleType angle_type=CEAngleType::RADIANS,   // Angle type for all angles provided
+                             // (either RADIANS or DEGREES)
+                             double xp=0.0, double yp=0.0,      // Polar motion, can be found in IERS bulletins,
+                             // but 0 is probably fine for both
+                             double wavelength=0.5,             // Observing wavelength (micrometers)
+                             double *observed_ra=nullptr,       // Observed CIRS right ascension
+                             double *observed_dec=nullptr,      // Observed CIRS declination
+                             double *hour_angle=nullptr) ;      // Hour angle for coordinates
     
     // Convert from GALACTIC to other coordinates
-    
+    static void Galactic2CIRS() ;
+    static void Galacitc2ICRS() ;
+    static int Galacitc2Observed() ;
     
     // Convert from OBSERVED to other coordinates
     
@@ -151,8 +164,6 @@ protected:
     double ycoord_ ;                // Y coordinate (radians)
     CECoordinateType coord_type_ ;  // Coordinate system to which 'xcoord_' and 'ycoord_' belong
                                     // Possible values are "CIRS", "ICRS", "GALACTIC", "OBSERVED", and "GEOGRAPHIC"
-    
-    // If we're specifying the coordinates in the form of a
     
 private:
     
