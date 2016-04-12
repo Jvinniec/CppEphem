@@ -1,8 +1,8 @@
 This documents the CppEphem package.
 
-Author: Joshua V. Cardenzana
-email: jvinniec@gmail.com
-Creation Date: March 2016
+* Author: Joshua V. Cardenzana
+* Email: jvinniec@gmail.com
+* Creation Date: March 2016
 
 DISCLAIMER:
 ----------------------------------------------------------
@@ -31,8 +31,8 @@ Here is a list of purposes I wish this code to serve:
   - ICRS (Solarsystem barycentric RA, Dec) 
   - Galactic (Long, Lat) 
   - Observed (Azimuth, Zenith)
-* Planet ephemeris (currently not working, 3rd priority
-  - Planet positions for a given observer
+* Star & Planet ephemeris (currently not working, 3rd priority)
+  - Star & Planet positions for a given observer at a given time
 * Basic time conversion routines (currently not working, 2nd priority)
   - UTC
   - Local time
@@ -43,6 +43,38 @@ Here is a list of purposes I wish this code to serve:
   - Modified Julian Date
   - Gregorian Calendar year, month, day
 
-If there is any feature that you would like to see implemented
-feel free to contact the author or submit an issue and I'll
+More feature will be implemented as time permits. If there 
+is any feature that you would like to see implemented feel 
+free to contact the author or submit an issue and I'll
 look into it.
+
+Downloading the code:
+----------------------------------------------------------
+To obtain the code, it should be as simple as cloning the
+repository from github:
+```bash
+git clone https://github.com/Jvinniec/CppEphem.git CppEphem
+```
+
+Building the code:
+----------------------------------------------------------
+As long as the user has the most up to date version of autotools,
+you should be able to build the software very easily using the 
+standard "./configure -> make -> make install" method. Here is
+a bit more detail.
+
+1. Download the repository as described above in "Downloading the code"
+2. Make sure that the "configure" file exists in the top directory. If not, then do:
+```bash
+. autogen.sh
+```
+3. Configure the software (note the "prefix" option is optional):
+```bash
+./configure [--prefix=/your/install/directory]
+```
+4. Build the code
+```bash
+make
+```
+
+And that should do it.
