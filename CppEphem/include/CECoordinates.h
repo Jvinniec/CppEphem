@@ -88,8 +88,7 @@ public:
     // Convert from ICRS to other coordinates
     static void ICRS2CIRS(double input_ra, double input_dec, double *return_ra, double *return_dec,
                           CEDate date=CEDate(DJ00, CEDateType::JD)) ;
-    static void ICRS2Galactic(double ra, double dec, double *glon, double *glat,
-                          CEDate date=CEDate(DJ00, CEDateType::JD)) ;
+    static void ICRS2Galactic(double ra, double dec, double *glon, double *glat) ;
     static int ICRS2Observed(double ra, double dec,             // RA, Dec in CIRS coordinates
                              double *az, double *zen,           // Azimuth, zenith angle
                              CEObserver observer,

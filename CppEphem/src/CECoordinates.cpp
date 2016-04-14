@@ -181,16 +181,10 @@ void CECoordinates::ICRS2CIRS(double input_ra, double input_dec,
 }
 
 //__________________________________________________________
-void CECoordinates::ICRS2Galactic(double input_ra, double input_dec, double *glon, double *glat,
-                                  CEDate date)
+void CECoordinates::ICRS2Galactic(double input_ra, double input_dec, double *glon, double *glat)
 {
-    // In order to do this with the sofa package, we must first
-    // convert from CIRS -> ICRS
-    double ICRS_ra(0.0), ICRS_dec(0.0) ;
-    CIRS2ICRS(input_ra, input_dec, &ICRS_ra, &ICRS_dec, date) ;
-    
-    // Now we can convert to galactic
-    ICRS2Galactic(ICRS_ra, ICRS_dec, glon, glat) ;
+    // Use the sofa method to convert the coordinates
+    iauIcrs2g(input_ra, input_dec, glon, glat) ;
 }
 
 
