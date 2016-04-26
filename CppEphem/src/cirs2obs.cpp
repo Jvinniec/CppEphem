@@ -10,28 +10,37 @@
 #include <getopt.h>
 #include <map>
 #include <string>
+#include <time.h>
 
 // CppEphem HEADERS
 #include "CECoordinates.h"
+#include "CEDate.h"
 
 //_________________________________________________________
 void Print_Help()
 {
     // This is the help text to be printed if no command line options are provide
     // or if the '--help' or '-h' options are given
-    std::printf("USAGE: cirs2obs [options]\n\n") ;
-    std::printf("REQURED OPTIONS:\n") ;
+    std::printf("\nUSAGE: cirs2obs [options]\n") ;
+    
+    std::printf("\nREQURED OPTIONS:\n") ;
     std::printf("  --longitude,   -X      Observer longitude (degrees)\n") ;
     std::printf("  --latitude,    -Y      Observer longitude (degrees)\n") ;
-    std::printf("  --elevation    -e      Observer elevation (meters above sea-level)\n") ;
     std::printf("  --ra,          -R      Right Ascension (degrees)\n") ;
     std::printf("  --dec,         -D      Declination\n") ;
-    std::printf("  --juliandate,  -j      Julian Date for query\n") ;
                 
-    std::printf("ADDITIONAL OPTIONS:\n") ;
+    std::printf("\nADDITIONAL OPTIONS:\n") ;
     std::printf("  --help,        -h      Prints help text\n") ;
+    std::printf("  --juliandate,  -j      Julian Date for query (default is current time)\n") ;
+    std::printf("  --elevation    -e      Observer elevation (meters above sea-level, default=0)\n") ;
+    std::printf("  --humidity     -r      Observer's relative humidity (0-1, default=0)\n") ;
     std::printf("  --pressure,    -p      Observer's atmospheric pressure (hPa)\n") ;
     std::printf("  --temperature, -t      Observer's temperature (degrees Celsius)\n") ;
+    std::printf("  --wavelength,  -w      Wavelength of light being observed (micrometers)\n") ;
+    std::printf("  --xpolar,      -x      x-polar motion (default=0, best to leave alone)\n") ;
+    std::printf("  --ypolar,      -y      y-polar motion (default=0, best to leave alone)\n") ;
+    
+    std::printf("\n") ;
 }
 
 //_________________________________________________________
@@ -41,6 +50,15 @@ std::map<std::string, double> defaultoptions()
     std::map<std::string, double> options ;
     options["xpolar"] = 0.0 ;
     options["ypolar"] = 0.0 ;
+    
+    // Set the current time as the default date for query
+    time_t current_time = time(NULL) ;
+    struct tm * timeinfo ;
+    timeinfo = localtime(&current_time) ;
+    double dayfrac = (timeinfo->tm_hour + (timeinfo->tm_min/60.0) + (timeinfo->tm_sec/3600.0))/24.0 ;
+    CEDate date({timeinfo->tm_year+1900.0, timeinfo->tm_mon+1.0, 1.0*timeinfo->tm_mday, dayfrac}) ;
+    
+    options["juliandate"] = date.JD() ;
     
     return options ;
 }
@@ -96,6 +114,7 @@ std::map<std::string, double> parseoptions(int argc, char** argv, const struct o
                     break;
                 
                 // Set the option
+                std::cout << std::string(optarg) << std::endl;
                 options[longopts[option_index].name] = std::stod(optarg) ;
                 break;
                 
@@ -117,6 +136,8 @@ std::map<std::string, double> parseoptions(int argc, char** argv, const struct o
                 break;
                 
             case 'R':
+                std::cout << std::string(optarg) << std::endl;
+
                 options["ra"] = std::stod(optarg) ;
                 break;
                 
@@ -176,6 +197,7 @@ void PrintResults(std::map<std::string, double> inputs, std::map<std::string, do
     std::printf("CIRS Coordinates (input)\n") ;
     std::printf("    Right Ascension: %f degrees\n", inputs["ra"]) ;
     std::printf("    Declination    : %+f degrees\n", inputs["dec"]) ;
+    std::printf("    Julian Date    : %f\n", inputs["juliandate"]) ;
     std::printf("Observed Coordinates (output)\n") ;
     std::printf("    Azimuth        : %f degrees\n", results["azimuth"]*DR2D) ;
     std::printf("    Zenith         : %+f degrees\n", results["zenith"]*DR2D) ;
@@ -189,11 +211,20 @@ void PrintResults(std::map<std::string, double> inputs, std::map<std::string, do
 //_________________________________________________________
 int main(int argc, char** argv) {
     
+    // If no arguments have been passed, print the help text and quit
+    if (argc==1) {
+        Print_Help() ;
+        return 0 ;
+    }
+    
     // Define the optional arguments
     const struct option* longopts = getoptions() ;
     
     // Parse the options
     std::map<std::string, double> options = parseoptions(argc, argv, longopts) ;
+    
+    // If no valid options were given, quit
+    if (options.empty()) return 0 ;
     
     // Create a map to store the results
     std::map<std::string, double> results ;
