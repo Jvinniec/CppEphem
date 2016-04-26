@@ -67,12 +67,12 @@ mjd2cal_CPPFLAGS = $(CppEphem_CPPFLAGS)
 # CIRS to LOCAL coordinates
 cirs2obs_SOURCES = cirs2obs.cpp
 cirs2obs_LDADD = libcppephem.la
-cirs2obs_CPPFLAGS = $(CppEphem_CPPFLAGS)
+cirs2obs_CPPFLAGS = $(CppEphem_CPPFLAGS)
 
 # CIRS to GALACTIC coordinates
 #cirs2gal_SOURCES = cirs2gal.cpp
 #cirs2gal_LDADD = libcppephem.la
-#cirs2gal_CPPFLAGS = $(CppEphem_CPPFLAGS)
+#cirs2gal_CPPFLAGS = $(CppEphem_CPPFLAGS)
 
 
 ##########################################

@@ -1,5 +1,5 @@
 //
-//  cirs2local.cpp
+//  cirs2obs.cpp
 //  CppEphem
 //
 //  Created by Josh Cardenzana on 4/26/16.
@@ -13,14 +13,25 @@
 
 // CppEphem HEADERS
 #include "CECoordinates.h"
-#include "CEObserver.h"
-
 
 //_________________________________________________________
 void Print_Help()
 {
     // This is the help text to be printed if no command line options are provide
     // or if the '--help' or '-h' options are given
+    std::printf("USAGE: cirs2obs [options]\n\n") ;
+    std::printf("REQURED OPTIONS:\n") ;
+    std::printf("  --longitude,   -X      Observer longitude (degrees)\n") ;
+    std::printf("  --latitude,    -Y      Observer longitude (degrees)\n") ;
+    std::printf("  --elevation    -e      Observer elevation (meters above sea-level)\n") ;
+    std::printf("  --ra,          -R      Right Ascension (degrees)\n") ;
+    std::printf("  --dec,         -D      Declination\n") ;
+    std::printf("  --juliandate,  -j      Julian Date for query\n") ;
+                
+    std::printf("ADDITIONAL OPTIONS:\n") ;
+    std::printf("  --help,        -h      Prints help text\n") ;
+    std::printf("  --pressure,    -p      Observer's atmospheric pressure (hPa)\n") ;
+    std::printf("  --temperature, -t      Observer's temperature (degrees Celsius)\n") ;
 }
 
 //_________________________________________________________
@@ -163,14 +174,15 @@ void PrintResults(std::map<std::string, double> inputs, std::map<std::string, do
     std::printf("******************************************\n") ;
     
     std::printf("CIRS Coordinates (input)\n") ;
-    std::printf("    Right Ascension: %f\n", inputs["ra"]) ;
-    std::printf("    Declination    : %f\n", inputs["dec"]) ;
+    std::printf("    Right Ascension: %f degrees\n", inputs["ra"]) ;
+    std::printf("    Declination    : %+f degrees\n", inputs["dec"]) ;
     std::printf("Observed Coordinates (output)\n") ;
-    std::printf("    Azimuth        : %f\n", results["azimuth"]) ;
-    std::printf("    Zenith         : %f\n", results["zenith"]) ;
+    std::printf("    Azimuth        : %f degrees\n", results["azimuth"]*DR2D) ;
+    std::printf("    Zenith         : %+f degrees\n", results["zenith"]*DR2D) ;
     std::printf("Apparent CIRS Coordinates\n") ;
-    std::printf("    Right Ascension: %f\n", results["observed_ra"]) ;
-    std::printf("    Declination    : %f\n", results["observed_dec"]) ;
+    std::printf("    Right Ascension: %f\n", results["observed_ra"]*DR2D) ;
+    std::printf("    Declination    : %f\n", results["observed_dec"]*DR2D) ;
+    std::printf("    Hour Angle     : %+f\n", results["hour_angle"]*DR2D) ;
     std::printf("\n ...done\n") ;
 }
 
@@ -192,11 +204,11 @@ int main(int argc, char** argv) {
     results["hour_angle"] = 0.0 ;
     
     // Convert the coordinates
-    int errcode = CECoordinates::CIRS2Observed(options["ra"], options["dec"],
+    int errcode = CECoordinates::CIRS2Observed(options["ra"]*DD2R, options["dec"]*DD2R,
                                                &results["azimuth"], &results["zenith"],
                                                options["juliandate"],
-                                               options["longitude"],
-                                               options["latitude"],
+                                               options["longitude"]*DD2R,
+                                               options["latitude"]*DD2R,
                                                options["elevation"],
                                                options["pressure"],
                                                options["temperature"],

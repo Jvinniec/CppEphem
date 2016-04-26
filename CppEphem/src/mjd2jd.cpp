@@ -9,6 +9,7 @@
 #include <iostream>
 #include "CEDate.h"
 
+//____________________________________________________________
 int main(int argc, const char * argv[]) {
     // Check that we've been passed an actual argument
     if (argc < 2) {
@@ -20,10 +21,7 @@ int main(int argc, const char * argv[]) {
 
     // Convert the input variable to a double
     double mjd = std::stod(std::string(argv[1])) ;
-    
-//    std::printf("\tModified Julian Date: %f\n", mjd) ;
-//    std::printf("\tJulian Date: %f\n", CEDate::MJD2JD(mjd)) ;
-    
+        
     std::printf("%f\n", CEDate::MJD2JD(mjd)) ;
     
     return 0 ;

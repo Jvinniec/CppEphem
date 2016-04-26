@@ -305,7 +305,7 @@ int CECoordinates::CIRS2Observed(double ra, double dec,
                              relative_humidity,
                              wavelength,
                              az, zen,
-                             temp_hour_angle, temp_ra, temp_dec) ;
+                             temp_hour_angle, temp_dec, temp_ra) ;
     
     return err_code ;
 }
