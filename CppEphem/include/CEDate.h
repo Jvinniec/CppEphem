@@ -15,6 +15,7 @@
 
 // CppEphem HEADERS
 #include "CETime.h"
+#include <CENamespace.h>
 
 // SOFA HEADER
 #include "sofa.h"

@@ -11,6 +11,7 @@
 
 #include <cmath>
 #include <map>
+#include <sofa.h>
 
 #define MINMJDFORDUT1 43144.0
 #define MAXMJDFORDUT1 57448.0
@@ -21,13 +22,13 @@ namespace CppEphem {
     enum class CEAngleType{DEGREES, RADIANS} ;
 
     // Approximate temperature at sea-level in Kelvin
-    double SeaLevelTemp_K = 288.2 ;
+    inline double SeaLevelTemp_K() {return 288.2 ;}
     
     // Some constants taken from the sofa dictionary, but with some more discriptive names
-    double julian_date_J2000 = DJ00 ;           // Julian Date corresponding to J2000
-    double c = DC * DAU / DAYSEC ;              // speed of light (meters/second)
-    double c_au_per_day = DC ;                  // speed of light (astronomical units)/day
-    double m_per_au = DAU ;                     // meters per astronomical unit
+    inline double julian_date_J2000() {return DJ00 ;}           // Julian Date corresponding to J2000
+    inline double c() {return DC * DAU / DAYSEC ;}              // speed of light (meters/second)
+    inline double c_au_per_day() {return DC ;}                  // speed of light (astronomical units)/day
+    inline double m_per_au() {return DAU ;}                     // meters per astronomical unit
     
     /*********************************************
      * Return the 'dut1' value which represents 
@@ -35,8 +36,8 @@ namespace CppEphem {
      *********************************************/
     double dut1(double mjd=51544.5) ;
     double dut1Error(double mjd=51544.5) ;
-    std::map<int, double> dut1_list() ;
-    std::map<int, double> dut1Error_list() ;
+    inline std::map<int, double> dut1_list() {return {{51544.5,0.0}};}
+    inline std::map<int, double> dut1Error_list() {return {{51544.5,0.0}};}
     double dut1Calc(double mjd) ;
     
     /*********************************************
@@ -44,14 +45,14 @@ namespace CppEphem {
      * For the moment, 0.0 should be sufficient. This
      * assumption may need to be revisited
      *********************************************/
-    double xp(double mjd=51544.5) {return 0.0 ;}
-    double yp(double mjd=51544.5) {return 0.0 ;}
+    inline double xp(double mjd=51544.5) {return 0.0 ;}
+    inline double yp(double mjd=51544.5) {return 0.0 ;}
     
     // Methods for estimating altitude from atmospheric pressure (in hPa)
-    double EstimateAltitude_m(double pressure_hPa)
-        {return -29.3 * SeaLevelTemp_K * std::log(pressure_hPa/1013.25) ;}
-    double EstimatePressure_hPa(double elevation_m)
-        {return 1013.25 * std::exp(-elevation_m / (29.3*SeaLevelTemp_K)) ;}
+    inline double EstimateAltitude_m(double pressure_hPa)
+        {return -29.3 * SeaLevelTemp_K() * std::log(pressure_hPa/1013.25) ;}
+    inline double EstimatePressure_hPa(double elevation_m)
+        {return 1013.25 * std::exp(-elevation_m / (29.3*SeaLevelTemp_K() )) ;}
 }
 
 #endif /* CENamespace_h */

@@ -49,6 +49,8 @@ double CppEphem::dut1Calc(double mjd)
     return 0.0 ;
 }
 
+
+/*
 //__________________________________________________
 std::map<int, double> CppEphem::dut1_list()
 {
@@ -29495,3 +29497,4 @@ std::map<int, double> CppEphem::dut1Error_list()
     } ;
     return dut1Error ;
 }
+*/

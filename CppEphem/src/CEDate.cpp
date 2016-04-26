@@ -11,7 +11,6 @@
 #include <stdio.h>
 
 #include "CEDate.h"
-#include "CENamespace.h"
 
 //_______________________________________________________________
 CEDate::CEDate(double date, CEDateType date_format) :

@@ -4,6 +4,7 @@ dnl DONT FORGET TO CHANGE THE VERSION!
 AC_INIT([CppEphem],[MASTER],[jvinniec@gmail.com])
 AC_CONFIG_SRCDIR([CppEphem/src/mjd2jd.cpp])
 
+echo ""
 echo "================================================="
 echo " Configuring ${PACKAGE_NAME} - ${PACKAGE_VERSION}"
 echo "================================================="

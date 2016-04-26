@@ -264,3 +264,48 @@ int CECoordinates::ICRS2Observed(double ra, double dec,             // RA, Dec i
 /*********************************************************
  * Convert OBSERVED Coordinates
  *********************************************************/
+
+
+/*********************************************************
+ * Main routines for converting TO OBSERVED Coordinates
+ *********************************************************/
+int CECoordinates::CIRS2Observed(double ra, double dec,
+                                 double *az, double *zen,
+                                 double julian_date,
+                                 double longitude,
+                                 double latitude,
+                                 double elevation_m,
+                                 double pressure_hPa,
+                                 double temperature_celsius,
+                                 double relative_humidity,
+                                 double dut1,
+                                 double xp, double yp,
+                                 double wavelength,
+                                 double *observed_ra,
+                                 double *observed_dec,
+                                 double *hour_angle)
+{
+    // Setup the observed RA, Dec and hour_angle variables
+    double *temp_ra, *temp_dec, *temp_hour_angle ;
+    // If values were passed, point these variables at the passed ones
+    if (observed_ra != nullptr) temp_ra = observed_ra ;
+    if (observed_dec != nullptr) temp_dec = observed_dec ;
+    if (hour_angle != nullptr) temp_hour_angle = hour_angle ;
+    
+    // Call the necessary sofa method
+    int err_code = iauAtio13(ra, dec,
+                             julian_date, 0.0,
+                             dut1,
+                             longitude,
+                             latitude,
+                             elevation_m,
+                             xp, yp,
+                             pressure_hPa,
+                             temperature_celsius,
+                             relative_humidity,
+                             wavelength,
+                             az, zen,
+                             temp_hour_angle, temp_ra, temp_dec) ;
+    
+    return err_code ;
+}
