@@ -26,7 +26,7 @@ converting between [RA,Dec], [Galactice Long, Lat], and
 local sky coordinates.
 
 Here is a list of purposes I wish this code to serve:
-* Basic coordinate conversion routines (partially implemented, first priority)
+* Basic coordinate conversion routines (see CECoordinates, fully implemented)
   - __CIRS__ (Earth centric RA,Dec)
   - __ICRS__ (Solarsystem barycentric RA, Dec)
   - __Galactic__ (Long, Lat)
