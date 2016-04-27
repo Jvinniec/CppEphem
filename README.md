@@ -61,6 +61,7 @@ executables which can be run from the command line:
   - __cirs2obs__: CIRS to Observed coordinates
   - __cirs2gal__: CIRS to Galactic coordinates
   - __gal2cirs__: Galactic to CIRS coordinates
+  - __gal2obs__: Galactic to Observed coordinates
 
 Downloading the code:
 ----------------------------------------------------------
