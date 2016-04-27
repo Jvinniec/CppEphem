@@ -30,7 +30,7 @@ Here is a list of purposes I wish this code to serve:
   - __CIRS__ (Earth centric RA,Dec)
   - __ICRS__ (Solarsystem barycentric RA, Dec)
   - __Galactic__ (Long, Lat)
-  - __Observed__ (Azimuth, Zenith)
+- __Observed__ (Azimuth, Zenith Angle) (Note: Zenith angle = 90&deg - Altitude)
 * Star & Planet ephemeris (currently not implemented, 3rd priority)
   - Star & Planet positions for a given observer at a given time
 * Basic time conversion routines (currently not implemented, 2nd priority)
@@ -57,7 +57,7 @@ executables which can be run from the command line:
   - __jd2mjd__: Julian date to modified Julian date
   - __mjd2cal__: Modified Julian date to Gregorian calendar date
   - __mjd2jd__: Modified Julian date to Julian date
-* Coordinate conversion routines
+* Coordinate conversion routines (all angles are expected in degrees)
   - __cirs2obs__: CIRS to Observed coordinates
   - __cirs2gal__: CIRS to Galactic coordinates
   - __gal2cirs__: Galactic to CIRS coordinates
