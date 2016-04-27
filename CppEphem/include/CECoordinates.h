@@ -70,9 +70,11 @@ public:
     
     // Convert from CIRS to other coordinates
     static void CIRS2ICRS(double input_ra, double input_dec, double *return_ra, double *return_dec,
-                          CEDate date=CEDate(DJ00, CEDateType::JD)) ;
+                          CEDate date=CEDate(DJ00, CEDateType::JD),
+                          CEAngleType angle_type=CEAngleType::RADIANS) ;
     static void CIRS2Galactic(double ra, double dec, double *glon, double *glat,
-                          CEDate date=CEDate(DJ00, CEDateType::JD)) ;
+                              CEDate date=CEDate(DJ00, CEDateType::JD),
+                              CEAngleType angle_type=CEAngleType::RADIANS) ;
     static int CIRS2Observed(double ra, double dec,             // RA, Dec in CIRS coordinates
                              double *az, double *zen,           // Azimuth, zenith angle
                              CEObserver observer,
@@ -87,8 +89,10 @@ public:
     
     // Convert from ICRS to other coordinates
     static void ICRS2CIRS(double input_ra, double input_dec, double *return_ra, double *return_dec,
-                          CEDate date=CEDate(DJ00, CEDateType::JD)) ;
-    static void ICRS2Galactic(double ra, double dec, double *glon, double *glat) ;
+                          CEDate date=CEDate(DJ00, CEDateType::JD),
+                          CEAngleType angle_type=CEAngleType::RADIANS) ;
+    static void ICRS2Galactic(double ra, double dec, double *glon, double *glat,
+                              CEAngleType angle_type=CEAngleType::RADIANS) ;
     static int ICRS2Observed(double ra, double dec,             // RA, Dec in CIRS coordinates
                              double *az, double *zen,           // Azimuth, zenith angle
                              CEObserver observer,
@@ -105,9 +109,9 @@ public:
     static void Galactic2CIRS(double glon, double glat, double *ra, double *dec,
                               CEDate date=CEDate(julian_date_J2000(), CEDateType::JD),
                               CEAngleType angle_type=CEAngleType::RADIANS) ;
-    static void Galacitc2ICRS(double glon, double glat, double *ra, double *dec,
+    static void Galactic2ICRS(double glon, double glat, double *ra, double *dec,
                               CEAngleType angle_type=CEAngleType::RADIANS) ;
-    static int Galacitc2Observed() ;
+    static int Galactic2Observed() ;
     
     // Convert from OBSERVED to other coordinates
     

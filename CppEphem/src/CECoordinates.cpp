@@ -72,20 +72,38 @@ void CECoordinates::ConvertCoordinates(CECoordinateType input_coord_type,
 //__________________________________________________________
 void CECoordinates::CIRS2ICRS(double input_ra, double input_dec,
                               double *return_ra, double *return_dec,
-                              CEDate date)
+                              CEDate date, CEAngleType angle_type)
 {
+    // Convert to radians if that's what is passed
+    if (angle_type==CEAngleType::DEGREES) {
+        input_ra  *= DD2R ;
+        input_dec *= DD2R ;
+    }
+    
     // Use the sofa library to convert these coordinates
     double eo ; // Equation of the origins
     iauAtic13(input_ra, input_dec, date.JD(), 0.0, return_ra, return_dec, &eo) ;
 
-    // Subtract the
-    return ;
+    // Subtract the eo from RA
+    *return_ra -= eo ;
+    
+    // Return the coordinates in the requested units
+    if (angle_type == CEAngleType::DEGREES) {
+        *return_ra  *= DR2D ;
+        *return_dec *= DR2D ;
+    }
 }
 
 //__________________________________________________________
 void CECoordinates::CIRS2Galactic(double input_ra, double input_dec, double *glon, double *glat,
-                                  CEDate date)
+                                  CEDate date, CEAngleType angle_type)
 {
+    // Convert to radians if that's what is passed
+    if (angle_type==CEAngleType::DEGREES) {
+        input_ra  *= DD2R ;
+        input_dec *= DD2R ;
+    }
+    
     // In order to do this with the sofa package, we must first
     // convert from CIRS -> ICRS
     double ICRS_ra(0.0), ICRS_dec(0.0) ;
@@ -93,6 +111,12 @@ void CECoordinates::CIRS2Galactic(double input_ra, double input_dec, double *glo
     
     // Now we can convert to galactic
     ICRS2Galactic(ICRS_ra, ICRS_dec, glon, glat) ;
+    
+    // Convert to the desired units
+    if (angle_type == CEAngleType::DEGREES) {
+        *glon *= DR2D ;
+        *glat *= DR2D ;
+    }
 }
 
 
@@ -170,18 +194,30 @@ int CECoordinates::CIRS2Observed(double ra, double dec,             // RA, Dec i
 //__________________________________________________________
 void CECoordinates::ICRS2CIRS(double input_ra, double input_dec,
                               double *return_ra, double *return_dec,
-                              CEDate date)
+                              CEDate date, CEAngleType angle_type)
 {
-    // Use the sofa library to convert these coordinates
-    double eo ; // Equation of the origins
-    iauAtic13(input_ra, input_dec, date.JD(), 0.0, return_ra, return_dec, &eo) ;
+    // Convert to radians if necessary
+    if (angle_type==CEAngleType::DEGREES) {
+        input_ra  *= DD2R ;
+        input_dec *= DD2R ;
+    }
     
-    // Subtract the
+    // Store the equation of the origins
+    double eo ; // Equation of the origins
+    
+    // Get the star-independent astrometry parameters for this date
+    iauASTROM astrom ;
+    iauApci13(date.JD(), 0.0, &astrom, &eo) ;
+    
+    // Use the sofa library to convert these coordinates
+    iauAtciqz(input_ra+eo, input_dec, &astrom, return_ra, return_dec) ;
+    
     return ;
 }
 
 //__________________________________________________________
-void CECoordinates::ICRS2Galactic(double input_ra, double input_dec, double *glon, double *glat)
+void CECoordinates::ICRS2Galactic(double input_ra, double input_dec, double *glon, double *glat,
+                                  CEAngleType angle_type)
 {
     // Use the sofa method to convert the coordinates
     iauIcrs2g(input_ra, input_dec, glon, glat) ;
@@ -279,7 +315,7 @@ void CECoordinates::Galactic2CIRS(double glon, double glat, double *ra, double *
     }
     
     // Do the Galactic -> ICRS converstion
-    iauG2icrs(glon, glat, ra, dec) ;
+    Galactic2ICRS(glon, glat, ra, dec) ;
     
     // Now convert ICRS -> CIRS
     double tmp_ra(*ra), tmp_dec(*dec) ;
@@ -301,7 +337,7 @@ void CECoordinates::Galactic2CIRS(double glon, double glat, double *ra, double *
  *      ra  = CIRS right ascension
  *      dec = CIRS declination
  *********************************************************************/
-void CECoordinates::Galacitc2ICRS(double glon, double glat, double *ra, double *dec,
+void CECoordinates::Galactic2ICRS(double glon, double glat, double *ra, double *dec,
                                   CEAngleType angle_type)
 {
     // Check for degrees
