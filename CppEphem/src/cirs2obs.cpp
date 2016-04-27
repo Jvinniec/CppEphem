@@ -25,7 +25,7 @@ void Print_Help()
     std::printf("\nUSAGE: cirs2obs [options]\n") ;
     
     std::printf("\nREQURED OPTIONS:\n") ;
-    std::printf("  --longitude,   -X      Observer longitude (degrees)\n") ;
+    std::printf("  --longitude,   -X      Observer longitude (degrees, East-positive)\n") ;
     std::printf("  --latitude,    -Y      Observer latitude (degrees)\n") ;
     std::printf("  --ra,          -R      Right Ascension (degrees)\n") ;
     std::printf("  --dec,         -D      Declination (degrees)\n") ;
@@ -59,7 +59,7 @@ std::map<std::string, double> defaultoptions()
     time_t current_time = time(NULL) ;
     struct tm * timeinfo ;
     timeinfo = localtime(&current_time) ;
-    double dayfrac = (timeinfo->tm_hour + (timeinfo->tm_min/60.0) + (timeinfo->tm_sec/3600.0))/24.0 ;
+    double dayfrac = (timeinfo->tm_hour + (timeinfo->tm_min/60.0) + ((timeinfo->tm_gmtoff+timeinfo->tm_sec)/3600.0))/24.0 ;
     CEDate date({timeinfo->tm_year+1900.0, timeinfo->tm_mon+1.0, 1.0*timeinfo->tm_mday, dayfrac}) ;
     
     options["juliandate"] = date.JD() ;
@@ -197,6 +197,11 @@ void PrintResults(std::map<std::string, double> inputs, std::map<std::string, do
     std::printf("    Hour Angle     : %+f\n", results["hour_angle"]*DR2D) ;
     std::printf("Observer Info\n") ;
     std::printf("    Longitude      : %f deg\n", inputs["longitude"]) ;
+    std::printf("    Latitude       : %+f deg\n", inputs["latitude"]) ;
+    std::printf("    Elevation      : %f meters\n", inputs["elevation"]) ;
+    std::printf("    Pressure       : %f hPa\n", inputs["pressure"]) ;
+    std::printf("    Temperature    : %f Celsius\n", inputs["temperature"]) ;
+    std::printf("    Relative Humid.: %f\n", inputs["humidity"]) ;
     std::printf("\n ...done\n") ;
 }
 
