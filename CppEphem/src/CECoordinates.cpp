@@ -120,7 +120,6 @@ void CECoordinates::CIRS2Galactic(double input_ra, double input_dec, double *glo
 }
 
 
-//__________________________________________________________
 /*********************************************************************
  * This function takes in verious observation parameters
  * The integer returned is a status code with the following meanings:
@@ -140,8 +139,6 @@ int CECoordinates::CIRS2Observed(double ra, double dec,             // RA, Dec i
                                                                     // weather conditions, and date
                                  CEAngleType angle_type,            // Angle type for all angles provided
                                                                     // (either RADIANS or DEGREES)
-                                 double xp, double yp,              // Polar motion, can be found in IERS bulletins,
-                                                                    // but 0 is probably fine for both
                                  double wavelength,                 // Observing wavelength (micrometers)
                                  double *observed_ra,               // Observed CIRS right ascension
                                  double *observed_dec,              // Observed CIRS declination
@@ -224,7 +221,6 @@ void CECoordinates::ICRS2Galactic(double input_ra, double input_dec, double *glo
 }
 
 
-//__________________________________________________________
 /*********************************************************************
  * This function takes in verious observation parameters
  * The integer returned is a status code with the following meanings:
@@ -232,11 +228,10 @@ void CECoordinates::ICRS2Galactic(double input_ra, double input_dec, double *glo
  *       0 = OK status
  *      -1 = unacceptable date
  * RETURNED:
- *      observed_ra  = observed right ascension
- *      observed_dec = observed declination
- *      hour_angle   = observed hour angle
- *      az           = observed azimuth
- *      zen          = observed zenith
+ *      az           = Observed azimuth
+ *      zen          = Observed zenith
+ *      observed_ra  = Apparent ICRS Right Ascension
+ *      observed_dec = Apparent ICRS Declination
  *********************************************************************/
 int CECoordinates::ICRS2Observed(double ra, double dec,             // RA, Dec in CIRS coordinates
                                  double *az, double *zen,           // Azimuth, zenith angle
@@ -244,48 +239,38 @@ int CECoordinates::ICRS2Observed(double ra, double dec,             // RA, Dec i
                                                                     // weather conditions, and date
                                  CEAngleType angle_type,            // Angle type for all angles provided
                                                                     // (either RADIANS or DEGREES)
-                                 double xp, double yp,              // Polar motion, can be found in IERS bulletins,
-                                                                    // but 0 is probably fine for both
                                  double wavelength,                 // Observing wavelength (micrometers)
                                  double *observed_ra,               // Observed CIRS right ascension
-                                 double *observed_dec,              // Observed CIRS declination
-                                 double *hour_angle)                // Hour angle for coordinates
+                                 double *observed_dec)              // Observed CIRS declination
 {
     // If we've passed in angles that are in degrees we need to convert to radians
     if (angle_type == CEAngleType::DEGREES) {
         ra  *= DD2R ;
         dec *= DD2R ;
     }
-    
-    // Setup the observed RA, Dec and hour_angle variables
-    double *temp_ra, *temp_dec, *temp_hour_angle ;
-    // If values were passed, point these variables at the passed ones
-    if (observed_ra != nullptr) temp_ra = observed_ra ;
-    if (observed_dec != nullptr) temp_dec = observed_dec ;
-    if (hour_angle != nullptr) temp_hour_angle = hour_angle ;
-    
+
     // Call the necessary sofa method
-    int err_code = iauAtio13(ra, dec,
-                             observer.Date().JD(), 0.0,
-                             observer.Date().dut1(),
-                             observer.Longitude_Rad(),
-                             observer.Latitude_Rad(),
-                             observer.Elevation(),
-                             xp, yp,
-                             observer.Pressure(),
-                             observer.Temperature_C(),
-                             observer.RelativeHumidity(),
-                             wavelength,
-                             az, zen,
-                             temp_hour_angle, temp_ra, temp_dec) ;
+    int err_code = ICRS2Observed(ra, dec,
+                                 az, zen,
+                                 observer.Date().JD(),
+                                 observer.Longitude_Rad(),
+                                 observer.Latitude_Rad(),
+                                 observer.Elevation(),
+                                 observer.Pressure(),
+                                 observer.Temperature_C(),
+                                 observer.RelativeHumidity(),
+                                 observer.Date().dut1(),
+                                 observer.Date().xpolar(),
+                                 observer.Date().xpolar(),
+                                 wavelength,
+                                 observed_ra, observed_dec) ;
     
     // Now convert back to degrees if that's what we were passed
     if (angle_type == CEAngleType::DEGREES) {
-        *temp_ra         *= DR2D ;
-        *temp_dec        *= DR2D ;
-        *temp_hour_angle *= DR2D ;
-        *az              *= DR2D ;
-        *zen             *= DR2D ;
+        *az           *= DR2D ;
+        *zen          *= DR2D ;
+        *observed_ra  *= DR2D ;
+        *observed_dec *= DR2D ;
     }
     
     return err_code ;
@@ -356,6 +341,58 @@ void CECoordinates::Galactic2ICRS(double glon, double glat, double *ra, double *
     }
 }
 
+
+/*********************************************************************
+ * This function takes in verious observation parameters
+ * PASSED:
+ *      glon = galactic longitude
+ *      glat = galactic latitude
+ * RETURNED:
+ *      ra  = CIRS right ascension
+ *      dec = CIRS declination
+ *********************************************************************/
+int CECoordinates::Galactic2Observed(double glon, double glat,  // RA, Dec in CIRS coordinates
+                                     double *az, double *zen,   // Azimuth, zenith angle
+                                     CEObserver observer,
+                                     CEAngleType angle_type,    // Angle type for all angles provided
+                                                                // (either RADIANS or DEGREES)
+                                     double wavelength,         // Observing wavelength (micrometers)
+                                     double *observed_glon,     // Apparent galactic longitude
+                                     double *observed_glat)     // Apparent galactic latitude
+{
+    // Convert angles to radians if necessary
+    if (angle_type == CEAngleType::DEGREES) {
+        glon *= DD2R ;
+        glat *= DD2R ;
+    }
+    
+    // Do the conversion
+    int error_code = Galactic2Observed(glon, glat,
+                                       az, zen,
+                                       observer.Date().JD(),
+                                       observer.Longitude_Rad(),
+                                       observer.Latitude_Rad(),
+                                       observer.Elevation(),
+                                       observer.Pressure(),
+                                       observer.Temperature_C(),
+                                       observer.RelativeHumidity(),
+                                       observer.Date().dut1(),
+                                       observer.Date().xpolar(),
+                                       observer.Date().xpolar(),
+                                       wavelength,
+                                       observed_glon, observed_glat) ;
+    
+    // Convert back to degrees if necessary
+    if (angle_type == CEAngleType::DEGREES) {
+        *az  *= DR2D ;
+        *zen *= DR2D ;
+        if (observed_glon != nullptr) *observed_glon *= DR2D ;
+        if (observed_glat != nullptr) *observed_glat *= DR2D ;
+    }
+    
+    return error_code;
+}
+
 /*********************************************************
  * Convert OBSERVED Coordinates
  *********************************************************/
@@ -364,6 +401,31 @@ void CECoordinates::Galactic2ICRS(double glon, double glat, double *ra, double *
 /*********************************************************
  * Main routines for converting TO OBSERVED Coordinates
  *********************************************************/
+
+/*********************************************************************
+ * CONVERTS CIRS to OBSERVED coordinates
+ * This function takes in verious observation parameters
+ * PASSED:
+ *      ra          = CIRS Right Ascension (radians)
+ *      dec         = CIRS Declination (radians)
+ *      julian_date = Julian date for conversion
+ *      longitude   = Geographic longitude (radians,East=positive)
+ *      latitude    = Geographic latitude (radians)
+ * OPTIONAL PASSED:
+ *      elevation_m  = Observer elevation (meters)
+ *      pressure_hPa = Atmospheric pressure (hPa)
+ *      temerature_celsius = Atmospheric temperature (Celsius)
+ *      dut1         = UT1 - UTC
+ *      xp,yp        = x & y component of motion of the pole
+ *      wavelength   = wavelength of light observed (micrometers)
+ * RETURNED:
+ *      az   = Azimuth (radians)
+ *      zen  = Zenith angle (radians)
+ *   (optional)
+ *      observed_ra  = Observed CIRS Right Ascension
+ *      observed_dec = Observed CIRS Declination
+ *      hour_angle   = hour angle of the coordinates passed
+ *********************************************************************/
 int CECoordinates::CIRS2Observed(double ra, double dec,
                                  double *az, double *zen,
                                  double julian_date,
@@ -401,6 +463,147 @@ int CECoordinates::CIRS2Observed(double ra, double dec,
                              wavelength,
                              az, zen,
                              temp_hour_angle, temp_dec, temp_ra) ;
+    
+    return err_code ;
+}
+
+
+/*********************************************************************
+ * Converts ICRS to OBSERVED coordinates.s
+ * This function takes in verious observation parameters
+ * PASSED:
+ *      ra          = ICRS Right Ascension (radians)
+ *      dec         = ICRS Declination (radians)
+ *      julian_date = Julian date for conversion
+ *      longitude   = Geographic longitude (radians,East=positive)
+ *      latitude    = Geographic latitude (radians)
+ * OPTIONAL PASSED:
+ *      elevation_m  = Observer elevation (meters)
+ *      pressure_hPa = Atmospheric pressure (hPa)
+ *      temerature_celsius = Atmospheric temperature (Celsius)
+ *      dut1         = UT1 - UTC
+ *      xp,yp        = x & y component of motion of the pole
+ *      wavelength   = wavelength of light observed (micrometers)
+ * RETURNED:
+ *      az   = Azimuth (radians)
+ *      zen  = Zenith angle (radians)
+ *   (optional)
+ *      observed_ra  = Observed CIRS Right Ascension
+ *      observed_dec = Observed CIRS Declination
+ *********************************************************************/
+int CECoordinates::ICRS2Observed(double ra, double dec,
+                                 double *az, double *zen,
+                                 double julian_date,
+                                 double longitude,
+                                 double latitude,
+                                 double elevation_m,
+                                 double pressure_hPa,
+                                 double temperature_celsius,
+                                 double relative_humidity,
+                                 double dut1,
+                                 double xp, double yp,
+                                 double wavelength,
+                                 double *observed_ra,
+                                 double *observed_dec)
+{
+    // Setup the observed RA, Dec and hour_angle variables
+    double *temp_ra, *temp_dec ;
+    // If values were passed, point these variables at the passed ones
+    if (observed_ra != nullptr) temp_ra = observed_ra ;
+    if (observed_dec != nullptr) temp_dec = observed_dec ;
+    
+    // First convert the ICRS coordinats to CIRS coordinates
+    CEDate date(julian_date, CEDateType::JD) ;
+    ICRS2CIRS(ra, dec, &ra, &dec, date) ;
+    
+    // Call the necessary sofa method
+    int err_code = CIRS2Observed(ra, dec,
+                                 az, zen,
+                                 julian_date,
+                                 longitude,
+                                 latitude,
+                                 elevation_m,
+                                 pressure_hPa,
+                                 temperature_celsius,
+                                 relative_humidity,
+                                 dut1, xp, yp,
+                                 wavelength,
+                                 temp_ra,
+                                 temp_dec) ;
+    
+    // Convert the apparent CIRS RA,Dec to ICRS RA,Dec
+    CIRS2ICRS(*temp_ra, *temp_dec, temp_ra, temp_dec, date) ;
+    
+    return err_code ;
+}
+
+
+/*********************************************************************
+ * Converts ICRS to OBSERVED coordinates.s
+ * This function takes in verious observation parameters
+ * PASSED:
+ *      glon        = Galactic longitude (radians)
+ *      glat        = Galactic latitude (radians)
+ *      julian_date = Julian date for conversion
+ *      longitude   = Geographic longitude (radians,East=positive)
+ *      latitude    = Geographic latitude (radians)
+ * OPTIONAL PASSED:
+ *      elevation_m  = Observer elevation (meters)
+ *      pressure_hPa = Atmospheric pressure (hPa)
+ *      temerature_celsius = Atmospheric temperature (Celsius)
+ *      dut1         = UT1 - UTC
+ *      xp,yp        = x & y component of motion of the pole
+ *      wavelength   = wavelength of light observed (micrometers)
+ * RETURNED:
+ *      az   = Azimuth (radians)
+ *      zen  = Zenith angle (radians)
+ *   (optional)
+ *      observed_glon = Observed Galactic longitude
+ *      observed_glat = Observed galactic latitude
+ *********************************************************************/
+int CECoordinates::Galactic2Observed(double glon, double glat,
+                                     double *az, double *zen,
+                                     double julian_date,
+                                     double longitude,
+                                     double latitude,
+                                     double elevation_m,
+                                     double pressure_hPa,
+                                     double temperature_celsius,
+                                     double relative_humidity,
+                                     double dut1,
+                                     double xp, double yp,
+                                     double wavelength,
+                                     double *observed_glon,
+                                     double *observed_glat)
+{
+    // Setup the observed RA, Dec and hour_angle variables
+    double *temp_glon, *temp_glat, *temp_ra, *temp_dec ;
+    // If values were passed, point these variables at the passed ones
+    if (observed_glon != nullptr) temp_glon = observed_glon ;
+    if (observed_glat != nullptr) temp_glat = observed_glat ;
+    
+    // Convert GALACTIC to ICRS
+    double ra(0.0), dec(0.0) ;
+    CEDate date(julian_date, CEDateType::JD) ;
+    Galactic2CIRS(glon, glat, &ra, &dec, date) ;
+    
+    // Call the necessary sofa method
+    int err_code = CIRS2Observed(ra, dec,
+                                 az, zen,
+                                 julian_date,
+                                 longitude,
+                                 latitude,
+                                 elevation_m,
+                                 pressure_hPa,
+                                 temperature_celsius,
+                                 relative_humidity,
+                                 dut1, xp, yp,
+                                 wavelength,
+                                 temp_ra,
+                                 temp_dec) ;
+    
+    // Convert the apparent RA,Dec to galactic longitude,latitude
+    CIRS2Galactic(*temp_ra, *temp_dec, temp_glon, temp_glat, date) ;
     
     return err_code ;
 }

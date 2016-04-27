@@ -80,8 +80,6 @@ public:
                              CEObserver observer,
                              CEAngleType angle_type=CEAngleType::RADIANS,   // Angle type for all angles provided
                                                                 // (either RADIANS or DEGREES)
-                             double xp=0.0, double yp=0.0,      // Polar motion, can be found in IERS bulletins,
-                                                                // but 0 is probably fine for both
                              double wavelength=0.5,             // Observing wavelength (micrometers)
                              double *observed_ra=nullptr,       // Observed CIRS right ascension
                              double *observed_dec=nullptr,      // Observed CIRS declination
@@ -97,13 +95,10 @@ public:
                              double *az, double *zen,           // Azimuth, zenith angle
                              CEObserver observer,
                              CEAngleType angle_type=CEAngleType::RADIANS,   // Angle type for all angles provided
-                             // (either RADIANS or DEGREES)
-                             double xp=0.0, double yp=0.0,      // Polar motion, can be found in IERS bulletins,
-                             // but 0 is probably fine for both
+                                                                // (either RADIANS or DEGREES)
                              double wavelength=0.5,             // Observing wavelength (micrometers)
                              double *observed_ra=nullptr,       // Observed CIRS right ascension
-                             double *observed_dec=nullptr,      // Observed CIRS declination
-                             double *hour_angle=nullptr) ;      // Hour angle for coordinates
+                             double *observed_dec=nullptr);     // Observed CIRS declination
     
     // Convert from GALACTIC to other coordinates
     static void Galactic2CIRS(double glon, double glat, double *ra, double *dec,
@@ -111,7 +106,14 @@ public:
                               CEAngleType angle_type=CEAngleType::RADIANS) ;
     static void Galactic2ICRS(double glon, double glat, double *ra, double *dec,
                               CEAngleType angle_type=CEAngleType::RADIANS) ;
-    static int Galactic2Observed() ;
+    static int Galactic2Observed(double glon, double glat,          // RA, Dec in CIRS coordinates
+                                 double *az, double *zen,           // Azimuth, zenith angle
+                                 CEObserver observer,
+                                 CEAngleType angle_type=CEAngleType::RADIANS,   // Angle type for all angles provided
+                                                                    // (either RADIANS or DEGREES)
+                                 double wavelength=0.5,             // Observing wavelength (micrometers)
+                                 double *observed_ra=nullptr,       // Observed CIRS right ascension
+                                 double *observed_dec=nullptr);     // Observed CIRS declination) ;
     
     // Convert from OBSERVED to other coordinates
     
@@ -148,8 +150,7 @@ public:
                              double xp=0.0, double yp=0.0,
                              double wavelength=500.0,
                              double *observed_ra=nullptr,
-                             double *observed_dec=nullptr,
-                             double *hour_angle=nullptr) ;
+                             double *observed_dec=nullptr) ;
     static int Galactic2Observed(double glon, double glat,
                              double *az, double *zen,
                              double julian_date,
