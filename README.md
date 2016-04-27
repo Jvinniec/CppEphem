@@ -28,8 +28,8 @@ local sky coordinates.
 Here is a list of purposes I wish this code to serve:
 * Basic coordinate conversion routines (partially implemented, first priority)
   - CIRS (Earth centric RA,Dec)
-  - ICRS (Solarsystem barycentric RA, Dec) 
-  - Galactic (Long, Lat) 
+  - ICRS (Solarsystem barycentric RA, Dec)
+  - Galactic (Long, Lat)
   - Observed (Azimuth, Zenith)
 * Star & Planet ephemeris (currently not implemented, 3rd priority)
   - Star & Planet positions for a given observer at a given time
@@ -48,7 +48,7 @@ is any feature that you would like to see implemented feel
 free to contact the author or submit an issue and I'll
 look into it.
 
-The following is a list of currently implemented compiled
+The following is a list of currently fully implemented, compiled
 executables which can be run from the command line:
 * Date conversion routines
   - __cal2jd__: Gregorian calendar to Julian date
@@ -60,6 +60,7 @@ executables which can be run from the command line:
 * Coordinate conversion routines
   - __cirs2obs__: CIRS to Observed coordinates
   - __cirs2gal__: CIRS to Galactic coordinates
+  - __gal2cirs__: Galactic to CIRS coordinates
 
 Downloading the code:
 ----------------------------------------------------------
