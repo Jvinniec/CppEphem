@@ -82,6 +82,12 @@ public:
     static double dut1Error(double date, CEDateType date_type=CEDateType::JD) ;
     double dut1Error() ;
     
+    // Get the x,y polar motion variables associated with a given date
+    static double xpolar(double date, CEDateType date_type=CEDateType::JD) ;
+    double xpolar() ;
+    static double ypolar(double date, CEDateType date_type=CEDateType::JD) ;
+    double ypolar() ;
+    
     // Methods for converting between the double and vector<double> version of
     // the Gregorian date format
     static double GregorianVect2Gregorian(std::vector<double> gregorian) ;

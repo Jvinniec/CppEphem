@@ -136,28 +136,28 @@ int CECoordinates::CIRS2Observed(double ra, double dec,             // RA, Dec i
     if (observed_dec != nullptr) temp_dec = observed_dec ;
     if (hour_angle != nullptr) temp_hour_angle = hour_angle ;
     
-    // Call the necessary sofa method
-    int err_code = iauAtio13(ra, dec,
-                             observer.Date().JD(), 0.0,
-                             observer.Date().dut1(),
-                             observer.Longitude_Rad(),
-                             observer.Latitude_Rad(),
-                             observer.Elevation(),
-                             xp, yp,
-                             observer.Pressure(),
-                             observer.Temperature_C(),
-                             observer.RelativeHumidity(),
-                             wavelength,
-                             az, zen,
-                             temp_hour_angle, temp_ra, temp_dec) ;
+    int err_code = CIRS2Observed(ra, dec,
+                                 az, zen,
+                                 observer.Date().JD(),
+                                 observer.Longitude_Rad(),
+                                 observer.Latitude_Rad(),
+                                 observer.Elevation(),
+                                 observer.Pressure(),
+                                 observer.Temperature_C(),
+                                 observer.RelativeHumidity(),
+                                 observer.Date().dut1(),
+                                 observer.Date().xpolar(),
+                                 observer.Date().xpolar(),
+                                 wavelength,
+                                 temp_ra, temp_dec, temp_hour_angle) ;
     
     // Now convert back to degrees if that's what we were passed
     if (angle_type == CEAngleType::DEGREES) {
+        *az              *= DR2D ;
+        *zen             *= DR2D ;
         *temp_ra         *= DR2D ;
         *temp_dec        *= DR2D ;
         *temp_hour_angle *= DR2D ;
-        *az              *= DR2D ;
-        *zen             *= DR2D ;
     }
     
     return err_code ;
@@ -282,7 +282,8 @@ void CECoordinates::Galactic2CIRS(double glon, double glat, double *ra, double *
     iauG2icrs(glon, glat, ra, dec) ;
     
     // Now convert ICRS -> CIRS
-    ICRS2CIRS(*ra, *dec, ra, dec, date) ;
+    double tmp_ra(*ra), tmp_dec(*dec) ;
+    ICRS2CIRS(tmp_ra, tmp_dec, ra, dec, date) ;
     
     // Now make sure to return the coordinates in the correct format
     if (angle_type == CEAngleType::DEGREES) {

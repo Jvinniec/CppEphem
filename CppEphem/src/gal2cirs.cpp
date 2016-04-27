@@ -1,5 +1,5 @@
 //
-//  cirs2gal.cpp
+//  gal2cirs.cpp
 //  CppEphem
 //
 //  Created by Josh Cardenzana on 4/27/16.
@@ -21,11 +21,11 @@ void Print_Help()
 {
     // This is the help text to be printed if no command line options are provide
     // or if the '--help' or '-h' options are given
-    std::printf("\nUSAGE: cirs2gal [options]\n") ;
+    std::printf("\nUSAGE: gal2cirs [options]\n") ;
     
     std::printf("\nREQURED OPTIONS:\n") ;
-    std::printf("  --ra,          -R      Right Ascension (degrees)\n") ;
-    std::printf("  --dec,         -D      Declination (degrees)\n") ;
+    std::printf("  --glon,        -L      Galactic longitude (degrees)\n") ;
+    std::printf("  --glat,        -B      Galactic latitude (degrees)\n") ;
     
     std::printf("\nADDITIONAL OPTIONS:\n") ;
     std::printf("  --help,        -h      Prints help text\n") ;
@@ -49,11 +49,11 @@ std::map<std::string, double> defaultoptions()
 //_________________________________________________________
 void getoptions(struct option* longopts)
 {
-    longopts[0] = {"help",        no_argument,       0, 'h'} ;   // Print help information
-    longopts[1] = {"ra",          required_argument, 0, 'R'} ;   // CIRS right ascension
-    longopts[2] = {"dec",         required_argument, 0, 'D'} ;   // CIRS declination
-    longopts[3] = {"juliandate",  required_argument, 0, 'j'} ;   // Julian date of observation
-    longopts[4] = {0,0,0,0} ;
+    longopts[0] = {"help",        no_argument,       0, 'h'};   // Print help information
+    longopts[1] = {"glon",        required_argument, 0, 'L'};   // CIRS right ascension
+    longopts[2] = {"glat",        required_argument, 0, 'B'};   // CIRS declination
+    longopts[3] = {"juliandate",  required_argument, 0, 'j'};   // Julian date of observation
+    longopts[4] = {0,0,0,0};
 }
 
 //_________________________________________________________
@@ -69,7 +69,7 @@ std::map<std::string, double> parseoptions(int argc, char** argv, const struct o
         /* getopt_long stores the option index here. */
         int option_index = 0;
         
-        c = getopt_long (argc, argv, "hR:D:j:",
+        c = getopt_long (argc, argv, "hL:B:j:",
                          longopts, &option_index);
         
         /* Detect the end of the options. */
@@ -91,18 +91,18 @@ std::map<std::string, double> parseoptions(int argc, char** argv, const struct o
                 Print_Help() ;
                 return std::map<std::string, double>() ;
                 
-            case 'R':
-                options["ra"] = std::stod(optarg) ;
+            case 'L':
+                options["glon"] = std::stod(optarg) ;
                 break;
                 
-            case 'D':
-                options["dec"] = std::stod(optarg) ;
+            case 'B':
+                options["glat"] = std::stod(optarg) ;
                 break;
                 
             case 'j':
                 options["juliandate"] = std::stod(optarg) ;
                 break;
-
+                
             case '?':
                 /* getopt_long already printed an error message. */
                 break;
@@ -121,14 +121,14 @@ void PrintResults(std::map<std::string, double> inputs, std::map<std::string, do
 {
     std::printf("\n") ;
     std::printf("******************************************\n") ;
-    std::printf("* Results of CIRS -> Galactic conversion *\n") ;
+    std::printf("* Results of Galactic -> CIRS conversion *\n") ;
     std::printf("******************************************\n") ;
-    std::printf("Galactic Coordinates (output)\n") ;
-    std::printf("    Galactic Lon.: %f degrees\n", results["longitude"]*DR2D) ;
-    std::printf("    Galactic Lat.: %+f degrees\n", results["latitude"]*DR2D) ;
-    std::printf("CIRS Coordinates (input)\n") ;
-    std::printf("    Right Ascension: %f degrees\n", inputs["ra"]) ;
-    std::printf("    Declination    : %+f degrees\n", inputs["dec"]) ;
+    std::printf("CIRS Coordinates (output)\n") ;
+    std::printf("    Right Ascension: %f degrees\n", results["ra"]*DR2D) ;
+    std::printf("    Declination    : %+f degrees\n", results["dec"]*DR2D) ;
+    std::printf("Galactic Coordinates (input)\n") ;
+    std::printf("    Galactic Lon.  : %f degrees\n", inputs["glon"]) ;
+    std::printf("    Galactic Lat.  : %+f degrees\n", inputs["glat"]) ;
     std::printf("    Julian Date    : %f\n", inputs["juliandate"]) ;
     std::printf("\n...done\n") ;
 }
@@ -154,14 +154,14 @@ int main(int argc, char** argv) {
     
     // Create a map to store the results
     std::map<std::string, double> results ;
-    results["longitude"] = 0.0 ;
-    results["latitude"]  = 0.0 ;
+    results["ra"] = 0.0 ;
+    results["dec"]  = 0.0 ;
     
     // Convert the coordinates
-    CECoordinates::CIRS2Galactic(options["ra"]*DD2R,
-                                 options["dec"]*DD2R,
-                                 &results["longitude"],
-                                 &results["latitude"],
+    CECoordinates::Galactic2CIRS(options["glon"]*DD2R,
+                                 options["glat"]*DD2R,
+                                 &results["ra"],
+                                 &results["dec"],
                                  CEDate(options["juliandate"])) ;
     
     // Print the results

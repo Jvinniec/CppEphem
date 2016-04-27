@@ -75,27 +75,22 @@ std::map<std::string, double> defaultoptions()
 }
 
 //_________________________________________________________
-const struct option* getoptions()
+void getoptions(struct option* longopts)
 {
-    const struct option longopts[] =
-    {
-        {"help",        no_argument,       0, 'h'},   // Print help information
-        {"longitude",   required_argument, 0, 'X'},   // Observer longitude
-        {"latitude",    required_argument, 0, 'Y'},   // Observer latitude
-        {"elevation",   optional_argument, 0, 'e'},   // Observer elevation
-        {"ra",          required_argument, 0, 'R'},   // CIRS right ascension
-        {"dec",         required_argument, 0, 'D'},   // CIRS declination
-        {"juliandate",  required_argument, 0, 'j'},   // Julian date of observation
-        {"pressure",    optional_argument, 0, 'p'},   // pressure (hPa)
-        {"temperature", optional_argument, 0, 't'},   // Temperature (degrees C)
-        {"humidity",    optional_argument, 0, 'r'},   // Relative humidity (0-1)
-        {"wavelength",  optional_argument, 0, 'w'},   // Wavelength of light (micrometers)
-        {"xpolar",      optional_argument, 0, 'x'},   // x-component of polar motion (can be 0)
-        {"ypolar",      optional_argument, 0, 'y'},   // y-component of polar motion (can be 0)
-        {0,0,0,0},
-    };
-    
-    return longopts ;
+    longopts[0]  = {"help",        no_argument,       0, 'h'};   // Print help information
+    longopts[1]  = {"longitude",   required_argument, 0, 'X'};   // Observer longitude
+    longopts[2]  = {"latitude",    required_argument, 0, 'Y'};   // Observer latitude
+    longopts[3]  = {"elevation",   optional_argument, 0, 'e'};   // Observer elevation
+    longopts[4]  = {"ra",          required_argument, 0, 'R'};   // CIRS right ascension
+    longopts[5]  = {"dec",         required_argument, 0, 'D'};   // CIRS declination
+    longopts[6]  = {"juliandate",  required_argument, 0, 'j'};   // Julian date of observation
+    longopts[7]  = {"pressure",    optional_argument, 0, 'p'};   // pressure (hPa)
+    longopts[8]  = {"temperature", optional_argument, 0, 't'};   // Temperature (degrees C)
+    longopts[9]  = {"humidity",    optional_argument, 0, 'r'};   // Relative humidity (0-1)
+    longopts[10] = {"wavelength",  optional_argument, 0, 'w'};   // Wavelength of light (micrometers)
+    longopts[11] = {"xpolar",      optional_argument, 0, 'x'};   // x-component of polar motion (can be 0)
+    longopts[12] = {"ypolar",      optional_argument, 0, 'y'};   // y-component of polar motion (can be 0)
+    longopts[13] = {0,0,0,0} ;
 }
 
 //_________________________________________________________
@@ -132,55 +127,42 @@ std::map<std::string, double> parseoptions(int argc, char** argv, const struct o
                 // Print the help message and quit
                 Print_Help() ;
                 return std::map<std::string, double>() ;
-                
-            case 'X':
+            case 'X':   // Assign observer's Longitude
                 options["longitude"] = std::stod(optarg) ;
                 break;
-                
-            case 'Y':
+            case 'Y':   // Assign observer's Latitude
                 options["latitude"] = std::stod(optarg) ;
                 break;
-                
-            case 'e':
+            case 'e':   // Assign observer's elevation
                 options["elevation"] = std::stod(optarg) ;
                 break;
-                
-            case 'R':
+            case 'R':   // Assign Right Ascension coordinate
                 options["ra"] = std::stod(optarg) ;
                 break;
-                
-            case 'D':
+            case 'D':   // Assign Declination coordinate
                 options["dec"] = std::stod(optarg) ;
                 break;
-                
-            case 'j':
+            case 'j':   // Assign julian date
                 options["juliandate"] = std::stod(optarg) ;
                 break;
-                
             case 'p':
                 options["pressure"] = std::stod(optarg) ;
                 break;
-                
             case 't':
                 options["temperature"] = std::stod(optarg) ;
                 break;
-                
             case 'r':
                 options["humidity"] = std::stod(optarg) ;
                 break;
-                
             case 'w':
                 options["wavelength"] = std::stod(optarg) ;
                 break;
-                
             case 'x':
                 options["xpolar"] = std::stod(optarg) ;
                 break;
-                
             case 'y':
                 options["ypolar"] = std::stod(optarg) ;
                 break;
-                
             case '?':
                 /* getopt_long already printed an error message. */
                 break;
@@ -204,6 +186,7 @@ void PrintResults(std::map<std::string, double> inputs, std::map<std::string, do
     std::printf("Observed Coordinates (output)\n") ;
     std::printf("    Azimuth        : %f degrees\n", results["azimuth"]*DR2D) ;
     std::printf("    Zenith         : %+f degrees\n", results["zenith"]*DR2D) ;
+    std::printf("    Altitude       : %+f degrees\n", 90.0-results["zenith"]*DR2D) ;
     std::printf("CIRS Coordinates (input)\n") ;
     std::printf("    Right Ascension: %f degrees\n", inputs["ra"]) ;
     std::printf("    Declination    : %+f degrees\n", inputs["dec"]) ;
@@ -227,7 +210,8 @@ int main(int argc, char** argv) {
     }
     
     // Define the optional arguments
-    const struct option* longopts = getoptions() ;
+    struct option longopts[14] ;
+    getoptions(longopts) ;
     
     // Parse the options
     std::map<std::string, double> options = parseoptions(argc, argv, longopts) ;

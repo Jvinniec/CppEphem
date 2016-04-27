@@ -241,6 +241,36 @@ double CEDate::dut1Error()
     return CppEphem::dut1Error(mod_julian_date_) ;
 }
 
+
+//_______________________________________________________________
+double CEDate::xpolar(double date, CEDateType date_type)
+{
+    CEDate input_date(date, date_type) ;
+    return CppEphem::xp( input_date.JD() ) ;
+}
+
+
+//_______________________________________________________________
+double CEDate::xpolar()
+{
+    return CppEphem::xp( JD() ) ;
+}
+
+
+//_______________________________________________________________
+double CEDate::ypolar(double date, CEDateType date_type)
+{
+    CEDate input_date(date, date_type) ;
+    return CppEphem::yp( input_date.JD() ) ;
+}
+
+//_______________________________________________________________
+double CEDate::ypolar()
+{
+    return CppEphem::yp( JD() ) ;
+}
+
+
 //_______________________________________________________________
 double CEDate::GregorianVect2Gregorian(std::vector<double> gregorian)
 {
