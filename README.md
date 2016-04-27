@@ -27,10 +27,10 @@ local sky coordinates.
 
 Here is a list of purposes I wish this code to serve:
 * Basic coordinate conversion routines (partially implemented, first priority)
-  - CIRS (Earth centric RA,Dec)
-  - ICRS (Solarsystem barycentric RA, Dec)
-  - Galactic (Long, Lat)
-  - Observed (Azimuth, Zenith)
+  - __CIRS__ (Earth centric RA,Dec)
+  - __ICRS__ (Solarsystem barycentric RA, Dec)
+  - __Galactic__ (Long, Lat)
+  - __Observed__ (Azimuth, Zenith)
 * Star & Planet ephemeris (currently not implemented, 3rd priority)
   - Star & Planet positions for a given observer at a given time
 * Basic time conversion routines (currently not implemented, 2nd priority)
@@ -41,7 +41,7 @@ Here is a list of purposes I wish this code to serve:
 * Date conversion routines (see CEDate, fully implemented)
   - Julian Date
   - Modified Julian Date
-  - Gregorian Calendar year, month, day
+  - Gregorian Calendar (year, month, day)
 
 More feature will be implemented as time permits. If there 
 is any feature that you would like to see implemented feel 
