@@ -26,19 +26,19 @@ converting between [RA,Dec], [Galactice Long, Lat], and
 local sky coordinates.
 
 Here is a list of purposes I wish this code to serve:
-* Basic coordinate conversion routines (currently not working, first priority)
+* Basic coordinate conversion routines (partially implemented, first priority)
   - CIRS (Earth centric RA,Dec)
   - ICRS (Solarsystem barycentric RA, Dec) 
   - Galactic (Long, Lat) 
   - Observed (Azimuth, Zenith)
-* Star & Planet ephemeris (currently not working, 3rd priority)
+* Star & Planet ephemeris (currently not implemented, 3rd priority)
   - Star & Planet positions for a given observer at a given time
-* Basic time conversion routines (currently not working, 2nd priority)
+* Basic time conversion routines (currently not implemented, 2nd priority)
   - UTC
   - Local time
   - Greenwich apparent sidereal time
   - Local apparent sidereal time
-* Date conversion routines (see CEDate, currently working)
+* Date conversion routines (see CEDate, fully implemented)
   - Julian Date
   - Modified Julian Date
   - Gregorian Calendar year, month, day

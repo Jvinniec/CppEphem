@@ -260,6 +260,64 @@ int CECoordinates::ICRS2Observed(double ra, double dec,             // RA, Dec i
  * Convert GALACTIC Coordinates
  *********************************************************/
 
+/*********************************************************************
+ * This function takes in verious observation parameters
+ * PASSED:
+ *      glon = galactic longitude
+ *      glat = galactic latitude
+ * RETURNED:
+ *      ra  = CIRS right ascension
+ *      dec = CIRS declination
+ *********************************************************************/
+void CECoordinates::Galactic2CIRS(double glon, double glat, double *ra, double *dec,
+                                  CEDate date, CEAngleType angle_type)
+{
+    // Check for degrees
+    if (angle_type == CEAngleType::DEGREES) {
+        glon *= DD2R ;
+        glat *= DD2R ;
+    }
+    
+    // Do the Galactic -> ICRS converstion
+    iauG2icrs(glon, glat, ra, dec) ;
+    
+    // Now convert ICRS -> CIRS
+    ICRS2CIRS(*ra, *dec, ra, dec, date) ;
+    
+    // Now make sure to return the coordinates in the correct format
+    if (angle_type == CEAngleType::DEGREES) {
+        *ra  *= DR2D ;
+        *dec *= DR2D ;
+    }
+}
+
+/*********************************************************************
+ * This function takes in verious observation parameters
+ * PASSED:
+ *      glon = galactic longitude
+ *      glat = galactic latitude
+ * RETURNED:
+ *      ra  = CIRS right ascension
+ *      dec = CIRS declination
+ *********************************************************************/
+void CECoordinates::Galacitc2ICRS(double glon, double glat, double *ra, double *dec,
+                                  CEAngleType angle_type)
+{
+    // Check for degrees
+    if (angle_type == CEAngleType::DEGREES) {
+        glon *= DD2R ;
+        glat *= DD2R ;
+    }
+    
+    // Do the Galactic -> ICRS converstion
+    iauG2icrs(glon, glat, ra, dec) ;
+    
+    // Now make sure to return the coordinates in the correct format
+    if (angle_type == CEAngleType::DEGREES) {
+        *ra  *= DR2D ;
+        *dec *= DR2D ;
+    }
+}
 
 /*********************************************************
  * Convert OBSERVED Coordinates

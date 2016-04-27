@@ -102,8 +102,11 @@ public:
                              double *hour_angle=nullptr) ;      // Hour angle for coordinates
     
     // Convert from GALACTIC to other coordinates
-    static void Galactic2CIRS() ;
-    static void Galacitc2ICRS() ;
+    static void Galactic2CIRS(double glon, double glat, double *ra, double *dec,
+                              CEDate date=CEDate(julian_date_J2000(), CEDateType::JD),
+                              CEAngleType angle_type=CEAngleType::RADIANS) ;
+    static void Galacitc2ICRS(double glon, double glat, double *ra, double *dec,
+                              CEAngleType angle_type=CEAngleType::RADIANS) ;
     static int Galacitc2Observed() ;
     
     // Convert from OBSERVED to other coordinates
