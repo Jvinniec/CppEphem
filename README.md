@@ -51,15 +51,15 @@ look into it.
 The following is a list of currently implemented compiled
 executables which can be run from the command line:
 * Date conversion routines
-  - cal2jd    Gregorian calendar to Julian date
-  - cal2mjd   Gregorian calendar to modified Julian date
-  - jd2cal    Julian date to Gregorian calendar date
-  - jd2mjd    Julian date to modified Julian date
-  - mjd2cal   Modified Julian date to Gregorian calendar date
-  - mjd2jd    Modified Julian date to Julian date
+  - __cal2jd__: Gregorian calendar to Julian date
+  - __cal2mjd__: Gregorian calendar to modified Julian date
+  - __jd2cal__: Julian date to Gregorian calendar date
+  - __jd2mjd__: Julian date to modified Julian date
+  - __mjd2cal__: Modified Julian date to Gregorian calendar date
+  - __mjd2jd__: Modified Julian date to Julian date
 * Coordinate conversion routines
-  - cirs2obs  CIRS to Observed coordinates
-  - cirs2gal  CIRS to Galactic coordinates
+  - __cirs2obs__: CIRS to Observed coordinates
+  - __cirs2gal__: CIRS to Galactic coordinates
 
 Downloading the code:
 ----------------------------------------------------------

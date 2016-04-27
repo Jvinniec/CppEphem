@@ -88,7 +88,6 @@ std::map<std::string, double> parseoptions(int argc, char** argv, const struct o
                     break;
                 
                 // Set the option
-                std::cout << std::string(optarg) << std::endl;
                 options[longopts[option_index].name] = std::stod(optarg) ;
                 break;
                 
@@ -98,8 +97,6 @@ std::map<std::string, double> parseoptions(int argc, char** argv, const struct o
                 return std::map<std::string, double>() ;
                 
             case 'R':
-                std::cout << std::string(optarg) << std::endl;
-                
                 options["ra"] = std::stod(optarg) ;
                 break;
                 
