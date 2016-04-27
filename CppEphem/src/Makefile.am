@@ -25,7 +25,7 @@ libcppephem_la_CPPFLAGS = $(CppEphem_CPPFLAGS)
 libcppephem_la_LIBADD=$(LIBS)
 libcppephem_ladir=$(libdir)
 
-bin_PROGRAMS = cal2jd cal2mjd jd2cal jd2mjd mjd2jd mjd2cal cirs2obs
+bin_PROGRAMS = cal2jd cal2mjd jd2cal jd2mjd mjd2jd mjd2cal cirs2obs cirs2gal
 
 ##########################################
 # DATE CONVERSION EXECUTABLES
@@ -70,9 +70,9 @@ cirs2obs_LDADD = libcppephem.la
 cirs2obs_CPPFLAGS = $(CppEphem_CPPFLAGS)
 
 # CIRS to GALACTIC coordinates
-#cirs2gal_SOURCES = cirs2gal.cpp
-#cirs2gal_LDADD = libcppephem.la
-#cirs2gal_CPPFLAGS = $(CppEphem_CPPFLAGS)
+cirs2gal_SOURCES = cirs2gal.cpp
+cirs2gal_LDADD = libcppephem.la
+cirs2gal_CPPFLAGS = $(CppEphem_CPPFLAGS)
 
 
 ##########################################

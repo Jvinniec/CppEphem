@@ -23,7 +23,7 @@ namespace CppEphem {
 
     // Approximate temperature at sea-level in Kelvin
     inline double SeaLevelTemp_K() {return 288.2 ;}
-    
+    inline double SeaLevelTemp_C() {return SeaLevelTemp_K()-273.15 ;}
     // Some constants taken from the sofa dictionary, but with some more discriptive names
     inline double julian_date_J2000() {return DJ00 ;}           // Julian Date corresponding to J2000
     inline double c() {return DC * DAU / DAYSEC ;}              // speed of light (meters/second)

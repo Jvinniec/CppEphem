@@ -48,6 +48,19 @@ is any feature that you would like to see implemented feel
 free to contact the author or submit an issue and I'll
 look into it.
 
+The following is a list of currently implemented compiled
+executables which can be run from the command line:
+* Date conversion routines
+  - cal2jd    Gregorian calendar to Julian date
+  - cal2mjd   Gregorian calendar to modified Julian date
+  - jd2cal    Julian date to Gregorian calendar date
+  - jd2mjd    Julian date to modified Julian date
+  - mjd2cal   Modified Julian date to Gregorian calendar date
+  - mjd2jd    Modified Julian date to Julian date
+* Coordinate conversion routines
+  - cirs2obs  CIRS to Observed coordinates
+  - cirs2gal  CIRS to Galactic coordinates
+
 Downloading the code:
 ----------------------------------------------------------
 To obtain the code, it should be as simple as cloning the

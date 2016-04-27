@@ -74,7 +74,7 @@ public:
         {pressure_hPa_ = pressure ;}
     void SetRelativeHumidity(double humidity=0.0)
         {relative_humidity_ = humidity ;}
-    void SetTemperature_C(double temp_C=0.0)
+    void SetTemperature_C(double temp_C=SeaLevelTemp_C())
         {temperature_celsius_ = temp_C ;}
     void SetTemperature_K(double temp_K)
         {temperature_celsius_ = temp_K - 273.15 ;}

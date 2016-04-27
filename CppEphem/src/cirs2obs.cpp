@@ -14,6 +14,7 @@
 
 // CppEphem HEADERS
 #include "CECoordinates.h"
+#include "CEObserver.h"
 #include "CEDate.h"
 
 //_________________________________________________________
@@ -25,18 +26,21 @@ void Print_Help()
     
     std::printf("\nREQURED OPTIONS:\n") ;
     std::printf("  --longitude,   -X      Observer longitude (degrees)\n") ;
-    std::printf("  --latitude,    -Y      Observer longitude (degrees)\n") ;
+    std::printf("  --latitude,    -Y      Observer latitude (degrees)\n") ;
     std::printf("  --ra,          -R      Right Ascension (degrees)\n") ;
-    std::printf("  --dec,         -D      Declination\n") ;
-                
+    std::printf("  --dec,         -D      Declination (degrees)\n") ;
+
+    // Create an observer with default values so we know what the defaults will be
+    CEObserver obs ;
+    
     std::printf("\nADDITIONAL OPTIONS:\n") ;
     std::printf("  --help,        -h      Prints help text\n") ;
     std::printf("  --juliandate,  -j      Julian Date for query (default is current time)\n") ;
-    std::printf("  --elevation    -e      Observer elevation (meters above sea-level, default=0)\n") ;
-    std::printf("  --humidity     -r      Observer's relative humidity (0-1, default=0)\n") ;
-    std::printf("  --pressure,    -p      Observer's atmospheric pressure (hPa)\n") ;
-    std::printf("  --temperature, -t      Observer's temperature (degrees Celsius)\n") ;
-    std::printf("  --wavelength,  -w      Wavelength of light being observed (micrometers)\n") ;
+    std::printf("  --elevation    -e      Observer elevation (meters above sea-level, default=%f)\n", obs.Elevation()) ;
+    std::printf("  --humidity     -r      Observer's relative humidity (0-1, default=%f)\n", obs.RelativeHumidity()) ;
+    std::printf("  --pressure,    -p      Observer's atmospheric pressure (hPa, default=%f)\n", obs.Pressure()) ;
+    std::printf("  --temperature, -t      Observer's temperature (degrees Celsius, default=%f)\n", obs.Temperature_C()) ;
+    std::printf("  --wavelength,  -w      Wavelength of light being observed (micrometers, default=%2.1f)\n", 0.5) ;
     std::printf("  --xpolar,      -x      x-polar motion (default=0, best to leave alone)\n") ;
     std::printf("  --ypolar,      -y      y-polar motion (default=0, best to leave alone)\n") ;
     
@@ -59,6 +63,13 @@ std::map<std::string, double> defaultoptions()
     CEDate date({timeinfo->tm_year+1900.0, timeinfo->tm_mon+1.0, 1.0*timeinfo->tm_mday, dayfrac}) ;
     
     options["juliandate"] = date.JD() ;
+    
+    // Set the default observer weather conditions
+    CEObserver observer ;
+    options["elevation"] = observer.Elevation() ;
+    options["humidity"] = observer.RelativeHumidity() ;
+    options["pressure"] = observer.Pressure() ;
+    options["temperature"] = observer.Temperature_C() ;
     
     return options ;
 }
@@ -193,18 +204,19 @@ void PrintResults(std::map<std::string, double> inputs, std::map<std::string, do
     std::printf("******************************************\n") ;
     std::printf("* Results of CIRS -> Observed conversion *\n") ;
     std::printf("******************************************\n") ;
-    
+    std::printf("Observed Coordinates (output)\n") ;
+    std::printf("    Azimuth        : %f degrees\n", results["azimuth"]*DR2D) ;
+    std::printf("    Zenith         : %+f degrees\n", results["zenith"]*DR2D) ;
     std::printf("CIRS Coordinates (input)\n") ;
     std::printf("    Right Ascension: %f degrees\n", inputs["ra"]) ;
     std::printf("    Declination    : %+f degrees\n", inputs["dec"]) ;
     std::printf("    Julian Date    : %f\n", inputs["juliandate"]) ;
-    std::printf("Observed Coordinates (output)\n") ;
-    std::printf("    Azimuth        : %f degrees\n", results["azimuth"]*DR2D) ;
-    std::printf("    Zenith         : %+f degrees\n", results["zenith"]*DR2D) ;
     std::printf("Apparent CIRS Coordinates\n") ;
     std::printf("    Right Ascension: %f\n", results["observed_ra"]*DR2D) ;
-    std::printf("    Declination    : %f\n", results["observed_dec"]*DR2D) ;
+    std::printf("    Declination    : %+f\n", results["observed_dec"]*DR2D) ;
     std::printf("    Hour Angle     : %+f\n", results["hour_angle"]*DR2D) ;
+    std::printf("Observer Info\n") ;
+    std::printf("    Longitude      : %f deg\n", inputs["longitude"]) ;
     std::printf("\n ...done\n") ;
 }
 
