@@ -41,6 +41,7 @@ void Print_Help()
     std::printf("  --pressure,    -p      Observer's atmospheric pressure (hPa, default=%f)\n", obs.Pressure()) ;
     std::printf("  --temperature, -t      Observer's temperature (degrees Celsius, default=%f)\n", obs.Temperature_C()) ;
     std::printf("  --wavelength,  -w      Wavelength of light being observed (micrometers, default=%2.1f)\n", 0.5) ;
+    std::printf("  --dut1         -d      UT1-UTC (default=0)\n") ;
     std::printf("  --xpolar,      -x      x-polar motion (default=0, best to leave alone)\n") ;
     std::printf("  --ypolar,      -y      y-polar motion (default=0, best to leave alone)\n") ;
     
@@ -52,6 +53,7 @@ std::map<std::string, double> defaultoptions()
 {
     // Define the default values of some of the unnecessary parameters
     std::map<std::string, double> options ;
+    options["dut1"] = 0.0 ;
     options["xpolar"] = 0.0 ;
     options["ypolar"] = 0.0 ;
     
@@ -87,9 +89,10 @@ void getoptions(struct option* longopts)
     longopts[8]  = {"temperature", optional_argument, 0, 't'};   // Temperature (degrees C)
     longopts[9]  = {"humidity",    optional_argument, 0, 'r'};   // Relative humidity (0-1)
     longopts[10] = {"wavelength",  optional_argument, 0, 'w'};   // Wavelength of light (micrometers)
-    longopts[11] = {"xpolar",      optional_argument, 0, 'x'};   // x-component of polar motion (can be 0)
-    longopts[12] = {"ypolar",      optional_argument, 0, 'y'};   // y-component of polar motion (can be 0)
-    longopts[13] = {0,0,0,0} ;
+    longopts[11] = {"dut1",        optional_argument, 0, 'd'};   // UT1-UTC
+    longopts[12] = {"xpolar",      optional_argument, 0, 'x'};   // x-component of polar motion (can be 0)
+    longopts[13] = {"ypolar",      optional_argument, 0, 'y'};   // y-component of polar motion (can be 0)
+    longopts[14] = {0,0,0,0} ;
 }
 
 //_________________________________________________________
@@ -156,6 +159,9 @@ std::map<std::string, double> parseoptions(int argc, char** argv, const struct o
             case 'w':
                 options["wavelength"] = std::stod(optarg) ;
                 break;
+            case 'd':
+                options["dut1"] = std::stod(optarg) ;
+                break;
             case 'x':
                 options["xpolar"] = std::stod(optarg) ;
                 break;
@@ -214,7 +220,7 @@ int main(int argc, char** argv) {
     }
     
     // Define the optional arguments
-    struct option longopts[14] ;
+    struct option longopts[15] ;
     getoptions(longopts) ;
     
     // Parse the options
