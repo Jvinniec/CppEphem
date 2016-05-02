@@ -39,9 +39,9 @@ Here is a list of purposes I wish this code to serve:
   - Greenwich apparent sidereal time
   - Local apparent sidereal time
 * Date conversion routines (see CEDate, fully implemented)
-  - Julian Date
-  - Modified Julian Date
-  - Gregorian Calendar (year, month, day)
+  - __Julian Date__
+  - __Modified Julian Date__
+  - __Gregorian Calendar__ (year, month, day)
 
 More feature will be implemented as time permits. If there 
 is any feature that you would like to see implemented feel 
