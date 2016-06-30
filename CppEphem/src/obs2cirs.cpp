@@ -1,8 +1,8 @@
 //
-//  gal2obs.cpp
+//  obs2cirs.cpp
 //  CppEphem
 //
-//  Created by Josh Cardenzana on 4/27/16.
+//  Created by Josh Cardenzana on 6/30/16.
 //  Copyright © 2016 JCardenzana. All rights reserved.
 //
 
@@ -11,6 +11,7 @@
 #include <map>
 #include <string>
 #include <time.h>
+//#include <vector>
 
 // CppEphem HEADERS
 #include "CECoordinates.h"
@@ -22,13 +23,13 @@ void Print_Help()
 {
     // This is the help text to be printed if no command line options are provide
     // or if the '--help' or '-h' options are given
-    std::printf("\nUSAGE: cirs2obs [options]\n") ;
+    std::printf("\nUSAGE: obs2cirs [options]\n") ;
     
     std::printf("\nREQURED OPTIONS:\n") ;
     std::printf("  --longitude,   -X      Observer longitude (degrees, East-positive)\n") ;
     std::printf("  --latitude,    -Y      Observer latitude (degrees)\n") ;
-    std::printf("  --glon,        -L      Galactic longitude (degrees)\n") ;
-    std::printf("  --glat,        -B      Galactic latitude (degrees)\n") ;
+    std::printf("  --azimuth,     -A      Azimuth (degrees, positive Norht->East)\n") ;
+    std::printf("  --zenith,      -Z      Zenith angle (degrees)\n") ;
     
     // Create an observer with default values so we know what the defaults will be
     CEObserver obs ;
@@ -61,6 +62,8 @@ std::map<std::string, double> defaultoptions()
     time_t current_time = time(NULL) ;
     struct tm * timeinfo = gmtime(&current_time) ;
     double dayfrac = (timeinfo->tm_hour + (timeinfo->tm_min/60.0) + ((timeinfo->tm_sec)/3600.0))/24.0 ;
+//    std::vector<double> date_vect(4,0.0);
+//    date_vect[0] = {double(timeinfo->tm_year+1900.0), double(timeinfo->tm_mon+1.0), double(1.0*timeinfo->tm_mday), dayfrac} ;
     CEDate date({timeinfo->tm_year+1900.0, timeinfo->tm_mon+1.0, 1.0*timeinfo->tm_mday, dayfrac}) ;
     
     options["juliandate"] = date.JD() ;
@@ -82,8 +85,8 @@ void getoptions(struct option* longopts)
     longopts[1]  = {"longitude",   required_argument, 0, 'X'};   // Observer longitude
     longopts[2]  = {"latitude",    required_argument, 0, 'Y'};   // Observer latitude
     longopts[3]  = {"elevation",   optional_argument, 0, 'e'};   // Observer elevation
-    longopts[4]  = {"glon",        required_argument, 0, 'L'};   // Galactic Longitude
-    longopts[5]  = {"glat",        required_argument, 0, 'B'};   // Galactic Latitude
+    longopts[4]  = {"azimuth",     required_argument, 0, 'A'};   // LOCAL azimuth
+    longopts[5]  = {"zenith",      required_argument, 0, 'Z'};   // LOCAL zenith angle
     longopts[6]  = {"juliandate",  required_argument, 0, 'j'};   // Julian date of observation
     longopts[7]  = {"pressure",    optional_argument, 0, 'p'};   // pressure (hPa)
     longopts[8]  = {"temperature", optional_argument, 0, 't'};   // Temperature (degrees C)
@@ -108,7 +111,7 @@ std::map<std::string, double> parseoptions(int argc, char** argv, const struct o
         /* getopt_long stores the option index here. */
         int option_index = 0;
         
-        c = getopt_long (argc, argv, "hX:Y:e:L:B:j:p:t:r:w:d:x:y:",
+        c = getopt_long (argc, argv, "hX:Y:e:R:D:j:p:t:r:w:x:y:",
                          longopts, &option_index);
         
         /* Detect the end of the options. */
@@ -138,11 +141,11 @@ std::map<std::string, double> parseoptions(int argc, char** argv, const struct o
             case 'e':   // Assign observer's elevation
                 options["elevation"] = std::stod(optarg) ;
                 break;
-            case 'L':   // Assign galactic longitude coordinate
-                options["glon"] = std::stod(optarg) ;
+            case 'R':   // Assign Right Ascension coordinate
+                options["ra"] = std::stod(optarg) ;
                 break;
-            case 'B':   // Assign galactic latitude coordinate
-                options["glat"] = std::stod(optarg) ;
+            case 'D':   // Assign Declination coordinate
+                options["dec"] = std::stod(optarg) ;
                 break;
             case 'j':   // Assign julian date
                 options["juliandate"] = std::stod(optarg) ;
@@ -170,7 +173,7 @@ std::map<std::string, double> parseoptions(int argc, char** argv, const struct o
                 break;
             case '?':
                 /* getopt_long already printed an error message. */
-                return std::map<std::string, double>() ;
+                break;
                 
             default:
                 break ;
@@ -192,13 +195,14 @@ void PrintResults(std::map<std::string, double> inputs, std::map<std::string, do
     std::printf("    Azimuth        : %f degrees\n", results["azimuth"]*DR2D) ;
     std::printf("    Zenith         : %+f degrees\n", results["zenith"]*DR2D) ;
     std::printf("    Altitude       : %+f degrees\n", 90.0-results["zenith"]*DR2D) ;
-    std::printf("Galactic Coordinates (input)\n") ;
-    std::printf("    Gal. Longitude : %f degrees\n", inputs["glon"]) ;
-    std::printf("    Gal. Latitude  : %+f degrees\n", inputs["glat"]) ;
+    std::printf("CIRS Coordinates (input)\n") ;
+    std::printf("    Right Ascension: %f degrees\n", inputs["ra"]) ;
+    std::printf("    Declination    : %+f degrees\n", inputs["dec"]) ;
     std::printf("    Julian Date    : %f\n", inputs["juliandate"]) ;
-    std::printf("Apparent Galactic Coordinates\n") ;
-    std::printf("    Gal. Longitude : %f\n", results["observed_glon"]*DR2D) ;
-    std::printf("    Gal. Latitude  : %+f\n", results["observed_glat"]*DR2D) ;
+    std::printf("Apparent CIRS Coordinates\n") ;
+    std::printf("    Right Ascension: %f\n", results["observed_ra"]*DR2D) ;
+    std::printf("    Declination    : %+f\n", results["observed_dec"]*DR2D) ;
+    std::printf("    Hour Angle     : %+f\n", results["hour_angle"]*DR2D) ;
     std::printf("Observer Info\n") ;
     std::printf("    Longitude      : %f deg\n", inputs["longitude"]) ;
     std::printf("    Latitude       : %+f deg\n", inputs["latitude"]) ;
@@ -232,24 +236,26 @@ int main(int argc, char** argv) {
     std::map<std::string, double> results ;
     results["azimuth"] = 0.0 ;
     results["zenith"]  = 0.0 ;
-    results["observed_glon"] = 0.0 ;
-    results["observed_glat"] = 0.0 ;
+    results["observed_ra"] = 0.0 ;
+    results["observed_dec"] = 0.0 ;
+    results["hour_angle"] = 0.0 ;
     
     // Convert the coordinates
-    int errcode = CECoordinates::Galactic2Observed(options["glon"]*DD2R, options["glat"]*DD2R,
-                                                   &results["azimuth"], &results["zenith"],
-                                                   options["juliandate"],
-                                                   options["longitude"]*DD2R,
-                                                   options["latitude"]*DD2R,
-                                                   options["elevation"],
-                                                   options["pressure"],
-                                                   options["temperature"],
-                                                   options["humidity"],
-                                                   options["dut1"],
-                                                   options["xpolar"], options["ypolar"],
-                                                   options["wavelength"],
-                                                   &results["observed_glon"],
-                                                   &results["observed_glat"]) ;
+    int errcode = CECoordinates::CIRS2Observed(options["ra"]*DD2R, options["dec"]*DD2R,
+                                               &results["azimuth"], &results["zenith"],
+                                               options["juliandate"],
+                                               options["longitude"]*DD2R,
+                                               options["latitude"]*DD2R,
+                                               options["elevation"],
+                                               options["pressure"],
+                                               options["temperature"],
+                                               options["humidity"],
+                                               options["dut1"],
+                                               options["xpolar"], options["ypolar"],
+                                               options["wavelength"],
+                                               &results["observed_ra"],
+                                               &results["observed_dec"],
+                                               &results["hour_angle"]) ;
     
     // Print the results
     PrintResults(options, results) ;

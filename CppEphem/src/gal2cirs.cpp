@@ -130,7 +130,7 @@ void PrintResults(std::map<std::string, double> inputs, std::map<std::string, do
     std::printf("    Galactic Lon.  : %f degrees\n", inputs["glon"]) ;
     std::printf("    Galactic Lat.  : %+f degrees\n", inputs["glat"]) ;
     std::printf("    Julian Date    : %f\n", inputs["juliandate"]) ;
-    std::printf("\n...done\n") ;
+    std::printf("\n") ;
 }
 
 //_________________________________________________________

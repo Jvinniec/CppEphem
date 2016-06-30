@@ -13,6 +13,8 @@
 #include <stdio.h>
 #include <vector>
 
+//#include "CEObserver.h"
+
 // Time types are defined as:
 //      UTC   - Coordinate Universal Time
 //      GAST  - Greenwich Apparent Sidereal Time
@@ -33,6 +35,8 @@ public:
     virtual ~CETime() ;
     
     void SetTime(double time, CETimeType time_format=CETimeType::UTC) ;
+    void SetTime(std::vector<double> time_vect,
+                 CETimeType time_format=CETimeType::UTC) ;
     void SetHours(double hours)
         {time_[0] = hours ;}
     void SetMinutes(double minutes)
@@ -45,6 +49,12 @@ public:
      * Convert between the various time types
      *******************************************/
     
+    // UTC conversions
+    static void UTC2GAST() ;
+    static void UTC2LAST() ;
+    static void UTC2LOCALTIME() ;
+    
+    // GAST conversions
     
 protected:
     // Variables for storing the time in various formats
@@ -53,8 +63,19 @@ protected:
     // element 1 - minutes
     // element 2 - seconds
     // element 3 - fractional seconds
-    // Note that the times are actually not connected with each other
+    // Note that the internal stored time is UTC
     std::vector<double> time_ ;
+    CETimeType time_type_ ;
+    
+    // Convert a double of the form HHMMSS.S to a vector with
+    // the same format as 'time_'
+    std::vector<double> TimeDbl2Vect(double time) ;
+    
+    // Internal methods for setting the time
+    void SetTime_UTC(std::vector<double> time) ;
+    void SetTime_GAST(std::vector<double> time) ;
+    void SetTime_LST(std::vector<double> time) ;
+    void SetTime_LOCALTIME(std::vector<double> time) ;
     
 private:
     

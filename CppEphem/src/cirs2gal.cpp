@@ -130,7 +130,7 @@ void PrintResults(std::map<std::string, double> inputs, std::map<std::string, do
     std::printf("    Right Ascension: %f degrees\n", inputs["ra"]) ;
     std::printf("    Declination    : %+f degrees\n", inputs["dec"]) ;
     std::printf("    Julian Date    : %f\n", inputs["juliandate"]) ;
-    std::printf("\n...done\n") ;
+    std::printf("\n") ;
 }
 
 //_________________________________________________________

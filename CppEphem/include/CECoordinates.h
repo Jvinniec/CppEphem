@@ -65,7 +65,7 @@ public:
     static void ConvertCoordinates(CECoordinateType input_coord_type,
                                    double input_coord_x, double input_coord_y,
                                    CECoordinateType return_coord_type,
-                                   double *return_coord_x, double *return_coord2_y,
+                                   double *return_coord_x, double *return_coord_y,
                                    std::vector<double> additional_params=std::vector<double>(0)) ;
     
     // Convert from CIRS to other coordinates

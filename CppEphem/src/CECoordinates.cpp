@@ -61,7 +61,7 @@ CECoordinates::CECoordinates(const CECoordinates& other) :
 void CECoordinates::ConvertCoordinates(CECoordinateType input_coord_type,
                                        double input_coord_x, double input_coord_y,
                                        CECoordinateType return_coord_type,
-                                       double *return_coord_x, double *return_coord2_y,
+                                       double *return_coord_x, double *return_coord_y,
                                        std::vector<double> additional_params)
 {}
 
@@ -448,7 +448,7 @@ int CECoordinates::CIRS2Observed(double ra, double dec,
     if (observed_ra != nullptr) temp_ra = observed_ra ;
     if (observed_dec != nullptr) temp_dec = observed_dec ;
     if (hour_angle != nullptr) temp_hour_angle = hour_angle ;
-    
+
     // Call the necessary sofa method
     int err_code = iauAtio13(ra, dec,
                              julian_date, 0.0,
@@ -463,7 +463,7 @@ int CECoordinates::CIRS2Observed(double ra, double dec,
                              wavelength,
                              az, zen,
                              temp_hour_angle, temp_dec, temp_ra) ;
-    
+
     return err_code ;
 }
 
@@ -577,7 +577,8 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
                                      double *observed_glat)
 {
     // Setup the observed RA, Dec and hour_angle variables
-    double *temp_glon, *temp_glat, *temp_ra, *temp_dec ;
+    double *temp_glon, *temp_glat ;
+    double temp_ra, temp_dec, temp_ha ;
     // If values were passed, point these variables at the passed ones
     if (observed_glon != nullptr) temp_glon = observed_glon ;
     if (observed_glat != nullptr) temp_glat = observed_glat ;
@@ -586,7 +587,7 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
     double ra(0.0), dec(0.0) ;
     CEDate date(julian_date, CEDateType::JD) ;
     Galactic2CIRS(glon, glat, &ra, &dec, date) ;
-    
+
     // Call the necessary sofa method
     int err_code = CIRS2Observed(ra, dec,
                                  az, zen,
@@ -599,11 +600,12 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
                                  relative_humidity,
                                  dut1, xp, yp,
                                  wavelength,
-                                 temp_ra,
-                                 temp_dec) ;
-    
+                                 &temp_ra,
+                                 &temp_dec,
+                                 &temp_ha) ;
+
     // Convert the apparent RA,Dec to galactic longitude,latitude
-    CIRS2Galactic(*temp_ra, *temp_dec, temp_glon, temp_glat, date) ;
+    CIRS2Galactic(temp_ra, temp_dec, temp_glon, temp_glat, date) ;
     
     return err_code ;
 }
