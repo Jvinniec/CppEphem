@@ -185,9 +185,9 @@ std::map<std::string, double> parseoptions(int argc, char** argv, const struct o
 void PrintResults(std::map<std::string, double> inputs, std::map<std::string, double> results)
 {
     std::printf("\n") ;
-    std::printf("******************************************\n") ;
-    std::printf("* Results of CIRS -> Observed conversion *\n") ;
-    std::printf("******************************************\n") ;
+    std::printf("**********************************************\n") ;
+    std::printf("* Results of GALACTIC -> Observed conversion *\n") ;
+    std::printf("**********************************************\n") ;
     std::printf("Observed Coordinates (output)\n") ;
     std::printf("    Azimuth        : %f degrees\n", results["azimuth"]*DR2D) ;
     std::printf("    Zenith         : %+f degrees\n", results["zenith"]*DR2D) ;
