@@ -99,3 +99,12 @@ the executables and libraries are) type:
 ``` make install ```
 
 And that should do it.
+
+Uninstalling the code:
+----------------------------------------------------------
+To uninstall the code, it is advised to first run
+
+```make uninstall```
+
+in the top directory in order to remove the executables from your 
+base install directory. Then you can delete the downloaded git repository.

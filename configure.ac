@@ -62,8 +62,8 @@ fi
 dnl The following is true if none of the '--with-sofa...' options
 dnl were specified
 if test "x$with_sofa$with_sofa_incdir$with_sofa_libdir" = x ; then
-   sofalibs="-L${curDir}/sofa/20150209_a/c/src -lsofa_c ${sofalibs}"
-   sofa_CXXFLAGS="-I${curDir}/sofa/20150209_a/c/src ${sofa_CXXFLAGS}"
+   sofalibs="-L${curDir}/sofa/20160503/c/src -lsofa_c ${sofalibs}"
+   sofa_CXXFLAGS="-I${curDir}/sofa/20160503/c/src ${sofa_CXXFLAGS}"
 fi
 
 echo "$sofa_CXXFLAGS"

@@ -1,0 +1,177 @@
+
+                   Updates for SOFA Release 12 : 2016 May
+                   -------------------------------------- 
+
+Changes/updates fall into the following categories:
+
+1. The addition of four routines to the Precession/Nutation/Polar Motion
+   section, which deliver long-term (+/-200,000 years) precession using
+   the model of Vondrak, Capitaine and Wallace (2011, 2012).
+
+2. Introduction of a new section entitled Ecliptic Coordinates.  This
+   section consists of six routines dealing with the transformation
+   between equatorial and ecliptic coordinates using either the IAU 2006
+   precession model or the long-term precession model of Vondrak et al.
+
+3. Separate Earth Attitude Cookbooks for Fortran and C users, replacing
+   the existing Fortran-only edition.
+
+4. Some documentation corrections.
+
++ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
+
+FORTRAN Routines
+----------------
+
+New routines that implement a long-term precession model:
+
+iau_LTP       Precession matrix, J2000.0 to date using the Vondrak
+              et al. long-term model.
+
+iau_LTPB      Precession+bias matrix, J2000.0 to date using the Vondrak
+              et al. long-term model.
+
+iau_LTPECL    Precession (Vondrak et al. long-term) of the ecliptic.  A
+              unit vector representing the direction of the ecliptic
+              pole with respect to the J2000.0 mean equator and equinox.
+
+iau_LTPEQU    Precession (Vondrak et al. long-term) of the equator.   A
+              unit vector representing the direction of the pole of the
+              equator with respect to the J2000.0 mean equator and
+              equinox.
+
+Routines comprising a new section on ecliptic coordinates:
+
+iau_ECEQ06    Ecliptic coords to equatorial:  transformation of
+              longitude and latitude (mean equinox and ecliptic of date)
+              to mean J2000.0 right ascension and declination, using
+              IAU 2006 precession.
+
+iau_ECM06     ICRS (equatorial) to ecliptic rotation matrix using
+              IAU 2006 precession.
+
+iau_EQEC06    Equatorial to ecliptic coords:  transformation of ICRS
+              right ascension and declination to ecliptic longitude and
+              latitude (mean equinox and ecliptic of date) using
+              IAU 2006 precession.
+
+iau_LTECEQ    Ecliptic coords to equatorial:  transformation of
+              ecliptic longitude and latitude (mean equinox and
+              ecliptic of date) to mean J2000.0 right ascension and
+              declination, using the Vondrak et al. long-term
+              precession.
+
+iau_LTECM     ICRS (equatorial) to ecliptic rotation matrix using the
+              Vondrak et al. long-term precession.
+
+iau_LTEQEC    Equatorial to ecliptic coords:  transformation of ICRS
+              right  ascension and declination to ecliptic longitude and
+              latitude (mean equinox and ecliptic of date) using the
+              Vondrak et al. long-term precession.
+
+Updated:
+
+t_sofa_f.for  Test program, incorporating the ten new routines.
+
+
+Revisions:
+
+iau_ATCO13    List of called routines corrected.
+
+iau_ATIO13    List of called routines corrected.
+
++ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
+
+ANSI C Routines
+---------------
+
+New functions that implement a long-term precession model:
+
+iauLtp        Precession matrix, J2000.0 to date using the Vondrak
+              et al. long-term model.  A new routine.
+
+iauLtpb       Precession+bias matrix, J2000.0 to date using the Vondrak
+              et al. long-term model.  A new routine.
+
+iauLtpecl     Precession (Vondrak et al. long-term) of the ecliptic.  A
+              unit vector representing the direction of the ecliptic
+              pole with respect to the J2000.0 mean equator and equinox.
+              A new routine.
+
+iauLtpequ     Precession (Vondrak et al. long-term) of the equator.   A
+              unit vector representing the direction of the pole of the
+              equator with respect to the J2000.0 mean equator and
+              equinox.  A new routine.
+
+Functions comprising a new section on ecliptic coordinates:
+
+iauEceq06     Ecliptic coords to equatorial:  transformation of
+              longitude and latitude (mean equinox and ecliptic of date)
+              to mean J2000.0 right ascension and declination, using
+              IAU 2006 precession.
+
+iauEcm06      ICRS (equatorial) to ecliptic rotation matrix using
+              IAU 2006 precession.
+
+iauEqec06     Equatorial to ecliptic coords:  transformation of ICRS
+              right ascension and declination to ecliptic longitude and
+              latitude (mean equinox and ecliptic of date) using
+              IAU 2006 precession.
+
+iauLteceq     Ecliptic coords to equatorial:  transformation of
+              ecliptic longitude and latitude (mean equinox and
+              ecliptic of date) to mean J2000.0 right ascension and
+              declination, using the Vondrak et al. long-term
+              precession.
+
+iauLtecm      ICRS (equatorial) to ecliptic rotation matrix using the
+              Vondrak et al. long-term precession.
+
+iauLteqec     Equatorial to ecliptic coords:  transformation of ICRS
+              right  ascension and declination to ecliptic longitude and
+              latitude (mean equinox and ecliptic of date) using the
+              Vondrak et al. long-term precession.
+
+Updated:
+
+sofa.h        Addition of prototypes for the ten new functions listed
+              above.
+
+t_sofa_c      Updated test program incorporating the ten new routines,
+              plus a handful of constants extended to more decimal
+              places.
+
+
+Revisions:
+
+iauAtco13     List of called functions corrected.
+
+iauAtio13     List of called functions corrected.
+
++ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
+
+
+Documentation:
+
+board.lis     Inclusion of the new board members.
+
+title.lis     Release number and date updated.
+
+intro.lis     Updated to reflect the updates and additions of this 12th
+              release.
+
+sofa_lib.lis  New routines added.
+
+sofa_pn_f.pdf SOFA Earth Attitude Cookbook for those using Fortran.  The
+              former Fortran-only version was called sofa_pn.pdf.  A few
+              typographic corrections have been made.
+
+sofa_pn_c.pdf SOFA Earth Attitude Cookbook for those using ANSI C.  Like
+              the former Fortran-only version but with function names
+              and argument lists appropriate for the C case.
+
++ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
+End of Updates
+2016 April 8
+CYH/SAB
++ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +

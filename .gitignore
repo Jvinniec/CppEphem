@@ -20,3 +20,6 @@ sofa/*.a
 *t_sofa_c
 compile
 config.*
+*.lo
+*.la
+*.a
