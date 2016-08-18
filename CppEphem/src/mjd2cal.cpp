@@ -16,7 +16,7 @@ int main(int argc, const char * argv[]) {
     // Check that we've been passed an actual argument
     if (argc < 2) {
         // Print some usage information
-        std::cout << "\nUSAGE: mjd2jd <modified julian date> <return format ID>\n" ;
+        std::cout << "\nUSAGE: mjd2cal <modified julian date> <return format ID>\n" ;
         std::cout << "RETURNED: Gregorian calendar date in two formats:\n" ;
         std::cout << "   (default) ID=0: YYYYMMDD.<date fraction>\n" ;
         std::cout << "             ID=1: YYYY MM DD.<day fraction>" ;

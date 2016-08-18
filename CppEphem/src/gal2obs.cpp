@@ -22,7 +22,7 @@ void Print_Help()
 {
     // This is the help text to be printed if no command line options are provide
     // or if the '--help' or '-h' options are given
-    std::printf("\nUSAGE: cirs2obs [options]\n") ;
+    std::printf("\nUSAGE: gal2obs [options]\n") ;
     
     std::printf("\nREQURED OPTIONS:\n") ;
     std::printf("  --longitude,   -X      Observer longitude (degrees, East-positive)\n") ;
