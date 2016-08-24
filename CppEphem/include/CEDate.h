@@ -93,6 +93,11 @@ public:
     static double GregorianVect2Gregorian(std::vector<double> gregorian) ;
     static std::vector<double> Gregorian2GregorianVect(double gregorian) ;
     
+    /************************************************************
+     * Overloaded operators
+     ************************************************************/
+    operator double() {return julian_date_ ;}
+    
 protected:
     // Variables that hold the time information
     double julian_date_ ;                   // Time stored as the julian date
