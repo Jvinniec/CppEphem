@@ -1,7 +1,6 @@
 This documents the CppEphem package.
 
 * Author: Joshua V. Cardenzana
-* Email: jvinniec *(at)* gmail.com
 * Creation Date: March 2016
 
 DISCLAIMER:
