@@ -2,6 +2,7 @@ This documents the CppEphem package.
 
 * Author: Joshua V. Cardenzana
 * Creation Date: March 2016
+* [Documentation available here](http://jvinniec.github.io/CppEphem/documentation/html/index.html)
 
 DISCLAIMER:
 ----------------------------------------------------------
