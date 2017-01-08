@@ -109,7 +109,9 @@ void CETime::SetTime_UTC(std::vector<double> time)
 
 //_______________________________________________________________
 void CETime::SetTime_GAST(std::vector<double> time)
-{}
+{
+    
+}
 
 
 //_______________________________________________________________

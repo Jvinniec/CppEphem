@@ -24,33 +24,34 @@
 
 class CEBody {
 public:
-    // Default constructor
+    /** Default constructor */
     CEBody() {} ;
-    // Constructor from two coordinates
+    /** Constructor from two coordinates */
     CEBody(double xcoord, double ycoord,
            CEAngleType angle_type = CEAngleType::RADIANS,
            CECoordinateType coord_type = CECoordinateType::CIRS) {};
-    // Constructor from a CECoordinate object
+    /** Constructor from a CECoordinate object */
     CEBody(const CECoordinates &coords) {} ;
-    // Copy Constructor
+    /** Copy Constructor */
     CEBody(const CEBody& other) {} ;
-    // Destructor
+    /** Destructor */
     virtual ~CEBody() {} ;
     
     // -------------------------------------------------------
     // Methods for getting the coordinates of this object
     // -------------------------------------------------------
+    /** Returns the coordinates associated with this object as a 'CECoordinates' object */
     std::shared_ptr<CECoordinates> GetCoordinates() {return coords_ ;}
     
     // -------------------------------------------------------
     // Methods for setting the coordinates of this object
     // -------------------------------------------------------
+    /** Method for setting the coordinates associated with this object. */
     void SetCoordinates(CECoordinates new_coords,
                         CECoordinateType coord_type=CECoordinateType::CIRS) ;
     
 protected:
-    // Coordinates of this object
-    std::shared_ptr<CECoordinates> coords_ ;
+    std::shared_ptr<CECoordinates> coords_ ; ///< Coordinates of this object
     
     // Proper motion variables for this object. These are used for
     // correctly getting the objects coordinates at some date other
