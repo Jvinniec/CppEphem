@@ -1,0 +1,103 @@
+This documents the Cpp\+Ephem package.
+
+
+\begin{DoxyItemize}
+\item Author\+: Joshua V. Cardenzana
+\item Email\+: jvinniec $\ast$(at)$\ast$ gmail.\+com
+\item Creation Date\+: March 2016
+\end{DoxyItemize}
+
+\subsection*{D\+I\+S\+C\+L\+A\+I\+M\+E\+R\+: }
+
+The author above had no connection or involvement in the development of the S\+O\+F\+A software. Their software is included in this package because it is the standard provided by the International Astronomical Union (I\+A\+U). I dont claim to own their code. You can view the readme file in the sofa directory for more information on this software. (Can I not be sued now?)
+
+In all seriousness, the S\+O\+F\+A software package is a rather impressive and phenominally useful piece of code. I am really grateful to the authors of that package for putting it together.
+
+\subsection*{P\+U\+R\+P\+O\+S\+E\+: }
+
+The purpose of this package is to leverage the Standards Of Fundamental Astronomy (S\+O\+F\+A) package in order to allow simple coordinate conversion routines. This should allow converting between \mbox{[}R\+A,Dec\mbox{]}, \mbox{[}Galactice Long, Lat\mbox{]}, and local sky coordinates.
+
+Here is a list of purposes I wish this code to serve\+:
+\begin{DoxyItemize}
+\item Basic coordinate conversion routines (see C\+E\+Coordinates, fully implemented)
+\begin{DoxyItemize}
+\item {\bfseries C\+I\+R\+S} (Earth centric R\+A,Dec)
+\item {\bfseries I\+C\+R\+S} (Solarsystem barycentric R\+A, Dec)
+\item {\bfseries Galactic} (Long, Lat)
+\item {\bfseries Observed} (Azimuth, Zenith angle) (Note\+: Zenith angle = 90\textdegree -\/ Altitude)
+\end{DoxyItemize}
+\item Star \& Planet ephemeris (currently not implemented, 3rd priority)
+\begin{DoxyItemize}
+\item Star \& Planet positions for a given observer at a given time
+\end{DoxyItemize}
+\item Basic time conversion routines (currently not implemented, 2nd priority)
+\begin{DoxyItemize}
+\item U\+T\+C
+\item Local time
+\item Greenwich apparent sidereal time
+\item Local apparent sidereal time
+\end{DoxyItemize}
+\item Date conversion routines (see C\+E\+Date, fully implemented)
+\begin{DoxyItemize}
+\item {\bfseries Julian Date}
+\item {\bfseries Modified Julian Date}
+\item {\bfseries Gregorian Calendar} (year, month, day)
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+More feature will be implemented as time permits. If there is any feature that you would like to see implemented feel free to contact the author or submit an issue and I\textquotesingle{}ll look into it.
+
+The following is a list of currently fully implemented, compiled executables which can be run from the command line\+:
+\begin{DoxyItemize}
+\item Date conversion routines
+\begin{DoxyItemize}
+\item {\bfseries cal2jd}\+: Gregorian calendar to Julian date
+\item {\bfseries cal2mjd}\+: Gregorian calendar to modified Julian date
+\item {\bfseries jd2cal}\+: Julian date to Gregorian calendar date
+\item {\bfseries jd2mjd}\+: Julian date to modified Julian date
+\item {\bfseries mjd2cal}\+: Modified Julian date to Gregorian calendar date
+\item {\bfseries mjd2jd}\+: Modified Julian date to Julian date
+\end{DoxyItemize}
+\item Coordinate conversion routines (all angles are expected in degrees)
+\begin{DoxyItemize}
+\item {\bfseries cirs2obs}\+: C\+I\+R\+S to Observed coordinates
+\item {\bfseries cirs2gal}\+: C\+I\+R\+S to Galactic coordinates
+\item {\bfseries gal2cirs}\+: Galactic to C\+I\+R\+S coordinates
+\item {\bfseries gal2obs}\+: Galactic to Observed coordinates
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\subsection*{Downloading the code\+: }
+
+To obtain the code, it should be as simple as cloning the repository from github\+: ```bash git clone \href{https://github.com/Jvinniec/CppEphem.git}{\tt https\+://github.\+com/\+Jvinniec/\+Cpp\+Ephem.\+git} Cpp\+Ephem ```
+
+\subsection*{Building the code\+: }
+
+As long as the user has the most up to date version of autotools, you should be able to build the software very easily using the standard \char`\"{}./configure -\/$>$ make -\/$>$ make install\char`\"{} method. Here is a bit more detail.
+
+First, download the repository as described above in \char`\"{}\+Downloading 
+the code\char`\"{}. Second, make sure that the \char`\"{}configure\char`\"{} file exists in the top directory. If not, then do\+:
+
+{\ttfamily . autogen.\+sh}
+
+Third, configure the software (note the \char`\"{}prefix\char`\"{} option is optional)\+:
+
+{\ttfamily ./configure \mbox{[}-\/-\/prefix=/your/install/directory\mbox{]}}
+
+Fourth, build the code\+:
+
+{\ttfamily make}
+
+Finally, to install the code in an accesible manner (i.\+e. so that your P\+A\+T\+H and (D\+Y)L\+D\+\_\+\+L\+I\+B\+R\+A\+R\+Y\+\_\+\+P\+A\+T\+H environment variables know where the executables and libraries are) type\+:
+
+{\ttfamily make install}
+
+And that should do it.
+
+\subsection*{Uninstalling the code\+: }
+
+To uninstall the code, it is advised to first run
+
+{\ttfamily make uninstall}
+
+in the top directory in order to remove the executables from your base install directory. Then you can delete the downloaded git repository. 

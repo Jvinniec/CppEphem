@@ -1,0 +1,14 @@
+var searchData=
+[
+  ['cebody',['CEBody',['../class_c_e_body.html',1,'CEBody'],['../class_c_e_body.html#abd36081ccb5770d61e2da22e3f50d552',1,'CEBody::CEBody()'],['../class_c_e_body.html#ab0b96cb0cd4b2f04ba8969dc2b88fb82',1,'CEBody::CEBody(double xcoord, double ycoord, CEAngleType angle_type=CEAngleType::RADIANS, CECoordinateType coord_type=CECoordinateType::CIRS)'],['../class_c_e_body.html#ae37bba2077f7f3a1ed933e8ad6dd24bf',1,'CEBody::CEBody(const CECoordinates &amp;coords)'],['../class_c_e_body.html#ac8bcbe8f5c0fd548e5473de324add4a9',1,'CEBody::CEBody(const CEBody &amp;other)']]],
+  ['cecoordinates',['CECoordinates',['../class_c_e_coordinates.html',1,'CECoordinates'],['../class_c_e_coordinates.html#adbaa5893da76e77dca4d1b8e630132d4',1,'CECoordinates::CECoordinates()'],['../class_c_e_coordinates.html#ad98944b414371e55e8e5d13b3475ddb0',1,'CECoordinates::CECoordinates(double xcoord, double ycoord, CECoordinateType coord_type, CEAngleType angle_type=CEAngleType::RADIANS)'],['../class_c_e_coordinates.html#a1c51863ec6e2e6f38c9e9b42fcea323d',1,'CECoordinates::CECoordinates(CECoordinateType coord_type)'],['../class_c_e_coordinates.html#a12be549e1747131f766bcc9c67e8fe4f',1,'CECoordinates::CECoordinates(const CECoordinates &amp;other)']]],
+  ['cedate',['CEDate',['../class_c_e_date.html',1,'']]],
+  ['ceobserver',['CEObserver',['../class_c_e_observer.html',1,'']]],
+  ['cetime',['CETime',['../class_c_e_time.html',1,'']]],
+  ['cirs2galactic',['CIRS2Galactic',['../class_c_e_coordinates.html#acc48a4431787fe52fe5c09d0dd088732',1,'CECoordinates']]],
+  ['cirs2icrs',['CIRS2ICRS',['../class_c_e_coordinates.html#a8330914a9a58924993ddf3daf65a0ed0',1,'CECoordinates']]],
+  ['cirs2observed',['CIRS2Observed',['../class_c_e_coordinates.html#a8b3cadaf04a15c5bb281b5aea675c7e9',1,'CECoordinates::CIRS2Observed(double ra, double dec, double *az, double *zen, CEObserver observer, CEAngleType angle_type=CEAngleType::RADIANS, double wavelength=0.5, double *observed_ra=nullptr, double *observed_dec=nullptr, double *hour_angle=nullptr)'],['../class_c_e_coordinates.html#aa77d308ed8537f8cd42df293e51c5eb6',1,'CECoordinates::CIRS2Observed(double ra, double dec, double *az, double *zen, double julian_date, double longitude, double latitude, double elevation_m=0.0, double pressure_hPa=-1.0, double temperature_celsius=-1000, double relative_humidity=0.0, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength=500.0, double *observed_ra=nullptr, double *observed_dec=nullptr, double *hour_angle=nullptr)']]],
+  ['convertcoordinates',['ConvertCoordinates',['../class_c_e_coordinates.html#aa29c61ff89222c311236c48120d1120f',1,'CECoordinates']]],
+  ['coord_5ftype_5f',['coord_type_',['../class_c_e_coordinates.html#ae2ae938af879ec0aa1fb0e92537bbeed',1,'CECoordinates']]],
+  ['coords_5f',['coords_',['../class_c_e_body.html#ad054d987e2287cc5946fda179dc2dea4',1,'CEBody']]]
+];
