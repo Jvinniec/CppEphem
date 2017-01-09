@@ -32,7 +32,6 @@ enum class CECoordinateType {CIRS,           ///< RA, Dec (referenced at the cen
 // Initiate the class that holds the coordinate information
 class CECoordinates {
 public:
-    /** Default constructor */
     CECoordinates() ;
     /** Primary constructor (NOTE: xcoord & ycoord are expected to be in radians by default. */
     CECoordinates(double xcoord, double ycoord,
