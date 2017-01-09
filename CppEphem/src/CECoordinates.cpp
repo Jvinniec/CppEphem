@@ -11,7 +11,7 @@
 #pragma mark - Constructors & Destructors
 
 //__________________________________________________________
-// Default constructor
+/** Default constructor */
 CECoordinates::CECoordinates() :
     xcoord_(0.0),
     ycoord_(0.0),
