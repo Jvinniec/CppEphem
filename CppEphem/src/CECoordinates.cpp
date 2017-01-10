@@ -19,7 +19,7 @@ CECoordinates::CECoordinates() :
 {}
 
 //__________________________________________________________
-// Primary constructor
+/** Primary constructor */
 CECoordinates::CECoordinates(double xcoord, double ycoord,
                              CECoordinateType coord_type,
                              CEAngleType angle_type) :
