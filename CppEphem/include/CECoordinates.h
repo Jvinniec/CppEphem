@@ -33,16 +33,12 @@ enum class CECoordinateType {CIRS,           ///< RA, Dec (referenced at the cen
 class CECoordinates {
 public:
     CECoordinates() ;
-    /** Primary constructor (NOTE: xcoord & ycoord are expected to be in radians by default. */
     CECoordinates(double xcoord, double ycoord,
                   CECoordinateType coord_type,
                   CEAngleType angle_type=CEAngleType::RADIANS) ;
-    /** Set the object based only on the coordinate type. The default wil be to store. */
     CECoordinates(CECoordinateType coord_type) ;
-    /** Copy onstructor */
     CECoordinates(const CECoordinates& other) ;
-    /** Destructor */
-    virtual ~CECoordinates() {} ;
+    virtual ~CECoordinates() ;
     
     /**********************************************************
      * Methods for accessing the coordinate information
@@ -60,88 +56,70 @@ public:
     // start of the J2000 epoch (January 1, 2000 at 12:00 GMT). This corresponds
     // to the Julian Date of 2451545.0.
     
-    /** Main method used to convert from one set of coordinates to another. */
-    static void ConvertCoordinates(CECoordinateType input_coord_type,   ///< Coordinate type to convert FROM
-                                   double input_coord_x,                ///< X-coordinate for input
-                                   double input_coord_y,                ///< Y-coordinate for input
-                                   CECoordinateType return_coord_type,  ///< Coordinate type to convert TO
-                                   double *return_coord_x,              ///< X-coordinate for output
-                                   double *return_coord_y,              ///< Y-coordinate for output
-                                   std::vector<double> additional_params=std::vector<double>(0) ///< Any additional parameters needed
-                                   );
+    static void ConvertCoordinates(CECoordinateType input_coord_type,
+                                   double input_coord_x,
+                                   double input_coord_y,
+                                   CECoordinateType return_coord_type,
+                                   double *return_coord_x,
+                                   double *return_coord_y,
+                                   std::vector<double> additional_params=std::vector<double>(0));
     
     // Convert from CIRS to other coordinates
-    /** CIRS -> ICRS coordinate conversion */
     static void CIRS2ICRS(double input_ra, double input_dec, double *return_ra, double *return_dec,
                           CEDate date=CEDate(DJ00, CEDateType::JD),
                           CEAngleType angle_type=CEAngleType::RADIANS) ;
-    /** CIRS -> Galactic coordinate conversion */
     static void CIRS2Galactic(double ra, double dec, double *glon, double *glat,
                               CEDate date=CEDate(DJ00, CEDateType::JD),
                               CEAngleType angle_type=CEAngleType::RADIANS) ;
-    /** CIRS -> Observed (or observer specific) coordinate conversion */
-    static int CIRS2Observed(double ra,                         ///< Right ascension in CIRS coordinates
-                             double dec,                        ///< Declination in CIRS coordinates
-                             double *az,                        ///< Azimuth (returned)
-                             double *zen,                       ///< Zenith angle (returned)
-                             CEObserver observer,               ///< Observer information
-                             CEAngleType angle_type=CEAngleType::RADIANS,   ///< Angle type for all angles provided
-                                                                ///< (either RADIANS or DEGREES)
-                             double wavelength=0.5,             ///< Observing wavelength (micrometers)
-                             double *observed_ra=nullptr,       ///< Observed CIRS right ascension
-                             double *observed_dec=nullptr,      ///< Observed CIRS declination
-                             double *hour_angle=nullptr         ///< Hour angle for coordinates
-                             ) ;
+    static int CIRS2Observed(double ra,
+                             double dec,
+                             double *az,
+                             double *zen,
+                             CEObserver observer,
+                             CEAngleType angle_type=CEAngleType::RADIANS,
+                             double wavelength=0.5,
+                             double *observed_ra=nullptr,
+                             double *observed_dec=nullptr,
+                             double *hour_angle=nullptr) ;
     
     // Convert from ICRS to other coordinates
-    /** ICRS -> CIRS coordinate conversion */
-    static void ICRS2CIRS(double input_ra,                      ///< Right ascension in ICRS coordinates
-                          double input_dec,                     ///< Declination in ICRS coordinates
-                          double *return_ra,                    ///< Right ascension in CIRS coordinates (returned)
-                          double *return_dec,                   ///< Declination in CIRS coordinates (returned)
-                          CEDate date=CEDate(DJ00, CEDateType::JD),     ///< Date information
-                          CEAngleType angle_type=CEAngleType::RADIANS   ///< Angle type for all angles
-                                                                        ///< (either RADIANS or DEGREES)
-                          );
-    /** ICRS -> Galactic coordinate conversion */
-    static void ICRS2Galactic(double ra,                        ///< Right ascension in ICRS coordinates
-                              double dec,                       ///< Declination in ICRS coordinates
-                              double *glon,                     ///< Galactic longitude (returned)
-                              double *glat,                     ///< Galactic latitude (returned)
+    static void ICRS2CIRS(double input_ra,
+                          double input_dec,
+                          double *return_ra,
+                          double *return_dec,
+                          CEDate date=CEDate(DJ00, CEDateType::JD),
+                          CEAngleType angle_type=CEAngleType::RADIANS);
+    static void ICRS2Galactic(double ra,
+                              double dec,
+                              double *glon,
+                              double *glat,
                               CEAngleType angle_type=CEAngleType::RADIANS) ;
-    /** ICRS -> Observed (observer specific) coordinates */
-    static int ICRS2Observed(double ra,                         ///< Right ascension in ICRS coordinates
-                             double dec,                        ///< Declination in ICRS coordinates
-                             double *az,                        ///< Azimuth angle
-                             double *zen,                       ///< Zenith angle
-                             CEObserver observer,               ///< Object describing the observer
-                             CEAngleType angle_type=CEAngleType::RADIANS,   ///< Angle type for all angles provided
-                                                                ///< (either RADIANS or DEGREES)
-                             double wavelength=0.5,             ///< Observing wavelength (micrometers)
-                             double *observed_ra=nullptr,       ///< Observed ICRS right ascension (returned)
-                             double *observed_dec=nullptr       ///< Observed ICRS declination (returned)
-                             );
+    static int ICRS2Observed(double ra,
+                             double dec,
+                             double *az,
+                             double *zen,
+                             CEObserver observer,
+                             CEAngleType angle_type=CEAngleType::RADIANS,
+                             
+                             double wavelength=0.5,
+                             double *observed_ra=nullptr,
+                             double *observed_dec=nullptr);
     
     // Convert from GALACTIC to other coordinates
-    /** Galactic -> ICRS coordinate conversion */
     static void Galactic2CIRS(double glon, double glat, double *ra, double *dec,
                               CEDate date=CEDate(julian_date_J2000(), CEDateType::JD),
                               CEAngleType angle_type=CEAngleType::RADIANS) ;
-    /** Galactic -> ICRS coordinate conversion */
     static void Galactic2ICRS(double glon, double glat, double *ra, double *dec,
                               CEAngleType angle_type=CEAngleType::RADIANS) ;
-    /** Galactic -> Observed (observer specific) coordinate conversion */
-    static int Galactic2Observed(double glon,                       ///< Galactic longitude
-                                 double glat,                       ///< Galactic latitude
-                                 double *az,                        ///< Azimuth
-                                 double *zen,                       ///< Zenith angle
-                                 CEObserver observer,               ///< Object describing the observer
-                                 CEAngleType angle_type=CEAngleType::RADIANS,   ///< Angle type for all angles provided
-                                                                    ///< (either RADIANS or DEGREES)
-                                 double wavelength=0.5,             ///< Observing wavelength (micrometers)
-                                 double *observed_glon=nullptr,     ///< Observed Galactic longitude (returned)
-                                 double *observed_glat=nullptr    ///< Observed Galactic latitude (returned)
-                                 );
+    static int Galactic2Observed(double glon,
+                                 double glat,
+                                 double *az,
+                                 double *zen,
+                                 CEObserver observer,
+                                 CEAngleType angle_type=CEAngleType::RADIANS,
+                                 double wavelength=0.5,
+                                 double *observed_glon=nullptr,
+                                 double *observed_glat=nullptr);
     // Convert from OBSERVED to other coordinates
     
     
@@ -149,10 +127,6 @@ public:
     // azimuth, zenith without the need to use the CEObserver class.
     // They function by creating a temporary CEObserver object and then
     // calling the above functions.
-    /** 
-     * Raw method for converting CIRS -> Observed (observer specific) coordinates.
-     * Note: All angles are expected to be in radians.
-     */
     static int CIRS2Observed(double ra,                         ///< Right ascension in CIRS coordinates
                              double dec,                        ///< Declination CIRS coordinates
                              double *az,                        ///< Azimuth (returned)

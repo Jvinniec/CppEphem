@@ -6,20 +6,36 @@
 //  Copyright © 2016 JCardenzana. All rights reserved.
 //
 
+/** \class CECoordinates
+ CECoordinates class is responsible for doing all of the celestial coordinate
+ conversions. Command line tools are also available for "on the fly" conversions.
+ 
+ The different coordinate systems used:
+ - CIRS: Earth-centric coordinate systems
+ - ICRS: Solar system barycentric coordinate system
+ - Galactic: Galactic coordinates
+ - Observed: Observer specific coordinate system
+ */
+
 #include "CECoordinates.h"
 
 #pragma mark - Constructors & Destructors
 
-//__________________________________________________________
-/** Default constructor */
+////////////////////////////////////////////////////////////
+/// Default constructor
 CECoordinates::CECoordinates() :
     xcoord_(0.0),
     ycoord_(0.0),
     coord_type_(CECoordinateType::CIRS)
 {}
 
-//__________________________________________________________
-/** Primary constructor */
+////////////////////////////////////////////////////////////
+/// Primary constructor (NOTE: xcoord & ycoord are expected to be in radians by default.
+/// @param xcoord X-Coordinate (radians)
+/// @param ycoord Y-Coordinate (radians)
+/// @param coord_type Coordinate type (see CECoordinateType)
+/// @param angle_type Angle type (either DEGREES or RADIANS)
+
 CECoordinates::CECoordinates(double xcoord, double ycoord,
                              CECoordinateType coord_type,
                              CEAngleType angle_type) :
@@ -34,30 +50,45 @@ CECoordinates::CECoordinates(double xcoord, double ycoord,
     }
 }
 
+////////////////////////////////////////////////////////////
+/// Constructor from a coordinate type
+/// @param coord_type Coordinate type (see CECoordinateType)
 
-//__________________________________________________________
 CECoordinates::CECoordinates(CECoordinateType coord_type) :
     xcoord_(0.0),
     ycoord_(0.0),
     coord_type_(coord_type)
 {}
 
+////////////////////////////////////////////////////////////
+/// Copy constructor
 
-//__________________________________________________________
-// Copy constructor
 CECoordinates::CECoordinates(const CECoordinates& other) :
     xcoord_(other.xcoord_),
     ycoord_(other.ycoord_),
     coord_type_(other.coord_type_)
 {}
 
+////////////////////////////////////////////////////////////
+/// Destructor
 
+CECoordinates::~CECoordinates()
+{}
 #pragma mark - Public Methods
 
 
 #pragma mark - Conversion routines
 
-//__________________________________________________________
+////////////////////////////////////////////////////////////
+/// Main method used to convert from one set of coordinates to another.
+/// @param input_coord_type Input coordinate type
+/// @param input_coord_x Input x-coordinate
+/// @param input_coord_y Input y-coordinate
+/// @param return_coord_type Returned coordinate type
+/// @param return_coord_x Returned x-coordinate
+/// @param return_coord_y Returned y-coordinate
+/// @param additional_params Additional parameters
+
 void CECoordinates::ConvertCoordinates(CECoordinateType input_coord_type,
                                        double input_coord_x, double input_coord_y,
                                        CECoordinateType return_coord_type,
@@ -65,11 +96,15 @@ void CECoordinates::ConvertCoordinates(CECoordinateType input_coord_type,
                                        std::vector<double> additional_params)
 {}
 
-/*********************************************************
- * Convert CIRS Coordinates
- *********************************************************/
+////////////////////////////////////////////////////////////
+/// CIRS -> ICRS coordinate conversion
+///     @param input_ra     CIRS right ascension
+///     @param input_dec    CIRS declination
+///     @param return_ra    ICRS right ascension (returned)
+///     @param return_dec   ICRS declinaton (returned)
+///     @param date         Date information
+///     @param angle_type   Angle type
 
-//__________________________________________________________
 void CECoordinates::CIRS2ICRS(double input_ra, double input_dec,
                               double *return_ra, double *return_dec,
                               CEDate date, CEAngleType angle_type)
@@ -94,7 +129,15 @@ void CECoordinates::CIRS2ICRS(double input_ra, double input_dec,
     }
 }
 
-//__________________________________________________________
+////////////////////////////////////////////////////////////
+/// CIRS -> Galactic coordinate conversion.
+///     @param input_ra     CIRS right ascension
+///     @param input_dec    CIRS declination
+///     @param glon         Galactic longitude
+///     @param glat         Galactic latitude
+///     @param date         Date information
+///     @param angle_type   Angle format (DEGREES or RADIANS)
+
 void CECoordinates::CIRS2Galactic(double input_ra, double input_dec, double *glon, double *glat,
                                   CEDate date, CEAngleType angle_type)
 {
@@ -119,30 +162,33 @@ void CECoordinates::CIRS2Galactic(double input_ra, double input_dec, double *glo
     }
 }
 
+////////////////////////////////////////////////////////////
+/// CIRS -> Observed (or observer specific) coordinate conversion
+/// This function takes in verious observation parameters
+/// The integer returned is a status code with the following meanings:
+///     +1 = dubious year (too far into the past/future to be trusted)
+///      0 = OK status
+///     -1 = unacceptable date
+///
+///     @param ra           Right ascension in CIRS coordinates
+///     @param dec          Declination in CIRS coordinates
+///     @param az           Azimuth (returned)
+///     @param zen          Zenith angle (returned)
+///     @param observer     Observer information
+///     @param angle_type   Angle type (see CEAngleType)
+///     @param wavelength   Wavelength of the light being observed (units?)
+///     @param observed_ra  Observed right ascension (returned)
+///     @param observed_dec Observed declination (returned)
+///     @param hour_angle   Hour angle of object being observed (returned)
 
-/*********************************************************************
- * This function takes in verious observation parameters
- * The integer returned is a status code with the following meanings:
- *      +1 = dubious year (too far into the past/future to be trusted)
- *       0 = OK status
- *      -1 = unacceptable date
- * RETURNED:
- *      observed_ra  = observed right ascension
- *      observed_dec = observed declination
- *      hour_angle   = observed hour angle
- *      az           = observed azimuth
- *      zen          = observed zenith
- *********************************************************************/
-int CECoordinates::CIRS2Observed(double ra, double dec,             // RA, Dec in CIRS coordinates
-                                 double *az, double *zen,           // Azimuth, zenith angle
-                                 CEObserver observer,               // Observer quantities, like geographic position,
-                                                                    // weather conditions, and date
-                                 CEAngleType angle_type,            // Angle type for all angles provided
-                                                                    // (either RADIANS or DEGREES)
-                                 double wavelength,                 // Observing wavelength (micrometers)
-                                 double *observed_ra,               // Observed CIRS right ascension
-                                 double *observed_dec,              // Observed CIRS declination
-                                 double *hour_angle)                // Hour angle for coordinates
+int CECoordinates::CIRS2Observed(double ra, double dec,
+                                 double *az, double *zen,
+                                 CEObserver observer,
+                                 CEAngleType angle_type,
+                                 double wavelength,
+                                 double *observed_ra,
+                                 double *observed_dec,
+                                 double *hour_angle)
 {
     // If we've passed in angles that are in degrees we need to convert to radians
     if (angle_type == CEAngleType::DEGREES) {
@@ -184,11 +230,16 @@ int CECoordinates::CIRS2Observed(double ra, double dec,             // RA, Dec i
     return err_code ;
 }
 
-/*********************************************************
- * Convert ICRS Coordinates
- *********************************************************/
+////////////////////////////////////////////////////////////
+/// ICRS -> CIRS coordinate conversion
+///
+///     @param input_ra     Right ascension to be converted
+///     @param input_dec    Declination to be converted
+///     @param return_ra    CIRS Right ascension (returned)
+///     @param return_dec   CIRS Declination (returned)
+///     @param date         Date object
+///     @param angle_type   Angle type (either DEGREES or RADIANS)
 
-//__________________________________________________________
 void CECoordinates::ICRS2CIRS(double input_ra, double input_dec,
                               double *return_ra, double *return_dec,
                               CEDate date, CEAngleType angle_type)
@@ -212,7 +263,14 @@ void CECoordinates::ICRS2CIRS(double input_ra, double input_dec,
     return ;
 }
 
-//__________________________________________________________
+////////////////////////////////////////////////////////////
+/// ICRS -> Galactic coordinate conversion
+///     @param input_ra     ICRS Right ascension
+///     @param input_dec    ICRS Declination
+///     @param glon         Galactic longitude
+///     @param glat         Galactic latitude
+///     @param angle_type   Angle type
+
 void CECoordinates::ICRS2Galactic(double input_ra, double input_dec, double *glon, double *glat,
                                   CEAngleType angle_type)
 {
@@ -220,19 +278,22 @@ void CECoordinates::ICRS2Galactic(double input_ra, double input_dec, double *glo
     iauIcrs2g(input_ra, input_dec, glon, glat) ;
 }
 
+////////////////////////////////////////////////////////////
+/// ICRS -> Observed coordinate conversion.
+/// The integer returned is a status code with the following meanings:
+///     +1 = dubious year (too far into the past/future to be trusted)
+///      0 = OK status
+///     -1 = unacceptable date
+///
+///     @param ra           ICRS right ascension
+///     @param dec          ICRS declination
+///     @param az           Azimuth
+///     @param zen          Zenith
+///     @param observer     Observer information
+///     @param angle_type   Angle type
+///     @param observed_ra  Apparent ICRS Right Ascension
+///     @param observed_dec Apparent ICRS Declination
 
-/*********************************************************************
- * This function takes in verious observation parameters
- * The integer returned is a status code with the following meanings:
- *      +1 = dubious year (too far into the past/future to be trusted)
- *       0 = OK status
- *      -1 = unacceptable date
- * RETURNED:
- *      az           = Observed azimuth
- *      zen          = Observed zenith
- *      observed_ra  = Apparent ICRS Right Ascension
- *      observed_dec = Apparent ICRS Declination
- *********************************************************************/
 int CECoordinates::ICRS2Observed(double ra, double dec,             // RA, Dec in CIRS coordinates
                                  double *az, double *zen,           // Azimuth, zenith angle
                                  CEObserver observer,               // Observer quantities, like geographic position,
@@ -281,15 +342,15 @@ int CECoordinates::ICRS2Observed(double ra, double dec,             // RA, Dec i
  * Convert GALACTIC Coordinates
  *********************************************************/
 
-/*********************************************************************
- * This function takes in verious observation parameters
- * PASSED:
- *      glon = galactic longitude
- *      glat = galactic latitude
- * RETURNED:
- *      ra  = CIRS right ascension
- *      dec = CIRS declination
- *********************************************************************/
+////////////////////////////////////////////////////////////
+/// Galactic -> CIRS coordinate conversion
+///     @param glon     Galactic longitude
+///     @param glat     Galactic latitude
+///     @param ra       CIRS right ascension
+///     @param dec      CIRS declination
+///     @param date     Date information
+///     @param angle_type   Angle type (RADIANS or DEGREES)
+
 void CECoordinates::Galactic2CIRS(double glon, double glat, double *ra, double *dec,
                                   CEDate date, CEAngleType angle_type)
 {
@@ -313,15 +374,14 @@ void CECoordinates::Galactic2CIRS(double glon, double glat, double *ra, double *
     }
 }
 
-/*********************************************************************
- * This function takes in verious observation parameters
- * PASSED:
- *      glon = galactic longitude
- *      glat = galactic latitude
- * RETURNED:
- *      ra  = CIRS right ascension
- *      dec = CIRS declination
- *********************************************************************/
+////////////////////////////////////////////////////////////
+/// Galactic -> ICRS coordinate conversion
+///     @param glon         Galactic longitude
+///     @param glat         Galactic latitude
+///     @param ra           ICRS right ascension (returned)
+///     @param dec          ICRS declinaton (returned)
+///     @param angle_type   Angle type (DEGREES or RADIANS)
+
 void CECoordinates::Galactic2ICRS(double glon, double glat, double *ra, double *dec,
                                   CEAngleType angle_type)
 {
@@ -341,24 +401,25 @@ void CECoordinates::Galactic2ICRS(double glon, double glat, double *ra, double *
     }
 }
 
+////////////////////////////////////////////////////////////
+/// Galactic -> Observed (i.e. observer specific) coordinate conversion.
+/// For the raw version of this method see CECoordinates::Galactic2Observed().
+///     @param glon             Galactic longitude
+///     @param glat             Galactic latitude
+///     @param az               Azimuth angle (returned)
+///     @param zen              Zenith angle (returned)
+///     @param observer         Observer information
+///     @param wavelength       Wavelength
+///     @param observed_glon    Observed galactic longitude (returned)
+///     @param observed_glat    Observed galactic latitude (returned)
 
-/*********************************************************************
- * This function takes in verious observation parameters
- * PASSED:
- *      glon = galactic longitude
- *      glat = galactic latitude
- * RETURNED:
- *      ra  = CIRS right ascension
- *      dec = CIRS declination
- *********************************************************************/
-int CECoordinates::Galactic2Observed(double glon, double glat,  // RA, Dec in CIRS coordinates
-                                     double *az, double *zen,   // Azimuth, zenith angle
+int CECoordinates::Galactic2Observed(double glon, double glat,
+                                     double *az, double *zen,
                                      CEObserver observer,
-                                     CEAngleType angle_type,    // Angle type for all angles provided
-                                                                // (either RADIANS or DEGREES)
-                                     double wavelength,         // Observing wavelength (micrometers)
-                                     double *observed_glon,     // Apparent galactic longitude
-                                     double *observed_glat)     // Apparent galactic latitude
+                                     CEAngleType angle_type,
+                                     double wavelength,
+                                     double *observed_glon,
+                                     double *observed_glat)
 {
     // Convert angles to radians if necessary
     if (angle_type == CEAngleType::DEGREES) {
@@ -402,30 +463,28 @@ int CECoordinates::Galactic2Observed(double glon, double glat,  // RA, Dec in CI
  * Main routines for converting TO OBSERVED Coordinates
  *********************************************************/
 
-/*********************************************************************
- * CONVERTS CIRS to OBSERVED coordinates
- * This function takes in verious observation parameters
- * PASSED:
- *      ra          = CIRS Right Ascension (radians)
- *      dec         = CIRS Declination (radians)
- *      julian_date = Julian date for conversion
- *      longitude   = Geographic longitude (radians,East=positive)
- *      latitude    = Geographic latitude (radians)
- * OPTIONAL PASSED:
- *      elevation_m  = Observer elevation (meters)
- *      pressure_hPa = Atmospheric pressure (hPa)
- *      temerature_celsius = Atmospheric temperature (Celsius)
- *      dut1         = UT1 - UTC
- *      xp,yp        = x & y component of motion of the pole
- *      wavelength   = wavelength of light observed (micrometers)
- * RETURNED:
- *      az   = Azimuth (radians)
- *      zen  = Zenith angle (radians)
- *   (optional)
- *      observed_ra  = Observed CIRS Right Ascension
- *      observed_dec = Observed CIRS Declination
- *      hour_angle   = hour angle of the coordinates passed
- *********************************************************************/
+////////////////////////////////////////////////////////////
+/// Raw method for converting CIRS -> Observed (observer specific) coordinates.
+/// Note: All angles are expected to be in radians.
+///     @param ra                   CIRS right ascension
+///     @param dec                  CIRS declination
+///     @param az                   Observed azimuth angle (returned)
+///     @param zen                  Observed zenith angle (returned)
+///     @param julian_date          Julian date for conversion
+///     @param latitude             Observer geographic latitude
+///     @param longitude            Observer geographic longitude
+///     @param elevation_m          Observer elevation (meters)
+///     @param pressure_hPa         Atmospheric pressure (HPa)
+///     @param temperature_celsius  Temperature (degrees Celsius)
+///     @param relative_humidity    Relative humidity (0.0 - 1.0)
+///     @param dut1                 UTC - UT1
+///     @param xp                   "x" polar motion
+///     @param yp                   "y" polar motion
+///     @param wavelength           Wavelength
+///     @param observed_ra          Apparent right ascension (returned)
+///     @param observed_dec         Apparent declination (returned)
+///     @param hour_angle           Hour angle
+
 int CECoordinates::CIRS2Observed(double ra, double dec,
                                  double *az, double *zen,
                                  double julian_date,
@@ -467,30 +526,27 @@ int CECoordinates::CIRS2Observed(double ra, double dec,
     return err_code ;
 }
 
+////////////////////////////////////////////////////////////
+/// Raw method for converting CIRS -> Observed (observer specific) coordinates.
+/// Note: All angles are expected to be in radians.
+///     @param ra                   CIRS right ascension
+///     @param dec                  CIRS declination
+///     @param az                   Observed azimuth angle (returned)
+///     @param zen                  Observed zenith angle (returned)
+///     @param julian_date          Julian date for conversion
+///     @param latitude             Observer geographic latitude
+///     @param longitude            Observer geographic longitude
+///     @param elevation_m          Observer elevation (meters)
+///     @param pressure_hPa         Atmospheric pressure (HPa)
+///     @param temperature_celsius  Temperature (degrees Celsius)
+///     @param relative_humidity    Relative humidity (0.0 - 1.0)
+///     @param dut1                 UTC - UT1
+///     @param xp                   "x" polar motion
+///     @param yp                   "y" polar motion
+///     @param wavelength           Wavelength
+///     @param observed_ra          Apparent right ascension (returned)
+///     @param observed_dec         Apparent declination (returned)
 
-/*********************************************************************
- * Converts ICRS to OBSERVED coordinates.s
- * This function takes in verious observation parameters
- * PASSED:
- *      ra          = ICRS Right Ascension (radians)
- *      dec         = ICRS Declination (radians)
- *      julian_date = Julian date for conversion
- *      longitude   = Geographic longitude (radians,East=positive)
- *      latitude    = Geographic latitude (radians)
- * OPTIONAL PASSED:
- *      elevation_m  = Observer elevation (meters)
- *      pressure_hPa = Atmospheric pressure (hPa)
- *      temerature_celsius = Atmospheric temperature (Celsius)
- *      dut1         = UT1 - UTC
- *      xp,yp        = x & y component of motion of the pole
- *      wavelength   = wavelength of light observed (micrometers)
- * RETURNED:
- *      az   = Azimuth (radians)
- *      zen  = Zenith angle (radians)
- *   (optional)
- *      observed_ra  = Observed CIRS Right Ascension
- *      observed_dec = Observed CIRS Declination
- *********************************************************************/
 int CECoordinates::ICRS2Observed(double ra, double dec,
                                  double *az, double *zen,
                                  double julian_date,
@@ -537,30 +593,27 @@ int CECoordinates::ICRS2Observed(double ra, double dec,
     return err_code ;
 }
 
+////////////////////////////////////////////////////////////
+/// Raw method for converting Galactic -> Observed (observer specific) coordinates.
+/// Note: All angles are expected to be in radians.
+///     @param glon                 Galactic longitude
+///     @param glat                 Galactic latitude
+///     @param az                   Observed azimuth angle (returned)
+///     @param zen                  Observed zenith angle (returned)
+///     @param julian_date          Julian date for conversion
+///     @param latitude             Observer geographic latitude
+///     @param longitude            Observer geographic longitude
+///     @param elevation_m          Observer elevation (meters)
+///     @param pressure_hPa         Atmospheric pressure (HPa)
+///     @param temperature_celsius  Temperature (degrees Celsius)
+///     @param relative_humidity    Relative humidity (0.0 - 1.0)
+///     @param dut1                 UTC - UT1
+///     @param xp                   "x" polar motion
+///     @param yp                   "y" polar motion
+///     @param wavelength           Wavelength
+///     @param observed_glon        Apparent galactic longitude (returned)
+///     @param observed_glat        Apparent galactic latitude (returned)
 
-/*********************************************************************
- * Converts ICRS to OBSERVED coordinates.s
- * This function takes in verious observation parameters
- * PASSED:
- *      glon        = Galactic longitude (radians)
- *      glat        = Galactic latitude (radians)
- *      julian_date = Julian date for conversion
- *      longitude   = Geographic longitude (radians,East=positive)
- *      latitude    = Geographic latitude (radians)
- * OPTIONAL PASSED:
- *      elevation_m  = Observer elevation (meters)
- *      pressure_hPa = Atmospheric pressure (hPa)
- *      temerature_celsius = Atmospheric temperature (Celsius)
- *      dut1         = UT1 - UTC
- *      xp,yp        = x & y component of motion of the pole
- *      wavelength   = wavelength of light observed (micrometers)
- * RETURNED:
- *      az   = Azimuth (radians)
- *      zen  = Zenith angle (radians)
- *   (optional)
- *      observed_glon = Observed Galactic longitude
- *      observed_glat = Observed galactic latitude
- *********************************************************************/
 int CECoordinates::Galactic2Observed(double glon, double glat,
                                      double *az, double *zen,
                                      double julian_date,
