@@ -24,18 +24,13 @@
 
 class CEBody {
 public:
-    /** Default constructor */
-    CEBody() {} ;
-    /** Constructor from two coordinates */
+    CEBody() ;
     CEBody(double xcoord, double ycoord,
-           CEAngleType angle_type = CEAngleType::RADIANS,
-           CECoordinateType coord_type = CECoordinateType::CIRS) {};
-    /** Constructor from a CECoordinate object */
-    CEBody(const CECoordinates &coords) {} ;
-    /** Copy Constructor */
-    CEBody(const CEBody& other) {} ;
-    /** Destructor */
-    virtual ~CEBody() {} ;
+           CECoordinateType coord_type = CECoordinateType::CIRS,
+           CEAngleType angle_type = CEAngleType::RADIANS) ;
+    CEBody(const CECoordinates &coords) ;
+    CEBody(const CEBody& other) ;
+    virtual ~CEBody() ;
     
     // -------------------------------------------------------
     // Methods for getting the coordinates of this object
@@ -46,12 +41,13 @@ public:
     // -------------------------------------------------------
     // Methods for setting the coordinates of this object
     // -------------------------------------------------------
-    /** Method for setting the coordinates associated with this object. */
-    void SetCoordinates(CECoordinates new_coords,
-                        CECoordinateType coord_type=CECoordinateType::CIRS) ;
+    void SetCoordinates(CECoordinates new_coords) ;
+    void SetCoordinates(double xcoord, double ycoord,
+                        CECoordinateType coord_type = CECoordinateType::CIRS,
+                        CEAngleType angle_type = CEAngleType::RADIANS) ;
     
 protected:
-    std::shared_ptr<CECoordinates> coords_ ; ///< Coordinates of this object
+    std::shared_ptr<CECoordinates> coords_=nullptr ; ///< Coordinates of this object
     
     // Proper motion variables for this object. These are used for
     // correctly getting the objects coordinates at some date other
