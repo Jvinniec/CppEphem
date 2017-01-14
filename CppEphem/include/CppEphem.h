@@ -6,6 +6,11 @@
 //  Copyright © 2016 JCardenzana. All rights reserved.
 //
 
+/**
+ This file is mainly used for including all of the headers in the
+ CppEphem library.
+ */
+
 #ifndef CppEphem_h
 #define CppEphem_h
 

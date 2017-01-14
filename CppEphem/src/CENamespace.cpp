@@ -40,7 +40,10 @@ double CppEphem::dut1Error(double mjd) {
     return dut1Error[mjd] ;
 }
 
-//__________________________________________________
+/////////////////////////////////////////////////////////
+/// Set the time from a vector representing Greenwich Apparent Sidereal Time.
+/// The elements are as follows:
+/// [0]=hours, [1]=minutes, [2]=whole seconds, [3]=fractional seconds
 double CppEphem::dut1Calc(double mjd)
 {
     // There's a formula that could be used for calculating this value,

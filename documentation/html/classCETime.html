@@ -93,17 +93,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
+<p>This class stores information regarding the time and handles all of the conversions between different time zones.  
+ <a href="classCETime.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="CETime_8h_source.html">CETime.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a018e49a38a31dc982ba9772e11b1fe61"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCETime.html#a018e49a38a31dc982ba9772e11b1fe61">CETime</a> ()</td></tr>
+<tr class="memdesc:a018e49a38a31dc982ba9772e11b1fe61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#a018e49a38a31dc982ba9772e11b1fe61">More...</a><br /></td></tr>
 <tr class="separator:a018e49a38a31dc982ba9772e11b1fe61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51fd336dc8cf6d47458a8c71c8ff5a6c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCETime.html#a51fd336dc8cf6d47458a8c71c8ff5a6c">CETime</a> (double time, <a class="el" href="CETime_8h.html#ab50b2d3a782e5eea768b25bfb3d7e65f">CETimeType</a> time_format=<a class="el" href="CETime_8h.html#ab50b2d3a782e5eea768b25bfb3d7e65fa2c56d07da8a08a92de9453a00e31d55d">CETimeType::UTC</a>)</td></tr>
+<tr class="memdesc:a51fd336dc8cf6d47458a8c71c8ff5a6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary constructor.  <a href="#a51fd336dc8cf6d47458a8c71c8ff5a6c">More...</a><br /></td></tr>
 <tr class="separator:a51fd336dc8cf6d47458a8c71c8ff5a6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf619d89df31f4299e772ab5a4048f01"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCETime.html#aaf619d89df31f4299e772ab5a4048f01">CETime</a> (std::vector&lt; double &gt; time, <a class="el" href="CETime_8h.html#ab50b2d3a782e5eea768b25bfb3d7e65f">CETimeType</a> time_format=<a class="el" href="CETime_8h.html#ab50b2d3a782e5eea768b25bfb3d7e65fa2c56d07da8a08a92de9453a00e31d55d">CETimeType::UTC</a>)</td></tr>
+<tr class="memdesc:aaf619d89df31f4299e772ab5a4048f01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used for setting the time from a vector where:  <a href="#aaf619d89df31f4299e772ab5a4048f01">More...</a><br /></td></tr>
 <tr class="separator:aaf619d89df31f4299e772ab5a4048f01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4236696681a47639ba8d1bc62a871019"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCETime.html#a4236696681a47639ba8d1bc62a871019">CETime</a> (const <a class="el" href="classCETime.html">CETime</a> &amp;other)</td></tr>
+<tr class="memdesc:a4236696681a47639ba8d1bc62a871019"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="#a4236696681a47639ba8d1bc62a871019">More...</a><br /></td></tr>
 <tr class="separator:a4236696681a47639ba8d1bc62a871019"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a678aab3e4a23617cea90252266ab2f04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCETime.html#a678aab3e4a23617cea90252266ab2f04">SetHours</a> (double hours)</td></tr>
 <tr class="separator:a678aab3e4a23617cea90252266ab2f04"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -112,10 +119,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2b310f23e9beb7ecb7e9085d9577dd4f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCETime.html#a2b310f23e9beb7ecb7e9085d9577dd4f">SetSeconds</a> (double seconds)</td></tr>
 <tr class="separator:a2b310f23e9beb7ecb7e9085d9577dd4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abfc3a19db6d6dd2ce286edcec6e6c7d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCETime.html#abfc3a19db6d6dd2ce286edcec6e6c7d0">SetTime</a> (double time, <a class="el" href="CETime_8h.html#ab50b2d3a782e5eea768b25bfb3d7e65f">CETimeType</a> time_format=<a class="el" href="CETime_8h.html#ab50b2d3a782e5eea768b25bfb3d7e65fa2c56d07da8a08a92de9453a00e31d55d">CETimeType::UTC</a>)</td></tr>
+<tr class="memdesc:abfc3a19db6d6dd2ce286edcec6e6c7d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set time from double of the form HHMMSS.SS and a specified time format.  <a href="#abfc3a19db6d6dd2ce286edcec6e6c7d0">More...</a><br /></td></tr>
 <tr class="separator:abfc3a19db6d6dd2ce286edcec6e6c7d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a89a3f0684abbc324d84282fa983c284e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCETime.html#a89a3f0684abbc324d84282fa983c284e">SetTime</a> (std::vector&lt; double &gt; time_vect, <a class="el" href="CETime_8h.html#ab50b2d3a782e5eea768b25bfb3d7e65f">CETimeType</a> time_format=<a class="el" href="CETime_8h.html#ab50b2d3a782e5eea768b25bfb3d7e65fa2c56d07da8a08a92de9453a00e31d55d">CETimeType::UTC</a>)</td></tr>
+<tr class="memdesc:a89a3f0684abbc324d84282fa983c284e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the time from a vector and a user specified format.  <a href="#a89a3f0684abbc324d84282fa983c284e">More...</a><br /></td></tr>
 <tr class="separator:a89a3f0684abbc324d84282fa983c284e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad295fb04601db862c2c0f733ce0d4a46"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCETime.html#ad295fb04601db862c2c0f733ce0d4a46">~CETime</a> ()</td></tr>
+<tr class="memdesc:ad295fb04601db862c2c0f733ce0d4a46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#ad295fb04601db862c2c0f733ce0d4a46">More...</a><br /></td></tr>
 <tr class="separator:ad295fb04601db862c2c0f733ce0d4a46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -130,14 +140,19 @@ Static Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a8bb9552b5e5a15624aacb7f64c23c736"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCETime.html#a8bb9552b5e5a15624aacb7f64c23c736">SetTime_GAST</a> (std::vector&lt; double &gt; time)</td></tr>
+<tr class="memdesc:a8bb9552b5e5a15624aacb7f64c23c736"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the time from a vector representing Greenwich Apparent Sidereal Time.  <a href="#a8bb9552b5e5a15624aacb7f64c23c736">More...</a><br /></td></tr>
 <tr class="separator:a8bb9552b5e5a15624aacb7f64c23c736"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4f727594747d04e58832495c7172045"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCETime.html#ac4f727594747d04e58832495c7172045">SetTime_LOCALTIME</a> (std::vector&lt; double &gt; time)</td></tr>
+<tr class="memdesc:ac4f727594747d04e58832495c7172045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the time from a vector representing local observer time.  <a href="#ac4f727594747d04e58832495c7172045">More...</a><br /></td></tr>
 <tr class="separator:ac4f727594747d04e58832495c7172045"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace112b5a3c97d4b96d891092f3020f9c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCETime.html#ace112b5a3c97d4b96d891092f3020f9c">SetTime_LST</a> (std::vector&lt; double &gt; time)</td></tr>
+<tr class="memdesc:ace112b5a3c97d4b96d891092f3020f9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the time from a vector representing Local Sidereal Time.  <a href="#ace112b5a3c97d4b96d891092f3020f9c">More...</a><br /></td></tr>
 <tr class="separator:ace112b5a3c97d4b96d891092f3020f9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4875e7ee19b9763c56f4b8f4b867e9ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCETime.html#a4875e7ee19b9763c56f4b8f4b867e9ca">SetTime_UTC</a> (std::vector&lt; double &gt; time)</td></tr>
+<tr class="memdesc:a4875e7ee19b9763c56f4b8f4b867e9ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the time from a vector representing UTC time.  <a href="#a4875e7ee19b9763c56f4b8f4b867e9ca">More...</a><br /></td></tr>
 <tr class="separator:a4875e7ee19b9763c56f4b8f4b867e9ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6653740b539e9ea85d056daa14c654d1"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCETime.html#a6653740b539e9ea85d056daa14c654d1">TimeDbl2Vect</a> (double time)</td></tr>
+<tr class="memdesc:a6653740b539e9ea85d056daa14c654d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a time formatted as HHMMSS.SS into a vector.  <a href="#a6653740b539e9ea85d056daa14c654d1">More...</a><br /></td></tr>
 <tr class="separator:a6653740b539e9ea85d056daa14c654d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
@@ -148,7 +163,8 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:aa3d0704d43eed2d09dc4f688a78ab44b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
+<div class="textblock"><p>This class stores information regarding the time and handles all of the conversions between different time zones. </p>
+
 <p>Definition at line <a class="el" href="CETime_8h_source.html#l00025">25</a> of file <a class="el" href="CETime_8h_source.html">CETime.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a018e49a38a31dc982ba9772e11b1fe61"></a>
@@ -164,7 +180,9 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00013">13</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
+<p>Default constructor. </p>
+
+<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00018">18</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
 
 </div>
 </div>
@@ -192,7 +210,16 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00021">21</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
+<p>Primary constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">time</td><td>Time from a HHMMSS.S formatted double </td></tr>
+    <tr><td class="paramname">time_format</td><td>Specifies what type is represented by 'time' (see <a class="el" href="CETime_8h.html#ab50b2d3a782e5eea768b25bfb3d7e65f">CETimeType</a>) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00027">27</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
 
 </div>
 </div>
@@ -220,7 +247,22 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00032">32</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
+<p>Used for setting the time from a vector where: </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">time</td><td>vector specifying the time<ul>
+<li>time[0] = hours</li>
+<li>time[1] = minutes</li>
+<li>time[2] = seconds</li>
+<li>time[3] = fractions of a second </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">time_format</td><td>Specifies what type is represented by 'time' (see <a class="el" href="CETime_8h.html#ab50b2d3a782e5eea768b25bfb3d7e65f">CETimeType</a>) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00040">40</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
 
 </div>
 </div>
@@ -238,7 +280,15 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00047">47</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
+<p>Copy constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00057">57</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
 
 </div>
 </div>
@@ -263,7 +313,9 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00054">54</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
+<p>Destructor. </p>
+
+<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00065">65</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
 
 </div>
 </div>
@@ -370,7 +422,9 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00060">60</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
+<p>Set time from double of the form HHMMSS.SS and a specified time format. </p>
+
+<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00072">72</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
 
 </div>
 </div>
@@ -398,7 +452,22 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00071">71</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
+<p>Set the time from a vector and a user specified format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">time_vect</td><td>vector specifying the time<ul>
+<li>time[0] = hours</li>
+<li>time[1] = minutes</li>
+<li>time[2] = seconds</li>
+<li>time[3] = fractions of a second </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">time_format</td><td>Specifies what type is represented by 'time' (see <a class="el" href="CETime_8h.html#ab50b2d3a782e5eea768b25bfb3d7e65f">CETimeType</a>) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00090">90</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
 
 </div>
 </div>
@@ -424,7 +493,10 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00111">111</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
+<p>Set the time from a vector representing Greenwich Apparent Sidereal Time. </p>
+<p>The elements are as follows: [0]=hours, [1]=minutes, [2]=whole seconds, [3]=fractional seconds </p>
+
+<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00143">143</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
 
 </div>
 </div>
@@ -450,7 +522,10 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00123">123</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
+<p>Set the time from a vector representing local observer time. </p>
+<p>The elements are as follows: [0]=hours, [1]=minutes, [2]=whole seconds, [3]=fractional seconds </p>
+
+<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00161">161</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
 
 </div>
 </div>
@@ -476,7 +551,10 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00118">118</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
+<p>Set the time from a vector representing Local Sidereal Time. </p>
+<p>The elements are as follows: [0]=hours, [1]=minutes, [2]=whole seconds, [3]=fractional seconds </p>
+
+<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00152">152</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
 
 </div>
 </div>
@@ -502,7 +580,10 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00106">106</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
+<p>Set the time from a vector representing UTC time. </p>
+<p>The elements are as follows: [0]=hours, [1]=minutes, [2]=whole seconds, [3]=fractional seconds </p>
+
+<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00134">134</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
 
 </div>
 </div>
@@ -528,7 +609,22 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00087">87</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
+<p>Convert a time formatted as HHMMSS.SS into a vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">time</td><td>Time object formatted as HHMMSS.SS </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector containing the various time components<ul>
+<li>time[0] = hours</li>
+<li>time[1] = minutes</li>
+<li>time[2] = seconds</li>
+<li>time[3] = fractions of a second </li>
+</ul>
+</dd></dl>
+
+<p>Definition at line <a class="el" href="CETime_8cpp_source.html#l00113">113</a> of file <a class="el" href="CETime_8cpp_source.html">CETime.cpp</a>.</p>
 
 </div>
 </div>
@@ -653,7 +749,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 12 2017 00:41:57 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 13 2017 18:17:29 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

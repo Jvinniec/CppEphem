@@ -20,15 +20,18 @@
 // SOFA HEADER
 #include "sofa.h"
 
-enum CEDateType {JD,              // Julian Date
-                 MJD,             // Modified Julian Date
-                 GREGORIAN} ;     // Gregorian calendar (year, month, day)
+/////////////////////////////////////////////
+/// Date enum
+
+enum CEDateType {JD,              ///< Julian Date
+                 MJD,             ///< Modified Julian Date
+                 GREGORIAN        ///< Gregorian calendar (year, month, day)
+                } ;
 
 class CEDate {
 public:
     // Default constructor
     CEDate() {} ;
-    // Constructor from some date format
     CEDate(double date, CEDateType date_format=CEDateType::JD) ;
     CEDate(std::vector<double> date) ;
     // Copy constructor
@@ -45,9 +48,13 @@ public:
      * Methods for getting the stored date in the various formats
      ***********************************************************/
     double GetDate(CEDateType time_format=CEDateType::JD) ;
+    /// Get the Julian date represented by this object
     double JD() {return julian_date_ ;}
+    /// Get the Modified Julian date represented by this object
     double MJD() {return mod_julian_date_ ;}
+    /// Get the Gregorian calendar date formatted as a double
     double Gregorian() {return gregorian_date_ ;}
+    /// Get the Gregorian calendar date formatted as a vector
     std::vector<double> GregorianVect() {return gregorian_date_vect_ ;}
     
     /***********************************************************
@@ -69,42 +76,54 @@ public:
     static double Gregorian2MJD(double gregorian) ;
     static double GregorianVect2MJD(std::vector<double> gregorian) ;
     
-    
     /***********************************************************
      * Some useful helper methods
      ***********************************************************/
-    // Gets the stored SOFA Julian date to Mod Julian date factor
+    
+    /// Gets the stored SOFA Julian date to Mod Julian date factor 'DJM0'.
+    ///     @return conversion factor for Julian date -> Modified Julian date conversions
+    /// Modified Julian date (mjd) can then be computed from this factor
+    /// and the Julian date (jd) by the following:
+    ///
+    ///     mjd = jd - CEDate::GetMJD2JDFactor()
     static inline double GetMJD2JDFactor() {return DJM0;}
     
-    // Get the dut1 variable (i.e. UT1-UTC) associated with a given date
+    /// Returns the 'dut1' value representing the 'UTC-UT1. These methods should
+    /// be considered unreliable for the moment.
     static double dut1(double date, CEDateType date_type=CEDateType::JD) ;
     double dut1() ;
     static double dut1Error(double date, CEDateType date_type=CEDateType::JD) ;
     double dut1Error() ;
     
-    // Get the x,y polar motion variables associated with a given date
+    /// Get the x,y polar motion variables associated with a given date. These
+    /// methods should be considered unreliable for the moment.
     static double xpolar(double date, CEDateType date_type=CEDateType::JD) ;
     double xpolar() ;
     static double ypolar(double date, CEDateType date_type=CEDateType::JD) ;
     double ypolar() ;
     
-    // Methods for converting between the double and vector<double> version of
-    // the Gregorian date format
+    /// Methods for converting between the double and vector<double> version of
+    /// the Gregorian date format.
     static double GregorianVect2Gregorian(std::vector<double> gregorian) ;
     static std::vector<double> Gregorian2GregorianVect(double gregorian) ;
     
     /************************************************************
      * Overloaded operators
      ************************************************************/
+    /// Overload of the CEDate object which allows the object to be treated as a
+    /// 'double' representing the Julian date of teh object.
     operator double() {return julian_date_ ;}
     
 protected:
-    // Variables that hold the time information
-    double julian_date_ ;                   // Time stored as the julian date
-    double mod_julian_date_ ;               // Time stored as the modified julian date
-    double gregorian_date_ ;                // gregorian calendar date. Format is YYYYMMDD.<date fraction>
-    std::vector<double> gregorian_date_vect_ ;   // Vector containing the gregorian calendar date
-                                            // 0 - Year, 1 - Month, 2 - date, 3 - date fraction
+    
+    /************************************************************
+     * Variables that hold the time information
+     ************************************************************/
+    double julian_date_ ;                   ///< Julian date formated
+    double mod_julian_date_ ;               ///< Modified Julian date formated
+    double gregorian_date_ ;                ///< Gregorian calendar date. Format as YYYYMMDD.<date fraction>
+    std::vector<double> gregorian_date_vect_ ;   ///< Vector containing the gregorian calendar date
+                                                ///< 0 - Year, 1 - Month, 2 - date, 3 - date fraction
     
     
 private:

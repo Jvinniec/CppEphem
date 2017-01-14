@@ -6,29 +6,37 @@
 //  Copyright © 2016 JCardenzana. All rights reserved.
 //
 
+/** \class CETime
+ This class stores information regarding the time and handles all of
+ the conversions between different time zones.
+ */
 #include <stdio.h>
 #include "CETime.h"
 
-//_______________________________________
+/////////////////////////////////////////////////////////
+/// Default constructor
 CETime::CETime() :
     time_(std::vector<double>(4,0.0)),
     time_type_(CETimeType::UTC)
 {}
 
-
-//_______________________________________
-// Used for setting time from a HHMMSS.S format
+/////////////////////////////////////////////////////////
+/// Primary constructor
+///     @param time             Time from a HHMMSS.S formatted double
+///     @param time_format      Specifies what type is represented by 'time' (see ::CETimeType)
 CETime::CETime(double time, CETimeType time_format) :
     CETime(TimeDbl2Vect(time), time_format)
 {}
 
 
-//_______________________________________
-// Used for setting the time from a vector where:
-//    time[0] = hours
-//    time[1] = minutes
-//    time[2] = seconds
-//    time[3] = fractions of a second
+/////////////////////////////////////////////////////////
+/// Used for setting the time from a vector where:
+///     @param time             vector specifying the time
+///                             - time[0] = hours
+///                             - time[1] = minutes
+///                             - time[2] = seconds
+///                             - time[3] = fractions of a second
+///     @param time_format      Specifies what type is represented by 'time' (see ::CETimeType)
 CETime::CETime(std::vector<double> time, CETimeType time_format) :
     time_(std::vector<double>(4,0.0)),
     time_type_(time_format)
@@ -43,20 +51,24 @@ CETime::CETime(std::vector<double> time, CETimeType time_format) :
 }
 
 
-//_______________________________________
+/////////////////////////////////////////////////////////
+/// Copy constructor
+///     @param other
 CETime::CETime(const CETime& other) :
     time_(other.time_),
     time_type_(other.time_type_)
 {}
 
 
-//_______________________________________
+/////////////////////////////////////////////////////////
+/// Destructor
 CETime::~CETime()
 {}
 
 # pragma mark - Public Methods
 
-//_______________________________________
+/////////////////////////////////////////////////////////
+/// Set time from double of the form HHMMSS.SS and a specified time format
 void CETime::SetTime(double time, CETimeType time_format)
 {
     // Convert the double into a vector
@@ -67,7 +79,14 @@ void CETime::SetTime(double time, CETimeType time_format)
 }
 
 
-//_______________________________________
+/////////////////////////////////////////////////////////
+/// Set the time from a vector and a user specified format
+///     @param time_vect        vector specifying the time
+///                             - time[0] = hours
+///                             - time[1] = minutes
+///                             - time[2] = seconds
+///                             - time[3] = fractions of a second
+///     @param time_format      Specifies what type is represented by 'time' (see ::CETimeType)
 void CETime::SetTime(std::vector<double> time_vect, CETimeType time_format)
 {
     // Convert the double into a vector
@@ -83,7 +102,14 @@ void CETime::SetTime(std::vector<double> time_vect, CETimeType time_format)
 }
 # pragma mark - Protected Methods
 
-//_______________________________________________________________
+/////////////////////////////////////////////////////////
+/// Convert a time formatted as HHMMSS.SS into a vector.
+///     @param time         Time object formatted as HHMMSS.SS
+///     @return             Vector containing the various time components
+///                             - time[0] = hours
+///                             - time[1] = minutes
+///                             - time[2] = seconds
+///                             - time[3] = fractions of a second
 std::vector<double> CETime::TimeDbl2Vect(double time)
 {
     // Create a vector to hold the information
@@ -102,23 +128,36 @@ std::vector<double> CETime::TimeDbl2Vect(double time)
 }
 
 
-//_______________________________________________________________
+/////////////////////////////////////////////////////////
+/// Set the time from a vector representing UTC time. The elements are as follows:
+/// [0]=hours, [1]=minutes, [2]=whole seconds, [3]=fractional seconds
 void CETime::SetTime_UTC(std::vector<double> time)
-{}
-
-
-//_______________________________________________________________
-void CETime::SetTime_GAST(std::vector<double> time)
 {
-    
 }
 
 
-//_______________________________________________________________
+/////////////////////////////////////////////////////////
+/// Set the time from a vector representing Greenwich Apparent Sidereal Time.
+/// The elements are as follows:
+/// [0]=hours, [1]=minutes, [2]=whole seconds, [3]=fractional seconds
+void CETime::SetTime_GAST(std::vector<double> time)
+{
+}
+
+
+/////////////////////////////////////////////////////////
+/// Set the time from a vector representing Local Sidereal Time.
+/// The elements are as follows:
+/// [0]=hours, [1]=minutes, [2]=whole seconds, [3]=fractional seconds
 void CETime::SetTime_LST(std::vector<double> time)
-{}
+{
+}
 
 
-//_______________________________________________________________
+/////////////////////////////////////////////////////////
+/// Set the time from a vector representing local observer time.
+/// The elements are as follows:
+/// [0]=hours, [1]=minutes, [2]=whole seconds, [3]=fractional seconds
 void CETime::SetTime_LOCALTIME(std::vector<double> time)
-{}
+{
+}

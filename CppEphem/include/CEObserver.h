@@ -16,52 +16,52 @@ using namespace CppEphem ;
 
 class CEObserver {
 public:
-    // Default constructor
     CEObserver() ;
-    // Constructor from a geographic position (latitude, longitude, altitude)
-    // Note that altitude defaults to sea-level
     CEObserver(double longitude, double latitude, double elevation=0.0,
                CEAngleType angle_type=CEAngleType::RADIANS) ;
     CEObserver(double longitude, double latitude, double elevation,
                CEAngleType angle_type=CEAngleType::RADIANS,
                CEDate date=CEDate(DJ00, CEDateType::JD)) ;
-    // Copy constructor
     CEObserver(const CEObserver& other) ;
-    // Destructor
     virtual ~CEObserver() ;
     
     /****************************************************
      * Methods for accessing the underlying observer info
      ****************************************************/
-    // Get the Longitude/Latitude
+    /// Return observer geographic longitude in radians
     double Longitude_Rad() {return longitude_ ;}
+    /// Return observer geographic longitude in degrees
     double Longitude_Deg() {return longitude_ * DR2D ;}
+    /// Return geographic latitude in radians
     double Latitude_Rad() {return latitude_ ;}
+    /// Return geographic latitude in degrees
     double Latitude_Deg() {return latitude_ * DR2D ;}
 
-    // Get the altitude (in meters) above sea-level
-    double Elevation() {return elevation_ ;}
-    double Pressure() {return pressure_hPa_ ;}
+    /// Return altitude in meters above sea level
+    double Elevation_m() {return elevation_m_ ;}
+    /// Return atmospheric pressure in units of hPa.
+    double Pressure_hPa() {return pressure_hPa_ ;}
+    /// Return temperature in degrees Celsius.
     double Temperature_C() {return temperature_celsius_ ;}
+    /// Return temperature in Kelvin
     double Temperature_K() {return temperature_celsius_ + 273.15 ;}
+    /// Return temperature in degrees Fahrenheit
     double Temperature_F() {return temperature_celsius_ * (9.0/5.0) + 32.0 ;}
+    /// Return relative humidity
     double RelativeHumidity() {return relative_humidity_ ;}
     
-    // Get the date information
+    /// Get the date information (see CEDate)
     CEDate Date() {return current_date_ ;}
-    double JD() {return current_date_.JD() ;}
     
-    // Get the current time vector
+    /// Get the current time information (see CETime)
     CETime Time() {return current_time_ ;}
-    std::vector<double> TimeVect() {return std::vector<double>(0) ;}
-//    std::vector<double> UTC() {return current_time_.UTC() ;}
     
     /****************************************************
      * Methods for setting the underlying observer info
      ****************************************************/
-    // Geographic related properties
+    /// Set elevation in meters above sea level.
     void SetElevation(double elevation=0.0)
-        {elevation_ = elevation ;}
+        {elevation_m_ = elevation ;}
     void SetLongitude(double longitude, CEAngleType angle_type=CEAngleType::RADIANS)
         {longitude_ = longitude * ((angle_type==CEAngleType::RADIANS) ? 1 : DD2R) ;}
     void SetLatitude(double latitude, CEAngleType angle_type=CEAngleType::RADIANS)
@@ -104,7 +104,7 @@ protected:
     // Variables which define the observer
     double longitude_ ;                 // Geographic longitude (radians)
     double latitude_ ;                  // Geographic latitude (radians)
-    double elevation_ ;                 // Elevation (in meters) above sea-level
+    double elevation_m_ ;               // Elevation (in meters) above sea-level
     double pressure_hPa_ ;              // Atmospheric pressure (in units of hPa)
     double temperature_celsius_ ;       // Temperature in degrees celsius
     double relative_humidity_ ;         // Relative humidity (in range 0-1)
