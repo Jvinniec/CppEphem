@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['ycoord_5f',['ycoord_',['../classCECoordinates.html#ad95d1b014d83e11c93be8e74eb4957df',1,'CECoordinates']]],
-  ['ycoordinate_5fdeg',['YCoordinate_Deg',['../classCECoordinates.html#a4e8bf7f64f1adcec562a29f02c6a1d15',1,'CECoordinates']]],
-  ['ycoordinate_5frad',['YCoordinate_Rad',['../classCECoordinates.html#a58a9b0ac531278f3e2b25e9590e0169f',1,'CECoordinates']]],
-  ['yp',['yp',['../namespaceCppEphem.html#afab8796cf4e2c582c6a1e1ede35c55a4',1,'CppEphem']]],
-  ['ypolar',['ypolar',['../classCEDate.html#a013d72a2273b76be18978a79c4d96166',1,'CEDate::ypolar(double date, CEDateType date_type=CEDateType::JD)'],['../classCEDate.html#adef63e77a091d4bfdddff56b7aa06411',1,'CEDate::ypolar()']]]
+  ['xcoord_5f',['xcoord_',['../classCECoordinates.html#ab58f73988010fb779c262f7b88612fc0',1,'CECoordinates']]],
+  ['xcoordinate_5fdeg',['XCoordinate_Deg',['../classCECoordinates.html#af395e512aa731b34bd98fa775c2cdec1',1,'CECoordinates']]],
+  ['xcoordinate_5frad',['XCoordinate_Rad',['../classCECoordinates.html#a7b5d9f29881522423dc22e791a2a0377',1,'CECoordinates']]],
+  ['xp',['xp',['../namespaceCppEphem.html#a7e8a8c885f364d70f1e8d53a99297fd1',1,'CppEphem']]],
+  ['xpolar',['xpolar',['../classCEDate.html#ace399234c2715e61518393497511b293',1,'CEDate::xpolar(double date, CEDateType date_type=CEDateType::JD)'],['../classCEDate.html#a4a9004a8c1e7a5e64a5c567e09a7c521',1,'CEDate::xpolar()']]]
 ];

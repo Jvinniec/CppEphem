@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['xcoord_5f',['xcoord_',['../classCECoordinates.html#ab58f73988010fb779c262f7b88612fc0',1,'CECoordinates']]],
-  ['xcoordinate_5fdeg',['XCoordinate_Deg',['../classCECoordinates.html#af395e512aa731b34bd98fa775c2cdec1',1,'CECoordinates']]],
-  ['xcoordinate_5frad',['XCoordinate_Rad',['../classCECoordinates.html#a7b5d9f29881522423dc22e791a2a0377',1,'CECoordinates']]],
-  ['xp',['xp',['../namespaceCppEphem.html#a7e8a8c885f364d70f1e8d53a99297fd1',1,'CppEphem']]],
-  ['xpolar',['xpolar',['../classCEDate.html#ace399234c2715e61518393497511b293',1,'CEDate::xpolar(double date, CEDateType date_type=CEDateType::JD)'],['../classCEDate.html#a4a9004a8c1e7a5e64a5c567e09a7c521',1,'CEDate::xpolar()']]]
+  ['utc',['UTC',['../CETime_8h.html#ab50b2d3a782e5eea768b25bfb3d7e65fa2c56d07da8a08a92de9453a00e31d55d',1,'CETime.h']]],
+  ['utc2gast',['UTC2GAST',['../classCETime.html#a9164c370f3f6517d72b92239f928425c',1,'CETime']]],
+  ['utc2last',['UTC2LAST',['../classCETime.html#a0bc67938e50e052053cb50298580ab7d',1,'CETime']]],
+  ['utc2localtime',['UTC2LOCALTIME',['../classCETime.html#aff5450aa7d7347cf5bb20e9a61840a75',1,'CETime']]]
 ];

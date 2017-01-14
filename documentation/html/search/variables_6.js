@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pressure_5fhpa_5f',['pressure_hPa_',['../classCEObserver.html#a566c7f1ab1e66968981b52d4bd694474',1,'CEObserver']]]
+  ['name_5f',['name_',['../classCEPlanet.html#a792c85f39feec2e7e3d54ade3843d77a',1,'CEPlanet']]]
 ];

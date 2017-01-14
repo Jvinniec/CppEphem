@@ -11,6 +11,7 @@ var searchData=
   ['getcoordsystem',['GetCoordSystem',['../classCECoordinates.html#a3f86c747a99113c054fe4fc5408998ec',1,'CECoordinates']]],
   ['getdate',['GetDate',['../classCEDate.html#a4c362a8bc9738240a6820821e4d11949',1,'CEDate']]],
   ['getmjd2jdfactor',['GetMJD2JDFactor',['../classCEDate.html#ad3e980e8803ecc0671222ba662bdc7d8',1,'CEDate']]],
+  ['getname',['GetName',['../classCEPlanet.html#a181c03d81df78a845e78c38bcc8a346e',1,'CEPlanet']]],
   ['getoptions',['getoptions',['../cirs2gal_8cpp.html#ae43391d18665e0951b2bd151f9235cd4',1,'getoptions(struct option *longopts):&#160;cirs2gal.cpp'],['../cirs2obs_8cpp.html#ae43391d18665e0951b2bd151f9235cd4',1,'getoptions(struct option *longopts):&#160;cirs2obs.cpp'],['../gal2cirs_8cpp.html#ae43391d18665e0951b2bd151f9235cd4',1,'getoptions(struct option *longopts):&#160;gal2cirs.cpp'],['../gal2obs_8cpp.html#ae43391d18665e0951b2bd151f9235cd4',1,'getoptions(struct option *longopts):&#160;gal2obs.cpp'],['../obs2cirs_8cpp.html#ae43391d18665e0951b2bd151f9235cd4',1,'getoptions(struct option *longopts):&#160;obs2cirs.cpp']]],
   ['gregorian',['Gregorian',['../classCEDate.html#a3e72cb2a53b0e29a12bc0b2f7adbefda',1,'CEDate::Gregorian()'],['../CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746acf325cc58a32a8798a7db3d0ef847ef7',1,'GREGORIAN():&#160;CEDate.h']]],
   ['gregorian2gregorianvect',['Gregorian2GregorianVect',['../classCEDate.html#a0d1bc6ed26cc38c4bbbe22953a9eb5bf',1,'CEDate']]],
