@@ -127,9 +127,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    std::printf(<span class="stringliteral">&quot;\nADDITIONAL OPTIONS:\n&quot;</span>) ;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    std::printf(<span class="stringliteral">&quot;  --help,        -h      Prints help text\n&quot;</span>) ;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    std::printf(<span class="stringliteral">&quot;  --juliandate,  -j      Julian Date for query (default is current time)\n&quot;</span>) ;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    std::printf(<span class="stringliteral">&quot;  --elevation    -e      Observer elevation (meters above sea-level, default=%f)\n&quot;</span>, obs.Elevation()) ;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    std::printf(<span class="stringliteral">&quot;  --elevation    -e      Observer elevation (meters above sea-level, default=%f)\n&quot;</span>, obs.<a class="code" href="classCEObserver.html#a215a04ab5ba84c35606e7a4fab592374">Elevation_m</a>()) ;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    std::printf(<span class="stringliteral">&quot;  --humidity     -r      Observer&#39;s relative humidity (0-1, default=%f)\n&quot;</span>, obs.<a class="code" href="classCEObserver.html#a5a99d5f72b2bb09dd49d477c65351e0c">RelativeHumidity</a>()) ;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    std::printf(<span class="stringliteral">&quot;  --pressure,    -p      Observer&#39;s atmospheric pressure (hPa, default=%f)\n&quot;</span>, obs.Pressure()) ;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    std::printf(<span class="stringliteral">&quot;  --pressure,    -p      Observer&#39;s atmospheric pressure (hPa, default=%f)\n&quot;</span>, obs.<a class="code" href="classCEObserver.html#a932ad8902bc3d2145d5cef8d75203d66">Pressure_hPa</a>()) ;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    std::printf(<span class="stringliteral">&quot;  --temperature, -t      Observer&#39;s temperature (degrees Celsius, default=%f)\n&quot;</span>, obs.<a class="code" href="classCEObserver.html#a750ca767ac507ba51f7e2883323032b4">Temperature_C</a>()) ;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    std::printf(<span class="stringliteral">&quot;  --wavelength,  -w      Wavelength of light being observed (micrometers, default=%2.1f)\n&quot;</span>, 0.5) ;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    std::printf(<span class="stringliteral">&quot;  --dut1         -d      UT1-UTC (default=0)\n&quot;</span>) ;</div>
@@ -158,9 +158,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    </div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="comment">// Set the default observer weather conditions</span></div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="classCEObserver.html">CEObserver</a> observer ;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    options[<span class="stringliteral">&quot;elevation&quot;</span>] = observer.Elevation() ;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    options[<span class="stringliteral">&quot;elevation&quot;</span>] = observer.<a class="code" href="classCEObserver.html#a215a04ab5ba84c35606e7a4fab592374">Elevation_m</a>() ;</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    options[<span class="stringliteral">&quot;humidity&quot;</span>] = observer.<a class="code" href="classCEObserver.html#a5a99d5f72b2bb09dd49d477c65351e0c">RelativeHumidity</a>() ;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    options[<span class="stringliteral">&quot;pressure&quot;</span>] = observer.Pressure() ;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    options[<span class="stringliteral">&quot;pressure&quot;</span>] = observer.<a class="code" href="classCEObserver.html#a932ad8902bc3d2145d5cef8d75203d66">Pressure_hPa</a>() ;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    options[<span class="stringliteral">&quot;temperature&quot;</span>] = observer.<a class="code" href="classCEObserver.html#a750ca767ac507ba51f7e2883323032b4">Temperature_C</a>() ;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    </div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">return</span> options ;</div>
@@ -347,6 +347,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    </div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <span class="keywordflow">return</span> errcode ;</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;}</div>
+<div class="ttc" id="classCEObserver_html_a215a04ab5ba84c35606e7a4fab592374"><div class="ttname"><a href="classCEObserver.html#a215a04ab5ba84c35606e7a4fab592374">CEObserver::Elevation_m</a></div><div class="ttdeci">double Elevation_m()</div><div class="ttdoc">Return altitude in meters above sea level. </div><div class="ttdef"><b>Definition:</b> <a href="CEObserver_8h_source.html#l00041">CEObserver.h:41</a></div></div>
+<div class="ttc" id="classCEObserver_html_a932ad8902bc3d2145d5cef8d75203d66"><div class="ttname"><a href="classCEObserver.html#a932ad8902bc3d2145d5cef8d75203d66">CEObserver::Pressure_hPa</a></div><div class="ttdeci">double Pressure_hPa()</div><div class="ttdoc">Return atmospheric pressure in units of hPa. </div><div class="ttdef"><b>Definition:</b> <a href="CEObserver_8h_source.html#l00043">CEObserver.h:43</a></div></div>
 <div class="ttc" id="namespaceCppEphem_html_a9c9a963e5c8b297d9c2ef1cb9f75d578"><div class="ttname"><a href="namespaceCppEphem.html#a9c9a963e5c8b297d9c2ef1cb9f75d578">CppEphem::c</a></div><div class="ttdeci">double c()</div><div class="ttdoc">speed of light (meters/second) </div><div class="ttdef"><b>Definition:</b> <a href="CENamespace_8h_source.html#l00029">CENamespace.h:29</a></div></div>
 <div class="ttc" id="classCEDate_html"><div class="ttname"><a href="classCEDate.html">CEDate</a></div><div class="ttdoc">CEDate class handles conversion between different date formats. </div><div class="ttdef"><b>Definition:</b> <a href="CEDate_8h_source.html#l00031">CEDate.h:31</a></div></div>
 <div class="ttc" id="gal2obs_8cpp_html_ad522a5549ce241a17b89145785bb0dec"><div class="ttname"><a href="gal2obs_8cpp.html#ad522a5549ce241a17b89145785bb0dec">PrintResults</a></div><div class="ttdeci">void PrintResults(std::map&lt; std::string, double &gt; inputs, std::map&lt; std::string, double &gt; results)</div><div class="ttdef"><b>Definition:</b> <a href="gal2obs_8cpp_source.html#l00185">gal2obs.cpp:185</a></div></div>
@@ -366,7 +368,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 13 2017 18:17:29 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 13 2017 18:54:43 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

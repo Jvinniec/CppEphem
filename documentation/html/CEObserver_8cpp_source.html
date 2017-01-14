@@ -120,7 +120,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="classCEObserver.html#a40e741466ce87863ec15ca61a8a37ab9">SetLongitude</a>(longitude, angle_type) ;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="classCEObserver.html#a11e59cdef354a6663c957170032699d8">SetLatitude</a>(<a class="code" href="classCEObserver.html#a30235a99b3b715fb1e4381d4a1f5837d">latitude_</a>, angle_type) ;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="classCEObserver.html#a1165de1f35375064ee9bae389c9bc9c2">SetElevation</a>(elevation) ;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="classCEObserver.html#a2617ccc51969fc2dd67391980df74536">SetPressure</a>(<a class="code" href="namespaceCppEphem.html#a63321f3b9084d44078e0941236021b3b">EstimatePressure_hPa</a>(elevation_)) ;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="classCEObserver.html#a2617ccc51969fc2dd67391980df74536">SetPressure</a>(<a class="code" href="namespaceCppEphem.html#a63321f3b9084d44078e0941236021b3b">EstimatePressure_hPa</a>(<a class="code" href="classCEObserver.html#abc397d7e84dc09494e029e1d752e2af6">elevation_m_</a>)) ;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="classCEObserver.html#adc07bc172149ebd37ec7deb2f4bc512a">SetTemperature_C</a>() ;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="classCEObserver.html#ad08a91ef1fa3734b181f6ac5327d5327">SetRelativeHumidity</a>() ;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
@@ -128,7 +128,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="classCEObserver.html#abed8a7df1b32b448e723166bc5e53a64">   58</a></span>&#160;<a class="code" href="classCEObserver.html#a3fb13fd8748f8c7843699653bbcef023">CEObserver::CEObserver</a>(<span class="keyword">const</span> <a class="code" href="classCEObserver.html">CEObserver</a>&amp; other) :</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    longitude_(other.longitude_),</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    latitude_(other.latitude_),</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    elevation_(other.elevation_),</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    elevation_m_(other.elevation_m_),</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    pressure_hPa_(other.pressure_hPa_),</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    temperature_celsius_(other.temperature_celsius_),</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    relative_humidity_(other.relative_humidity_)</div>
@@ -140,6 +140,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#pragma mark - Public Methods</span></div>
 <div class="ttc" id="classCEObserver_html_ad08a91ef1fa3734b181f6ac5327d5327"><div class="ttname"><a href="classCEObserver.html#ad08a91ef1fa3734b181f6ac5327d5327">CEObserver::SetRelativeHumidity</a></div><div class="ttdeci">void SetRelativeHumidity(double humidity=0.0)</div><div class="ttdef"><b>Definition:</b> <a href="CEObserver_8h_source.html#l00075">CEObserver.h:75</a></div></div>
 <div class="ttc" id="classCEObserver_html_a30235a99b3b715fb1e4381d4a1f5837d"><div class="ttname"><a href="classCEObserver.html#a30235a99b3b715fb1e4381d4a1f5837d">CEObserver::latitude_</a></div><div class="ttdeci">double latitude_</div><div class="ttdef"><b>Definition:</b> <a href="CEObserver_8h_source.html#l00106">CEObserver.h:106</a></div></div>
+<div class="ttc" id="classCEObserver_html_abc397d7e84dc09494e029e1d752e2af6"><div class="ttname"><a href="classCEObserver.html#abc397d7e84dc09494e029e1d752e2af6">CEObserver::elevation_m_</a></div><div class="ttdeci">double elevation_m_</div><div class="ttdef"><b>Definition:</b> <a href="CEObserver_8h_source.html#l00107">CEObserver.h:107</a></div></div>
 <div class="ttc" id="classCEObserver_html_a40e741466ce87863ec15ca61a8a37ab9"><div class="ttname"><a href="classCEObserver.html#a40e741466ce87863ec15ca61a8a37ab9">CEObserver::SetLongitude</a></div><div class="ttdeci">void SetLongitude(double longitude, CEAngleType angle_type=CEAngleType::RADIANS)</div><div class="ttdef"><b>Definition:</b> <a href="CEObserver_8h_source.html#l00065">CEObserver.h:65</a></div></div>
 <div class="ttc" id="namespaceCppEphem_html_a9a974f6ccf329e8cb5f9208b725f15ef"><div class="ttname"><a href="namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15ef">CppEphem::CEAngleType</a></div><div class="ttdeci">CEAngleType</div><div class="ttdef"><b>Definition:</b> <a href="CENamespace_8h_source.html#l00022">CENamespace.h:22</a></div></div>
 <div class="ttc" id="classCEObserver_html_a3c8b8910cafadf1f57be6dc0e7878e80"><div class="ttname"><a href="classCEObserver.html#a3c8b8910cafadf1f57be6dc0e7878e80">CEObserver::~CEObserver</a></div><div class="ttdeci">virtual ~CEObserver()</div><div class="ttdoc">Destructor. </div><div class="ttdef"><b>Definition:</b> <a href="CEObserver_8cpp_source.html#l00069">CEObserver.cpp:69</a></div></div>
@@ -154,7 +155,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 13 2017 18:17:29 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 13 2017 18:54:43 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

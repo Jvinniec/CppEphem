@@ -36,9 +36,9 @@ void Print_Help()
     std::printf("\nADDITIONAL OPTIONS:\n") ;
     std::printf("  --help,        -h      Prints help text\n") ;
     std::printf("  --juliandate,  -j      Julian Date for query (default is current time)\n") ;
-    std::printf("  --elevation    -e      Observer elevation (meters above sea-level, default=%f)\n", obs.Elevation()) ;
+    std::printf("  --elevation    -e      Observer elevation (meters above sea-level, default=%f)\n", obs.Elevation_m()) ;
     std::printf("  --humidity     -r      Observer's relative humidity (0-1, default=%f)\n", obs.RelativeHumidity()) ;
-    std::printf("  --pressure,    -p      Observer's atmospheric pressure (hPa, default=%f)\n", obs.Pressure()) ;
+    std::printf("  --pressure,    -p      Observer's atmospheric pressure (hPa, default=%f)\n", obs.Pressure_hPa()) ;
     std::printf("  --temperature, -t      Observer's temperature (degrees Celsius, default=%f)\n", obs.Temperature_C()) ;
     std::printf("  --wavelength,  -w      Wavelength of light being observed (micrometers, default=%2.1f)\n", 0.5) ;
     std::printf("  --dut1         -d      UT1-UTC (default=0)\n") ;
@@ -67,9 +67,9 @@ std::map<std::string, double> defaultoptions()
     
     // Set the default observer weather conditions
     CEObserver observer ;
-    options["elevation"] = observer.Elevation() ;
+    options["elevation"] = observer.Elevation_m() ;
     options["humidity"] = observer.RelativeHumidity() ;
-    options["pressure"] = observer.Pressure() ;
+    options["pressure"] = observer.Pressure_hPa() ;
     options["temperature"] = observer.Temperature_C() ;
     
     return options ;

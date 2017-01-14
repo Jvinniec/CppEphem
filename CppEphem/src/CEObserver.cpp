@@ -48,7 +48,7 @@ CEObserver::CEObserver(double longitude, double latitude,
     SetLongitude(longitude, angle_type) ;
     SetLatitude(latitude_, angle_type) ;
     SetElevation(elevation) ;
-    SetPressure(EstimatePressure_hPa(elevation_)) ;
+    SetPressure(EstimatePressure_hPa(elevation_m_)) ;
     SetTemperature_C() ;
     SetRelativeHumidity() ;
 }
@@ -58,7 +58,7 @@ CEObserver::CEObserver(double longitude, double latitude,
 CEObserver::CEObserver(const CEObserver& other) :
     longitude_(other.longitude_),
     latitude_(other.latitude_),
-    elevation_(other.elevation_),
+    elevation_m_(other.elevation_m_),
     pressure_hPa_(other.pressure_hPa_),
     temperature_celsius_(other.temperature_celsius_),
     relative_humidity_(other.relative_humidity_)

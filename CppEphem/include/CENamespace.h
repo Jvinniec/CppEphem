@@ -30,8 +30,6 @@ namespace CppEphem {
     inline double c_au_per_day() {return DC ;}                  ///< speed of light (astronomical units)/day
     inline double m_per_au() {return DAU ;}                     ///< meters per astronomical unit
     
-    double d = DC * DAU / DAYSEC ;
-    
     /*********************************************
      * Return the 'dut1' value which represents 
      * 'UT1-UTC' for a given MJD or it's error

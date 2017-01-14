@@ -6,6 +6,12 @@
 //  Copyright © 2016 JCardenzana. All rights reserved.
 //
 
+/** \class CEBody
+ The CEBody class defines a celestial object. It should be used as the
+ parent class for all classes which define a celestial object (planets,
+ stars, etc...).
+ */
+
 #include <stdio.h>
 
 #include "CEBody.h"
