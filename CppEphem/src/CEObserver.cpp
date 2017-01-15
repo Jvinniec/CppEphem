@@ -9,8 +9,8 @@
 /** \class CEObserver
  CEObserver class is a self contained object for describing an observer.
  Information relevant to the observer includes:
- - Geographic longitude
- - Geographic latitude (East positive)
+ - Geographic longitude  (East positive)
+ - Geographic latitude
  - Elevation (meters above sea level)
  - Atmospheric pressure (hPa)
  - Temperature
@@ -41,8 +41,14 @@ CEObserver::CEObserver()
 /////////////////////////////////////////////////////////////////
 /// Constructor from a geographic position (latitude, longitude, altitude)
 /// Note that altitude defaults to sea-level
+///     @param longitude            Observer longitude (east positive)
+///     @param latitude             Observer latitude
+///     @param elevation            Observer elevation above sea-level (meters)
+///     @param angle_type           Angle type for longitude and latitude (RADIANS or DEGREES)
+///     @param date                 Current date for the observer
 CEObserver::CEObserver(double longitude, double latitude,
-                       double elevation, CEAngleType angle_type)
+                       double elevation, CEAngleType angle_type,
+                       CEDate date)
 {
     // Use the internal methods for setting the default values
     SetLongitude(longitude, angle_type) ;
@@ -51,10 +57,12 @@ CEObserver::CEObserver(double longitude, double latitude,
     SetPressure(EstimatePressure_hPa(elevation_m_)) ;
     SetTemperature_C() ;
     SetRelativeHumidity() ;
+    SetDate(date) ;
 }
 
 /////////////////////////////////////////////////////////////////
 /// Copy constructor
+///     @param other            Another observer object that will be copied
 CEObserver::CEObserver(const CEObserver& other) :
     longitude_(other.longitude_),
     latitude_(other.latitude_),

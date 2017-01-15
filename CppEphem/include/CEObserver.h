@@ -18,9 +18,9 @@ using namespace CppEphem ;
 class CEObserver {
 public:
     CEObserver() ;
+//    CEObserver(double longitude, double latitude, double elevation=0.0,
+//               CEAngleType angle_type=CEAngleType::RADIANS) ;
     CEObserver(double longitude, double latitude, double elevation=0.0,
-               CEAngleType angle_type=CEAngleType::RADIANS) ;
-    CEObserver(double longitude, double latitude, double elevation,
                CEAngleType angle_type=CEAngleType::RADIANS,
                CEDate date=CEDate(DJ00, CEDateType::JD)) ;
     CEObserver(const CEObserver& other) ;
