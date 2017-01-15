@@ -115,6 +115,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3f86c747a99113c054fe4fc5408998ec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2">CECoordinateType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a3f86c747a99113c054fe4fc5408998ec">GetCoordSystem</a> ()</td></tr>
 <tr class="memdesc:a3f86c747a99113c054fe4fc5408998ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the coordinate type of this object.  <a href="#a3f86c747a99113c054fe4fc5408998ec">More...</a><br /></td></tr>
 <tr class="separator:a3f86c747a99113c054fe4fc5408998ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1a76e8b1b630f45fb24128f1af62aef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCECoordinates.html">CECoordinates</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#ab1a76e8b1b630f45fb24128f1af62aef">GetObservedCoords</a> (double julian_date, double longitude, double latitude, double elevation_m=0.0, double pressure_hPa=-1.0, double temperature_celsius=-1000, double relative_humidity=0.0, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength=500.0)</td></tr>
+<tr class="memdesc:ab1a76e8b1b630f45fb24128f1af62aef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the local sky coordinates of this object as a <a class="el" href="classCECoordinates.html" title="CECoordinates class is responsible for doing all of the celestial coordinate conversions. ">CECoordinates</a> object.  <a href="#ab1a76e8b1b630f45fb24128f1af62aef">More...</a><br /></td></tr>
+<tr class="separator:ab1a76e8b1b630f45fb24128f1af62aef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab644336994b2240fb9585e24b383f97d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCECoordinates.html">CECoordinates</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#ab644336994b2240fb9585e24b383f97d">GetObservedCoords</a> (double julian_date, <a class="el" href="classCEObserver.html">CEObserver</a> &amp;observer, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength=500.0)</td></tr>
+<tr class="memdesc:ab644336994b2240fb9585e24b383f97d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the observed coordinates using an observer object (<a class="el" href="classCEObserver.html" title="CEObserver class is a self contained object for describing an observer. ">CEObserver</a>)  <a href="#ab644336994b2240fb9585e24b383f97d">More...</a><br /></td></tr>
+<tr class="separator:ab644336994b2240fb9585e24b383f97d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af395e512aa731b34bd98fa775c2cdec1"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#af395e512aa731b34bd98fa775c2cdec1">XCoordinate_Deg</a> ()</td></tr>
 <tr class="memdesc:af395e512aa731b34bd98fa775c2cdec1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns x-coordinate in degrees.  <a href="#af395e512aa731b34bd98fa775c2cdec1">More...</a><br /></td></tr>
 <tr class="separator:af395e512aa731b34bd98fa775c2cdec1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -139,9 +145,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a8330914a9a58924993ddf3daf65a0ed0"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a8330914a9a58924993ddf3daf65a0ed0">CIRS2ICRS</a> (double input_ra, double input_dec, double *return_ra, double *return_dec, <a class="el" href="classCEDate.html">CEDate</a> date=<a class="el" href="classCEDate.html">CEDate</a>(DJ00, <a class="el" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746aabf8d7515962e526421842e8456798cc">CEDateType::JD</a>), <a class="el" href="namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15ef">CEAngleType</a> angle_type=CEAngleType::RADIANS)</td></tr>
 <tr class="memdesc:a8330914a9a58924993ddf3daf65a0ed0"><td class="mdescLeft">&#160;</td><td class="mdescRight">CIRS -&gt; ICRS coordinate conversion.  <a href="#a8330914a9a58924993ddf3daf65a0ed0">More...</a><br /></td></tr>
 <tr class="separator:a8330914a9a58924993ddf3daf65a0ed0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b3cadaf04a15c5bb281b5aea675c7e9"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a8b3cadaf04a15c5bb281b5aea675c7e9">CIRS2Observed</a> (double ra, double dec, double *az, double *zen, <a class="el" href="classCEObserver.html">CEObserver</a> observer, <a class="el" href="namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15ef">CEAngleType</a> angle_type=CEAngleType::RADIANS, double wavelength=0.5, double *observed_ra=nullptr, double *observed_dec=nullptr, double *hour_angle=nullptr)</td></tr>
-<tr class="memdesc:a8b3cadaf04a15c5bb281b5aea675c7e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">CIRS -&gt; Observed (or observer specific) coordinate conversion This function takes in verious observation parameters The integer returned is a status code with the following meanings: +1 = dubious year (too far into the past/future to be trusted) 0 = OK status -1 = unacceptable date.  <a href="#a8b3cadaf04a15c5bb281b5aea675c7e9">More...</a><br /></td></tr>
-<tr class="separator:a8b3cadaf04a15c5bb281b5aea675c7e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad880556e195b23c31b01e98294f1c1d0"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#ad880556e195b23c31b01e98294f1c1d0">CIRS2Observed</a> (double ra, double dec, double *az, double *zen, <a class="el" href="classCEObserver.html">CEObserver</a> &amp;observer, <a class="el" href="namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15ef">CEAngleType</a> angle_type=CEAngleType::RADIANS, double wavelength=0.5, double *observed_ra=nullptr, double *observed_dec=nullptr, double *hour_angle=nullptr)</td></tr>
+<tr class="memdesc:ad880556e195b23c31b01e98294f1c1d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">CIRS -&gt; Observed (or observer specific) coordinate conversion This function takes in verious observation parameters The integer returned is a status code with the following meanings: +1 = dubious year (too far into the past/future to be trusted) 0 = OK status -1 = unacceptable date.  <a href="#ad880556e195b23c31b01e98294f1c1d0">More...</a><br /></td></tr>
+<tr class="separator:ad880556e195b23c31b01e98294f1c1d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa77d308ed8537f8cd42df293e51c5eb6"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#aa77d308ed8537f8cd42df293e51c5eb6">CIRS2Observed</a> (double ra, double dec, double *az, double *zen, double julian_date, double longitude, double latitude, double elevation_m=0.0, double pressure_hPa=-1.0, double temperature_celsius=-1000, double relative_humidity=0.0, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength=500.0, double *observed_ra=nullptr, double *observed_dec=nullptr, double *hour_angle=nullptr)</td></tr>
 <tr class="memdesc:aa77d308ed8537f8cd42df293e51c5eb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw method for converting CIRS -&gt; Observed (observer specific) coordinates.  <a href="#aa77d308ed8537f8cd42df293e51c5eb6">More...</a><br /></td></tr>
 <tr class="separator:aa77d308ed8537f8cd42df293e51c5eb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,9 +160,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:afa288c6036d21ed291dc37d11314443b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#afa288c6036d21ed291dc37d11314443b">Galactic2ICRS</a> (double glon, double glat, double *ra, double *dec, <a class="el" href="namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15ef">CEAngleType</a> angle_type=CEAngleType::RADIANS)</td></tr>
 <tr class="memdesc:afa288c6036d21ed291dc37d11314443b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Galactic -&gt; ICRS coordinate conversion.  <a href="#afa288c6036d21ed291dc37d11314443b">More...</a><br /></td></tr>
 <tr class="separator:afa288c6036d21ed291dc37d11314443b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a975c625831eea820a2ebb4b1c7429ca7"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a975c625831eea820a2ebb4b1c7429ca7">Galactic2Observed</a> (double glon, double glat, double *az, double *zen, <a class="el" href="classCEObserver.html">CEObserver</a> observer, <a class="el" href="namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15ef">CEAngleType</a> angle_type=CEAngleType::RADIANS, double wavelength=0.5, double *observed_glon=nullptr, double *observed_glat=nullptr)</td></tr>
-<tr class="memdesc:a975c625831eea820a2ebb4b1c7429ca7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Galactic -&gt; Observed (i.e.  <a href="#a975c625831eea820a2ebb4b1c7429ca7">More...</a><br /></td></tr>
-<tr class="separator:a975c625831eea820a2ebb4b1c7429ca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08d1d11b0d73810d29128f2daafa153b"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a08d1d11b0d73810d29128f2daafa153b">Galactic2Observed</a> (double glon, double glat, double *az, double *zen, <a class="el" href="classCEObserver.html">CEObserver</a> &amp;observer, <a class="el" href="namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15ef">CEAngleType</a> angle_type=CEAngleType::RADIANS, double wavelength=0.5, double *observed_glon=nullptr, double *observed_glat=nullptr)</td></tr>
+<tr class="memdesc:a08d1d11b0d73810d29128f2daafa153b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Galactic -&gt; Observed (i.e.  <a href="#a08d1d11b0d73810d29128f2daafa153b">More...</a><br /></td></tr>
+<tr class="separator:a08d1d11b0d73810d29128f2daafa153b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9ec0c48ebb8b488932626a98338189b"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#af9ec0c48ebb8b488932626a98338189b">Galactic2Observed</a> (double glon, double glat, double *az, double *zen, double julian_date, double longitude, double latitude, double elevation_m=0.0, double pressure_hPa=-1.0, double temperature_celsius=-1000, double relative_humidity=0.0, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength=500.0, double *observed_glon=nullptr, double *observed_glat=nullptr)</td></tr>
 <tr class="memdesc:af9ec0c48ebb8b488932626a98338189b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw method for converting Galactic -&gt; Observed (observer specific) coordinates.  <a href="#af9ec0c48ebb8b488932626a98338189b">More...</a><br /></td></tr>
 <tr class="separator:af9ec0c48ebb8b488932626a98338189b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -166,9 +172,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:afaea845380366fb186f744457e42cd50"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#afaea845380366fb186f744457e42cd50">ICRS2Galactic</a> (double ra, double dec, double *glon, double *glat, <a class="el" href="namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15ef">CEAngleType</a> angle_type=CEAngleType::RADIANS)</td></tr>
 <tr class="memdesc:afaea845380366fb186f744457e42cd50"><td class="mdescLeft">&#160;</td><td class="mdescRight">ICRS -&gt; Galactic coordinate conversion.  <a href="#afaea845380366fb186f744457e42cd50">More...</a><br /></td></tr>
 <tr class="separator:afaea845380366fb186f744457e42cd50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c71eeacb95897d5ef1b59312565a7c6"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a2c71eeacb95897d5ef1b59312565a7c6">ICRS2Observed</a> (double ra, double dec, double *az, double *zen, <a class="el" href="classCEObserver.html">CEObserver</a> observer, <a class="el" href="namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15ef">CEAngleType</a> angle_type=CEAngleType::RADIANS, double wavelength=0.5, double *observed_ra=nullptr, double *observed_dec=nullptr)</td></tr>
-<tr class="memdesc:a2c71eeacb95897d5ef1b59312565a7c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">ICRS -&gt; Observed coordinate conversion.  <a href="#a2c71eeacb95897d5ef1b59312565a7c6">More...</a><br /></td></tr>
-<tr class="separator:a2c71eeacb95897d5ef1b59312565a7c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8248c909af13540076fdc46c96b23df0"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a8248c909af13540076fdc46c96b23df0">ICRS2Observed</a> (double ra, double dec, double *az, double *zen, <a class="el" href="classCEObserver.html">CEObserver</a> &amp;observer, <a class="el" href="namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15ef">CEAngleType</a> angle_type=CEAngleType::RADIANS, double wavelength=0.5, double *observed_ra=nullptr, double *observed_dec=nullptr)</td></tr>
+<tr class="memdesc:a8248c909af13540076fdc46c96b23df0"><td class="mdescLeft">&#160;</td><td class="mdescRight">ICRS -&gt; Observed coordinate conversion.  <a href="#a8248c909af13540076fdc46c96b23df0">More...</a><br /></td></tr>
+<tr class="separator:a8248c909af13540076fdc46c96b23df0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a336c5a3251f88c3f62b2d9c3d964a8c6"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a336c5a3251f88c3f62b2d9c3d964a8c6">ICRS2Observed</a> (double ra, double dec, double *az, double *zen, double julian_date, double longitude, double latitude, double elevation_m=0.0, double pressure_hPa=-1.0, double temperature_celsius=-1000, double relative_humidity=0.0, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength=500.0, double *observed_ra=nullptr, double *observed_dec=nullptr)</td></tr>
 <tr class="memdesc:a336c5a3251f88c3f62b2d9c3d964a8c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw method for converting ICRS -&gt; Observed (observer specific) coordinates.  <a href="#a336c5a3251f88c3f62b2d9c3d964a8c6">More...</a><br /></td></tr>
 <tr class="separator:a336c5a3251f88c3f62b2d9c3d964a8c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -195,7 +201,7 @@ Protected Attributes</h2></td></tr>
 <li>Observed: Observer specific coordinate system </li>
 </ul>
 
-<p>Definition at line <a class="el" href="CECoordinates_8h_source.html#l00033">33</a> of file <a class="el" href="CECoordinates_8h_source.html">CECoordinates.h</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8h_source.html#l00035">35</a> of file <a class="el" href="CECoordinates_8h_source.html">CECoordinates.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="adbaa5893da76e77dca4d1b8e630132d4"></a>
 <div class="memitem">
@@ -212,7 +218,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Default constructor. </p>
 
-<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00026">26</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00027">27</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
 
 </div>
 </div>
@@ -263,7 +269,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00039">39</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00040">40</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
 
 </div>
 </div>
@@ -289,7 +295,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00057">57</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00058">58</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
 
 </div>
 </div>
@@ -309,7 +315,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Copy constructor. </p>
 
-<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00066">66</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00067">67</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
 
 </div>
 </div>
@@ -336,7 +342,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Destructor. </p>
 
-<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00075">75</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00076">76</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
 
 </div>
 </div>
@@ -410,7 +416,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00141">141</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00142">142</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
 
 </div>
 </div>
@@ -483,11 +489,11 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00108">108</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00109">109</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a8b3cadaf04a15c5bb281b5aea675c7e9"></a>
+<a class="anchor" id="ad880556e195b23c31b01e98294f1c1d0"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -521,7 +527,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classCEObserver.html">CEObserver</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classCEObserver.html">CEObserver</a> &amp;&#160;</td>
           <td class="paramname"><em>observer</em>, </td>
         </tr>
         <tr>
@@ -584,7 +590,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00184">184</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00185">185</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
 
 </div>
 </div>
@@ -740,24 +746,8 @@ Protected Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ra</td><td>Right ascension in CIRS coordinates </td></tr>
-    <tr><td class="paramname">dec</td><td>Declination CIRS coordinates </td></tr>
-    <tr><td class="paramname">az</td><td>Azimuth (returned) </td></tr>
-    <tr><td class="paramname">zen</td><td>Zenith (returned) </td></tr>
-    <tr><td class="paramname">julian_date</td><td>Julian date of observation </td></tr>
-    <tr><td class="paramname">longitude</td><td>Observer longitude (radians) </td></tr>
-    <tr><td class="paramname">latitude</td><td>Observer latitude (radians) </td></tr>
-    <tr><td class="paramname">elevation_m</td><td>Observer elevation </td></tr>
-    <tr><td class="paramname">pressure_hPa</td><td>Observer atmospheric pressure (units hPa) </td></tr>
-    <tr><td class="paramname">temperature_celsius</td><td>Observer atmospheric temperature (units Celsius) </td></tr>
-    <tr><td class="paramname">relative_humidity</td><td>Observer atmospheric humidity (0.0-1.0) </td></tr>
-  </table>
-  </dd>
-</dl>
 
-<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00488">488</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00489">489</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
 
 </div>
 </div>
@@ -837,7 +827,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00092">92</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00093">93</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
 
 </div>
 </div>
@@ -910,7 +900,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00354">354</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00355">355</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
 
 </div>
 </div>
@@ -976,11 +966,11 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00385">385</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00386">386</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a975c625831eea820a2ebb4b1c7429ca7"></a>
+<a class="anchor" id="a08d1d11b0d73810d29128f2daafa153b"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1014,7 +1004,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classCEObserver.html">CEObserver</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classCEObserver.html">CEObserver</a> &amp;&#160;</td>
           <td class="paramname"><em>observer</em>, </td>
         </tr>
         <tr>
@@ -1055,7 +1045,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Galactic -&gt; Observed (i.e. </p>
-<p>observer specific) coordinate conversion. For the raw version of this method see <a class="el" href="classCECoordinates.html#a975c625831eea820a2ebb4b1c7429ca7" title="Galactic -> Observed (i.e. ">CECoordinates::Galactic2Observed()</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>observer specific) coordinate conversion. For the raw version of this method see <a class="el" href="classCECoordinates.html#a08d1d11b0d73810d29128f2daafa153b" title="Galactic -> Observed (i.e. ">CECoordinates::Galactic2Observed()</a>. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">glon</td><td>Galactic longitude </td></tr>
     <tr><td class="paramname">glat</td><td>Galactic latitude </td></tr>
@@ -1069,7 +1059,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00416">416</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00417">417</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
 
 </div>
 </div>
@@ -1218,24 +1208,8 @@ Protected Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">glon</td><td>Galactic longitude (radians) </td></tr>
-    <tr><td class="paramname">glat</td><td>Galactic latitude (radians) </td></tr>
-    <tr><td class="paramname">az</td><td>Azimuth (returned) </td></tr>
-    <tr><td class="paramname">zen</td><td>Zenith (returned) </td></tr>
-    <tr><td class="paramname">julian_date</td><td>Julian date of observation </td></tr>
-    <tr><td class="paramname">longitude</td><td>Observer longitude (radians) </td></tr>
-    <tr><td class="paramname">latitude</td><td>Observer latitude (radians) </td></tr>
-    <tr><td class="paramname">elevation_m</td><td>Observer elevation </td></tr>
-    <tr><td class="paramname">pressure_hPa</td><td>Observer atmospheric pressure (units hPa) </td></tr>
-    <tr><td class="paramname">temperature_celsius</td><td>Observer atmospheric temperature (units Celsius) </td></tr>
-    <tr><td class="paramname">relative_humidity</td><td>Observer atmospheric humidity (0.0-1.0) </td></tr>
-  </table>
-  </dd>
-</dl>
 
-<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00617">617</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00618">618</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
 
 </div>
 </div>
@@ -1262,7 +1236,174 @@ Protected Attributes</h2></td></tr>
 
 <p>Returns the coordinate type of this object. </p>
 
-<p>Definition at line <a class="el" href="CECoordinates_8h_source.html#l00050">50</a> of file <a class="el" href="CECoordinates_8h_source.html">CECoordinates.h</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8h_source.html#l00052">52</a> of file <a class="el" href="CECoordinates_8h_source.html">CECoordinates.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab1a76e8b1b630f45fb24128f1af62aef"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classCECoordinates.html">CECoordinates</a> CECoordinates::GetObservedCoords </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>julian_date</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>longitude</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>latitude</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>elevation_m</em> = <code>0.0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>pressure_hPa</em> = <code>-1.0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>temperature_celsius</em> = <code>-1000</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>relative_humidity</em> = <code>0.0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>dut1</em> = <code>0.0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>xp</em> = <code>0.0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>yp</em> = <code>0.0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>wavelength</em> = <code>500.0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the local sky coordinates of this object as a <a class="el" href="classCECoordinates.html" title="CECoordinates class is responsible for doing all of the celestial coordinate conversions. ">CECoordinates</a> object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">julian_date</td><td>Julian date of the observation </td></tr>
+    <tr><td class="paramname">longitude</td><td>Observer longitude (radians) </td></tr>
+    <tr><td class="paramname">latitude</td><td>Observer latitude (radians) </td></tr>
+    <tr><td class="paramname">elevation_m</td><td>Observer elevation (meters) </td></tr>
+    <tr><td class="paramname">pressure_hPa</td><td>Observer atmospheric pressure (hPa) </td></tr>
+    <tr><td class="paramname">temerature_celsius</td><td>Temperature (degrees Celsius) </td></tr>
+    <tr><td class="paramname">relative_humidity</td><td>Relative humidity </td></tr>
+    <tr><td class="paramname">dut1</td><td>'UTC-UT1' </td></tr>
+    <tr><td class="paramname">xp</td><td>x-polar motion </td></tr>
+    <tr><td class="paramname">yp</td><td>y-polar motion </td></tr>
+    <tr><td class="paramname">wavelength</td><td>Wavelength being observed </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>These coordinates converted into the observed coordinates of the observer specified </dd></dl>
+
+<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00681">681</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab644336994b2240fb9585e24b383f97d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classCECoordinates.html">CECoordinates</a> CECoordinates::GetObservedCoords </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>julian_date</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classCEObserver.html">CEObserver</a> &amp;&#160;</td>
+          <td class="paramname"><em>observer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>dut1</em> = <code>0.0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>xp</em> = <code>0.0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>yp</em> = <code>0.0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>wavelength</em> = <code>500.0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the observed coordinates using an observer object (<a class="el" href="classCEObserver.html" title="CEObserver class is a self contained object for describing an observer. ">CEObserver</a>) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">julian_date</td><td>Julian date of the observation </td></tr>
+    <tr><td class="paramname">observer</td><td>Observer information </td></tr>
+    <tr><td class="paramname">dut1</td><td>'UTC-UT1' </td></tr>
+    <tr><td class="paramname">xp</td><td>x-polar motion </td></tr>
+    <tr><td class="paramname">yp</td><td>y-polar motion </td></tr>
+    <tr><td class="paramname">wavelength</td><td>Wavelength being observed </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>These coordinates converted into the observed coordinates of 'observer' </dd></dl>
+
+<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00726">726</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
 
 </div>
 </div>
@@ -1335,7 +1476,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00243">243</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00244">244</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
 
 </div>
 </div>
@@ -1401,11 +1542,11 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00274">274</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00275">275</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a2c71eeacb95897d5ef1b59312565a7c6"></a>
+<a class="anchor" id="a8248c909af13540076fdc46c96b23df0"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1439,7 +1580,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classCEObserver.html">CEObserver</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classCEObserver.html">CEObserver</a> &amp;&#160;</td>
           <td class="paramname"><em>observer</em>, </td>
         </tr>
         <tr>
@@ -1495,7 +1636,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00297">297</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00298">298</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
 
 </div>
 </div>
@@ -1645,24 +1786,8 @@ Protected Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ra</td><td>Right ascension in CIRS coordinates </td></tr>
-    <tr><td class="paramname">dec</td><td>Declination CIRS coordinates </td></tr>
-    <tr><td class="paramname">az</td><td>Azimuth (returned) </td></tr>
-    <tr><td class="paramname">zen</td><td>Zenith (returned) </td></tr>
-    <tr><td class="paramname">julian_date</td><td>Julian date of observation </td></tr>
-    <tr><td class="paramname">longitude</td><td>Observer longitude (radians) </td></tr>
-    <tr><td class="paramname">latitude</td><td>Observer latitude (radians) </td></tr>
-    <tr><td class="paramname">elevation_m</td><td>Observer elevation </td></tr>
-    <tr><td class="paramname">pressure_hPa</td><td>Observer atmospheric pressure (units hPa) </td></tr>
-    <tr><td class="paramname">temperature_celsius</td><td>Observer atmospheric temperature (units Celsius) </td></tr>
-    <tr><td class="paramname">relative_humidity</td><td>Observer atmospheric humidity (0.0-1.0) </td></tr>
-  </table>
-  </dd>
-</dl>
 
-<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00550">550</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8cpp_source.html#l00551">551</a> of file <a class="el" href="CECoordinates_8cpp_source.html">CECoordinates.cpp</a>.</p>
 
 </div>
 </div>
@@ -1689,7 +1814,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Returns x-coordinate in degrees. </p>
 
-<p>Definition at line <a class="el" href="CECoordinates_8h_source.html#l00046">46</a> of file <a class="el" href="CECoordinates_8h_source.html">CECoordinates.h</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8h_source.html#l00048">48</a> of file <a class="el" href="CECoordinates_8h_source.html">CECoordinates.h</a>.</p>
 
 </div>
 </div>
@@ -1716,7 +1841,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Returns x-coordinate in radians. </p>
 
-<p>Definition at line <a class="el" href="CECoordinates_8h_source.html#l00048">48</a> of file <a class="el" href="CECoordinates_8h_source.html">CECoordinates.h</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8h_source.html#l00050">50</a> of file <a class="el" href="CECoordinates_8h_source.html">CECoordinates.h</a>.</p>
 
 </div>
 </div>
@@ -1743,7 +1868,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Returns y-coordinate in degrees. </p>
 
-<p>Definition at line <a class="el" href="CECoordinates_8h_source.html#l00047">47</a> of file <a class="el" href="CECoordinates_8h_source.html">CECoordinates.h</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8h_source.html#l00049">49</a> of file <a class="el" href="CECoordinates_8h_source.html">CECoordinates.h</a>.</p>
 
 </div>
 </div>
@@ -1770,7 +1895,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Returns y-coordinate in radians. </p>
 
-<p>Definition at line <a class="el" href="CECoordinates_8h_source.html#l00049">49</a> of file <a class="el" href="CECoordinates_8h_source.html">CECoordinates.h</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8h_source.html#l00051">51</a> of file <a class="el" href="CECoordinates_8h_source.html">CECoordinates.h</a>.</p>
 
 </div>
 </div>
@@ -1796,7 +1921,7 @@ Protected Attributes</h2></td></tr>
 <p>Coordinate system to which 'xcoord_' and 'ycoord_' belong. </p>
 <p>Possible values are "CIRS", "ICRS", "GALACTIC", "OBSERVED", and "GEOGRAPHIC" </p>
 
-<p>Definition at line <a class="el" href="CECoordinates_8h_source.html#l00187">187</a> of file <a class="el" href="CECoordinates_8h_source.html">CECoordinates.h</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8h_source.html#l00205">205</a> of file <a class="el" href="CECoordinates_8h_source.html">CECoordinates.h</a>.</p>
 
 </div>
 </div>
@@ -1820,7 +1945,7 @@ Protected Attributes</h2></td></tr>
 
 <p>X coordinate (radians) </p>
 
-<p>Definition at line <a class="el" href="CECoordinates_8h_source.html#l00185">185</a> of file <a class="el" href="CECoordinates_8h_source.html">CECoordinates.h</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8h_source.html#l00203">203</a> of file <a class="el" href="CECoordinates_8h_source.html">CECoordinates.h</a>.</p>
 
 </div>
 </div>
@@ -1844,7 +1969,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Y coordinate (radians) </p>
 
-<p>Definition at line <a class="el" href="CECoordinates_8h_source.html#l00186">186</a> of file <a class="el" href="CECoordinates_8h_source.html">CECoordinates.h</a>.</p>
+<p>Definition at line <a class="el" href="CECoordinates_8h_source.html#l00204">204</a> of file <a class="el" href="CECoordinates_8h_source.html">CECoordinates.h</a>.</p>
 
 </div>
 </div>
@@ -1855,7 +1980,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 13 2017 21:17:52 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 15 2017 15:10:20 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

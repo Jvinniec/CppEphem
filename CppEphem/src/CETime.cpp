@@ -100,6 +100,22 @@ void CETime::SetTime(std::vector<double> time_vect, CETimeType time_format)
         void SetTime_LOCALTIME(std::vector<double> time) ;
     }
 }
+
+void CETime::UTC2GAST()
+{
+    
+}
+
+void CETime::UTC2LAST()
+{
+    
+}
+
+void CETime::UTC2LOCALTIME()
+{
+    
+}
+
 # pragma mark - Protected Methods
 
 /////////////////////////////////////////////////////////

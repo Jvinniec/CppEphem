@@ -47,7 +47,8 @@ public:
                         CEAngleType angle_type = CEAngleType::RADIANS) ;
     
 protected:
-    std::shared_ptr<CECoordinates> coords_=nullptr ; ///< Coordinates of this object
+    std::shared_ptr<CECoordinates> coords_=std::shared_ptr<CECoordinates>(
+                                    new CECoordinates(0.0,0.0,CECoordinateType::CIRS)) ; ///< Coordinates of this object
     
     // Proper motion variables for this object. These are used for
     // correctly getting the objects coordinates at some date other

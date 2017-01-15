@@ -137,32 +137,33 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                        <a class="code" href="namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15ef">CEAngleType</a> angle_type = CEAngleType::RADIANS) ;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classCEBody.html#ad054d987e2287cc5946fda179dc2dea4">   50</a></span>&#160;    std::shared_ptr&lt;CECoordinates&gt; <a class="code" href="classCEBody.html#ad054d987e2287cc5946fda179dc2dea4">coords_</a>=nullptr ; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="comment">// Proper motion variables for this object. These are used for</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="comment">// correctly getting the objects coordinates at some date other</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="comment">// than the date indicated in &#39;coords_&#39;</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;};</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* CEBody_h */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classCEBody.html#ad054d987e2287cc5946fda179dc2dea4">   50</a></span>&#160;    std::shared_ptr&lt;CECoordinates&gt; <a class="code" href="classCEBody.html#ad054d987e2287cc5946fda179dc2dea4">coords_</a>=std::shared_ptr&lt;CECoordinates&gt;(</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                                    <span class="keyword">new</span> <a class="code" href="classCECoordinates.html">CECoordinates</a>(0.0,0.0,<a class="code" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2a4efe390156f8c58bfa109575fc5cae4c">CECoordinateType::CIRS</a>)) ; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="comment">// Proper motion variables for this object. These are used for</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="comment">// correctly getting the objects coordinates at some date other</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="comment">// than the date indicated in &#39;coords_&#39;</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;};</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* CEBody_h */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="classCEBody_html_ad054d987e2287cc5946fda179dc2dea4"><div class="ttname"><a href="classCEBody.html#ad054d987e2287cc5946fda179dc2dea4">CEBody::coords_</a></div><div class="ttdeci">std::shared_ptr&lt; CECoordinates &gt; coords_</div><div class="ttdoc">Coordinates of this object. </div><div class="ttdef"><b>Definition:</b> <a href="CEBody_8h_source.html#l00050">CEBody.h:50</a></div></div>
 <div class="ttc" id="namespaceCppEphem_html_a9a974f6ccf329e8cb5f9208b725f15ef"><div class="ttname"><a href="namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15ef">CppEphem::CEAngleType</a></div><div class="ttdeci">CEAngleType</div><div class="ttdef"><b>Definition:</b> <a href="CENamespace_8h_source.html#l00022">CENamespace.h:22</a></div></div>
-<div class="ttc" id="classCECoordinates_html"><div class="ttname"><a href="classCECoordinates.html">CECoordinates</a></div><div class="ttdoc">CECoordinates class is responsible for doing all of the celestial coordinate conversions. </div><div class="ttdef"><b>Definition:</b> <a href="CECoordinates_8h_source.html#l00033">CECoordinates.h:33</a></div></div>
+<div class="ttc" id="classCECoordinates_html"><div class="ttname"><a href="classCECoordinates.html">CECoordinates</a></div><div class="ttdoc">CECoordinates class is responsible for doing all of the celestial coordinate conversions. </div><div class="ttdef"><b>Definition:</b> <a href="CECoordinates_8h_source.html#l00035">CECoordinates.h:35</a></div></div>
 <div class="ttc" id="CECoordinates_8h_html"><div class="ttname"><a href="CECoordinates_8h.html">CECoordinates.h</a></div></div>
 <div class="ttc" id="classCEBody_html_abd36081ccb5770d61e2da22e3f50d552"><div class="ttname"><a href="classCEBody.html#abd36081ccb5770d61e2da22e3f50d552">CEBody::CEBody</a></div><div class="ttdeci">CEBody()</div><div class="ttdoc">Default constructor. </div><div class="ttdef"><b>Definition:</b> <a href="CEBody_8cpp_source.html#l00022">CEBody.cpp:22</a></div></div>
 <div class="ttc" id="classCEBody_html"><div class="ttname"><a href="classCEBody.html">CEBody</a></div><div class="ttdoc">The CEBody class defines a celestial object. </div><div class="ttdef"><b>Definition:</b> <a href="CEBody_8h_source.html#l00025">CEBody.h:25</a></div></div>
 <div class="ttc" id="CECoordinates_8h_html_a2198dc50406b64707964f5c1e8b32db2a4efe390156f8c58bfa109575fc5cae4c"><div class="ttname"><a href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2a4efe390156f8c58bfa109575fc5cae4c">CECoordinateType::CIRS</a></div><div class="ttdoc">RA, Dec (referenced at the center of the Earth) </div></div>
 <div class="ttc" id="classCEBody_html_afb139f461d8df01692deb6e9b90e69e1"><div class="ttname"><a href="classCEBody.html#afb139f461d8df01692deb6e9b90e69e1">CEBody::GetCoordinates</a></div><div class="ttdeci">std::shared_ptr&lt; CECoordinates &gt; GetCoordinates()</div><div class="ttdoc">Returns the coordinates associated with this object as a &#39;CECoordinates&#39; object. </div><div class="ttdef"><b>Definition:</b> <a href="CEBody_8h_source.html#l00039">CEBody.h:39</a></div></div>
-<div class="ttc" id="CECoordinates_8h_html_a2198dc50406b64707964f5c1e8b32db2"><div class="ttname"><a href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2">CECoordinateType</a></div><div class="ttdeci">CECoordinateType</div><div class="ttdoc">The following enum specifies what coordinates this object represents. </div><div class="ttdef"><b>Definition:</b> <a href="CECoordinates_8h_source.html#l00026">CECoordinates.h:26</a></div></div>
+<div class="ttc" id="CECoordinates_8h_html_a2198dc50406b64707964f5c1e8b32db2"><div class="ttname"><a href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2">CECoordinateType</a></div><div class="ttdeci">CECoordinateType</div><div class="ttdoc">The following enum specifies what coordinates this object represents. </div><div class="ttdef"><b>Definition:</b> <a href="CECoordinates_8h_source.html#l00028">CECoordinates.h:28</a></div></div>
 <div class="ttc" id="classCEBody_html_ada452076289fa13b8b0f01865977e0c0"><div class="ttname"><a href="classCEBody.html#ada452076289fa13b8b0f01865977e0c0">CEBody::SetCoordinates</a></div><div class="ttdeci">void SetCoordinates(CECoordinates new_coords)</div><div class="ttdoc">Sets the coordinates of this object. </div><div class="ttdef"><b>Definition:</b> <a href="CEBody_8cpp_source.html#l00064">CEBody.cpp:64</a></div></div>
 <div class="ttc" id="classCEBody_html_a48c972239b6ff122712a5771e6f6b7c1"><div class="ttname"><a href="classCEBody.html#a48c972239b6ff122712a5771e6f6b7c1">CEBody::~CEBody</a></div><div class="ttdeci">virtual ~CEBody()</div><div class="ttdoc">Destructor. </div><div class="ttdef"><b>Definition:</b> <a href="CEBody_8cpp_source.html#l00055">CEBody.cpp:55</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 13 2017 21:17:51 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 15 2017 15:10:09 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

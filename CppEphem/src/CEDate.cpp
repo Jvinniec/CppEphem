@@ -126,9 +126,9 @@ double CEDate::JD2MJD(double jd)
 {return jd - GetMJD2JDFactor();}
 
 /////////////////////////////////////////////////////////////////
-/// Julian date -> Gregorian calendar date conversion method
+/// Julian date -> Gregorian calendar date conversion method.
 ///     @param jd               Julian date
-///     @return Gregorian calendar date of the form YYYYMMDD.<day fraction>
+///     @return Gregorian calendar date of the form YYYYMMDD.DD
 
 double CEDate::JD2Gregorian(double jd)
 {
@@ -183,7 +183,7 @@ double CEDate::MJD2JD(double mjd)
 /////////////////////////////////////////////////////////////////
 /// Modified Julian date -> Gregorian calendar date conversion method
 ///     @param mjd              Modified Julian date
-///     @return Gregorian calendar date of the form YYYYMMDD.<day fraction>
+///     @return Gregorian calendar date of the form YYYYMMDD.DD
 
 double CEDate::MJD2Gregorian(double mjd)
 {

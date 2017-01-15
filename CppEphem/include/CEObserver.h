@@ -9,6 +9,7 @@
 #ifndef CEObserver_h
 #define CEObserver_h
 
+#include "CEBody.h"
 #include "CEDate.h"
 #include "CENamespace.h"
 
@@ -99,6 +100,8 @@ public:
      * Methods for interacting with the sofa functions
      ****************************************************/
     
+    CECoordinates ObservedPosition(CEBody& object) ;
+    CECoordinates ObservedPosition(CECoordinates& coords) ;
     
 protected:
     // Variables which define the observer

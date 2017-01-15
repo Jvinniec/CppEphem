@@ -70,3 +70,33 @@ CEObserver::~CEObserver()
 {}
 
 #pragma mark - Public Methods
+
+/////////////////////////////////////////////////////////////////
+/// Get the local sky coordinates for an object as observed
+/// by this observer
+///     @param object           Object that we want to find the local coordinates of
+///     @return                 Local coordinates of the object
+CECoordinates CEObserver::ObservedPosition(CEBody& object)
+{
+    std::shared_ptr<CECoordinates> coords = object.GetCoordinates() ;
+    return ObservedPosition(*coords) ;
+}
+
+/////////////////////////////////////////////////////////////////
+/// Get the local sky coordinates for an object as observed
+/// by this observer
+///     @param coords           Coordinates of an object that we want to find the local coordinates of
+///     @return                 'coords' converted into the local coordinates of this observer.
+CECoordinates CEObserver::ObservedPosition(CECoordinates& coords)
+{
+    // Test that the coords object isnt empty
+
+    if (false) {
+        CECoordinates observed_coords = coords.GetObservedCoords(current_date_,
+                                                     *this) ;
+        return coords ;
+    } else {
+        CECoordinates coords ;
+        return coords ;
+    }
+}

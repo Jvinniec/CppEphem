@@ -121,7 +121,7 @@ protected:
      ************************************************************/
     double julian_date_ ;                   ///< Julian date formated
     double mod_julian_date_ ;               ///< Modified Julian date formated
-    double gregorian_date_ ;                ///< Gregorian calendar date. Format as YYYYMMDD.<date fraction>
+    double gregorian_date_ ;                ///< Gregorian calendar date. Format as YYYYMMDD.DD
     std::vector<double> gregorian_date_vect_ ;   ///< Vector containing the gregorian calendar date
                                                 ///< 0 - Year, 1 - Month, 2 - date, 3 - date fraction
     
