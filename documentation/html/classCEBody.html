@@ -133,7 +133,7 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:ad054d987e2287cc5946fda179dc2dea4"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classCECoordinates.html">CECoordinates</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEBody.html#ad054d987e2287cc5946fda179dc2dea4">coords_</a> =nullptr</td></tr>
+<tr class="memitem:ad054d987e2287cc5946fda179dc2dea4"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classCECoordinates.html">CECoordinates</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEBody.html#ad054d987e2287cc5946fda179dc2dea4">coords_</a></td></tr>
 <tr class="memdesc:ad054d987e2287cc5946fda179dc2dea4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coordinates of this object.  <a href="#ad054d987e2287cc5946fda179dc2dea4">More...</a><br /></td></tr>
 <tr class="separator:ad054d987e2287cc5946fda179dc2dea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -406,7 +406,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="classCECoordinates.html">CECoordinates</a>&gt; CEBody::coords_ =nullptr</td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classCECoordinates.html">CECoordinates</a>&gt; CEBody::coords_</td>
         </tr>
       </table>
   </td>
@@ -415,7 +415,9 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line">=std::shared_ptr&lt;CECoordinates&gt;(</div>
+<div class="line">                                    <span class="keyword">new</span> <a class="code" href="classCECoordinates.html">CECoordinates</a>(0.0,0.0,<a class="code" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2a4efe390156f8c58bfa109575fc5cae4c">CECoordinateType::CIRS</a>))</div>
+</div><!-- fragment -->
 <p>Coordinates of this object. </p>
 
 <p>Definition at line <a class="el" href="CEBody_8h_source.html#l00050">50</a> of file <a class="el" href="CEBody_8h_source.html">CEBody.h</a>.</p>
@@ -429,7 +431,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 13 2017 21:27:12 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 15 2017 16:08:33 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

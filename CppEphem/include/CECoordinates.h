@@ -15,12 +15,14 @@
 // CppEphem HEADERS
 #include "CEDate.h"
 #include "CENamespace.h"
-#include "CEObserver.h"
+//#include "CEObserver.h"
 
 // SOFA HEADER
 #include "sofa.h"
 
 using namespace CppEphem ;
+
+class CEObserver ;
 
 /** The following enum specifies what coordinates this object represents */
 enum class CECoordinateType {CIRS,           ///< RA, Dec (referenced at the center of the Earth)
@@ -75,7 +77,7 @@ public:
                              double dec,
                              double *az,
                              double *zen,
-                             CEObserver observer,
+                             CEObserver& observer,
                              CEAngleType angle_type=CEAngleType::RADIANS,
                              double wavelength=0.5,
                              double *observed_ra=nullptr,
@@ -98,9 +100,8 @@ public:
                              double dec,
                              double *az,
                              double *zen,
-                             CEObserver observer,
+                             CEObserver& observer,
                              CEAngleType angle_type=CEAngleType::RADIANS,
-                             
                              double wavelength=0.5,
                              double *observed_ra=nullptr,
                              double *observed_dec=nullptr);
@@ -115,7 +116,7 @@ public:
                                  double glat,
                                  double *az,
                                  double *zen,
-                                 CEObserver observer,
+                                 CEObserver& observer,
                                  CEAngleType angle_type=CEAngleType::RADIANS,
                                  double wavelength=0.5,
                                  double *observed_glon=nullptr,
@@ -127,17 +128,17 @@ public:
     // azimuth, zenith without the need to use the CEObserver class.
     // They function by creating a temporary CEObserver object and then
     // calling the above functions.
-    static int CIRS2Observed(double ra,                         ///< Right ascension in CIRS coordinates
-                             double dec,                        ///< Declination CIRS coordinates
-                             double *az,                        ///< Azimuth (returned)
-                             double *zen,                       ///< Zenith (returned)
-                             double julian_date,                ///< Julian date of observation
-                             double longitude,                  ///< Observer longitude (radians)
-                             double latitude,                   ///< Observer latitude (radians)
-                             double elevation_m=0.0,            ///< Observer elevation
-                             double pressure_hPa=-1.0,          ///< Observer atmospheric pressure (units hPa)
-                             double temperature_celsius=-1000,  ///< Observer atmospheric temperature (units Celsius)
-                             double relative_humidity=0.0,      ///< Observer atmospheric humidity (0.0-1.0)
+    static int CIRS2Observed(double ra,
+                             double dec,
+                             double *az,
+                             double *zen,
+                             double julian_date,
+                             double longitude,
+                             double latitude,
+                             double elevation_m=0.0,
+                             double pressure_hPa=-1.0,
+                             double temperature_celsius=-1000,
+                             double relative_humidity=0.0,
                              double dut1=0.0,
                              double xp=0.0,
                              double yp=0.0,
@@ -147,39 +148,56 @@ public:
                              double *hour_angle=nullptr
                              );
     /** Raw method for converting ICRS -> Observed (observer specific) coordinates. */
-    static int ICRS2Observed(double ra,                         ///< Right ascension in CIRS coordinates
-                             double dec,                        ///< Declination CIRS coordinates
-                             double *az,                        ///< Azimuth (returned)
-                             double *zen,                       ///< Zenith (returned)
-                             double julian_date,                ///< Julian date of observation
-                             double longitude,                  ///< Observer longitude (radians)
-                             double latitude,                   ///< Observer latitude (radians)
-                             double elevation_m=0.0,            ///< Observer elevation
-                             double pressure_hPa=-1.0,          ///< Observer atmospheric pressure (units hPa)
-                             double temperature_celsius=-1000,  ///< Observer atmospheric temperature (units Celsius)
-                             double relative_humidity=0.0,      ///< Observer atmospheric humidity (0.0-1.0)
+    static int ICRS2Observed(double ra,
+                             double dec,
+                             double *az,
+                             double *zen,
+                             double julian_date,
+                             double longitude,
+                             double latitude,
+                             double elevation_m=0.0,
+                             double pressure_hPa=-1.0,
+                             double temperature_celsius=-1000,
+                             double relative_humidity=0.0,
                              double dut1=0.0,
                              double xp=0.0, double yp=0.0,
                              double wavelength=500.0,
                              double *observed_ra=nullptr,
                              double *observed_dec=nullptr) ;
     /** Raw method for converting Galactic -> Observed (observer specific) coordinates. */
-    static int Galactic2Observed(double glon,                   ///< Galactic longitude (radians)
-                             double glat,                       ///< Galactic latitude (radians)
-                             double *az,                        ///< Azimuth (returned)
-                             double *zen,                       ///< Zenith (returned)
-                             double julian_date,                ///< Julian date of observation
-                             double longitude,                  ///< Observer longitude (radians)
-                             double latitude,                   ///< Observer latitude (radians)
-                             double elevation_m=0.0,            ///< Observer elevation
-                             double pressure_hPa=-1.0,          ///< Observer atmospheric pressure (units hPa)
-                             double temperature_celsius=-1000,  ///< Observer atmospheric temperature (units Celsius)
-                             double relative_humidity=0.0,      ///< Observer atmospheric humidity (0.0-1.0)
+    static int Galactic2Observed(double glon,
+                             double glat,
+                             double *az,
+                             double *zen,
+                             double julian_date,
+                             double longitude,
+                             double latitude,
+                             double elevation_m=0.0,
+                             double pressure_hPa=-1.0,
+                             double temperature_celsius=-1000,
+                             double relative_humidity=0.0,
                              double dut1=0.0,
                              double xp=0.0, double yp=0.0,
                              double wavelength=500.0,
                              double *observed_glon=nullptr,
                              double *observed_glat=nullptr) ;
+    
+    CECoordinates GetObservedCoords(double julian_date,
+                            double longitude,
+                            double latitude,
+                            double elevation_m=0.0,
+                            double pressure_hPa=-1.0,
+                            double temperature_celsius=-1000,
+                            double relative_humidity=0.0,
+                            double dut1=0.0,
+                            double xp=0.0, double yp=0.0,
+                            double wavelength=500.0) ;
+    CECoordinates GetObservedCoords(double julian_date,
+                            CEObserver& observer,
+                            double dut1=0.0,
+                            double xp=0.0, double yp=0.0,
+                            double wavelength=500.0) ;
+    
 protected:
     // Coordinate variables
     double xcoord_ ;                ///< X coordinate (radians)

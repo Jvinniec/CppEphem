@@ -1,7 +1,6 @@
 <map id="CppEphem/include/CEBody.h" name="CppEphem/include/CEBody.h">
-<area shape="rect" id="node3" href="$CECoordinates_8h.html" title="CECoordinates.h" alt="" coords="310,80,434,107"/>
-<area shape="rect" id="node5" href="$CEDate_8h.html" title="CEDate.h" alt="" coords="259,229,339,256"/>
-<area shape="rect" id="node10" href="$CENamespace_8h.html" title="CENamespace.h" alt="" coords="400,304,523,331"/>
-<area shape="rect" id="node13" href="$CEObserver_8h.html" title="CEObserver.h" alt="" coords="319,155,425,181"/>
-<area shape="rect" id="node7" href="$CETime_8h.html" title="CETime.h" alt="" coords="243,304,325,331"/>
+<area shape="rect" id="node3" href="$CECoordinates_8h.html" title="CECoordinates.h" alt="" coords="167,80,291,107"/>
+<area shape="rect" id="node5" href="$CEDate_8h.html" title="CEDate.h" alt="" coords="229,155,309,181"/>
+<area shape="rect" id="node10" href="$CENamespace_8h.html" title="CENamespace.h" alt="" coords="435,229,558,256"/>
+<area shape="rect" id="node7" href="$CETime_8h.html" title="CETime.h" alt="" coords="329,229,411,256"/>
 </map>

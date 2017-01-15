@@ -18,6 +18,7 @@
  */
 
 #include "CECoordinates.h"
+#include "CEObserver.h"
 
 #pragma mark - Constructors & Destructors
 
@@ -183,7 +184,7 @@ void CECoordinates::CIRS2Galactic(double input_ra, double input_dec, double *glo
 
 int CECoordinates::CIRS2Observed(double ra, double dec,
                                  double *az, double *zen,
-                                 CEObserver observer,
+                                 CEObserver& observer,
                                  CEAngleType angle_type,
                                  double wavelength,
                                  double *observed_ra,
@@ -296,7 +297,7 @@ void CECoordinates::ICRS2Galactic(double input_ra, double input_dec, double *glo
 
 int CECoordinates::ICRS2Observed(double ra, double dec,             // RA, Dec in CIRS coordinates
                                  double *az, double *zen,           // Azimuth, zenith angle
-                                 CEObserver observer,               // Observer quantities, like geographic position,
+                                 CEObserver& observer,        // Observer quantities, like geographic position,
                                                                     // weather conditions, and date
                                  CEAngleType angle_type,            // Angle type for all angles provided
                                                                     // (either RADIANS or DEGREES)
@@ -415,7 +416,7 @@ void CECoordinates::Galactic2ICRS(double glon, double glat, double *ra, double *
 
 int CECoordinates::Galactic2Observed(double glon, double glat,
                                      double *az, double *zen,
-                                     CEObserver observer,
+                                     CEObserver& observer,
                                      CEAngleType angle_type,
                                      double wavelength,
                                      double *observed_glon,
@@ -661,4 +662,79 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
     CIRS2Galactic(temp_ra, temp_dec, temp_glon, temp_glat, date) ;
     
     return err_code ;
+}
+
+////////////////////////////////////////////////////////////
+/// Return the local sky coordinates of this object as a CECoordinates object
+///     @param julian_date          Julian date of the observation
+///     @param longitude            Observer longitude (radians)
+///     @param latitude             Observer latitude (radians)
+///     @param elevation_m          Observer elevation (meters)
+///     @param pressure_hPa         Observer atmospheric pressure (hPa)
+///     @param temerature_celsius   Temperature (degrees Celsius)
+///     @param relative_humidity    Relative humidity
+///     @param dut1                 'UTC-UT1'
+///     @param xp                   x-polar motion
+///     @param yp                   y-polar motion
+///     @param wavelength           Wavelength being observed
+///     @return These coordinates converted into the observed coordinates of the observer specified
+CECoordinates CECoordinates::GetObservedCoords(double julian_date,
+                                double longitude,
+                                double latitude,
+                                double elevation_m,
+                                double pressure_hPa,
+                                double temperature_celsius,
+                                double relative_humidity,
+                                double dut1,
+                                double xp, double yp,
+                                double wavelength)
+{
+    double azimuth, zenith ;
+    if (coord_type_ == CECoordinateType::CIRS) {
+        // Convert CIRS to Observed
+        CIRS2Observed(xcoord_, ycoord_, &azimuth, &zenith,
+                      julian_date, longitude, latitude,
+                      elevation_m, pressure_hPa, temperature_celsius,
+                      relative_humidity, dut1, xp, yp, wavelength) ;
+    } else if (coord_type_ == CECoordinateType::ICRS) {
+        // Convert ICRS to Observed
+        ICRS2Observed(xcoord_, ycoord_, &azimuth, &zenith,
+                      julian_date, longitude, latitude,
+                      elevation_m, pressure_hPa, temperature_celsius,
+                      relative_humidity, dut1, xp, yp, wavelength) ;
+    } else if (coord_type_ == CECoordinateType::GALACTIC) {
+        // Convert Galactic to Observed
+        Galactic2Observed(xcoord_, ycoord_, &azimuth, &zenith,
+                          julian_date, longitude, latitude,
+                          elevation_m, pressure_hPa, temperature_celsius,
+                          relative_humidity, dut1, xp, yp, wavelength) ;
+    }
+    
+    // Create the CECoordinates object to be returned
+    return CECoordinates(azimuth, zenith, CECoordinateType::OBSERVED) ;
+}
+
+////////////////////////////////////////////////////////////
+/// Return the observed coordinates using an observer object (CEObserver)
+///     @param julian_date          Julian date of the observation
+///     @param observer             Observer information
+///     @param dut1                 'UTC-UT1'
+///     @param xp                   x-polar motion
+///     @param yp                   y-polar motion
+///     @param wavelength           Wavelength being observed
+///     @return These coordinates converted into the observed coordinates of 'observer'
+CECoordinates CECoordinates::GetObservedCoords(double julian_date,
+                                CEObserver& observer,
+                                double dut1,
+                                double xp, double yp,
+                                double wavelength)
+{
+    return GetObservedCoords(julian_date,
+                             observer.Longitude_Rad(),
+                             observer.Latitude_Rad(),
+                             observer.Elevation_m(),
+                             observer.Pressure_hPa(),
+                             observer.Temperature_C(),
+                             observer.RelativeHumidity(),
+                             dut1, xp, yp, wavelength);
 }
