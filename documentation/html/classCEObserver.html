@@ -109,11 +109,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3fb13fd8748f8c7843699653bbcef023"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEObserver.html#a3fb13fd8748f8c7843699653bbcef023">CEObserver</a> ()</td></tr>
 <tr class="memdesc:a3fb13fd8748f8c7843699653bbcef023"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#a3fb13fd8748f8c7843699653bbcef023">More...</a><br /></td></tr>
 <tr class="separator:a3fb13fd8748f8c7843699653bbcef023"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6e0b646e01fdddec132689723bda78c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEObserver.html#ad6e0b646e01fdddec132689723bda78c">CEObserver</a> (double longitude, double latitude, double elevation=0.0, <a class="el" href="namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15ef">CEAngleType</a> angle_type=CEAngleType::RADIANS)</td></tr>
-<tr class="memdesc:ad6e0b646e01fdddec132689723bda78c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor from a geographic position (latitude, longitude, altitude) Note that altitude defaults to sea-level.  <a href="#ad6e0b646e01fdddec132689723bda78c">More...</a><br /></td></tr>
-<tr class="separator:ad6e0b646e01fdddec132689723bda78c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d89d3686c049313eb2e6dbec82a2737"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEObserver.html#a2d89d3686c049313eb2e6dbec82a2737">CEObserver</a> (double longitude, double latitude, double elevation, <a class="el" href="namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15ef">CEAngleType</a> angle_type=CEAngleType::RADIANS, <a class="el" href="classCEDate.html">CEDate</a> date=<a class="el" href="classCEDate.html">CEDate</a>(DJ00, <a class="el" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746aabf8d7515962e526421842e8456798cc">CEDateType::JD</a>))</td></tr>
-<tr class="separator:a2d89d3686c049313eb2e6dbec82a2737"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea5800d956156f577edb90812497c817"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEObserver.html#aea5800d956156f577edb90812497c817">CEObserver</a> (double longitude, double latitude, double elevation=0.0, <a class="el" href="namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15ef">CEAngleType</a> angle_type=CEAngleType::RADIANS, <a class="el" href="classCEDate.html">CEDate</a> date=<a class="el" href="classCEDate.html">CEDate</a>(DJ00, <a class="el" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746aabf8d7515962e526421842e8456798cc">CEDateType::JD</a>))</td></tr>
+<tr class="memdesc:aea5800d956156f577edb90812497c817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor from a geographic position (latitude, longitude, altitude) Note that altitude defaults to sea-level.  <a href="#aea5800d956156f577edb90812497c817">More...</a><br /></td></tr>
+<tr class="separator:aea5800d956156f577edb90812497c817"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abed8a7df1b32b448e723166bc5e53a64"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEObserver.html#abed8a7df1b32b448e723166bc5e53a64">CEObserver</a> (const <a class="el" href="classCEObserver.html">CEObserver</a> &amp;other)</td></tr>
 <tr class="memdesc:abed8a7df1b32b448e723166bc5e53a64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="#abed8a7df1b32b448e723166bc5e53a64">More...</a><br /></td></tr>
 <tr class="separator:abed8a7df1b32b448e723166bc5e53a64"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -214,8 +212,8 @@ Protected Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classCEObserver.html" title="CEObserver class is a self contained object for describing an observer. ">CEObserver</a> class is a self contained object for describing an observer. </p>
 <p>Information relevant to the observer includes:</p><ul>
-<li>Geographic longitude</li>
-<li>Geographic latitude (East positive)</li>
+<li>Geographic longitude (East positive)</li>
+<li>Geographic latitude</li>
 <li>Elevation (meters above sea level)</li>
 <li>Atmospheric pressure (hPa)</li>
 <li>Temperature</li>
@@ -244,7 +242,7 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ad6e0b646e01fdddec132689723bda78c"></a>
+<a class="anchor" id="aea5800d956156f577edb90812497c817"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -270,48 +268,6 @@ Protected Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15ef">CEAngleType</a>&#160;</td>
-          <td class="paramname"><em>angle_type</em> = <code>CEAngleType::RADIANS</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Constructor from a geographic position (latitude, longitude, altitude) Note that altitude defaults to sea-level. </p>
-
-<p>Definition at line <a class="el" href="CEObserver_8cpp_source.html#l00044">44</a> of file <a class="el" href="CEObserver_8cpp_source.html">CEObserver.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2d89d3686c049313eb2e6dbec82a2737"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CEObserver::CEObserver </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>longitude</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>latitude</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>elevation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15ef">CEAngleType</a>&#160;</td>
           <td class="paramname"><em>angle_type</em> = <code>CEAngleType::RADIANS</code>, </td>
         </tr>
         <tr>
@@ -327,6 +283,20 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Constructor from a geographic position (latitude, longitude, altitude) Note that altitude defaults to sea-level. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">longitude</td><td>Observer longitude (east positive) </td></tr>
+    <tr><td class="paramname">latitude</td><td>Observer latitude </td></tr>
+    <tr><td class="paramname">elevation</td><td>Observer elevation above sea-level (meters) </td></tr>
+    <tr><td class="paramname">angle_type</td><td>Angle type for longitude and latitude (RADIANS or DEGREES) </td></tr>
+    <tr><td class="paramname">date</td><td>Current date for the observer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="CEObserver_8cpp_source.html#l00049">49</a> of file <a class="el" href="CEObserver_8cpp_source.html">CEObserver.cpp</a>.</p>
 
 </div>
 </div>
@@ -345,8 +315,14 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Copy constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>Another observer object that will be copied </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p>Definition at line <a class="el" href="CEObserver_8cpp_source.html#l00058">58</a> of file <a class="el" href="CEObserver_8cpp_source.html">CEObserver.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEObserver_8cpp_source.html#l00066">66</a> of file <a class="el" href="CEObserver_8cpp_source.html">CEObserver.cpp</a>.</p>
 
 </div>
 </div>
@@ -373,7 +349,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Destructor. </p>
 
-<p>Definition at line <a class="el" href="CEObserver_8cpp_source.html#l00069">69</a> of file <a class="el" href="CEObserver_8cpp_source.html">CEObserver.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEObserver_8cpp_source.html#l00077">77</a> of file <a class="el" href="CEObserver_8cpp_source.html">CEObserver.cpp</a>.</p>
 
 </div>
 </div>
@@ -563,7 +539,7 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Local coordinates of the object </dd></dl>
 
-<p>Definition at line <a class="el" href="CEObserver_8cpp_source.html#l00079">79</a> of file <a class="el" href="CEObserver_8cpp_source.html">CEObserver.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEObserver_8cpp_source.html#l00087">87</a> of file <a class="el" href="CEObserver_8cpp_source.html">CEObserver.cpp</a>.</p>
 
 </div>
 </div>
@@ -590,7 +566,7 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>'coords' converted into the local coordinates of this observer. </dd></dl>
 
-<p>Definition at line <a class="el" href="CEObserver_8cpp_source.html#l00090">90</a> of file <a class="el" href="CEObserver_8cpp_source.html">CEObserver.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEObserver_8cpp_source.html#l00098">98</a> of file <a class="el" href="CEObserver_8cpp_source.html">CEObserver.cpp</a>.</p>
 
 </div>
 </div>
@@ -1362,7 +1338,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 15 2017 16:08:33 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 15 2017 21:49:55 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>
