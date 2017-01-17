@@ -98,10 +98,8 @@ CECoordinates CEObserver::ObservedPosition(CEBody& object)
 CECoordinates CEObserver::ObservedPosition(CECoordinates& coords)
 {
     // Test that the coords object isnt empty
-
     if (false) {
-        CECoordinates observed_coords = coords.GetObservedCoords(current_date_,
-                                                     *this) ;
+        CECoordinates observed_coords = coords.GetObservedCoords(current_date_,*this) ;
         return coords ;
     } else {
         CECoordinates coords ;
