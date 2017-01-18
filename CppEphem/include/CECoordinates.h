@@ -45,11 +45,11 @@ public:
     /**********************************************************
      * Methods for accessing the coordinate information
      **********************************************************/
-    double XCoordinate_Deg() {return xcoord_ * DR2D ;}      ///< Returns x-coordinate in degrees
-    double YCoordinate_Deg() {return ycoord_ * DR2D ;}      ///< Returns y-coordinate in degrees
-    double XCoordinate_Rad() {return xcoord_ ;}             ///< Returns x-coordinate in radians
-    double YCoordinate_Rad() {return ycoord_ ;}             ///< Returns y-coordinate in radians
-    CECoordinateType GetCoordSystem() {return coord_type_;} ///< Returns the coordinate type of this object
+    virtual double XCoordinate_Deg() {return xcoord_ * DR2D ;}      ///< Returns x-coordinate in degrees
+    virtual double YCoordinate_Deg() {return ycoord_ * DR2D ;}      ///< Returns y-coordinate in degrees
+    virtual double XCoordinate_Rad() {return xcoord_ ;}             ///< Returns x-coordinate in radians
+    virtual double YCoordinate_Rad() {return ycoord_ ;}             ///< Returns y-coordinate in radians
+    CECoordinateType GetCoordSystem() {return coord_type_;}         ///< Returns the coordinate type of this object
     
     /**********************************************************
      * Methods for converting between coordinate types
@@ -182,7 +182,7 @@ public:
                              double *observed_glon=nullptr,
                              double *observed_glat=nullptr) ;
     
-    CECoordinates GetObservedCoords(double julian_date,
+    virtual CECoordinates GetObservedCoords(double julian_date,
                             double longitude,
                             double latitude,
                             double elevation_m=0.0,
@@ -192,7 +192,7 @@ public:
                             double dut1=0.0,
                             double xp=0.0, double yp=0.0,
                             double wavelength=500.0) ;
-    CECoordinates GetObservedCoords(double julian_date,
+    virtual CECoordinates GetObservedCoords(double julian_date,
                             CEObserver& observer,
                             double dut1=0.0,
                             double xp=0.0, double yp=0.0,

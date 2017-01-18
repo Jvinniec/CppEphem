@@ -119,7 +119,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;{</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="comment">// Use the internal methods for setting the default values</span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="classCEObserver.html#a40e741466ce87863ec15ca61a8a37ab9">SetLongitude</a>(longitude, angle_type) ;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="classCEObserver.html#a11e59cdef354a6663c957170032699d8">SetLatitude</a>(<a class="code" href="classCEObserver.html#a30235a99b3b715fb1e4381d4a1f5837d">latitude_</a>, angle_type) ;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="classCEObserver.html#a11e59cdef354a6663c957170032699d8">SetLatitude</a>(latitude, angle_type) ;</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="classCEObserver.html#a1165de1f35375064ee9bae389c9bc9c2">SetElevation</a>(elevation) ;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="classCEObserver.html#a2617ccc51969fc2dd67391980df74536">SetPressure</a>(<a class="code" href="namespaceCppEphem.html#a63321f3b9084d44078e0941236021b3b">EstimatePressure_hPa</a>(<a class="code" href="classCEObserver.html#abc397d7e84dc09494e029e1d752e2af6">elevation_m_</a>)) ;</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="classCEObserver.html#adc07bc172149ebd37ec7deb2f4bc512a">SetTemperature_C</a>() ;</div>
@@ -150,19 +150,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="classCEObserver.html#a465e0568f4555a343274bb4b80e2e37f">   98</a></span>&#160;<a class="code" href="classCECoordinates.html">CECoordinates</a> <a class="code" href="classCEObserver.html#ad9902f06e4961a6ed8e89609b53bc619">CEObserver::ObservedPosition</a>(<a class="code" href="classCECoordinates.html">CECoordinates</a>&amp; coords)</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;{</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="comment">// Test that the coords object isnt empty</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">false</span>) {</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <a class="code" href="classCECoordinates.html">CECoordinates</a> observed_coords = coords.<a class="code" href="classCECoordinates.html#ab1a76e8b1b630f45fb24128f1af62aef">GetObservedCoords</a>(<a class="code" href="classCEObserver.html#aa1ab88ae5f08deba1fccb5d30502300d">current_date_</a>,</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                                                     *<span class="keyword">this</span>) ;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordflow">return</span> coords ;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <a class="code" href="classCECoordinates.html">CECoordinates</a> coords ;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">return</span> coords ;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">false</span>) {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <a class="code" href="classCECoordinates.html">CECoordinates</a> observed_coords ;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">return</span> coords ;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <a class="code" href="classCECoordinates.html">CECoordinates</a> observed_coords = coords.<a class="code" href="classCECoordinates.html#ab1a76e8b1b630f45fb24128f1af62aef">GetObservedCoords</a>(<a class="code" href="classCEObserver.html#aa1ab88ae5f08deba1fccb5d30502300d">current_date_</a>,*<span class="keyword">this</span>) ;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keywordflow">return</span> observed_coords ;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    }</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}</div>
 <div class="ttc" id="classCEObserver_html_ad08a91ef1fa3734b181f6ac5327d5327"><div class="ttname"><a href="classCEObserver.html#ad08a91ef1fa3734b181f6ac5327d5327">CEObserver::SetRelativeHumidity</a></div><div class="ttdeci">void SetRelativeHumidity(double humidity=0.0)</div><div class="ttdef"><b>Definition:</b> <a href="CEObserver_8h_source.html#l00076">CEObserver.h:76</a></div></div>
-<div class="ttc" id="classCEObserver_html_a30235a99b3b715fb1e4381d4a1f5837d"><div class="ttname"><a href="classCEObserver.html#a30235a99b3b715fb1e4381d4a1f5837d">CEObserver::latitude_</a></div><div class="ttdeci">double latitude_</div><div class="ttdef"><b>Definition:</b> <a href="CEObserver_8h_source.html#l00109">CEObserver.h:109</a></div></div>
-<div class="ttc" id="classCECoordinates_html_ab1a76e8b1b630f45fb24128f1af62aef"><div class="ttname"><a href="classCECoordinates.html#ab1a76e8b1b630f45fb24128f1af62aef">CECoordinates::GetObservedCoords</a></div><div class="ttdeci">CECoordinates GetObservedCoords(double julian_date, double longitude, double latitude, double elevation_m=0.0, double pressure_hPa=-1.0, double temperature_celsius=-1000, double relative_humidity=0.0, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength=500.0)</div><div class="ttdoc">Return the local sky coordinates of this object as a CECoordinates object. </div><div class="ttdef"><b>Definition:</b> <a href="CECoordinates_8cpp_source.html#l00681">CECoordinates.cpp:681</a></div></div>
+<div class="ttc" id="classCECoordinates_html_ab1a76e8b1b630f45fb24128f1af62aef"><div class="ttname"><a href="classCECoordinates.html#ab1a76e8b1b630f45fb24128f1af62aef">CECoordinates::GetObservedCoords</a></div><div class="ttdeci">virtual CECoordinates GetObservedCoords(double julian_date, double longitude, double latitude, double elevation_m=0.0, double pressure_hPa=-1.0, double temperature_celsius=-1000, double relative_humidity=0.0, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength=500.0)</div><div class="ttdoc">Return the local sky coordinates of this object as a CECoordinates object. </div><div class="ttdef"><b>Definition:</b> <a href="CECoordinates_8cpp_source.html#l00681">CECoordinates.cpp:681</a></div></div>
 <div class="ttc" id="classCEObserver_html_abc397d7e84dc09494e029e1d752e2af6"><div class="ttname"><a href="classCEObserver.html#abc397d7e84dc09494e029e1d752e2af6">CEObserver::elevation_m_</a></div><div class="ttdeci">double elevation_m_</div><div class="ttdef"><b>Definition:</b> <a href="CEObserver_8h_source.html#l00110">CEObserver.h:110</a></div></div>
 <div class="ttc" id="classCEDate_html"><div class="ttname"><a href="classCEDate.html">CEDate</a></div><div class="ttdoc">CEDate class handles conversion between different date formats. </div><div class="ttdef"><b>Definition:</b> <a href="CEDate_8h_source.html#l00031">CEDate.h:31</a></div></div>
 <div class="ttc" id="classCEObserver_html_a40e741466ce87863ec15ca61a8a37ab9"><div class="ttname"><a href="classCEObserver.html#a40e741466ce87863ec15ca61a8a37ab9">CEObserver::SetLongitude</a></div><div class="ttdeci">void SetLongitude(double longitude, CEAngleType angle_type=CEAngleType::RADIANS)</div><div class="ttdef"><b>Definition:</b> <a href="CEObserver_8h_source.html#l00066">CEObserver.h:66</a></div></div>
@@ -184,7 +181,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 15 2017 21:49:46 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 18 2017 12:40:01 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

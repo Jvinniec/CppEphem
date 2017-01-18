@@ -111,6 +111,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6ea4a0f640de5044d005b0eb2dcb74ea"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#a6ea4a0f640de5044d005b0eb2dcb74ea">CEDate</a> (const <a class="el" href="classCEDate.html">CEDate</a> &amp;other)</td></tr>
 <tr class="memdesc:a6ea4a0f640de5044d005b0eb2dcb74ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="#a6ea4a0f640de5044d005b0eb2dcb74ea">More...</a><br /></td></tr>
 <tr class="separator:a6ea4a0f640de5044d005b0eb2dcb74ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb9cabc7adf02082585319f81609ab21"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#aeb9cabc7adf02082585319f81609ab21">Day</a> ()</td></tr>
+<tr class="memdesc:aeb9cabc7adf02082585319f81609ab21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Gregorian calendar day.  <a href="#aeb9cabc7adf02082585319f81609ab21">More...</a><br /></td></tr>
+<tr class="separator:aeb9cabc7adf02082585319f81609ab21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a45637e40306b7fcb5303df2265ec07"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#a9a45637e40306b7fcb5303df2265ec07">DayFraction</a> ()</td></tr>
+<tr class="memdesc:a9a45637e40306b7fcb5303df2265ec07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Gregorian calendar day fraction.  <a href="#a9a45637e40306b7fcb5303df2265ec07">More...</a><br /></td></tr>
+<tr class="separator:a9a45637e40306b7fcb5303df2265ec07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa59d415dc6ea36d3fe1b09c291c7ca5c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#aa59d415dc6ea36d3fe1b09c291c7ca5c">dut1</a> ()</td></tr>
 <tr class="separator:aa59d415dc6ea36d3fe1b09c291c7ca5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae18b0156d19e87569df525588b6c8c51"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#ae18b0156d19e87569df525588b6c8c51">dut1Error</a> ()</td></tr>
@@ -130,16 +136,23 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a587a14c0515697ef8c976ee8b67f40e4"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#a587a14c0515697ef8c976ee8b67f40e4">MJD</a> ()</td></tr>
 <tr class="memdesc:a587a14c0515697ef8c976ee8b67f40e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Modified Julian date represented by this object.  <a href="#a587a14c0515697ef8c976ee8b67f40e4">More...</a><br /></td></tr>
 <tr class="separator:a587a14c0515697ef8c976ee8b67f40e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a775c0d8188835a9712262484870236e3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#a775c0d8188835a9712262484870236e3">Month</a> ()</td></tr>
+<tr class="memdesc:a775c0d8188835a9712262484870236e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Gregorian calendar month.  <a href="#a775c0d8188835a9712262484870236e3">More...</a><br /></td></tr>
+<tr class="separator:a775c0d8188835a9712262484870236e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0654fdee3514c55117260bbf499839f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#ae0654fdee3514c55117260bbf499839f">operator double</a> ()</td></tr>
 <tr class="memdesc:ae0654fdee3514c55117260bbf499839f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overload of the <a class="el" href="classCEDate.html" title="CEDate class handles conversion between different date formats. ">CEDate</a> object which allows the object to be treated as a 'double' representing the Julian date of teh object.  <a href="#ae0654fdee3514c55117260bbf499839f">More...</a><br /></td></tr>
 <tr class="separator:ae0654fdee3514c55117260bbf499839f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb27bd568466f1cd2f497df356c3ed70"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#acb27bd568466f1cd2f497df356c3ed70">SetDate</a> (double date, <a class="el" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746">CEDateType</a> time_format=<a class="el" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746aabf8d7515962e526421842e8456798cc">CEDateType::JD</a>)</td></tr>
 <tr class="memdesc:acb27bd568466f1cd2f497df356c3ed70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the date based on an actual date and the desired time_format.  <a href="#acb27bd568466f1cd2f497df356c3ed70">More...</a><br /></td></tr>
 <tr class="separator:acb27bd568466f1cd2f497df356c3ed70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0afe9b5144dc4ed63ef78917f426855e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#a0afe9b5144dc4ed63ef78917f426855e">SetDate</a> (std::vector&lt; double &gt; date)</td></tr>
-<tr class="separator:a0afe9b5144dc4ed63ef78917f426855e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f913b696962f236a4b4de75eb2fd5e1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#a6f913b696962f236a4b4de75eb2fd5e1">SetDate</a> (std::vector&lt; double &gt; date)</td></tr>
+<tr class="memdesc:a6f913b696962f236a4b4de75eb2fd5e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the date based on an actual date and the desired time_format.  <a href="#a6f913b696962f236a4b4de75eb2fd5e1">More...</a><br /></td></tr>
+<tr class="separator:a6f913b696962f236a4b4de75eb2fd5e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a9004a8c1e7a5e64a5c567e09a7c521"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#a4a9004a8c1e7a5e64a5c567e09a7c521">xpolar</a> ()</td></tr>
 <tr class="separator:a4a9004a8c1e7a5e64a5c567e09a7c521"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a789944f6b9ac629f98feb4d936f1b7ca"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#a789944f6b9ac629f98feb4d936f1b7ca">Year</a> ()</td></tr>
+<tr class="memdesc:a789944f6b9ac629f98feb4d936f1b7ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Gregorian calendar year.  <a href="#a789944f6b9ac629f98feb4d936f1b7ca">More...</a><br /></td></tr>
+<tr class="separator:a789944f6b9ac629f98feb4d936f1b7ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adef63e77a091d4bfdddff56b7aa06411"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#adef63e77a091d4bfdddff56b7aa06411">ypolar</a> ()</td></tr>
 <tr class="separator:adef63e77a091d4bfdddff56b7aa06411"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a380991e2f2eaa8cbbb85d0da466e7c7b"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#a380991e2f2eaa8cbbb85d0da466e7c7b">~CEDate</a> ()</td></tr>
@@ -212,8 +225,9 @@ Protected Attributes</h2></td></tr>
 <p>Date formats used (see <a class="el" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746" title="Date enum. ">CEDateType</a>):</p><ul>
 <li>JD: Julian date</li>
 <li>MJD: Modified Julian date</li>
-<li>GREGORIAN: Gregorian calendar date </li>
+<li>GREGORIAN: Gregorian calendar date</li>
 </ul>
+<p>To set the date, use the <a class="el" href="classCEDate.html#acb27bd568466f1cd2f497df356c3ed70" title="Set the date based on an actual date and the desired time_format. ">CEDate::SetDate</a> method. </p>
 
 <p>Definition at line <a class="el" href="CEDate_8h_source.html#l00031">31</a> of file <a class="el" href="CEDate_8h_source.html">CEDate.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -273,7 +287,7 @@ Protected Attributes</h2></td></tr>
 <li>GREGORIAN: Gregorian calendar date </li>
 </ul>
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00030">30</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00032">32</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -305,7 +319,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00048">48</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00050">50</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -325,7 +339,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Copy constructor. </p>
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00061">61</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00063">63</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -355,6 +369,60 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="aeb9cabc7adf02082585319f81609ab21"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEDate::Day </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the Gregorian calendar day. </p>
+
+<p>Definition at line <a class="el" href="CEDate_8h_source.html#l00065">65</a> of file <a class="el" href="CEDate_8h_source.html">CEDate.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9a45637e40306b7fcb5303df2265ec07"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double CEDate::DayFraction </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the Gregorian calendar day fraction. </p>
+
+<p>Definition at line <a class="el" href="CEDate_8h_source.html#l00067">67</a> of file <a class="el" href="CEDate_8h_source.html">CEDate.h</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a48ed1e949856bdc1f735d5682ad90b13"></a>
 <div class="memitem">
 <div class="memproto">
@@ -390,7 +458,7 @@ Protected Attributes</h2></td></tr>
 <p>Returns the 'dut1' value representing the 'UTC-UT1. </p>
 <p>These methods should be considered unreliable for the moment. </p>
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00268">268</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00282">282</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -407,7 +475,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00277">277</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00291">291</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -443,7 +511,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00284">284</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00298">298</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -460,7 +528,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00291">291</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00305">305</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -486,7 +554,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00103">103</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00117">117</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -514,7 +582,7 @@ Protected Attributes</h2></td></tr>
 <p>Gets the stored SOFA Julian date to Mod Julian date factor 'DJM0'. </p>
 <dl class="section return"><dt>Returns</dt><dd>conversion factor for Julian date -&gt; Modified Julian date conversions Modified Julian date (mjd) can then be computed from this factor and the Julian date (jd) by the following: <pre class="fragment">mjd = jd - CEDate::GetMJD2JDFactor()  </pre> </dd></dl>
 
-<p>Definition at line <a class="el" href="CEDate_8h_source.html#l00089">89</a> of file <a class="el" href="CEDate_8h_source.html">CEDate.h</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8h_source.html#l00098">98</a> of file <a class="el" href="CEDate_8h_source.html">CEDate.h</a>.</p>
 
 </div>
 </div>
@@ -569,7 +637,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Helper method for converting from non-vector formatted Gregorian date to vector format Gregorian date. </p>
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00342">342</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00356">356</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -595,7 +663,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00208">208</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00222">222</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -621,7 +689,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00247">247</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00261">261</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -677,7 +745,7 @@ Protected Attributes</h2></td></tr>
 <p>Methods for converting between the double and vector&lt;double&gt; version of the Gregorian date format. </p>
 <p>Helper method for converting from Gregorian vector format to the non-vector format.</p>
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00330">330</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00344">344</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -703,7 +771,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00218">218</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00232">232</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -729,7 +797,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00256">256</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00270">270</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -791,7 +859,7 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Gregorian calendar date of the form YYYYMMDD.DD </dd></dl>
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00133">133</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00147">147</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -832,7 +900,7 @@ Protected Attributes</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00150">150</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00164">164</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -867,7 +935,7 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>modified Julian date </dd></dl>
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00125">125</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00139">139</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -929,7 +997,7 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Gregorian calendar date of the form YYYYMMDD.DD </dd></dl>
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00188">188</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00202">202</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -955,7 +1023,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00197">197</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00211">211</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -990,7 +1058,34 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Julian date </dd></dl>
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00180">180</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00194">194</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a775c0d8188835a9712262484870236e3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEDate::Month </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the Gregorian calendar month. </p>
+
+<p>Definition at line <a class="el" href="CEDate_8h_source.html#l00063">63</a> of file <a class="el" href="CEDate_8h_source.html">CEDate.h</a>.</p>
 
 </div>
 </div>
@@ -1017,7 +1112,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Overload of the <a class="el" href="classCEDate.html" title="CEDate class handles conversion between different date formats. ">CEDate</a> object which allows the object to be treated as a 'double' representing the Julian date of teh object. </p>
 
-<p>Definition at line <a class="el" href="CEDate_8h_source.html#l00115">115</a> of file <a class="el" href="CEDate_8h_source.html">CEDate.h</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8h_source.html#l00124">124</a> of file <a class="el" href="CEDate_8h_source.html">CEDate.h</a>.</p>
 
 </div>
 </div>
@@ -1062,11 +1157,11 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00075">75</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00077">77</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a0afe9b5144dc4ed63ef78917f426855e"></a>
+<a class="anchor" id="a6f913b696962f236a4b4de75eb2fd5e1"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1074,7 +1169,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void CEDate::SetDate </td>
+          <td class="memname">void CEDate::SetDate </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; double &gt;&#160;</td>
           <td class="paramname"><em>date</em></td><td>)</td>
@@ -1083,12 +1178,26 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CEDate_8h_source.html#l00045">45</a> of file <a class="el" href="CEDate_8h_source.html">CEDate.h</a>.</p>
+<p>Set the date based on an actual date and the desired time_format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">date</td><td>Gregorian Date<ul>
+<li>[0] = Year</li>
+<li>[1] = Month</li>
+<li>[2] = Day</li>
+<li>[3] = Day fraction </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00108">108</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -1127,7 +1236,7 @@ Protected Attributes</h2></td></tr>
 <p>Get the x,y polar motion variables associated with a given date. </p>
 <p>These methods should be considered unreliable for the moment. </p>
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00299">299</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00313">313</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -1144,7 +1253,34 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00307">307</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00321">321</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a789944f6b9ac629f98feb4d936f1b7ca"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEDate::Year </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the Gregorian calendar year. </p>
+
+<p>Definition at line <a class="el" href="CEDate_8h_source.html#l00061">61</a> of file <a class="el" href="CEDate_8h_source.html">CEDate.h</a>.</p>
 
 </div>
 </div>
@@ -1180,7 +1316,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00314">314</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00328">328</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -1197,7 +1333,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00321">321</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8cpp_source.html#l00335">335</a> of file <a class="el" href="CEDate_8cpp_source.html">CEDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -1222,7 +1358,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Gregorian calendar date. Format as YYYYMMDD.DD. </p>
 
-<p>Definition at line <a class="el" href="CEDate_8h_source.html#l00124">124</a> of file <a class="el" href="CEDate_8h_source.html">CEDate.h</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8h_source.html#l00134">134</a> of file <a class="el" href="CEDate_8h_source.html">CEDate.h</a>.</p>
 
 </div>
 </div>
@@ -1247,7 +1383,7 @@ Protected Attributes</h2></td></tr>
 <p>Vector containing the gregorian calendar date. </p>
 <p>0 - Year, 1 - Month, 2 - date, 3 - date fraction </p>
 
-<p>Definition at line <a class="el" href="CEDate_8h_source.html#l00125">125</a> of file <a class="el" href="CEDate_8h_source.html">CEDate.h</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8h_source.html#l00135">135</a> of file <a class="el" href="CEDate_8h_source.html">CEDate.h</a>.</p>
 
 </div>
 </div>
@@ -1271,7 +1407,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Julian date formated. </p>
 
-<p>Definition at line <a class="el" href="CEDate_8h_source.html#l00122">122</a> of file <a class="el" href="CEDate_8h_source.html">CEDate.h</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8h_source.html#l00132">132</a> of file <a class="el" href="CEDate_8h_source.html">CEDate.h</a>.</p>
 
 </div>
 </div>
@@ -1295,7 +1431,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Modified Julian date formated. </p>
 
-<p>Definition at line <a class="el" href="CEDate_8h_source.html#l00123">123</a> of file <a class="el" href="CEDate_8h_source.html">CEDate.h</a>.</p>
+<p>Definition at line <a class="el" href="CEDate_8h_source.html#l00133">133</a> of file <a class="el" href="CEDate_8h_source.html">CEDate.h</a>.</p>
 
 </div>
 </div>
@@ -1306,7 +1442,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 15 2017 21:49:55 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 18 2017 12:40:02 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

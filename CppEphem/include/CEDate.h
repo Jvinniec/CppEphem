@@ -41,8 +41,8 @@ public:
     
     // Method that can be used to change the date that is stored in this object
     virtual void SetDate(double date, CEDateType time_format=CEDateType::JD) ;
-    // Method for setting the dates from the Gregorian
-    virtual void SetDate(std::vector<double> date) {} ;
+    // Method for setting the dates from the Gregorian calendar dates
+    virtual void SetDate(std::vector<double> date) ;
     
     /***********************************************************
      * Methods for getting the stored date in the various formats
@@ -56,6 +56,15 @@ public:
     double Gregorian() {return gregorian_date_ ;}
     /// Get the Gregorian calendar date formatted as a vector
     std::vector<double> GregorianVect() {return gregorian_date_vect_ ;}
+    
+    /// Get the Gregorian calendar year
+    int Year() {return gregorian_date_vect_[0] ;}
+    /// Get the Gregorian calendar month
+    int Month() {return gregorian_date_vect_[1] ;}
+    /// Get the Gregorian calendar day
+    int Day() {return gregorian_date_vect_[2] ;}
+    /// Get the Gregorian calendar day fraction
+    double DayFraction() {return gregorian_date_vect_[3] ;}
     
     /***********************************************************
      * Methods for converting between different formats
@@ -113,6 +122,7 @@ public:
     /// Overload of the CEDate object which allows the object to be treated as a
     /// 'double' representing the Julian date of teh object.
     operator double() {return julian_date_ ;}
+    
     
 protected:
     

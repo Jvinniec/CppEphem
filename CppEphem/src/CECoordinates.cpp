@@ -690,24 +690,29 @@ CECoordinates CECoordinates::GetObservedCoords(double julian_date,
                                 double wavelength)
 {
     double azimuth, zenith ;
+    double observed1, observed2, observed3 ;
+    
     if (coord_type_ == CECoordinateType::CIRS) {
         // Convert CIRS to Observed
         CIRS2Observed(xcoord_, ycoord_, &azimuth, &zenith,
                       julian_date, longitude, latitude,
                       elevation_m, pressure_hPa, temperature_celsius,
-                      relative_humidity, dut1, xp, yp, wavelength) ;
+                      relative_humidity, dut1, xp, yp, wavelength,
+                      &observed1, &observed2, &observed3) ;
     } else if (coord_type_ == CECoordinateType::ICRS) {
         // Convert ICRS to Observed
         ICRS2Observed(xcoord_, ycoord_, &azimuth, &zenith,
                       julian_date, longitude, latitude,
                       elevation_m, pressure_hPa, temperature_celsius,
-                      relative_humidity, dut1, xp, yp, wavelength) ;
+                      relative_humidity, dut1, xp, yp, wavelength,
+                      &observed1, &observed3) ;
     } else if (coord_type_ == CECoordinateType::GALACTIC) {
         // Convert Galactic to Observed
         Galactic2Observed(xcoord_, ycoord_, &azimuth, &zenith,
                           julian_date, longitude, latitude,
                           elevation_m, pressure_hPa, temperature_celsius,
-                          relative_humidity, dut1, xp, yp, wavelength) ;
+                          relative_humidity, dut1, xp, yp, wavelength,
+                          &observed1, &observed2) ;
     }
     
     // Create the CECoordinates object to be returned

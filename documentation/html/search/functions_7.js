@@ -6,5 +6,6 @@ var searchData=
   ['mjd',['MJD',['../classCEDate.html#a587a14c0515697ef8c976ee8b67f40e4',1,'CEDate']]],
   ['mjd2gregorian',['MJD2Gregorian',['../classCEDate.html#a3c33bc8e95c975087dab29645839794c',1,'CEDate']]],
   ['mjd2gregorianvect',['MJD2GregorianVect',['../classCEDate.html#a6e0489eaa084ffa934f2a661929e74cf',1,'CEDate']]],
-  ['mjd2jd',['MJD2JD',['../classCEDate.html#ad5610b1c2d2891dff856f5be07801272',1,'CEDate']]]
+  ['mjd2jd',['MJD2JD',['../classCEDate.html#ad5610b1c2d2891dff856f5be07801272',1,'CEDate']]],
+  ['month',['Month',['../classCEDate.html#a775c0d8188835a9712262484870236e3',1,'CEDate']]]
 ];
