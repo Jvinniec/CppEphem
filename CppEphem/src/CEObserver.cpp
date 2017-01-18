@@ -52,7 +52,7 @@ CEObserver::CEObserver(double longitude, double latitude,
 {
     // Use the internal methods for setting the default values
     SetLongitude(longitude, angle_type) ;
-    SetLatitude(latitude_, angle_type) ;
+    SetLatitude(latitude, angle_type) ;
     SetElevation(elevation) ;
     SetPressure(EstimatePressure_hPa(elevation_m_)) ;
     SetTemperature_C() ;
@@ -99,10 +99,10 @@ CECoordinates CEObserver::ObservedPosition(CECoordinates& coords)
 {
     // Test that the coords object isnt empty
     if (false) {
-        CECoordinates observed_coords = coords.GetObservedCoords(current_date_,*this) ;
+        CECoordinates observed_coords ;
         return coords ;
     } else {
-        CECoordinates coords ;
-        return coords ;
+        CECoordinates observed_coords = coords.GetObservedCoords(current_date_,*this) ;
+        return observed_coords ;
     }
 }

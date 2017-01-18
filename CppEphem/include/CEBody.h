@@ -38,6 +38,11 @@ public:
     /** Returns the coordinates associated with this object as a 'CECoordinates' object */
     std::shared_ptr<CECoordinates> GetCoordinates() {return coords_ ;}
     
+    /// Get the x-coordinates of this object in a given coordinate type
+    double GetXCoord_Deg() {return coords_->XCoordinate_Deg() ;}
+    /// Get the y-coordinate of this object
+    double GetYCoord_Deg() {return coords_->YCoordinate_Deg() ;}
+    
     // -------------------------------------------------------
     // Methods for setting the coordinates of this object
     // -------------------------------------------------------

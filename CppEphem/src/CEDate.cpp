@@ -12,6 +12,8 @@
   - JD: Julian date
   - MJD: Modified Julian date
   - GREGORIAN: Gregorian calendar date
+ 
+ To set the date, use the CEDate::SetDate method.
  */
 
 #include <cmath>
@@ -94,6 +96,18 @@ void CEDate::SetDate(double date, CEDateType time_format)
         gregorian_date_ = date ;
         gregorian_date_vect_ = Gregorian2GregorianVect(date) ;
     }
+}
+
+/////////////////////////////////////////////////////////////////
+/// Set the date based on an actual date and the desired time_format
+///     @param date             Gregorian Date
+///                             - [0] = Year
+///                             - [1] = Month
+///                             - [2] = Day
+///                             - [3] = Day fraction
+void CEDate::SetDate(std::vector<double> date)
+{
+    SetDate(GregorianVect2JD(date)) ;
 }
 
 /////////////////////////////////////////////////////////////////
