@@ -97,12 +97,7 @@ CECoordinates CEObserver::ObservedPosition(CEBody& object)
 ///     @return                 'coords' converted into the local coordinates of this observer.
 CECoordinates CEObserver::ObservedPosition(CECoordinates& coords)
 {
-    // Test that the coords object isnt empty
-    if (false) {
-        CECoordinates observed_coords ;
-        return coords ;
-    } else {
-        CECoordinates observed_coords = coords.GetObservedCoords(current_date_,*this) ;
-        return observed_coords ;
-    }
+    // Compute the observed coordinates for these coordinates
+    CECoordinates observed_coords = coords.GetObservedCoords(current_date_,*this) ;
+    return observed_coords ;
 }
