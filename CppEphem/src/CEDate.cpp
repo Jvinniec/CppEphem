@@ -370,5 +370,55 @@ std::vector<double> CEDate::Gregorian2GregorianVect(double gregorian)
     return gregorian_vect ;
 }
 
+/////////////////////////////////////////////////////////////////
+/// Method for getting the number of seconds since midnight. Set the
+/// 'utc_offset' in order to get local relative seconds since midnight.
+///         @param utc_offset       Observer UTC offset (dont forget about daylight saving time)
+///         @return Seconds since midnight
+double CEDate::GetSecondsSinceMidnight(double utc_offset)
+{
+    double jd_offset = julian_date_ + (utc_offset/24.0) ;
+    return CETime::UTC( jd_offset ) ;
+}
+
+/////////////////////////////////////////////////////////////////
+/// Method for getting the current time. Set the 'utc_offset' in order
+/// to get local time
+///         @param utc_offset       Observer UTC offset (dont forget about daylight saving time)
+///         @return Current time formatted as HHMMSS.S
+double CEDate::GetTime(double utc_offset)
+{
+    double jd_offset = julian_date_ + (utc_offset/24.0) ;
+    return CETime::TimeSec2Time( CETime::UTC( jd_offset ) ) ;
+}
+
+/////////////////////////////////////////////////////////////////
+/// Method for getting the current UTC time.
+///         @return Current time formatted as HHMMSS.S
+double CEDate::GetTime_UTC()
+{
+    return GetTime() ;
+}
+
+/////////////////////////////////////////////////////////////////
+/// Static method for getting the current Julian date.
+///         @return Current Julian date
+double CEDate::CurrentJD()
+{
+    // Get the current date information
+    time_t now ;
+    time (&now) ;
+    struct tm current_jd = *gmtime(&now) ;
+    
+    // Put this into a vector
+    std::vector<double> date_info = {current_jd.tm_year+1900.0,
+                                     current_jd.tm_mon+1.0,
+                                     current_jd.tm_mday*1.0,
+                                     CETime::CurrentUTC()/DAYSEC} ;
+    
+    // Convert the Gregorian date information into a Julian date
+    return GregorianVect2JD( date_info ) ;
+}
+
 # pragma mark - Protected methods
 

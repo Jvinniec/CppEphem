@@ -116,6 +116,15 @@ public:
     static double GregorianVect2Gregorian(std::vector<double> gregorian) ;
     static std::vector<double> Gregorian2GregorianVect(double gregorian) ;
     
+    // Method for getting the current time. Set the 'utc_offset' in order
+    // to get local coordinates
+    double GetSecondsSinceMidnight(double utc_offset=0.0) ;
+    double GetTime(double utc_offset=0.0) ;
+    double GetTime_UTC() ;
+    
+    // Returns the current Julian date
+    static double CurrentJD() ;
+    
     /************************************************************
      * Overloaded operators
      ************************************************************/

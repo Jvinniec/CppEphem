@@ -55,7 +55,8 @@ public:
     CEDate Date() {return current_date_ ;}
     
     /// Get the current time information (see CETime)
-    CETime Time() {return current_time_ ;}
+    std::vector<double> Time() {return CETime::TimeDbl2Vect( CETime::TimeSec2Time(CETime::UTC(current_date_)) ) ;}
+    std::vector<double> Time_UTC() {return current_date_.GetTime_UTC() ;}
     
     /****************************************************
      * Methods for setting the underlying observer info
@@ -71,15 +72,15 @@ public:
                                   CEAngleType angle_type=CEAngleType::RADIANS) ;
 
     // Weather related properties
-    void SetPressure(double pressure)
+    void SetPressure(double pressure=EstimatePressure_hPa(SeaLevelTemp_C()))
         {pressure_hPa_ = pressure ;}
     void SetRelativeHumidity(double humidity=0.0)
         {relative_humidity_ = humidity ;}
     void SetTemperature_C(double temp_C=SeaLevelTemp_C())
         {temperature_celsius_ = temp_C ;}
-    void SetTemperature_K(double temp_K)
+    void SetTemperature_K(double temp_K=SeaLevelTemp_K())
         {temperature_celsius_ = temp_K - 273.15 ;}
-    void SetTemperature_F(double temp_F)
+    void SetTemperature_F(double temp_F=SeaLevelTemp_F())
         {temperature_celsius_ = (temp_F - 32.0) * (5.0/9.0) ;}
     
     // Set the date
@@ -87,14 +88,6 @@ public:
         {current_date_ = CEDate(date, date_type) ;}
     void SetDate(const CEDate& date)
         {current_date_ = date ;}
-    
-    // Set the time
-    void SetTime(double time, CETimeType time_type=CETimeType::UTC)
-        {current_time_ = CETime(time, time_type) ;}
-    void SetTime(std::vector<double> time, CETimeType time_type=CETimeType::UTC)
-        {current_time_ = CETime(time, time_type) ;}
-    void SetTime(const CETime& time)
-        {current_time_ = time ;}
     
     /****************************************************
      * Methods for interacting with the sofa functions
@@ -104,15 +97,19 @@ public:
     CECoordinates ObservedPosition(CECoordinates& coords) ;
     
 protected:
-    // Variables which define the observer
-    double longitude_ ;                 // Geographic longitude (radians)
-    double latitude_ ;                  // Geographic latitude (radians)
-    double elevation_m_ ;               // Elevation (in meters) above sea-level
-    double pressure_hPa_ ;              // Atmospheric pressure (in units of hPa)
-    double temperature_celsius_ ;       // Temperature in degrees celsius
-    double relative_humidity_ ;         // Relative humidity (in range 0-1)
-    CETime current_time_ ;              // Current UTC time at the position in question
-    CEDate current_date_ ;              // Current date for this object
+    // Variables which define the observers location on Earth
+    double longitude_ = 0.0 ;           ///< Geographic longitude (radians)
+    double latitude_ = 0.0 ;            ///< Geographic latitude (radians)
+    double elevation_m_ = 0.0;          ///< Elevation (in meters) above sea-level
+
+    // Variables defining the observers atmospheric conditions
+    double pressure_hPa_ = EstimatePressure_hPa(SeaLevelTemp_C()); ///< Atmospheric pressure (in units of hPa)
+    double temperature_celsius_ = SeaLevelTemp_C();                ///< Temperature in degrees celsius
+    double relative_humidity_  = 0.0;                              ///< Relative humidity (in range 0-1)
+
+    // Variables defining the time of the observer
+    double utc_offset_ = 0.0 ;
+    CEDate current_date_ ;              ///< Current date for this object
     
 private:
     

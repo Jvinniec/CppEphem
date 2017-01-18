@@ -7,10 +7,17 @@
 //
 
 /** \class CETime
- This class stores information regarding the time and handles all of
- the conversions between different time zones.
+ This class stores and computes information regarding the time and
+ handles conversions to current time zone. This method is mostly
+ intended to serve as a helper class to CEDate.
  */
+
+// C++ HEADERS
 #include <stdio.h>
+#include <chrono>
+#include <ctime>
+
+// CPPEPHEM HEADERS
 #include "CETime.h"
 
 /////////////////////////////////////////////////////////
@@ -68,7 +75,69 @@ CETime::~CETime()
 # pragma mark - Public Methods
 
 /////////////////////////////////////////////////////////
+/// Get the current UTC time as seconds since midnight
+///     @return Seconds since midnight
+double CETime::CurrentUTC()
+{
+    auto now(std::chrono::system_clock::now());
+    auto seconds_since_epoch(
+                             std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()));
+    
+    // Construct time_t using 'seconds_since_epoch' rather than 'now' since it is
+    // implementation-defined whether the value is rounded or truncated.
+    std::time_t now_t(
+                      std::chrono::system_clock::to_time_t(
+                                                           std::chrono::system_clock::time_point(seconds_since_epoch)));
+    // Get the time at midnight
+    struct tm midnight = *gmtime(&now_t) ;
+    midnight.tm_hour = 0 ;
+    midnight.tm_min = 0 ;
+    midnight.tm_sec = 0 ;
+    
+    // Return seconds and fractions of a second since midnight
+    return difftime(now_t, mktime(&midnight)) + (now.time_since_epoch() - seconds_since_epoch).count();
+}
+
+/////////////////////////////////////////////////////////
+/// Get the current UTC time as a vector
+///     @return             Vector containing the various time components
+///                             - time[0] = hours
+///                             - time[1] = minutes
+///                             - time[2] = seconds
+///                             - time[3] = fractions of a second
+std::vector<double> CETime::CurrentUTC_vect()
+{
+    return TimeSec2Vect( CurrentUTC() ) ;
+}
+
+
+/////////////////////////////////////////////////////////
+/// Get the current UTC time as a vector
+///     @param jd           Julian date
+///     @return             Seconds since midnight for given Julian date
+double CETime::UTC(double jd)
+{
+    // Note that Julian date is defined such that midnight is at half julian days
+    return (jd - (std::floor(jd+0.5)-0.5))*86400.0 ;
+}
+
+/////////////////////////////////////////////////////////
+/// Get the UTC time of a given julian date as a vector
+///     @param jd           Julian date (with day fraction)
+///     @return             Vector containing the various time components
+///                             - time[0] = hours
+///                             - time[1] = minutes
+///                             - time[2] = seconds
+///                             - time[3] = fractions of a second
+std::vector<double> CETime::UTC_vect(double jd)
+{
+    return TimeDbl2Vect( TimeSec2Time( UTC(jd) ) ) ;
+}
+
+
+/////////////////////////////////////////////////////////
 /// Set time from double of the form HHMMSS.SS and a specified time format
+///     @param time             HHMMSS.SS formated time variable
 void CETime::SetTime(double time, CETimeType time_format)
 {
     // Convert the double into a vector
@@ -120,6 +189,21 @@ void CETime::UTC2LOCALTIME()
 
 /////////////////////////////////////////////////////////
 /// Convert a time formatted as HHMMSS.SS into a vector.
+///     @param time         Vector containing the various time components
+///                             - time[0] = hours
+///                             - time[1] = minutes
+///                             - time[2] = seconds
+///                             - time[3] = fractions of a second
+///     @return Time formated double as HHMMSS.S
+double CETime::TimeVect2Dbl(std::vector<double> time)
+{
+    return time[0] * 10000 +
+           time[1] * 100 +
+           time[2] + time[3] ;
+}
+
+/////////////////////////////////////////////////////////
+/// Convert a time formatted as HHMMSS.SS into a vector.
 ///     @param time         Time object formatted as HHMMSS.SS
 ///     @return             Vector containing the various time components
 ///                             - time[0] = hours
@@ -143,6 +227,31 @@ std::vector<double> CETime::TimeDbl2Vect(double time)
     return time_vect ;
 }
 
+/////////////////////////////////////////////////////////
+/// Convert number of seconds since midnight to HHMMSS.S formatted double
+///     @param seconds          Seconds since midnight
+///     @return             Vector containing the various time components
+///                             - time[0] = hours
+///                             - time[1] = minutes
+///                             - time[2] = seconds
+///                             - time[3] = fractions of a second
+double CETime::TimeSec2Time(double seconds)
+{
+    double fracsec = seconds - std::floor(seconds) ;    // Fractions of a second
+    double sec = int(std::floor(seconds)) % 60 ;        // Whole seconds
+    double min = int(std::floor(seconds-sec)/60) % 60 ; // Whole minutes
+    double hrs = int(std::floor(seconds-sec)/60)/60 ;   // Whole hours
+    return (hrs*10000) + (min*100) + sec + fracsec ;    // Formatted double (HHMMSS.S)
+}
+
+/////////////////////////////////////////////////////////
+/// Convert number of seconds since midnight to HHMMSS.S formatted double
+///     @param seconds          Seconds since midnight
+///     @return
+std::vector<double> CETime::TimeSec2Vect(double seconds)
+{
+    return TimeDbl2Vect( TimeSec2Time(seconds) ) ;
+}
 
 /////////////////////////////////////////////////////////
 /// Set the time from a vector representing UTC time. The elements are as follows:
@@ -163,8 +272,11 @@ void CETime::SetTime_GAST(std::vector<double> time)
 
 /////////////////////////////////////////////////////////
 /// Set the time from a vector representing Local Sidereal Time.
-/// The elements are as follows:
-/// [0]=hours, [1]=minutes, [2]=whole seconds, [3]=fractional seconds
+///         @param time         Vector representing LST time
+///                             - [0]=hours
+///                             - [1]=minutes
+///                             - [2]=whole seconds
+///                             - [3]=fractional seconds
 void CETime::SetTime_LST(std::vector<double> time)
 {
 }
