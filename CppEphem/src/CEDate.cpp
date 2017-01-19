@@ -28,7 +28,6 @@
 /// - JD: Julian date
 /// - MJD: Modified Julian date
 /// - GREGORIAN: Gregorian calendar date
-
 CEDate::CEDate(double date, CEDateType date_format) :
     julian_date_(0.0),
     mod_julian_date_(0.0),
@@ -110,7 +109,6 @@ void CEDate::SetDate(std::vector<double> date)
 /////////////////////////////////////////////////////////////////
 /// Return the date in a given format
 ///     @param time_format Format of the output time object (see ::CEDateType)
-
 double CEDate::GetDate(CEDateType time_format)
 {
     // Return the julian date if requested
@@ -132,15 +130,15 @@ double CEDate::GetDate(CEDateType time_format)
 /// Julian date -> modified Julian date conversion method
 ///     @param jd               Julian date
 ///     @return modified Julian date
-
 double CEDate::JD2MJD(double jd)
-{return jd - GetMJD2JDFactor();}
+{
+    return jd - GetMJD2JDFactor();
+}
 
 /////////////////////////////////////////////////////////////////
 /// Julian date -> Gregorian calendar date conversion method.
 ///     @param jd               Julian date
 ///     @return Gregorian calendar date of the form YYYYMMDD.DD
-
 double CEDate::JD2Gregorian(double jd)
 {
     // Fill a temporary gregorian vector

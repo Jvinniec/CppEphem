@@ -13,6 +13,7 @@ var searchData=
   ['getsecondssincemidnight',['GetSecondsSinceMidnight',['../classCEDate.html#ab3442dcf6785304c0ed0c748e34ee407',1,'CEDate']]],
   ['gettime',['GetTime',['../classCEDate.html#ac68ec62b6499016c2c27c7a1d4f74d3d',1,'CEDate']]],
   ['gettime_5futc',['GetTime_UTC',['../classCEDate.html#a024a4ad270bf96a33124c52ab1d2bf76',1,'CEDate']]],
+  ['gettimerspeed',['GetTimerSpeed',['../classCERunningDate.html#ac0b3d9d8d2d97b42ab9f9312f2928a44',1,'CERunningDate']]],
   ['getxcoord_5fdeg',['GetXCoord_Deg',['../classCEBody.html#a216ee082bae40836a54b924e323b5f06',1,'CEBody']]],
   ['getycoord_5fdeg',['GetYCoord_Deg',['../classCEBody.html#afa68a5939a024b459ba222e28538b5cb',1,'CEBody']]],
   ['gregorian',['Gregorian',['../classCEDate.html#ac4c2731011b352b87274233bc4a8c515',1,'CEDate::Gregorian()'],['../classCERunningDate.html#a8815dd51d301251b1543241295778e5f',1,'CERunningDate::Gregorian()']]],

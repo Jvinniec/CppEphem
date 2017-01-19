@@ -9,6 +9,7 @@ var searchData=
   ['time_5ftype_5f',['time_type_',['../classCETime.html#aa3d0704d43eed2d09dc4f688a78ab44b',1,'CETime']]],
   ['time_5futc',['Time_UTC',['../classCEObserver.html#abfe2d4ad9193a8ba0319ec0b61b8f5f9',1,'CEObserver']]],
   ['timedbl2vect',['TimeDbl2Vect',['../classCETime.html#a6653740b539e9ea85d056daa14c654d1',1,'CETime']]],
+  ['timer_5fspeed_5ffactor_5f',['timer_speed_factor_',['../classCERunningDate.html#a1845c28f86882515304875b5ffe940ad',1,'CERunningDate']]],
   ['timesec2time',['TimeSec2Time',['../classCETime.html#a403d332f92bf478a2f5500aca4f05437',1,'CETime']]],
   ['timesec2vect',['TimeSec2Vect',['../classCETime.html#ae0e7952a2b45fa2a2cfce486a8618fb6',1,'CETime']]],
   ['timevect2dbl',['TimeVect2Dbl',['../classCETime.html#abf02a1b54ad6f48de14b3e7941c6d3f7',1,'CETime']]]

@@ -1,10 +1,11 @@
 var searchData=
 [
+  ['scaledruntime',['ScaledRunTime',['../classCERunningDate.html#a24ba86c34073021657b2560663608020',1,'CERunningDate']]],
   ['sealeveltemp_5fc',['SeaLevelTemp_C',['../namespaceCppEphem.html#ad7bc0645d999b96e83fe6b93e5ae0e00',1,'CppEphem']]],
   ['sealeveltemp_5ff',['SeaLevelTemp_F',['../namespaceCppEphem.html#acdd08f731ba46fd26765c1351683bec5',1,'CppEphem']]],
   ['sealeveltemp_5fk',['SeaLevelTemp_K',['../namespaceCppEphem.html#a406a1180c1090bc030f695726c356594',1,'CppEphem']]],
   ['setcoordinates',['SetCoordinates',['../classCEBody.html#ada452076289fa13b8b0f01865977e0c0',1,'CEBody::SetCoordinates(CECoordinates new_coords)'],['../classCEBody.html#a0b1f62ca0669a404ff9ac87299990a7e',1,'CEBody::SetCoordinates(double xcoord, double ycoord, CECoordinateType coord_type=CECoordinateType::CIRS, CEAngleType angle_type=CEAngleType::RADIANS)']]],
-  ['setdate',['SetDate',['../classCEDate.html#acb27bd568466f1cd2f497df356c3ed70',1,'CEDate::SetDate(double date, CEDateType time_format=CEDateType::JD)'],['../classCEDate.html#a6f913b696962f236a4b4de75eb2fd5e1',1,'CEDate::SetDate(std::vector&lt; double &gt; date)'],['../classCEObserver.html#ac164ff5c5b8ad0026acda27f2657c560',1,'CEObserver::SetDate(double date, CEDateType date_type=CEDateType::JD)'],['../classCEObserver.html#ac04674ffc9afd7313fa9fcec46ad84b5',1,'CEObserver::SetDate(const CEDate &amp;date)']]],
+  ['setdate',['SetDate',['../classCEDate.html#acb27bd568466f1cd2f497df356c3ed70',1,'CEDate::SetDate(double date, CEDateType time_format=CEDateType::JD)'],['../classCEDate.html#a6f913b696962f236a4b4de75eb2fd5e1',1,'CEDate::SetDate(std::vector&lt; double &gt; date)'],['../classCEObserver.html#ac164ff5c5b8ad0026acda27f2657c560',1,'CEObserver::SetDate(double date, CEDateType date_type=CEDateType::JD)'],['../classCEObserver.html#ac04674ffc9afd7313fa9fcec46ad84b5',1,'CEObserver::SetDate(const CEDate &amp;date)'],['../classCERunningDate.html#a9d784c7096a751880feb9adda0997775',1,'CERunningDate::SetDate(double date, CEDateType time_format=CEDateType::JD)'],['../classCERunningDate.html#a33cab3b79720839e17c66d1c72aac38f',1,'CERunningDate::SetDate(std::vector&lt; double &gt; date)']]],
   ['setelevation',['SetElevation',['../classCEObserver.html#a1165de1f35375064ee9bae389c9bc9c2',1,'CEObserver']]],
   ['setgeographiccoordinates',['SetGeographicCoordinates',['../classCEObserver.html#a4c06185db92f0f087467500427b04cb5',1,'CEObserver']]],
   ['sethours',['SetHours',['../classCETime.html#a678aab3e4a23617cea90252266ab2f04',1,'CETime']]],
@@ -25,5 +26,6 @@ var searchData=
   ['settime_5flocaltime',['SetTime_LOCALTIME',['../classCETime.html#ac4f727594747d04e58832495c7172045',1,'CETime']]],
   ['settime_5flst',['SetTime_LST',['../classCETime.html#ace112b5a3c97d4b96d891092f3020f9c',1,'CETime']]],
   ['settime_5futc',['SetTime_UTC',['../classCETime.html#a4875e7ee19b9763c56f4b8f4b867e9ca',1,'CETime']]],
+  ['settimerspeed',['SetTimerSpeed',['../classCERunningDate.html#ad12361c8451d6939806af53c720edd4e',1,'CERunningDate']]],
   ['start',['start',['../classCERunningDate.html#a045f3a85623e6369980996ec13642c9e',1,'CERunningDate']]]
 ];
