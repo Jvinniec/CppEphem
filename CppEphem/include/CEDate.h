@@ -31,8 +31,7 @@ enum CEDateType {JD,              ///< Julian Date
 class CEDate {
 public:
     // Default constructor
-    CEDate() {} ;
-    CEDate(double date, CEDateType date_format=CEDateType::JD) ;
+    CEDate(double date=CurrentJD(), CEDateType date_format=CEDateType::JD) ;
     CEDate(std::vector<double> date) ;
     // Copy constructor
     CEDate(const CEDate& other) ;

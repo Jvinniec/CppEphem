@@ -743,3 +743,36 @@ CECoordinates CECoordinates::GetObservedCoords(double julian_date,
                              observer.RelativeHumidity(),
                              dut1, xp, yp, wavelength);
 }
+
+
+# pragma mark - End Conversions
+
+////////////////////////////////////////////////////////////
+/// Set the coordinates of this object
+///     @param xcoord           X-coordinate
+///     @param ycoord           Y-coordinate
+///     @param coord_type       Coordinate type (see ::CECoordinateType)
+///     @param angle_type       Specifies whether xcoord & ycoord are in RADIANS or DEGREES (see ::CEAngleType)
+void CECoordinates::SetCoordinates(double xcoord, double ycoord,
+                                   CECoordinateType coord_type,
+                                   CEAngleType angle_type)
+{
+    if (angle_type == CEAngleType::RADIANS) {
+        xcoord_ = xcoord ;
+        ycoord_ = ycoord ;
+    } else {
+        xcoord_ = xcoord * DD2R ;
+        ycoord_ = ycoord * DD2R ;
+    }
+    coord_type_ = coord_type ;
+}
+
+////////////////////////////////////////////////////////////
+/// Set the coordinates from another CECoordinates object
+///     @param coords       Another coordinates object to copy
+void CECoordinates::SetCoordinates(const CECoordinates& coords)
+{
+    xcoord_ = coords.XCoordinate_Rad() ;
+    ycoord_ = coords.YCoordinate_Rad() ;
+    coord_type_ = coords.GetCoordSystem() ;
+}

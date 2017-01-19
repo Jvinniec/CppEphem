@@ -45,11 +45,11 @@ public:
     /**********************************************************
      * Methods for accessing the coordinate information
      **********************************************************/
-    virtual double XCoordinate_Deg() {return xcoord_ * DR2D ;}      ///< Returns x-coordinate in degrees
-    virtual double YCoordinate_Deg() {return ycoord_ * DR2D ;}      ///< Returns y-coordinate in degrees
-    virtual double XCoordinate_Rad() {return xcoord_ ;}             ///< Returns x-coordinate in radians
-    virtual double YCoordinate_Rad() {return ycoord_ ;}             ///< Returns y-coordinate in radians
-    CECoordinateType GetCoordSystem() {return coord_type_;}         ///< Returns the coordinate type of this object
+    virtual double XCoordinate_Deg() const {return xcoord_ * DR2D ;}    ///< Returns x-coordinate in degrees
+    virtual double YCoordinate_Deg() const {return ycoord_ * DR2D ;}    ///< Returns y-coordinate in degrees
+    virtual double XCoordinate_Rad() const {return xcoord_ ;}           ///< Returns x-coordinate in radians
+    virtual double YCoordinate_Rad() const {return ycoord_ ;}           ///< Returns y-coordinate in radians
+    CECoordinateType GetCoordSystem() const {return coord_type_;}       ///< Returns the coordinate type of this object
     
     /**********************************************************
      * Methods for converting between coordinate types
@@ -197,6 +197,13 @@ public:
                             double dut1=0.0,
                             double xp=0.0, double yp=0.0,
                             double wavelength=500.0) ;
+    // -------------------------------------------------------
+    // Methods for setting the coordinates of this object
+    // -------------------------------------------------------
+    virtual void SetCoordinates(double xcoord, double ycoord,
+                                CECoordinateType coord_type = CECoordinateType::CIRS,
+                                CEAngleType angle_type = CEAngleType::RADIANS) ;
+    virtual void SetCoordinates(const CECoordinates& coords) ;
     
 protected:
     // Coordinate variables

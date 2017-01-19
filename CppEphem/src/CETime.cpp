@@ -79,22 +79,25 @@ CETime::~CETime()
 ///     @return Seconds since midnight
 double CETime::CurrentUTC()
 {
-    auto now(std::chrono::system_clock::now());
-    auto seconds_since_epoch(std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()));
-    
-    // Construct time_t using 'seconds_since_epoch' rather than 'now' since it is
-    // implementation-defined whether the value is rounded or truncated.
+    // Construct time_t of this moment
+    std::chrono::system_clock::time_point now(std::chrono::system_clock::now());
     std::time_t now_t(std::chrono::system_clock::to_time_t(
-                        std::chrono::system_clock::time_point(seconds_since_epoch)));
+                        std::chrono::system_clock::time_point(now)));
     
     // Get the time at midnight
     struct tm midnight = *gmtime(&now_t) ;
     midnight.tm_hour = 0 ;
     midnight.tm_min = 0 ;
     midnight.tm_sec = 0 ;
+
+    // Midnight object
+    auto millisec_start(std::chrono::system_clock::from_time_t(mktime(&midnight)));
+
+    double start = std::chrono::duration_cast<std::chrono::microseconds>(millisec_start.time_since_epoch()).count()/1000000.0 ;
+    double stop  = std::chrono::duration_cast<std::chrono::microseconds>(now.time_since_epoch()).count()/1000000.0 ;
     
     // Return seconds and fractions of a second since midnight
-    return difftime(now_t, mktime(&midnight)) + (now.time_since_epoch() - seconds_since_epoch).count();
+    return stop-start-midnight.tm_gmtoff ;
 }
 
 /////////////////////////////////////////////////////////

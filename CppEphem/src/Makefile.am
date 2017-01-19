@@ -14,6 +14,7 @@ libcppephem_la_SOURCES = CENamespace.cpp \
                         CEDate.cpp \
                         CEObserver.cpp \
                         CEPlanet.cpp \
+                        CERunningDate.cpp \
                         CETime.cpp
 libcppephem_la_HEADERS = ../include/CppEphem.h \
                         ../include/CENamespace.h \
@@ -22,6 +23,7 @@ libcppephem_la_HEADERS = ../include/CppEphem.h \
                         ../include/CEDate.h \
                         ../include/CEObserver.h \
                         ../include/CEPlanet.h \
+                        ../include/CERunningDate.h \
                         ../include/CETime.h
 libcppephem_la_CPPFLAGS = $(CppEphem_CPPFLAGS)
 libcppephem_la_LIBADD=$(LIBS)

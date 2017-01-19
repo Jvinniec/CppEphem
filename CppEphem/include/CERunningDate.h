@@ -31,8 +31,8 @@ public:
     virtual void SetDate(std::vector<double> date) ;
     
     /// Method for getting the number of seconds since this object was created or reset
-    inline double RunTime()
-        {return std::chrono::duration_cast<std::chrono::duration<double>>(start.time_since_epoch()).count();}
+    virtual double RunTime() ;
+
     /// Returns the ellapsed time scaled by some factor
     inline double ScaledRunTime()
         {return timer_speed_factor_ * RunTime() ;}

@@ -90,4 +90,12 @@ void CERunningDate::SetDate(std::vector<double> date)
     SetDate(GregorianVect2JD(date)) ;
 }
 
+/////////////////////////////////////////////////////////////////
+/// Get the number of seconds since the creation of this object
+double CERunningDate::RunTime()
+{
+    return (std::chrono::duration_cast<std::chrono::microseconds>(start.time_since_epoch()).count() -
+            std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count())/1000000.0;
+}
+
 #pragma mark - Protected Methods

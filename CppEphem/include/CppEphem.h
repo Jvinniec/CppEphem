@@ -19,6 +19,8 @@
 #include "CEDate.h"
 #include "CENamespace.h"
 #include "CEObserver.h"
+#include "CEPlanet.h"
+#include "CERunningDate.h"
 #include "CETime.h"
 
 #endif /* CppEphem_h */

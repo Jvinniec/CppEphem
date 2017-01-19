@@ -86,8 +86,8 @@ CEObserver::~CEObserver()
 ///     @return                 Local coordinates of the object
 CECoordinates CEObserver::ObservedPosition(CEBody& object)
 {
-    std::shared_ptr<CECoordinates> coords = object.GetCoordinates() ;
-    return ObservedPosition(*coords) ;
+    CECoordinates coords = object.GetCoordinates() ;
+    return ObservedPosition(coords) ;
 }
 
 /////////////////////////////////////////////////////////////////

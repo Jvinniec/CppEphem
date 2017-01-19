@@ -39,7 +39,7 @@ int main(int argc, char** argv)
     //      Arg3 - Elevation (meters above sea level)
     //      Arg4 - Tells CEObserver that longitude and latitude are in degrees
     //      Arg5 - Date for the observation
-    CEObserver observer(-93.62, 42.0347, 0.0, CEAngleType::DEGREES, date) ;
+    CEObserver observer(-93.62, 42.0347, 287.0, CEAngleType::DEGREES, date) ;
     
     // Now get the coordinates of the object
     CECoordinates observed_coords = observer.ObservedPosition(crab_nebula) ;
@@ -61,10 +61,11 @@ int main(int argc, char** argv)
     std::printf("   Day  : %+d\n", date.Day()) ;
     std::printf("   DayFrac: %+f\n", date.DayFraction()) ;
     std::printf("\nOBJECT INFORMATION\n") ;
-    std::printf("   RA : %+f\n", crab_nebula.GetXCoord_Deg()) ;
-    std::printf("   Dec: %+f\n", crab_nebula.GetYCoord_Deg()) ;
-    std::printf("   Azimuth: %+f\n", observed_coords.XCoordinate_Deg()) ;
-    std::printf("   Zenith : %+f\n", observed_coords.YCoordinate_Deg()) ;
+    std::printf("   RA : %+f\n", crab_nebula.XCoordinate_Deg()) ;
+    std::printf("   Dec: %+f\n", crab_nebula.YCoordinate_Deg()) ;
+    std::printf("   Azimuth : %+06.3f\n", observed_coords.XCoordinate_Deg()) ;
+    std::printf("   Zenith  : %+05.3f\n", observed_coords.YCoordinate_Deg()) ;
+    std::printf("   Altitude: %+05.3f\n", 90.0-observed_coords.YCoordinate_Deg()) ;
     std::printf("\n") ;
     
     return 0 ;
