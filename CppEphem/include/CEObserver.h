@@ -22,7 +22,7 @@ public:
 //               CEAngleType angle_type=CEAngleType::RADIANS) ;
     CEObserver(double longitude, double latitude, double elevation=0.0,
                CEAngleType angle_type=CEAngleType::RADIANS,
-               CEDate date=CEDate(DJ00, CEDateType::JD)) ;
+               CEDate date=CEDate(CEDate::CurrentJD(), CEDateType::JD)) ;
     CEObserver(const CEObserver& other) ;
     virtual ~CEObserver() ;
     
@@ -52,11 +52,11 @@ public:
     double RelativeHumidity() {return relative_humidity_ ;}
     
     /// Get the date information (see CEDate)
-    CEDate Date() {return current_date_ ;}
+    std::shared_ptr<CEDate> Date() {return current_date_ ;}
     
     /// Get the current time information (see CETime)
-    std::vector<double> Time() {return CETime::TimeDbl2Vect( CETime::TimeSec2Time(CETime::UTC(current_date_)) ) ;}
-    std::vector<double> Time_UTC() {return current_date_.GetTime_UTC() ;}
+    std::vector<double> Time() {return CETime::TimeDbl2Vect( CETime::TimeSec2Time(CETime::UTC((*current_date_))) ) ;}
+    std::vector<double> Time_UTC() {return CETime::TimeDbl2Vect(current_date_->GetTime_UTC()) ;}
     
     /****************************************************
      * Methods for setting the underlying observer info
@@ -85,9 +85,9 @@ public:
     
     // Set the date
     void SetDate(double date, CEDateType date_type=CEDateType::JD)
-        {current_date_ = CEDate(date, date_type) ;}
+        {current_date_ = std::shared_ptr<CEDate>( new CEDate(date, date_type) ) ;}
     void SetDate(const CEDate& date)
-        {current_date_ = date ;}
+        {current_date_ = std::shared_ptr<CEDate>( new CEDate(date) ) ;}
     
     /****************************************************
      * Methods for interacting with the sofa functions
@@ -109,7 +109,7 @@ protected:
 
     // Variables defining the time of the observer
     double utc_offset_ = 0.0 ;
-    CEDate current_date_ ;              ///< Current date for this object
+    std::shared_ptr<CEDate> current_date_ ;              ///< Current date for this object
     
 private:
     

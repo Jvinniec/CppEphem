@@ -160,7 +160,6 @@ double CEDate::JD2Gregorian(double jd)
 ///             - [1] = month
 ///             - [2] = day
 ///             - [3] = day fraction
-
 std::vector<double> CEDate::JD2GregorianVect(double jd)
 {
     std::vector<double> full_gregorian_vect(4,0.0) ;
@@ -190,7 +189,6 @@ std::vector<double> CEDate::JD2GregorianVect(double jd)
 /// Modified Julian date -> Julian date conversion method
 ///     @param mjd              Modified Julian date
 ///     @return Julian date
-
 double CEDate::MJD2JD(double mjd)
 {return mjd + GetMJD2JDFactor();}
 
@@ -198,7 +196,6 @@ double CEDate::MJD2JD(double mjd)
 /// Modified Julian date -> Gregorian calendar date conversion method
 ///     @param mjd              Modified Julian date
 ///     @return Gregorian calendar date of the form YYYYMMDD.DD
-
 double CEDate::MJD2Gregorian(double mjd)
 {
     // Convert the mjd to jd
@@ -207,7 +204,14 @@ double CEDate::MJD2Gregorian(double mjd)
     return JD2Gregorian(jd) ;
 }
 
-//_______________________________________________________________
+/////////////////////////////////////////////////////////////////
+/// Modified Julian date -> Gregorian calendar, vector formatted date
+///     @param mjd              Modified Julian date
+///     @return Gregorian calendar date as a 4-element vector
+///             - [0] = year
+///             - [1] = month
+///             - [2] = day
+///             - [3] = day fraction
 std::vector<double> CEDate::MJD2GregorianVect(double mjd)
 {
     // Convert mjd to jd
@@ -218,7 +222,10 @@ std::vector<double> CEDate::MJD2GregorianVect(double mjd)
 
 # pragma mark - Gregorian Date Converters
 
-//_______________________________________________________________
+/////////////////////////////////////////////////////////////////
+/// Gregorian calendar date -> Julian date
+///     @param gregorian        Gregorian calendar date formatted as YYYYMMDD.D
+///     @return Julian date
 double CEDate::Gregorian2JD(double gregorian)
 {
     // First convert the gregorian double into a gregorian vector
@@ -227,8 +234,15 @@ double CEDate::Gregorian2JD(double gregorian)
     return GregorianVect2JD(gregorian_vect) ;
 }
 
-//_______________________________________________________________
-// Calls the SOFA "iauCal2jd" function
+/////////////////////////////////////////////////////////////////
+/// Gregorian calendar vector formatted date -> Julian date converter.
+/// Calls the SOFA "iauCal2jd" function
+///     @param gregorian            Gregorian calendar date as a 4-element vector
+///                                 - [0] = year
+///                                 - [1] = month
+///                                 - [2] = day
+///                                 - [3] = day fraction
+///     @return Julian date
 double CEDate::GregorianVect2JD(std::vector<double> gregorian)
 {
     // The following stores the two values needed to get the julian date
@@ -257,7 +271,10 @@ double CEDate::GregorianVect2JD(std::vector<double> gregorian)
     return mjd_factor + mjd + gregorian[3] ;
 }
 
-//_______________________________________________________________
+/////////////////////////////////////////////////////////////////
+/// Gregorian calendar formatted date -> Julian date converter.
+///     @param gregorian            Gregorian calendar date formatted as YYYYMMDD.D
+///     @return Modified Julian Date
 double CEDate::Gregorian2MJD(double gregorian)
 {
     // First get the Julian Date
@@ -266,7 +283,14 @@ double CEDate::Gregorian2MJD(double gregorian)
     return JD2MJD(jd) ;
 }
 
-//_______________________________________________________________
+/////////////////////////////////////////////////////////////////
+/// Gregorian calendar vector formatted date -> Modified Julian date converter.
+///     @param gregorian            Gregorian calendar date as a 4-element vector
+///                                 - [0] = year
+///                                 - [1] = month
+///                                 - [2] = day
+///                                 - [3] = day fraction
+///     @return Modified Julian date
 double CEDate::GregorianVect2MJD(std::vector<double> gregorian)
 {
     // First convert to JD
@@ -340,7 +364,6 @@ double CEDate::ypolar()
 /////////////////////////////////////////////////////////////////
 /// Helper method for converting from Gregorian vector format to
 /// the non-vector format
-
 double CEDate::GregorianVect2Gregorian(std::vector<double> gregorian)
 {
     return gregorian[0] * 10000 +
@@ -352,7 +375,6 @@ double CEDate::GregorianVect2Gregorian(std::vector<double> gregorian)
 /////////////////////////////////////////////////////////////////
 /// Helper method for converting from non-vector formatted Gregorian
 /// date to vector format Gregorian date
-
 std::vector<double> CEDate::Gregorian2GregorianVect(double gregorian)
 {
     // Create a vector to hold the information
@@ -388,7 +410,7 @@ double CEDate::GetSecondsSinceMidnight(double utc_offset)
 ///         @return Current time formatted as HHMMSS.S
 double CEDate::GetTime(double utc_offset)
 {
-    double jd_offset = julian_date_ + (utc_offset/24.0) ;
+    double jd_offset = JD() + (utc_offset/24.0) ;
     return CETime::TimeSec2Time( CETime::UTC( jd_offset ) ) ;
 }
 
@@ -419,6 +441,7 @@ double CEDate::CurrentJD()
     // Convert the Gregorian date information into a Julian date
     return GregorianVect2JD( date_info ) ;
 }
+
 
 # pragma mark - Protected methods
 

@@ -98,6 +98,6 @@ CECoordinates CEObserver::ObservedPosition(CEBody& object)
 CECoordinates CEObserver::ObservedPosition(CECoordinates& coords)
 {
     // Compute the observed coordinates for these coordinates
-    CECoordinates observed_coords = coords.GetObservedCoords(current_date_,*this) ;
+    CECoordinates observed_coords = coords.GetObservedCoords(*current_date_,*this) ;
     return observed_coords ;
 }

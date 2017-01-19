@@ -49,13 +49,13 @@ public:
      ***********************************************************/
     double GetDate(CEDateType time_format=CEDateType::JD) ;
     /// Get the Julian date represented by this object
-    double JD() {return julian_date_ ;}
+    virtual double JD() {return julian_date_ ;}
     /// Get the Modified Julian date represented by this object
-    double MJD() {return mod_julian_date_ ;}
+    virtual double MJD() {return mod_julian_date_ ;}
     /// Get the Gregorian calendar date formatted as a double
-    double Gregorian() {return gregorian_date_ ;}
+    virtual double Gregorian() {return gregorian_date_ ;}
     /// Get the Gregorian calendar date formatted as a vector
-    std::vector<double> GregorianVect() {return gregorian_date_vect_ ;}
+    virtual std::vector<double> GregorianVect() {return gregorian_date_vect_ ;}
     
     /// Get the Gregorian calendar year
     int Year() {return gregorian_date_vect_[0] ;}
@@ -118,9 +118,9 @@ public:
     
     // Method for getting the current time. Set the 'utc_offset' in order
     // to get local coordinates
-    double GetSecondsSinceMidnight(double utc_offset=0.0) ;
-    double GetTime(double utc_offset=0.0) ;
-    double GetTime_UTC() ;
+    virtual double GetSecondsSinceMidnight(double utc_offset=0.0) ;
+    virtual double GetTime(double utc_offset=0.0) ;
+    virtual double GetTime_UTC() ;
     
     // Returns the current Julian date
     static double CurrentJD() ;
@@ -130,8 +130,15 @@ public:
      ************************************************************/
     /// Overload of the CEDate object which allows the object to be treated as a
     /// 'double' representing the Julian date of teh object.
-    operator double() {return julian_date_ ;}
+    virtual operator double()
+    {
+        // Return the date formatted according to the 'return_type_' variable
+        return GetDate(return_type_) ;
+    }
     
+    /// Set the return type from the overloaded 'operator double'.
+    ///     @param return_type      ::CEDateType for the returned double
+    void SetReturnType(CEDateType return_type) {return_type_ = return_type;}
     
 protected:
     
@@ -143,7 +150,7 @@ protected:
     double gregorian_date_ ;                ///< Gregorian calendar date. Format as YYYYMMDD.DD
     std::vector<double> gregorian_date_vect_ ;   ///< Vector containing the gregorian calendar date
                                                 ///< 0 - Year, 1 - Month, 2 - date, 3 - date fraction
-    
+    CEDateType return_type_ = CEDateType::JD ;  ///< what format the 'operator double' will return
     
 private:
     

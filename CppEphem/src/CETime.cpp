@@ -80,14 +80,13 @@ CETime::~CETime()
 double CETime::CurrentUTC()
 {
     auto now(std::chrono::system_clock::now());
-    auto seconds_since_epoch(
-                             std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()));
+    auto seconds_since_epoch(std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()));
     
     // Construct time_t using 'seconds_since_epoch' rather than 'now' since it is
     // implementation-defined whether the value is rounded or truncated.
-    std::time_t now_t(
-                      std::chrono::system_clock::to_time_t(
-                                                           std::chrono::system_clock::time_point(seconds_since_epoch)));
+    std::time_t now_t(std::chrono::system_clock::to_time_t(
+                        std::chrono::system_clock::time_point(seconds_since_epoch)));
+    
     // Get the time at midnight
     struct tm midnight = *gmtime(&now_t) ;
     midnight.tm_hour = 0 ;
