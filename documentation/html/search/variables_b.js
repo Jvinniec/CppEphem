@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ycoord_5f',['ycoord_',['../classCECoordinates.html#ad95d1b014d83e11c93be8e74eb4957df',1,'CECoordinates']]]
+  ['utc_5foffset_5f',['utc_offset_',['../classCEObserver.html#a75ab3329a8138a0abe443b5b4456cf15',1,'CEObserver']]]
 ];

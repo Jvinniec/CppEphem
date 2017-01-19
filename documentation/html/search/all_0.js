@@ -18,12 +18,15 @@ var searchData=
   ['cedatetype',['CEDateType',['../CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746',1,'CEDate.h']]],
   ['cenamespace_2ecpp',['CENamespace.cpp',['../CENamespace_8cpp.html',1,'']]],
   ['cenamespace_2eh',['CENamespace.h',['../CENamespace_8h.html',1,'']]],
-  ['ceobserver',['CEObserver',['../classCEObserver.html',1,'CEObserver'],['../classCEObserver.html#a3fb13fd8748f8c7843699653bbcef023',1,'CEObserver::CEObserver()'],['../classCEObserver.html#aea5800d956156f577edb90812497c817',1,'CEObserver::CEObserver(double longitude, double latitude, double elevation=0.0, CEAngleType angle_type=CEAngleType::RADIANS, CEDate date=CEDate(DJ00, CEDateType::JD))'],['../classCEObserver.html#abed8a7df1b32b448e723166bc5e53a64',1,'CEObserver::CEObserver(const CEObserver &amp;other)']]],
+  ['ceobserver',['CEObserver',['../classCEObserver.html',1,'CEObserver'],['../classCEObserver.html#a3fb13fd8748f8c7843699653bbcef023',1,'CEObserver::CEObserver()'],['../classCEObserver.html#aa2bdf376ff2614c53918063f27ba8f93',1,'CEObserver::CEObserver(double longitude, double latitude, double elevation=0.0, CEAngleType angle_type=CEAngleType::RADIANS, CEDate date=CEDate(CEDate::CurrentJD(), CEDateType::JD))'],['../classCEObserver.html#abed8a7df1b32b448e723166bc5e53a64',1,'CEObserver::CEObserver(const CEObserver &amp;other)']]],
   ['ceobserver_2ecpp',['CEObserver.cpp',['../CEObserver_8cpp.html',1,'']]],
   ['ceobserver_2eh',['CEObserver.h',['../CEObserver_8h.html',1,'']]],
   ['ceplanet',['CEPlanet',['../classCEPlanet.html',1,'CEPlanet'],['../classCEPlanet.html#af20650d245e29aa59208e8d59b7c1d77',1,'CEPlanet::CEPlanet()'],['../classCEPlanet.html#a4bdaf28bd7cdea4b58d6cd610b6e8ee1',1,'CEPlanet::CEPlanet(const std::string &amp;name, CECoordinates coordinates)']]],
   ['ceplanet_2ecpp',['CEPlanet.cpp',['../CEPlanet_8cpp.html',1,'']]],
   ['ceplanet_2eh',['CEPlanet.h',['../CEPlanet_8h.html',1,'']]],
+  ['cerunningdate',['CERunningDate',['../classCERunningDate.html',1,'CERunningDate'],['../classCERunningDate.html#a721c3b0603a9e7f63e78cef3846abbac',1,'CERunningDate::CERunningDate()']]],
+  ['cerunningdate_2ecpp',['CERunningDate.cpp',['../CERunningDate_8cpp.html',1,'']]],
+  ['cerunningdate_2eh',['CERunningDate.h',['../CERunningDate_8h.html',1,'']]],
   ['cetime',['CETime',['../classCETime.html',1,'CETime'],['../classCETime.html#a018e49a38a31dc982ba9772e11b1fe61',1,'CETime::CETime()'],['../classCETime.html#a51fd336dc8cf6d47458a8c71c8ff5a6c',1,'CETime::CETime(double time, CETimeType time_format=CETimeType::UTC)'],['../classCETime.html#aaf619d89df31f4299e772ab5a4048f01',1,'CETime::CETime(std::vector&lt; double &gt; time, CETimeType time_format=CETimeType::UTC)'],['../classCETime.html#a4236696681a47639ba8d1bc62a871019',1,'CETime::CETime(const CETime &amp;other)']]],
   ['cetime_2ecpp',['CETime.cpp',['../CETime_8cpp.html',1,'']]],
   ['cetime_2eh',['CETime.h',['../CETime_8h.html',1,'']]],
@@ -39,6 +42,8 @@ var searchData=
   ['coords_5f',['coords_',['../classCEBody.html#ad054d987e2287cc5946fda179dc2dea4',1,'CEBody']]],
   ['cppephem',['CppEphem',['../namespaceCppEphem.html',1,'']]],
   ['cppephem_2eh',['CppEphem.h',['../CppEphem_8h.html',1,'']]],
-  ['current_5fdate_5f',['current_date_',['../classCEObserver.html#aa1ab88ae5f08deba1fccb5d30502300d',1,'CEObserver']]],
-  ['current_5ftime_5f',['current_time_',['../classCEObserver.html#ab0148e7d53a311c489ed8094007a2ea6',1,'CEObserver']]]
+  ['current_5fdate_5f',['current_date_',['../classCEObserver.html#a8996b99ce7159a11ee01070534e410b3',1,'CEObserver']]],
+  ['currentjd',['CurrentJD',['../classCEDate.html#ab310c87db2f91c2b557e4c7a8081bb57',1,'CEDate']]],
+  ['currentutc',['CurrentUTC',['../classCETime.html#ab20f36750c8d76704fab7201333d6c90',1,'CETime']]],
+  ['currentutc_5fvect',['CurrentUTC_vect',['../classCETime.html#a5b1e062df4252c9b59a47f97ae4dbaa4',1,'CETime']]]
 ];

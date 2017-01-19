@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['date',['Date',['../classCEObserver.html#a7830e2317c65937e2998b07c334f96cd',1,'CEObserver']]],
+  ['date',['Date',['../classCEObserver.html#ab8c9f01580ea38be8ef89da8858efc31',1,'CEObserver']]],
   ['day',['Day',['../classCEDate.html#aeb9cabc7adf02082585319f81609ab21',1,'CEDate']]],
   ['dayfraction',['DayFraction',['../classCEDate.html#a9a45637e40306b7fcb5303df2265ec07',1,'CEDate']]],
   ['defaultoptions',['defaultoptions',['../cirs2gal_8cpp.html#a57a7cddc6a5b426cfc1db0ac851e3401',1,'defaultoptions():&#160;cirs2gal.cpp'],['../cirs2obs_8cpp.html#a57a7cddc6a5b426cfc1db0ac851e3401',1,'defaultoptions():&#160;cirs2obs.cpp'],['../gal2cirs_8cpp.html#a57a7cddc6a5b426cfc1db0ac851e3401',1,'defaultoptions():&#160;gal2cirs.cpp'],['../gal2obs_8cpp.html#a57a7cddc6a5b426cfc1db0ac851e3401',1,'defaultoptions():&#160;gal2obs.cpp'],['../obs2cirs_8cpp.html#a57a7cddc6a5b426cfc1db0ac851e3401',1,'defaultoptions():&#160;obs2cirs.cpp']]],

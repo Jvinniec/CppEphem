@@ -7,7 +7,7 @@ var searchData=
   ['mass_5fkg_5f',['mass_kg_',['../classCEPlanet.html#a48e06504ba69e08101440ef687669284',1,'CEPlanet']]],
   ['maxmjdfordut1',['MAXMJDFORDUT1',['../CENamespace_8h.html#a0415acb2305ca06a9b75af265c9fd096',1,'CENamespace.h']]],
   ['minmjdfordut1',['MINMJDFORDUT1',['../CENamespace_8h.html#a2256877349b7121cefb8079f4f509b0d',1,'CENamespace.h']]],
-  ['mjd',['MJD',['../classCEDate.html#a587a14c0515697ef8c976ee8b67f40e4',1,'CEDate::MJD()'],['../CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746a6dd5d54fcae73e77cb8e73b22cbf3a0e',1,'MJD():&#160;CEDate.h']]],
+  ['mjd',['MJD',['../classCEDate.html#af41ec98f3bb6090b86a4acb98c008383',1,'CEDate::MJD()'],['../classCERunningDate.html#a231c87b027c37f25d959711e2f8b3dbf',1,'CERunningDate::MJD()'],['../CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746a6dd5d54fcae73e77cb8e73b22cbf3a0e',1,'MJD():&#160;CEDate.h']]],
   ['mjd2cal_2ecpp',['mjd2cal.cpp',['../mjd2cal_8cpp.html',1,'']]],
   ['mjd2gregorian',['MJD2Gregorian',['../classCEDate.html#a3c33bc8e95c975087dab29645839794c',1,'CEDate']]],
   ['mjd2gregorianvect',['MJD2GregorianVect',['../classCEDate.html#a6e0489eaa084ffa934f2a661929e74cf',1,'CEDate']]],
