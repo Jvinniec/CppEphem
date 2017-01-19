@@ -13,8 +13,6 @@
 #include <stdio.h>
 #include <vector>
 
-//#include "CEObserver.h"
-
 // Time types are defined as:
 //      UTC   - Coordinate Universal Time
 //      GAST  - Greenwich Apparent Sidereal Time
@@ -33,6 +31,28 @@ public:
     CETime(const CETime& other) ;
     // Destructor
     virtual ~CETime() ;
+    
+    /*******************************************
+     * Get the time
+     *******************************************/
+    
+    static double CurrentUTC() ;
+    static std::vector<double> CurrentUTC_vect() ;
+    static double UTC(double jd) ;
+    static std::vector<double> UTC_vect(double jd) ;
+    
+    // Convert a double of the form HHMMSS.S to a vector with
+    // the same format as 'time_'
+    static std::vector<double> TimeDbl2Vect(double time) ;
+    static double TimeVect2Dbl(std::vector<double> time) ;
+    
+    // Convert number of seconds since midnight to HHMMSS.S formatted double
+    static double TimeSec2Time(double seconds) ;
+    static std::vector<double> TimeSec2Vect(double seconds) ;
+    
+    /*******************************************
+     * Convert between the various time types
+     *******************************************/
     
     void SetTime(double time, CETimeType time_format=CETimeType::UTC) ;
     void SetTime(std::vector<double> time_vect,
@@ -66,10 +86,6 @@ protected:
     // Note that the internal stored time is UTC
     std::vector<double> time_ ;
     CETimeType time_type_ ;
-    
-    // Convert a double of the form HHMMSS.S to a vector with
-    // the same format as 'time_'
-    std::vector<double> TimeDbl2Vect(double time) ;
     
     // Internal methods for setting the time
     void SetTime_UTC(std::vector<double> time) ;
