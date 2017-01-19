@@ -8,6 +8,8 @@ var searchData=
   ['cecoordinates_2eh',['CECoordinates.h',['../CECoordinates_8h.html',1,'']]],
   ['cedate_2ecpp',['CEDate.cpp',['../CEDate_8cpp.html',1,'']]],
   ['cedate_2eh',['CEDate.h',['../CEDate_8h.html',1,'']]],
+  ['celinkedcoordinates_2ecpp',['CELinkedCoordinates.cpp',['../CELinkedCoordinates_8cpp.html',1,'']]],
+  ['celinkedcoordinates_2eh',['CELinkedCoordinates.h',['../CELinkedCoordinates_8h.html',1,'']]],
   ['cenamespace_2ecpp',['CENamespace.cpp',['../CENamespace_8cpp.html',1,'']]],
   ['cenamespace_2eh',['CENamespace.h',['../CENamespace_8h.html',1,'']]],
   ['ceobserver_2ecpp',['CEObserver.cpp',['../CEObserver_8cpp.html',1,'']]],
