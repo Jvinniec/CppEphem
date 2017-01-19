@@ -46,7 +46,6 @@ CEDate::CEDate(double date, CEDateType date_format) :
 ///                 - date[1] = month
 ///                 - date[2] = day
 ///                 - date[3] = day fraction
-
 CEDate::CEDate(std::vector<double> date) :
     julian_date_(0.0),
     mod_julian_date_(0.0),
@@ -59,7 +58,6 @@ CEDate::CEDate(std::vector<double> date) :
 
 /////////////////////////////////////////////////////////////////
 /// Copy constructor
-
 CEDate::CEDate(const CEDate& other) :
     julian_date_(other.julian_date_),
     mod_julian_date_(other.mod_julian_date_),
@@ -73,7 +71,6 @@ CEDate::CEDate(const CEDate& other) :
 /// Set the date based on an actual date and the desired time_format
 ///     @param date             Date
 ///     @param time_format      Time format (see ::CEDateType)
-
 void CEDate::SetDate(double date, CEDateType time_format)
 {
     // Fill the internal date storage objects based on the format of the input "date"
