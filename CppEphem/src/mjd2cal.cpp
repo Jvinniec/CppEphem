@@ -7,7 +7,7 @@
 //
 
 #include <iostream>
-#include "CEDate.h"
+#include "CppEphem.h"
 
 int main(int argc, const char * argv[]) {
     // Set the default return type ID

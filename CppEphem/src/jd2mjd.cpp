@@ -7,7 +7,7 @@
 //
 
 #include <stdio.h>
-#include "CEDate.h"
+#include "CppEphem.h"
 
 int main(int argc, const char * argv[]) {
     // Check that we've been passed an actual argument

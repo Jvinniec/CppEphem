@@ -7,7 +7,7 @@
 //
 
 #include <iostream>
-#include "CEDate.h"
+#include "CppEphem.h"
 
 //____________________________________________________________
 int main(int argc, const char * argv[]) {

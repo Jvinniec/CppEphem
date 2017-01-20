@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include <cmath>
-#include "CEDate.h"
+#include "CppEphem.h"
 
 int main(int argc, const char * argv[]) {
     
