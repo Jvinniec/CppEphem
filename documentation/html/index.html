@@ -124,16 +124,17 @@ $(function() {
 <p>As long as the user has the most up to date version of autotools, you should be able to build the software very easily using the standard "./configure -&gt; make -&gt; make install" method. Here is a bit more detail.</p>
 <p>First, download the repository as described above in "Downloading 
 the code". Second, make sure that the "configure" file exists in the top directory. If not, then do:</p>
-<div class="fragment"><div class="line">Third, configure the software (note the &quot;prefix&quot; option is optional):</div><div class="line"></div><div class="line">``` ./configure [--prefix=/your/install/directory]</div></div><!-- fragment --><p>Fourth, build the code:</p>
-<div class="fragment"><div class="line">Finally, to install the code in an accesible manner (i.e. so that </div><div class="line">your PATH and (DY)LD_LIBRARY_PATH environment variables know where</div><div class="line">the executables and libraries are) type:</div><div class="line"></div><div class="line">``` make install</div></div><!-- fragment --><p>And that should do it.</p>
+<div class="fragment"><div class="line">. autogen.sh </div></div><!-- fragment --><p>Third, configure the software (note the "prefix" option is optional):</p>
+<div class="fragment"><div class="line">./configure [--prefix=/your/install/directory] </div></div><!-- fragment --><p>Fourth, build the code:</p>
+<div class="fragment"><div class="line">make </div></div><!-- fragment --><p>Finally, to install the code in an accesible manner (i.e. so that your PATH and (DY)LD_LIBRARY_PATH environment variables know where the executables and libraries are) type:</p>
+<div class="fragment"><div class="line">make install</div></div><!-- fragment --><p>And that should do it.</p>
 <h2>Uninstalling the code: </h2>
 <p>To uninstall the code, it is advised to first run</p>
-<p><code>make uninstall</code></p>
-<p>in the top directory in order to remove the executables from your base install directory. Then you can delete the downloaded git repository. </p>
+<div class="fragment"><div class="line">make uninstall</div></div><!-- fragment --><p>in the top directory in order to remove the executables from your base install directory. Then you can delete the downloaded git repository. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 23 2017 13:36:41 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 23 2017 13:44:53 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
