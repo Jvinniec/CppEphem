@@ -30,12 +30,6 @@
 /// Default constructor
 CEObserver::CEObserver()
 {
-    SetLongitude(0.0) ;
-    SetLatitude(0.0) ;
-    SetElevation() ;
-    SetPressure(EstimatePressure_hPa(0.0)) ;
-    SetTemperature_C() ;
-    SetRelativeHumidity() ;
 }
 
 /////////////////////////////////////////////////////////////////
@@ -48,9 +42,12 @@ CEObserver::CEObserver()
 ///     @param date                 Current date for the observer
 CEObserver::CEObserver(double longitude, double latitude,
                        double elevation, CEAngleType angle_type,
-                       CEDate date)
+                       CEDate* date)
 {
-    // Use the internal methods for setting the default values
+    // Set the date
+    SetDate(date) ;
+    
+    // Use the internal methods for setting the values
     SetLongitude(longitude, angle_type) ;
     SetLatitude(latitude, angle_type) ;
     SetElevation(elevation) ;
@@ -75,7 +72,10 @@ CEObserver::CEObserver(const CEObserver& other) :
 /////////////////////////////////////////////////////////////////
 /// Destructor
 CEObserver::~CEObserver()
-{}
+{
+    // Delete the date object if we own it
+    if (date_is_owned_) delete current_date_ ;
+}
 
 #pragma mark - Public Methods
 
@@ -100,4 +100,26 @@ CECoordinates CEObserver::ObservedPosition(CECoordinates& coords)
     // Compute the observed coordinates for these coordinates
     CECoordinates observed_coords = coords.GetObservedCoords(*current_date_,*this) ;
     return observed_coords ;
+}
+
+/////////////////////////////////////////////////////////////////
+/// Set the date object for this observer
+///     @param[in]  date                CEDate object
+void CEObserver::SetDate(CEDate* date)
+{
+    // Prepare to update the current date object
+    if ((current_date_ != nullptr) && date_is_owned_) {
+        CEDate* ptr_shift = current_date_ ;
+        current_date_ = nullptr ;
+        delete ptr_shift ;
+    }
+    
+    // Now set the new date
+    if (date != nullptr) {
+        current_date_ = date ;
+        date_is_owned_ = false ;
+    } else {
+        current_date_ = new CEDate() ;
+        date_is_owned_ = true ;
+    }
 }

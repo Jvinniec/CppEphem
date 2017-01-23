@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['xcoord_5f',['xcoord_',['../classCECoordinates.html#ab58f73988010fb779c262f7b88612fc0',1,'CECoordinates']]]
+  ['start',['start',['../classCERunningDate.html#a045f3a85623e6369980996ec13642c9e',1,'CERunningDate']]]
 ];

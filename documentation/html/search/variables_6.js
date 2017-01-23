@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['name_5f',['name_',['../classCEPlanet.html#a792c85f39feec2e7e3d54ade3843d77a',1,'CEPlanet']]]
+  ['latitude_5f',['latitude_',['../classCEObserver.html#a30235a99b3b715fb1e4381d4a1f5837d',1,'CEObserver']]],
+  ['longitude_5f',['longitude_',['../classCEObserver.html#ac76c0ef9070cf96db45b5196b481dadc',1,'CEObserver']]]
 ];

@@ -18,6 +18,7 @@
 #include "CECoordinates.h"
 #include "CEDate.h"
 #include "CENamespace.h"
+#include "CEObservation.h"
 #include "CEObserver.h"
 #include "CEPlanet.h"
 #include "CERunningDate.h"

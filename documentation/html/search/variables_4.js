@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['latitude_5f',['latitude_',['../classCEObserver.html#a30235a99b3b715fb1e4381d4a1f5837d',1,'CEObserver']]],
-  ['longitude_5f',['longitude_',['../classCEObserver.html#ac76c0ef9070cf96db45b5196b481dadc',1,'CEObserver']]]
+  ['gregorian_5fdate_5f',['gregorian_date_',['../classCEDate.html#aecd5239b5cf81e46525ee24c6bf2b48e',1,'CEDate']]],
+  ['gregorian_5fdate_5fvect_5f',['gregorian_date_vect_',['../classCEDate.html#a3f2468a5ab3c5e58a5da6b2800d88165',1,'CEDate']]]
 ];

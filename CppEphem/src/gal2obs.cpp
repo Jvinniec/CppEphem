@@ -13,9 +13,7 @@
 #include <time.h>
 
 // CppEphem HEADERS
-#include "CECoordinates.h"
-#include "CEObserver.h"
-#include "CEDate.h"
+#include "CppEphem.h"
 
 //_________________________________________________________
 void Print_Help()

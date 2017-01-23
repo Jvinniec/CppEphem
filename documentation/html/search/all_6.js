@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['last',['LAST',['../CETime_8h.html#ab50b2d3a782e5eea768b25bfb3d7e65fa990cd45e93be2b4661f3499e0a658a33',1,'CETime.h']]],
-  ['latitude_5f',['latitude_',['../classCEObserver.html#a30235a99b3b715fb1e4381d4a1f5837d',1,'CEObserver']]],
-  ['latitude_5fdeg',['Latitude_Deg',['../classCEObserver.html#a71deb782773065b146e76f6f0d9a31e5',1,'CEObserver']]],
-  ['latitude_5frad',['Latitude_Rad',['../classCEObserver.html#a1e1053a2cb4fa013965f0012bc9ec2ed',1,'CEObserver']]],
-  ['localtime',['LOCALTIME',['../CETime_8h.html#ab50b2d3a782e5eea768b25bfb3d7e65fa10b93f5080d477452e842d90ae6a1332',1,'CETime.h']]],
-  ['longitude_5f',['longitude_',['../classCEObserver.html#ac76c0ef9070cf96db45b5196b481dadc',1,'CEObserver']]],
-  ['longitude_5fdeg',['Longitude_Deg',['../classCEObserver.html#aae554303d7f4feb13359eb1b1730063c',1,'CEObserver']]],
-  ['longitude_5frad',['Longitude_Rad',['../classCEObserver.html#aecd18686fb2bcdc9ddaa519cf48c4428',1,'CEObserver']]]
+  ['jd',['JD',['../classCEDate.html#a4e7e2791770ca2f077d1e5f8dd8055dd',1,'CEDate::JD()'],['../classCERunningDate.html#aea44104b940649f193cc0e25b95bda76',1,'CERunningDate::JD()'],['../CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746aabf8d7515962e526421842e8456798cc',1,'JD():&#160;CEDate.h']]],
+  ['jd2cal_2ecpp',['jd2cal.cpp',['../jd2cal_8cpp.html',1,'']]],
+  ['jd2gregorian',['JD2Gregorian',['../classCEDate.html#af699560be178f1ffbf9f9aae444085ad',1,'CEDate']]],
+  ['jd2gregorianvect',['JD2GregorianVect',['../classCEDate.html#a4dbfe2ea3d5083c90602baa2b3003587',1,'CEDate']]],
+  ['jd2mjd',['JD2MJD',['../classCEDate.html#a2f8aa5a0023c485407ce172c167d970d',1,'CEDate']]],
+  ['jd2mjd_2ecpp',['jd2mjd.cpp',['../jd2mjd_8cpp.html',1,'']]],
+  ['julian_5fdate_5f',['julian_date_',['../classCEDate.html#a58170c23976d025cd631d42b10b8930c',1,'CEDate']]],
+  ['julian_5fdate_5fj2000',['julian_date_J2000',['../namespaceCppEphem.html#a0af24bad9d60de8e1748fb1479d3423b',1,'CppEphem']]]
 ];

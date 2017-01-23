@@ -58,14 +58,6 @@ public:
     // start of the J2000 epoch (January 1, 2000 at 12:00 GMT). This corresponds
     // to the Julian Date of 2451545.0.
     
-    static void ConvertCoordinates(CECoordinateType input_coord_type,
-                                   double input_coord_x,
-                                   double input_coord_y,
-                                   CECoordinateType return_coord_type,
-                                   double *return_coord_x,
-                                   double *return_coord_y,
-                                   std::vector<double> additional_params=std::vector<double>(0));
-    
     // Convert from CIRS to other coordinates
     static void CIRS2ICRS(double input_ra, double input_dec, double *return_ra, double *return_dec,
                           CEDate date=CEDate(DJ00, CEDateType::JD),
@@ -104,7 +96,8 @@ public:
                              CEAngleType angle_type=CEAngleType::RADIANS,
                              double wavelength=0.5,
                              double *observed_ra=nullptr,
-                             double *observed_dec=nullptr);
+                             double *observed_dec=nullptr,
+                             double *hour_angle=nullptr);
     
     // Convert from GALACTIC to other coordinates
     static void Galactic2CIRS(double glon, double glat, double *ra, double *dec,
@@ -120,7 +113,8 @@ public:
                                  CEAngleType angle_type=CEAngleType::RADIANS,
                                  double wavelength=0.5,
                                  double *observed_glon=nullptr,
-                                 double *observed_glat=nullptr);
+                                 double *observed_glat=nullptr,
+                                 double *hour_angle=nullptr);
     // Convert from OBSERVED to other coordinates
     
     
@@ -163,7 +157,8 @@ public:
                              double xp=0.0, double yp=0.0,
                              double wavelength=500.0,
                              double *observed_ra=nullptr,
-                             double *observed_dec=nullptr) ;
+                             double *observed_dec=nullptr,
+                             double *hour_angle=nullptr) ;
     /** Raw method for converting Galactic -> Observed (observer specific) coordinates. */
     static int Galactic2Observed(double glon,
                              double glat,
@@ -180,7 +175,8 @@ public:
                              double xp=0.0, double yp=0.0,
                              double wavelength=500.0,
                              double *observed_glon=nullptr,
-                             double *observed_glat=nullptr) ;
+                             double *observed_glat=nullptr,
+                             double *hour_angle=nullptr) ;
     
     virtual CECoordinates GetObservedCoords(double julian_date,
                             double longitude,
@@ -192,7 +188,7 @@ public:
                             double dut1=0.0,
                             double xp=0.0, double yp=0.0,
                             double wavelength=500.0) ;
-    virtual CECoordinates GetObservedCoords(double julian_date,
+    virtual CECoordinates GetObservedCoords(CEDate& date,
                             CEObserver& observer,
                             double dut1=0.0,
                             double xp=0.0, double yp=0.0,

@@ -1,25 +1,6 @@
 var searchData=
 [
-  ['galactic2cirs',['Galactic2CIRS',['../classCECoordinates.html#a151ed16f68eb28adbb85f8895879d908',1,'CECoordinates']]],
-  ['galactic2icrs',['Galactic2ICRS',['../classCECoordinates.html#afa288c6036d21ed291dc37d11314443b',1,'CECoordinates']]],
-  ['galactic2observed',['Galactic2Observed',['../classCECoordinates.html#a08d1d11b0d73810d29128f2daafa153b',1,'CECoordinates::Galactic2Observed(double glon, double glat, double *az, double *zen, CEObserver &amp;observer, CEAngleType angle_type=CEAngleType::RADIANS, double wavelength=0.5, double *observed_glon=nullptr, double *observed_glat=nullptr)'],['../classCECoordinates.html#af9ec0c48ebb8b488932626a98338189b',1,'CECoordinates::Galactic2Observed(double glon, double glat, double *az, double *zen, double julian_date, double longitude, double latitude, double elevation_m=0.0, double pressure_hPa=-1.0, double temperature_celsius=-1000, double relative_humidity=0.0, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength=500.0, double *observed_glon=nullptr, double *observed_glat=nullptr)']]],
-  ['getcoordinates',['GetCoordinates',['../classCEBody.html#a76b0a28f47fad0a7c2545c55e6dda53c',1,'CEBody']]],
-  ['getcoordsystem',['GetCoordSystem',['../classCECoordinates.html#a8db4d98710cb70002754273a619d73cb',1,'CECoordinates']]],
-  ['getdate',['GetDate',['../classCEDate.html#a4c362a8bc9738240a6820821e4d11949',1,'CEDate']]],
-  ['getmjd2jdfactor',['GetMJD2JDFactor',['../classCEDate.html#ad3e980e8803ecc0671222ba662bdc7d8',1,'CEDate']]],
-  ['getname',['GetName',['../classCEPlanet.html#a181c03d81df78a845e78c38bcc8a346e',1,'CEPlanet']]],
-  ['getobservedcoords',['GetObservedCoords',['../classCECoordinates.html#ab1a76e8b1b630f45fb24128f1af62aef',1,'CECoordinates::GetObservedCoords(double julian_date, double longitude, double latitude, double elevation_m=0.0, double pressure_hPa=-1.0, double temperature_celsius=-1000, double relative_humidity=0.0, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength=500.0)'],['../classCECoordinates.html#ab644336994b2240fb9585e24b383f97d',1,'CECoordinates::GetObservedCoords(double julian_date, CEObserver &amp;observer, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength=500.0)']]],
-  ['getoptions',['getoptions',['../cirs2gal_8cpp.html#ae43391d18665e0951b2bd151f9235cd4',1,'getoptions(struct option *longopts):&#160;cirs2gal.cpp'],['../cirs2obs_8cpp.html#ae43391d18665e0951b2bd151f9235cd4',1,'getoptions(struct option *longopts):&#160;cirs2obs.cpp'],['../gal2cirs_8cpp.html#ae43391d18665e0951b2bd151f9235cd4',1,'getoptions(struct option *longopts):&#160;gal2cirs.cpp'],['../gal2obs_8cpp.html#ae43391d18665e0951b2bd151f9235cd4',1,'getoptions(struct option *longopts):&#160;gal2obs.cpp'],['../obs2cirs_8cpp.html#ae43391d18665e0951b2bd151f9235cd4',1,'getoptions(struct option *longopts):&#160;obs2cirs.cpp']]],
-  ['getsecondssincemidnight',['GetSecondsSinceMidnight',['../classCEDate.html#ab3442dcf6785304c0ed0c748e34ee407',1,'CEDate']]],
-  ['gettime',['GetTime',['../classCEDate.html#ac68ec62b6499016c2c27c7a1d4f74d3d',1,'CEDate']]],
-  ['gettime_5futc',['GetTime_UTC',['../classCEDate.html#a024a4ad270bf96a33124c52ab1d2bf76',1,'CEDate']]],
-  ['gettimerspeed',['GetTimerSpeed',['../classCERunningDate.html#ac0b3d9d8d2d97b42ab9f9312f2928a44',1,'CERunningDate']]],
-  ['gregorian',['Gregorian',['../classCEDate.html#ac4c2731011b352b87274233bc4a8c515',1,'CEDate::Gregorian()'],['../classCERunningDate.html#a8815dd51d301251b1543241295778e5f',1,'CERunningDate::Gregorian()']]],
-  ['gregorian2gregorianvect',['Gregorian2GregorianVect',['../classCEDate.html#a0d1bc6ed26cc38c4bbbe22953a9eb5bf',1,'CEDate']]],
-  ['gregorian2jd',['Gregorian2JD',['../classCEDate.html#ae9fd46001251867c9f5cf936b18ba629',1,'CEDate']]],
-  ['gregorian2mjd',['Gregorian2MJD',['../classCEDate.html#ab9928a115235a59b2e4c210922bd3a86',1,'CEDate']]],
-  ['gregorianvect',['GregorianVect',['../classCEDate.html#a7560784f97cf7cf29de5b0052420a397',1,'CEDate']]],
-  ['gregorianvect2gregorian',['GregorianVect2Gregorian',['../classCEDate.html#aa0fcbac9957aeb66d1fad1008ccdbac3',1,'CEDate']]],
-  ['gregorianvect2jd',['GregorianVect2JD',['../classCEDate.html#aea89e8524c94bcfa9d1a352ec437f084',1,'CEDate']]],
-  ['gregorianvect2mjd',['GregorianVect2MJD',['../classCEDate.html#a527a939f24d47becef7fdeaf1f51bcd9',1,'CEDate']]]
+  ['elevation_5fm',['Elevation_m',['../classCEObserver.html#a215a04ab5ba84c35606e7a4fab592374',1,'CEObserver']]],
+  ['estimatealtitude_5fm',['EstimateAltitude_m',['../namespaceCppEphem.html#a26cca0c25432d0f19217e633c7a7c6ce',1,'CppEphem']]],
+  ['estimatepressure_5fhpa',['EstimatePressure_hPa',['../namespaceCppEphem.html#a63321f3b9084d44078e0941236021b3b',1,'CppEphem']]]
 ];

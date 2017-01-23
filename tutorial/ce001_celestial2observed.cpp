@@ -22,12 +22,12 @@ int main(int argc, char** argv)
     //      Arg4 - Tells CEBody that the RA and Dec are in degrees (default is radians)
     CEBody crab_nebula(83.6331, 22.0145, CECoordinateType::CIRS, CEAngleType::DEGREES) ;
     
-    // Set the time of the observation. I'll choose new years day, 2016 at 11 pm UTC
+    // Set the time of the observation. I'll choose new years day, 2017 at 11 pm UTC
     //      Element 0 - Year
     //      Element 1 - Month
     //      Element 2 - Day
     //      Element 3 - Day fraction
-    CEDate date( {2016, 01, 01, 23.0/24.0} ) ;
+    CEDate date( {2017, 01, 01, 23.0/24.0} ) ;
     
     // Alternatively, the date can also be specified in the following way:
     //      CEDate date( (20160101+(23.0/24.0)), CEDateType::GREGORIAN) ;

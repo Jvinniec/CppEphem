@@ -12,6 +12,7 @@ libcppephem_la_SOURCES = CENamespace.cpp \
                         CEBody.cpp \
                         CECoordinates.cpp \
                         CEDate.cpp \
+                        CEObservation.cpp \
                         CEObserver.cpp \
                         CEPlanet.cpp \
                         CERunningDate.cpp \
@@ -21,6 +22,7 @@ libcppephem_la_HEADERS = ../include/CppEphem.h \
                         ../include/CEBody.h \
                         ../include/CECoordinates.h \
                         ../include/CEDate.h \
+                        ../include/CEObservation.h \
                         ../include/CEObserver.h \
                         ../include/CEPlanet.h \
                         ../include/CERunningDate.h \

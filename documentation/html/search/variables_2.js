@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['gregorian_5fdate_5f',['gregorian_date_',['../classCEDate.html#aecd5239b5cf81e46525ee24c6bf2b48e',1,'CEDate']]],
-  ['gregorian_5fdate_5fvect_5f',['gregorian_date_vect_',['../classCEDate.html#a3f2468a5ab3c5e58a5da6b2800d88165',1,'CEDate']]]
+  ['date_5f',['date_',['../classCEObservation.html#a655e036c8f2c44c8a1b6afcceb433e50',1,'CEObservation']]],
+  ['date_5fis_5fowned_5f',['date_is_owned_',['../classCEObserver.html#a0f326f2ad656ffeb530af7a00cf1e9b8',1,'CEObserver']]]
 ];
