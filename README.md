@@ -83,21 +83,29 @@ First, download the repository as described above in "Downloading
 the code". Second, make sure that the "configure" file exists in 
 the top directory. If not, then do:
 
-``` . autogen.sh ```
+```bash
+. autogen.sh 
+```
 
 Third, configure the software (note the "prefix" option is optional):
 
-``` ./configure [--prefix=/your/install/directory] ```
+```bash
+./configure [--prefix=/your/install/directory] 
+```
 
 Fourth, build the code:
 
-``` make ```
+```bash
+make 
+```
 
 Finally, to install the code in an accesible manner (i.e. so that 
 your PATH and (DY)LD_LIBRARY_PATH environment variables know where
 the executables and libraries are) type:
 
-``` make install ```
+```bash
+make install
+```
 
 And that should do it.
 
@@ -105,7 +113,9 @@ Uninstalling the code:
 ----------------------------------------------------------
 To uninstall the code, it is advised to first run
 
-```make uninstall```
+```bash
+make uninstall
+```
 
 in the top directory in order to remove the executables from your 
 base install directory. Then you can delete the downloaded git repository.
