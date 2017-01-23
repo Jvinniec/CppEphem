@@ -22,7 +22,7 @@ public:
 //               CEAngleType angle_type=CEAngleType::RADIANS) ;
     CEObserver(double longitude, double latitude, double elevation=0.0,
                CEAngleType angle_type=CEAngleType::RADIANS,
-               CEDate date=CEDate()) ;
+               CEDate* date = nullptr) ;
     CEObserver(const CEObserver& other) ;
     virtual ~CEObserver() ;
     
@@ -54,7 +54,7 @@ public:
     double Wavelength_um() {return wavelength_um_ ;}
     
     /// Get the date information (see CEDate)
-    std::shared_ptr<CEDate> Date() {return current_date_ ;}
+    CEDate* Date() {return current_date_ ;}
     
     /// Get the current time information (see CETime)
     std::vector<double> Time() {return CETime::TimeDbl2Vect( CETime::TimeSec2Time(CETime::UTC((*current_date_))) ) ;}
@@ -88,10 +88,7 @@ public:
         {wavelength_um_ = new_wavelength_um ;}
     
     // Set the date
-    void SetDate(double date, CEDateType date_type=CEDateType::JD)
-        {current_date_ = std::shared_ptr<CEDate>( new CEDate(date, date_type) ) ;}
-    void SetDate(const CEDate& date)
-        {current_date_ = std::shared_ptr<CEDate>( new CEDate(date) ) ;}
+    void SetDate(CEDate* date=nullptr) ;
     
     /****************************************************
      * Methods for interacting with the sofa functions
@@ -114,7 +111,9 @@ protected:
     
     // Variables defining the time of the observer
     double utc_offset_ = 0.0 ;
-    std::shared_ptr<CEDate> current_date_ ;              ///< Current date for this object
+    CEDate* current_date_ = nullptr;    ///< Current date for this object
+    bool date_is_owned_ = false ;       ///< Boolean for whether 'current_date_' can be safely
+                                        ///< deleted when this object is deleted
     
 private:
     

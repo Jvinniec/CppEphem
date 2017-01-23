@@ -27,16 +27,21 @@ CEObservation::CEObservation()
 }
 
 ////////////////////////////////////////////////////////////
-/// Constructor from a known observer and
+/// Constructor from a known observer, object, and date. If no date
+/// is provided, the date of the observer will be used instead.
 ///     @param observer         CEObserver linked with these coordinates
 ///     @param body             CEBody being observed
-///     @param date             CEDate object linked with these coordinates
+///     @param date             CEDate object linked with these coordinates.
 CEObservation::CEObservation(CEObserver* observer, CEBody* body, CEDate* date) :
     observer_(observer),
     body_(body),
-    date_(date),
-    cached_date_(*date)
+    date_(date)
 {
+    if (date_==nullptr) {
+        date_ = observer_->Date() ;
+    }
+    
+    UpdateCoordinates() ;
 }
 
 ////////////////////////////////////////////////////////////
@@ -56,7 +61,7 @@ CEObservation::~CEObservation()
 ///     @param[out] zenith              Zenith in degrees (radians)
 void CEObservation::GetAzimuthZenith_Rad(double *azimuth, double *zenith)
 {
-    *azimuth = GetAzimuth_Deg() ;
+    *azimuth = GetAzimuth_Rad() ;
     *zenith  = cached_zenith_ ;
 }
 
@@ -83,8 +88,8 @@ void CEObservation::GetAzimuthZenith_Deg(double *azimuth, double *zenith)
 ///     @param[out] apparent_Y          Observed value of 'body_' y-coordinate (radians)
 void CEObservation::GetApparentXYCoordinate_Rad(double *apparent_X, double *apparent_Y)
 {
-    *apparent_X *= GetApparentXCoordinate_Deg() ;
-    *apparent_Y *= cached_apparentycoord_ ;
+    *apparent_X = GetApparentXCoordinate_Rad() ;
+    *apparent_Y = cached_apparentycoord_ ;
 }
 
 ///////////////////////////////////////////////////////////
@@ -122,7 +127,6 @@ bool CEObservation::UpdateCoordinates()
                               &cached_apparentxcoord_,
                               &cached_apparentycoord_,
                               &cached_hour_angle_) ;
-        return true ;
     } else if (body_coords == CECoordinateType::GALACTIC) {
         // Convert Galactic -> Observerd
         CEBody::Galactic2Observed(body_->XCoordinate_Rad(), body_->YCoordinate_Rad(),
@@ -133,7 +137,6 @@ bool CEObservation::UpdateCoordinates()
                               &cached_apparentxcoord_,
                               &cached_apparentycoord_,
                               &cached_hour_angle_) ;
-        return true ;
     } else if (body_coords == CECoordinateType::ICRS) {
         // Convert CIRS -> Observed
         CEBody::ICRS2Observed(body_->XCoordinate_Rad(), body_->YCoordinate_Rad(),
@@ -144,17 +147,22 @@ bool CEObservation::UpdateCoordinates()
                               &cached_apparentxcoord_,
                               &cached_apparentycoord_,
                               &cached_hour_angle_) ;
-        return true ;
+    } else {
+        return false ;
     }
     
-    return false ;
+    // Update the cached_date_ object
+    cached_date_ = *date_ ;
+    
+    return true ;
 }
 
 # pragma mark - Protected Methods
 
 ////////////////////////////////////////////////////////////
 /// Check whether the date has changed since the last time
-/// all of the parameters were updated.
+/// all of the parameters were updated (i.e. since the last
+/// time UpdateCoordinates() was called)
 bool CEObservation::DateHasChanged()
 {
     // Make sure the date object isnt nullptr

@@ -20,7 +20,7 @@ class CEObservation {
 public:
     // Constructors
     CEObservation() ;
-    CEObservation(CEObserver* observer, CEBody* body, CEDate* date) ;
+    CEObservation(CEObserver* observer, CEBody* body, CEDate* date=nullptr) ;
     virtual ~CEObservation() ;
     
     /// Set the observer object
