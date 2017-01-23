@@ -81,23 +81,6 @@ CECoordinates::~CECoordinates()
 #pragma mark - Conversion routines
 
 ////////////////////////////////////////////////////////////
-/// Main method used to convert from one set of coordinates to another.
-/// @param input_coord_type Input coordinate type
-/// @param input_coord_x Input x-coordinate
-/// @param input_coord_y Input y-coordinate
-/// @param return_coord_type Returned coordinate type
-/// @param return_coord_x Returned x-coordinate
-/// @param return_coord_y Returned y-coordinate
-/// @param additional_params Additional parameters
-
-void CECoordinates::ConvertCoordinates(CECoordinateType input_coord_type,
-                                       double input_coord_x, double input_coord_y,
-                                       CECoordinateType return_coord_type,
-                                       double *return_coord_x, double *return_coord_y,
-                                       std::vector<double> additional_params)
-{}
-
-////////////////////////////////////////////////////////////
 /// CIRS -> ICRS coordinate conversion
 ///     @param input_ra     CIRS right ascension
 ///     @param input_dec    CIRS declination
@@ -105,7 +88,6 @@ void CECoordinates::ConvertCoordinates(CECoordinateType input_coord_type,
 ///     @param return_dec   ICRS declinaton (returned)
 ///     @param date         Date information
 ///     @param angle_type   Angle type
-
 void CECoordinates::CIRS2ICRS(double input_ra, double input_dec,
                               double *return_ra, double *return_dec,
                               CEDate date, CEAngleType angle_type)
@@ -265,7 +247,7 @@ void CECoordinates::ICRS2CIRS(double input_ra, double input_dec,
 }
 
 ////////////////////////////////////////////////////////////
-/// ICRS -> Galactic coordinate conversion
+/// ICRS -> Galactic coordinate conversion (uses the SOFA 'iauIcrs2g' function)
 ///     @param input_ra     ICRS Right ascension
 ///     @param input_dec    ICRS Declination
 ///     @param glon         Galactic longitude
@@ -303,7 +285,8 @@ int CECoordinates::ICRS2Observed(double ra, double dec,             // RA, Dec i
                                                                     // (either RADIANS or DEGREES)
                                  double wavelength,                 // Observing wavelength (micrometers)
                                  double *observed_ra,               // Observed CIRS right ascension
-                                 double *observed_dec)              // Observed CIRS declination
+                                 double *observed_dec,              // Observed CIRS declination
+                                 double *hour_angle)                // Observed hour angle
 {
     // If we've passed in angles that are in degrees we need to convert to radians
     if (angle_type == CEAngleType::DEGREES) {
@@ -325,7 +308,7 @@ int CECoordinates::ICRS2Observed(double ra, double dec,             // RA, Dec i
                                  observer.Date()->xpolar(),
                                  observer.Date()->xpolar(),
                                  wavelength,
-                                 observed_ra, observed_dec) ;
+                                 observed_ra, observed_dec, hour_angle) ;
     
     // Now convert back to degrees if that's what we were passed
     if (angle_type == CEAngleType::DEGREES) {
@@ -333,6 +316,7 @@ int CECoordinates::ICRS2Observed(double ra, double dec,             // RA, Dec i
         *zen          *= DR2D ;
         *observed_ra  *= DR2D ;
         *observed_dec *= DR2D ;
+        *hour_angle   *= DR2D ;
     }
     
     return err_code ;
@@ -420,7 +404,8 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
                                      CEAngleType angle_type,
                                      double wavelength,
                                      double *observed_glon,
-                                     double *observed_glat)
+                                     double *observed_glat,
+                                     double *hour_angle)
 {
     // Convert angles to radians if necessary
     if (angle_type == CEAngleType::DEGREES) {
@@ -442,7 +427,7 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
                                        observer.Date()->xpolar(),
                                        observer.Date()->xpolar(),
                                        wavelength,
-                                       observed_glon, observed_glat) ;
+                                       observed_glon, observed_glat, hour_angle) ;
     
     // Convert back to degrees if necessary
     if (angle_type == CEAngleType::DEGREES) {
@@ -450,6 +435,7 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
         *zen *= DR2D ;
         if (observed_glon != nullptr) *observed_glon *= DR2D ;
         if (observed_glat != nullptr) *observed_glat *= DR2D ;
+        if (hour_angle    != nullptr) *hour_angle    *= DR2D ;
     }
     
     return error_code;
@@ -465,7 +451,8 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
  *********************************************************/
 
 ////////////////////////////////////////////////////////////
-/// Raw method for converting CIRS -> Observed (observer specific) coordinates.
+/// Raw method for converting CIRS -> Observed (observer specific) coordinates
+/// (uses the SOFA 'iauAtio13' function)
 /// Note: All angles are expected to be in radians.
 ///     @param ra                   CIRS right ascension
 ///     @param dec                  CIRS declination
@@ -481,7 +468,7 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
 ///     @param dut1                 UTC - UT1
 ///     @param xp                   "x" polar motion
 ///     @param yp                   "y" polar motion
-///     @param wavelength           Wavelength
+///     @param wavelength           Wavelength (micrometers)
 ///     @param observed_ra          Apparent right ascension (returned)
 ///     @param observed_dec         Apparent declination (returned)
 ///     @param hour_angle           Hour angle
@@ -497,7 +484,7 @@ int CECoordinates::CIRS2Observed(double ra, double dec,
                                  double relative_humidity,
                                  double dut1,
                                  double xp, double yp,
-                                 double wavelength,
+                                 double wavelength_um,
                                  double *observed_ra,
                                  double *observed_dec,
                                  double *hour_angle)
@@ -520,7 +507,7 @@ int CECoordinates::CIRS2Observed(double ra, double dec,
                              pressure_hPa,
                              temperature_celsius,
                              relative_humidity,
-                             wavelength,
+                             wavelength_um,
                              az, zen,
                              temp_hour_angle, temp_dec, temp_ra) ;
 
@@ -561,7 +548,8 @@ int CECoordinates::ICRS2Observed(double ra, double dec,
                                  double xp, double yp,
                                  double wavelength,
                                  double *observed_ra,
-                                 double *observed_dec)
+                                 double *observed_dec,
+                                 double *hour_angle)
 {
     // Setup the observed RA, Dec and hour_angle variables
     double *temp_ra, *temp_dec ;
@@ -586,7 +574,8 @@ int CECoordinates::ICRS2Observed(double ra, double dec,
                                  dut1, xp, yp,
                                  wavelength,
                                  temp_ra,
-                                 temp_dec) ;
+                                 temp_dec,
+                                 hour_angle) ;
     
     // Convert the apparent CIRS RA,Dec to ICRS RA,Dec
     CIRS2ICRS(*temp_ra, *temp_dec, temp_ra, temp_dec, date) ;
@@ -628,7 +617,8 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
                                      double xp, double yp,
                                      double wavelength,
                                      double *observed_glon,
-                                     double *observed_glat)
+                                     double *observed_glat,
+                                     double *hour_angle)
 {
     // Setup the observed RA, Dec and hour_angle variables
     double *temp_glon, *temp_glat ;
@@ -705,7 +695,7 @@ CECoordinates CECoordinates::GetObservedCoords(double julian_date,
                       julian_date, longitude, latitude,
                       elevation_m, pressure_hPa, temperature_celsius,
                       relative_humidity, dut1, xp, yp, wavelength,
-                      &observed1, &observed3) ;
+                      &observed1, &observed2) ;
     } else if (coord_type_ == CECoordinateType::GALACTIC) {
         // Convert Galactic to Observed
         Galactic2Observed(xcoord_, ycoord_, &azimuth, &zenith,
@@ -728,7 +718,7 @@ CECoordinates CECoordinates::GetObservedCoords(double julian_date,
 ///     @param yp                   y-polar motion
 ///     @param wavelength           Wavelength being observed
 ///     @return These coordinates converted into the observed coordinates of 'observer'
-CECoordinates CECoordinates::GetObservedCoords(double julian_date,
+CECoordinates CECoordinates::GetObservedCoords(CEDate& julian_date,
                                 CEObserver& observer,
                                 double dut1,
                                 double xp, double yp,

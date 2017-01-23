@@ -1,8 +1,9 @@
-This documents the CppEphem package.
+This documents the [CppEphem](https://github.com/Jvinniec/CppEphem) package.
 
 * Author: Joshua V. Cardenzana
 * Creation Date: March 2016
 * [Documentation available here](http://jvinniec.github.io/CppEphem/documentation/html/index.html)
+* [Download available here](https://github.com/Jvinniec/CppEphem)
 
 DISCLAIMER:
 ----------------------------------------------------------

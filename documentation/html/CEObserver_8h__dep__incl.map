@@ -1,8 +1,0 @@
-<map id="CppEphem/include/CEObserver.h" name="CppEphem/include/CEObserver.h">
-<area shape="rect" id="node2" href="$CECoordinates_8cpp.html" title="CppEphem/src/CECoordinates.cpp" alt="" coords="5,80,235,107"/>
-<area shape="rect" id="node3" href="$CEObserver_8cpp.html" title="CppEphem/src/CEObserver.cpp" alt="" coords="259,80,471,107"/>
-<area shape="rect" id="node4" href="$cirs2obs_8cpp.html" title="CppEphem/src/cirs2obs.cpp" alt="" coords="496,80,685,107"/>
-<area shape="rect" id="node5" href="$gal2obs_8cpp.html" title="CppEphem/src/gal2obs.cpp" alt="" coords="710,80,895,107"/>
-<area shape="rect" id="node6" href="$obs2cirs_8cpp.html" title="CppEphem/src/obs2cirs.cpp" alt="" coords="920,80,1109,107"/>
-<area shape="rect" id="node7" href="$CppEphem_8h.html" title="CppEphem/include/CppEphem.h" alt="" coords="1133,80,1349,107"/>
-</map>

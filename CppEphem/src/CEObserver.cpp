@@ -30,12 +30,6 @@
 /// Default constructor
 CEObserver::CEObserver()
 {
-    SetLongitude(0.0) ;
-    SetLatitude(0.0) ;
-    SetElevation() ;
-    SetPressure(EstimatePressure_hPa(0.0)) ;
-    SetTemperature_C() ;
-    SetRelativeHumidity() ;
 }
 
 /////////////////////////////////////////////////////////////////
