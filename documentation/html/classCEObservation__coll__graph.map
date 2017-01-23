@@ -1,0 +1,6 @@
+<map id="CEObservation" name="CEObservation">
+<area shape="rect" id="node2" href="$classCEBody.html" title="The CEBody class defines a celestial object. " alt="" coords="26,95,97,121"/>
+<area shape="rect" id="node3" href="$classCECoordinates.html" title="CECoordinates class is responsible for doing all of the celestial coordinate conversions. " alt="" coords="5,5,117,32"/>
+<area shape="rect" id="node4" href="$classCEObserver.html" title="CEObserver class is a self contained object for describing an observer. " alt="" coords="207,95,303,121"/>
+<area shape="rect" id="node5" href="$classCEDate.html" title="CEDate class handles conversion between different date formats. " alt="" coords="164,5,233,32"/>
+</map>
