@@ -43,7 +43,7 @@ Here is a list of purposes I wish this code to serve:
   - __Modified Julian Date__
   - __Gregorian Calendar__ (year, month, day)
 
-More feature will be implemented as time permits. If there 
+More features will be implemented as time permits. If there 
 is any feature that you would like to see implemented feel 
 free to contact the author or submit an issue and I'll
 look into it.

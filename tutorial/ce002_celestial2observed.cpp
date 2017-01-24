@@ -52,21 +52,15 @@ int main(int argc, char** argv)
     
     std::printf("\nOBJECT INFORMATION\n") ;
     std::printf("    JD    |   Time   |   RA   |  DEC   | Azimuth| Zenith | Altitude\n") ;
-    std::printf("----------+----------+--------+--------+--------+----------\n") ;
-    double ra, dec, azimuth, zenith, altitude ;
+    std::printf("----------+----------+--------+--------+--------+--------+----------\n") ;
+    double ra, dec, azimuth, zenith ;
     while (true) {
         usleep(1000000) ;
         observed_coords.GetApparentXYCoordinate_Deg(&ra, &dec) ;
         observed_coords.GetAzimuthZenith_Deg(&azimuth, &zenith) ;
-<<<<<<< HEAD
-        std::printf("\r%13.5f|%8.3f|%8.3f|%8.3f|%8.3f|%8.3f",
-                    double(date.GetTime(-6)),
-                    ra, dec, azimuth, zenith, 90-zenith) ;
-=======
-        std::printf("\r%8d|%8.1%f|%8.3f|%8.3f|%8.3f|%8.3f|%8.3f",
+        std::printf("\r %8d | %8.1f |%8.3f|%8.3f|%8.3f|%8.3f|%8.3f",
                     int(date), date.GetTime(),
                     ra, dec, azimuth, zenith, 90.0-zenith) ;
->>>>>>> master
         std::cout.flush() ;
     }
     
