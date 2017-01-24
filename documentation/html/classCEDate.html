@@ -132,9 +132,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6daf5a60fa8a682bf163fbfe80db27a8"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#a6daf5a60fa8a682bf163fbfe80db27a8">operator double</a> ()</td></tr>
 <tr class="memdesc:a6daf5a60fa8a682bf163fbfe80db27a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overload of the <a class="el" href="classCEDate.html" title="CEDate class handles conversion between different date formats. ">CEDate</a> object which allows the object to be treated as a 'double' representing the date formatted according to 'return_type_'.  <a href="#a6daf5a60fa8a682bf163fbfe80db27a8">More...</a><br /></td></tr>
 <tr class="separator:a6daf5a60fa8a682bf163fbfe80db27a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb27bd568466f1cd2f497df356c3ed70"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#acb27bd568466f1cd2f497df356c3ed70">SetDate</a> (double date, <a class="el" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746">CEDateType</a> time_format=<a class="el" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746aabf8d7515962e526421842e8456798cc">CEDateType::JD</a>)</td></tr>
-<tr class="memdesc:acb27bd568466f1cd2f497df356c3ed70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the date based on an actual date and the desired time_format.  <a href="#acb27bd568466f1cd2f497df356c3ed70">More...</a><br /></td></tr>
-<tr class="separator:acb27bd568466f1cd2f497df356c3ed70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95a5efa8886476a3a2b32557fe620627"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#a95a5efa8886476a3a2b32557fe620627">SetDate</a> (double date=<a class="el" href="classCEDate.html#ab310c87db2f91c2b557e4c7a8081bb57">CurrentJD</a>(), <a class="el" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746">CEDateType</a> time_format=<a class="el" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746aabf8d7515962e526421842e8456798cc">CEDateType::JD</a>)</td></tr>
+<tr class="memdesc:a95a5efa8886476a3a2b32557fe620627"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the date based on an actual date and the desired time_format.  <a href="#a95a5efa8886476a3a2b32557fe620627">More...</a><br /></td></tr>
+<tr class="separator:a95a5efa8886476a3a2b32557fe620627"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f913b696962f236a4b4de75eb2fd5e1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#a6f913b696962f236a4b4de75eb2fd5e1">SetDate</a> (std::vector&lt; double &gt; date)</td></tr>
 <tr class="memdesc:a6f913b696962f236a4b4de75eb2fd5e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the date based on an actual date and the desired time_format.  <a href="#a6f913b696962f236a4b4de75eb2fd5e1">More...</a><br /></td></tr>
 <tr class="separator:a6f913b696962f236a4b4de75eb2fd5e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -231,7 +231,7 @@ Protected Attributes</h2></td></tr>
 <li>MJD: Modified Julian date</li>
 <li>GREGORIAN: Gregorian calendar date</li>
 </ul>
-<p>To set the date, use the <a class="el" href="classCEDate.html#acb27bd568466f1cd2f497df356c3ed70" title="Set the date based on an actual date and the desired time_format. ">CEDate::SetDate</a> method. </p>
+<p>To set the date, use the <a class="el" href="classCEDate.html#a95a5efa8886476a3a2b32557fe620627" title="Set the date based on an actual date and the desired time_format. ">CEDate::SetDate</a> method. </p>
 
 <p class="definition">Definition at line <a class="el" href="CEDate_8h_source.html#l00031">31</a> of file <a class="el" href="CEDate_8h_source.html">CEDate.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -1358,8 +1358,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="acb27bd568466f1cd2f497df356c3ed70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb27bd568466f1cd2f497df356c3ed70">&#9670;&nbsp;</a></span>SetDate() <span class="overload">[1/2]</span></h2>
+<a id="a95a5efa8886476a3a2b32557fe620627"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95a5efa8886476a3a2b32557fe620627">&#9670;&nbsp;</a></span>SetDate() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1371,7 +1371,7 @@ Protected Attributes</h2></td></tr>
           <td class="memname">void CEDate::SetDate </td>
           <td>(</td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>date</em>, </td>
+          <td class="paramname"><em>date</em> = <code><a class="el" href="classCEDate.html#ab310c87db2f91c2b557e4c7a8081bb57">CurrentJD</a>()</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1772,7 +1772,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 24 2017 10:18:08 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 24 2017 15:35:23 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
