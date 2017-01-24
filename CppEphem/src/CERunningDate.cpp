@@ -11,15 +11,14 @@
 #include "CERunningDate.h"
 
 /** \class CERunningDate
- * The CERunningDate class
- * This class represents a date object that always represents
- * the current instantaneous date
- * <h2> Details </h2>
- * Subsequent evaluations of the underlying methods return different values.
- * The speed of ellapsed time by be computed using the SetTimerSpeed method,
- * thus allowing the user to speed up, slow down, or even reverse the passage
- * of time for this object.
- *
+  This class represents a date object that always represents
+  the current instantaneous date
+  <h2> Details </h2>
+  Subsequent evaluations of the underlying methods return different values.
+  The speed of ellapsed time by be computed using the SetTimerSpeed method,
+  thus allowing the user to speed up, slow down, or even reverse the passage
+  of time for this object.
+ 
  * The object may be evaluated in one of several ways to get the current value:
  * <ul>
  *      <li> Direct evaluation (object acts like a double)

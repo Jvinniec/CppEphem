@@ -1,4 +1,5 @@
 var menudata={children:[
+{text:"ROOT Home Page",url:"http://root.cern.ch"},
 {text:"Main Page",url:"index.html"},
 {text:"Namespaces",url:"namespaces.html",children:[
 {text:"Namespace List",url:"namespaces.html"},
@@ -6,7 +7,7 @@ var menudata={children:[
 {text:"All",url:"namespacemembers.html"},
 {text:"Functions",url:"namespacemembers_func.html"},
 {text:"Enumerations",url:"namespacemembers_enum.html"}]}]},
-{text:"Classes",url:"annotated.html",children:[
+{text:"All Classes",url:"annotated.html",children:[
 {text:"Class List",url:"annotated.html"},
 {text:"Class Index",url:"classes.html"},
 {text:"Class Hierarchy",url:"inherits.html"},
@@ -90,4 +91,5 @@ var menudata={children:[
 {text:"p",url:"globals_func.html#index_p"}]},
 {text:"Enumerations",url:"globals_enum.html"},
 {text:"Enumerator",url:"globals_eval.html"},
-{text:"Macros",url:"globals_defs.html"}]}]}]}
+{text:"Macros",url:"globals_defs.html"}]}]},
+{text:"Release Notes",url:"release-notes.html"}]}

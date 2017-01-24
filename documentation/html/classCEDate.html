@@ -67,20 +67,17 @@ $(function() {
 <div class="title">CEDate Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<a name="details" id="details"></a><h2 class="groupheader"> </h2>
+<div class="textblock"><p><a class="el" href="classCEDate.html" title="CEDate class handles conversion between different date formats. ">CEDate</a> class handles conversion between different date formats. </p>
+<p>Date formats used (see <a class="el" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746" title="Date enum. ">CEDateType</a>):</p><ul>
+<li>JD: Julian date</li>
+<li>MJD: Modified Julian date</li>
+<li>GREGORIAN: Gregorian calendar date</li>
+</ul>
+<p>To set the date, use the <a class="el" href="classCEDate.html#a95a5efa8886476a3a2b32557fe620627" title="Set the date based on an actual date and the desired time_format. ">CEDate::SetDate</a> method. </p>
 
-<p><a class="el" href="classCEDate.html" title="CEDate class handles conversion between different date formats. ">CEDate</a> class handles conversion between different date formats.  
- <a href="classCEDate.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="CEDate_8h_source.html">CEDate.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for CEDate:</div>
-<div class="dyncontent">
-<div class="center"><img src="classCEDate__inherit__graph.png" border="0" usemap="#CEDate_inherit__map" alt="Inheritance graph"/></div>
-<map name="CEDate_inherit__map" id="CEDate_inherit__map">
-<area shape="rect" id="node2" href="classCERunningDate.html" title="The CERunningDate class This class represents a date object that always represents the current instan..." alt="" coords="5,80,124,107"/>
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
-<table class="memberdecls">
+<p class="definition">Definition at line <a class="el" href="CEDate_8h_source.html#l00031">31</a> of file <a class="el" href="CEDate_8h_source.html">CEDate.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a0162d3986e8ca403f7ac740e369de0b7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#a0162d3986e8ca403f7ac740e369de0b7">CEDate</a> (double date=<a class="el" href="classCEDate.html#ab310c87db2f91c2b557e4c7a8081bb57">CurrentJD</a>(), <a class="el" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746">CEDateType</a> date_format=<a class="el" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746aabf8d7515962e526421842e8456798cc">CEDateType::JD</a>)</td></tr>
@@ -224,17 +221,17 @@ Protected Attributes</h2></td></tr>
 <tr class="memdesc:a173516688bd54588ae204945ed1928a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">what format the 'operator double' will return  <a href="#a173516688bd54588ae204945ed1928a0">More...</a><br /></td></tr>
 <tr class="separator:a173516688bd54588ae204945ed1928a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="classCEDate.html" title="CEDate class handles conversion between different date formats. ">CEDate</a> class handles conversion between different date formats. </p>
-<p>Date formats used (see <a class="el" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746" title="Date enum. ">CEDateType</a>):</p><ul>
-<li>JD: Julian date</li>
-<li>MJD: Modified Julian date</li>
-<li>GREGORIAN: Gregorian calendar date</li>
-</ul>
-<p>To set the date, use the <a class="el" href="classCEDate.html#a95a5efa8886476a3a2b32557fe620627" title="Set the date based on an actual date and the desired time_format. ">CEDate::SetDate</a> method. </p>
 
-<p class="definition">Definition at line <a class="el" href="CEDate_8h_source.html#l00031">31</a> of file <a class="el" href="CEDate_8h_source.html">CEDate.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<p><code>#include &lt;<a class="el" href="CEDate_8h_source.html">CEDate.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for CEDate:</div>
+<div class="dyncontent">
+<div class="center"><img src="classCEDate__inherit__graph.png" border="0" usemap="#CEDate_inherit__map" alt="Inheritance graph"/></div>
+<map name="CEDate_inherit__map" id="CEDate_inherit__map">
+<area shape="rect" id="node2" href="classCERunningDate.html" title="This class represents a date object that always represents the current instantaneous date..." alt="" coords="5,80,124,107"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a0162d3986e8ca403f7ac740e369de0b7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0162d3986e8ca403f7ac740e369de0b7">&#9670;&nbsp;</a></span>CEDate() <span class="overload">[1/3]</span></h2>
 
@@ -1772,7 +1769,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 24 2017 15:38:39 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 24 2017 15:58:12 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

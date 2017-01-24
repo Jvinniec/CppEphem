@@ -66,28 +66,21 @@ $(function() {
 <div class="title">CERunningDate Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<a name="details" id="details"></a><h2 class="groupheader"> </h2>
+<div class="textblock"><p>This class represents a date object that always represents the current instantaneous date. </p>
+<h2>Details </h2>
+<p>Subsequent evaluations of the underlying methods return different values. The speed of ellapsed time by be computed using the SetTimerSpeed method, thus allowing the user to speed up, slow down, or even reverse the passage of time for this object.</p>
+<p>The object may be evaluated in one of several ways to get the current value: </p><ul>
+<li>
+Direct evaluation (object acts like a double) </li>
+<li>
+Querrying the <a class="el" href="classCEDate.html#a4c362a8bc9738240a6820821e4d11949" title="Return the date in a given format. ">GetDate()</a> method, which returns the time formatted according to the <a class="el" href="classCEDate.html#a173516688bd54588ae204945ed1928a0" title="what format the &#39;operator double&#39; will return ">CEDate::return_type_</a> variable </li>
+<li>
+Querrying one of the <a class="el" href="classCERunningDate.html#aea44104b940649f193cc0e25b95bda76" title="Get the current Julian date. ">JD()</a>, <a class="el" href="classCERunningDate.html#a231c87b027c37f25d959711e2f8b3dbf" title="Get the current modified Julian date. ">MJD()</a>, or <a class="el" href="classCERunningDate.html#a8815dd51d301251b1543241295778e5f" title="Get the current Gregorian calendar date formatted as YYYYMMDD.D. ">Gregorian()</a> methods </li>
+</ul>
 
-<p>The <a class="el" href="classCERunningDate.html" title="The CERunningDate class This class represents a date object that always represents the current instan...">CERunningDate</a> class This class represents a date object that always represents the current instantaneous date.  
- <a href="classCERunningDate.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="CERunningDate_8h_source.html">CERunningDate.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for CERunningDate:</div>
-<div class="dyncontent">
-<div class="center"><img src="classCERunningDate__inherit__graph.png" border="0" usemap="#CERunningDate_inherit__map" alt="Inheritance graph"/></div>
-<map name="CERunningDate_inherit__map" id="CERunningDate_inherit__map">
-<area shape="rect" id="node2" href="classCEDate.html" title="CEDate class handles conversion between different date formats. " alt="" coords="30,5,99,32"/>
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for CERunningDate:</div>
-<div class="dyncontent">
-<div class="center"><img src="classCERunningDate__coll__graph.png" border="0" usemap="#CERunningDate_coll__map" alt="Collaboration graph"/></div>
-<map name="CERunningDate_coll__map" id="CERunningDate_coll__map">
-<area shape="rect" id="node2" href="classCEDate.html" title="CEDate class handles conversion between different date formats. " alt="" coords="30,5,99,32"/>
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
-<table class="memberdecls">
+<p class="definition">Definition at line <a class="el" href="CERunningDate_8h_source.html#l00017">17</a> of file <a class="el" href="CERunningDate_8h_source.html">CERunningDate.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a721c3b0603a9e7f63e78cef3846abbac"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCERunningDate.html#a721c3b0603a9e7f63e78cef3846abbac">CERunningDate</a> ()</td></tr>
@@ -261,21 +254,25 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a013d72a2273b76be18978a79c4d96166 inherit pub_static_methods_classCEDate"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#a013d72a2273b76be18978a79c4d96166">ypolar</a> (double date, <a class="el" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746">CEDateType</a> date_type=<a class="el" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746aabf8d7515962e526421842e8456798cc">CEDateType::JD</a>)</td></tr>
 <tr class="separator:a013d72a2273b76be18978a79c4d96166 inherit pub_static_methods_classCEDate"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="classCERunningDate.html" title="The CERunningDate class This class represents a date object that always represents the current instan...">CERunningDate</a> class This class represents a date object that always represents the current instantaneous date. </p>
-<h2>Details </h2>
-<p>Subsequent evaluations of the underlying methods return different values. The speed of ellapsed time by be computed using the SetTimerSpeed method, thus allowing the user to speed up, slow down, or even reverse the passage of time for this object.</p>
-<p>The object may be evaluated in one of several ways to get the current value: </p><ul>
-<li>
-Direct evaluation (object acts like a double) </li>
-<li>
-Querrying the <a class="el" href="classCEDate.html#a4c362a8bc9738240a6820821e4d11949" title="Return the date in a given format. ">GetDate()</a> method, which returns the time formatted according to the <a class="el" href="classCEDate.html#a173516688bd54588ae204945ed1928a0" title="what format the &#39;operator double&#39; will return ">CEDate::return_type_</a> variable </li>
-<li>
-Querrying one of the <a class="el" href="classCERunningDate.html#aea44104b940649f193cc0e25b95bda76" title="Get the current Julian date. ">JD()</a>, <a class="el" href="classCERunningDate.html#a231c87b027c37f25d959711e2f8b3dbf" title="Get the current modified Julian date. ">MJD()</a>, or <a class="el" href="classCERunningDate.html#a8815dd51d301251b1543241295778e5f" title="Get the current Gregorian calendar date formatted as YYYYMMDD.D. ">Gregorian()</a> methods </li>
-</ul>
 
-<p class="definition">Definition at line <a class="el" href="CERunningDate_8h_source.html#l00017">17</a> of file <a class="el" href="CERunningDate_8h_source.html">CERunningDate.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<p><code>#include &lt;<a class="el" href="CERunningDate_8h_source.html">CERunningDate.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for CERunningDate:</div>
+<div class="dyncontent">
+<div class="center"><img src="classCERunningDate__inherit__graph.png" border="0" usemap="#CERunningDate_inherit__map" alt="Inheritance graph"/></div>
+<map name="CERunningDate_inherit__map" id="CERunningDate_inherit__map">
+<area shape="rect" id="node2" href="classCEDate.html" title="CEDate class handles conversion between different date formats. " alt="" coords="30,5,99,32"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for CERunningDate:</div>
+<div class="dyncontent">
+<div class="center"><img src="classCERunningDate__coll__graph.png" border="0" usemap="#CERunningDate_coll__map" alt="Collaboration graph"/></div>
+<map name="CERunningDate_coll__map" id="CERunningDate_coll__map">
+<area shape="rect" id="node2" href="classCEDate.html" title="CEDate class handles conversion between different date formats. " alt="" coords="30,5,99,32"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a721c3b0603a9e7f63e78cef3846abbac"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a721c3b0603a9e7f63e78cef3846abbac">&#9670;&nbsp;</a></span>CERunningDate()</h2>
 
@@ -293,7 +290,7 @@ Querrying one of the <a class="el" href="classCERunningDate.html#aea44104b940649
 
 <p>Default constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="CERunningDate_8cpp_source.html#l00034">34</a> of file <a class="el" href="CERunningDate_8cpp_source.html">CERunningDate.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CERunningDate_8cpp_source.html#l00033">33</a> of file <a class="el" href="CERunningDate_8cpp_source.html">CERunningDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -322,7 +319,7 @@ Querrying one of the <a class="el" href="classCERunningDate.html#aea44104b940649
 
 <p>Destructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="CERunningDate_8cpp_source.html#l00040">40</a> of file <a class="el" href="CERunningDate_8cpp_source.html">CERunningDate.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CERunningDate_8cpp_source.html#l00039">39</a> of file <a class="el" href="CERunningDate_8cpp_source.html">CERunningDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -385,7 +382,7 @@ Querrying one of the <a class="el" href="classCERunningDate.html#aea44104b940649
 
 <p>Reimplemented from <a class="el" href="classCEDate.html#ac4c2731011b352b87274233bc4a8c515">CEDate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="CERunningDate_8cpp_source.html#l00065">65</a> of file <a class="el" href="CERunningDate_8cpp_source.html">CERunningDate.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CERunningDate_8cpp_source.html#l00064">64</a> of file <a class="el" href="CERunningDate_8cpp_source.html">CERunningDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -417,7 +414,7 @@ Querrying one of the <a class="el" href="classCERunningDate.html#aea44104b940649
 
 <p>Reimplemented from <a class="el" href="classCEDate.html#a4e7e2791770ca2f077d1e5f8dd8055dd">CEDate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="CERunningDate_8cpp_source.html#l00048">48</a> of file <a class="el" href="CERunningDate_8cpp_source.html">CERunningDate.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CERunningDate_8cpp_source.html#l00047">47</a> of file <a class="el" href="CERunningDate_8cpp_source.html">CERunningDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -449,7 +446,7 @@ Querrying one of the <a class="el" href="classCERunningDate.html#aea44104b940649
 
 <p>Reimplemented from <a class="el" href="classCEDate.html#af41ec98f3bb6090b86a4acb98c008383">CEDate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="CERunningDate_8cpp_source.html#l00057">57</a> of file <a class="el" href="CERunningDate_8cpp_source.html">CERunningDate.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CERunningDate_8cpp_source.html#l00056">56</a> of file <a class="el" href="CERunningDate_8cpp_source.html">CERunningDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -508,7 +505,7 @@ Querrying one of the <a class="el" href="classCERunningDate.html#aea44104b940649
 <p>Method for getting the number of seconds since this object was created or reset. </p>
 <p>Get the number of seconds since the creation of this object. </p>
 
-<p class="definition">Definition at line <a class="el" href="CERunningDate_8cpp_source.html#l00095">95</a> of file <a class="el" href="CERunningDate_8cpp_source.html">CERunningDate.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CERunningDate_8cpp_source.html#l00094">94</a> of file <a class="el" href="CERunningDate_8cpp_source.html">CERunningDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -586,7 +583,7 @@ Querrying one of the <a class="el" href="classCERunningDate.html#aea44104b940649
 
 <p>Reimplemented from <a class="el" href="classCEDate.html#a95a5efa8886476a3a2b32557fe620627">CEDate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="CERunningDate_8cpp_source.html#l00075">75</a> of file <a class="el" href="CERunningDate_8cpp_source.html">CERunningDate.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CERunningDate_8cpp_source.html#l00074">74</a> of file <a class="el" href="CERunningDate_8cpp_source.html">CERunningDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -630,7 +627,7 @@ Querrying one of the <a class="el" href="classCERunningDate.html#aea44104b940649
 
 <p>Reimplemented from <a class="el" href="classCEDate.html#a6f913b696962f236a4b4de75eb2fd5e1">CEDate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="CERunningDate_8cpp_source.html#l00088">88</a> of file <a class="el" href="CERunningDate_8cpp_source.html">CERunningDate.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CERunningDate_8cpp_source.html#l00087">87</a> of file <a class="el" href="CERunningDate_8cpp_source.html">CERunningDate.cpp</a>.</p>
 
 </div>
 </div>
@@ -731,7 +728,7 @@ Querrying one of the <a class="el" href="classCERunningDate.html#aea44104b940649
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 24 2017 15:38:39 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 24 2017 15:58:12 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
