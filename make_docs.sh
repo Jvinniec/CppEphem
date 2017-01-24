@@ -1,30 +1,47 @@
 
+<<<<<<< HEAD
 # Get the current branch name
 declare curBranch=$(git rev-parse --abbrev-ref HEAD)
+=======
+#====================================================
+# Author: J. V. Cardenzana
+# Description:
+#    This script is intended to generate the online
+#    documentation from whatever code branch it is
+#    run from and push those changes to the server.
+#====================================================
+>>>>>>> master
 
-# Checkout the gs-pages branch
-git checkout gh-pages
+UpdateDocs()
+{
+   # Get the current branch name
+   declare curBranch=$(git rev-parse --abbrev-ref HEAD)
 
-# Merge changes from the previous branch
-git merge $curBranch
+   # Checkout the gh-pages branch
+   git checkout gh-pages
 
-# Delete all of the documentation information
-git rm -r documentation/html
-rm -r documentation/html
+   # Merge changes from the previous branch
+   git merge $curBranch
 
-# Re-make the documentation
-doxygen
+   # Delete all of the documentation information
+   git rm -r documentation/html
+   rm -r documentation/html
 
-# Add the html documentation to the repository
-git add -f documentation/html
+   # Re-make the documentation
+   doxygen
 
-# Commit the documentation
-git commit -a -m "Updated documentation from the ${curBranch} branch."
+   # Add the html documentation to the repository
+   git add -f documentation/html
 
-# Push the changes
-git pull
-git push
+   # Commit the documentation
+   git commit -a -m "Updated documentation from the ${curBranch} branch."
 
-# Finally switch back to the original branch
-git checkout $curBranch
+   # Push the changes
+   git pull
+   git push
 
+   # Finally switch back to the original branch
+   git checkout $curBranch
+}
+
+UpdateDocs

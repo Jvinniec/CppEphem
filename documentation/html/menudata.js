@@ -1,5 +1,4 @@
 var menudata={children:[
-{text:"ROOT Home Page",url:"http://root.cern.ch"},
 {text:"Main Page",url:"index.html"},
 {text:"Namespaces",url:"namespaces.html",children:[
 {text:"Namespace List",url:"namespaces.html"},
@@ -91,5 +90,4 @@ var menudata={children:[
 {text:"p",url:"globals_func.html#index_p"}]},
 {text:"Enumerations",url:"globals_enum.html"},
 {text:"Enumerator",url:"globals_eval.html"},
-{text:"Macros",url:"globals_defs.html"}]}]},
-{text:"Release Notes",url:"release-notes.html"}]}
+{text:"Macros",url:"globals_defs.html"}]}]}]}
