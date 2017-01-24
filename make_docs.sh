@@ -1,6 +1,6 @@
 
 # Get the current branch name
-curBranch=$(git rev-parse --abbrev-ref HEAD)
+declare curBranch=$(git rev-parse --abbrev-ref HEAD)
 
 # Checkout the gs-pages branch
 git checkout gh-pages
