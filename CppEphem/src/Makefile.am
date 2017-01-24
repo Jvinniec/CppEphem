@@ -5,7 +5,7 @@
 #
 
 AM_CXXFLAGS = -std=c++11 -I../include -I./ $(sofa_CXXFLAGS)
-AM_CFLAGS = 
+AM_CFLAGS =
 
 lib_LTLIBRARIES = libcppephem.la
 libcppephem_la_SOURCES = CENamespace.cpp \
@@ -17,7 +17,7 @@ libcppephem_la_SOURCES = CENamespace.cpp \
                         CEPlanet.cpp \
                         CERunningDate.cpp \
                         CETime.cpp
-libcppephem_la_HEADERS = ../include/CppEphem.h \
+include_HEADERS = ../include/CppEphem.h \
                         ../include/CENamespace.h \
                         ../include/CEBody.h \
                         ../include/CECoordinates.h \

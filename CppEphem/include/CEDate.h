@@ -128,7 +128,7 @@ public:
      * Overloaded operators
      ************************************************************/
     /// Overload of the CEDate object which allows the object to be treated as a
-    /// 'double' representing the Julian date of teh object.
+    /// 'double' representing the date formatted according to 'return_type_'.
     virtual operator double()
     {
         // Return the date formatted according to the 'return_type_' variable

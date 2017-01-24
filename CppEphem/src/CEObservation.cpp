@@ -7,12 +7,10 @@
 //
 
 /** \class CEObservation
- The CEObservaton class serves as a constant link between an observer,
+ The CEObservation class serves as a constant link between an observer,
  a specified time, and a celestial body. This makes for a more convenient
  way of getting the current observed coordinates of an object. It also makes
  it easier when using a CERunningDate object as the input "date" object.
- 
- In order to make this class
  */
 
 #include <stdio.h>

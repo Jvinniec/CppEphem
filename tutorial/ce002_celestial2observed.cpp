@@ -60,7 +60,7 @@ int main(int argc, char** argv)
         observed_coords.GetApparentXYCoordinate_Deg(&ra, &dec) ;
         observed_coords.GetAzimuthZenith_Deg(&azimuth, &zenith) ;
         std::printf("\r%13.5f|%8.3f|%8.3f|%8.3f|%8.3f|%8.3f",
-                    double(date),
+                    double(date.GetTime(-6)),
                     ra, dec, azimuth, zenith, 90-zenith) ;
         std::cout.flush() ;
     }

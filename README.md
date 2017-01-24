@@ -21,10 +21,9 @@ grateful to the authors of that package for putting it together.
 PURPOSE:
 ----------------------------------------------------------
 The purpose of this package is to leverage the Standards
-Of Fundamental Astronomy (SOFA) package in order to allow
-simple coordinate conversion routines. This should allow
-converting between [RA,Dec], [Galactice Long, Lat], and
-local sky coordinates.
+Of Fundamental Astronomy (SOFA) package in order to compute
+several astrophysical quantities regarding the positions of
+objects.
 
 Here is a list of purposes I wish this code to serve:
 * Basic coordinate conversion routines (see CECoordinates, fully implemented)

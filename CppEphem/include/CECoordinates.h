@@ -71,7 +71,7 @@ public:
                              double *zen,
                              CEObserver& observer,
                              CEAngleType angle_type=CEAngleType::RADIANS,
-                             double wavelength=0.5,
+                             double wavelength_um=0.5,
                              double *observed_ra=nullptr,
                              double *observed_dec=nullptr,
                              double *hour_angle=nullptr) ;
@@ -94,7 +94,7 @@ public:
                              double *zen,
                              CEObserver& observer,
                              CEAngleType angle_type=CEAngleType::RADIANS,
-                             double wavelength=0.5,
+                             double wavelength_um=0.5,
                              double *observed_ra=nullptr,
                              double *observed_dec=nullptr,
                              double *hour_angle=nullptr);
@@ -111,7 +111,7 @@ public:
                                  double *zen,
                                  CEObserver& observer,
                                  CEAngleType angle_type=CEAngleType::RADIANS,
-                                 double wavelength=0.5,
+                                 double wavelength_um=0.5,
                                  double *observed_glon=nullptr,
                                  double *observed_glat=nullptr,
                                  double *hour_angle=nullptr);
@@ -136,7 +136,7 @@ public:
                              double dut1=0.0,
                              double xp=0.0,
                              double yp=0.0,
-                             double wavelength=500.0,
+                             double wavelength_um=0.5,
                              double *observed_ra=nullptr,
                              double *observed_dec=nullptr,
                              double *hour_angle=nullptr
@@ -155,7 +155,7 @@ public:
                              double relative_humidity=0.0,
                              double dut1=0.0,
                              double xp=0.0, double yp=0.0,
-                             double wavelength=500.0,
+                             double wavelength_um=0.5,
                              double *observed_ra=nullptr,
                              double *observed_dec=nullptr,
                              double *hour_angle=nullptr) ;
@@ -173,7 +173,7 @@ public:
                              double relative_humidity=0.0,
                              double dut1=0.0,
                              double xp=0.0, double yp=0.0,
-                             double wavelength=500.0,
+                             double wavelength_um=0.50,
                              double *observed_glon=nullptr,
                              double *observed_glat=nullptr,
                              double *hour_angle=nullptr) ;
@@ -187,12 +187,12 @@ public:
                             double relative_humidity=0.0,
                             double dut1=0.0,
                             double xp=0.0, double yp=0.0,
-                            double wavelength=500.0) ;
+                            double wavelength_um=0.5) ;
     virtual CECoordinates GetObservedCoords(CEDate& date,
                             CEObserver& observer,
                             double dut1=0.0,
                             double xp=0.0, double yp=0.0,
-                            double wavelength=500.0) ;
+                            double wavelength_um=0.5) ;
     // -------------------------------------------------------
     // Methods for setting the coordinates of this object
     // -------------------------------------------------------

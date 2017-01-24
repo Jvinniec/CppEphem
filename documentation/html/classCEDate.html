@@ -130,7 +130,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a775c0d8188835a9712262484870236e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Gregorian calendar month.  <a href="#a775c0d8188835a9712262484870236e3">More...</a><br /></td></tr>
 <tr class="separator:a775c0d8188835a9712262484870236e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6daf5a60fa8a682bf163fbfe80db27a8"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#a6daf5a60fa8a682bf163fbfe80db27a8">operator double</a> ()</td></tr>
-<tr class="memdesc:a6daf5a60fa8a682bf163fbfe80db27a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overload of the <a class="el" href="classCEDate.html" title="CEDate class handles conversion between different date formats. ">CEDate</a> object which allows the object to be treated as a 'double' representing the Julian date of teh object.  <a href="#a6daf5a60fa8a682bf163fbfe80db27a8">More...</a><br /></td></tr>
+<tr class="memdesc:a6daf5a60fa8a682bf163fbfe80db27a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overload of the <a class="el" href="classCEDate.html" title="CEDate class handles conversion between different date formats. ">CEDate</a> object which allows the object to be treated as a 'double' representing the date formatted according to 'return_type_'.  <a href="#a6daf5a60fa8a682bf163fbfe80db27a8">More...</a><br /></td></tr>
 <tr class="separator:a6daf5a60fa8a682bf163fbfe80db27a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb27bd568466f1cd2f497df356c3ed70"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEDate.html#acb27bd568466f1cd2f497df356c3ed70">SetDate</a> (double date, <a class="el" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746">CEDateType</a> time_format=<a class="el" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746aabf8d7515962e526421842e8456798cc">CEDateType::JD</a>)</td></tr>
 <tr class="memdesc:acb27bd568466f1cd2f497df356c3ed70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the date based on an actual date and the desired time_format.  <a href="#acb27bd568466f1cd2f497df356c3ed70">More...</a><br /></td></tr>
@@ -291,7 +291,7 @@ Protected Attributes</h2></td></tr>
 <p>Constructor from a set of Gregorian values. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">date</td><td>Gregorian date vector of the form<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">date</td><td>Gregorian date vector of the form<ul>
 <li>date[0] = year</li>
 <li>date[1] = month</li>
 <li>date[2] = day</li>
@@ -580,7 +580,7 @@ Protected Attributes</h2></td></tr>
 <p>Return the date in a given format. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">time_format</td><td>Format of the output time object (see <a class="el" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746" title="Date enum. ">CEDateType</a>) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">time_format</td><td>Format of the output time object (see <a class="el" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746" title="Date enum. ">CEDateType</a>) </td></tr>
   </table>
   </dd>
 </dl>
@@ -811,7 +811,7 @@ Protected Attributes</h2></td></tr>
 <p>Gregorian calendar date -&gt; Julian date. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">gregorian</td><td>Gregorian calendar date formatted as YYYYMMDD.D </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">gregorian</td><td>Gregorian calendar date formatted as YYYYMMDD.D </td></tr>
   </table>
   </dd>
 </dl>
@@ -848,7 +848,7 @@ Protected Attributes</h2></td></tr>
 <p>Gregorian calendar formatted date -&gt; Julian date converter. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">gregorian</td><td>Gregorian calendar date formatted as YYYYMMDD.D </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">gregorian</td><td>Gregorian calendar date formatted as YYYYMMDD.D </td></tr>
   </table>
   </dd>
 </dl>
@@ -945,7 +945,7 @@ Protected Attributes</h2></td></tr>
 <p>Gregorian calendar vector formatted date -&gt; Julian date converter. </p>
 <p>Calls the SOFA "iauCal2jd" function </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">gregorian</td><td>Gregorian calendar date as a 4-element vector<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">gregorian</td><td>Gregorian calendar date as a 4-element vector<ul>
 <li>[0] = year</li>
 <li>[1] = month</li>
 <li>[2] = day</li>
@@ -988,7 +988,7 @@ Protected Attributes</h2></td></tr>
 <p>Gregorian calendar vector formatted date -&gt; Modified Julian date converter. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">gregorian</td><td>Gregorian calendar date as a 4-element vector<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">gregorian</td><td>Gregorian calendar date as a 4-element vector<ul>
 <li>[0] = year</li>
 <li>[1] = month</li>
 <li>[2] = day</li>
@@ -1062,7 +1062,7 @@ Protected Attributes</h2></td></tr>
 <p>Julian date -&gt; Gregorian calendar date conversion method. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">jd</td><td>Julian date </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">jd</td><td>Julian date </td></tr>
   </table>
   </dd>
 </dl>
@@ -1099,7 +1099,7 @@ Protected Attributes</h2></td></tr>
 <p>Julian date -&gt; modified Julian date conversion method. </p>
 <p>This function makes use of the SOFA 'iauJd2cal' method. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">jd</td><td>Julian date </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">jd</td><td>Julian date </td></tr>
   </table>
   </dd>
 </dl>
@@ -1142,7 +1142,7 @@ Protected Attributes</h2></td></tr>
 <p>Julian date -&gt; modified Julian date conversion method. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">jd</td><td>Julian date </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">jd</td><td>Julian date </td></tr>
   </table>
   </dd>
 </dl>
@@ -1210,7 +1210,7 @@ Protected Attributes</h2></td></tr>
 <p>Modified Julian date -&gt; Gregorian calendar date conversion method. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mjd</td><td>Modified Julian date </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mjd</td><td>Modified Julian date </td></tr>
   </table>
   </dd>
 </dl>
@@ -1247,7 +1247,7 @@ Protected Attributes</h2></td></tr>
 <p>Modified Julian date -&gt; Gregorian calendar, vector formatted date. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mjd</td><td>Modified Julian date </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mjd</td><td>Modified Julian date </td></tr>
   </table>
   </dd>
 </dl>
@@ -1290,7 +1290,7 @@ Protected Attributes</h2></td></tr>
 <p>Modified Julian date -&gt; Julian date conversion method. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mjd</td><td>Modified Julian date </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mjd</td><td>Modified Julian date </td></tr>
   </table>
   </dd>
 </dl>
@@ -1352,7 +1352,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Overload of the <a class="el" href="classCEDate.html" title="CEDate class handles conversion between different date formats. ">CEDate</a> object which allows the object to be treated as a 'double' representing the Julian date of teh object. </p>
+<p>Overload of the <a class="el" href="classCEDate.html" title="CEDate class handles conversion between different date formats. ">CEDate</a> object which allows the object to be treated as a 'double' representing the date formatted according to 'return_type_'. </p>
 
 <p class="definition">Definition at line <a class="el" href="CEDate_8h_source.html#l00132">132</a> of file <a class="el" href="CEDate_8h_source.html">CEDate.h</a>.</p>
 
@@ -1395,8 +1395,8 @@ Protected Attributes</h2></td></tr>
 <p>Set the date based on an actual date and the desired time_format. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">date</td><td>Date </td></tr>
-    <tr><td class="paramname">time_format</td><td>Time format (see <a class="el" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746" title="Date enum. ">CEDateType</a>) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">date</td><td>Date </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">time_format</td><td>Time format (see <a class="el" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746" title="Date enum. ">CEDateType</a>) </td></tr>
   </table>
   </dd>
 </dl>
@@ -1434,7 +1434,7 @@ Protected Attributes</h2></td></tr>
 <p>Set the date based on an actual date and the desired time_format. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">date</td><td>Gregorian Date<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">date</td><td>Gregorian Date<ul>
 <li>[0] = Year</li>
 <li>[1] = Month</li>
 <li>[2] = Day</li>
@@ -1772,7 +1772,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 23 2017 13:46:38 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 24 2017 10:18:08 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

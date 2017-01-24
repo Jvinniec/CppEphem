@@ -120,7 +120,7 @@ AC_CHECK_FUNCS([floor pow sqrt])
 dnl #################################
 dnl Specify the Makefile locations
 dnl #################################
-AC_CONFIG_FILES([Makefile CppEphem/src/Makefile])
+AC_CONFIG_FILES([Makefile CppEphem/src/Makefile sofa/20160503/c/src/Makefile])
 
 dnl 
 AC_OUTPUT
