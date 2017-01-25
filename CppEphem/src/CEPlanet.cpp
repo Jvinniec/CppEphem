@@ -16,17 +16,30 @@
 
 /////////////////////////////////////////////////////
 /// Default constructor
-CEPlanet::CEPlanet()
+CEPlanet::CEPlanet() :
+    CEBody()
 {}
 
 /////////////////////////////////////////////////////
 /// Primary constructor
-///     @param name             Some identifying name for this object
-///     @param coordinates      Coordinates of this object
+///     @param[in] name             Some identifying name for this object
+///     @param[in] xcoord           X-coordinate
+///     @param[in] ycoord           Y-coordinate
+///     @param[in] coord_type       Coordinate system for passed coordinates
+///     @param[in] angle_type       Angle type for the coordinates passed
+CEPlanet::CEPlanet(const std::string& name, double xcoord, double ycoord,
+                   CECoordinateType coord_type,
+                   CEAngleType angle_type) :
+    CEBody(name, xcoord, ycoord, coord_type, angle_type)
+{}
+
+/////////////////////////////////////////////////////
+/// Primary constructor
+///     @param[in] name             Some identifying name for this object
+///     @param[in] coordinates      Coordinates of this object
 CEPlanet::CEPlanet(const std::string& name,
                    CECoordinates coordinates) :
-    CEBody(coordinates),
-    name_(name)
+    CEBody(coordinates, name)
 {}
 
 /////////////////////////////////////////////////////

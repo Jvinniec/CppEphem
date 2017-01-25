@@ -19,7 +19,10 @@
 int main(int argc, char** argv)
 {
     // Create a default object to observe. Here I'm using the Crab nebula
-    CEBody crab_nebula(83.6331, 22.0145, CECoordinateType::CIRS, CEAngleType::DEGREES) ;
+    CEBody crab_nebula("CrabNebula",
+                       83.6331, 22.0145,
+                       CECoordinateType::ICRS,
+                       CEAngleType::DEGREES) ;
     
     // Create an object that always represents the current instantaneous time
     CERunningDate date ;
