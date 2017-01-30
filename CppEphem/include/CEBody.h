@@ -26,7 +26,7 @@ class CEBody : public CECoordinates {
 public:
     CEBody() ;
     CEBody(const std::string& name, double xcoord, double ycoord,
-           CECoordinateType coord_type = CECoordinateType::CIRS,
+           CECoordinateType coord_type = CECoordinateType::ICRS,
            CEAngleType angle_type = CEAngleType::RADIANS) ;
     CEBody(const CEBody& other, const std::string& name="") ;
     CEBody(const CECoordinates& coords, const std::string& name="") ;

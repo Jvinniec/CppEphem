@@ -36,7 +36,6 @@ CECoordinates::CECoordinates() :
 /// @param[in] ycoord Y-Coordinate (radians)
 /// @param[in] coord_type Coordinate type (see CECoordinateType)
 /// @param[in] angle_type Angle type (either DEGREES or RADIANS)
-
 CECoordinates::CECoordinates(double xcoord, double ycoord,
                              CECoordinateType coord_type,
                              CEAngleType angle_type) :
@@ -760,7 +759,7 @@ void CECoordinates::SetCoordinates(double xcoord, double ycoord,
 ////////////////////////////////////////////////////////////
 /// Set the coordinates from another CECoordinates object
 ///     @param[in] coords       Another coordinates object to copy
-void CECoordinates::SetCoordinates(const CECoordinates& coords)
+void CECoordinates::SetCoordinates(CECoordinates& coords)
 {
     xcoord_ = coords.XCoordinate_Rad() ;
     ycoord_ = coords.YCoordinate_Rad() ;
