@@ -6,6 +6,13 @@
 //  Copyright © 2017 JCardenzana. All rights reserved.
 //
 
+/** \file planetpositions.cpp
+ * This script allows viewing the current coordinates of a given
+ * solar system planet for dates within 3000 B.C. to 3000 A.D.
+ * NOTE: The coordinates should be accurate to within ~0.5 degrees for
+ *       inner solar system planets, and ~1-2 degrees for outer planets.
+ */
+
 #include <stdio.h>
 #include <unistd.h>
 #include <iostream>

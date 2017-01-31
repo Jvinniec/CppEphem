@@ -7,7 +7,17 @@
 //
 
 /** \class CEPlanet
- The CEPlanet class describes a planetary object.
+ The CEPlanet class describes a planetary object. Static methods exist
+ for obtaining specific planetary descriptions of the major solar system
+ bodies: Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto.
+ Accuracy in the positions of these objects should be assumed as:
+
+ - Inner planets (Mercury - Mars): < 0.5 degrees
+ - Outer planets (Jupiter - Pluto): < 1-2 degrees
+ 
+ Note that these numbers have not been verified at the moment.
+ Planet positions are computed using the JPL Keplerian formulas and
+ their best fit orbital parameters.
  */
 
 #include <stdio.h>
