@@ -25,12 +25,19 @@
 class CEBody : public CECoordinates {
 public:
     CEBody() ;
-    CEBody(double xcoord, double ycoord,
-           CECoordinateType coord_type = CECoordinateType::CIRS,
+    CEBody(const std::string& name, double xcoord, double ycoord,
+           CECoordinateType coord_type = CECoordinateType::ICRS,
            CEAngleType angle_type = CEAngleType::RADIANS) ;
-    CEBody(const CEBody& other) ;
-    CEBody(const CECoordinates& coords) ;
+    CEBody(const CEBody& other, const std::string& name="") ;
+    CEBody(const CECoordinates& coords, const std::string& name="") ;
     virtual ~CEBody() ;
+    
+    /// Get the name of this object
+    ///     @return the name of this object
+    std::string Name() {return name_;}
+    /// Set the name of this object
+    ///     @param[in] new_name     New name of this object
+    void SetName(const std::string& new_name) {name_ = new_name;}
     
     // -------------------------------------------------------
     // Methods for getting the coordinates of this object
@@ -43,6 +50,7 @@ protected:
     // Proper motion variables for this object. These are used for
     // correctly getting the objects coordinates at some date other
     // than the date indicated in 'coords_'
+    std::string name_ = "NONE" ;        ///< Name of this object
     
 private:
     

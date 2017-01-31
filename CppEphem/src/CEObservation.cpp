@@ -117,7 +117,8 @@ bool CEObservation::UpdateCoordinates()
     // Compute the observed coordinates based on the coordinates of "body_"
     if (body_coords == CECoordinateType::CIRS) {
         // Convert from CIRS -> Observed
-        CEBody::CIRS2Observed(body_->XCoordinate_Rad(), body_->YCoordinate_Rad(),
+        CEBody::CIRS2Observed(body_->XCoordinate_Rad(*observer_->Date()),
+                              body_->YCoordinate_Rad(*observer_->Date()),
                               &cached_azimuth_, &cached_zenith_,
                               *observer_,
                               CEAngleType::RADIANS,
@@ -127,7 +128,8 @@ bool CEObservation::UpdateCoordinates()
                               &cached_hour_angle_) ;
     } else if (body_coords == CECoordinateType::GALACTIC) {
         // Convert Galactic -> Observerd
-        CEBody::Galactic2Observed(body_->XCoordinate_Rad(), body_->YCoordinate_Rad(),
+        CEBody::Galactic2Observed(body_->XCoordinate_Rad(*observer_->Date()),
+                              body_->YCoordinate_Rad(*observer_->Date()),
                               &cached_azimuth_, &cached_zenith_,
                               *observer_,
                               CEAngleType::RADIANS,
@@ -137,7 +139,8 @@ bool CEObservation::UpdateCoordinates()
                               &cached_hour_angle_) ;
     } else if (body_coords == CECoordinateType::ICRS) {
         // Convert CIRS -> Observed
-        CEBody::ICRS2Observed(body_->XCoordinate_Rad(), body_->YCoordinate_Rad(),
+        CEBody::ICRS2Observed(body_->XCoordinate_Rad(*observer_->Date()),
+                              body_->YCoordinate_Rad(*observer_->Date()),
                               &cached_azimuth_, &cached_zenith_,
                               *observer_,
                               CEAngleType::RADIANS,

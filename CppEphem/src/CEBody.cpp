@@ -24,28 +24,33 @@ CEBody::CEBody()
 
 /////////////////////////////////////////////////////////
 /// Primary constructor
-///     @param xcoord       X-coordinate
-///     @param ycoord       Y-coordinate
-///     @param angle_type   Angle type (either DEGREES or RADIANS)
-///     @param coord_type   Coordinate type (see CECoordinateType)
-CEBody::CEBody(double xcoord, double ycoord,
+///     @param[in] name         Name for this object
+///     @param[in] xcoord       X-coordinate
+///     @param[in] ycoord       Y-coordinate
+///     @param[in] angle_type   Angle type (either DEGREES or RADIANS)
+///     @param[in] coord_type   Coordinate type (see CECoordinateType)
+CEBody::CEBody(const std::string& name,
+               double xcoord, double ycoord,
                CECoordinateType coord_type,
                CEAngleType angle_type) :
-    CECoordinates(xcoord, ycoord, coord_type, angle_type)
+    CECoordinates(xcoord, ycoord, coord_type, angle_type),
+    name_(name)
 {}
 
 /////////////////////////////////////////////////////////
 /// Copy constructor from a single set of coordinates
-///     @param coords       coordinates object
-CEBody::CEBody(const CEBody &coords) :
-    CECoordinates(coords)
+///     @param[in] coords       coordinates object
+CEBody::CEBody(const CEBody &coords, const std::string& name) :
+    CECoordinates(coords),
+    name_(name)
 {}
 
 /////////////////////////////////////////////////////////
 /// Copy constructor from a single set of coordinates
-///     @param coords       coordinates object
-CEBody::CEBody(const CECoordinates &coords) :
-    CECoordinates(coords)
+///     @param[in] coords       coordinates object
+CEBody::CEBody(const CECoordinates &coords, const std::string& name) :
+    CECoordinates(coords),
+    name_(name)
 {}
 
 /////////////////////////////////////////////////////////

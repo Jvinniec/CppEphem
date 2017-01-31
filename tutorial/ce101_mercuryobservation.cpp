@@ -1,14 +1,14 @@
 //
-//  ce002_celestial2observed.cpp
+//  ce101_mercuryobservation.cpp
 //  CppEphem
 //
-//  Created by Josh Cardenzana on 1/23/17.
+//  Created by Josh Cardenzana on 1/30/17.
 //  Copyright © 2017 JCardenzana. All rights reserved.
 //
 
 /** \file
- * This is a tutorial on how to use the CEObservation class to 
- * get the observed coordinates of an object for a given observer.
+ * This is a tutorial on how to use the CEObservation class combined
+ * with the CEPlanet class to observe a planet in the solar system.
  */
 
 #include <stdio.h>
@@ -18,11 +18,8 @@
 
 int main(int argc, char** argv)
 {
-    // Create a default object to observe. Here I'm using the Crab nebula
-    CEBody crab_nebula("CrabNebula",
-                       83.6331, 22.0145,
-                       CECoordinateType::ICRS,
-                       CEAngleType::DEGREES) ;
+    // Create the object representing Mercury
+    CEPlanet mercury = CEPlanet::Mercury() ;
     
     // Create an object that always represents the current instantaneous time
     CERunningDate date ;
@@ -32,7 +29,7 @@ int main(int argc, char** argv)
     CEObserver observer(-93.62, 42.0347, 287.0, CEAngleType::DEGREES, &date) ;
     
     // Now get the coordinates of the object as a constantly updating 'CEObservation' object
-    CEObservation observed_coords(&observer, &crab_nebula) ;
+    CEObservation observed_coords(&observer, &mercury) ;
     
     /*****************************************************************
      * At this point we're done. Everything below here is just to
@@ -54,12 +51,13 @@ int main(int argc, char** argv)
     // Print the object information, updated every ~1 second
     
     std::printf("\nOBJECT INFORMATION\n") ;
-    std::printf("    JD    |   Time   |   RA   |  DEC   | Azimuth| Zenith | Altitude\n") ;
+    std::printf("    JD    | Time UTC |   RA   |  DEC   | Azimuth| Zenith | Altitude\n") ;
     std::printf("----------+----------+--------+--------+--------+--------+----------\n") ;
     double ra, dec, azimuth, zenith ;
     while (true) {
         usleep(1000000) ;
-        observed_coords.GetApparentXYCoordinate_Deg(&ra, &dec) ;
+        ra = mercury.XCoordinate_Deg() ;
+        dec = mercury.YCoordinate_Deg() ;
         observed_coords.GetAzimuthZenith_Deg(&azimuth, &zenith) ;
         std::printf("\r %8d | %8.1f |%8.3f|%8.3f|%8.3f|%8.3f|%8.3f",
                     int(date), date.GetTime(),

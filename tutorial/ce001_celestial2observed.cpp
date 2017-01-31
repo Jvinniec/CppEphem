@@ -20,7 +20,7 @@ int main(int argc, char** argv)
     //      Arg2 - Declination
     //      Arg3 - CIRS coordinates (Earth centric RA,Dec)
     //      Arg4 - Tells CEBody that the RA and Dec are in degrees (default is radians)
-    CEBody crab_nebula(83.6331, 22.0145, CECoordinateType::CIRS, CEAngleType::DEGREES) ;
+    CEBody crab_nebula(83.6331, 22.0145, CECoordinateType::ICRS, CEAngleType::DEGREES) ;
     
     // Set the time of the observation. I'll choose new years day, 2017 at 11 pm UTC
     //      Element 0 - Year

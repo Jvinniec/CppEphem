@@ -36,7 +36,6 @@ CECoordinates::CECoordinates() :
 /// @param[in] ycoord Y-Coordinate (radians)
 /// @param[in] coord_type Coordinate type (see CECoordinateType)
 /// @param[in] angle_type Angle type (either DEGREES or RADIANS)
-
 CECoordinates::CECoordinates(double xcoord, double ycoord,
                              CECoordinateType coord_type,
                              CEAngleType angle_type) :
@@ -738,6 +737,50 @@ CECoordinates CECoordinates::GetObservedCoords(CEDate& julian_date,
 # pragma mark - End Conversions
 
 ////////////////////////////////////////////////////////////
+/// Convert a given angle into degrees, arcminutes, arcseconds.
+///     @param[in] angle            What is the angle value
+///     @param[in] angle_type       Specifies what type of angle
+///     @return Vector containing the following values
+///             -[1] = Degrees
+///             -[2] = Arcminutes
+///             -[3] = Arcseconds
+std::vector<double> CECoordinates::GetDMS(double angle,
+                                          CEAngleType angle_type)
+{
+    // Convert to degrees if passed radians
+    if (angle_type == CEAngleType::RADIANS) angle *= DR2D ;
+    
+    std::vector<double> DMS(3) ;
+    DMS[0] = std::floor(angle) ;
+    DMS[1] = std::floor((angle - DMS[0])*60.0) ;
+    DMS[2] = (angle - DMS[0] - DMS[1]/60.0) * 3600.0 ;
+    return DMS ;
+}
+
+////////////////////////////////////////////////////////////
+/// Convert a given angle into hours, minutes, seconds.
+/// This method is almost exclusively only useful for right ascension
+///     @param[in] angle            What is the angle value
+///     @param[in] angle_type       Specifies what type of angle
+///     @return Vector containing the following values
+///             -[1] = Hours
+///             -[2] = Minutes
+///             -[3] = Seconds
+std::vector<double> CECoordinates::GetHMS(double angle,
+                                          CEAngleType angle_type)
+{
+    // Convert to degrees if passed radians
+    if (angle_type == CEAngleType::RADIANS) angle *= DR2D ;
+    
+    double hrs = angle/15.0 ;
+    std::vector<double> HMS(3) ;
+    HMS[0] = std::floor(hrs) ;
+    HMS[1] = std::floor((hrs - HMS[0])*60.0) ;
+    HMS[2] = (hrs - HMS[0] - HMS[1]/60.0) * 3600.0 ;
+    return HMS ;
+}
+
+////////////////////////////////////////////////////////////
 /// Set the coordinates of this object
 ///     @param[in] xcoord           X-coordinate
 ///     @param[in] ycoord           Y-coordinate
@@ -760,7 +803,7 @@ void CECoordinates::SetCoordinates(double xcoord, double ycoord,
 ////////////////////////////////////////////////////////////
 /// Set the coordinates from another CECoordinates object
 ///     @param[in] coords       Another coordinates object to copy
-void CECoordinates::SetCoordinates(const CECoordinates& coords)
+void CECoordinates::SetCoordinates(CECoordinates& coords)
 {
     xcoord_ = coords.XCoordinate_Rad() ;
     ycoord_ = coords.YCoordinate_Rad() ;

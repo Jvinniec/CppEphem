@@ -36,7 +36,7 @@ class CECoordinates {
 public:
     CECoordinates() ;
     CECoordinates(double xcoord, double ycoord,
-                  CECoordinateType coord_type,
+                  CECoordinateType coord_type=CECoordinateType::ICRS,
                   CEAngleType angle_type=CEAngleType::RADIANS) ;
     CECoordinates(CECoordinateType coord_type) ;
     CECoordinates(const CECoordinates& other) ;
@@ -45,11 +45,32 @@ public:
     /**********************************************************
      * Methods for accessing the coordinate information
      **********************************************************/
-    virtual double XCoordinate_Deg() const {return xcoord_ * DR2D ;}    ///< Returns x-coordinate in degrees
-    virtual double YCoordinate_Deg() const {return ycoord_ * DR2D ;}    ///< Returns y-coordinate in degrees
-    virtual double XCoordinate_Rad() const {return xcoord_ ;}           ///< Returns x-coordinate in radians
-    virtual double YCoordinate_Rad() const {return ycoord_ ;}           ///< Returns y-coordinate in radians
-    CECoordinateType GetCoordSystem() const {return coord_type_;}       ///< Returns the coordinate type of this object
+    /// @param[in] jd   Julian date (used only by derived classes)
+    /// @return X-coordinate in radians
+    virtual double XCoordinate_Rad(double jd=CppEphem::julian_date_J2000())
+        {return xcoord_ ;}
+    
+    /// @param[in] jd   Julian date (used only by derived classes)
+    /// @return X-coordinate in degrees
+    virtual double XCoordinate_Deg(double jd=CppEphem::julian_date_J2000())
+        {return XCoordinate_Rad(jd) * DR2D ;}
+    
+    /// @param[in] jd   Julian date (used only by derived classes)
+    /// @return Y-coordinate in radians
+    virtual double YCoordinate_Rad(double jd=CppEphem::julian_date_J2000())
+        {return ycoord_ ;}
+    
+    /// @param[in] jd   Julian date (used only by derived classes)
+    /// @return Y-coordinate in degrees
+    virtual double YCoordinate_Deg(double jd=CppEphem::julian_date_J2000())
+        {return YCoordinate_Rad(jd) * DR2D ;}
+    
+    /// Convert an angle into Hours:minutes:seconds format
+    static std::vector<double> GetHMS(double angle, CEAngleType angle_type = CEAngleType::DEGREES);
+    static std::vector<double> GetDMS(double angle, CEAngleType angle_type = CEAngleType::DEGREES);
+    
+    /// @return Coordinate type of this object
+    CECoordinateType GetCoordSystem() const {return coord_type_;}
     
     /**********************************************************
      * Methods for converting between coordinate types
@@ -197,9 +218,9 @@ public:
     // Methods for setting the coordinates of this object
     // -------------------------------------------------------
     virtual void SetCoordinates(double xcoord, double ycoord,
-                                CECoordinateType coord_type = CECoordinateType::CIRS,
+                                CECoordinateType coord_type = CECoordinateType::ICRS,
                                 CEAngleType angle_type = CEAngleType::RADIANS) ;
-    virtual void SetCoordinates(const CECoordinates& coords) ;
+    virtual void SetCoordinates(CECoordinates& coords) ;
     
 protected:
     // Coordinate variables
