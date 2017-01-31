@@ -1,7 +1,12 @@
 var searchData=
 [
-  ['xcoordinate_5fdeg',['XCoordinate_Deg',['../classCECoordinates.html#ae4675a8caf59eb75ddfbbe9071eeeab1',1,'CECoordinates']]],
-  ['xcoordinate_5frad',['XCoordinate_Rad',['../classCECoordinates.html#ad592a2ea51068666ba067889905e9f0a',1,'CECoordinates']]],
-  ['xp',['xp',['../namespaceCppEphem.html#a7e8a8c885f364d70f1e8d53a99297fd1',1,'CppEphem']]],
-  ['xpolar',['xpolar',['../classCEDate.html#ace399234c2715e61518393497511b293',1,'CEDate::xpolar(double date, CEDateType date_type=CEDateType::JD)'],['../classCEDate.html#a4a9004a8c1e7a5e64a5c567e09a7c521',1,'CEDate::xpolar()']]]
+  ['temperature_5fc',['Temperature_C',['../classCEObserver.html#a750ca767ac507ba51f7e2883323032b4',1,'CEObserver']]],
+  ['temperature_5ff',['Temperature_F',['../classCEObserver.html#ac4aa1461ce385ea5177f959b6a78fe3b',1,'CEObserver']]],
+  ['temperature_5fk',['Temperature_K',['../classCEObserver.html#ab2294f0c9ce713f0fbb232065460a05b',1,'CEObserver']]],
+  ['time',['Time',['../classCEObserver.html#aa91ea24626fc8a944f4e034997bdbaf1',1,'CEObserver']]],
+  ['time_5futc',['Time_UTC',['../classCEObserver.html#abfe2d4ad9193a8ba0319ec0b61b8f5f9',1,'CEObserver']]],
+  ['timedbl2vect',['TimeDbl2Vect',['../classCETime.html#a6653740b539e9ea85d056daa14c654d1',1,'CETime']]],
+  ['timesec2time',['TimeSec2Time',['../classCETime.html#a403d332f92bf478a2f5500aca4f05437',1,'CETime']]],
+  ['timesec2vect',['TimeSec2Vect',['../classCETime.html#ae0e7952a2b45fa2a2cfce486a8618fb6',1,'CETime']]],
+  ['timevect2dbl',['TimeVect2Dbl',['../classCETime.html#abf02a1b54ad6f48de14b3e7941c6d3f7',1,'CETime']]]
 ];

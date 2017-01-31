@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['wavelength_5fum_5f',['wavelength_um_',['../classCEObserver.html#af4ef92ea341136f8e2f54a7e73d7c625',1,'CEObserver']]]
+  ['s_5f',['s_',['../classCEPlanet.html#a0413bc0a49fc03bef4be4dfa07b3651a',1,'CEPlanet']]],
+  ['semi_5fmajor_5faxis_5fau_5f',['semi_major_axis_au_',['../classCEPlanet.html#aff5407c6e445868ae9914c8cc3745047',1,'CEPlanet']]],
+  ['semi_5fmajor_5faxis_5fau_5fper_5fcent_5f',['semi_major_axis_au_per_cent_',['../classCEPlanet.html#a84675eb0fd5e034ddc6d28f803ad3be5',1,'CEPlanet']]],
+  ['start',['start',['../classCERunningDate.html#a045f3a85623e6369980996ec13642c9e',1,'CERunningDate']]]
 ];

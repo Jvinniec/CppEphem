@@ -1,11 +1,10 @@
 var searchData=
 [
-  ['last',['LAST',['../CETime_8h.html#ab50b2d3a782e5eea768b25bfb3d7e65fa990cd45e93be2b4661f3499e0a658a33',1,'CETime.h']]],
-  ['latitude_5f',['latitude_',['../classCEObserver.html#a30235a99b3b715fb1e4381d4a1f5837d',1,'CEObserver']]],
-  ['latitude_5fdeg',['Latitude_Deg',['../classCEObserver.html#a71deb782773065b146e76f6f0d9a31e5',1,'CEObserver']]],
-  ['latitude_5frad',['Latitude_Rad',['../classCEObserver.html#a1e1053a2cb4fa013965f0012bc9ec2ed',1,'CEObserver']]],
-  ['localtime',['LOCALTIME',['../CETime_8h.html#ab50b2d3a782e5eea768b25bfb3d7e65fa10b93f5080d477452e842d90ae6a1332',1,'CETime.h']]],
-  ['longitude_5f',['longitude_',['../classCEObserver.html#ac76c0ef9070cf96db45b5196b481dadc',1,'CEObserver']]],
-  ['longitude_5fdeg',['Longitude_Deg',['../classCEObserver.html#aae554303d7f4feb13359eb1b1730063c',1,'CEObserver']]],
-  ['longitude_5frad',['Longitude_Rad',['../classCEObserver.html#aecd18686fb2bcdc9ddaa519cf48c4428',1,'CEObserver']]]
+  ['icrs',['ICRS',['../CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2a37dfc89db165108163b0dd9be927434a',1,'CECoordinates.h']]],
+  ['icrs2cirs',['ICRS2CIRS',['../classCECoordinates.html#a696c97fd9243fa7f6a18f746983d7bc4',1,'CECoordinates']]],
+  ['icrs2galactic',['ICRS2Galactic',['../classCECoordinates.html#afaea845380366fb186f744457e42cd50',1,'CECoordinates']]],
+  ['icrs2observed',['ICRS2Observed',['../classCECoordinates.html#af22f1d5b272d48bcdc548e3d0317fe1c',1,'CECoordinates::ICRS2Observed(double ra, double dec, double *az, double *zen, CEObserver &amp;observer, CEAngleType angle_type=CEAngleType::RADIANS, double wavelength_um=0.5, double *observed_ra=nullptr, double *observed_dec=nullptr, double *hour_angle=nullptr)'],['../classCECoordinates.html#a4ca699bc58f9d7c371331cbcd1a60d5d',1,'CECoordinates::ICRS2Observed(double ra, double dec, double *az, double *zen, double julian_date, double longitude, double latitude, double elevation_m=0.0, double pressure_hPa=-1.0, double temperature_celsius=-1000, double relative_humidity=0.0, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength_um=0.5, double *observed_ra=nullptr, double *observed_dec=nullptr, double *hour_angle=nullptr)']]],
+  ['inclination_5fdeg_5f',['inclination_deg_',['../classCEPlanet.html#ad1d5d975d45a5b40f682f83fe5d59360',1,'CEPlanet']]],
+  ['inclination_5fdeg_5fper_5fcent_5f',['inclination_deg_per_cent_',['../classCEPlanet.html#ae64c3d295cef0c8d98dfae2d91b6628a',1,'CEPlanet']]],
+  ['is_5fset',['is_set',['../classCLParam.html#a1300a4c5d39840b2210597de20a4db4f',1,'CLParam']]]
 ];

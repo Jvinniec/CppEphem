@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['julian_5fdate_5f',['julian_date_',['../classCEDate.html#a58170c23976d025cd631d42b10b8930c',1,'CEDate']]]
+  ['f_5f',['f_',['../classCEPlanet.html#aea51f5746a124dfd150469a0b73b8d0e',1,'CEPlanet']]]
 ];

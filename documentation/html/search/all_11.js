@@ -1,8 +1,12 @@
 var searchData=
 [
-  ['xcoord_5f',['xcoord_',['../classCECoordinates.html#ab58f73988010fb779c262f7b88612fc0',1,'CECoordinates']]],
-  ['xcoordinate_5fdeg',['XCoordinate_Deg',['../classCECoordinates.html#ae4675a8caf59eb75ddfbbe9071eeeab1',1,'CECoordinates']]],
-  ['xcoordinate_5frad',['XCoordinate_Rad',['../classCECoordinates.html#ad592a2ea51068666ba067889905e9f0a',1,'CECoordinates']]],
-  ['xp',['xp',['../namespaceCppEphem.html#a7e8a8c885f364d70f1e8d53a99297fd1',1,'CppEphem']]],
-  ['xpolar',['xpolar',['../classCEDate.html#ace399234c2715e61518393497511b293',1,'CEDate::xpolar(double date, CEDateType date_type=CEDateType::JD)'],['../classCEDate.html#a4a9004a8c1e7a5e64a5c567e09a7c521',1,'CEDate::xpolar()']]]
+  ['updatecoordinates',['UpdateCoordinates',['../classCEObservation.html#ac27fc35b337170c4ff014455621618b5',1,'CEObservation::UpdateCoordinates()'],['../classCEPlanet.html#af5eb51c6e4b85e7bf92e9dd5103ab3b9',1,'CEPlanet::UpdateCoordinates()']]],
+  ['uranus',['Uranus',['../classCEPlanet.html#a85c738a79ef43d9d5404465ff62baf34',1,'CEPlanet']]],
+  ['utc',['UTC',['../classCETime.html#a02bbdd165f554367e26f0d97a06a0d15',1,'CETime::UTC()'],['../CETime_8h.html#ab50b2d3a782e5eea768b25bfb3d7e65fa2c56d07da8a08a92de9453a00e31d55d',1,'UTC():&#160;CETime.h']]],
+  ['utc2gast',['UTC2GAST',['../classCETime.html#ae87974fef65c8ca6299105d339147b2b',1,'CETime']]],
+  ['utc2last',['UTC2LAST',['../classCETime.html#a29611223f9a5e423d234f546976f7a2c',1,'CETime']]],
+  ['utc2localtime',['UTC2LOCALTIME',['../classCETime.html#a5da0a3b3b4c2b54331c833e33c1abfb1',1,'CETime']]],
+  ['utc_5foffset_5f',['utc_offset_',['../classCEObserver.html#a75ab3329a8138a0abe443b5b4456cf15',1,'CEObserver']]],
+  ['utc_5fvect',['UTC_vect',['../classCETime.html#a27801735a4d80d8025fd52a0ffb72140',1,'CETime']]],
+  ['utcoffset',['UTCOffset',['../classCEObserver.html#a8de305160af9e2893728f9d4189165bd',1,'CEObserver']]]
 ];

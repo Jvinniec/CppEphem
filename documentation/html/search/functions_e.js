@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['updatecoordinates',['UpdateCoordinates',['../classCEObservation.html#ac27fc35b337170c4ff014455621618b5',1,'CEObservation']]],
-  ['utc',['UTC',['../classCETime.html#a02bbdd165f554367e26f0d97a06a0d15',1,'CETime']]],
-  ['utc2gast',['UTC2GAST',['../classCETime.html#ae87974fef65c8ca6299105d339147b2b',1,'CETime']]],
-  ['utc2last',['UTC2LAST',['../classCETime.html#a29611223f9a5e423d234f546976f7a2c',1,'CETime']]],
-  ['utc2localtime',['UTC2LOCALTIME',['../classCETime.html#a5da0a3b3b4c2b54331c833e33c1abfb1',1,'CETime']]],
-  ['utc_5fvect',['UTC_vect',['../classCETime.html#a27801735a4d80d8025fd52a0ffb72140',1,'CETime']]]
+  ['radius_5fm',['Radius_m',['../classCEPlanet.html#adc01375cc6ec37d630d49f866d9d7e4b',1,'CEPlanet']]],
+  ['relativehumidity',['RelativeHumidity',['../classCEObserver.html#a5a99d5f72b2bb09dd49d477c65351e0c',1,'CEObserver']]],
+  ['resettime',['ResetTime',['../classCERunningDate.html#ad204bbf0eefc1d69a40b52eb989d748a',1,'CERunningDate']]],
+  ['runtime',['RunTime',['../classCERunningDate.html#a7cb395fac390ee783c8e93f1c4d25a4f',1,'CERunningDate']]]
 ];

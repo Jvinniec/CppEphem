@@ -1,9 +1,9 @@
 <map id="CppEphem/include/CEObserver.h" name="CppEphem/include/CEObserver.h">
-<area shape="rect" id="node2" href="$CECoordinates_8cpp.html" title="CppEphem/src/CECoordinates.cpp" alt="" coords="371,80,600,107"/>
-<area shape="rect" id="node3" href="$CEObserver_8cpp.html" title="CppEphem/src/CEObserver.cpp" alt="" coords="625,80,837,107"/>
-<area shape="rect" id="node4" href="$CEObservation_8h.html" title="CppEphem/include/CEObservation.h" alt="" coords="861,80,1101,107"/>
-<area shape="rect" id="node6" href="$CppEphem_8h.html" title="CppEphem/include/CppEphem.h" alt="" coords="1031,155,1247,181"/>
-<area shape="rect" id="node5" href="$CEObservation_8cpp.html" title="CppEphem/src/CEObservation.cpp" alt="" coords="777,155,1007,181"/>
+<area shape="rect" id="node2" href="$CECoordinates_8cpp.html" title="CppEphem/src/CECoordinates.cpp" alt="" coords="473,80,703,107"/>
+<area shape="rect" id="node3" href="$CEObserver_8cpp.html" title="CppEphem/src/CEObserver.cpp" alt="" coords="727,80,939,107"/>
+<area shape="rect" id="node4" href="$CEObservation_8h.html" title="CppEphem/include/CEObservation.h" alt="" coords="964,80,1204,107"/>
+<area shape="rect" id="node6" href="$CppEphem_8h.html" title="CppEphem/include/CppEphem.h" alt="" coords="1133,155,1349,181"/>
+<area shape="rect" id="node5" href="$CEObservation_8cpp.html" title="CppEphem/src/CEObservation.cpp" alt="" coords="880,155,1109,181"/>
 <area shape="rect" id="node7" href="$cal2jd_8cpp.html" title="CppEphem/src/cal2jd.cpp" alt="" coords="5,229,179,256"/>
 <area shape="rect" id="node8" href="$cal2mjd_8cpp.html" title="CppEphem/src/cal2mjd.cpp" alt="" coords="203,229,389,256"/>
 <area shape="rect" id="node9" href="$cirs2gal_8cpp.html" title="CppEphem/src/cirs2gal.cpp" alt="" coords="413,229,598,256"/>
@@ -15,4 +15,5 @@
 <area shape="rect" id="node15" href="$mjd2cal_8cpp.html" title="CppEphem/src/mjd2cal.cpp" alt="" coords="1657,229,1842,256"/>
 <area shape="rect" id="node16" href="$mjd2jd_8cpp.html" title="CppEphem/src/mjd2jd.cpp" alt="" coords="1867,229,2045,256"/>
 <area shape="rect" id="node17" href="$obs2cirs_8cpp.html" title="CppEphem/src/obs2cirs.cpp" alt="" coords="2069,229,2259,256"/>
+<area shape="rect" id="node18" href="$planetpositions_8cpp.html" title="CppEphem/src/planetpositions.cpp" alt="" coords="2283,229,2511,256"/>
 </map>

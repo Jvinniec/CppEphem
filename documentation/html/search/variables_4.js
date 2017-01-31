@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['gregorian_5fdate_5f',['gregorian_date_',['../classCEDate.html#aecd5239b5cf81e46525ee24c6bf2b48e',1,'CEDate']]],
-  ['gregorian_5fdate_5fvect_5f',['gregorian_date_vect_',['../classCEDate.html#a3f2468a5ab3c5e58a5da6b2800d88165',1,'CEDate']]]
+  ['e_5ftol',['E_tol',['../classCEPlanet.html#af1443a3415ded3d45e3387ec2c7f62bf',1,'CEPlanet']]],
+  ['eccentricity_5f',['eccentricity_',['../classCEPlanet.html#a84a947e182536e78f9080d86ca8fb23e',1,'CEPlanet']]],
+  ['eccentricity_5fper_5fcent_5f',['eccentricity_per_cent_',['../classCEPlanet.html#a25b216224056612900ba0aa22d0ef555',1,'CEPlanet']]],
+  ['elevation_5fm_5f',['elevation_m_',['../classCEObserver.html#abc397d7e84dc09494e029e1d752e2af6',1,'CEObserver']]]
 ];

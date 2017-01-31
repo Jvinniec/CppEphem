@@ -1,16 +1,13 @@
 var searchData=
 [
-  ['temperature_5fc',['Temperature_C',['../classCEObserver.html#a750ca767ac507ba51f7e2883323032b4',1,'CEObserver']]],
-  ['temperature_5fcelsius_5f',['temperature_celsius_',['../classCEObserver.html#ac29e9479df58bd3bed6d4b749747b2bd',1,'CEObserver']]],
-  ['temperature_5ff',['Temperature_F',['../classCEObserver.html#ac4aa1461ce385ea5177f959b6a78fe3b',1,'CEObserver']]],
-  ['temperature_5fk',['Temperature_K',['../classCEObserver.html#ab2294f0c9ce713f0fbb232065460a05b',1,'CEObserver']]],
-  ['time',['Time',['../classCEObserver.html#aa91ea24626fc8a944f4e034997bdbaf1',1,'CEObserver']]],
-  ['time_5f',['time_',['../classCETime.html#a6fd743f19f38b7e9e76887725fedb6e0',1,'CETime']]],
-  ['time_5ftype_5f',['time_type_',['../classCETime.html#aa3d0704d43eed2d09dc4f688a78ab44b',1,'CETime']]],
-  ['time_5futc',['Time_UTC',['../classCEObserver.html#abfe2d4ad9193a8ba0319ec0b61b8f5f9',1,'CEObserver']]],
-  ['timedbl2vect',['TimeDbl2Vect',['../classCETime.html#a6653740b539e9ea85d056daa14c654d1',1,'CETime']]],
-  ['timer_5fspeed_5ffactor_5f',['timer_speed_factor_',['../classCERunningDate.html#a1845c28f86882515304875b5ffe940ad',1,'CERunningDate']]],
-  ['timesec2time',['TimeSec2Time',['../classCETime.html#a403d332f92bf478a2f5500aca4f05437',1,'CETime']]],
-  ['timesec2vect',['TimeSec2Vect',['../classCETime.html#ae0e7952a2b45fa2a2cfce486a8618fb6',1,'CETime']]],
-  ['timevect2dbl',['TimeVect2Dbl',['../classCETime.html#abf02a1b54ad6f48de14b3e7941c6d3f7',1,'CETime']]]
+  ['radians',['RADIANS',['../namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15efaea3c82298fac1c706a4076b4aff53015',1,'CppEphem']]],
+  ['radius_5fm',['Radius_m',['../classCEPlanet.html#adc01375cc6ec37d630d49f866d9d7e4b',1,'CEPlanet']]],
+  ['radius_5fm_5f',['radius_m_',['../classCEPlanet.html#acf5a39663d366fb56a7fdf8a1afb8970',1,'CEPlanet']]],
+  ['readme_2emd',['README.md',['../README_8md.html',1,'']]],
+  ['reference_5f',['reference_',['../classCEPlanet.html#a65167fb59edd89e72afcd4d58400f6fd',1,'CEPlanet']]],
+  ['relative_5fhumidity_5f',['relative_humidity_',['../classCEObserver.html#a1517a290b142b72e5f82a5a42bc9f565',1,'CEObserver']]],
+  ['relativehumidity',['RelativeHumidity',['../classCEObserver.html#a5a99d5f72b2bb09dd49d477c65351e0c',1,'CEObserver']]],
+  ['resettime',['ResetTime',['../classCERunningDate.html#ad204bbf0eefc1d69a40b52eb989d748a',1,'CERunningDate']]],
+  ['return_5ftype_5f',['return_type_',['../classCEDate.html#a173516688bd54588ae204945ed1928a0',1,'CEDate']]],
+  ['runtime',['RunTime',['../classCERunningDate.html#a7cb395fac390ee783c8e93f1c4d25a4f',1,'CERunningDate']]]
 ];

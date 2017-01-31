@@ -1,12 +1,5 @@
 var searchData=
 [
-  ['cached_5faltitude_5f',['cached_altitude_',['../classCEObservation.html#a4f74a61a3ed48b5a0010d2ce60e1f49b',1,'CEObservation']]],
-  ['cached_5fapparentxcoord_5f',['cached_apparentxcoord_',['../classCEObservation.html#abe7a71ac85d3a9f953986d90cc95285a',1,'CEObservation']]],
-  ['cached_5fapparentycoord_5f',['cached_apparentycoord_',['../classCEObservation.html#a1810dac266beb3e748685f37a5529f9f',1,'CEObservation']]],
-  ['cached_5fazimuth_5f',['cached_azimuth_',['../classCEObservation.html#aed8fb98cd581205d69beb5c2349c6d5b',1,'CEObservation']]],
-  ['cached_5fdate_5f',['cached_date_',['../classCEObservation.html#a12fbdcb8279ac6cfe64c25cdb0fd46a7',1,'CEObservation']]],
-  ['cached_5fhour_5fangle_5f',['cached_hour_angle_',['../classCEObservation.html#a678999f49eb6008d057ee5431f79a095',1,'CEObservation']]],
-  ['cached_5fzenith_5f',['cached_zenith_',['../classCEObservation.html#a50f03d2ec6951505832d6f906c579b49',1,'CEObservation']]],
-  ['coord_5ftype_5f',['coord_type_',['../classCECoordinates.html#ae2ae938af879ec0aa1fb0e92537bbeed',1,'CECoordinates']]],
-  ['current_5fdate_5f',['current_date_',['../classCEObserver.html#a146ac24022ac7f23e85b19f52235b228',1,'CEObserver']]]
+  ['b_5f',['b_',['../classCEPlanet.html#a5d09150b6fae71b286e0ab917b7206b3',1,'CEPlanet']]],
+  ['body_5f',['body_',['../classCEObservation.html#a47cd32b07d0572b9a5605060c7b1e8ab',1,'CEObservation']]]
 ];

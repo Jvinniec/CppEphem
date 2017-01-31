@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['observedposition',['ObservedPosition',['../classCEObserver.html#ad9902f06e4961a6ed8e89609b53bc619',1,'CEObserver::ObservedPosition(CEBody &amp;object)'],['../classCEObserver.html#a465e0568f4555a343274bb4b80e2e37f',1,'CEObserver::ObservedPosition(CECoordinates &amp;coords)']]],
-  ['observer',['Observer',['../classCEObservation.html#a14e76cd3f0f9c586ccbf9eb43bc3e682',1,'CEObservation']]],
-  ['operator_20double',['operator double',['../classCEDate.html#a6daf5a60fa8a682bf163fbfe80db27a8',1,'CEDate']]]
+  ['latitude_5fdeg',['Latitude_Deg',['../classCEObserver.html#a71deb782773065b146e76f6f0d9a31e5',1,'CEObserver']]],
+  ['latitude_5frad',['Latitude_Rad',['../classCEObserver.html#a1e1053a2cb4fa013965f0012bc9ec2ed',1,'CEObserver']]],
+  ['longitude_5fdeg',['Longitude_Deg',['../classCEObserver.html#aae554303d7f4feb13359eb1b1730063c',1,'CEObserver']]],
+  ['longitude_5frad',['Longitude_Rad',['../classCEObserver.html#aecd18686fb2bcdc9ddaa519cf48c4428',1,'CEObserver']]]
 ];

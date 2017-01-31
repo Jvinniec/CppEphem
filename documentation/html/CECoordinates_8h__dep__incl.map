@@ -1,12 +1,12 @@
 <map id="CppEphem/include/CECoordinates.h" name="CppEphem/include/CECoordinates.h">
-<area shape="rect" id="node2" href="$CECoordinates_8cpp.html" title="CppEphem/src/CECoordinates.cpp" alt="" coords="988,229,1217,256"/>
-<area shape="rect" id="node3" href="$CEBody_8h.html" title="CppEphem/include/CEBody.h" alt="" coords="1033,80,1231,107"/>
-<area shape="rect" id="node5" href="$CEObservation_8h.html" title="CppEphem/include/CEObservation.h" alt="" coords="436,229,676,256"/>
-<area shape="rect" id="node7" href="$CppEphem_8h.html" title="CppEphem/include/CppEphem.h" alt="" coords="1031,304,1247,331"/>
-<area shape="rect" id="node4" href="$CEBody_8cpp.html" title="CppEphem/src/CEBody.cpp" alt="" coords="1035,155,1223,181"/>
-<area shape="rect" id="node19" href="$CEObserver_8h.html" title="CppEphem/include/CEObserver.h" alt="" coords="734,155,957,181"/>
-<area shape="rect" id="node21" href="$CEPlanet_8h.html" title="CppEphem/include/CEPlanet.h" alt="" coords="1248,155,1453,181"/>
-<area shape="rect" id="node6" href="$CEObservation_8cpp.html" title="CppEphem/src/CEObservation.cpp" alt="" coords="441,304,671,331"/>
+<area shape="rect" id="node2" href="$CECoordinates_8cpp.html" title="CppEphem/src/CECoordinates.cpp" alt="" coords="1089,229,1319,256"/>
+<area shape="rect" id="node3" href="$CEBody_8h.html" title="CppEphem/include/CEBody.h" alt="" coords="1134,80,1333,107"/>
+<area shape="rect" id="node5" href="$CEObservation_8h.html" title="CppEphem/include/CEObservation.h" alt="" coords="537,229,777,256"/>
+<area shape="rect" id="node7" href="$CppEphem_8h.html" title="CppEphem/include/CppEphem.h" alt="" coords="1132,304,1348,331"/>
+<area shape="rect" id="node4" href="$CEBody_8cpp.html" title="CppEphem/src/CEBody.cpp" alt="" coords="1137,155,1325,181"/>
+<area shape="rect" id="node20" href="$CEObserver_8h.html" title="CppEphem/include/CEObserver.h" alt="" coords="835,155,1058,181"/>
+<area shape="rect" id="node22" href="$CEPlanet_8h.html" title="CppEphem/include/CEPlanet.h" alt="" coords="1349,155,1555,181"/>
+<area shape="rect" id="node6" href="$CEObservation_8cpp.html" title="CppEphem/src/CEObservation.cpp" alt="" coords="543,304,772,331"/>
 <area shape="rect" id="node8" href="$cal2jd_8cpp.html" title="CppEphem/src/cal2jd.cpp" alt="" coords="5,379,179,405"/>
 <area shape="rect" id="node9" href="$cal2mjd_8cpp.html" title="CppEphem/src/cal2mjd.cpp" alt="" coords="203,379,389,405"/>
 <area shape="rect" id="node10" href="$cirs2gal_8cpp.html" title="CppEphem/src/cirs2gal.cpp" alt="" coords="413,379,598,405"/>
@@ -18,6 +18,7 @@
 <area shape="rect" id="node16" href="$mjd2cal_8cpp.html" title="CppEphem/src/mjd2cal.cpp" alt="" coords="1657,379,1842,405"/>
 <area shape="rect" id="node17" href="$mjd2jd_8cpp.html" title="CppEphem/src/mjd2jd.cpp" alt="" coords="1867,379,2045,405"/>
 <area shape="rect" id="node18" href="$obs2cirs_8cpp.html" title="CppEphem/src/obs2cirs.cpp" alt="" coords="2069,379,2259,405"/>
-<area shape="rect" id="node20" href="$CEObserver_8cpp.html" title="CppEphem/src/CEObserver.cpp" alt="" coords="751,229,963,256"/>
-<area shape="rect" id="node22" href="$CEPlanet_8cpp.html" title="CppEphem/src/CEPlanet.cpp" alt="" coords="1242,229,1438,256"/>
+<area shape="rect" id="node19" href="$planetpositions_8cpp.html" title="CppEphem/src/planetpositions.cpp" alt="" coords="2283,379,2511,405"/>
+<area shape="rect" id="node21" href="$CEObserver_8cpp.html" title="CppEphem/src/CEObserver.cpp" alt="" coords="853,229,1065,256"/>
+<area shape="rect" id="node23" href="$CEPlanet_8cpp.html" title="CppEphem/src/CEPlanet.cpp" alt="" coords="1343,229,1539,256"/>
 </map>

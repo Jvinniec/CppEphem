@@ -1,6 +1,6 @@
 <map id="CppEphem/include/CEPlanet.h" name="CppEphem/include/CEPlanet.h">
-<area shape="rect" id="node2" href="$CEPlanet_8cpp.html" title="CppEphem/src/CEPlanet.cpp" alt="" coords="810,80,1006,107"/>
-<area shape="rect" id="node3" href="$CppEphem_8h.html" title="CppEphem/include/CppEphem.h" alt="" coords="1031,80,1247,107"/>
+<area shape="rect" id="node2" href="$CEPlanet_8cpp.html" title="CppEphem/src/CEPlanet.cpp" alt="" coords="913,80,1109,107"/>
+<area shape="rect" id="node3" href="$CppEphem_8h.html" title="CppEphem/include/CppEphem.h" alt="" coords="1133,80,1349,107"/>
 <area shape="rect" id="node4" href="$cal2jd_8cpp.html" title="CppEphem/src/cal2jd.cpp" alt="" coords="5,155,179,181"/>
 <area shape="rect" id="node5" href="$cal2mjd_8cpp.html" title="CppEphem/src/cal2mjd.cpp" alt="" coords="203,155,389,181"/>
 <area shape="rect" id="node6" href="$cirs2gal_8cpp.html" title="CppEphem/src/cirs2gal.cpp" alt="" coords="413,155,598,181"/>
@@ -12,4 +12,5 @@
 <area shape="rect" id="node12" href="$mjd2cal_8cpp.html" title="CppEphem/src/mjd2cal.cpp" alt="" coords="1657,155,1842,181"/>
 <area shape="rect" id="node13" href="$mjd2jd_8cpp.html" title="CppEphem/src/mjd2jd.cpp" alt="" coords="1867,155,2045,181"/>
 <area shape="rect" id="node14" href="$obs2cirs_8cpp.html" title="CppEphem/src/obs2cirs.cpp" alt="" coords="2069,155,2259,181"/>
+<area shape="rect" id="node15" href="$planetpositions_8cpp.html" title="CppEphem/src/planetpositions.cpp" alt="" coords="2283,155,2511,181"/>
 </map>

@@ -82,12 +82,9 @@ $(function() {
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3fb13fd8748f8c7843699653bbcef023"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEObserver.html#a3fb13fd8748f8c7843699653bbcef023">CEObserver</a> ()</td></tr>
-<tr class="memdesc:a3fb13fd8748f8c7843699653bbcef023"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#a3fb13fd8748f8c7843699653bbcef023">More...</a><br /></td></tr>
-<tr class="separator:a3fb13fd8748f8c7843699653bbcef023"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab95f2c95c88009e92fe969c99e670ccb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEObserver.html#ab95f2c95c88009e92fe969c99e670ccb">CEObserver</a> (double longitude, double latitude, double elevation=0.0, <a class="el" href="namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15ef">CEAngleType</a> angle_type=CEAngleType::RADIANS, <a class="el" href="classCEDate.html">CEDate</a> *date=nullptr)</td></tr>
-<tr class="memdesc:ab95f2c95c88009e92fe969c99e670ccb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor from a geographic position (latitude, longitude, altitude) Note that altitude defaults to sea-level.  <a href="#ab95f2c95c88009e92fe969c99e670ccb">More...</a><br /></td></tr>
-<tr class="separator:ab95f2c95c88009e92fe969c99e670ccb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73761c2e00e3c3a229d058a4f2ae75f3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEObserver.html#a73761c2e00e3c3a229d058a4f2ae75f3">CEObserver</a> (double longitude=0.0, double latitude=51.4778, double elevation=0.0, <a class="el" href="namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15ef">CEAngleType</a> angle_type=CEAngleType::DEGREES, <a class="el" href="classCEDate.html">CEDate</a> *date=nullptr)</td></tr>
+<tr class="memdesc:a73761c2e00e3c3a229d058a4f2ae75f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor from a geographic position (latitude, longitude, altitude) Note that altitude defaults to sea-level.  <a href="#a73761c2e00e3c3a229d058a4f2ae75f3">More...</a><br /></td></tr>
+<tr class="separator:a73761c2e00e3c3a229d058a4f2ae75f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abed8a7df1b32b448e723166bc5e53a64"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEObserver.html#abed8a7df1b32b448e723166bc5e53a64">CEObserver</a> (const <a class="el" href="classCEObserver.html">CEObserver</a> &amp;other)</td></tr>
 <tr class="memdesc:abed8a7df1b32b448e723166bc5e53a64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="#abed8a7df1b32b448e723166bc5e53a64">More...</a><br /></td></tr>
 <tr class="separator:abed8a7df1b32b448e723166bc5e53a64"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -143,6 +140,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9624c33a3c945856e08c2c137db224ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95caf0a038b57dc647d987237f44dbb7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEObserver.html#a95caf0a038b57dc647d987237f44dbb7">SetTemperature_K</a> (double temp_K=SeaLevelTemp_K())</td></tr>
 <tr class="separator:a95caf0a038b57dc647d987237f44dbb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a898e4157d5a877f2babae2f3b350cd02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEObserver.html#a898e4157d5a877f2babae2f3b350cd02">SetUTCOffset</a> (double utc_offset)</td></tr>
+<tr class="memdesc:a898e4157d5a877f2babae2f3b350cd02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the UTC offset for the observers time.  <a href="#a898e4157d5a877f2babae2f3b350cd02">More...</a><br /></td></tr>
+<tr class="separator:a898e4157d5a877f2babae2f3b350cd02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64bb6b2ee9b42ba99d8ea9ee546aaa0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEObserver.html#a64bb6b2ee9b42ba99d8ea9ee546aaa0e">SetWavelength_um</a> (double new_wavelength_um)</td></tr>
 <tr class="separator:a64bb6b2ee9b42ba99d8ea9ee546aaa0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a750ca767ac507ba51f7e2883323032b4"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEObserver.html#a750ca767ac507ba51f7e2883323032b4">Temperature_C</a> ()</td></tr>
@@ -159,6 +159,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa91ea24626fc8a944f4e034997bdbaf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abfe2d4ad9193a8ba0319ec0b61b8f5f9"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEObserver.html#abfe2d4ad9193a8ba0319ec0b61b8f5f9">Time_UTC</a> ()</td></tr>
 <tr class="separator:abfe2d4ad9193a8ba0319ec0b61b8f5f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8de305160af9e2893728f9d4189165bd"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEObserver.html#a8de305160af9e2893728f9d4189165bd">UTCOffset</a> ()</td></tr>
+<tr class="separator:a8de305160af9e2893728f9d4189165bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a459af0ab6a427ea996a432c6a5cc0f32"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEObserver.html#a459af0ab6a427ea996a432c6a5cc0f32">Wavelength_um</a> ()</td></tr>
 <tr class="memdesc:a459af0ab6a427ea996a432c6a5cc0f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the wavelength in units of micrometers.  <a href="#a459af0ab6a427ea996a432c6a5cc0f32">More...</a><br /></td></tr>
 <tr class="separator:a459af0ab6a427ea996a432c6a5cc0f32"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -209,29 +211,8 @@ Collaboration diagram for CEObserver:</div>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a3fb13fd8748f8c7843699653bbcef023"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3fb13fd8748f8c7843699653bbcef023">&#9670;&nbsp;</a></span>CEObserver() <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CEObserver::CEObserver </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Default constructor. </p>
-
-<p class="definition">Definition at line <a class="el" href="CEObserver_8cpp_source.html#l00031">31</a> of file <a class="el" href="CEObserver_8cpp_source.html">CEObserver.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab95f2c95c88009e92fe969c99e670ccb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab95f2c95c88009e92fe969c99e670ccb">&#9670;&nbsp;</a></span>CEObserver() <span class="overload">[2/3]</span></h2>
+<a id="a73761c2e00e3c3a229d058a4f2ae75f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73761c2e00e3c3a229d058a4f2ae75f3">&#9670;&nbsp;</a></span>CEObserver() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -240,13 +221,13 @@ Collaboration diagram for CEObserver:</div>
           <td class="memname">CEObserver::CEObserver </td>
           <td>(</td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>longitude</em>, </td>
+          <td class="paramname"><em>longitude</em> = <code>0.0</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>latitude</em>, </td>
+          <td class="paramname"><em>latitude</em> = <code>51.4778</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -258,7 +239,7 @@ Collaboration diagram for CEObserver:</div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15ef">CEAngleType</a>&#160;</td>
-          <td class="paramname"><em>angle_type</em> = <code>CEAngleType::RADIANS</code>, </td>
+          <td class="paramname"><em>angle_type</em> = <code>CEAngleType::DEGREES</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -291,7 +272,7 @@ Collaboration diagram for CEObserver:</div>
 </div>
 </div>
 <a id="abed8a7df1b32b448e723166bc5e53a64"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abed8a7df1b32b448e723166bc5e53a64">&#9670;&nbsp;</a></span>CEObserver() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abed8a7df1b32b448e723166bc5e53a64">&#9670;&nbsp;</a></span>CEObserver() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -692,7 +673,7 @@ Collaboration diagram for CEObserver:</div>
 
 <p>Set elevation in meters above sea level. </p>
 
-<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00065">65</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00068">68</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
 
 </div>
 </div>
@@ -764,7 +745,7 @@ Collaboration diagram for CEObserver:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00069">69</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00072">72</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
 
 </div>
 </div>
@@ -802,7 +783,7 @@ Collaboration diagram for CEObserver:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00067">67</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00070">70</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
 
 </div>
 </div>
@@ -830,7 +811,7 @@ Collaboration diagram for CEObserver:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00075">75</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00078">78</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
 
 </div>
 </div>
@@ -858,7 +839,7 @@ Collaboration diagram for CEObserver:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00077">77</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00080">80</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
 
 </div>
 </div>
@@ -886,7 +867,7 @@ Collaboration diagram for CEObserver:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00079">79</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00082">82</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
 
 </div>
 </div>
@@ -914,7 +895,7 @@ Collaboration diagram for CEObserver:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00083">83</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00086">86</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
 
 </div>
 </div>
@@ -942,7 +923,37 @@ Collaboration diagram for CEObserver:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00081">81</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00084">84</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+
+</div>
+</div>
+<a id="a898e4157d5a877f2babae2f3b350cd02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a898e4157d5a877f2babae2f3b350cd02">&#9670;&nbsp;</a></span>SetUTCOffset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEObserver::SetUTCOffset </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>utc_offset</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the UTC offset for the observers time. </p>
+
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00057">57</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
 
 </div>
 </div>
@@ -970,7 +981,7 @@ Collaboration diagram for CEObserver:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00085">85</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00088">88</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
 
 </div>
 </div>
@@ -1086,7 +1097,7 @@ Collaboration diagram for CEObserver:</div>
 
 <p>Get the current time information (see <a class="el" href="classCETime.html" title="This class stores and computes information regarding the time and handles conversions to current time...">CETime</a>) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00058">58</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00061">61</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
 
 </div>
 </div>
@@ -1113,7 +1124,34 @@ Collaboration diagram for CEObserver:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00059">59</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00062">62</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+
+</div>
+</div>
+<a id="a8de305160af9e2893728f9d4189165bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8de305160af9e2893728f9d4189165bd">&#9670;&nbsp;</a></span>UTCOffset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double CEObserver::UTCOffset </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00058">58</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
 
 </div>
 </div>
@@ -1169,7 +1207,7 @@ Collaboration diagram for CEObserver:</div>
 
 <p>Current date for this object. </p>
 
-<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00112">112</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00115">115</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
 
 </div>
 </div>
@@ -1195,7 +1233,7 @@ Collaboration diagram for CEObserver:</div>
 
 <p>Boolean for whether 'current_date_' can be safely deleted when this object is deleted. </p>
 
-<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00113">113</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00116">116</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
 
 </div>
 </div>
@@ -1221,7 +1259,7 @@ Collaboration diagram for CEObserver:</div>
 
 <p>Elevation (in meters) above sea-level. </p>
 
-<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00102">102</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00105">105</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
 
 </div>
 </div>
@@ -1247,7 +1285,7 @@ Collaboration diagram for CEObserver:</div>
 
 <p>Geographic latitude (radians) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00101">101</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00104">104</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
 
 </div>
 </div>
@@ -1273,7 +1311,7 @@ Collaboration diagram for CEObserver:</div>
 
 <p>Geographic longitude (radians) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00100">100</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00103">103</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
 
 </div>
 </div>
@@ -1299,7 +1337,7 @@ Collaboration diagram for CEObserver:</div>
 
 <p>Atmospheric pressure (in units of hPa) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00105">105</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00108">108</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
 
 </div>
 </div>
@@ -1325,7 +1363,7 @@ Collaboration diagram for CEObserver:</div>
 
 <p>Relative humidity (in range 0-1) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00107">107</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00110">110</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
 
 </div>
 </div>
@@ -1351,7 +1389,7 @@ Collaboration diagram for CEObserver:</div>
 
 <p>Temperature in degrees celsius. </p>
 
-<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00106">106</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00109">109</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
 
 </div>
 </div>
@@ -1375,7 +1413,7 @@ Collaboration diagram for CEObserver:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00111">111</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00114">114</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
 
 </div>
 </div>
@@ -1401,7 +1439,7 @@ Collaboration diagram for CEObserver:</div>
 
 <p>Observing wavelength (micrometers) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00108">108</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00111">111</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
 
 </div>
 </div>
@@ -1412,7 +1450,7 @@ Collaboration diagram for CEObserver:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 24 2017 16:32:07 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 31 2017 12:32:36 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
