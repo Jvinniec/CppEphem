@@ -47,23 +47,27 @@ public:
      **********************************************************/
     /// @param[in] jd   Julian date (used only by derived classes)
     /// @return X-coordinate in radians
-    virtual double XCoordinate_Rad(double jd=julian_date_J2000())
+    virtual double XCoordinate_Rad(double jd=CppEphem::julian_date_J2000())
         {return xcoord_ ;}
     
     /// @param[in] jd   Julian date (used only by derived classes)
     /// @return X-coordinate in degrees
-    virtual double XCoordinate_Deg(double jd=julian_date_J2000())
+    virtual double XCoordinate_Deg(double jd=CppEphem::julian_date_J2000())
         {return XCoordinate_Rad(jd) * DR2D ;}
     
     /// @param[in] jd   Julian date (used only by derived classes)
     /// @return Y-coordinate in radians
-    virtual double YCoordinate_Rad(double jd=julian_date_J2000())
+    virtual double YCoordinate_Rad(double jd=CppEphem::julian_date_J2000())
         {return ycoord_ ;}
     
     /// @param[in] jd   Julian date (used only by derived classes)
     /// @return Y-coordinate in degrees
-    virtual double YCoordinate_Deg(double jd=julian_date_J2000()) 
+    virtual double YCoordinate_Deg(double jd=CppEphem::julian_date_J2000())
         {return YCoordinate_Rad(jd) * DR2D ;}
+    
+    /// Convert an angle into Hours:minutes:seconds format
+    static std::vector<double> GetHMS(double angle, CEAngleType angle_type = CEAngleType::DEGREES);
+    static std::vector<double> GetDMS(double angle, CEAngleType angle_type = CEAngleType::DEGREES);
     
     /// @return Coordinate type of this object
     CECoordinateType GetCoordSystem() const {return coord_type_;}

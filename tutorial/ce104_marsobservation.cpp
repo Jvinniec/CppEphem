@@ -57,8 +57,11 @@ int main(int argc, char** argv)
     while (true) {
         usleep(1000000) ;
         observed_coords.GetAzimuthZenith_Deg(&azimuth, &zenith) ;
+//        observed_coords.GetApparentXYCoordinate_Deg(&ra, &dec) ;
+
         ra = mars.XCoordinate_Deg() ;
         dec = mars.YCoordinate_Deg() ;
+//        CECoordinates::ICRS2CIRS(ra, dec, &ra, &dec,date, CEAngleType::DEGREES) ;
         std::printf("\r %8d | %8.1f |%8.3f|%+8.3f|%8.3f|%8.3f|%8.3f",
                     int(date), date.GetTime(),
                     ra, dec, azimuth, zenith, 90.0-zenith) ;

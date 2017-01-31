@@ -25,13 +25,13 @@
 
 // CPPEPHEM HEADERS
 #include "CEObserver.h"
-
+/*
 /////////////////////////////////////////////////////////////////
 /// Default constructor
 CEObserver::CEObserver()
 {
 }
-
+*/
 /////////////////////////////////////////////////////////////////
 /// Constructor from a geographic position (latitude, longitude, altitude)
 /// Note that altitude defaults to sea-level

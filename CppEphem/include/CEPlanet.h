@@ -29,6 +29,8 @@ public:
     double Radius_m() {return radius_m_ ;}
     /// @return Mass in kilograms.
     double Mass_kg() {return mass_kg_ ;}
+    /// @return Albedo.
+    double Albedo() {return albedo_ ;}
     
     /****************************
      * Atribute setters
@@ -37,6 +39,8 @@ public:
     void SetRadius_m(double new_radius) {radius_m_ = new_radius ;}
     /// @param[in] new_mass New mass (kilograms)
     void SetMass_kg(double new_mass) {mass_kg_ = new_mass ;}
+    /// @param[in] new_albedo New Albedo
+    void SetAlbedo(double new_albedo) {albedo_ = new_albedo ;}
     
     /****************************
      * Overloads to compute the planets position
@@ -56,6 +60,13 @@ public:
     virtual double YCoordinate_Deg(double new_date=-1.0e30)
         {return YCoordinate_Rad(new_date)*DR2D ;}
     virtual void UpdateCoordinates(double new_date=-1.0e30) ;
+    
+    /****************************
+     * Methods for getting the current x,y,z coordinates relative to the ICRS point
+     ****************************/
+    double GetXICRS() {return x_icrs_ ;}
+    double GetYICRS() {return y_icrs_ ;}
+    double GetZICRS() {return z_icrs_ ;}
     
     /****************************
      * Methods for computing apparent "phase"
@@ -86,29 +97,45 @@ public:
     virtual void SetAscendingNodeLongitude(double ascending_node_lon,
                                 double ascending_node_lon_per_cent=0.0,
                                 CEAngleType angle_type=CEAngleType::DEGREES) ;
-
+    // Set the extra terms for the outer planets
+    virtual void SetExtraTerms(double b, double c, double s, double f)
+        {
+            b_ = b ;
+            c_ = c ;
+            s_ = s ;
+            f_ = f ;
+        }
+    
     /// Set the tolerance for the eccentric anomoly recursive formula
-    ///     @param[in] tol          // Tolerance (degrees)
+    ///     @param[in] tol          Tolerance (degrees)
     virtual void SetTolerance(double tol = 1.0e-6) {E_tol = tol ;}
+    /// Set the reference object for computing more accurate RA,Dec values
+    ///     @param[in] reference    Reference object (i.e. planet where the observer is located
+    virtual void SetReference(CEPlanet* reference) {reference_ = reference ;}
     
     /****************************
      * Some generic planets in our solar system
      ****************************/
     static CEPlanet Mercury() ;
-    static CEPlanet* Venus() {return nullptr ;}
-    static CEPlanet* Earth() {return nullptr ;}
+    static CEPlanet Venus() ;
+    static CEPlanet EMBarycenter() ;
     static CEPlanet Mars() ;
-    static CEPlanet* Jupiter() {return nullptr ;}
-    static CEPlanet* Saturn() {return nullptr ;}
-    static CEPlanet* Uranus() {return nullptr ;}
-    static CEPlanet* Neptune() {return nullptr ;}
-    static CEPlanet* Pluto() {return nullptr ;}
+    static CEPlanet Jupiter() ;
+    static CEPlanet Saturn() ;
+    static CEPlanet Uranus() ;
+    static CEPlanet Neptune() ;
+    static CEPlanet Pluto() ;
     
 protected:
     
     // Basic properties
     double radius_m_ ;          ///< Radius (in meters)
     double mass_kg_ ;           ///< Mass (kilograms)
+    double albedo_ ;            ///< Albedo (0 -> 1)
+    
+    // The following is a reference point for the observer
+    // This will almost always be the Earth-Moon barycenter
+    CEPlanet* reference_ = nullptr ;
     
     // The coordinates representing the current position will need to be
     // relative to some date, since planets move. This is the cached date

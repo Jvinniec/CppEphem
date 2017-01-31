@@ -45,7 +45,10 @@ CEPlanet::CEPlanet(const std::string& name,
 /////////////////////////////////////////////////////
 /// Destructor
 CEPlanet::~CEPlanet()
-{}
+{
+    // Delete the reference object if we no longer need it
+    if (reference_ != nullptr) delete reference_ ;
+}
 
 # pragma mark - Specific Planetary objects
 
@@ -62,7 +65,47 @@ CEPlanet CEPlanet::Mercury()
     mercury.SetPerihelionLongitude(77.45771895, 0.15940013, CEAngleType::DEGREES) ;
     mercury.SetAscendingNodeLongitude(48.33961819, -0.12214182, CEAngleType::DEGREES) ;
     
+    // Set the reference object as the Earth-Moon barycenter
+    mercury.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
+    
     return mercury ;
+}
+
+/////////////////////////////////////////////////////
+/// Returns an object representing Venus.
+///     @return CEPlanet object representing Venus
+CEPlanet CEPlanet::Venus()
+{
+    CEPlanet venus("Venus", 0.0, 0.0) ;
+    venus.SetSemiMajorAxis_AU(0.72332102, -0.00000026) ;
+    venus.SetEccentricity(0.00676399, -0.00005107) ;
+    venus.SetInclination(3.39777545, 0.00043494, CEAngleType::DEGREES) ;
+    venus.SetMeanLongitude(181.97970850, 58517.81560260, CEAngleType::DEGREES) ;
+    venus.SetPerihelionLongitude(131.76755713, 0.05679648, CEAngleType::DEGREES) ;
+    venus.SetAscendingNodeLongitude(76.67261496, -0.27274174, CEAngleType::DEGREES) ;
+    
+    // Set the reference object as the Earth-Moon barycenter
+    venus.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
+    
+    return venus ;
+}
+
+/////////////////////////////////////////////////////
+/// Returns an object representing the Earth-Moon barycenter.
+///     @return CEPlanet object representing the Earth-Moon barycenter
+CEPlanet CEPlanet::EMBarycenter()
+{
+    CEPlanet em_barycenter("EMBaryCenter", 0.0, 0.0) ;
+    em_barycenter.SetSemiMajorAxis_AU(1.00000018, -0.00000003) ;
+    em_barycenter.SetEccentricity(0.01673163, -0.00003661) ;
+    em_barycenter.SetInclination(-0.00054346, -0.01337178, CEAngleType::DEGREES) ;
+    em_barycenter.SetMeanLongitude(100.46691572, 35999.37306329, CEAngleType::DEGREES) ;
+    em_barycenter.SetPerihelionLongitude(102.93005885, 0.31795260, CEAngleType::DEGREES) ;
+    em_barycenter.SetAscendingNodeLongitude(-5.11260389, -0.24123856, CEAngleType::DEGREES) ;
+
+    // Note that we dont need to set the reference object for this one
+    
+    return em_barycenter ;
 }
 
 /////////////////////////////////////////////////////
@@ -78,7 +121,115 @@ CEPlanet CEPlanet::Mars()
     mars.SetPerihelionLongitude(-23.91744784, 0.45223625, CEAngleType::DEGREES) ;
     mars.SetAscendingNodeLongitude(49.71320984, -0.26852431, CEAngleType::DEGREES) ;
     
+    // Set the reference object as the Earth-Moon barycenter
+    mars.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
+    
     return mars ;
+}
+
+/////////////////////////////////////////////////////
+/// Returns an object representing Jupiter.
+///     @return CEPlanet object representing Jupiter
+CEPlanet CEPlanet::Jupiter()
+{
+    CEPlanet jupiter("Jupiter", 0.0, 0.0) ;
+    jupiter.SetSemiMajorAxis_AU(5.20248019, -0.00002864) ;
+    jupiter.SetEccentricity(0.04853590, -0.00005107) ;
+    jupiter.SetInclination(1.29861416, -0.00322699, CEAngleType::DEGREES) ;
+    jupiter.SetMeanLongitude(34.33479152, 3034.90371757, CEAngleType::DEGREES) ;
+    jupiter.SetPerihelionLongitude(14.27495244, 0.18199196, CEAngleType::DEGREES) ;
+    jupiter.SetAscendingNodeLongitude(100.29282654, 0.13024619, CEAngleType::DEGREES) ;
+    
+    jupiter.SetExtraTerms(-0.00012452, 0.06064060, -0.35635438, 38.35125000) ;
+    
+    // Set the reference object as the Earth-Moon barycenter
+    jupiter.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
+    
+    return jupiter ;
+}
+
+/////////////////////////////////////////////////////
+/// Returns an object representing Saturn.
+///     @return CEPlanet object representing Saturn
+CEPlanet CEPlanet::Saturn()
+{
+    CEPlanet saturn("Saturn", 0.0, 0.0) ;
+    saturn.SetSemiMajorAxis_AU(9.54149883, -0.00003065) ;
+    saturn.SetEccentricity(0.05550825, -0.00032044) ;
+    saturn.SetInclination(2.49424102, 0.00451969, CEAngleType::DEGREES) ;
+    saturn.SetMeanLongitude(50.07571329, 1222.11494724, CEAngleType::DEGREES) ;
+    saturn.SetPerihelionLongitude(92.86136063, 0.54179478, CEAngleType::DEGREES) ;
+    saturn.SetAscendingNodeLongitude(113.63998702, -0.25015002, CEAngleType::DEGREES) ;
+    
+    saturn.SetExtraTerms(0.00025899, -0.13434469, 0.87320147, 38.35125000) ;
+    
+    // Set the reference object as the Earth-Moon barycenter
+    saturn.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
+    
+    return saturn ;
+}
+
+/////////////////////////////////////////////////////
+/// Returns an object representing Uranus.
+///     @return CEPlanet object representing Uranus
+CEPlanet CEPlanet::Uranus()
+{
+    CEPlanet uranus("Uranus", 0.0, 0.0) ;
+    uranus.SetSemiMajorAxis_AU(19.18797948, -0.00020455) ;
+    uranus.SetEccentricity(0.04685740, -0.00001550) ;
+    uranus.SetInclination(0.77298127, -0.00180155, CEAngleType::DEGREES) ;
+    uranus.SetMeanLongitude(314.20276625, 428.49512595, CEAngleType::DEGREES) ;
+    uranus.SetPerihelionLongitude(172.43404441, 0.09266985, CEAngleType::DEGREES) ;
+    uranus.SetAscendingNodeLongitude(73.96250215, 0.05739699, CEAngleType::DEGREES) ;
+    
+    uranus.SetExtraTerms(0.00058331, -0.97731848, 0.17689245, 7.67025000) ;
+    
+    // Set the reference object as the Earth-Moon barycenter
+    uranus.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
+    
+    return uranus ;
+}
+
+/////////////////////////////////////////////////////
+/// Returns an object representing Neptune.
+///     @return CEPlanet object representing Neptune
+CEPlanet CEPlanet::Neptune()
+{
+    CEPlanet neptune("Neptune", 0.0, 0.0) ;
+    neptune.SetSemiMajorAxis_AU(30.06952752, 0.00006447) ;
+    neptune.SetEccentricity(0.00895439, 0.00000818) ;
+    neptune.SetInclination(1.77005520, 0.00022400, CEAngleType::DEGREES) ;
+    neptune.SetMeanLongitude(304.22289287, 218.46515314, CEAngleType::DEGREES) ;
+    neptune.SetPerihelionLongitude(46.68158724, 0.01009938, CEAngleType::DEGREES) ;
+    neptune.SetAscendingNodeLongitude(131.78635853, -0.00606302, CEAngleType::DEGREES) ;
+    
+    neptune.SetExtraTerms(-0.00041348, 0.68346318, -0.10162547, 7.67025000) ;
+    
+    // Set the reference object as the Earth-Moon barycenter
+    neptune.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
+    
+    return neptune ;
+}
+
+/////////////////////////////////////////////////////
+/// Returns an object representing Pluto.
+///     @return CEPlanet object representing Pluto
+CEPlanet CEPlanet::Pluto()
+{
+    CEPlanet pluto("Pluto", 0.0, 0.0) ;
+    pluto.SetSemiMajorAxis_AU(39.48686035, 0.00449751) ;
+    pluto.SetEccentricity(0.24885238, 0.00006016) ;
+    pluto.SetInclination(17.14104260, 0.00000501, CEAngleType::DEGREES) ;
+    pluto.SetMeanLongitude(238.96535011, 145.18042903, CEAngleType::DEGREES) ;
+    pluto.SetPerihelionLongitude(224.09702598, -0.00968827, CEAngleType::DEGREES) ;
+    pluto.SetAscendingNodeLongitude(110.30167986, -0.00809981, CEAngleType::DEGREES) ;
+    
+    pluto.SetExtraTerms(-0.01262724, 0.0, 0.0, 0.0) ;
+    
+    // Set the reference object as the Earth-Moon barycenter
+    pluto.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
+    
+    return pluto ;
 }
 
 # pragma mark - Public Methods
@@ -195,7 +346,7 @@ void CEPlanet::UpdateCoordinates(double new_jd)
     /* Date has changed, so we need to recompute the coordinates of this object */
     
     // Compute the number of centuries since J2000 epoch
-    double T = (new_jd-CppEphem::julian_date_J2000()) / 36525.0 ;
+    double T = (new_jd-CppEphem::julian_date_J2000()) / 36525.6898326 ;
     
     // Compute the values
     double a = ComputeElement(semi_major_axis_au_, semi_major_axis_au_per_cent_, T) ;
@@ -232,9 +383,18 @@ void CEPlanet::UpdateCoordinates(double new_jd)
     y_icrs_ = y_ecl * std::cos(obl) - z_ecl * std::sin(obl) ;
     z_icrs_ = y_ecl * std::sin(obl) + z_ecl * std::cos(obl) ;
     
+    double x_eq(x_icrs_), y_eq(y_icrs_), z_eq(z_icrs_) ;
+    // If there is a reference object, then compute more accurate RA,DEC
+    if (reference_ != nullptr) {
+        reference_->UpdateCoordinates(new_jd) ;
+        x_eq = x_icrs_ - reference_->GetXICRS() ;
+        y_eq = y_icrs_ - reference_->GetYICRS() ;
+        z_eq = z_icrs_ - reference_->GetZICRS() ;
+    }
+    
     // Now compute the actual coordiantes in ICRS
-    xcoord_ = std::atan2(y_icrs_, x_icrs_) ;
-    ycoord_ = M_PI_2 - std::acos(z_icrs_ / std::sqrt(x_icrs_*x_icrs_ + y_icrs_*y_icrs_ + z_icrs_*z_icrs_)) ;
+    xcoord_ = std::atan2(y_eq, x_eq) ;
+    ycoord_ = M_PI_2 - std::acos(z_eq / std::sqrt(x_eq*x_eq + y_eq*y_eq + z_eq*z_eq)) ;
     
     // Make sure the x-coordinate is in the appropriate range
     while (xcoord_ > M_PI*2.0) xcoord_ -= M_PI*2.0 ;

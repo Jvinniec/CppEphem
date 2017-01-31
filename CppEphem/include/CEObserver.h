@@ -17,9 +17,9 @@ using namespace CppEphem ;
 
 class CEObserver {
 public:
-    CEObserver() ;
-    CEObserver(double longitude, double latitude, double elevation=0.0,
-               CEAngleType angle_type=CEAngleType::RADIANS,
+//    CEObserver() ;
+    CEObserver(double longitude=0.0, double latitude=51.4778, double elevation=0.0,
+               CEAngleType angle_type=CEAngleType::DEGREES,
                CEDate* date = nullptr) ;
     CEObserver(const CEObserver& other) ;
     virtual ~CEObserver() ;
@@ -53,6 +53,9 @@ public:
     
     /// Get the date information (see CEDate)
     CEDate* Date() {return current_date_ ;}
+    /// Set the UTC offset for the observers time
+    void SetUTCOffset(double utc_offset) {utc_offset_ = utc_offset ;}
+    double UTCOffset() {return utc_offset_ ;}
     
     /// Get the current time information (see CETime)
     std::vector<double> Time() {return CETime::TimeDbl2Vect( CETime::TimeSec2Time(CETime::UTC((*current_date_))) ) ;}
