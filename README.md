@@ -31,9 +31,10 @@ Here is a list of purposes I wish this code to serve:
   - __ICRS__ (Solarsystem barycentric RA, Dec)
   - __Galactic__ (Long, Lat)
   - __Observed__ (Azimuth, Zenith angle) (Note: Zenith angle = 90&deg; - Altitude)
-* Star & Planet ephemeris (currently not implemented, 3rd priority)
-  - Star & Planet positions for a given observer at a given time
-* Basic time conversion routines (currently not implemented, 2nd priority)
+* Star & Planet ephemeris
+  - Star positions for a given observer at a given time (not accounting for proper motion yet)
+  - Planet positions for a given observer at a given time (implemented, see tutorials ce101, ce104 and planetpositions.cpp)
+* Basic time conversion routines (currently not implemented, 2nd priority after ephemerides)
   - UTC
   - Local time
   - Greenwich apparent sidereal time
