@@ -70,6 +70,12 @@ $(function() {
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader"> </h2>
 <div class="textblock"><p>The <a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object. ">CEPlanet</a> class describes a planetary object. </p>
+<p>Static methods exist for obtaining specific planetary descriptions of the major solar system bodies: Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto. Accuracy in the positions of these objects should be assumed as:</p>
+<ul>
+<li>Inner planets (Mercury - Mars): &lt; 0.5 degrees</li>
+<li>Outer planets (Jupiter - Pluto): &lt; 1-2 degrees</li>
+</ul>
+<p>Note that these numbers have not been verified at the moment. Planet positions are computed using the JPL Keplerian formulas and their best fit orbital parameters. </p>
 
 <p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00015">15</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 </div><table class="memberdecls">
@@ -400,7 +406,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Default constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00019">19</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00029">29</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -460,7 +466,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00030">30</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00040">40</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -499,7 +505,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00040">40</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00050">50</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -528,7 +534,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Destructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00047">47</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00057">57</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -672,7 +678,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00415">415</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00425">425</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -702,7 +708,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing the Earth-Moon barycenter. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object. ">CEPlanet</a> object representing the Earth-Moon barycenter </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00096">96</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00106">106</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -813,7 +819,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Jupiter. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object. ">CEPlanet</a> object representing Jupiter </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00133">133</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00143">143</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -843,7 +849,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Mars. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object. ">CEPlanet</a> object representing Mars </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00114">114</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00124">124</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -945,7 +951,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Mercury. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object. ">CEPlanet</a> object representing Mercury </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00058">58</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00068">68</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -975,7 +981,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Neptune. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object. ">CEPlanet</a> object representing Neptune </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00196">196</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00206">206</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1005,7 +1011,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Pluto. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object. ">CEPlanet</a> object representing Pluto </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00217">217</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00227">227</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1063,7 +1069,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Saturn. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object. ">CEPlanet</a> object representing Saturn </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00154">154</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00164">164</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1151,7 +1157,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00323">323</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00333">333</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1198,7 +1204,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00257">257</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00267">267</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1302,7 +1308,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00269">269</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00279">279</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1390,7 +1396,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00287">287</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00297">297</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1444,7 +1450,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00305">305</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00315">315</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1561,7 +1567,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00241">241</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00251">251</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1633,7 +1639,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00341">341</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00351">351</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1663,7 +1669,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Uranus. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object. ">CEPlanet</a> object representing Uranus </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00175">175</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00185">185</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1693,7 +1699,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Venus. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object. ">CEPlanet</a> object representing Venus </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00077">77</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00087">87</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -2479,7 +2485,7 @@ Collaboration diagram for CEPlanet:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 31 2017 12:32:36 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 31 2017 12:56:14 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

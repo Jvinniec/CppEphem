@@ -7,7 +7,5 @@ var searchData=
   ['_7eceobserver',['~CEObserver',['../classCEObserver.html#a3c8b8910cafadf1f57be6dc0e7878e80',1,'CEObserver']]],
   ['_7eceplanet',['~CEPlanet',['../classCEPlanet.html#a4a9243746c1623eeb7555f04b5554923',1,'CEPlanet']]],
   ['_7ecerunningdate',['~CERunningDate',['../classCERunningDate.html#a3d89ca1ef5627ad0af347ce5fc2df3f8',1,'CERunningDate']]],
-  ['_7ecetime',['~CETime',['../classCETime.html#ad295fb04601db862c2c0f733ce0d4a46',1,'CETime']]],
-  ['_7ecloptions',['~CLOptions',['../classCLOptions.html#a3eff183d2f5a99832c71bef6632fed3f',1,'CLOptions']]],
-  ['_7eclparam',['~CLParam',['../classCLParam.html#a281d11a1c82c521026d66ffb3ee7f997',1,'CLParam']]]
+  ['_7ecetime',['~CETime',['../classCETime.html#ad295fb04601db862c2c0f733ce0d4a46',1,'CETime']]]
 ];

@@ -1,6 +1,9 @@
 var searchData=
 [
-  ['icrs2cirs',['ICRS2CIRS',['../classCECoordinates.html#a696c97fd9243fa7f6a18f746983d7bc4',1,'CECoordinates']]],
-  ['icrs2galactic',['ICRS2Galactic',['../classCECoordinates.html#afaea845380366fb186f744457e42cd50',1,'CECoordinates']]],
-  ['icrs2observed',['ICRS2Observed',['../classCECoordinates.html#af22f1d5b272d48bcdc548e3d0317fe1c',1,'CECoordinates::ICRS2Observed(double ra, double dec, double *az, double *zen, CEObserver &amp;observer, CEAngleType angle_type=CEAngleType::RADIANS, double wavelength_um=0.5, double *observed_ra=nullptr, double *observed_dec=nullptr, double *hour_angle=nullptr)'],['../classCECoordinates.html#a4ca699bc58f9d7c371331cbcd1a60d5d',1,'CECoordinates::ICRS2Observed(double ra, double dec, double *az, double *zen, double julian_date, double longitude, double latitude, double elevation_m=0.0, double pressure_hPa=-1.0, double temperature_celsius=-1000, double relative_humidity=0.0, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength_um=0.5, double *observed_ra=nullptr, double *observed_dec=nullptr, double *hour_angle=nullptr)']]]
+  ['jd',['JD',['../classCEDate.html#a4e7e2791770ca2f077d1e5f8dd8055dd',1,'CEDate::JD()'],['../classCERunningDate.html#aea44104b940649f193cc0e25b95bda76',1,'CERunningDate::JD()']]],
+  ['jd2gregorian',['JD2Gregorian',['../classCEDate.html#af699560be178f1ffbf9f9aae444085ad',1,'CEDate']]],
+  ['jd2gregorianvect',['JD2GregorianVect',['../classCEDate.html#a4dbfe2ea3d5083c90602baa2b3003587',1,'CEDate']]],
+  ['jd2mjd',['JD2MJD',['../classCEDate.html#a2f8aa5a0023c485407ce172c167d970d',1,'CEDate']]],
+  ['julian_5fdate_5fj2000',['julian_date_J2000',['../namespaceCppEphem.html#a0af24bad9d60de8e1748fb1479d3423b',1,'CppEphem']]],
+  ['jupiter',['Jupiter',['../classCEPlanet.html#a2b0d49aa45238b2b826f2bce561598c5',1,'CEPlanet']]]
 ];

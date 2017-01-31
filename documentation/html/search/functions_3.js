@@ -6,8 +6,6 @@ var searchData=
   ['dayfraction',['DayFraction',['../classCEDate.html#a9a45637e40306b7fcb5303df2265ec07',1,'CEDate']]],
   ['defaultoptions',['defaultoptions',['../cirs2gal_8cpp.html#a57a7cddc6a5b426cfc1db0ac851e3401',1,'defaultoptions():&#160;cirs2gal.cpp'],['../cirs2obs_8cpp.html#a57a7cddc6a5b426cfc1db0ac851e3401',1,'defaultoptions():&#160;cirs2obs.cpp'],['../gal2cirs_8cpp.html#a57a7cddc6a5b426cfc1db0ac851e3401',1,'defaultoptions():&#160;gal2cirs.cpp'],['../gal2obs_8cpp.html#a57a7cddc6a5b426cfc1db0ac851e3401',1,'defaultoptions():&#160;gal2obs.cpp'],['../obs2cirs_8cpp.html#a57a7cddc6a5b426cfc1db0ac851e3401',1,'defaultoptions():&#160;obs2cirs.cpp']]],
   ['defineoptions',['DefineOptions',['../planetpositions_8cpp.html#a7fc737e5d530229ec8339f12480a3b73',1,'planetpositions.cpp']]],
-  ['defineoptsingle',['DefineOptSingle',['../classCLOptions.html#aae91e6507bd096da401bdda1ab72ce59',1,'CLOptions']]],
-  ['defineparams',['DefineParams',['../classCLOptions.html#a8d50c026d9bfed5b990880f4a01ab6c9',1,'CLOptions']]],
   ['description',['Description',['../planetpositions_8cpp.html#a10e37c3272453c092fa87a6837256fae',1,'planetpositions.cpp']]],
   ['dut1',['dut1',['../classCEDate.html#a48ed1e949856bdc1f735d5682ad90b13',1,'CEDate::dut1(double date, CEDateType date_type=CEDateType::JD)'],['../classCEDate.html#aa59d415dc6ea36d3fe1b09c291c7ca5c',1,'CEDate::dut1()'],['../namespaceCppEphem.html#a8bc5aca7b3ba370cdbe24adc1686eb0d',1,'CppEphem::dut1()']]],
   ['dut1_5flist',['dut1_list',['../namespaceCppEphem.html#a641564d23a782ad22c984bfad650a001',1,'CppEphem']]],

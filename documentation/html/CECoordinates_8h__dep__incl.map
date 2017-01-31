@@ -18,7 +18,7 @@
 <area shape="rect" id="node16" href="$mjd2cal_8cpp.html" title="CppEphem/src/mjd2cal.cpp" alt="" coords="1657,379,1842,405"/>
 <area shape="rect" id="node17" href="$mjd2jd_8cpp.html" title="CppEphem/src/mjd2jd.cpp" alt="" coords="1867,379,2045,405"/>
 <area shape="rect" id="node18" href="$obs2cirs_8cpp.html" title="CppEphem/src/obs2cirs.cpp" alt="" coords="2069,379,2259,405"/>
-<area shape="rect" id="node19" href="$planetpositions_8cpp.html" title="CppEphem/src/planetpositions.cpp" alt="" coords="2283,379,2511,405"/>
+<area shape="rect" id="node19" href="$planetpositions_8cpp.html" title="This script allows viewing the current coordinates of a given solar system planet for dates within 30..." alt="" coords="2283,379,2511,405"/>
 <area shape="rect" id="node21" href="$CEObserver_8cpp.html" title="CppEphem/src/CEObserver.cpp" alt="" coords="853,229,1065,256"/>
 <area shape="rect" id="node23" href="$CEPlanet_8cpp.html" title="CppEphem/src/CEPlanet.cpp" alt="" coords="1343,229,1539,256"/>
 </map>

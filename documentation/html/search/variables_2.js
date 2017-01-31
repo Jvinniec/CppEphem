@@ -9,8 +9,6 @@ var searchData=
   ['cached_5fhour_5fangle_5f',['cached_hour_angle_',['../classCEObservation.html#a678999f49eb6008d057ee5431f79a095',1,'CEObservation']]],
   ['cached_5fjd_5f',['cached_jd_',['../classCEPlanet.html#acca3a0a76f3d0a28ec5d3ca96e623328',1,'CEPlanet']]],
   ['cached_5fzenith_5f',['cached_zenith_',['../classCEObservation.html#a50f03d2ec6951505832d6f906c579b49',1,'CEObservation']]],
-  ['configfile_5fcomment',['configfile_comment',['../classCLOptions.html#ad1e95404f84abda985a14d740998e988',1,'CLOptions']]],
-  ['configfile_5fopt_5fname',['configfile_opt_name',['../classCLOptions.html#af0a6d7adb7d92adf7a94e57377626e29',1,'CLOptions']]],
   ['coord_5ftype_5f',['coord_type_',['../classCECoordinates.html#ae2ae938af879ec0aa1fb0e92537bbeed',1,'CECoordinates']]],
   ['current_5fdate_5f',['current_date_',['../classCEObserver.html#a146ac24022ac7f23e85b19f52235b228',1,'CEObserver']]]
 ];

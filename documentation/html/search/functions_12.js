@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['venus',['Venus',['../classCEPlanet.html#af7e758086d83033df36b91a2fec124d3',1,'CEPlanet']]]
+  ['wavelength_5fum',['Wavelength_um',['../classCEObserver.html#a459af0ab6a427ea996a432c6a5cc0f32',1,'CEObserver']]]
 ];

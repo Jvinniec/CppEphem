@@ -1,8 +1,11 @@
 var searchData=
 [
-  ['ycoordinate_5fdeg',['YCoordinate_Deg',['../classCECoordinates.html#aa13eaf103b4f9e41034a2c9a2c046963',1,'CECoordinates::YCoordinate_Deg()'],['../classCEPlanet.html#a12f0e7bbf745980bd81f79b3bbd9b15c',1,'CEPlanet::YCoordinate_Deg()']]],
-  ['ycoordinate_5frad',['YCoordinate_Rad',['../classCECoordinates.html#a7e68331e6eac674e2ea0ba4611934510',1,'CECoordinates::YCoordinate_Rad()'],['../classCEPlanet.html#ae199484c8186342958da19ca6a4fa35a',1,'CEPlanet::YCoordinate_Rad()']]],
-  ['year',['Year',['../classCEDate.html#a789944f6b9ac629f98feb4d936f1b7ca',1,'CEDate']]],
-  ['yp',['yp',['../namespaceCppEphem.html#afab8796cf4e2c582c6a1e1ede35c55a4',1,'CppEphem']]],
-  ['ypolar',['ypolar',['../classCEDate.html#a013d72a2273b76be18978a79c4d96166',1,'CEDate::ypolar(double date, CEDateType date_type=CEDateType::JD)'],['../classCEDate.html#adef63e77a091d4bfdddff56b7aa06411',1,'CEDate::ypolar()']]]
+  ['_7ecebody',['~CEBody',['../classCEBody.html#a48c972239b6ff122712a5771e6f6b7c1',1,'CEBody']]],
+  ['_7ececoordinates',['~CECoordinates',['../classCECoordinates.html#adfae4c048a969705b39c2890578862b7',1,'CECoordinates']]],
+  ['_7ecedate',['~CEDate',['../classCEDate.html#a380991e2f2eaa8cbbb85d0da466e7c7b',1,'CEDate']]],
+  ['_7eceobservation',['~CEObservation',['../classCEObservation.html#a97ede01128d819c7f0c6062c39dd53a7',1,'CEObservation']]],
+  ['_7eceobserver',['~CEObserver',['../classCEObserver.html#a3c8b8910cafadf1f57be6dc0e7878e80',1,'CEObserver']]],
+  ['_7eceplanet',['~CEPlanet',['../classCEPlanet.html#a4a9243746c1623eeb7555f04b5554923',1,'CEPlanet']]],
+  ['_7ecerunningdate',['~CERunningDate',['../classCERunningDate.html#a3d89ca1ef5627ad0af347ce5fc2df3f8',1,'CERunningDate']]],
+  ['_7ecetime',['~CETime',['../classCETime.html#ad295fb04601db862c2c0f733ce0d4a46',1,'CETime']]]
 ];

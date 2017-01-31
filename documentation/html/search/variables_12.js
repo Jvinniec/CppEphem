@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['value',['value',['../classCLParam.html#adc4b4ac4db89e6e64f36d623ba9dee6c',1,'CLParam']]],
-  ['version_5fopt',['version_opt',['../classCLOptions.html#ad243aa57bc947fedbe5558e0a110f1e6',1,'CLOptions']]]
+  ['wavelength_5fum_5f',['wavelength_um_',['../classCEObserver.html#af4ef92ea341136f8e2f54a7e73d7c625',1,'CEObserver']]]
 ];
