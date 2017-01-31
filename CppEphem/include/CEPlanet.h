@@ -36,7 +36,7 @@ public:
      * Atribute setters
      ****************************/
     /// @param[in] new_radius New radius (meters)
-    void SetRadius_m(double new_radius) {radius_m_ = new_radius ;}
+    void SetMeanRadius_m(double new_radius) {radius_m_ = new_radius ;}
     /// @param[in] new_mass New mass (kilograms)
     void SetMass_kg(double new_mass) {mass_kg_ = new_mass ;}
     /// @param[in] new_albedo New Albedo
@@ -64,9 +64,9 @@ public:
     /****************************
      * Methods for getting the current x,y,z coordinates relative to the ICRS point
      ****************************/
-    double GetXICRS() {return x_icrs_ ;}
-    double GetYICRS() {return y_icrs_ ;}
-    double GetZICRS() {return z_icrs_ ;}
+    double GetXICRS() {return x_icrs_ ;}    ///< X distance from solar system barycenter (AU)
+    double GetYICRS() {return y_icrs_ ;}    ///< Y distance from solar system barycenter (AU)
+    double GetZICRS() {return z_icrs_ ;}    ///< Z distance from solar system barycenter (AU)
     
     /****************************
      * Methods for computing apparent "phase"

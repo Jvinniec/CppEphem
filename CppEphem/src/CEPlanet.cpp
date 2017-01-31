@@ -18,6 +18,15 @@
  Note that these numbers have not been verified at the moment.
  Planet positions are computed using the JPL Keplerian formulas and
  their best fit orbital parameters.
+ 
+ The positions are computed first for the planet in order to obtain its
+ ICRS reference frame x,y,z coordinates. Then, the ICRS x,y,z coordinates
+ of the Earth-Moon barycenter are computed. The planets x,y,z coordinates
+ are then projected relative to the E-M barycenter coordinates to obtain
+ the apparent RA,Dec coordinates from the Earth.
+ 
+ Future improvements will include correcting the coordinates for a given
+ observer's location on the Earth relative to the E-M barycenter.
  */
 
 #include <stdio.h>
@@ -78,6 +87,11 @@ CEPlanet CEPlanet::Mercury()
     // Set the reference object as the Earth-Moon barycenter
     mercury.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
     
+    // Set planet characteristics
+    mercury.SetMeanRadius_m(2440000.0) ;
+    mercury.SetAlbedo(0.106) ;
+    mercury.SetMass_kg(3.302E23) ;
+    
     return mercury ;
 }
 
@@ -96,6 +110,10 @@ CEPlanet CEPlanet::Venus()
     
     // Set the reference object as the Earth-Moon barycenter
     venus.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
+    
+    venus.SetMeanRadius_m(6051800.0) ;
+    venus.SetAlbedo(0.65) ;
+    venus.SetMass_kg(48.685E23) ;
     
     return venus ;
 }
@@ -134,6 +152,10 @@ CEPlanet CEPlanet::Mars()
     // Set the reference object as the Earth-Moon barycenter
     mars.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
     
+    mars.SetMeanRadius_m(3389900.0) ;
+    mars.SetAlbedo(0.150) ;
+    mars.SetMass_kg(6.4185E23) ;
+    
     return mars ;
 }
 
@@ -154,6 +176,10 @@ CEPlanet CEPlanet::Jupiter()
     
     // Set the reference object as the Earth-Moon barycenter
     jupiter.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
+    
+    jupiter.SetMeanRadius_m(69911000.0) ;
+    jupiter.SetAlbedo(0.52) ;
+    jupiter.SetMass_kg(1.89813E27) ;
     
     return jupiter ;
 }
@@ -176,6 +202,10 @@ CEPlanet CEPlanet::Saturn()
     // Set the reference object as the Earth-Moon barycenter
     saturn.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
     
+    saturn.SetMeanRadius_m(58232000.0) ;
+    saturn.SetAlbedo(0.47) ;
+    saturn.SetMass_kg(5.68319E26) ;
+    
     return saturn ;
 }
 
@@ -196,6 +226,10 @@ CEPlanet CEPlanet::Uranus()
     
     // Set the reference object as the Earth-Moon barycenter
     uranus.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
+    
+    uranus.SetMeanRadius_m(25362000.0) ;
+    uranus.SetAlbedo(0.51) ;
+    uranus.SetMass_kg(8.68103E25) ;
     
     return uranus ;
 }
@@ -218,6 +252,10 @@ CEPlanet CEPlanet::Neptune()
     // Set the reference object as the Earth-Moon barycenter
     neptune.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
     
+    neptune.SetMeanRadius_m(24624000.0) ;
+    neptune.SetAlbedo(0.41) ;
+    neptune.SetMass_kg(1.0241E26) ;
+    
     return neptune ;
 }
 
@@ -238,6 +276,10 @@ CEPlanet CEPlanet::Pluto()
     
     // Set the reference object as the Earth-Moon barycenter
     pluto.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
+    
+    pluto.SetMeanRadius_m(1195000.0) ;
+    pluto.SetAlbedo(0.3) ;
+    pluto.SetMass_kg(1.307E22) ;
     
     return pluto ;
 }
