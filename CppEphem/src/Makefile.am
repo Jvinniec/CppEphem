@@ -31,7 +31,7 @@ libcppephem_la_CPPFLAGS = $(CppEphem_CPPFLAGS)
 libcppephem_la_LIBADD=$(LIBS)
 libcppephem_ladir=$(libdir)
 
-bin_PROGRAMS = cal2jd cal2mjd jd2cal jd2mjd mjd2jd mjd2cal cirs2obs cirs2gal gal2cirs gal2obs
+bin_PROGRAMS = cal2jd cal2mjd jd2cal jd2mjd mjd2jd mjd2cal cirs2obs cirs2gal gal2cirs gal2obs planetephem
 
 ##########################################
 # DATE CONVERSION EXECUTABLES
@@ -105,5 +105,8 @@ gal2obs_CPPFLAGS = $(CppEphem_CPPFLAGS)
 # PLANET EPHEMERIS EXECUTABLES
 ##########################################
 
+planetephem_SOURCES = planetephem.cpp
+planetephem_LDADD = libcppephem.la
+planetephem_CPPFLAGS = $(CppEphem_CPPFLAGS)
 
 CLEANFILES=

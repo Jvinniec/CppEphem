@@ -12,14 +12,19 @@
 #include <cmath>
 #include "CEBody.h"
 
+/////////////////////////////////////////////
+/// Date enum
+enum CEPlanetAlgo {SOFA,              ///< Use methods included in sofa software
+                   JPL                ///< Use Keplerian algorithm outlined by JPL
+                   } ;
+
+
 class CEPlanet : public CEBody {
 public:
     CEPlanet() ;
     CEPlanet(const std::string& name, double xcoord, double ycoord,
-             CECoordinateType coord_type = CECoordinateType::ICRS,
+             CECoordinateType coord_type = CECoordinateType::CIRS,
              CEAngleType angle_type = CEAngleType::RADIANS) ;
-    CEPlanet(const std::string& name,
-             CECoordinates coordinates) ;
     virtual ~CEPlanet() ;
     
     /****************************
@@ -36,7 +41,7 @@ public:
      * Atribute setters
      ****************************/
     /// @param[in] new_radius New radius (meters)
-    void SetRadius_m(double new_radius) {radius_m_ = new_radius ;}
+    void SetMeanRadius_m(double new_radius) {radius_m_ = new_radius ;}
     /// @param[in] new_mass New mass (kilograms)
     void SetMass_kg(double new_mass) {mass_kg_ = new_mass ;}
     /// @param[in] new_albedo New Albedo
@@ -59,14 +64,21 @@ public:
         }
     virtual double YCoordinate_Deg(double new_date=-1.0e30)
         {return YCoordinate_Rad(new_date)*DR2D ;}
+    
+    // Methods for updating the coordinates
     virtual void UpdateCoordinates(double new_date=-1.0e30) ;
+    virtual void Update_JPL(double new_date=-1.0e30) ;
+    virtual void Update_SOFA(double new_date=-1.0e30) ;
     
     /****************************
-     * Methods for getting the current x,y,z coordinates relative to the ICRS point
+     * Methods for getting the current x,y,z coordinates and velocities relative to the ICRS point
      ****************************/
-    double GetXICRS() {return x_icrs_ ;}
-    double GetYICRS() {return y_icrs_ ;}
-    double GetZICRS() {return z_icrs_ ;}
+    double GetXICRS() {return x_icrs_ ;}    ///< X distance from solar system barycenter (AU)
+    double GetYICRS() {return y_icrs_ ;}    ///< Y distance from solar system barycenter (AU)
+    double GetZICRS() {return z_icrs_ ;}    ///< Z distance from solar system barycenter (AU)
+    double GetVxICRS() {return vx_icrs_ ;}  ///< X velocity relative to solar system center (AU/day)
+    double GetVyICRS() {return vy_icrs_ ;}  ///< Y velocity relative to solar system center (AU/day)
+    double GetVzICRS() {return vz_icrs_ ;}  ///< Z velocity relative to solar system center (AU/day)
     
     /****************************
      * Methods for computing apparent "phase"
@@ -111,13 +123,24 @@ public:
     virtual void SetTolerance(double tol = 1.0e-6) {E_tol = tol ;}
     /// Set the reference object for computing more accurate RA,Dec values
     ///     @param[in] reference    Reference object (i.e. planet where the observer is located
-    virtual void SetReference(CEPlanet* reference) {reference_ = reference ;}
+    virtual void SetReference(CEPlanet* reference)
+        {
+            if (reference_ != nullptr) {
+                // redirect and delete
+                CEPlanet* tmp = reference_ ;
+                reference_ = nullptr ;
+                delete tmp ;
+            }
+            
+            reference_ = reference ;
+        }
     
     /****************************
      * Some generic planets in our solar system
      ****************************/
     static CEPlanet Mercury() ;
     static CEPlanet Venus() ;
+    static CEPlanet Earth() ;
     static CEPlanet EMBarycenter() ;
     static CEPlanet Mars() ;
     static CEPlanet Jupiter() ;
@@ -125,6 +148,22 @@ public:
     static CEPlanet Uranus() ;
     static CEPlanet Neptune() ;
     static CEPlanet Pluto() ;
+    
+    // Set the algorithm
+    void SetAlgorithm(CEPlanetAlgo new_algo)
+        {
+            algorithm_type_ = new_algo;
+            if (reference_ != nullptr) reference_->SetAlgorithm(new_algo) ;
+        }
+    // Set the sofa planet id (note, only values from 1-8 are acceptable)
+    void SetSofaID(double new_id)
+        {
+            // If the id is outside the acceptable range, then set the algorithm to jpl
+            if ((new_id < 1.0)||(new_id > 8.0)) {
+                SetAlgorithm(CEPlanetAlgo::JPL) ;
+            }
+            sofa_planet_id_ = new_id;
+        }
     
 protected:
     
@@ -137,14 +176,27 @@ protected:
     // This will almost always be the Earth-Moon barycenter
     CEPlanet* reference_ = nullptr ;
     
+    // Define the algorithm used to compute the planets position
+    CEPlanetAlgo algorithm_type_ = CEPlanetAlgo::SOFA ;
+    /// Sofa planet id (note: 3.5 implies the earth-center which uses a different method
+    /// than the other planets)
+    double sofa_planet_id_ = 0 ;
+    
     // The coordinates representing the current position will need to be
     // relative to some date, since planets move. This is the cached date
     double cached_jd_ = 0.0 ;                   ///< Julian date of the current coordinates
     double x_icrs_ = 0.0 ;                      ///< X-Coordinate relative to solar system barycenter
     double y_icrs_ = 0.0 ;                      ///< Y-Coordinate relative to solar system barycenter
     double z_icrs_ = 0.0 ;                      ///< Z-Coordinate relative to solar system barycenter
+    // Note, these velocities are only computed for "algorithm_type_=SOFA" at the moment
+    double vx_icrs_ = 0.0 ;                     ///< X-velocity relative to solar system center
+    double vy_icrs_ = 0.0 ;                     ///< Y-velocity relative to solar system center
+    double vz_icrs_ = 0.0 ;                     ///< Z-velocity relative to solar system center
     
-    // Orbital properties
+    /******************************************
+     * Properties for the JPL algorithm
+     ******************************************/
+    // Orbital properties (element 2 is the derivative)
     double semi_major_axis_au_ = 0.0 ;          ///< a - Semi major axis in Astronomical Units (AU)
     double eccentricity_ = 0.0 ;                ///< e - Eccentricity
     double inclination_deg_ = 0.0 ;             ///< I - inclination in radians
@@ -167,9 +219,11 @@ protected:
     double b_ = 0.0 ;
     double c_ = 0.0 ;
     double s_ = 0.0 ;
-    double f_ = 0.0 ;   // TODO: Check whether f_ needs to be converted to radians
+    double f_ = 0.0 ;
     
-    // Methods for value computation
+    /******************************************
+     * Methods for the JPL algorithm
+     ******************************************/
 
     /// Compute current value of a given element
     ///     @param[in] value                    Once of the orbital property values
@@ -179,15 +233,7 @@ protected:
         {return value + value_derivative_*time;}
     double MeanAnomaly(double mean_longitude_deg,
                        double perihelion_long_deg,
-                       double T=0.0)
-        {
-            double M = mean_longitude_deg - perihelion_long_deg + (b_*T*T)
-                        + c_*std::cos(f_*T*DD2R) + s_*std::sin(f_*T*DD2R) ;
-            while (M>180.0) M-=360.0 ;
-            while (M<-180.0) M+=360.0 ;
-            
-            return M ;
-        }
+                       double T=0.0) ;
     
     // Recursive formula necessary for the computation of eccentric anomoly
     double EccentricAnomoly(double& M, double& e, double &En, double& del_E) ;

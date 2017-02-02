@@ -294,6 +294,34 @@ double CEDate::GregorianVect2MJD(std::vector<double> gregorian)
     return JD2MJD(jd) ;
 }
 
+/////////////////////////////////////////////////////////////////
+/// Convert the UTC JD to UT1 JD
+double CEDate::UTC2UT1(double jd_utc, double dut1)
+{
+    double ut11, ut12 ;
+    iauUtcut1(jd_utc, 0.0, dut1, &ut11, &ut12) ;
+    return ut11+ut12 ;
+}
+
+/////////////////////////////////////////////////////////////////
+/// Convert the UTC JD to TT JD
+double CEDate::UTC2TT(double jd_utc, double dut1)
+{
+    double ut1( UTC2UT1(jd_utc, dut1) ) ;
+    double tt1, tt2 ;
+    iauUt1tt(ut1, 0.0, 0.0, &tt1, &tt2) ;
+    return tt1+tt2 ;
+}
+
+/////////////////////////////////////////////////////////////////
+/// Convert the UTC JD to TDB JD (useful for planet computations)
+double CEDate::UTC2TDB(double jd_utc, double dut1)
+{
+    double tt( UTC2TT(jd_utc, dut1) );
+    double tdb1, tdb2;
+    iauTttdb(tt, 0.0, 0.0, &tdb1, &tdb2) ;
+    return tdb1+tdb2 ;
+}
 
 #pragma mark - Helper Methods
 

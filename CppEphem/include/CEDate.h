@@ -22,7 +22,6 @@
 
 /////////////////////////////////////////////
 /// Date enum
-
 enum CEDateType {JD,              ///< Julian Date
                  MJD,             ///< Modified Julian Date
                  GREGORIAN        ///< Gregorian calendar (year, month, day)
@@ -83,6 +82,14 @@ public:
     static double GregorianVect2JD(std::vector<double> gregorian) ;
     static double Gregorian2MJD(double gregorian) ;
     static double GregorianVect2MJD(std::vector<double> gregorian) ;
+    
+    // Convert the UTC JD to UT1 JD
+    static double UTC2UT1(double jd_utc, double dut1=0.0) ;
+    // Convert the UTC JD to TT JD
+    static double UTC2TT(double jd_utc, double dut1=0.0) ;
+    // Convert the UTC JD to TDB JD (useful for planet computations)
+    static double UTC2TDB(double jd_utc, double dut1=0.0) ;
+    
     
     /***********************************************************
      * Some useful helper methods

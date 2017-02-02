@@ -10,6 +10,23 @@
  The CEPlanet class describes a planetary object. Static methods exist
  for obtaining specific planetary descriptions of the major solar system
  bodies: Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto.
+ 
+ Two algorithms exist for computing the apparent RA,Dec and observed 
+ positions of these bodies: SOFA and JPL
+ 
+ <h2>SOFA (default for Mercury - Neptune)</h2>
+ Accuracy in the positions derived from the SOFA algorithms should be 
+ assumed as:
+ 
+ - Inner planets (Mercury - Mars): < few arcsecs
+ - Outer planets (Jupiter - Neptune): < few arcmins
+ 
+ Because of the obviously better accuracy in these parameters as compared
+ to the JPL algorithm, the SOFA methods are the default. However, it should
+ be noted that there is no algorithm for Pluto in the SOFA method, so for
+ Pluto the JPL algorithm should is used instead.
+ 
+ <h2>JPL (default for pluto)</h2>
  Accuracy in the positions of these objects should be assumed as:
 
  - Inner planets (Mercury - Mars): < 0.5 degrees
@@ -17,7 +34,23 @@
  
  Note that these numbers have not been verified at the moment.
  Planet positions are computed using the JPL Keplerian formulas and
- their best fit orbital parameters.
+ their best fit orbital parameters. These are self-implemented algorithms
+ so any inaccuracy is on the fault of the programmer (JCardenzana) not JPL.
+ 
+ Additionally, Pluto only has coordinate computation algorithms for
+ implemented for the JPL algorithm, so this algorithm will always be used
+ for computing the positions of Pluto.
+ 
+ <h2>Converting To Observed Coordinates</h2>
+ The positions are computed first for the planet in order to obtain its
+ heliocentric (ICRS in JPL algorithm) reference frame x,y,z coordinates. 
+ Then, the x,y,z coordinates of the Earth (Earth-Moon barycenter in JPL)
+ are computed. The planets x,y,z coordinates are then projected relative to 
+ the Earth centric (E-M barycenter in JPL algorithm) coordinates to obtain 
+ the apparent RA,Dec coordinates from the Earth.
+ 
+ Future improvements will include correcting the coordinates for a given
+ observer's location on the Earth relative to the E-M barycenter.
  */
 
 #include <stdio.h>
@@ -43,6 +76,7 @@ CEPlanet::CEPlanet(const std::string& name, double xcoord, double ycoord,
     CEBody(name, xcoord, ycoord, coord_type, angle_type)
 {}
 
+/*
 /////////////////////////////////////////////////////
 /// Primary constructor
 ///     @param[in] name             Some identifying name for this object
@@ -51,6 +85,7 @@ CEPlanet::CEPlanet(const std::string& name,
                    CECoordinates coordinates) :
     CEBody(coordinates, name)
 {}
+*/
 
 /////////////////////////////////////////////////////
 /// Destructor
@@ -76,7 +111,15 @@ CEPlanet CEPlanet::Mercury()
     mercury.SetAscendingNodeLongitude(48.33961819, -0.12214182, CEAngleType::DEGREES) ;
     
     // Set the reference object as the Earth-Moon barycenter
-    mercury.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
+    mercury.SetReference(new CEPlanet(CEPlanet::Earth())) ;
+    
+    // Set planet characteristics
+    mercury.SetMeanRadius_m(2440000.0) ;
+    mercury.SetAlbedo(0.106) ;
+    mercury.SetMass_kg(3.302E23) ;
+    
+    // Set the sofa planet ID
+    mercury.SetSofaID(1) ;
     
     return mercury ;
 }
@@ -95,9 +138,39 @@ CEPlanet CEPlanet::Venus()
     venus.SetAscendingNodeLongitude(76.67261496, -0.27274174, CEAngleType::DEGREES) ;
     
     // Set the reference object as the Earth-Moon barycenter
-    venus.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
+    venus.SetReference(new CEPlanet(CEPlanet::Earth())) ;
+    
+    venus.SetMeanRadius_m(6051800.0) ;
+    venus.SetAlbedo(0.65) ;
+    venus.SetMass_kg(48.685E23) ;
+    
+    // Set the sofa planet ID
+    venus.SetSofaID(2) ;
     
     return venus ;
+}
+
+/////////////////////////////////////////////////////
+/// Returns an object representing Venus.
+///     @return CEPlanet object representing Venus
+CEPlanet CEPlanet::Earth()
+{
+    CEPlanet earth("Earth", 0.0, 0.0) ;
+    earth.SetSemiMajorAxis_AU(1.00000018, -0.00000003) ;
+    earth.SetEccentricity(0.01673163, -0.00003661) ;
+    earth.SetInclination(-0.00054346, -0.01337178, CEAngleType::DEGREES) ;
+    earth.SetMeanLongitude(100.46691572, 35999.37306329, CEAngleType::DEGREES) ;
+    earth.SetPerihelionLongitude(102.93005885, 0.31795260, CEAngleType::DEGREES) ;
+    earth.SetAscendingNodeLongitude(-5.11260389, -0.24123856, CEAngleType::DEGREES) ;
+    
+    earth.SetMeanRadius_m(0.0) ;
+    earth.SetAlbedo(0.0) ;
+    earth.SetMass_kg(0.0) ;
+    
+    // Set the sofa planet ID
+    earth.SetSofaID(3.5) ;
+    
+    return earth ;
 }
 
 /////////////////////////////////////////////////////
@@ -113,7 +186,11 @@ CEPlanet CEPlanet::EMBarycenter()
     em_barycenter.SetPerihelionLongitude(102.93005885, 0.31795260, CEAngleType::DEGREES) ;
     em_barycenter.SetAscendingNodeLongitude(-5.11260389, -0.24123856, CEAngleType::DEGREES) ;
 
-    // Note that we dont need to set the reference object for this one
+    // Set the reference object as the Earth-Moon barycenter
+//    em_barycenter.SetReference(new CEPlanet(CEPlanet::Earth())) ;
+    
+    // Set the sofa planet ID
+    em_barycenter.SetSofaID(3) ;
     
     return em_barycenter ;
 }
@@ -132,7 +209,15 @@ CEPlanet CEPlanet::Mars()
     mars.SetAscendingNodeLongitude(49.71320984, -0.26852431, CEAngleType::DEGREES) ;
     
     // Set the reference object as the Earth-Moon barycenter
-    mars.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
+    mars.SetReference(new CEPlanet(CEPlanet::Earth())) ;
+    
+    mars.SetMeanRadius_m(3389900.0) ;
+    mars.SetAlbedo(0.150) ;
+    mars.SetMass_kg(6.4185E23) ;
+    
+    // Set the sofa planet ID
+    mars.SetSofaID(4) ;
+    
     
     return mars ;
 }
@@ -153,7 +238,15 @@ CEPlanet CEPlanet::Jupiter()
     jupiter.SetExtraTerms(-0.00012452, 0.06064060, -0.35635438, 38.35125000) ;
     
     // Set the reference object as the Earth-Moon barycenter
-    jupiter.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
+//    jupiter.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
+    jupiter.SetReference(new CEPlanet(CEPlanet::Earth())) ;
+    
+    jupiter.SetMeanRadius_m(69911000.0) ;
+    jupiter.SetAlbedo(0.52) ;
+    jupiter.SetMass_kg(1.89813E27) ;
+    
+    // Set the sofa planet ID
+    jupiter.SetSofaID(5) ;
     
     return jupiter ;
 }
@@ -174,7 +267,14 @@ CEPlanet CEPlanet::Saturn()
     saturn.SetExtraTerms(0.00025899, -0.13434469, 0.87320147, 38.35125000) ;
     
     // Set the reference object as the Earth-Moon barycenter
-    saturn.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
+    saturn.SetReference(new CEPlanet(CEPlanet::Earth())) ;
+    
+    saturn.SetMeanRadius_m(58232000.0) ;
+    saturn.SetAlbedo(0.47) ;
+    saturn.SetMass_kg(5.68319E26) ;
+    
+    // Set the sofa planet ID
+    saturn.SetSofaID(6) ;
     
     return saturn ;
 }
@@ -195,7 +295,14 @@ CEPlanet CEPlanet::Uranus()
     uranus.SetExtraTerms(0.00058331, -0.97731848, 0.17689245, 7.67025000) ;
     
     // Set the reference object as the Earth-Moon barycenter
-    uranus.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
+    uranus.SetReference(new CEPlanet(CEPlanet::Earth())) ;
+    
+    uranus.SetMeanRadius_m(25362000.0) ;
+    uranus.SetAlbedo(0.51) ;
+    uranus.SetMass_kg(8.68103E25) ;
+    
+    // Set the sofa planet ID
+    uranus.SetSofaID(7) ;
     
     return uranus ;
 }
@@ -216,13 +323,21 @@ CEPlanet CEPlanet::Neptune()
     neptune.SetExtraTerms(-0.00041348, 0.68346318, -0.10162547, 7.67025000) ;
     
     // Set the reference object as the Earth-Moon barycenter
-    neptune.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
+    neptune.SetReference(new CEPlanet(CEPlanet::Earth())) ;
+    
+    neptune.SetMeanRadius_m(24624000.0) ;
+    neptune.SetAlbedo(0.41) ;
+    neptune.SetMass_kg(1.0241E26) ;
+    
+    // Set the sofa planet ID
+    neptune.SetSofaID(8) ;
     
     return neptune ;
 }
 
 /////////////////////////////////////////////////////
-/// Returns an object representing Pluto.
+/// Returns an object representing Pluto. Note that Pluto's
+/// position cannot be computed via the SOFA algorithms
 ///     @return CEPlanet object representing Pluto
 CEPlanet CEPlanet::Pluto()
 {
@@ -238,6 +353,14 @@ CEPlanet CEPlanet::Pluto()
     
     // Set the reference object as the Earth-Moon barycenter
     pluto.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
+    
+    pluto.SetMeanRadius_m(1195000.0) ;
+    pluto.SetAlbedo(0.3) ;
+    pluto.SetMass_kg(1.307E22) ;
+    
+    // Set the sofa planet ID
+    // Note that Pluto's positions cannot be computed via the SOFA method
+    pluto.SetSofaID(9) ;
     
     return pluto ;
 }
@@ -351,8 +474,77 @@ void CEPlanet::SetAscendingNodeLongitude(double ascending_node_lon,
 void CEPlanet::UpdateCoordinates(double new_jd)
 {
     // If no date was supplied, or if the date hasnt changed, do nothing
-    if ((new_jd < -1.0e29) || (new_jd == cached_jd_)) return ;
+    if ((new_jd < -1.0e29) || (new_jd == cached_jd_)) {
+        return ;
+    } else if (algorithm_type_ == CEPlanetAlgo::JPL) {
+        Update_JPL(new_jd) ;
+    } else if (algorithm_type_ == CEPlanetAlgo::SOFA) {
+        Update_SOFA(new_jd) ;
+    }
     
+    double x_eq(x_icrs_), y_eq(y_icrs_), z_eq(z_icrs_) ;
+    // If there is a reference object, then compute more accurate RA,DEC
+    if (reference_ != nullptr) {
+        reference_->UpdateCoordinates(new_jd) ;
+        x_eq = x_icrs_ - reference_->GetXICRS() ;
+        y_eq = y_icrs_ - reference_->GetYICRS() ;
+        z_eq = z_icrs_ - reference_->GetZICRS() ;
+    }
+    
+    // Now compute the actual coordiantes in ICRS
+    xcoord_ = std::atan2(y_eq, x_eq) ;
+    ycoord_ = M_PI_2 - std::acos(z_eq / std::sqrt(x_eq*x_eq + y_eq*y_eq + z_eq*z_eq)) ;
+    
+    // Make sure the x-coordinate is in the appropriate range
+    while (xcoord_ > M_PI*2.0) xcoord_ -= M_PI*2.0 ;
+    while (xcoord_ < 0.0) xcoord_ += M_PI*2.0 ;
+    
+    // Now that the coordinates are updated, reset the time
+    cached_jd_ = new_jd ;
+}
+
+/////////////////////////////////////////////////////
+/// Recomputes the coordinates of the planet based on the date
+/// using the methods included in the sofa package (iauPlan94).
+/// Note that this method is currently more accurate than the
+/// JPL method implementated in this class.
+///     @param[in] new_jd       Julian date
+void CEPlanet::Update_SOFA(double new_jd)
+{
+    //std::vector<std::vector<double> > p(2,std::vector<double>(3)) ;
+    double pv[2][3] ;
+    int err (0) ;
+    if (sofa_planet_id_ == 3.5) {
+        double pvb[2][3] ;
+        err = iauEpv00(CppEphem::julian_date_J2000(),
+                        new_jd - CppEphem::julian_date_J2000(),
+                        pv, pvb) ;
+    } else {
+        err = iauPlan94(CppEphem::julian_date_J2000(),
+                        new_jd - CppEphem::julian_date_J2000(),
+                        sofa_planet_id_, pv) ;
+    }
+    
+    if (err == 0) {
+        x_icrs_ = pv[0][0] ;
+        y_icrs_ = pv[0][1] ;
+        z_icrs_ = pv[0][2] ;
+    
+        // Set the velocity coordinates
+        vx_icrs_ = pv[1][0] ;
+        vy_icrs_ = pv[1][1] ;
+        vz_icrs_ = pv[1][2] ;
+    } else {
+        std::cerr << "[ERROR] failed to compute planet positions for " << Name() << ". ErrCode=" << err << "\n" ;
+    }
+}
+
+/////////////////////////////////////////////////////
+/// Recomputes the coordinates of the planet based on the date
+/// using the keplerian method outlined by JPL
+///     @param[in] new_jd       Julian date
+void CEPlanet::Update_JPL(double new_jd)
+{
     /* Date has changed, so we need to recompute the coordinates of this object */
     
     // Compute the number of centuries since J2000 epoch
@@ -392,7 +584,7 @@ void CEPlanet::UpdateCoordinates(double new_jd)
     x_icrs_ = x_ecl ;
     y_icrs_ = y_ecl * std::cos(obl) - z_ecl * std::sin(obl) ;
     z_icrs_ = y_ecl * std::sin(obl) + z_ecl * std::cos(obl) ;
-    
+/*
     double x_eq(x_icrs_), y_eq(y_icrs_), z_eq(z_icrs_) ;
     // If there is a reference object, then compute more accurate RA,DEC
     if (reference_ != nullptr) {
@@ -412,9 +604,29 @@ void CEPlanet::UpdateCoordinates(double new_jd)
     
     // Now that the coordinates are updated, reset the time
     cached_jd_ = new_jd ;
+ */
 }
 
 # pragma mark - Protected Methods
+
+/////////////////////////////////////////////////////
+/// Computes the mean anomaly
+///     @param[in] mean_longitude_deg       Mean longitude of the planet (degrees)
+///     @param[in] perihelion_lon_deg       Longitude at perihelion (degrees)
+///     @param[in] T                        Ephemeris time
+///     @return Mean anomaly
+double CEPlanet::MeanAnomaly(double mean_longitude_deg,
+                             double perihelion_long_deg,
+                             double T)
+{
+    double M = mean_longitude_deg - perihelion_long_deg + (b_*T*T)
+                + c_*std::cos(f_*T*DD2R) + s_*std::sin(f_*T*DD2R) ;
+    // Scale M to be in the range (-180,180)
+    while (M>180.0) M-=360.0 ;
+    while (M<-180.0) M+=360.0 ;
+    
+    return M ;
+}
 
 /////////////////////////////////////////////////////
 /// Recursive method for computing the eccentric anomoly

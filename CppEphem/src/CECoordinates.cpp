@@ -749,11 +749,12 @@ std::vector<double> CECoordinates::GetDMS(double angle,
 {
     // Convert to degrees if passed radians
     if (angle_type == CEAngleType::RADIANS) angle *= DR2D ;
-    
+    double unsign_angle = std::fabs( angle ) ;
     std::vector<double> DMS(3) ;
-    DMS[0] = std::floor(angle) ;
-    DMS[1] = std::floor((angle - DMS[0])*60.0) ;
-    DMS[2] = (angle - DMS[0] - DMS[1]/60.0) * 3600.0 ;
+    DMS[0] = std::floor(unsign_angle) ;
+    DMS[1] = std::floor((unsign_angle - DMS[0])*60.0) ;
+    DMS[2] = (unsign_angle - DMS[0] - DMS[1]/60.0) * 3600.0 ;
+    if (angle < 0.0) DMS[0] *= -1.0 ;
     return DMS ;
 }
 
