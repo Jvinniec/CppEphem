@@ -10,6 +10,23 @@
  The CEPlanet class describes a planetary object. Static methods exist
  for obtaining specific planetary descriptions of the major solar system
  bodies: Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto.
+ 
+ Two algorithms exist for computing the apparent RA,Dec and observed 
+ positions of these bodies: SOFA and JPL
+ 
+ <h2>SOFA (default for Mercury - Neptune)</h2>
+ Accuracy in the positions derived from the SOFA algorithms should be 
+ assumed as:
+ 
+ - Inner planets (Mercury - Mars): < few arcsecs
+ - Outer planets (Jupiter - Neptune): < few arcmins
+ 
+ Because of the obviously better accuracy in these parameters as compared
+ to the JPL algorithm, the SOFA methods are the default. However, it should
+ be noted that there is no algorithm for Pluto in the SOFA method, so for
+ Pluto the JPL algorithm should is used instead.
+ 
+ <h2>JPL (default for pluto)</h2>
  Accuracy in the positions of these objects should be assumed as:
 
  - Inner planets (Mercury - Mars): < 0.5 degrees
@@ -17,12 +34,19 @@
  
  Note that these numbers have not been verified at the moment.
  Planet positions are computed using the JPL Keplerian formulas and
- their best fit orbital parameters.
+ their best fit orbital parameters. These are self-implemented algorithms
+ so any inaccuracy is on the fault of the programmer (JCardenzana) not JPL.
  
+ Additionally, Pluto only has coordinate computation algorithms for
+ implemented for the JPL algorithm, so this algorithm will always be used
+ for computing the positions of Pluto.
+ 
+ <h2>Converting To Observed Coordinates</h2>
  The positions are computed first for the planet in order to obtain its
- ICRS reference frame x,y,z coordinates. Then, the ICRS x,y,z coordinates
- of the Earth-Moon barycenter are computed. The planets x,y,z coordinates
- are then projected relative to the E-M barycenter coordinates to obtain
+ heliocentric (ICRS in JPL algorithm) reference frame x,y,z coordinates. 
+ Then, the x,y,z coordinates of the Earth (Earth-Moon barycenter in JPL)
+ are computed. The planets x,y,z coordinates are then projected relative to 
+ the Earth centric (E-M barycenter in JPL algorithm) coordinates to obtain 
  the apparent RA,Dec coordinates from the Earth.
  
  Future improvements will include correcting the coordinates for a given
@@ -52,6 +76,7 @@ CEPlanet::CEPlanet(const std::string& name, double xcoord, double ycoord,
     CEBody(name, xcoord, ycoord, coord_type, angle_type)
 {}
 
+/*
 /////////////////////////////////////////////////////
 /// Primary constructor
 ///     @param[in] name             Some identifying name for this object
@@ -60,6 +85,7 @@ CEPlanet::CEPlanet(const std::string& name,
                    CECoordinates coordinates) :
     CEBody(coordinates, name)
 {}
+*/
 
 /////////////////////////////////////////////////////
 /// Destructor
@@ -136,7 +162,6 @@ CEPlanet CEPlanet::Earth()
     earth.SetMeanLongitude(100.46691572, 35999.37306329, CEAngleType::DEGREES) ;
     earth.SetPerihelionLongitude(102.93005885, 0.31795260, CEAngleType::DEGREES) ;
     earth.SetAscendingNodeLongitude(-5.11260389, -0.24123856, CEAngleType::DEGREES) ;
-    
     
     earth.SetMeanRadius_m(0.0) ;
     earth.SetAlbedo(0.0) ;

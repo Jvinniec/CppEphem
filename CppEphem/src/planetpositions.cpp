@@ -30,8 +30,9 @@ CLOptions DefineOptions()
     options.AddDoubleParam("L,longitude","Geographic observer longitude (degrees, east positive)",-93.62) ;
     options.AddDoubleParam("B,latitude", "Geographic observer latitude (degrees)", 42.0347) ;
     options.AddDoubleParam("e,elevation","Observer elevation above sea-level (meters)", 287.0) ;
-    options.AddIntParam("u,UpdateFrequency", "Number of milliseconds between updates", 1000) ;
     options.AddDoubleParam("o,UTCOffset", "Observer offset from UTC time", -6.0) ;
+    options.AddIntParam("u,UpdateFrequency", "Number of milliseconds between updates", 1000) ;
+    options.AddIntParam("a,algorithm","Sets the algorithm used to compute planet positions (1=SOFA,2=JPL)",1) ;
     options.AddBoolParam("m,DrawMap", "Draws a crude map of the southern sky with visible planets", true) ;
     
     return options ;
@@ -61,6 +62,14 @@ int main(int argc, char** argv)
     planets[5] = new CEPlanet(CEPlanet::Uranus()) ;
     planets[6] = new CEPlanet(CEPlanet::Neptune()) ;
     planets[7] = new CEPlanet(CEPlanet::Pluto()) ;
+    
+    for (int i=0; i<planets.size(); i++) {
+        if (opt.AsInt("algorithm") == 1) {
+            planets[i]->SetAlgorithm(CEPlanetAlgo::SOFA) ;
+        } else if (opt.AsInt("algorithm") == 2) {
+            planets[i]->SetAlgorithm(CEPlanetAlgo::JPL) ;
+        }
+    }
     
     // Create an object that always represents the current instantaneous time
     CEDate date ;
@@ -205,6 +214,6 @@ int Description()
     int line(0) ;
     mvaddstr(line++, 1, "DESCRIPTION:") ;
     mvaddstr(line++, 3, "This program prints the current positions of the planets to the terminal.") ;
-    mvaddstr(line++, 3, "NOTE: Az,Alt,Zenith values are relative to Earth-Moon barycenter.") ;
+//    mvaddstr(line++, 3, "NOTE: Az,Alt,Zenith values are relative to Earth-Moon barycenter.") ;
     return line ;
 }
