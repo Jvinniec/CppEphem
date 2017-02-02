@@ -5,9 +5,9 @@ var indexSectionsWithContent =
   2: "c",
   3: "cgjmopr",
   4: "abcdegijlmnoprstuvwxy~",
-  5: "abcdefgijlmnoprstuwxyz",
+  5: "abcdefgijlmnoprstuvwxyz",
   6: "c",
-  7: "cdgijlmoru",
+  7: "cdgijlmorsu",
   8: "m"
 };
 

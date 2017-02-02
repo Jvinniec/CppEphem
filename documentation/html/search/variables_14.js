@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['y_5ficrs_5f',['y_icrs_',['../classCEPlanet.html#a80928231a1b5340a52f9a3dac936dc3f',1,'CEPlanet']]],
-  ['ycoord_5f',['ycoord_',['../classCECoordinates.html#ad95d1b014d83e11c93be8e74eb4957df',1,'CECoordinates']]]
+  ['x_5ficrs_5f',['x_icrs_',['../classCEPlanet.html#a1bd58954fe112e364d67bea5a7132a8c',1,'CEPlanet']]],
+  ['xcoord_5f',['xcoord_',['../classCECoordinates.html#ab58f73988010fb779c262f7b88612fc0',1,'CECoordinates']]]
 ];
