@@ -111,7 +111,7 @@ protected:
     double wavelength_um_ = 0.5 ;                                  ///< Observing wavelength (micrometers)
     
     // Variables defining the time of the observer
-    double utc_offset_ = 0.0 ;
+    double utc_offset_ = CETime::SystemUTCOffset_hrs() ;          ///< UTC offset in hours (set by default to system offset)
     CEDate* current_date_ = nullptr;    ///< Current date for this object
     bool date_is_owned_ = false ;       ///< Boolean for whether 'current_date_' can be safely
                                         ///< deleted when this object is deleted

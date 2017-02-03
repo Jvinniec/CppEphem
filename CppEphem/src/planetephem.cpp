@@ -110,7 +110,7 @@ CEPlanet GetPlanet(int p_id)
 }
 
 /*********************************************
- * Returns the planet requested by the user
+ * Prints the results of the planet position query
  *********************************************/
 void PrintEphemeris(CEObservation& obs, double duration, double step_size)
 {
@@ -118,6 +118,7 @@ void PrintEphemeris(CEObservation& obs, double duration, double step_size)
     CEDate* date = obs.Date() ;
     CEPlanet* planet = dynamic_cast<CEPlanet*>( obs.Body() ) ;
     CEObserver* observer = obs.Observer() ;
+    std::vector<double> localtime = CETime::TimeDbl2Vect(observer->Date()->GetTime(observer->UTCOffset())) ;
     
     // Print some information about the observer
     std::vector<double> long_hms = CECoordinates::GetDMS( observer->Longitude_Deg() ) ;
@@ -126,7 +127,8 @@ void PrintEphemeris(CEObservation& obs, double duration, double step_size)
     std::printf("= OBSERVER ===================\n");
     std::printf("  Longitude: %+4dd %02dm %4.1fs\n", int(long_hms[0]), int(long_hms[1]), long_hms[2]) ;
     std::printf("  Latitude :  %+2dd %02dm %4.1fs\n", int(lat_hms[0]), int(lat_hms[1]), lat_hms[2]) ;
-    std::printf("  Elevation: %f m \n\n", observer->Elevation_m()) ;
+    std::printf("  Elevation: %f m \n", observer->Elevation_m()) ;
+    std::printf("  LocalTime: %02d:%02d:%04.1f\n\n", int(localtime[0]), int(localtime[1]), localtime[2]+localtime[3]) ;
     
     // Print some basic information regarding the planet itself
     std::printf("= PLANET =====================\n") ;
@@ -141,20 +143,22 @@ void PrintEphemeris(CEObservation& obs, double duration, double step_size)
     std::printf("    JD      UTC          RA              DEC          Az       Alt  \n") ;
     std::printf(" ===================================================================\n") ;
     int max_steps = int(duration/step_size) ;
-    for (int s=0; s<max_steps; s++) {
-        // Set the date
-        date->SetDate(*date + step_size/(60.0*24.0)) ;
+    for (int s=0; s<=max_steps; s++) {
         
-        ra = CECoordinates::GetHMS( obs.GetApparentXCoordinate_Deg() ) ;
-        dec = CECoordinates::GetDMS( obs.GetApparentYCoordinate_Deg() ) ;
+//        ra = CECoordinates::GetHMS( obs.GetApparentXCoordinate_Deg() ) ;
+//        dec = CECoordinates::GetDMS( obs.GetApparentYCoordinate_Deg() ) ;
+        ra = CECoordinates::GetHMS( planet->XCoordinate_Deg() );
+        dec = CECoordinates::GetDMS( planet->YCoordinate_Deg() );
         
         std::printf(" %8d %08.1f  %2.0fh %2.0fm %4.1fs  %+3.0fd %2.0fm %4.1fs  %8.3f  %+7.3f\n",
-                    int(*date), date->GetTime_UTC(),
+                    int(*date), date->GetTime(observer->UTCOffset()),
                     ra[0], ra[1], ra[2],
                     dec[0], dec[1], dec[2],
                     obs.GetAzimuth_Deg(),
                     90.0-obs.GetZenith_Deg()) ;
         
+        // Update the date
+        date->SetDate(*date + step_size/(60.0*24.0)) ;
     }
     
     std::printf(" -------------------------------------------------------------------\n") ;

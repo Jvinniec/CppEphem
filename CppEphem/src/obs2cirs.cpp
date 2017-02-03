@@ -21,6 +21,8 @@
 CLOptions DefineOpts()
 {
     CLOptions opts ;
+    // Add a program description
+    opts.AddProgramDescription("Takes observed positions (azimuth,zenith angle) and computes the CIRS RA,Dec positions based on the observer location and atmospheric properties. The only values necessary to get rough coordinates are 'longitude', 'latitude', 'azimuth', 'zenith', and 'juliandate'.") ;
     
     // Setup the defaults
     CEObserver obs ;
@@ -34,7 +36,7 @@ CLOptions DefineOpts()
     opts.AddDoubleParam("p,pressure","Observer's atmospheric pressure (hPa)",obs.Pressure_hPa()) ;
     opts.AddDoubleParam("t,temperature","Observer's atmospheric temperature (degrees Celsius)", obs.Temperature_C()) ;
     opts.AddDoubleParam("w,wavelength","Wavelength of light being observed (micrometers)",obs.Wavelength_um()) ;
-    opts.AddDoubleParam("d,dut1","UTC-UT1 (not necessary for rough positions)",CEDate::dut1(CEDate::CurrentJD())) ;
+    opts.AddDoubleParam("d,dut1","UT1-UTC (not necessary for rough positions)",CEDate::dut1(CEDate::CurrentJD())) ;
     opts.AddDoubleParam("x,xpolar","x-polar motion (not necessary for rough positions)",CEDate::xpolar(CEDate::CurrentJD())) ;
     opts.AddDoubleParam("y,ypolar","y-polar motion (not necessary for rough positions)",CEDate::ypolar(CEDate::CurrentJD())) ;
     

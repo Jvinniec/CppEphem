@@ -89,7 +89,7 @@ public:
         return cached_apparentxcoord_ ;
     }
     /// @return apparent x-coordinate value as observed by 'observer_' in degrees
-    virtual double GetApparentXCoordinate_Deg() {return cached_apparentxcoord_ * DR2D ;}
+    virtual double GetApparentXCoordinate_Deg() {return GetApparentXCoordinate_Rad() * DR2D ;}
 
     ///////////////////////////////////////////////////////////
     /// @return apparent y-coordinate value as observed by 'observer_' in radians
@@ -99,7 +99,7 @@ public:
         return cached_apparentycoord_ ;
     }
     /// @return apparent y-coordinate value as observed by 'observer_' in degrees
-    virtual double GetApparentYCoordinate_Deg() {return cached_apparentycoord_ * DR2D ;}
+    virtual double GetApparentYCoordinate_Deg() {return GetApparentYCoordinate_Rad() * DR2D ;}
     
     virtual void GetAzimuthZenith_Rad(double *azimuth, double *zenith) ;
     virtual void GetAzimuthZenith_Deg(double *azimuth, double *zenith) ;

@@ -13,6 +13,8 @@
 #include <stdio.h>
 #include <vector>
 
+#include "CENamespace.h"
+
 // Time types are defined as:
 //      UTC   - Coordinate Universal Time
 //      GAST  - Greenwich Apparent Sidereal Time
@@ -49,6 +51,14 @@ public:
     // Convert number of seconds since midnight to HHMMSS.S formatted double
     static double TimeSec2Time(double seconds) ;
     static std::vector<double> TimeSec2Vect(double seconds) ;
+    
+    static double SystemUTCOffset_hrs()
+    {
+        time_t now ;
+        time (&now) ;
+        struct tm local = *localtime(&now) ;
+        return local.tm_gmtoff/DAYSEC * 24.0 ;
+    }
     
     /*******************************************
      * Convert between the various time types
