@@ -42,6 +42,17 @@ public:
     CECoordinates(const CECoordinates& other) ;
     virtual ~CECoordinates() ;
     
+    /*********************************************************
+     * Angular separation between two coordinate positions
+     *********************************************************/
+    virtual double AngularSeparation(CECoordinates& coords,
+                                     CEAngleType return_angle_type=CEAngleType::DEGREES) ;
+    static double AngularSeparation(CECoordinates& coords1, CECoordinates& coords2,
+                                    CEAngleType return_angle_type=CEAngleType::DEGREES) ;
+    static double AngularSeparation(double xcoord_first, double ycoord_first,
+                                    double xcoord_second, double ycoord_second,
+                                    CEAngleType angle_type=CEAngleType::DEGREES) ;
+    
     /**********************************************************
      * Methods for accessing the coordinate information
      **********************************************************/
@@ -102,7 +113,7 @@ public:
                           double input_dec,
                           double *return_ra,
                           double *return_dec,
-                          CEDate date=CEDate(DJ00, CEDateType::JD),
+                          CEDate date=CEDate(),
                           CEAngleType angle_type=CEAngleType::RADIANS);
     static void ICRS2Galactic(double ra,
                               double dec,
@@ -122,7 +133,7 @@ public:
     
     // Convert from GALACTIC to other coordinates
     static void Galactic2CIRS(double glon, double glat, double *ra, double *dec,
-                              CEDate date=CEDate(julian_date_J2000(), CEDateType::JD),
+                              CEDate date=CEDate(),
                               CEAngleType angle_type=CEAngleType::RADIANS) ;
     static void Galactic2ICRS(double glon, double glat, double *ra, double *dec,
                               CEAngleType angle_type=CEAngleType::RADIANS) ;
@@ -137,12 +148,32 @@ public:
                                  double *observed_glat=nullptr,
                                  double *hour_angle=nullptr);
     // Convert from OBSERVED to other coordinates
+    static int Observed2CIRS(double az,
+                              double zen,
+                              double *ra,
+                              double *dec,
+                              CEObserver& observer,
+                              CEAngleType angle_type=CEAngleType::RADIANS) ;
+    static int Observed2ICRS(double az,
+                              double zen,
+                              double *ra,
+                              double *dec,
+                              CEObserver& observer,
+                              CEAngleType angle_type=CEAngleType::RADIANS) ;
+    static int Observed2Galactic(double az,
+                              double zen,
+                              double *glon,
+                              double *glat,
+                              CEObserver& observer,
+                              CEAngleType angle_type=CEAngleType::RADIANS) ;
     
     
     // The following are provided to allow converting to OBSERVED
     // azimuth, zenith without the need to use the CEObserver class.
-    // They function by creating a temporary CEObserver object and then
-    // calling the above functions.
+    // These are the methods that are ultimately called by the above
+    // methods that do use a CEObserver object
+    
+    /* Raw methods for converting CIRS <-> Observed (observer specific) coordinates. */
     static int CIRS2Observed(double ra,
                              double dec,
                              double *az,
@@ -160,9 +191,24 @@ public:
                              double wavelength_um=0.5,
                              double *observed_ra=nullptr,
                              double *observed_dec=nullptr,
-                             double *hour_angle=nullptr
-                             );
-    /** Raw method for converting ICRS -> Observed (observer specific) coordinates. */
+                             double *hour_angle=nullptr);
+    static int Observed2CIRS(double az,
+                             double zen,
+                             double *ra,
+                             double *dec,
+                             double julian_date,
+                             double longitude,
+                             double latitude,
+                             double elevation_m=0.0,
+                             double pressure_hPa=-1.0,
+                             double temperature_celsius=-1000,
+                             double relative_humidity=0.0,
+                             double dut1=0.0,
+                             double xp=0.0,
+                             double yp=0.0,
+                             double wavelength_um=0.5) ;
+    
+    /* Raw methods for converting ICRS <-> Observed (observer specific) coordinates. */
     static int ICRS2Observed(double ra,
                              double dec,
                              double *az,
@@ -180,7 +226,22 @@ public:
                              double *observed_ra=nullptr,
                              double *observed_dec=nullptr,
                              double *hour_angle=nullptr) ;
-    /** Raw method for converting Galactic -> Observed (observer specific) coordinates. */
+    static int Observed2ICRS(double az,
+                             double zen,
+                             double *ra,
+                             double *dec,
+                             double julian_date,
+                             double longitude,
+                             double latitude,
+                             double elevation_m=0.0,
+                             double pressure_hPa=-1.0,
+                             double temperature_celsius=-1000,
+                             double relative_humidity=0.0,
+                             double dut1=0.0,
+                             double xp=0.0, double yp=0.0,
+                             double wavelength_um=0.5);
+    
+    /* Raw methods for converting Galactic <-> Observed (observer specific) coordinates. */
     static int Galactic2Observed(double glon,
                              double glat,
                              double *az,
@@ -198,6 +259,20 @@ public:
                              double *observed_glon=nullptr,
                              double *observed_glat=nullptr,
                              double *hour_angle=nullptr) ;
+    static int Observed2Galactic(double az,
+                             double zen,
+                             double *glon,
+                             double *glat,
+                             double julian_date,
+                             double longitude,
+                             double latitude,
+                             double elevation_m=0.0,
+                             double pressure_hPa=-1.0,
+                             double temperature_celsius=-1000,
+                             double relative_humidity=0.0,
+                             double dut1=0.0,
+                             double xp=0.0, double yp=0.0,
+                             double wavelength_um=0.50) ;
     
     virtual CECoordinates GetObservedCoords(double julian_date,
                             double longitude,
@@ -214,6 +289,67 @@ public:
                             double dut1=0.0,
                             double xp=0.0, double yp=0.0,
                             double wavelength_um=0.5) ;
+
+    /*********************************************************
+     * More generic methods for converting between coordinate types
+     *********************************************************/
+    CECoordinates ConvertTo(CECoordinateType output_coord_type,
+                            CEObserver* observer=nullptr,
+                            double jd=CEDate::CurrentJD()) ;
+    
+    CECoordinates ConvertTo(CECoordinateType output_coord_type,
+                            double jd=CEDate::CurrentJD(),
+                            double longitude=0.0,
+                            double latitude=0.0,
+                            double elevation_m=0.0,
+                            double pressure_hPa=-1.0,
+                            double temperature_celsius=-1000,
+                            double relative_humidity=0.0,
+                            double dut1=0.0,
+                            double xp=0.0, double yp=0.0,
+                            double wavelength_um=0.5) ;
+    
+    CECoordinates ConvertToCIRS(double jd=CEDate::CurrentJD(),
+                                double longitude=0.0,
+                                double latitude=0.0,
+                                double elevation_m=0.0,
+                                double pressure_hPa=-1.0,
+                                double temperature_celsius=-1000,
+                                double relative_humidity=0.0,
+                                double dut1=0.0,
+                                double xp=0.0, double yp=0.0,
+                                double wavelength_um=0.5) ;
+    CECoordinates ConvertToICRS(double jd=CEDate::CurrentJD(),
+                                double longitude=0.0,
+                                double latitude=0.0,
+                                double elevation_m=0.0,
+                                double pressure_hPa=-1.0,
+                                double temperature_celsius=-1000,
+                                double relative_humidity=0.0,
+                                double dut1=0.0,
+                                double xp=0.0, double yp=0.0,
+                                double wavelength_um=0.5) ;
+    CECoordinates ConvertToGalactic(double jd=CEDate::CurrentJD(),
+                                    double longitude=0.0,
+                                    double latitude=0.0,
+                                    double elevation_m=0.0,
+                                    double pressure_hPa=-1.0,
+                                    double temperature_celsius=-1000,
+                                    double relative_humidity=0.0,
+                                    double dut1=0.0,
+                                    double xp=0.0, double yp=0.0,
+                                    double wavelength_um=0.5) ;
+    CECoordinates ConvertToObserved(double jd=CEDate::CurrentJD(),
+                                    double longitude=0.0,
+                                    double latitude=0.0,
+                                    double elevation_m=0.0,
+                                    double pressure_hPa=-1.0,
+                                    double temperature_celsius=-1000,
+                                    double relative_humidity=0.0,
+                                    double dut1=0.0,
+                                    double xp=0.0, double yp=0.0,
+                                    double wavelength_um=0.5) ;
+    
     /*********************************************************
      * Methods for setting the coordinates of this object
      *********************************************************/
@@ -221,12 +357,6 @@ public:
                                 CECoordinateType coord_type = CECoordinateType::ICRS,
                                 CEAngleType angle_type = CEAngleType::RADIANS) ;
     virtual void SetCoordinates(CECoordinates& coords) ;
-    
-    /*********************************************************
-     * Angular separation between two coordinate positions
-     *********************************************************/
-//    virtual double AngularSeparation(CECoordinates& coords) ;
-//    static double AngularSeparation(CECoordinates& coords1, CECoordinates& coords2) ;
     
 protected:
     // Coordinate variables
