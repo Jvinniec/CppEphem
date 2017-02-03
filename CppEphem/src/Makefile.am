@@ -31,7 +31,7 @@ libcppephem_la_CPPFLAGS = $(CppEphem_CPPFLAGS)
 libcppephem_la_LIBADD=$(LIBS)
 libcppephem_ladir=$(libdir)
 
-bin_PROGRAMS = cal2jd cal2mjd jd2cal jd2mjd mjd2jd mjd2cal cirs2obs cirs2gal gal2cirs gal2obs planetephem
+bin_PROGRAMS = cal2jd cal2mjd jd2cal jd2mjd mjd2jd mjd2cal cirs2obs cirs2gal gal2cirs gal2obs obs2cirs obs2icrs obs2gal planetephem
 
 ##########################################
 # DATE CONVERSION EXECUTABLES
@@ -97,9 +97,19 @@ gal2obs_LDADD = libcppephem.la
 gal2obs_CPPFLAGS = $(CppEphem_CPPFLAGS)
 
 # LOCAL to CIRS coordinates
-#obs2cirs_SOURCES = obs2cirs.cpp
-#obs2cirs_LDADD = libcppephem.la
-#obs2cirs_CPPFLAGS = $(CppEphem_CPPFLAGS)
+obs2cirs_SOURCES = obs2cirs.cpp
+obs2cirs_LDADD = libcppephem.la
+obs2cirs_CPPFLAGS = $(CppEphem_CPPFLAGS)
+
+# LOCAL to ICRS coordinates
+obs2icrs_SOURCES = obs2icrs.cpp
+obs2icrs_LDADD = libcppephem.la
+obs2icrs_CPPFLAGS = $(CppEphem_CPPFLAGS)
+
+# LOCAL to GALACTIC coordinates
+obs2gal_SOURCES = obs2gal.cpp
+obs2gal_LDADD = libcppephem.la
+obs2gal_CPPFLAGS = $(CppEphem_CPPFLAGS)
 
 ##########################################
 # PLANET EPHEMERIS EXECUTABLES

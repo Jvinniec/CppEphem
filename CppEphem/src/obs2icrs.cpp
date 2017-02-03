@@ -1,9 +1,9 @@
 //
-//  obs2cirs.cpp
+//  obs2icrs.cpp
 //  CppEphem
 //
-//  Created by Josh Cardenzana on 6/30/16.
-//  Copyright © 2016 JCardenzana. All rights reserved.
+//  Created by Josh Cardenzana on 2/3/17.
+//  Copyright © 2017 JCardenzana. All rights reserved.
 //
 
 #include <stdio.h>
@@ -52,7 +52,7 @@ void PrintResults(CLOptions& inputs, std::map<std::string, double> results)
     std::printf("    Azimuth        : %f degrees\n", inputs.AsDouble("azimuth")*DR2D) ;
     std::printf("    Zenith         : %+f degrees\n", inputs.AsDouble("zenith")*DR2D) ;
     std::printf("    Altitude       : %+f degrees\n", 90.0-inputs.AsDouble("zenith")*DR2D) ;
-    std::printf("CIRS Coordinates (output)\n") ;
+    std::printf("ICRS Coordinates (output)\n") ;
     std::printf("    Right Ascension: %f degrees\n", results["ra"]) ;
     std::printf("    Declination    : %+f degrees\n", results["dec"]) ;
     std::printf("Observer Info\n") ;
@@ -77,9 +77,9 @@ int main(int argc, char** argv) {
     std::map<std::string, double> results ;
     results["ra"] = 0.0 ;
     results["dec"]  = 0.0 ;
-
+    
     // Convert the coordinates
-    int errcode = CECoordinates::Observed2CIRS(opts.AsDouble("azimuth")*DD2R,
+    int errcode = CECoordinates::Observed2ICRS(opts.AsDouble("azimuth")*DD2R,
                                                opts.AsDouble("zenith")*DD2R,
                                                &results["ra"], &results["dec"],
                                                opts.AsDouble("juliandate"),
