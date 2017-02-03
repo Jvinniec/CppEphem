@@ -214,13 +214,19 @@ public:
                             double dut1=0.0,
                             double xp=0.0, double yp=0.0,
                             double wavelength_um=0.5) ;
-    // -------------------------------------------------------
-    // Methods for setting the coordinates of this object
-    // -------------------------------------------------------
+    /*********************************************************
+     * Methods for setting the coordinates of this object
+     *********************************************************/
     virtual void SetCoordinates(double xcoord, double ycoord,
                                 CECoordinateType coord_type = CECoordinateType::ICRS,
                                 CEAngleType angle_type = CEAngleType::RADIANS) ;
     virtual void SetCoordinates(CECoordinates& coords) ;
+    
+    /*********************************************************
+     * Angular separation between two coordinate positions
+     *********************************************************/
+//    virtual double AngularSeparation(CECoordinates& coords) ;
+//    static double AngularSeparation(CECoordinates& coords1, CECoordinates& coords2) ;
     
 protected:
     // Coordinate variables
