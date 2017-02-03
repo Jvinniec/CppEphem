@@ -994,9 +994,9 @@ double CECoordinates::AngularSeparation(CECoordinates& coords1, CECoordinates& c
 ///     @param[in] ycoord_second        Y-value for second set of coordinates
 ///     @param[in] return_angle_type    Specify whether input angles are DEGREES or RADIANS.
 ///                                     (output angle will be in the same format)
-double AngularSeparation(double xcoord_first, double ycoord_first,
-                         double xcoord_second, double ycoord_second,
-                         CEAngleType angle_type=CEAngleType::DEGREES)
+double CECoordinates::AngularSeparation(double xcoord_first, double ycoord_first,
+                                        double xcoord_second, double ycoord_second,
+                                        CEAngleType angle_type)
 {
     if (angle_type == CEAngleType::DEGREES) {
         // Convert the coordinates to radians
