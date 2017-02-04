@@ -63,6 +63,8 @@ executables which can be run from the command line:
   - __cirs2gal__: CIRS to Galactic coordinates
   - __gal2cirs__: Galactic to CIRS coordinates
   - __gal2obs__: Galactic to Observed coordinates
+* Planet ephemeris producer
+  - __planetephem__: Computes the ephemeris for a given planet using user supplied geographic and time values.
 
 Downloading the code:
 ----------------------------------------------------------

@@ -32,6 +32,7 @@ dnl #################################
 sofalibs=
 sofa_CXXFLAGS=
 have_sofa=no
+SOFADIR="${curDir}/sofa/20160503/c/src"
 
 AC_ARG_WITH([sofa],
 	AS_HELP_STRING([--with-sofa],
@@ -61,10 +62,15 @@ fi
 
 dnl The following is true if none of the '--with-sofa...' options
 dnl were specified
-if test "x$with_sofa$with_sofa_incdir$with_sofa_libdir" = x ; then
-   sofalibs="-L${curDir}/sofa/20160503/c/src -lsofa_c ${sofalibs}"
-   sofa_CXXFLAGS="-I${curDir}/sofa/20160503/c/src ${sofa_CXXFLAGS}"
+#if test "x$with_sofa$with_sofa_incdir$with_sofa_libdir" = x ; then
+#   sofalibs="-L${curDir}/sofa/20160503/c/src -lsofa_c ${sofalibs}"
+#   sofa_CXXFLAGS="-I${curDir}/sofa/20160503/c/src ${sofa_CXXFLAGS}"
+#fi
+
+if test "x$with_sofa" != x ; then
+    SOFADIR="$with_sofa"
 fi
+AC_SUBST(SOFADIR)
 
 echo "$sofa_CXXFLAGS"
 echo "$sofalibs"

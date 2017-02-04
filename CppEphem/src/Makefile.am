@@ -4,7 +4,7 @@
 # Date: April, 2016
 #
 
-AM_CXXFLAGS = -std=c++11 -I../include -I./ $(sofa_CXXFLAGS)
+AM_CXXFLAGS = -std=c++11 -I../include -I./ $(sofa_CXXFLAGS) -I$(SOFADIR)
 AM_CFLAGS =
 
 lib_LTLIBRARIES = libcppephem.la
@@ -16,7 +16,7 @@ libcppephem_la_SOURCES = CENamespace.cpp \
                         CEObserver.cpp \
                         CEPlanet.cpp \
                         CERunningDate.cpp \
-                        CETime.cpp
+                        CETime.cpp 
 include_HEADERS = ../include/CppEphem.h \
                         ../include/CENamespace.h \
                         ../include/CEBody.h \
@@ -26,7 +26,8 @@ include_HEADERS = ../include/CppEphem.h \
                         ../include/CEObserver.h \
                         ../include/CEPlanet.h \
                         ../include/CERunningDate.h \
-                        ../include/CETime.h
+                        ../include/CETime.h \
+                        $(SOFADIR)/sofa.h
 libcppephem_la_CPPFLAGS = $(CppEphem_CPPFLAGS)
 libcppephem_la_LIBADD=$(LIBS)
 libcppephem_ladir=$(libdir)
