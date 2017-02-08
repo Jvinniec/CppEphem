@@ -72,10 +72,18 @@ git clone https://github.com/Jvinniec/CppEphem.git CppEphem
 
 Building the code:
 ----------------------------------------------------------
-As long as the user has the most up to date version of autotools,
-you should be able to build the software very easily using the 
-standard "./configure -> make -> make install" method. Here is
-a bit more detail.
+The code can either be compiled using 'cmake' or autotools. To compile
+via cmake use the following set of commands:
+
+```bash
+cmake [-Dprefix=/install/dir]
+make
+make install
+```
+
+To install via autotools, you should be able to build the software 
+very easily using the standard "./configure -> make -> make install" 
+method. Here is a bit more detail.
 
 First, download the repository as described above in "Downloading 
 the code". Second, make sure that the "configure" file exists in 
