@@ -30,7 +30,7 @@ CLOptions DefineOptions()
     options.AddDoubleParam("L,longitude","Geographic observer longitude (degrees, east positive)",-93.62) ;
     options.AddDoubleParam("B,latitude", "Geographic observer latitude (degrees)", 42.0347) ;
     options.AddDoubleParam("e,elevation","Observer elevation above sea-level (meters)", 287.0) ;
-    options.AddDoubleParam("o,UTCOffset", "Observer offset from UTC time", -6.0) ;
+    options.AddDoubleParam("o,UTCOffset", "Observer offset from UTC time (default is current system UTC offset)", CETime::SystemUTCOffset_hrs()) ;
     options.AddIntParam("u,UpdateFrequency", "Number of milliseconds between updates", 1000) ;
     options.AddIntParam("a,algorithm","Sets the algorithm used to compute planet positions (1=SOFA,2=JPL)",1) ;
     options.AddBoolParam("m,DrawMap", "Draws a crude map of the southern sky with visible planets", true) ;

@@ -2,7 +2,7 @@
 dnl Initialize the build system
 dnl DONT FORGET TO CHANGE THE VERSION!
 AC_INIT([CppEphem],[MASTER],[jvinniec <at> gmail.com])
-AC_CONFIG_SRCDIR([CppEphem/src/mjd2jd.cpp])
+AC_CONFIG_SRCDIR([CppEphem/src/mjd2jd.cpp],[sofa/20160503/c/src/cal2jd.c])
 
 echo ""
 echo "================================================="
@@ -14,7 +14,7 @@ AC_CONFIG_MACRO_DIRS([m4])
 AM_INIT_AUTOMAKE([subdir-objects -Wall -Werror])
 
 dnl Make sure there is a c++ compiler installed
-AC_PROG_CC
+AC_PROG_CC([clang gcc])
 AC_PROG_CXX([clang++ g++])
 AC_LANG_PUSH([C++])
 
@@ -26,6 +26,9 @@ dnl This variable will be used to specify special compile options
 special_exec=
 CppEphem_CPPFLAGS=
 curDir=${PWD}
+
+BUILDSUBDIRS="CppEphem/src"
+
 dnl #################################
 dnl SOFA PACKAGE OPTIONS
 dnl #################################
@@ -33,47 +36,41 @@ sofalibs=
 sofa_CXXFLAGS=
 have_sofa=no
 
+# Set the default sofa directory to the included one
+SOFADIR="${curDir}/sofa/20160503/c/src"
+
 AC_ARG_WITH([sofa],
 	AS_HELP_STRING([--with-sofa],
 		[directory containing 'sofa.h']))
-AC_ARG_WITH([sofa-libdir],
-	AS_HELP_STRING([--with-sofa-libdir],
-		[directory containing 'libsofa.a']))
-AC_ARG_WITH([sofa-incdir],
-	AS_HELP_STRING([--with-sofa-incdir],
-		[directory containing 'sofa.h']))
+#AC_ARG_WITH([sofa-libdir],
+#	AS_HELP_STRING([--with-sofa-libdir],
+#		[directory containing 'libsofa.a']))
+#AC_ARG_WITH([sofa-incdir],
+#	AS_HELP_STRING([--with-sofa-incdir],
+#		[directory containing 'sofa.h']))
 
 dnl The following is true if '--with-sofa' is specified
 if (test "x$with_sofa" != x) && (test -d ${with_sofa}); then
+   SOFADIR="${with_sofa}"
    sofalibs="-L$with_sofa -lsofa_c"
    sofa_CXXFLAGS="-I$with_sofa ${sofa_CXXFLAGS}"
+   have_sofa=yes
+else
+   # Add the default sofa directory to the directories to be built
+   BUILDSUBDIRS="${SOFADIR} ${BUILDSUBDIRS}"
+   sofalibs="-L${SOFADIR} -lsofa_c ${sofalibs}"
+   sofa_CXXFLAGS="-I${SOFADIR} ${sofa_CXXFLAGS}"
+   have_sofa=yes
 fi
 
-dnl The following is true if '--with-wcs-include' is provided
-if test "x$with_sofa_incdir" != x; then
-   sofa_CXXFLAGS="-I$with_sofa_incdir ${sofa_CXXFLAGS}"
-fi
-
-dnl The following is true if '--with-wcs-lib' is provided
-if test "x$with_sofa_libdir" != x; then
-   wcslibs="-L$with_sofa_libdir -lsofa_c $wcslibs"
-fi
-
-dnl The following is true if none of the '--with-sofa...' options
-dnl were specified
-if test "x$with_sofa$with_sofa_incdir$with_sofa_libdir" = x ; then
-   sofalibs="-L${curDir}/sofa/20160503/c/src -lsofa_c ${sofalibs}"
-   sofa_CXXFLAGS="-I${curDir}/sofa/20160503/c/src ${sofa_CXXFLAGS}"
-fi
-
-echo "$sofa_CXXFLAGS"
-echo "$sofalibs"
+dnl Pass the SOFADIR to the makefiles
+AC_SUBST(SOFADIR)
 
 dnl Add the include flags and the library search paths
 LIBS="${sofalibs} ${LIBS}"
 
 dnl Library checks
-have_sofa=yes
+#have_sofa=yes
 # AC_CHECK_LIB([sofa_c],[iauJd2cal],
 #	[have_sofa=yes],
 #	[AC_MSG_ERROR([sofa library does not contain 'iauJd2cal']) have_sofa=no])
@@ -93,6 +90,8 @@ fi
 dnl Add the sofa_CXXFLAGS to the variables accessible in Makefiles
 AC_SUBST(sofa_CXXFLAGS)
 
+dnl Add the BUILDSUBDIRS to the variables accessible in Makefiles
+AC_SUBST(BUILDSUBDIRS)
 
 dnl #################################
 dnl ADDITIONAL OPTIONS FOR '--enable-'/'--disable-'
@@ -120,7 +119,7 @@ AC_CHECK_FUNCS([floor pow sqrt])
 dnl #################################
 dnl Specify the Makefile locations
 dnl #################################
-AC_CONFIG_FILES([Makefile CppEphem/src/Makefile sofa/20160503/c/src/Makefile])
+AC_CONFIG_FILES([Makefile CppEphem/src/Makefile])
 
 dnl 
 AC_OUTPUT
@@ -137,6 +136,7 @@ echo \
  CFLAGS  : ${CFLAGS}
  CPPFLAGS: ${CPPFLAGS}
  CXXFLAGS: ${CXXFLAGS}
+ SOFADIR : ${SOFADIR}
 
  Additional compiler flags:
  --------------------------

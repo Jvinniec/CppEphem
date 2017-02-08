@@ -53,7 +53,6 @@ CECoordinates::CECoordinates(double xcoord, double ycoord,
 ////////////////////////////////////////////////////////////
 /// Constructor from a coordinate type
 /// @param[in] coord_type Coordinate type (see CECoordinateType)
-
 CECoordinates::CECoordinates(CECoordinateType coord_type) :
     xcoord_(0.0),
     ycoord_(0.0),
@@ -62,7 +61,6 @@ CECoordinates::CECoordinates(CECoordinateType coord_type) :
 
 ////////////////////////////////////////////////////////////
 /// Copy constructor
-
 CECoordinates::CECoordinates(const CECoordinates& other) :
     xcoord_(other.xcoord_),
     ycoord_(other.ycoord_),
@@ -71,7 +69,6 @@ CECoordinates::CECoordinates(const CECoordinates& other) :
 
 ////////////////////////////////////////////////////////////
 /// Destructor
-
 CECoordinates::~CECoordinates()
 {}
 #pragma mark - Public Methods
@@ -80,13 +77,14 @@ CECoordinates::~CECoordinates()
 #pragma mark - Conversion routines
 
 ////////////////////////////////////////////////////////////
-/// CIRS -> ICRS coordinate conversion
+/// CIRS -> ICRS coordinate conversion.
+/// (uses SOFA 'iauAtic13' function)
 ///     @param[in]  input_ra     CIRS right ascension
 ///     @param[in]  input_dec    CIRS declination
 ///     @param[out] return_ra    ICRS right ascension (returned)
 ///     @param[out] return_dec   ICRS declinaton (returned)
 ///     @param[in]  date         Date information
-///     @param[in] angle_type   Angle type
+///     @param[in] angle_type    Input/output angle type (DEGREES or RADIANS)
 void CECoordinates::CIRS2ICRS(double input_ra, double input_dec,
                               double *return_ra, double *return_dec,
                               CEDate date, CEAngleType angle_type)
@@ -119,7 +117,6 @@ void CECoordinates::CIRS2ICRS(double input_ra, double input_dec,
 ///     @param[out] glat         Galactic latitude
 ///     @param[in]  date         Date information
 ///     @param[in]  angle_type   Angle format (DEGREES or RADIANS)
-
 void CECoordinates::CIRS2Galactic(double input_ra, double input_dec, double *glon, double *glat,
                                   CEDate date, CEAngleType angle_type)
 {
@@ -162,7 +159,6 @@ void CECoordinates::CIRS2Galactic(double input_ra, double input_dec, double *glo
 ///     @param[out] observed_ra  Observed right ascension (returned)
 ///     @param[out] observed_dec Observed declination (returned)
 ///     @param[out] hour_angle   Hour angle of object being observed (returned)
-
 int CECoordinates::CIRS2Observed(double ra, double dec,
                                  double *az, double *zen,
                                  CEObserver& observer,
@@ -221,7 +217,6 @@ int CECoordinates::CIRS2Observed(double ra, double dec,
 ///     @param[out] return_dec   CIRS Declination (returned)
 ///     @param[in]  date         Date object
 ///     @param[in]  angle_type   Angle type (either DEGREES or RADIANS)
-
 void CECoordinates::ICRS2CIRS(double input_ra, double input_dec,
                               double *return_ra, double *return_dec,
                               CEDate date, CEAngleType angle_type)
@@ -334,7 +329,6 @@ int CECoordinates::ICRS2Observed(double ra, double dec,             // RA, Dec i
 ///     @param[out] dec      CIRS declination
 ///     @param[in]  date     Date information
 ///     @param[in]  angle_type   Angle type (RADIANS or DEGREES)
-
 void CECoordinates::Galactic2CIRS(double glon, double glat, double *ra, double *dec,
                                   CEDate date, CEAngleType angle_type)
 {
@@ -365,7 +359,6 @@ void CECoordinates::Galactic2CIRS(double glon, double glat, double *ra, double *
 ///     @param[out] ra           ICRS right ascension (returned)
 ///     @param[out] dec          ICRS declinaton (returned)
 ///     @param[in]  angle_type   Angle type (DEGREES or RADIANS)
-
 void CECoordinates::Galactic2ICRS(double glon, double glat, double *ra, double *dec,
                                   CEAngleType angle_type)
 {
@@ -445,6 +438,79 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
  *********************************************************/
 
 
+////////////////////////////////////////////////////////////
+/// Convert Observed -> CIRS coordinates
+///     @param[in]  az              Azimuth of the coordinates
+///     @param[in]  zen             Zenith angle of the coordinates
+///     @param[out] ra              CIRS right ascension (returned)
+///     @param[out] dec             CIRS declination (returned)
+///     @param[in]  observer        CEObserver object describing observer
+///     @param[in]  angle_type      Angle type of input/output coordinates
+int CECoordinates::Observed2CIRS(double az, double zen,
+                            double *ra, double *dec,
+                            CEObserver& observer,
+                            CEAngleType angle_type)
+{
+    // Call the raw method
+    return Observed2CIRS(az, zen, ra, dec, observer.Date()->JD(),
+                  observer.Longitude_Rad(), observer.Latitude_Rad(),
+                  observer.Elevation_m(),
+                  observer.Pressure_hPa(), observer.Temperature_C(),
+                  observer.RelativeHumidity(),
+                  observer.Date()->dut1(),
+                  observer.Date()->xpolar(), observer.Date()->ypolar(),
+                  observer.Wavelength_um()) ;
+}
+
+////////////////////////////////////////////////////////////
+/// Convert Observed -> ICRS coordinates
+///     @param[in]  az              Azimuth of the coordinates
+///     @param[in]  zen             Zenith angle of the coordinates
+///     @param[out] ra              CIRS right ascension (returned)
+///     @param[out] dec             CIRS declination (returned)
+///     @param[in]  observer        CEObserver object describing observer
+///     @param[in]  angle_type      Angle type of input/output coordinates
+int CECoordinates::Observed2ICRS(double az, double zen,
+                                 double *ra, double *dec,
+                                 CEObserver& observer,
+                                 CEAngleType angle_type)
+{
+    // Call the raw method
+    return Observed2ICRS(az, zen, ra, dec, observer.Date()->JD(),
+                  observer.Longitude_Rad(), observer.Latitude_Rad(),
+                  observer.Elevation_m(),
+                  observer.Pressure_hPa(), observer.Temperature_C(),
+                  observer.RelativeHumidity(),
+                  observer.Date()->dut1(),
+                  observer.Date()->xpolar(), observer.Date()->ypolar(),
+                  observer.Wavelength_um()) ;
+}
+
+////////////////////////////////////////////////////////////
+/// Convert Observed -> Galactic coordinates
+///     @param[in]  az              Azimuth of the coordinates
+///     @param[in]  zen             Zenith angle of the coordinates
+///     @param[out] glon            Galactic longitude (returned)
+///     @param[out] glat            Galactic latitude (returned)
+///     @param[in]  observer        CEObserver object describing observer
+///     @param[in]  angle_type      Angle type of input/output coordinates
+int CECoordinates::Observed2Galactic(double az, double zen,
+                                 double *glon, double *glat,
+                                 CEObserver& observer,
+                                 CEAngleType angle_type)
+{
+    // Call the raw method
+    return Observed2Galactic(az, zen, glon, glat, observer.Date()->JD(),
+                  observer.Longitude_Rad(), observer.Latitude_Rad(),
+                  observer.Elevation_m(),
+                  observer.Pressure_hPa(), observer.Temperature_C(),
+                  observer.RelativeHumidity(),
+                  observer.Date()->dut1(),
+                  observer.Date()->xpolar(), observer.Date()->ypolar(),
+                  observer.Wavelength_um()) ;
+}
+
+
 /*********************************************************
  * Main routines for converting TO OBSERVED Coordinates
  *********************************************************/
@@ -471,7 +537,6 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
 ///     @param[out] observed_ra          Apparent right ascension (returned)
 ///     @param[out] observed_dec         Apparent declination (returned)
 ///     @param[out] hour_angle           Hour angle
-
 int CECoordinates::CIRS2Observed(double ra, double dec,
                                  double *az, double *zen,
                                  double julian_date,
@@ -510,6 +575,52 @@ int CECoordinates::CIRS2Observed(double ra, double dec,
                              az, zen,
                              temp_hour_angle, temp_dec, temp_ra) ;
 
+    return err_code ;
+}
+
+////////////////////////////////////////////////////////////
+/// Raw method for converting Observed (observer specific) -> CIRS coordinates
+/// (uses the SOFA 'iauAtoi13' function)
+/// Note: All angles are expected to be in radians.
+///     @param[in]  az                   Observed azimuth angle
+///     @param[in]  zen                  Observed zenith angle
+///     @param[out] ra                   CIRS right ascension (returned)
+///     @param[out] dec                  CIRS declination (returned)
+///     @param[in]  julian_date          Julian date for conversion
+///     @param[in]  latitude             Observer geographic latitude
+///     @param[in]  longitude            Observer geographic longitude
+///     @param[in]  elevation_m          Observer elevation (meters)
+///     @param[in]  pressure_hPa         Atmospheric pressure (HPa)
+///     @param[in]  temperature_celsius  Temperature (degrees Celsius)
+///     @param[in]  relative_humidity    Relative humidity (0.0 - 1.0)
+///     @param[in]  dut1                 UTC - UT1
+///     @param[in]  xp                   "x" polar motion
+///     @param[in]  yp                   "y" polar motion
+///     @param[in]  wavelength_um        Wavelength (micrometers)
+int CECoordinates::Observed2CIRS(double az, double zen,
+                                 double *ra, double *dec,
+                                 double julian_date,
+                                 double longitude,
+                                 double latitude,
+                                 double elevation_m,
+                                 double pressure_hPa,
+                                 double temperature_celsius,
+                                 double relative_humidity,
+                                 double dut1,
+                                 double xp, double yp,
+                                 double wavelength_um)
+{
+    int err_code = iauAtoi13("A", az, zen,
+                             julian_date, 0.0,
+                             dut1,
+                             longitude, latitude,
+                             elevation_m,
+                             xp, yp,
+                             pressure_hPa,
+                             temperature_celsius,
+                             relative_humidity,
+                             wavelength_um,
+                             ra, dec) ;
     return err_code ;
 }
 
@@ -577,7 +688,56 @@ int CECoordinates::ICRS2Observed(double ra, double dec,
                                  hour_angle) ;
     
     // Convert the apparent CIRS RA,Dec to ICRS RA,Dec
-    CIRS2ICRS(*temp_ra, *temp_dec, temp_ra, temp_dec, date) ;
+    CIRS2ICRS(*temp_ra, *temp_dec, temp_ra, temp_dec, date, CEAngleType::RADIANS) ;
+    
+    return err_code ;
+}
+
+////////////////////////////////////////////////////////////
+/// Raw method for converting Observed (observer specific) -> ICRS coordinates
+/// Note: All angles are expected to be in radians.
+///     @param[in]  az                   Observed azimuth angle
+///     @param[in]  zen                  Observed zenith angle
+///     @param[out] ra                   ICRS right ascension (returned)
+///     @param[out] dec                  ICRS declination (returned)
+///     @param[in]  julian_date          Julian date for conversion
+///     @param[in]  latitude             Observer geographic latitude
+///     @param[in]  longitude            Observer geographic longitude
+///     @param[in]  elevation_m          Observer elevation (meters)
+///     @param[in]  pressure_hPa         Atmospheric pressure (HPa)
+///     @param[in]  temperature_celsius  Temperature (degrees Celsius)
+///     @param[in]  relative_humidity    Relative humidity (0.0 - 1.0)
+///     @param[in]  dut1                 UTC - UT1
+///     @param[in]  xp                   "x" polar motion
+///     @param[in]  yp                   "y" polar motion
+///     @param[in]  wavelength_um        Wavelength (micrometers)
+int CECoordinates::Observed2ICRS(double az, double zen,
+                                 double *ra, double *dec,
+                                 double julian_date,
+                                 double longitude,
+                                 double latitude,
+                                 double elevation_m,
+                                 double pressure_hPa,
+                                 double temperature_celsius,
+                                 double relative_humidity,
+                                 double dut1,
+                                 double xp, double yp,
+                                 double wavelength_um)
+{
+    // Convert from Observed -> CIRS
+    int err_code = Observed2CIRS(az, zen,
+                                 ra, dec,
+                                 julian_date,
+                                 longitude, latitude,
+                                 elevation_m, pressure_hPa,
+                                 temperature_celsius, relative_humidity,
+                                 dut1, xp, yp, wavelength_um) ;
+    if (err_code == 0) {
+        // Convert from CIRS -> ICRS
+        CIRS2ICRS(*ra, *dec, ra, dec,
+                  CEDate(julian_date,CEDateType::JD),
+                  CEAngleType::RADIANS) ;
+    }
     
     return err_code ;
 }
@@ -649,6 +809,54 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
 
     // Convert the apparent RA,Dec to galactic longitude,latitude
     CIRS2Galactic(temp_ra, temp_dec, temp_glon, temp_glat, date) ;
+    
+    return err_code ;
+}
+
+////////////////////////////////////////////////////////////
+/// Raw method for converting Observed (observer specific) -> Galactic coordinates
+/// Note: All angles are expected to be in radians.
+///     @param[in]  az                   Observed azimuth angle
+///     @param[in]  zen                  Observed zenith angle
+///     @param[out] glon                 Galactic longitude (returned)
+///     @param[out] glat                 Galactic latitude (returned)
+///     @param[in]  julian_date          Julian date for conversion
+///     @param[in]  latitude             Observer geographic latitude
+///     @param[in]  longitude            Observer geographic longitude
+///     @param[in]  elevation_m          Observer elevation (meters)
+///     @param[in]  pressure_hPa         Atmospheric pressure (HPa)
+///     @param[in]  temperature_celsius  Temperature (degrees Celsius)
+///     @param[in]  relative_humidity    Relative humidity (0.0 - 1.0)
+///     @param[in]  dut1                 UTC - UT1
+///     @param[in]  xp                   "x" polar motion
+///     @param[in]  yp                   "y" polar motion
+///     @param[in]  wavelength_um        Wavelength (micrometers)
+int CECoordinates::Observed2Galactic(double az, double zen,
+                                 double *glon, double *glat,
+                                 double julian_date,
+                                 double longitude,
+                                 double latitude,
+                                 double elevation_m,
+                                 double pressure_hPa,
+                                 double temperature_celsius,
+                                 double relative_humidity,
+                                 double dut1,
+                                 double xp, double yp,
+                                 double wavelength_um)
+{
+    // Convert from Observed -> ICRS
+    int err_code = Observed2ICRS(az, zen,
+                                 glon, glat,
+                                 julian_date,
+                                 longitude, latitude,
+                                 elevation_m, pressure_hPa,
+                                 temperature_celsius, relative_humidity,
+                                 dut1, xp, yp, wavelength_um) ;
+    if (err_code == 0) {
+        // Convert from ICRS -> Galactic
+        ICRS2Galactic(*glon, *glat, glon, glat,
+                      CEAngleType::RADIANS) ;
+    }
     
     return err_code ;
 }
@@ -735,6 +943,403 @@ CECoordinates CECoordinates::GetObservedCoords(CEDate& julian_date,
 
 
 # pragma mark - End Conversions
+
+
+////////////////////////////////////////////////////////////
+/// Get the angular separation between the coordinates represented
+/// by this object and another coordinate object. NOTE: The coordinates
+/// are both expected to be in the same coordinate system! If they
+/// are in different coordinate systems, use "ConvertTo()" first.
+///     @param[in] coords               Another set of coordinates
+///     @param[in] return_angle_type    Specify whether to return angle as DEGREES or RADIANS
+double CECoordinates::AngularSeparation(CECoordinates& coords,
+                                        CEAngleType return_angle_type)
+{
+    return AngularSeparation(*this, coords, return_angle_type) ;
+}
+
+////////////////////////////////////////////////////////////
+/// Get the angular separation between two coordinate objects.
+/// NOTE: The coordinates are both expected to be in the same
+/// coordinate system! If they are in different coordinate systems,
+/// use "ConvertTo()" first.
+///     @param[in] coords1              First set of coordinates
+///     @param[in] coords2              Second set of coordinates
+///     @param[in] return_angle_type    Specify whether to return angle as DEGREES or RADIANS
+double CECoordinates::AngularSeparation(CECoordinates& coords1, CECoordinates& coords2,
+                                        CEAngleType return_angle_type)
+{
+    // Convert the second coordinates to be the same type as the first set of coordinates
+    double angsep = AngularSeparation(coords1.XCoordinate_Rad(),
+                                      coords1.YCoordinate_Rad(),
+                                      coords2.XCoordinate_Rad(),
+                                      coords2.YCoordinate_Rad(),
+                                      CEAngleType::RADIANS) ;
+    // Convert radians to degrees if a return type of degrees is requested
+    if (return_angle_type == CEAngleType::DEGREES) {
+        angsep *= DR2D ;
+    }
+    
+    return angsep ;
+}
+
+////////////////////////////////////////////////////////////
+/// Get the angular separation between two sets of coordinates.
+/// Method utilizes the SOFA 'iauSeps' algorithm.
+/// NOTE: The coordinates are both expected to be in the same
+/// coordinate system!
+///     @param[in] xcoord_first         X-value for first set of coordinates
+///     @param[in] ycoord_first         Y-value for first set of coordinates
+///     @param[in] xcoord_second        X-value for second set of coordiantes
+///     @param[in] ycoord_second        Y-value for second set of coordinates
+///     @param[in] return_angle_type    Specify whether input angles are DEGREES or RADIANS.
+///                                     (output angle will be in the same format)
+double CECoordinates::AngularSeparation(double xcoord_first, double ycoord_first,
+                                        double xcoord_second, double ycoord_second,
+                                        CEAngleType angle_type)
+{
+    if (angle_type == CEAngleType::DEGREES) {
+        // Convert the coordinates to radians
+        xcoord_first *= DD2R ;
+        ycoord_first *= DD2R ;
+        xcoord_second *= DD2R ;
+        ycoord_second *= DD2R ;
+    }
+    
+    double angsep = iauSeps(xcoord_first, ycoord_first,
+                            xcoord_second, ycoord_second) ;
+    
+    // Convert back to degrees if requested
+    if (angle_type == CEAngleType::DEGREES) {
+        angsep *= DR2D ;
+    }
+    return angsep ;
+}
+
+////////////////////////////////////////////////////////////
+/// Convert these coordinates to another coordinate system
+/// NOTE: If this object is not OBSERVED coordinates, only JD is needed.
+/// NOTE: If 'observer' is not nulltr then 'jd' will be ignored and the
+///       date will instead be derived from the observers date.
+///     @param[in] output_coord_type    Output coordinate type (see CECoordinateType)
+///     @param[in] jd                   Julian date for conversion
+///     @param[in] observer             If these coordinates are OBSERVED, then observer
+///                                     represents the observer for these coordinates.
+///                                     Otherwise they represent the observer to convert
+///                                     the coordinates to.
+CECoordinates CECoordinates::ConvertTo(CECoordinateType output_coord_type,
+                                       CEObserver* observer, double jd)
+{
+    if (observer == nullptr) {
+        return ConvertTo(output_coord_type, jd) ;
+    } else {
+        jd = observer->Date()->JD();
+        return ConvertTo(output_coord_type,
+                         jd,
+                         observer->Longitude_Rad(),
+                         observer->Latitude_Rad(),
+                         observer->Elevation_m(),
+                         observer->Pressure_hPa(),
+                         observer->Temperature_C(),
+                         observer->RelativeHumidity(),
+                         CEDate::dut1(jd),
+                         CEDate::xpolar(jd),
+                         CEDate::ypolar(jd),
+                         observer->Wavelength_um()) ;
+    }
+}
+
+////////////////////////////////////////////////////////////
+/// Convert these coordinates to another coordinate system
+/// NOTE: If neither this object or output_coord_type are OBSERVED
+///       coordinates, only JD is needed.
+///     @param[in] output_coord_type    Output coordinate type (see CECoordinateType)
+///     @param[in] jd                   Julian date for conversion
+///     @param[in] longitude            Observer longitude (radians, east-positive)
+///     @param[in] latitude             Observer latitude (radians)
+///     @param[in] elevation_m          Elevation (meters above sea level)
+///     @param[in] pressure_hPa         Atmospheric pressure (hPa)
+///     @param[in] temperature_celsius  Atmospheric temperature (degrees celsius)
+///     @param[in] relative_humidity    Relative humidity
+///     @param[in] dut1                 DUT1 value representing UTC-UT1
+///     @param[in] xp                   x-polar motion
+///     @param[in] yp                   y-polar motion
+///     @param[in] wavelength_um        wavelength (micrometers)
+///     @return CECoordinates object representing CIRS right ascension, declination
+CECoordinates CECoordinates::ConvertTo(CECoordinateType output_coord_type,
+                                       double jd,
+                                       double longitude,
+                                       double latitude,
+                                       double elevation_m,
+                                       double pressure_hPa,
+                                       double temperature_celsius,
+                                       double relative_humidity,
+                                       double dut1,
+                                       double xp, double yp,
+                                       double wavelength_um)
+{
+    // Do conversion to CIRS
+    if (output_coord_type == CECoordinateType::CIRS) {
+        return ConvertToCIRS(jd, longitude, latitude,
+                             elevation_m, pressure_hPa,
+                             temperature_celsius, relative_humidity,
+                             dut1, xp, yp, wavelength_um) ;
+    } else if (output_coord_type == CECoordinateType::ICRS) {
+        return ConvertToICRS(jd, longitude, latitude,
+                             elevation_m, pressure_hPa,
+                             temperature_celsius, relative_humidity,
+                             dut1, xp, yp, wavelength_um) ;
+    } else if (output_coord_type == CECoordinateType::GALACTIC) {
+        return ConvertToGalactic(jd, longitude, latitude,
+                                 elevation_m, pressure_hPa,
+                                 temperature_celsius, relative_humidity,
+                                 dut1, xp, yp, wavelength_um) ;
+    } else if (output_coord_type == CECoordinateType::OBSERVED) {
+        return ConvertToObserved(jd, longitude, latitude,
+                                 elevation_m, pressure_hPa,
+                                 temperature_celsius, relative_humidity,
+                                 dut1, xp, yp, wavelength_um) ;
+    } else {
+        std::cerr << "[ERROR] Unknown coordinate type passed to CECoordinates::ConvertTo()!\n" ;
+        return CECoordinates() ;
+    }
+}
+
+////////////////////////////////////////////////////////////
+/// Convert these coordinates to CIRS coordinates.
+/// NOTE: If this object is not OBSERVED coordinates, only JD is needed.
+///     @param[in] jd                   Julian date for conversion
+///     @param[in] longitude            Observer longitude (radians, east-positive)
+///     @param[in] latitude             Observer latitude (radians)
+///     @param[in] elevation_m          Elevation (meters above sea level)
+///     @param[in] pressure_hPa         Atmospheric pressure (hPa)
+///     @param[in] temperature_celsius  Atmospheric temperature (degrees celsius)
+///     @param[in] relative_humidity    Relative humidity
+///     @param[in] dut1                 DUT1 value representing UTC-UT1
+///     @param[in] xp                   x-polar motion
+///     @param[in] yp                   y-polar motion
+///     @param[in] wavelength_um        wavelength (micrometers)
+///     @return CECoordinates object representing CIRS right ascension, declination
+CECoordinates CECoordinates::ConvertToCIRS(double jd,
+                            double longitude,
+                            double latitude,
+                            double elevation_m,
+                            double pressure_hPa,
+                            double temperature_celsius,
+                            double relative_humidity,
+                            double dut1,
+                            double xp, double yp,
+                            double wavelength_um)
+{
+    double xcoord_new(0.0), ycoord_new(0.0) ;
+    if (coord_type_ == CECoordinateType::CIRS) {
+        // CIRS -> CIRS
+        xcoord_new = XCoordinate_Rad() ;
+        ycoord_new = YCoordinate_Rad() ;
+    } else if (coord_type_ == CECoordinateType::ICRS) {
+        // ICRS -> CIRS
+        ICRS2CIRS(XCoordinate_Rad(), YCoordinate_Rad(),
+                  &xcoord_new, &ycoord_new,
+                  jd, CEAngleType::RADIANS) ;
+    } else if (coord_type_ == CECoordinateType::GALACTIC) {
+        // Galactic -> CIRS
+        Galactic2CIRS(XCoordinate_Rad(), YCoordinate_Rad(),
+                      &xcoord_new, &ycoord_new,
+                      jd, CEAngleType::RADIANS) ;
+    } else if (coord_type_ == CECoordinateType::OBSERVED) {
+        // Observed -> CIRS
+        Observed2CIRS(XCoordinate_Rad(), YCoordinate_Rad(),
+                      &xcoord_new, &ycoord_new,
+                      jd, longitude, latitude,
+                      elevation_m, pressure_hPa,
+                      temperature_celsius, relative_humidity,
+                      dut1, xp, yp, wavelength_um) ;
+    } else {
+        std::cerr << "[ERROR] Unknown coordinate type!\n" ;
+    }
+    
+    return CECoordinates(xcoord_new, ycoord_new,
+                         CECoordinateType::CIRS,
+                         CEAngleType::RADIANS) ;
+}
+
+////////////////////////////////////////////////////////////
+/// Convert these coordinates to ICRS coordinates.
+/// NOTE: If this object is not OBSERVED coordinates, only JD is needed.
+/// NOTE: If this object is GALACTIC coordinates, JD is not necessary
+///     @param[in] jd                   Julian date for conversion
+///     @param[in] longitude            Observer longitude (radians, east-positive)
+///     @param[in] latitude             Observer latitude (radians)
+///     @param[in] elevation_m          Elevation (meters above sea level)
+///     @param[in] pressure_hPa         Atmospheric pressure (hPa)
+///     @param[in] temperature_celsius  Atmospheric temperature (degrees celsius)
+///     @param[in] relative_humidity    Relative humidity
+///     @param[in] dut1                 DUT1 value representing UTC-UT1
+///     @param[in] xp                   x-polar motion
+///     @param[in] yp                   y-polar motion
+///     @param[in] wavelength_um        wavelength (micrometers)
+///     @return CECoordinates object representing ICRS right ascension, declination
+CECoordinates CECoordinates::ConvertToICRS(double jd,
+                            double longitude,
+                            double latitude,
+                            double elevation_m,
+                            double pressure_hPa,
+                            double temperature_celsius,
+                            double relative_humidity,
+                            double dut1,
+                            double xp, double yp,
+                            double wavelength_um)
+{
+    double xcoord_new(0.0), ycoord_new(0.0) ;
+    if (coord_type_ == CECoordinateType::CIRS) {
+        CIRS2ICRS(XCoordinate_Rad(), YCoordinate_Rad(),
+                  &xcoord_new, &ycoord_new, jd, CEAngleType::RADIANS) ;
+    } else if (coord_type_ == CECoordinateType::ICRS) {
+        xcoord_new = XCoordinate_Rad() ;
+        ycoord_new = YCoordinate_Rad() ;
+    } else if (coord_type_ == CECoordinateType::GALACTIC) {
+        Galactic2ICRS(XCoordinate_Rad(), YCoordinate_Rad(),
+                      &xcoord_new, &ycoord_new, CEAngleType::RADIANS) ;
+    } else if (coord_type_ == CECoordinateType::OBSERVED) {
+        Observed2ICRS(XCoordinate_Rad(), YCoordinate_Rad(),
+                      &xcoord_new, &ycoord_new,
+                      jd, longitude, latitude,
+                      elevation_m, pressure_hPa,
+                      temperature_celsius, relative_humidity,
+                      dut1, xp, yp, wavelength_um) ;
+    } else {
+        std::cerr << "[ERROR] Unknown coordinate type!\n" ;
+    }
+    
+    return CECoordinates(xcoord_new, ycoord_new,
+                         CECoordinateType::ICRS,
+                         CEAngleType::RADIANS) ;
+}
+
+////////////////////////////////////////////////////////////
+/// Convert these coordinates to GALACTIC coordinates.
+/// NOTE: If this object is not OBSERVED coordinates, only JD is needed.
+/// NOTE: If this object is ICRS coordinates, JD is not necessary
+///     @param[in] jd                   Julian date for conversion
+///     @param[in] longitude            Observer longitude (radians, east-positive)
+///     @param[in] latitude             Observer latitude (radians)
+///     @param[in] elevation_m          Elevation (meters above sea level)
+///     @param[in] pressure_hPa         Atmospheric pressure (hPa)
+///     @param[in] temperature_celsius  Atmospheric temperature (degrees celsius)
+///     @param[in] relative_humidity    Relative humidity
+///     @param[in] dut1                 DUT1 value representing UTC-UT1
+///     @param[in] xp                   x-polar motion
+///     @param[in] yp                   y-polar motion
+///     @param[in] wavelength_um        wavelength (micrometers)
+///     @return CECoordinates object representing galactic longitude,latitude
+CECoordinates CECoordinates::ConvertToGalactic(double jd,
+                                double longitude,
+                                double latitude,
+                                double elevation_m,
+                                double pressure_hPa,
+                                double temperature_celsius,
+                                double relative_humidity,
+                                double dut1,
+                                double xp, double yp,
+                                double wavelength_um)
+{
+    double xcoord_new(0.0), ycoord_new(0.0) ;
+    if (coord_type_ == CECoordinateType::CIRS) {
+        CIRS2Galactic(XCoordinate_Rad(), YCoordinate_Rad(),
+                      &xcoord_new, &ycoord_new, jd, CEAngleType::RADIANS) ;
+    } else if (coord_type_ == CECoordinateType::ICRS) {
+        ICRS2Galactic(XCoordinate_Rad(), YCoordinate_Rad(),
+                      &xcoord_new, &ycoord_new, CEAngleType::RADIANS) ;
+    } else if (coord_type_ == CECoordinateType::GALACTIC) {
+        xcoord_new = XCoordinate_Rad() ;
+        ycoord_new = YCoordinate_Rad() ;
+    } else if (coord_type_ == CECoordinateType::OBSERVED) {
+        Observed2Galactic(XCoordinate_Rad(), YCoordinate_Rad(),
+                          &xcoord_new, &ycoord_new,
+                          jd, longitude, latitude,
+                          elevation_m, pressure_hPa,
+                          temperature_celsius, relative_humidity,
+                          dut1, xp, yp, wavelength_um) ;
+    } else {
+        std::cerr << "[ERROR] Unknown coordinate type!\n" ;
+    }
+    
+    return CECoordinates(xcoord_new, ycoord_new, CECoordinateType::GALACTIC,
+                         CEAngleType::RADIANS) ;
+}
+
+////////////////////////////////////////////////////////////
+/// Convert these coordinates to observed coordinates.
+/// Note: For accurate positions you MUST supply at least jd, longitude, and latitude
+///     @param[in] jd                   Julian date for conversion
+///     @param[in] longitude            Observer longitude (radians, east-positive)
+///     @param[in] latitude             Observer latitude (radians)
+///     @param[in] elevation_m          Elevation (meters above sea level)
+///     @param[in] pressure_hPa         Atmospheric pressure (hPa)
+///     @param[in] temperature_celsius  Atmospheric temperature (degrees celsius)
+///     @param[in] relative_humidity    Relative humidity
+///     @param[in] dut1                 DUT1 value representing UTC-UT1
+///     @param[in] xp                   x-polar motion
+///     @param[in] yp                   y-polar motion
+///     @param[in] wavelength_um        wavelength (micrometers)
+///     @return CECoordinates object representing the observed altitude,
+///             zenith angle of these coordinates.
+CECoordinates CECoordinates::ConvertToObserved(double jd,
+                                double longitude,
+                                double latitude,
+                                double elevation_m,
+                                double pressure_hPa,
+                                double temperature_celsius,
+                                double relative_humidity,
+                                double dut1,
+                                double xp, double yp,
+                                double wavelength_um)
+{
+    double xcoord_new(0.0), ycoord_new(0.0) ;
+    double apparent_x, apparent_y, apparent_hourangle;
+    if (coord_type_ == CECoordinateType::CIRS) {
+        CIRS2Observed(XCoordinate_Rad(), YCoordinate_Rad(),
+                      &xcoord_new, &ycoord_new,
+                      jd,
+                      longitude, latitude,
+                      elevation_m, pressure_hPa,
+                      temperature_celsius,
+                      relative_humidity,
+                      dut1, xp, yp,
+                      wavelength_um,
+                      &apparent_x, &apparent_y, &apparent_hourangle) ;
+    } else if (coord_type_ == CECoordinateType::ICRS) {
+        ICRS2Observed(XCoordinate_Rad(), YCoordinate_Rad(),
+                      &xcoord_new, &ycoord_new,
+                      jd,
+                      longitude, latitude,
+                      elevation_m, pressure_hPa,
+                      temperature_celsius,
+                      relative_humidity,
+                      dut1, xp, yp,
+                      wavelength_um,
+                      &apparent_x, &apparent_y, &apparent_hourangle) ;
+    } else if (coord_type_ == CECoordinateType::GALACTIC) {
+        Galactic2Observed(XCoordinate_Rad(), YCoordinate_Rad(),
+                      &xcoord_new, &ycoord_new,
+                      jd,
+                      longitude, latitude,
+                      elevation_m, pressure_hPa,
+                      temperature_celsius,
+                      relative_humidity,
+                      dut1, xp, yp,
+                      wavelength_um,
+                      &apparent_x, &apparent_y, &apparent_hourangle) ;
+    } else if (coord_type_ == CECoordinateType::OBSERVED) {
+        xcoord_new = XCoordinate_Rad() ;
+        ycoord_new = YCoordinate_Rad() ;
+    } else {
+        std::cerr << "[ERROR] Unknown coordinate type!\n" ;
+    }
+ 
+    return CECoordinates(xcoord_new, ycoord_new, CECoordinateType::OBSERVED,
+                         CEAngleType::RADIANS) ;
+}
 
 ////////////////////////////////////////////////////////////
 /// Convert a given angle into degrees, arcminutes, arcseconds.

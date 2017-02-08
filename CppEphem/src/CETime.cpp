@@ -114,7 +114,7 @@ std::vector<double> CETime::CurrentUTC_vect()
 
 
 /////////////////////////////////////////////////////////
-/// Get the current UTC time as a vector
+/// Get the current UTC time
 ///     @param jd           Julian date
 ///     @return             Seconds since midnight for given Julian date
 double CETime::UTC(double jd)
