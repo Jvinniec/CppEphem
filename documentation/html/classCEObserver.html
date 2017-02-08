@@ -194,7 +194,8 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:ac29e9479df58bd3bed6d4b749747b2bd"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEObserver.html#ac29e9479df58bd3bed6d4b749747b2bd">temperature_celsius_</a> = SeaLevelTemp_C()</td></tr>
 <tr class="memdesc:ac29e9479df58bd3bed6d4b749747b2bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temperature in degrees celsius.  <a href="#ac29e9479df58bd3bed6d4b749747b2bd">More...</a><br /></td></tr>
 <tr class="separator:ac29e9479df58bd3bed6d4b749747b2bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75ab3329a8138a0abe443b5b4456cf15"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEObserver.html#a75ab3329a8138a0abe443b5b4456cf15">utc_offset_</a> = 0.0</td></tr>
+<tr class="memitem:a75ab3329a8138a0abe443b5b4456cf15"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEObserver.html#a75ab3329a8138a0abe443b5b4456cf15">utc_offset_</a> = <a class="el" href="classCETime.html#a0ef79aadd326a95457c520318e7895e8">CETime::SystemUTCOffset_hrs</a>()</td></tr>
+<tr class="memdesc:a75ab3329a8138a0abe443b5b4456cf15"><td class="mdescLeft">&#160;</td><td class="mdescRight">UTC offset in hours (set by default to system offset)  <a href="#a75ab3329a8138a0abe443b5b4456cf15">More...</a><br /></td></tr>
 <tr class="separator:a75ab3329a8138a0abe443b5b4456cf15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4ef92ea341136f8e2f54a7e73d7c625"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEObserver.html#af4ef92ea341136f8e2f54a7e73d7c625">wavelength_um_</a> = 0.5</td></tr>
 <tr class="memdesc:af4ef92ea341136f8e2f54a7e73d7c625"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observing wavelength (micrometers)  <a href="#af4ef92ea341136f8e2f54a7e73d7c625">More...</a><br /></td></tr>
@@ -1403,7 +1404,7 @@ Collaboration diagram for CEObserver:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double CEObserver::utc_offset_ = 0.0</td>
+          <td class="memname">double CEObserver::utc_offset_ = <a class="el" href="classCETime.html#a0ef79aadd326a95457c520318e7895e8">CETime::SystemUTCOffset_hrs</a>()</td>
         </tr>
       </table>
   </td>
@@ -1412,6 +1413,8 @@ Collaboration diagram for CEObserver:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>UTC offset in hours (set by default to system offset) </p>
 
 <p class="definition">Definition at line <a class="el" href="CEObserver_8h_source.html#l00114">114</a> of file <a class="el" href="CEObserver_8h_source.html">CEObserver.h</a>.</p>
 
@@ -1450,7 +1453,7 @@ Collaboration diagram for CEObserver:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Feb 2 2017 11:22:51 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 8 2017 12:29:40 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

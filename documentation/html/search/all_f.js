@@ -50,5 +50,6 @@ var searchData=
   ['setwavelength_5fum',['SetWavelength_um',['../classCEObserver.html#a64bb6b2ee9b42ba99d8ea9ee546aaa0e',1,'CEObserver']]],
   ['sofa',['SOFA',['../CEPlanet_8h.html#ae0ffdf0d27cd448d21a16d3f9cb13029af412665fca8fbaa1b12aee04f4e722b7',1,'CEPlanet.h']]],
   ['sofa_5fplanet_5fid_5f',['sofa_planet_id_',['../classCEPlanet.html#aaa024922826c1320229189d06a792bfa',1,'CEPlanet']]],
-  ['start',['start',['../classCERunningDate.html#a045f3a85623e6369980996ec13642c9e',1,'CERunningDate']]]
+  ['start',['start',['../classCERunningDate.html#a045f3a85623e6369980996ec13642c9e',1,'CERunningDate']]],
+  ['systemutcoffset_5fhrs',['SystemUTCOffset_hrs',['../classCETime.html#a0ef79aadd326a95457c520318e7895e8',1,'CETime']]]
 ];

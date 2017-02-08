@@ -72,7 +72,7 @@ $(function() {
 <div class="textblock"><p>This class stores and computes information regarding the time and handles conversions to current time zone. </p>
 <p>This method is mostly intended to serve as a helper class to <a class="el" href="classCEDate.html" title="CEDate class handles conversion between different date formats. ">CEDate</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="CETime_8h_source.html#l00023">23</a> of file <a class="el" href="CETime_8h_source.html">CETime.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CETime_8h_source.html#l00025">25</a> of file <a class="el" href="CETime_8h_source.html">CETime.h</a>.</p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -112,6 +112,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a5b1e062df4252c9b59a47f97ae4dbaa4"><td class="memItemLeft" align="right" valign="top">static std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCETime.html#a5b1e062df4252c9b59a47f97ae4dbaa4">CurrentUTC_vect</a> ()</td></tr>
 <tr class="memdesc:a5b1e062df4252c9b59a47f97ae4dbaa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current UTC time as a vector.  <a href="#a5b1e062df4252c9b59a47f97ae4dbaa4">More...</a><br /></td></tr>
 <tr class="separator:a5b1e062df4252c9b59a47f97ae4dbaa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ef79aadd326a95457c520318e7895e8"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCETime.html#a0ef79aadd326a95457c520318e7895e8">SystemUTCOffset_hrs</a> ()</td></tr>
+<tr class="separator:a0ef79aadd326a95457c520318e7895e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6653740b539e9ea85d056daa14c654d1"><td class="memItemLeft" align="right" valign="top">static std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCETime.html#a6653740b539e9ea85d056daa14c654d1">TimeDbl2Vect</a> (double time)</td></tr>
 <tr class="memdesc:a6653740b539e9ea85d056daa14c654d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a time formatted as HHMMSS.SS into a vector.  <a href="#a6653740b539e9ea85d056daa14c654d1">More...</a><br /></td></tr>
 <tr class="separator:a6653740b539e9ea85d056daa14c654d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -125,7 +127,7 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memdesc:abf02a1b54ad6f48de14b3e7941c6d3f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a time formatted as HHMMSS.SS into a vector.  <a href="#abf02a1b54ad6f48de14b3e7941c6d3f7">More...</a><br /></td></tr>
 <tr class="separator:abf02a1b54ad6f48de14b3e7941c6d3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02bbdd165f554367e26f0d97a06a0d15"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCETime.html#a02bbdd165f554367e26f0d97a06a0d15">UTC</a> (double jd)</td></tr>
-<tr class="memdesc:a02bbdd165f554367e26f0d97a06a0d15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current UTC time as a vector.  <a href="#a02bbdd165f554367e26f0d97a06a0d15">More...</a><br /></td></tr>
+<tr class="memdesc:a02bbdd165f554367e26f0d97a06a0d15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current UTC time.  <a href="#a02bbdd165f554367e26f0d97a06a0d15">More...</a><br /></td></tr>
 <tr class="separator:a02bbdd165f554367e26f0d97a06a0d15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae87974fef65c8ca6299105d339147b2b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCETime.html#ae87974fef65c8ca6299105d339147b2b">UTC2GAST</a> ()</td></tr>
 <tr class="separator:ae87974fef65c8ca6299105d339147b2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -415,7 +417,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CETime_8h_source.html#l00060">60</a> of file <a class="el" href="CETime_8h_source.html">CETime.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CETime_8h_source.html#l00070">70</a> of file <a class="el" href="CETime_8h_source.html">CETime.h</a>.</p>
 
 </div>
 </div>
@@ -443,7 +445,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CETime_8h_source.html#l00062">62</a> of file <a class="el" href="CETime_8h_source.html">CETime.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CETime_8h_source.html#l00072">72</a> of file <a class="el" href="CETime_8h_source.html">CETime.h</a>.</p>
 
 </div>
 </div>
@@ -471,7 +473,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CETime_8h_source.html#l00064">64</a> of file <a class="el" href="CETime_8h_source.html">CETime.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CETime_8h_source.html#l00074">74</a> of file <a class="el" href="CETime_8h_source.html">CETime.h</a>.</p>
 
 </div>
 </div>
@@ -693,6 +695,33 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a0ef79aadd326a95457c520318e7895e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ef79aadd326a95457c520318e7895e8">&#9670;&nbsp;</a></span>SystemUTCOffset_hrs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static double CETime::SystemUTCOffset_hrs </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="CETime_8h_source.html#l00055">55</a> of file <a class="el" href="CETime_8h_source.html">CETime.h</a>.</p>
+
+</div>
+</div>
 <a id="a6653740b539e9ea85d056daa14c654d1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6653740b539e9ea85d056daa14c654d1">&#9670;&nbsp;</a></span>TimeDbl2Vect()</h2>
 
@@ -883,7 +912,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get the current UTC time as a vector. </p>
+<p>Get the current UTC time. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">jd</td><td>Julian date </td></tr>
@@ -1041,7 +1070,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CETime_8h_source.html#l00087">87</a> of file <a class="el" href="CETime_8h_source.html">CETime.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CETime_8h_source.html#l00097">97</a> of file <a class="el" href="CETime_8h_source.html">CETime.h</a>.</p>
 
 </div>
 </div>
@@ -1065,7 +1094,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CETime_8h_source.html#l00088">88</a> of file <a class="el" href="CETime_8h_source.html">CETime.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CETime_8h_source.html#l00098">98</a> of file <a class="el" href="CETime_8h_source.html">CETime.h</a>.</p>
 
 </div>
 </div>
@@ -1076,7 +1105,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Feb 2 2017 11:22:52 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 8 2017 12:29:40 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

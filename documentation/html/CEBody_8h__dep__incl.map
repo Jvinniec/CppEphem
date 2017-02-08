@@ -1,10 +1,10 @@
 <map id="CppEphem/include/CEBody.h" name="CppEphem/include/CEBody.h">
-<area shape="rect" id="node2" href="$CEBody_8cpp.html" title="CppEphem/src/CEBody.cpp" alt="" coords="998,80,1186,107"/>
-<area shape="rect" id="node3" href="$CEObservation_8h.html" title="CppEphem/include/CEObservation.h" alt="" coords="1020,155,1260,181"/>
-<area shape="rect" id="node19" href="$CEObserver_8h.html" title="CppEphem/include/CEObserver.h" alt="" coords="1262,80,1485,107"/>
-<area shape="rect" id="node22" href="$CEPlanet_8h.html" title="CppEphem/include/CEPlanet.h" alt="" coords="1736,80,1941,107"/>
-<area shape="rect" id="node4" href="$CEObservation_8cpp.html" title="CppEphem/src/CEObservation.cpp" alt="" coords="981,229,1211,256"/>
-<area shape="rect" id="node5" href="$CppEphem_8h.html" title="CppEphem/include/CppEphem.h" alt="" coords="1235,229,1451,256"/>
+<area shape="rect" id="node2" href="$CEBody_8cpp.html" title="CppEphem/src/CEBody.cpp" alt="" coords="1198,80,1386,107"/>
+<area shape="rect" id="node3" href="$CEObservation_8h.html" title="CppEphem/include/CEObservation.h" alt="" coords="1220,155,1460,181"/>
+<area shape="rect" id="node21" href="$CEObserver_8h.html" title="CppEphem/include/CEObserver.h" alt="" coords="1462,80,1685,107"/>
+<area shape="rect" id="node24" href="$CEPlanet_8h.html" title="CppEphem/include/CEPlanet.h" alt="" coords="1936,80,2141,107"/>
+<area shape="rect" id="node4" href="$CEObservation_8cpp.html" title="CppEphem/src/CEObservation.cpp" alt="" coords="1181,229,1411,256"/>
+<area shape="rect" id="node5" href="$CppEphem_8h.html" title="CppEphem/include/CppEphem.h" alt="" coords="1435,229,1651,256"/>
 <area shape="rect" id="node6" href="$cal2jd_8cpp.html" title="CppEphem/src/cal2jd.cpp" alt="" coords="5,304,179,331"/>
 <area shape="rect" id="node7" href="$cal2mjd_8cpp.html" title="CppEphem/src/cal2mjd.cpp" alt="" coords="203,304,389,331"/>
 <area shape="rect" id="node8" href="$cirs2gal_8cpp.html" title="CppEphem/src/cirs2gal.cpp" alt="" coords="413,304,598,331"/>
@@ -16,9 +16,11 @@
 <area shape="rect" id="node14" href="$mjd2cal_8cpp.html" title="CppEphem/src/mjd2cal.cpp" alt="" coords="1657,304,1842,331"/>
 <area shape="rect" id="node15" href="$mjd2jd_8cpp.html" title="CppEphem/src/mjd2jd.cpp" alt="" coords="1867,304,2045,331"/>
 <area shape="rect" id="node16" href="$obs2cirs_8cpp.html" title="CppEphem/src/obs2cirs.cpp" alt="" coords="2069,304,2259,331"/>
-<area shape="rect" id="node17" href="$planetephem_8cpp.html" title="CppEphem/src/planetephem.cpp" alt="" coords="2283,304,2499,331"/>
-<area shape="rect" id="node18" href="$planetpositions_8cpp.html" title="This script allows viewing the current coordinates of a given solar system planet for dates within 30..." alt="" coords="2523,304,2751,331"/>
-<area shape="rect" id="node20" href="$CECoordinates_8cpp.html" title="CppEphem/src/CECoordinates.cpp" alt="" coords="1335,155,1564,181"/>
-<area shape="rect" id="node21" href="$CEObserver_8cpp.html" title="CppEphem/src/CEObserver.cpp" alt="" coords="1589,155,1801,181"/>
-<area shape="rect" id="node23" href="$CEPlanet_8cpp.html" title="CppEphem/src/CEPlanet.cpp" alt="" coords="1877,155,2073,181"/>
+<area shape="rect" id="node17" href="$obs2gal_8cpp.html" title="CppEphem/src/obs2gal.cpp" alt="" coords="2283,304,2469,331"/>
+<area shape="rect" id="node18" href="$obs2icrs_8cpp.html" title="CppEphem/src/obs2icrs.cpp" alt="" coords="2493,304,2683,331"/>
+<area shape="rect" id="node19" href="$planetephem_8cpp.html" title="CppEphem/src/planetephem.cpp" alt="" coords="2707,304,2923,331"/>
+<area shape="rect" id="node20" href="$planetpositions_8cpp.html" title="This script allows viewing the current coordinates of a given solar system planet for dates within 30..." alt="" coords="2947,304,3175,331"/>
+<area shape="rect" id="node22" href="$CECoordinates_8cpp.html" title="CppEphem/src/CECoordinates.cpp" alt="" coords="1535,155,1764,181"/>
+<area shape="rect" id="node23" href="$CEObserver_8cpp.html" title="CppEphem/src/CEObserver.cpp" alt="" coords="1789,155,2001,181"/>
+<area shape="rect" id="node25" href="$CEPlanet_8cpp.html" title="CppEphem/src/CEPlanet.cpp" alt="" coords="2077,155,2273,181"/>
 </map>

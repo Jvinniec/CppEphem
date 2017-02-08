@@ -44,5 +44,6 @@ var searchData=
   ['settimerspeed',['SetTimerSpeed',['../classCERunningDate.html#ad12361c8451d6939806af53c720edd4e',1,'CERunningDate']]],
   ['settolerance',['SetTolerance',['../classCEPlanet.html#afb71b20ad12c61fe54bb79a0cd6418e1',1,'CEPlanet']]],
   ['setutcoffset',['SetUTCOffset',['../classCEObserver.html#a898e4157d5a877f2babae2f3b350cd02',1,'CEObserver']]],
-  ['setwavelength_5fum',['SetWavelength_um',['../classCEObserver.html#a64bb6b2ee9b42ba99d8ea9ee546aaa0e',1,'CEObserver']]]
+  ['setwavelength_5fum',['SetWavelength_um',['../classCEObserver.html#a64bb6b2ee9b42ba99d8ea9ee546aaa0e',1,'CEObserver']]],
+  ['systemutcoffset_5fhrs',['SystemUTCOffset_hrs',['../classCETime.html#a0ef79aadd326a95457c520318e7895e8',1,'CETime']]]
 ];
