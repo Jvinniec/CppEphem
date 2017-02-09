@@ -26,7 +26,8 @@ include_HEADERS = ../include/CppEphem.h \
                         ../include/CEObserver.h \
                         ../include/CEPlanet.h \
                         ../include/CERunningDate.h \
-                        ../include/CETime.h
+                        ../include/CETime.h \
+			../include/CLOptions.h
 
 libcppephem_la_CPPFLAGS = $(CppEphem_CPPFLAGS)
 libcppephem_la_LIBADD=$(LIBS)

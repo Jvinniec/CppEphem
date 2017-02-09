@@ -209,8 +209,8 @@ int CECoordinates::CIRS2Observed(double ra, double dec,
 }
 
 ////////////////////////////////////////////////////////////
-/// ICRS -> CIRS coordinate conversion
-///
+/// ICRS -> CIRS coordinate conversion.
+/// Uses the SOFA function 'iauAtci13'
 ///     @param[in]  input_ra     Right ascension to be converted
 ///     @param[in]  input_dec    Declination to be converted
 ///     @param[out] return_ra    CIRS Right ascension (returned)
@@ -230,12 +230,15 @@ void CECoordinates::ICRS2CIRS(double input_ra, double input_dec,
     // Store the equation of the origins
     double eo ; // Equation of the origins
     
-    // Get the star-independent astrometry parameters for this date
-    iauASTROM astrom ;
-    iauApci13(date.JD(), 0.0, &astrom, &eo) ;
-    
     // Use the sofa library to convert these coordinates
-    iauAtciqz(input_ra+eo, input_dec, &astrom, return_ra, return_dec) ;
+    iauAtci13(input_ra, input_dec, 0, 0, 0, 0, date.JD(), 0.0, return_ra, return_dec, &eo) ;
+    *return_ra -= eo ;
+    
+    // Convert the returned coordinates to the correct angle type
+    if (angle_type == CEAngleType::DEGREES) {
+        *return_ra *= DR2D ;
+        *return_dec *= DR2D ;
+    }
     
     return ;
 }
@@ -247,12 +250,23 @@ void CECoordinates::ICRS2CIRS(double input_ra, double input_dec,
 ///     @param[out] glon         Galactic longitude
 ///     @param[out] glat         Galactic latitude
 ///     @param[in]  angle_type   Angle type
-
 void CECoordinates::ICRS2Galactic(double input_ra, double input_dec, double *glon, double *glat,
                                   CEAngleType angle_type)
 {
+    // Convert to radians if necessary
+    if (angle_type == CEAngleType::DEGREES) {
+        input_ra *= DD2R ;
+        input_dec *= DD2R ;
+    }
+    
     // Use the sofa method to convert the coordinates
     iauIcrs2g(input_ra, input_dec, glon, glat) ;
+    
+    // Convert back to degrees if necessary
+    if (angle_type == CEAngleType::DEGREES) {
+        *glon *= DR2D ;
+        *glat *= DR2D ;
+    }
 }
 
 ////////////////////////////////////////////////////////////
@@ -451,8 +465,14 @@ int CECoordinates::Observed2CIRS(double az, double zen,
                             CEObserver& observer,
                             CEAngleType angle_type)
 {
+    // Convert to radians if necessary
+    if (angle_type == CEAngleType::DEGREES) {
+        az *= DD2R ;
+        zen *= DD2R ;
+    }
+    
     // Call the raw method
-    return Observed2CIRS(az, zen, ra, dec, observer.Date()->JD(),
+    int err_code = Observed2CIRS(az, zen, ra, dec, observer.Date()->JD(),
                   observer.Longitude_Rad(), observer.Latitude_Rad(),
                   observer.Elevation_m(),
                   observer.Pressure_hPa(), observer.Temperature_C(),
@@ -460,6 +480,14 @@ int CECoordinates::Observed2CIRS(double az, double zen,
                   observer.Date()->dut1(),
                   observer.Date()->xpolar(), observer.Date()->ypolar(),
                   observer.Wavelength_um()) ;
+    
+    // Convert back to degrees if necessary
+    if (angle_type == CEAngleType::DEGREES) {
+        *ra *= DR2D ;
+        *dec *= DR2D ;
+    }
+    
+    return err_code ;
 }
 
 ////////////////////////////////////////////////////////////
@@ -475,8 +503,14 @@ int CECoordinates::Observed2ICRS(double az, double zen,
                                  CEObserver& observer,
                                  CEAngleType angle_type)
 {
+    // Convert to radians if necessary
+    if (angle_type == CEAngleType::DEGREES) {
+        az *= DD2R ;
+        zen *= DD2R ;
+    }
+    
     // Call the raw method
-    return Observed2ICRS(az, zen, ra, dec, observer.Date()->JD(),
+    int err_code = Observed2ICRS(az, zen, ra, dec, observer.Date()->JD(),
                   observer.Longitude_Rad(), observer.Latitude_Rad(),
                   observer.Elevation_m(),
                   observer.Pressure_hPa(), observer.Temperature_C(),
@@ -484,6 +518,14 @@ int CECoordinates::Observed2ICRS(double az, double zen,
                   observer.Date()->dut1(),
                   observer.Date()->xpolar(), observer.Date()->ypolar(),
                   observer.Wavelength_um()) ;
+    
+    // Convert back to degrees if necessary
+    if (angle_type == CEAngleType::DEGREES) {
+        *ra *= DR2D ;
+        *dec *= DR2D ;
+    }
+    
+    return err_code ;
 }
 
 ////////////////////////////////////////////////////////////
@@ -499,8 +541,14 @@ int CECoordinates::Observed2Galactic(double az, double zen,
                                  CEObserver& observer,
                                  CEAngleType angle_type)
 {
+    // Convert to radians if necessary
+    if (angle_type == CEAngleType::DEGREES) {
+        az *= DD2R ;
+        zen *= DD2R ;
+    }
+    
     // Call the raw method
-    return Observed2Galactic(az, zen, glon, glat, observer.Date()->JD(),
+    int err_code = Observed2Galactic(az, zen, glon, glat, observer.Date()->JD(),
                   observer.Longitude_Rad(), observer.Latitude_Rad(),
                   observer.Elevation_m(),
                   observer.Pressure_hPa(), observer.Temperature_C(),
@@ -508,6 +556,14 @@ int CECoordinates::Observed2Galactic(double az, double zen,
                   observer.Date()->dut1(),
                   observer.Date()->xpolar(), observer.Date()->ypolar(),
                   observer.Wavelength_um()) ;
+    
+    // Convert back to degrees if necessary
+    if (angle_type == CEAngleType::DEGREES) {
+        *glon *= DR2D ;
+        *glat *= DR2D ;
+    }
+    
+    return err_code ;
 }
 
 
@@ -816,8 +872,8 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
 ////////////////////////////////////////////////////////////
 /// Raw method for converting Observed (observer specific) -> Galactic coordinates
 /// Note: All angles are expected to be in radians.
-///     @param[in]  az                   Observed azimuth angle
-///     @param[in]  zen                  Observed zenith angle
+///     @param[in]  az                   Observed azimuth angle (radians)
+///     @param[in]  zen                  Observed zenith angle (radians)
 ///     @param[out] glon                 Galactic longitude (returned)
 ///     @param[out] glat                 Galactic latitude (returned)
 ///     @param[in]  julian_date          Julian date for conversion
