@@ -40,7 +40,7 @@ bin_PROGRAMS = cal2jd cal2mjd jd2cal jd2mjd mjd2jd mjd2cal cirs2obs cirs2gal gal
 
 # CALENDAR to JULIAN DATE
 cal2jd_SOURCES = cal2jd.cpp
-cal2jd_LDADD = libcppephem.la
+cal2jd_LDADD = libcppephem.la $(sofalibs)
 cal2jd_CPPFLAGS = $(CppEphem_CPPFLAGS)
 
 # CALENDAR to MODIFIED JULIAN DATE
