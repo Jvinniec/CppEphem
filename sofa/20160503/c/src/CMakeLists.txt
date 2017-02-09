@@ -241,7 +241,8 @@ set (sofa_headers
 	sofam.h
 	)
 
-#aux_source_directory(./ SOFA_SOURCES) 
-add_library (sofa_c ${sofa_sources} ${sofa_headers})
+add_library (sofa_c SHARED ${sofa_sources} ${sofa_headers})
+add_library (sofa_c_static STATIC ${sofa_sources} ${sofa_headers})
+set_target_properties(sofa_c_static PROPERTIES OUTPUT_NAME sofa_c)
 
 target_link_libraries(sofa_c)

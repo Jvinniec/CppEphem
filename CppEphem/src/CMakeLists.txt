@@ -39,7 +39,7 @@ set (cppephem_HEADERS
 add_library (cppephem SHARED ${cppephem_SOURCES} ${cppephem_HEADERS})
 add_library (cppephem_static STATIC ${cppephem_SOURCES} ${cppephem_HEADERS})
 
-#set_target_properties(cppephem_shared PROPERTIES OUTPUT_NAME cppephem)
+# Make sure the static version has the same name
 set_target_properties(cppephem_static PROPERTIES OUTPUT_NAME cppephem)
 
 #------------------------------------------
