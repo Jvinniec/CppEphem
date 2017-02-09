@@ -5,9 +5,15 @@
 # ===================================================
 
 # First make sure that the 'm4' directory exists.
-if [ ! -d "m4" ]; then
-  # The directory doesnt exist, so we need to create it
-    mkdir m4
-fi
+function autogenerate
+{
+    if [ ! -d "m4" ]; then
+       # The directory doesnt exist, so we need to create it
+       mkdir m4
+    fi
 
-autoreconf -ifv -I m4
+    # Generate the build files
+    autoreconf -ifv -I m4
+}
+
+autogenerate

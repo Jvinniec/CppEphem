@@ -35,6 +35,7 @@ dnl #################################
 sofalibs=
 sofa_CXXFLAGS=
 have_sofa=no
+sofa_external=no
 
 # Set the default sofa directory to the included one
 SOFADIR="${curDir}/sofa/20160503/c/src"
@@ -55,6 +56,7 @@ if (test "x$with_sofa" != x) && (test -d ${with_sofa}); then
    sofalibs="-L$with_sofa -lsofa_c"
    sofa_CXXFLAGS="-I$with_sofa ${sofa_CXXFLAGS}"
    have_sofa=yes
+   sofa_external=yes
 else
    # Add the default sofa directory to the directories to be built
    BUILDSUBDIRS="${SOFADIR} ${BUILDSUBDIRS}"
@@ -63,11 +65,12 @@ else
    have_sofa=yes
 fi
 
+
 dnl Pass the SOFADIR to the makefiles
 AC_SUBST(SOFADIR)
-
+AC_SUBST(sofalibs)
 dnl Add the include flags and the library search paths
-LIBS="${sofalibs} ${LIBS}"
+#LIBS="${sofalibs} ${LIBS}"
 
 dnl Library checks
 #have_sofa=yes
@@ -119,8 +122,14 @@ AC_CHECK_FUNCS([floor pow sqrt])
 dnl #################################
 dnl Specify the Makefile locations
 dnl #################################
-AC_CONFIG_FILES([Makefile CppEphem/src/Makefile])
 
+AC_CONFIG_FILES([Makefile sofa/20160503/c/src/Makefile CppEphem/src/Makefile])
+
+#AC_CONFIG_FILES([$SOFADIR/Makefile],[],[SOFADIR='$SOFA_default'])
+#AM_CONDITIONAL([SOFA_INTERNAL], [test "x${sofa_external}" != xyes])
+#AM_COND_IF([SOFA_INTERNAL],
+#	[AC_CONFIG_FILES([Makefile $SOFADIR/Makefile],[],[SOFADIR='$CPPEPH_SOFA_default'])],
+#	[AC_CONFIG_FILES([Makefile CppEphem/src/Makefile])])
 dnl 
 AC_OUTPUT
 
