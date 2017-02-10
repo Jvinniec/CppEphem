@@ -41,6 +41,7 @@
 #ifndef CLOptions_h
 #define CLOptions_h
 
+#include <iostream>
 #include <fstream>
 #include <getopt.h>
 #include <map>

@@ -27,8 +27,8 @@ include_HEADERS = ../include/CppEphem.h \
                         ../include/CEPlanet.h \
                         ../include/CERunningDate.h \
                         ../include/CETime.h \
-                        $(SOFADIR)/sofa.h \
-			$(SOFADIR)/sofam.h
+			../include/CLOptions.h
+
 libcppephem_la_CPPFLAGS = $(CppEphem_CPPFLAGS)
 libcppephem_la_LIBADD=$(LIBS)
 libcppephem_ladir=$(libdir)
@@ -41,7 +41,7 @@ bin_PROGRAMS = cal2jd cal2mjd jd2cal jd2mjd mjd2jd mjd2cal cirs2obs cirs2gal gal
 
 # CALENDAR to JULIAN DATE
 cal2jd_SOURCES = cal2jd.cpp
-cal2jd_LDADD = libcppephem.la
+cal2jd_LDADD = libcppephem.la $(sofalibs)
 cal2jd_CPPFLAGS = $(CppEphem_CPPFLAGS)
 
 # CALENDAR to MODIFIED JULIAN DATE
