@@ -140,18 +140,16 @@ void PrintEphemeris(CEObservation& obs, double duration, double step_size)
     std::vector<double> ra, dec ;
     
     // Now do the stuff we actually want
-    std::printf("    JD      UTC          RA              DEC          Az       Alt  \n") ;
-    std::printf(" ===================================================================\n") ;
+    std::printf("      JD        LOCAL        RA              DEC          Az       Alt  \n") ;
+    std::printf(" =======================================================================\n") ;
     int max_steps = int(duration/step_size) ;
     for (int s=0; s<=max_steps; s++) {
         
-//        ra = CECoordinates::GetHMS( obs.GetApparentXCoordinate_Deg() ) ;
-//        dec = CECoordinates::GetDMS( obs.GetApparentYCoordinate_Deg() ) ;
         ra = CECoordinates::GetHMS( planet->XCoordinate_Deg() );
         dec = CECoordinates::GetDMS( planet->YCoordinate_Deg() );
         
-        std::printf(" %8d %08.1f  %2.0fh %2.0fm %4.1fs  %+3.0fd %2.0fm %4.1fs  %8.3f  %+7.3f\n",
-                    int(*date), date->GetTime(observer->UTCOffset()),
+        std::printf(" %11.2f  %08.1f  %2.0fh %2.0fm %4.1fs  %+3.0fd %2.0fm %4.1fs  %8.3f  %+7.3f\n",
+                    double(*date), date->GetTime(observer->UTCOffset()),
                     ra[0], ra[1], ra[2],
                     dec[0], dec[1], dec[2],
                     obs.GetAzimuth_Deg(),

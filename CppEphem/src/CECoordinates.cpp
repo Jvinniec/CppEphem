@@ -1054,6 +1054,8 @@ double CECoordinates::AngularSeparation(double xcoord_first, double ycoord_first
                                         double xcoord_second, double ycoord_second,
                                         CEAngleType angle_type)
 {
+    // Note that the 'iauSeps' algorithm expects angles in radians,
+    // so we need to convert if angles were passed in degrees
     if (angle_type == CEAngleType::DEGREES) {
         // Convert the coordinates to radians
         xcoord_first *= DD2R ;
@@ -1062,6 +1064,7 @@ double CECoordinates::AngularSeparation(double xcoord_first, double ycoord_first
         ycoord_second *= DD2R ;
     }
     
+    // Call the 'iauSeps' SOFA algorithm
     double angsep = iauSeps(xcoord_first, ycoord_first,
                             xcoord_second, ycoord_second) ;
     
