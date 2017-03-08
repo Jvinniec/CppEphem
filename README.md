@@ -59,7 +59,7 @@ executables which can be run from the command line:
   - __obs2icrs__: Observed to ICRS coordinates
   - __obs2gal__: Observed to Galactic coordinates
 * Planet ephemeris producer
-  - __planetephem__: Computes the ephemeris for a given planet using user supplied geographic and time values.
+  - [__planetephem__](https://github.com/Jvinniec/CppEphem/wiki/planetephem): Computes the ephemeris for a given planet using user supplied geographic and time values.
   - __planetpositions__: Computes current RA,Dec and Az,Alt for planets taking in user specific location (requires ncurses, not compiled by default)
 
 Downloading the code:
