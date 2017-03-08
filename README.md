@@ -4,6 +4,7 @@ This documents the [CppEphem](https://github.com/Jvinniec/CppEphem) package.
 * Creation Date: March 2016
 * [Documentation available here](http://jvinniec.github.io/CppEphem/documentation/html/index.html)
 * [Download available here](https://github.com/Jvinniec/CppEphem)
+* [Wiki (on GitHub)](https://github.com/Jvinniec/CppEphem/wiki)
 
 PURPOSE:
 ----------------------------------------------------------
