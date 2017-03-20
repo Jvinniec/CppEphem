@@ -42,20 +42,6 @@
  for computing the positions of Pluto.
  
  <h2>Default Planet Objects</h2>
-<<<<<<< HEAD
- The eight planets and Pluto have predefined static methods. To create one of 
- these predefined planet objects, it is advised to use these methods:
- \code{.cpp}
-    // Define one of the planets:
-    CEPlanet mercury = CEPlanet::Mercury();
-    CEPlanet venus   = CEPlanet::Venus();
-    CEPlanet mars    = CEPlanet::Mars();
-    CEPlanet jupiter = CEPlanet::Jupiter();
-    CEPlanet saturn = CEPlanet::Saturn();
-    CEPlanet uranus = CEPlanet::Uranus();
-    CEPlanet neptune = CEPlanet::Neptune();
-    CEPlanet pluto = CEPlanet::Pluto();
-=======
  The eight planets and Pluto have predefined static methods. To create one of
  these predefined planet objects, it is advised to use these methods:
  
@@ -69,7 +55,6 @@
  CEPlanet uranus  = CEPlanet::Uranus();
  CEPlanet neptune = CEPlanet::Neptune();
  CEPlanet pluto   = CEPlanet::Pluto();
->>>>>>> master
  \endcode
  
  <h2>Converting To Observed Coordinates</h2>
