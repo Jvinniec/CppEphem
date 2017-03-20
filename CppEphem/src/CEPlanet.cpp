@@ -41,6 +41,22 @@
  implemented for the JPL algorithm, so this algorithm will always be used
  for computing the positions of Pluto.
  
+ <h2>Default Planet Objects</h2>
+ The eight planets and Pluto have predefined static methods. To create one of
+ these predefined planet objects, it is advised to use these methods:
+ 
+ \code{.cpp}
+ // Define one of the planets:
+ CEPlanet mercury = CEPlanet::Mercury();
+ CEPlanet venus   = CEPlanet::Venus();
+ CEPlanet mars    = CEPlanet::Mars();
+ CEPlanet jupiter = CEPlanet::Jupiter();
+ CEPlanet saturn  = CEPlanet::Saturn();
+ CEPlanet uranus  = CEPlanet::Uranus();
+ CEPlanet neptune = CEPlanet::Neptune();
+ CEPlanet pluto   = CEPlanet::Pluto();
+ \endcode
+ 
  <h2>Converting To Observed Coordinates</h2>
  The positions are computed first for the planet in order to obtain its
  heliocentric (ICRS in JPL algorithm) reference frame x,y,z coordinates. 
