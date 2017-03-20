@@ -17,11 +17,11 @@ the quantities they need in their own programs.
 
 Here is a list of purposes I wish this code to serve:
 * Basic coordinate conversion routines (see [CECoordinates](http://jvinniec.github.io/CppEphem/documentation/html/classCECoordinates.html), fully implemented except for ecliptic coordinates)
-  - __CIRS__ (Earth centric RA,Dec)
-  - __ICRS__ (Solarsystem barycentric RA, Dec)
-  - __Galactic__ (Long, Lat)
-  - __Observed__ (Azimuth, Zenith angle) (Note: Zenith angle = 90&deg; - Altitude)
-  - __Ecliptic__ (Long, Lat) Will allow for either heliocentric or Earth centric variants (Not yet implemented)
+  - [CIRS](https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#cirs) (Earth centric RA,Dec)
+  - [ICRS](https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#icrs) (Solarsystem barycentric RA, Dec)
+  - [Galactic](https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#galactic) (Long, Lat)
+  - [Observed](https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#observed) (Azimuth, Zenith angle) (Note: Zenith angle = 90&deg; - Altitude)
+  - [Ecliptic](https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#ecliptic) (Long, Lat) Will allow for either heliocentric or Earth centric variants (Not yet implemented)
 * Star & Planet ephemeris
   - __Star positions__ for a given observer at a given time (not accounting for proper motion yet)
   - __Planet positions__ for a given observer at a given time (implemented in [CEPlanet](http://jvinniec.github.io/CppEphem/documentation/html/classCEPlanet.html), see tutorials ce101, ce104, planetephem.cpp, and planetpositions.cpp)
