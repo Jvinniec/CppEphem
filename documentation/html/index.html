@@ -73,20 +73,20 @@ $(function() {
 <h2>PURPOSE: </h2>
 <p>The purpose of this package is to leverage the Standards Of Fundamental Astronomy (SOFA) package in order to compute several astrophysical quantities regarding the positions of objects. <a class="el" href="namespaceCppEphem.html">CppEphem</a> wraps the SOFA functions in easy to use classes, so that astronomers can quickly and easily compute the quantities they need in their own programs.</p>
 <p>Here is a list of purposes I wish this code to serve:</p><ul>
-<li>Basic coordinate conversion routines (see <a class="el" href="classCECoordinates.html" title="CECoordinates class is responsible for doing all of the celestial coordinate conversions. ">CECoordinates</a>, fully implemented)<ul>
-<li><b>CIRS</b> (Earth centric RA,Dec)</li>
-<li><b>ICRS</b> (Solarsystem barycentric RA, Dec)</li>
-<li><b>Galactic</b> (Long, Lat)</li>
-<li><b>Observed</b> (Azimuth, Zenith angle) (Note: Zenith angle = 90&deg; - Altitude)</li>
-<li><b>Ecliptic</b> (Long, Lat) Will allow for either heliocentric or Earth centric variants (Not yet implemented)</li>
+<li>Basic coordinate conversion routines (see <a href="http://jvinniec.github.io/CppEphem/documentation/html/classCECoordinates.html">CECoordinates</a>, fully implemented except for ecliptic coordinates)<ul>
+<li><a href="https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#cirs">CIRS</a> (Earth centric RA,Dec)</li>
+<li><a href="https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#icrs">ICRS</a> (Solarsystem barycentric RA, Dec)</li>
+<li><a href="https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#galactic">Galactic</a> (Long, Lat)</li>
+<li><a href="https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#observed">Observed</a> (Azimuth, Zenith angle) (Note: Zenith angle = 90&deg; - Altitude)</li>
+<li><a href="https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#ecliptic">Ecliptic</a> (Long, Lat) Will allow for either heliocentric or Earth centric variants (Not yet implemented)</li>
 </ul>
 </li>
 <li>Star &amp; Planet ephemeris<ul>
 <li><b>Star positions</b> for a given observer at a given time (not accounting for proper motion yet)</li>
-<li><b>Planet positions</b> for a given observer at a given time (implemented, see tutorials ce101, ce104, <a class="el" href="planetpositions_8cpp.html" title="This script allows viewing the current coordinates of a given solar system planet for dates within 30...">planetpositions.cpp</a>, and <a class="el" href="planetephem_8cpp.html">planetephem.cpp</a>)</li>
+<li><b>Planet positions</b> for a given observer at a given time (implemented in <a href="http://jvinniec.github.io/CppEphem/documentation/html/classCEPlanet.html">CEPlanet</a>, see tutorials ce101, ce104, <a class="el" href="planetephem_8cpp.html">planetephem.cpp</a>, and <a class="el" href="planetpositions_8cpp.html" title="This script allows viewing the current coordinates of a given solar system planet for dates within 30...">planetpositions.cpp</a>)</li>
 </ul>
 </li>
-<li>Basic time conversion routines (currently not implemented, 2nd priority after ephemerides)<ul>
+<li>Basic time conversion routines (partially implemented, next priority)<ul>
 <li><b>UTC</b> (Current UTC obtainable from system clock)</li>
 <li><b>Local time</b> (Current local time obtained from system clock, however user can hand set "UTC offset" if desired)</li>
 <li>Greenwich apparent sidereal time</li>
@@ -94,7 +94,7 @@ $(function() {
 <li>Note: Methods also exist for passing in value for "DUT1" (i.e. UT1-UTC)</li>
 </ul>
 </li>
-<li>Date conversion routines (see <a class="el" href="classCEDate.html" title="CEDate class handles conversion between different date formats. ">CEDate</a>, fully implemented)<ul>
+<li>Date conversion routines (see <a href="http://jvinniec.github.io/CppEphem/documentation/html/classCEDate.html">CEDate</a>, fully implemented)<ul>
 <li><b>Julian Date</b></li>
 <li><b>Modified Julian Date</b></li>
 <li><b>Gregorian Calendar</b> (year, month, day)</li>
@@ -123,7 +123,7 @@ $(function() {
 </ul>
 </li>
 <li>Planet ephemeris producer<ul>
-<li><b>planetephem</b>: Computes the ephemeris for a given planet using user supplied geographic and time values.</li>
+<li><a href="https://github.com/Jvinniec/CppEphem/wiki/planetephem"><b>planetephem</b></a>: Computes the ephemeris for a given planet using user supplied geographic and time values.</li>
 <li><b>planetpositions</b>: Computes current RA,Dec and Az,Alt for planets taking in user specific location (requires ncurses, not compiled by default)</li>
 </ul>
 </li>
@@ -150,7 +150,7 @@ the code". Second, make sure that the "configure" file exists in the top directo
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 8 2017 09:46:53 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 20 2017 20:16:08 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
