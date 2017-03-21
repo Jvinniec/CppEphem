@@ -46,18 +46,56 @@
  these predefined planet objects, it is advised to use these methods:
  
  \code{.cpp}
- // Define one of the planets:
- CEPlanet mercury = CEPlanet::Mercury();
- CEPlanet venus   = CEPlanet::Venus();
- CEPlanet mars    = CEPlanet::Mars();
- CEPlanet jupiter = CEPlanet::Jupiter();
- CEPlanet saturn  = CEPlanet::Saturn();
- CEPlanet uranus  = CEPlanet::Uranus();
- CEPlanet neptune = CEPlanet::Neptune();
- CEPlanet pluto   = CEPlanet::Pluto();
+    // Define one of the planets:
+    CEPlanet mercury = CEPlanet::Mercury();
+    CEPlanet venus   = CEPlanet::Venus();
+    CEPlanet mars    = CEPlanet::Mars();
+    CEPlanet jupiter = CEPlanet::Jupiter();
+    CEPlanet saturn  = CEPlanet::Saturn();
+    CEPlanet uranus  = CEPlanet::Uranus();
+    CEPlanet neptune = CEPlanet::Neptune();
+    CEPlanet pluto   = CEPlanet::Pluto();
  \endcode
  
  <h2>Converting To Observed Coordinates</h2>
+ In order to get the observed coordinates of a planet, it is a simple matter
+ of combining three objects: Observer, date, and planet. This can be done in
+ the following way:
+ 
+ \code{.cpp}
+ 
+    // == CREATE THE INPUT OBJECTS == //
+
+    // Create a date object for the current time
+    CEDate date;
+ 
+    // Create a default observer, longitude and latitude in degrees. 
+    // I'm using Ames, IA, USA.
+    CEObserver observer(-93.62, 42.0347, 287.0, CEAngleType::DEGREES, &date) ;
+ 
+    // Create a planet object representing Mercury
+    CEPlanet mercury = CEPlanet::Mercury() ;
+ 
+    // Now assemble the observer and the 
+    // planet into an observation object
+    CEObservation observed_coords(&observer, &mercury) ;
+ 
+    // == ACCESS THE OBSERVED PLANET POSIITON == //
+    
+    // Now we can get the current positions of mercury
+    double azimuth(0.0), zenith(0.0);
+    observed_coords.GetAzimuthZenith_Deg(&azimuth, &zenith) ;
+ 
+    // At this point 'azimuth' and 'zenith' hold the azimuth
+    // and zenith angle (in degrees) of mercury for 'observer'
+    // at the date/time represented by 'date'.
+ 
+ \endcode
+
+ 
+ The following chain of computations occurs behind the scenes (i.e. you dont
+ have to know how it's done in order to get the coordinates out).
+ 
  The positions are computed first for the planet in order to obtain its
  heliocentric (ICRS in JPL algorithm) reference frame x,y,z coordinates. 
  Then, the x,y,z coordinates of the Earth (Earth-Moon barycenter in JPL)
