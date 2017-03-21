@@ -91,7 +91,8 @@ $(function() {
 <p>The eight planets and Pluto have predefined static methods. To create one of these predefined planet objects, it is advised to use these methods:</p>
 <div class="fragment"><div class="line"><span class="comment">// Define one of the planets:</span></div><div class="line"><a class="code" href="classCEPlanet.html">CEPlanet</a> mercury = <a class="code" href="classCEPlanet.html#a7a2cf05b1c732497ae30a8438e642169">CEPlanet::Mercury</a>();</div><div class="line"><a class="code" href="classCEPlanet.html">CEPlanet</a> venus   = <a class="code" href="classCEPlanet.html#af7e758086d83033df36b91a2fec124d3">CEPlanet::Venus</a>();</div><div class="line"><a class="code" href="classCEPlanet.html">CEPlanet</a> mars    = <a class="code" href="classCEPlanet.html#a3fdb4091a578cdb199866113d49a7f87">CEPlanet::Mars</a>();</div><div class="line"><a class="code" href="classCEPlanet.html">CEPlanet</a> jupiter = <a class="code" href="classCEPlanet.html#a2b0d49aa45238b2b826f2bce561598c5">CEPlanet::Jupiter</a>();</div><div class="line"><a class="code" href="classCEPlanet.html">CEPlanet</a> saturn  = <a class="code" href="classCEPlanet.html#aa5bf5f82c2943e805534186297063524">CEPlanet::Saturn</a>();</div><div class="line"><a class="code" href="classCEPlanet.html">CEPlanet</a> uranus  = <a class="code" href="classCEPlanet.html#a85c738a79ef43d9d5404465ff62baf34">CEPlanet::Uranus</a>();</div><div class="line"><a class="code" href="classCEPlanet.html">CEPlanet</a> neptune = <a class="code" href="classCEPlanet.html#a7bb7ee31831b9c5c3df892ee5b71c63c">CEPlanet::Neptune</a>();</div><div class="line"><a class="code" href="classCEPlanet.html">CEPlanet</a> pluto   = <a class="code" href="classCEPlanet.html#a79c688c7d6f01bbe3348e11025a8df6c">CEPlanet::Pluto</a>();</div></div><!-- fragment --><h2>Converting To Observed Coordinates</h2>
 <p>In order to get the observed coordinates of a planet, it is a simple matter of combining three objects: Observer, date, and planet. This can be done in the following way:</p>
-<div class="fragment"><div class="line"><span class="comment">// == CREATE THE INPUT OBJECTS == //</span></div><div class="line"></div><div class="line"><span class="comment">// Create a date object for the current time</span></div><div class="line"><a class="code" href="classCEDate.html">CEDate</a> date;</div><div class="line"></div><div class="line"><span class="comment">// Create a default observer, longitude and latitude in degrees. </span></div><div class="line"><span class="comment">// I&#39;m using Ames, IA, USA.</span></div><div class="line"><a class="code" href="classCEObserver.html">CEObserver</a> observer(-93.62, 42.0347, 287.0, CEAngleType::DEGREES, &amp;date) ;</div><div class="line"></div><div class="line"><span class="comment">// Create a planet object representing Mercury</span></div><div class="line"><a class="code" href="classCEPlanet.html">CEPlanet</a> mercury = <a class="code" href="classCEPlanet.html#a7a2cf05b1c732497ae30a8438e642169">CEPlanet::Mercury</a>() ;</div><div class="line"></div><div class="line"><span class="comment">// Now assemble the observer and the </span></div><div class="line"><span class="comment">// planet into an observation object</span></div><div class="line"><a class="code" href="classCEObservation.html">CEObservation</a> observed_coords(&amp;observer, &amp;mercury) ;</div><div class="line"></div><div class="line"><span class="comment">// == ACCESS THE OBSERVED PLANET POSIITON == //</span></div><div class="line"></div><div class="line"><span class="comment">// Now we can get the current positions of mercury</span></div><div class="line"><span class="keywordtype">double</span> azimuth(0.0), zenith(0.0);</div><div class="line">observed_coords.GetAzimuthZenith_Deg(&amp;azimuth, &amp;zenith) ;</div><div class="line"></div><div class="line"><span class="comment">// At this point &#39;azimuth&#39; and &#39;zenith&#39; hold the azimuth</span></div><div class="line"><span class="comment">// and zenith angle (in degrees) of mercury for &#39;observer&#39;</span></div><div class="line"><span class="comment">// at the date/time represented by &#39;date&#39;.</span></div></div><!-- fragment --><p>The following chain of computations occurs behind the scenes (i.e. you dont have to know how it's done in order to get the coordinates out).</p>
+<div class="fragment"><div class="line"><span class="comment">// == CREATE THE INPUT OBJECTS == //</span></div><div class="line"></div><div class="line"><span class="comment">// Create a date object for the current time</span></div><div class="line"><a class="code" href="classCEDate.html">CEDate</a> date;</div><div class="line"></div><div class="line"><span class="comment">// Create a default observer, longitude and latitude in degrees. </span></div><div class="line"><span class="comment">// I&#39;m using Ames, IA, USA.</span></div><div class="line"><a class="code" href="classCEObserver.html">CEObserver</a> observer(-93.62, 42.0347, 287.0, CEAngleType::DEGREES, &amp;date) ;</div><div class="line"></div><div class="line"><span class="comment">// Create a planet object representing Mercury</span></div><div class="line"><a class="code" href="classCEPlanet.html">CEPlanet</a> mercury = <a class="code" href="classCEPlanet.html#a7a2cf05b1c732497ae30a8438e642169">CEPlanet::Mercury</a>() ;</div><div class="line"></div><div class="line"><span class="comment">// Now assemble the observer and the </span></div><div class="line"><span class="comment">// planet into an observation object</span></div><div class="line"><a class="code" href="classCEObservation.html">CEObservation</a> observed_coords(&amp;observer, &amp;mercury) ;</div><div class="line"></div><div class="line"><span class="comment">// == ACCESS THE OBSERVED PLANET POSIITON == //</span></div><div class="line"></div><div class="line"><span class="comment">// Now we can get the current positions of mercury</span></div><div class="line"><span class="keywordtype">double</span> azimuth(0.0), zenith(0.0);</div><div class="line">observed_coords.GetAzimuthZenith_Deg(&amp;azimuth, &amp;zenith) ;</div><div class="line"></div><div class="line"><span class="comment">// At this point &#39;azimuth&#39; and &#39;zenith&#39; hold the azimuth</span></div><div class="line"><span class="comment">// and zenith angle (in degrees) of mercury for &#39;observer&#39;</span></div><div class="line"><span class="comment">// at the date/time represented by &#39;date&#39;.</span></div></div><!-- fragment --><p>To get an updated position of Mercury at some other date, we simply update the value of 'date' and call again '<a class="el" href="classCEObservation.html#a2a4df067e25e5d6b5f0405f33f31e161" title="Returns both the azimuth and zenith angle of a given &#39;body_&#39; as observed by &#39;observer_&#39; on the date g...">CEObservation::GetAzimuthZenith_Deg()</a>'</p>
+<div class="fragment"><div class="line"><span class="comment">// Change the date to June 5, 2018 at 1pm UTC</span></div><div class="line">date.<a class="code" href="classCEDate.html#a95a5efa8886476a3a2b32557fe620627">SetDate</a>( 20180605 + (13.0/24.0), <a class="code" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746acf325cc58a32a8798a7db3d0ef847ef7">CEDateType::GREGORIAN</a> );</div><div class="line"></div><div class="line"><span class="comment">// Get the updated positions</span></div><div class="line">observed_coords.GetAzimuthZenith_Deg(&amp;azimuth, &amp;zenith) ;</div></div><!-- fragment --><p>The following chain of computations occurs behind the scenes (i.e. you dont have to know how it's done in order to get the coordinates out).</p>
 <p>The positions are computed first for the planet in order to obtain its heliocentric (ICRS in JPL algorithm) reference frame x,y,z coordinates. Then, the x,y,z coordinates of the Earth (Earth-Moon barycenter in JPL) are computed. The planets x,y,z coordinates are then projected relative to the Earth centric (E-M barycenter in JPL algorithm) coordinates to obtain the apparent RA,Dec coordinates from the Earth.</p>
 <p>Future improvements will include correcting the coordinates for a given observer's location on the Earth relative to the E-M barycenter. </p>
 
@@ -500,7 +501,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Default constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00116">116</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00128">128</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -560,7 +561,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00127">127</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00139">139</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -589,7 +590,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Destructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00146">146</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00158">158</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -702,7 +703,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Venus. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object. ">CEPlanet</a> object representing Venus </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00210">210</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00222">222</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -763,7 +764,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00691">691</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00703">703</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -793,7 +794,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing the Earth-Moon barycenter. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object. ">CEPlanet</a> object representing the Earth-Moon barycenter </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00233">233</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00245">245</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -997,7 +998,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Jupiter. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object. ">CEPlanet</a> object representing Jupiter </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00282">282</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00294">294</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1027,7 +1028,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Mars. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object. ">CEPlanet</a> object representing Mars </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00255">255</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00267">267</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1110,7 +1111,7 @@ Collaboration diagram for CEPlanet:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Mean anomaly </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00672">672</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00684">684</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1140,7 +1141,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Mercury. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object. ">CEPlanet</a> object representing Mercury </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00157">157</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00169">169</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1170,7 +1171,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Neptune. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object. ">CEPlanet</a> object representing Neptune </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00367">367</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00379">379</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1200,7 +1201,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Pluto. </p>
 <p>Note that Pluto's position cannot be computed via the SOFA algorithms </p><dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object. ">CEPlanet</a> object representing Pluto </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00396">396</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00408">408</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1258,7 +1259,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Saturn. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object. ">CEPlanet</a> object representing Saturn </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00311">311</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00323">323</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1374,7 +1375,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00510">510</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00522">522</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1421,7 +1422,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00444">444</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00456">456</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1525,7 +1526,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00456">456</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00468">468</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1613,7 +1614,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00474">474</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00486">486</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1701,7 +1702,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00492">492</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00504">504</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1784,7 +1785,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00428">428</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00440">440</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1884,7 +1885,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00600">600</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00612">612</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1920,7 +1921,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00566">566</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00578">578</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1956,7 +1957,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00528">528</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00540">540</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1986,7 +1987,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Uranus. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object. ">CEPlanet</a> object representing Uranus </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00339">339</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00351">351</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -2016,7 +2017,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Venus. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object. ">CEPlanet</a> object representing Venus </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00184">184</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00196">196</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -2930,7 +2931,7 @@ Collaboration diagram for CEPlanet:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 21 2017 16:41:48 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 21 2017 20:30:41 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
