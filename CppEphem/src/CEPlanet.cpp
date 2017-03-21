@@ -92,6 +92,18 @@
  
  \endcode
 
+ To get an updated position of Mercury at some other date, we simply update
+ the value of 'date' and call again 'CEObservation::GetAzimuthZenith_Deg()'
+ 
+ \code{.cpp}
+    
+    // Change the date to June 5, 2018 at 1pm UTC
+    date.SetDate( 20180605 + (13.0/24.0), CEDateType::GREGORIAN );
+ 
+    // Get the updated positions
+    observed_coords.GetAzimuthZenith_Deg(&azimuth, &zenith) ;
+ 
+ \endcode
  
  The following chain of computations occurs behind the scenes (i.e. you dont
  have to know how it's done in order to get the coordinates out).
