@@ -6,6 +6,10 @@ This documents the [CppEphem](https://github.com/Jvinniec/CppEphem) package.
 * [Download available here](https://github.com/Jvinniec/CppEphem)
 * [Wiki (on GitHub)](https://github.com/Jvinniec/CppEphem/wiki)
 
+Interested in contributing? Checkout the [issues](https://github.com/Jvinniec/CppEphem/issues) 
+and [projects](https://github.com/Jvinniec/CppEphem/projects) pages to see what
+features have been suggested, or to suggest your own!
+
 PURPOSE:
 ----------------------------------------------------------
 The purpose of this package is to leverage the Standards
