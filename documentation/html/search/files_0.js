@@ -1,26 +1,4 @@
 var searchData=
 [
-  ['cal2jd_2ecpp',['cal2jd.cpp',['../cal2jd_8cpp.html',1,'']]],
-  ['cal2mjd_2ecpp',['cal2mjd.cpp',['../cal2mjd_8cpp.html',1,'']]],
-  ['cebody_2ecpp',['CEBody.cpp',['../CEBody_8cpp.html',1,'']]],
-  ['cebody_2eh',['CEBody.h',['../CEBody_8h.html',1,'']]],
-  ['cecoordinates_2ecpp',['CECoordinates.cpp',['../CECoordinates_8cpp.html',1,'']]],
-  ['cecoordinates_2eh',['CECoordinates.h',['../CECoordinates_8h.html',1,'']]],
-  ['cedate_2ecpp',['CEDate.cpp',['../CEDate_8cpp.html',1,'']]],
-  ['cedate_2eh',['CEDate.h',['../CEDate_8h.html',1,'']]],
-  ['cenamespace_2ecpp',['CENamespace.cpp',['../CENamespace_8cpp.html',1,'']]],
-  ['cenamespace_2eh',['CENamespace.h',['../CENamespace_8h.html',1,'']]],
-  ['ceobservation_2ecpp',['CEObservation.cpp',['../CEObservation_8cpp.html',1,'']]],
-  ['ceobservation_2eh',['CEObservation.h',['../CEObservation_8h.html',1,'']]],
-  ['ceobserver_2ecpp',['CEObserver.cpp',['../CEObserver_8cpp.html',1,'']]],
-  ['ceobserver_2eh',['CEObserver.h',['../CEObserver_8h.html',1,'']]],
-  ['ceplanet_2ecpp',['CEPlanet.cpp',['../CEPlanet_8cpp.html',1,'']]],
-  ['ceplanet_2eh',['CEPlanet.h',['../CEPlanet_8h.html',1,'']]],
-  ['cerunningdate_2ecpp',['CERunningDate.cpp',['../CERunningDate_8cpp.html',1,'']]],
-  ['cerunningdate_2eh',['CERunningDate.h',['../CERunningDate_8h.html',1,'']]],
-  ['cetime_2ecpp',['CETime.cpp',['../CETime_8cpp.html',1,'']]],
-  ['cetime_2eh',['CETime.h',['../CETime_8h.html',1,'']]],
-  ['cirs2gal_2ecpp',['cirs2gal.cpp',['../cirs2gal_8cpp.html',1,'']]],
-  ['cirs2obs_2ecpp',['cirs2obs.cpp',['../cirs2obs_8cpp.html',1,'']]],
-  ['cppephem_2eh',['CppEphem.h',['../CppEphem_8h.html',1,'']]]
+  ['angsep_2ecpp',['angsep.cpp',['../angsep_8cpp.html',1,'']]]
 ];
