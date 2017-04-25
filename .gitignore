@@ -4,6 +4,7 @@
 *~
 *Makefile.in
 *Makefile
+*makefile
 COPYING
 *.deps
 INSTALL
