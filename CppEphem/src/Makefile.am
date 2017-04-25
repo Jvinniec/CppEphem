@@ -33,7 +33,7 @@ libcppephem_la_CPPFLAGS = $(CppEphem_CPPFLAGS)
 libcppephem_la_LIBADD=$(LIBS)
 libcppephem_ladir=$(libdir)
 
-bin_PROGRAMS = cal2jd cal2mjd jd2cal jd2mjd mjd2jd mjd2cal cirs2obs cirs2gal gal2cirs gal2obs obs2cirs obs2icrs obs2gal planetephem
+bin_PROGRAMS = cal2jd cal2mjd jd2cal jd2mjd mjd2jd mjd2cal cirs2obs cirs2gal gal2cirs gal2obs obs2cirs obs2icrs obs2gal angsep planetephem
 
 ##########################################
 # DATE CONVERSION EXECUTABLES
@@ -112,6 +112,14 @@ obs2icrs_CPPFLAGS = $(CppEphem_CPPFLAGS)
 obs2gal_SOURCES = obs2gal.cpp
 obs2gal_LDADD = libcppephem.la
 obs2gal_CPPFLAGS = $(CppEphem_CPPFLAGS)
+
+##########################################
+# ANGULAR SEPARATION
+##########################################
+
+angsep_SOURCES = angsep.cpp
+angsep_LDADD = libcppephem.la
+angsep_CPPFLAGS = $(CppEphem_CPPFLAGS)
 
 ##########################################
 # PLANET EPHEMERIS EXECUTABLES

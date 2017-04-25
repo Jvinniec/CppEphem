@@ -62,6 +62,9 @@ cppephem_executable (obs2cirs obs2cirs.cpp)
 cppephem_executable (obs2icrs obs2icrs.cpp)
 cppephem_executable (obs2gal  obs2gal.cpp)
 
+# Angular separation
+cppephem_executable (angsep   angsep.cpp)
+
 # Planet positions
 cppephem_executable (planetephem planetephem.cpp)
 
