@@ -3,11 +3,12 @@ language: cpp
 
 # Compiler selection
 compiler:
-  - gcc
-  - clang
+  - g++
+  - clang++
 
 # Build steps
 script:
   - mkdir build
   - cd build
-  - cmake .. && make
+  - cmake ..
+  - make
