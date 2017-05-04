@@ -1,7 +1,7 @@
 
 This documents the [CppEphem](https://github.com/Jvinniec/CppEphem) package.
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f26c88aef73645d099d80584ec4e7ccc)](https://www.codacy.com/app/Jvinniec/CppEphem?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Jvinniec/CppEphem&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.org/Jvinniec/CppEphem.svg?branch=master)](https://travis-ci.org/Jvinniec/CppEphem)
 
 * Author: Joshua V. Cardenzana
 * Creation Date: March 2016
