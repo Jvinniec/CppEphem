@@ -1,4 +1,4 @@
-
+#!/bin/bash
 #====================================================
 # Author: J. V. Cardenzana
 # Description:
