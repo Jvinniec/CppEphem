@@ -6,6 +6,8 @@ compiler:
   - g++
   - clang++
 
+dist: trusty
+
 # Build steps
 script:
   - mkdir build
