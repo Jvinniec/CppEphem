@@ -1,11 +1,16 @@
 # Enable C++ support
 language: cpp
 
+os:
+  - linux
+  - osx
+
 # Compiler selection
 compiler:
   - g++
   - clang++
 
+# Allow compiling with c++11
 dist: trusty
 
 # Build steps
