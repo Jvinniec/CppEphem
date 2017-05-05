@@ -1,15 +1,6 @@
-
+CPPEPHEM
+----------------------------------------------------------
 [![Build Status](https://travis-ci.org/Jvinniec/CppEphem.svg?branch=master)](https://travis-ci.org/Jvinniec/CppEphem)
-
-```
- _______             _______       _                 
-(_______)           (_______)     | |                
- _       ____  ____  _____   ____ | |__  _____ ____  
-| |     |  _ \|  _ \|  ___) |  _ \|  _ \| ___ |    \ 
-| |_____| |_| | |_| | |_____| |_| | | | | ____| | | |
- \______)  __/|  __/|_______)  __/|_| |_|_____)_|_|_|
-        |_|   |_|           |_|                                                           
-```
 
 * Author: Joshua V. Cardenzana
 * Creation Date: March 2016
