@@ -1,14 +1,26 @@
 # Enable C++ support
 language: cpp
 
-os:
-  - linux
-  - osx
+# Establish which builds we wish to test
+matrix:
+    include:
+	- os: linux
+	  compiler: gcc
+	- os: linux
+	  compiler: clang
+	- os: osx
+	  compiler: gcc
+	- os: osx
+	  compiler: clang
+
+#os:
+#  - linux
+#  - osx
 
 # Compiler selection
-compiler:
-  - g++
-  - clang++
+#compiler:
+#  - gcc
+#  - clang
 
 # Allow compiling with c++11
 dist: trusty
