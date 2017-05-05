@@ -1,29 +1,35 @@
 # Enable C++ support
 language: cpp
 
+# block the following branches from triggering builds
+branches:
+  except:
+  - gh-pages
+
 # Establish which builds we wish to test
 matrix:
     include:
+        # Test Linux with GCC
         - os: linux
           compiler: gcc
+
+        # Test Linux with Clang
         - os: linux
           compiler: clang
+
+        # Test OSX with GCC
         - os: osx
           compiler: gcc
+
+        # Test OSX with Clang (from OSX 10.11)
         - os: osx
           compiler: clang
           osx_image: xcode7.2
+
+        # Test OSX with Clang (most recent OSX)
         - os: osx
+          compiler: clang
           osx_image: xcode8.3
-
-#os:
-#  - linux
-#  - osx
-
-# Compiler selection
-#compiler:
-#  - gcc
-#  - clang
 
 # Allow compiling with c++11
 dist: trusty
@@ -34,3 +40,5 @@ script:
   - cd build
   - cmake ..
   - make
+
+# TODO: also need to test pure autotools build
