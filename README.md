@@ -1,7 +1,15 @@
 
-This documents the [CppEphem](https://github.com/Jvinniec/CppEphem) package.
-
 [![Build Status](https://travis-ci.org/Jvinniec/CppEphem.svg?branch=master)](https://travis-ci.org/Jvinniec/CppEphem)
+
+```
+ _______             _______       _                 
+(_______)           (_______)     | |                
+ _       ____  ____  _____   ____ | |__  _____ ____  
+| |     |  _ \|  _ \|  ___) |  _ \|  _ \| ___ |    \ 
+| |_____| |_| | |_| | |_____| |_| | | | | ____| | | |
+ \______)  __/|  __/|_______)  __/|_| |_|_____)_|_|_|
+        |_|   |_|           |_|                                                           
+```
 
 * Author: Joshua V. Cardenzana
 * Creation Date: March 2016
@@ -145,6 +153,9 @@ make uninstall
 
 in the top directory in order to remove the executables from your 
 base install directory. Then you can delete the downloaded git repository.
+
+Note: This only works if the code was compiled with autotools, since
+cmake does not support `make uninstall`.
 
 DISCLAIMER:
 ----------------------------------------------------------
