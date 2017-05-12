@@ -54,6 +54,9 @@ cppephem_executable (mjd2jd  mjd2jd.cpp)
 cppephem_executable (mjd2cal mjd2cal.cpp)
 
 # Coordinate converters
+cppephem_executable (icrs2cirs icrs2cirs.cpp)
+cppephem_executable (icrs2gal icrs2gal.cpp)
+cppephem_executable (icrs2obs icrs2obs.cpp)
 cppephem_executable (cirs2obs cirs2obs.cpp)
 cppephem_executable (cirs2gal cirs2gal.cpp)
 cppephem_executable (gal2cirs gal2cirs.cpp)

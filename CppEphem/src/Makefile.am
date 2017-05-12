@@ -88,6 +88,21 @@ cirs2gal_SOURCES = cirs2gal.cpp
 cirs2gal_LDADD = libcppephem.la
 cirs2gal_CPPFLAGS = $(CppEphem_CPPFLAGS)
 
+# CIRS to LOCAL coordinates
+icrs2obs_SOURCES = icrs2obs.cpp
+icrs2obs_LDADD = libcppephem.la
+icrs2obs_CPPFLAGS = $(CppEphem_CPPFLAGS)
+
+# CIRS to GALACTIC coordinates
+icrs2gal_SOURCES = icrs2gal.cpp
+icrs2gal_LDADD = libcppephem.la
+icrs2gal_CPPFLAGS = $(CppEphem_CPPFLAGS)
+
+# CIRS to GALACTIC coordinates
+icrs2cirs_SOURCES = icrs2cirs.cpp
+icrs2cirs_LDADD = libcppephem.la
+icrs2cirs_CPPFLAGS = $(CppEphem_CPPFLAGS)
+
 # GALACTIC to CIRS coordinates
 gal2cirs_SOURCES = gal2cirs.cpp
 gal2cirs_LDADD = libcppephem.la
