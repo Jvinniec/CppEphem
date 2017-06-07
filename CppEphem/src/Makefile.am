@@ -33,7 +33,7 @@ libcppephem_la_CPPFLAGS = $(CppEphem_CPPFLAGS)
 libcppephem_la_LIBADD=$(LIBS)
 libcppephem_ladir=$(libdir)
 
-bin_PROGRAMS = cal2jd cal2mjd jd2cal jd2mjd mjd2jd mjd2cal cirs2obs cirs2gal gal2cirs gal2obs obs2cirs obs2icrs obs2gal angsep planetephem
+bin_PROGRAMS = cal2jd cal2mjd jd2cal jd2mjd mjd2jd mjd2cal cirs2obs cirs2gal icrs2cirs icrs2gal icrs2obs gal2cirs gal2obs obs2cirs obs2icrs obs2gal angsep planetephem
 
 ##########################################
 # DATE CONVERSION EXECUTABLES

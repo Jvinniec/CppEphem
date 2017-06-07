@@ -27,7 +27,7 @@ special_exec=
 CppEphem_CPPFLAGS=
 curDir=${PWD}
 
-BUILDSUBDIRS="CppEphem/src"
+BUILDSUBDIRS="CppEphem/src test"
 
 dnl #################################
 dnl SOFA PACKAGE OPTIONS

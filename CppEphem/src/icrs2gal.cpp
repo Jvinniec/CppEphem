@@ -42,8 +42,8 @@ CLOptions DefineOpts()
 /*************************************************//**
  * Print the results of the analysis
  *****************************************************/
-void PrintResults(CECoordinates input,
-                  CECoordinates output)
+void PrintResults(CECoordinates& input,
+                  CECoordinates& output)
 {
     // Get the representation of the input icrs in hours, minutes, seconds
     std::vector<double> input_hms = CECoordinates::GetHMS( input.XCoordinate_Deg() ) ;
@@ -71,6 +71,8 @@ int main(int argc, char** argv) {
     // Get the options from the command line
     CLOptions opts = DefineOpts() ;
     if (opts.ParseCommandLine(argc, argv)) return 0 ;
+    
+    //std::cout << opts.AsDouble("ra") <<"," << opts.AsDouble("dec") << std::endl;
     
     // Create a map to store the results
     CECoordinates input(opts.AsDouble("ra"), opts.AsDouble("dec"),

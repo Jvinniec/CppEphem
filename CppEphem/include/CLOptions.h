@@ -503,6 +503,8 @@ bool CLOptions::ParseCommandLine(int argc, char** argv)
         /* getopt_long stores the option index here. */
         int option_index = -1;
         
+        //std::cout << "size: " << short_to_long_map.size() << std::endl;
+        
         if (short_to_long_map.size()==0) {
             // If no short form options were given, then assume only long options
             c = getopt_long_only(argc, argv, short_opts.c_str(),
