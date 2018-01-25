@@ -26,7 +26,7 @@ set (HEADER_OUTPUT_PATH ${CMAKE_BINARY_DIR}/build/include)
 set (CMAKE_CXX_FLAGS "-std=c++11 ${CMake_CXX_FLAGS}")
 
 # Define the sofa directory
-set (SOFA_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/sofa/20160503/c/src)
+set (SOFA_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/sofa/20170420/c/src)
 if (sofa)
    set (SOFA_DIRECTORY ${sofa})
 endif()
