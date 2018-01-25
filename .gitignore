@@ -25,3 +25,5 @@ config.*
 *.la
 *.a
 documentation/*
+**/CMakeFiles/**
+**/*.cmake
