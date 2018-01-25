@@ -1,6 +1,5 @@
-
-This documents the [CppEphem](https://github.com/Jvinniec/CppEphem) package.
-
+CPPEPHEM
+----------------------------------------------------------
 [![Build Status](https://travis-ci.org/Jvinniec/CppEphem.svg?branch=master)](https://travis-ci.org/Jvinniec/CppEphem)
 
 * Author: Joshua V. Cardenzana
@@ -157,6 +156,9 @@ make uninstall
 
 in the top directory in order to remove the executables from your 
 base install directory. Then you can delete the downloaded git repository.
+
+Note: This only works if the code was compiled with autotools, since
+cmake does not support `make uninstall`.
 
 DISCLAIMER:
 ----------------------------------------------------------
