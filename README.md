@@ -135,6 +135,18 @@ make install
 
 And that should do it.
 
+### Troubleshooting
+If you run into a problem installing when using `cmake` and the `-Dprefix=` 
+option allong the following form:
+
+```
+CMake Error at cmake_install.cmake:44 (file):
+  file INSTALL cannot set permissions on "~/Applications/CppEphem//include"
+```
+
+Make sure that you pass the full path to the installation directory (i.e. don't
+use relative paths with '`~/`').
+
 Uninstalling the code:
 ----------------------------------------------------------
 To uninstall the code, it is advised to first run

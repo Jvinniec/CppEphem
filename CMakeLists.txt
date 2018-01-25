@@ -66,7 +66,7 @@ add_subdirectory (CppEphem/src)
 
 # Define installation directories
 install(DIRECTORY CppEphem/include/
-	USE_SOURCE_PERMISSIONS
+    USE_SOURCE_PERMISSIONS
 	DESTINATION ${CMAKE_INSTALL_PREFIX}/include
     FILES_MATCHING PATTERN "C*.h")
 

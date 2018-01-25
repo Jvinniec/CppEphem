@@ -27,3 +27,4 @@ config.*
 documentation/*
 **/CMakeFiles/**
 **/*.cmake
+build/*
