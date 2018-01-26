@@ -1,0 +1,4 @@
+<map id="CECoordinates" name="CECoordinates">
+<area shape="rect" id="node2" href="$classCEBody.html" title="The CEBody class defines a celestial object. " alt="" coords="21,80,79,107"/>
+<area shape="rect" id="node3" href="$classCEPlanet.html" title="The CEPlanet class describes a planetary object. " alt="" coords="18,155,82,181"/>
+</map>

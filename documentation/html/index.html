@@ -72,7 +72,7 @@ $(function() {
 </ul>
 <p>Interested in contributing? Checkout the <a href="https://github.com/Jvinniec/CppEphem/issues">issues</a> and <a href="https://github.com/Jvinniec/CppEphem/projects">projects</a> pages to see what features have been suggested, or to suggest your own!</p>
 <h2>PURPOSE: </h2>
-<p>The purpose of this package is to leverage the Standards Of Fundamental Astronomy (SOFA) package in order to compute several astrophysical quantities regarding the positions of objects. CppEphem wraps the SOFA functions in easy to use classes, so that astronomers can quickly and easily compute the quantities they need in their own programs.</p>
+<p>The purpose of this package is to leverage the Standards Of Fundamental Astronomy (SOFA) package in order to compute several astrophysical quantities regarding the positions of objects. <a class="el" href="namespaceCppEphem.html">CppEphem</a> wraps the SOFA functions in easy to use classes, so that astronomers can quickly and easily compute the quantities they need in their own programs.</p>
 <p>Here is a list of purposes I wish this code to serve:</p><ul>
 <li>Basic coordinate conversion routines (see <a href="http://jvinniec.github.io/CppEphem/documentation/html/classCECoordinates.html">CECoordinates</a>, fully implemented except for ecliptic coordinates)<ul>
 <li><a href="https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#cirs">CIRS</a> (Earth centric RA,Dec)</li>
@@ -84,7 +84,7 @@ $(function() {
 </li>
 <li>Star &amp; Planet ephemeris<ul>
 <li><b>Star positions</b> for a given observer at a given time (not accounting for proper motion yet)</li>
-<li><b>Planet positions</b> for a given observer at a given time (implemented in <a href="http://jvinniec.github.io/CppEphem/documentation/html/classCEPlanet.html">CEPlanet</a>, see tutorials ce101, ce104, planetephem.cpp, and planetpositions.cpp)</li>
+<li><b>Planet positions</b> for a given observer at a given time (implemented in <a href="http://jvinniec.github.io/CppEphem/documentation/html/classCEPlanet.html">CEPlanet</a>, see tutorials ce101, ce104, <a class="el" href="planetephem_8cpp.html">planetephem.cpp</a>, and <a class="el" href="planetpositions_8cpp.html" title="This script allows viewing the current coordinates of a given solar system planet for dates within 30...">planetpositions.cpp</a>)</li>
 </ul>
 </li>
 <li>Basic time conversion routines (partially implemented, next priority)<ul>
@@ -134,7 +134,7 @@ $(function() {
 <p>To obtain the code, it should be as simple as cloning the repository from github:</p>
 <div class="fragment"><div class="line">git clone https://github.com/Jvinniec/CppEphem.git CppEphem</div></div><!-- fragment --><h2>Building the code: </h2>
 <p>The code can either be compiled using 'cmake' or autotools. To compile via cmake use the following set of commands:</p>
-<div class="fragment"><div class="line">cmake [-Dprefix=/install/dir]</div><div class="line">make</div></div><!-- fragment --><p>NOTE: "-Dprefix=" and "-DCMAKE_INSTALL_PREFIX=" will have equivalent behavior. This will create a 'build' directory in the top level directory of the CppEphem distribution and initially put all of the compiled libraries and executables in there. Once that's done, you can install the files by running</p>
+<div class="fragment"><div class="line">cmake [-Dprefix=/install/dir]</div><div class="line">make</div></div><!-- fragment --><p>NOTE: "-Dprefix=" and "-DCMAKE_INSTALL_PREFIX=" will have equivalent behavior. This will create a 'build' directory in the top level directory of the <a class="el" href="namespaceCppEphem.html">CppEphem</a> distribution and initially put all of the compiled libraries and executables in there. Once that's done, you can install the files by running</p>
 <div class="fragment"><div class="line">make install</div></div><!-- fragment --><p> This will install the headers, executables, and libraries in the default installation directories (or alternatively the directory specified in '-Dprefix' during the initial run of cmake).</p>
 <p>To install via autotools, you should be able to build the software very easily using the standard "./configure -&gt; make -&gt; make install" method. Here is a bit more detail.</p>
 <p>First, download the repository as described above in "Downloading 
@@ -156,7 +156,7 @@ the code". Second, make sure that the "configure" file exists in the top directo
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 26 2018 12:36:43 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 26 2018 12:41:53 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
