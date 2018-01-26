@@ -1,7 +1,7 @@
 /***************************************************************************
- *  CETestSuite.h: CppEphem                                                *
+ *  test_cpephem.cpp: CppEphem                                             *
  * ----------------------------------------------------------------------- *
- *  Copyright © 2017 JCardenzana                                           *
+ *  Copyright © 2018 JCardenzana                                           *
  * ----------------------------------------------------------------------- *
  *                                                                         *
  *  This program is free software: you can redistribute it and/or modify   *
@@ -19,5 +19,16 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <stdio.h>
+#include "test_CEDate.h"
 
+
+int main(int argc, char* argv[]) 
+{
+    // Variable if tests are passed
+    bool pass = true;
+
+    // Run the individual tests
+    test_CEDate test_cedate;
+    test_cedate.runtests();
+
+}
