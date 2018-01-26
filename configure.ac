@@ -2,7 +2,7 @@
 dnl Initialize the build system
 dnl DONT FORGET TO CHANGE THE VERSION!
 AC_INIT([CppEphem],[MASTER],[jvinniec <at> gmail.com])
-AC_CONFIG_SRCDIR([CppEphem/src/mjd2jd.cpp],[sofa/20160503/c/src/cal2jd.c])
+AC_CONFIG_SRCDIR([CppEphem/src/mjd2jd.cpp],[sofa/20170420/c/src/cal2jd.c])
 
 echo ""
 echo "================================================="
@@ -27,7 +27,7 @@ special_exec=
 CppEphem_CPPFLAGS=
 curDir=${PWD}
 
-BUILDSUBDIRS="CppEphem/src"
+BUILDSUBDIRS="CppEphem/src test"
 
 dnl #################################
 dnl SOFA PACKAGE OPTIONS

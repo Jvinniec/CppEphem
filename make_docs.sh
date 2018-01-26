@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 # Get the current branch name
 declare curBranch=$(git rev-parse --abbrev-ref HEAD)
 =======
+=======
+#!/bin/bash
+>>>>>>> master
 #====================================================
 # Author: J. V. Cardenzana
 # Description:

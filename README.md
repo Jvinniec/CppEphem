@@ -1,4 +1,6 @@
-This documents the [CppEphem](https://github.com/Jvinniec/CppEphem) package.
+CPPEPHEM
+----------------------------------------------------------
+[![Build Status](https://travis-ci.org/Jvinniec/CppEphem.svg?branch=master)](https://travis-ci.org/Jvinniec/CppEphem)
 
 * Author: Joshua V. Cardenzana
 * Creation Date: March 2016
@@ -132,6 +134,18 @@ make install
 
 And that should do it.
 
+### Troubleshooting
+If you run into a problem installing when using `cmake` and the `-Dprefix=` 
+option allong the following form:
+
+```
+CMake Error at cmake_install.cmake:44 (file):
+  file INSTALL cannot set permissions on "~/Applications/CppEphem//include"
+```
+
+Make sure that you pass the full path to the installation directory (i.e. don't
+use relative paths with '`~/`').
+
 Uninstalling the code:
 ----------------------------------------------------------
 To uninstall the code, it is advised to first run
@@ -142,6 +156,9 @@ make uninstall
 
 in the top directory in order to remove the executables from your 
 base install directory. Then you can delete the downloaded git repository.
+
+Note: This only works if the code was compiled with autotools, since
+cmake does not support `make uninstall`.
 
 DISCLAIMER:
 ----------------------------------------------------------

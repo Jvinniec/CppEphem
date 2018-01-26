@@ -26,7 +26,7 @@ set (HEADER_OUTPUT_PATH ${CMAKE_BINARY_DIR}/build/include)
 set (CMAKE_CXX_FLAGS "-std=c++11 ${CMake_CXX_FLAGS}")
 
 # Define the sofa directory
-set (SOFA_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/sofa/20160503/c/src)
+set (SOFA_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/sofa/20170420/c/src)
 if (sofa)
    set (SOFA_DIRECTORY ${sofa})
 endif()
@@ -60,22 +60,25 @@ endfunction(cppephem_executable)
 
 # Define the sub-directories for building in
 add_subdirectory (${SOFA_DIRECTORY})
-add_subdirectory (CppEphem/src)
+add_subdirectory (src)
 
 #-------------------------------------------
 
 # Define installation directories
-install(DIRECTORY CppEphem 
-	USE_SOURCE_PERMISSIONS
+install(DIRECTORY include/
+    USE_SOURCE_PERMISSIONS
 	DESTINATION ${CMAKE_INSTALL_PREFIX}/include
-        FILES_MATCHING PATTERN "C*.h")
-install(DIRECTORY ${SOFA_DIRECTORY} 
+    FILES_MATCHING PATTERN "C*.h")
+
+install(DIRECTORY ${SOFA_DIRECTORY}/
 	USE_SOURCE_PERMISSIONS
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/include
-	FILES_MATCHING PATTERN "sofa*.h")
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/include
+	FILES_MATCHING PATTERN "sofa*h")
+
 install(DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
 	USE_SOURCE_PERMISSIONS
 	DESTINATION ${CMAKE_INSTALL_PREFIX})
+
 install(DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
 	USE_SOURCE_PERMISSIONS
 	DESTINATION ${CMAKE_INSTALL_PREFIX})
