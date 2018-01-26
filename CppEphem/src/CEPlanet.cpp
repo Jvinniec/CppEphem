@@ -123,19 +123,22 @@
 
 #include "CEPlanet.h"
 
-/////////////////////////////////////////////////////
-/// Default constructor
+/**********************************************************************//**
+ * Default constructor
+ *************************************************************************/
 CEPlanet::CEPlanet() :
     CEBody()
 {}
 
-/////////////////////////////////////////////////////
-/// Primary constructor
-///     @param[in] name             Some identifying name for this object
-///     @param[in] xcoord           X-coordinate
-///     @param[in] ycoord           Y-coordinate
-///     @param[in] coord_type       Coordinate system for passed coordinates
-///     @param[in] angle_type       Angle type for the coordinates passed
+/**********************************************************************//**
+ * Primary constructor
+ * 
+ * @param[in] name             Some identifying name for this object
+ * @param[in] xcoord           X-coordinate
+ * @param[in] ycoord           Y-coordinate
+ * @param[in] coord_type       Coordinate system for passed coordinates
+ * @param[in] angle_type       Angle type for the coordinates passed
+ *************************************************************************/
 CEPlanet::CEPlanet(const std::string& name, double xcoord, double ycoord,
                    CECoordinateType coord_type,
                    CEAngleType angle_type) :
@@ -153,8 +156,9 @@ CEPlanet::CEPlanet(const std::string& name,
 {}
 */
 
-/////////////////////////////////////////////////////
-/// Destructor
+/**********************************************************************//**
+ * Destructor
+ *************************************************************************/
 CEPlanet::~CEPlanet()
 {
     // Delete the reference object if we no longer need it
@@ -163,9 +167,10 @@ CEPlanet::~CEPlanet()
 
 # pragma mark - Specific Planetary objects
 
-/////////////////////////////////////////////////////
-/// Returns an object representing Mercury.
-///     @return CEPlanet object representing Mercury
+/**********************************************************************//**
+ * Returns an object representing Mercury.
+ *     @return CEPlanet object representing Mercury
+ *************************************************************************/
 CEPlanet CEPlanet::Mercury()
 {
     CEPlanet mercury("Mercury", 0.0, 0.0) ;
@@ -190,9 +195,10 @@ CEPlanet CEPlanet::Mercury()
     return mercury ;
 }
 
-/////////////////////////////////////////////////////
-/// Returns an object representing Venus.
-///     @return CEPlanet object representing Venus
+/**********************************************************************//**
+ * Returns an object representing Venus.
+ *     @return CEPlanet object representing Venus
+ *************************************************************************/
 CEPlanet CEPlanet::Venus()
 {
     CEPlanet venus("Venus", 0.0, 0.0) ;
@@ -216,9 +222,10 @@ CEPlanet CEPlanet::Venus()
     return venus ;
 }
 
-/////////////////////////////////////////////////////
-/// Returns an object representing Venus.
-///     @return CEPlanet object representing Venus
+/**********************************************************************//**
+ * Returns an object representing Venus.
+ * @return CEPlanet object representing Venus
+ *************************************************************************/
 CEPlanet CEPlanet::Earth()
 {
     CEPlanet earth("Earth", 0.0, 0.0) ;
@@ -239,9 +246,11 @@ CEPlanet CEPlanet::Earth()
     return earth ;
 }
 
-/////////////////////////////////////////////////////
-/// Returns an object representing the Earth-Moon barycenter.
-///     @return CEPlanet object representing the Earth-Moon barycenter
+/**********************************************************************//**
+ * Returns an object representing the Earth-Moon barycenter.
+ * 
+ * @return CEPlanet object representing the Earth-Moon barycenter
+ *************************************************************************/
 CEPlanet CEPlanet::EMBarycenter()
 {
     CEPlanet em_barycenter("EMBaryCenter", 0.0, 0.0) ;
@@ -261,9 +270,11 @@ CEPlanet CEPlanet::EMBarycenter()
     return em_barycenter ;
 }
 
-/////////////////////////////////////////////////////
-/// Returns an object representing Mars.
-///     @return CEPlanet object representing Mars
+/**********************************************************************//**
+ * Returns an object representing Mars.
+ * 
+ * @return CEPlanet object representing Mars
+ *************************************************************************/
 CEPlanet CEPlanet::Mars()
 {
     CEPlanet mars("Mars", 0.0, 0.0) ;
@@ -288,9 +299,11 @@ CEPlanet CEPlanet::Mars()
     return mars ;
 }
 
-/////////////////////////////////////////////////////
-/// Returns an object representing Jupiter.
-///     @return CEPlanet object representing Jupiter
+/**********************************************************************//**
+ * Returns an object representing Jupiter.
+ * 
+ * @return CEPlanet object representing Jupiter
+ *************************************************************************/
 CEPlanet CEPlanet::Jupiter()
 {
     CEPlanet jupiter("Jupiter", 0.0, 0.0) ;
@@ -317,9 +330,11 @@ CEPlanet CEPlanet::Jupiter()
     return jupiter ;
 }
 
-/////////////////////////////////////////////////////
-/// Returns an object representing Saturn.
-///     @return CEPlanet object representing Saturn
+/**********************************************************************//**
+ * Returns an object representing Saturn.
+ * 
+ * @return CEPlanet object representing Saturn
+ *************************************************************************/
 CEPlanet CEPlanet::Saturn()
 {
     CEPlanet saturn("Saturn", 0.0, 0.0) ;
@@ -345,9 +360,11 @@ CEPlanet CEPlanet::Saturn()
     return saturn ;
 }
 
-/////////////////////////////////////////////////////
-/// Returns an object representing Uranus.
-///     @return CEPlanet object representing Uranus
+/**********************************************************************//**
+ * Returns an object representing Uranus.
+ * 
+ * @return CEPlanet object representing Uranus
+ *************************************************************************/
 CEPlanet CEPlanet::Uranus()
 {
     CEPlanet uranus("Uranus", 0.0, 0.0) ;
@@ -373,9 +390,11 @@ CEPlanet CEPlanet::Uranus()
     return uranus ;
 }
 
-/////////////////////////////////////////////////////
-/// Returns an object representing Neptune.
-///     @return CEPlanet object representing Neptune
+/**********************************************************************//**
+ * Returns an object representing Neptune.
+ * 
+ * @return CEPlanet object representing Neptune
+ *************************************************************************/
 CEPlanet CEPlanet::Neptune()
 {
     CEPlanet neptune("Neptune", 0.0, 0.0) ;
@@ -401,10 +420,12 @@ CEPlanet CEPlanet::Neptune()
     return neptune ;
 }
 
-/////////////////////////////////////////////////////
-/// Returns an object representing Pluto. Note that Pluto's
-/// position cannot be computed via the SOFA algorithms
-///     @return CEPlanet object representing Pluto
+/**********************************************************************//**
+ * Returns an object representing Pluto. Note that Pluto's
+ * position cannot be computed via the SOFA algorithms
+ * 
+ * @return CEPlanet object representing Pluto
+ *************************************************************************/
 CEPlanet CEPlanet::Pluto()
 {
     CEPlanet pluto("Pluto", 0.0, 0.0) ;
@@ -433,10 +454,12 @@ CEPlanet CEPlanet::Pluto()
 
 # pragma mark - Public Methods
 
-/////////////////////////////////////////////////////
-/// Set the semi-major axis (in AU) and it's derivative
-///     @param[in] semi_major_axis_au           Semi-major axis (units of AU)
-///     @param[in] semi_major_axis_au_per_cent  Time derivative of semi-major axis (AU/century)
+/**********************************************************************//**
+ * Set the semi-major axis (in AU) and it's derivative
+ * 
+ * @param[in] semi_major_axis_au           Semi-major axis (units of AU)
+ * @param[in] semi_major_axis_au_per_cent  Time derivative of semi-major axis (AU/century)
+ *************************************************************************/
 void CEPlanet::SetSemiMajorAxis_AU(double semi_major_axis_au,
                                    double semi_major_axis_au_per_cent)
 {
@@ -449,10 +472,12 @@ void CEPlanet::SetSemiMajorAxis_AU(double semi_major_axis_au,
     }
 }
 
-/////////////////////////////////////////////////////
-/// Set the eccentricity
-///     @param[in] eccentricity                 Eccentricity (0 -> 1)
-///     @param[in] eccentricity_per_cent        Time derivative of eccentricity (/century)
+/**********************************************************************//**
+ * Set the eccentricity
+ * 
+ * @param[in] eccentricity                 Eccentricity (0 -> 1)
+ * @param[in] eccentricity_per_cent        Time derivative of eccentricity (/century)
+ *************************************************************************/
 void CEPlanet::SetEccentricity(double eccentricity,
                                double eccentricity_per_cent)
 {
@@ -460,11 +485,13 @@ void CEPlanet::SetEccentricity(double eccentricity,
     eccentricity_per_cent_ = eccentricity_per_cent ;
 }
 
-/////////////////////////////////////////////////////
-/// Set the inclination angle of the planets orbit
-///     @param[in] inclination              Inclination angle (units of 'angle_type')
-///     @param[in] inclination_per_cent     Time derivative of the inclination (angle/century)
-///     @param[in] angle_type               Angle type for above values (DEGREES or RADIANS)
+/**********************************************************************//**
+ * Set the inclination angle of the planets orbit
+ * 
+ * @param[in] inclination              Inclination angle (units of 'angle_type')
+ * @param[in] inclination_per_cent     Time derivative of the inclination (angle/century)
+ * @param[in] angle_type               Angle type for above values (DEGREES or RADIANS)
+ *************************************************************************/
 void CEPlanet::SetInclination(double inclination,
                               double inclination_per_cent,
                               CEAngleType angle_type)
@@ -478,11 +505,13 @@ void CEPlanet::SetInclination(double inclination,
     inclination_deg_per_cent_ = inclination_per_cent * DR2D ;
 }
 
-/////////////////////////////////////////////////////
-/// Set the mean longitude
-///     @param[in] mean_longitude           Mean longitude (units of 'angle_type')
-///     @param[in] mean_longitude_per_cent  Time Derivative of mean longitude (/century)
-///     @param[in] angle_type               Angle type for provided values (DEGREES or RADIANS)
+/**********************************************************************//**
+ * Set the mean longitude
+ * 
+ * @param[in] mean_longitude           Mean longitude (units of 'angle_type')
+ * @param[in] mean_longitude_per_cent  Time Derivative of mean longitude (/century)
+ * @param[in] angle_type               Angle type for provided values (DEGREES or RADIANS)
+ *************************************************************************/
 void CEPlanet::SetMeanLongitude(double mean_longitude,
                                 double mean_longitude_per_cent,
                                 CEAngleType angle_type)
@@ -496,11 +525,13 @@ void CEPlanet::SetMeanLongitude(double mean_longitude,
     mean_longitude_deg_per_cent_ = mean_longitude_per_cent ;
 }
 
-/////////////////////////////////////////////////////
-/// Set the longitude at perihelion
-///     @param[in] perihelion_lon           Longitude at perihelion
-///     @param[in] perihelion_lon_per_cent  Time derivative of longitude at perihelion (/century)
-///     @param[in] angle_type               Angle type for provided values (DEGREES or RADIANS)
+/**********************************************************************//**
+ * Set the longitude at perihelion
+ * 
+ * @param[in] perihelion_lon           Longitude at perihelion
+ * @param[in] perihelion_lon_per_cent  Time derivative of longitude at perihelion (/century)
+ * @param[in] angle_type               Angle type for provided values (DEGREES or RADIANS)
+ *************************************************************************/
 void CEPlanet::SetPerihelionLongitude(double perihelion_lon,
                                       double perihelion_lon_per_cent,
                                       CEAngleType angle_type)
@@ -514,11 +545,13 @@ void CEPlanet::SetPerihelionLongitude(double perihelion_lon,
     perihelion_long_deg_per_cent_ = perihelion_lon_per_cent ;
 }
 
-/////////////////////////////////////////////////////
-/// Set the longitude of the ascending node
-///     @param[in] ascending_node_lon           Longitude of the ascending node
-///     @param[in] ascending_node_lon_per_cent  Time derivative of longitude of the ascending node (/century)
-///     @param[in] angle_type                   Angle type for provided values (DEGREES or RADIANS)
+/**********************************************************************//**
+ * Set the longitude of the ascending node
+ * 
+ * @param[in] ascending_node_lon           Longitude of the ascending node
+ * @param[in] ascending_node_lon_per_cent  Time derivative of longitude of the ascending node (/century)
+ * @param[in] angle_type                   Angle type for provided values (DEGREES or RADIANS)
+ *************************************************************************/
 void CEPlanet::SetAscendingNodeLongitude(double ascending_node_lon,
                                          double ascending_node_lon_per_cent,
                                          CEAngleType angle_type)
@@ -532,11 +565,13 @@ void CEPlanet::SetAscendingNodeLongitude(double ascending_node_lon,
     ascending_node_lon_deg_per_cent_ = ascending_node_lon_per_cent ;
 }
 
-/////////////////////////////////////////////////////
-/// Recomputes the coordinates of the planet if the date
-/// has changed from the last time the coordinates were
-/// computed.
-///     @param[in] new_jd       Julian date
+/**********************************************************************//**
+ * Recomputes the coordinates of the planet if the date
+ * has changed from the last time the coordinates were
+ * computed.
+ * 
+ * @param[in] new_jd       Julian date
+ *************************************************************************/
 void CEPlanet::UpdateCoordinates(double new_jd)
 {
     // If no date was supplied, or if the date hasnt changed, do nothing
@@ -569,12 +604,14 @@ void CEPlanet::UpdateCoordinates(double new_jd)
     cached_jd_ = new_jd ;
 }
 
-/////////////////////////////////////////////////////
-/// Recomputes the coordinates of the planet based on the date
-/// using the methods included in the sofa package (iauPlan94).
-/// Note that this method is currently more accurate than the
-/// JPL method implementated in this class.
-///     @param[in] new_jd       Julian date
+/**********************************************************************//**
+ * Recomputes the coordinates of the planet based on the date
+ * using the methods included in the sofa package (iauPlan94).
+ * Note that this method is currently more accurate than the
+ * JPL method implementated in this class.
+ * 
+ * @param[in] new_jd       Julian date
+ *************************************************************************/
 void CEPlanet::Update_SOFA(double new_jd)
 {
     //std::vector<std::vector<double> > p(2,std::vector<double>(3)) ;
@@ -605,10 +642,12 @@ void CEPlanet::Update_SOFA(double new_jd)
     }
 }
 
-/////////////////////////////////////////////////////
-/// Recomputes the coordinates of the planet based on the date
-/// using the keplerian method outlined by JPL
-///     @param[in] new_jd       Julian date
+/**********************************************************************//**
+ * Recomputes the coordinates of the planet based on the date
+ * using the keplerian method outlined by JPL
+ * 
+ * @param[in] new_jd       Julian date
+ *************************************************************************/
 void CEPlanet::Update_JPL(double new_jd)
 {
     /* Date has changed, so we need to recompute the coordinates of this object */
@@ -675,12 +714,14 @@ void CEPlanet::Update_JPL(double new_jd)
 
 # pragma mark - Protected Methods
 
-/////////////////////////////////////////////////////
-/// Computes the mean anomaly
-///     @param[in] mean_longitude_deg       Mean longitude of the planet (degrees)
-///     @param[in] perihelion_lon_deg       Longitude at perihelion (degrees)
-///     @param[in] T                        Ephemeris time
-///     @return Mean anomaly
+/**********************************************************************//**
+ * Computes the mean anomaly
+ * 
+ * @param[in] mean_longitude_deg       Mean longitude of the planet (degrees)
+ * @param[in] perihelion_lon_deg       Longitude at perihelion (degrees)
+ * @param[in] T                        Ephemeris time
+ * @return Mean anomaly
+ *************************************************************************/
 double CEPlanet::MeanAnomaly(double mean_longitude_deg,
                              double perihelion_long_deg,
                              double T)
@@ -694,12 +735,14 @@ double CEPlanet::MeanAnomaly(double mean_longitude_deg,
     return M ;
 }
 
-/////////////////////////////////////////////////////
-/// Recursive method for computing the eccentric anomoly
-///     @param[in] M            Mean anomoly
-///     @param[in] e            Computed eccentricity for given date
-///     @param[in] En           N-th computed eccentric anomoly
-///     @param[in] del_E        Just used to prevent the need to allocate memory each loop
+/**********************************************************************//**
+ * Recursive method for computing the eccentric anomoly
+ * 
+ * @param[in] M            Mean anomoly
+ * @param[in] e            Computed eccentricity for given date
+ * @param[in] En           N-th computed eccentric anomoly
+ * @param[in] del_E        Just used to prevent the need to allocate memory each loop
+ *************************************************************************/
 double CEPlanet::EccentricAnomoly(double& M,
                                   double& e,
                                   double& En,
@@ -720,4 +763,35 @@ double CEPlanet::EccentricAnomoly(double& M,
         En += del_E ;
         return EccentricAnomoly(M, e, En, del_E) ;
     }
+}
+
+
+/**********************************************************************//**
+ * Set the reference object for computing more accurate RA,Dec values
+ * 
+ * @param[in] reference    Reference object (i.e. planet where the observer is located
+ *************************************************************************/
+void CEPlanet::SetReference(CEPlanet* reference)
+{
+    if (reference_ != nullptr) {
+        // redirect and delete
+        CEPlanet* tmp = reference_;
+        reference_ = nullptr;
+        delete tmp;
+    }
+    
+    reference_ = reference;
+}
+
+
+/**********************************************************************//**
+ * Set the sofa planet id (note, only values from 1-8 are acceptable)
+ *************************************************************************/
+void CEPlanet::SetSofaID(double new_id)
+{
+    // If the id is outside the acceptable range, then set the algorithm to jpl
+    if ((new_id < 1.0)||(new_id > 8.0)) {
+        SetAlgorithm(CEPlanetAlgo::JPL) ;
+    }
+    sofa_planet_id_ = new_id;
 }

@@ -21,9 +21,9 @@
 
 #include "CppEphem.h"
 
-/**
+/**********************************************************************//**
  * Define the command line options for this program
- */
+ *************************************************************************/
 CLOptions DefineOptions()
 {
     CLOptions options ;
@@ -38,14 +38,18 @@ CLOptions DefineOptions()
     return options ;
 }
 
+/**********************************************************************//**
+ * Forward Declarations
+ *************************************************************************/
+
 void DrawSkyMap(std::vector<CEObservation> &coords, int line) ;
 void DrawGrid(int line) ;
 int Description() ;
 
 
-/**
+/**********************************************************************//**
  * Main
- */
+ *************************************************************************/
 int main(int argc, char** argv)
 {
     // Parse the command line options
@@ -163,6 +167,8 @@ int main(int argc, char** argv)
     refresh();
 }
 
+/**********************************************************************//**
+ *************************************************************************/
 void DrawSkyMap(std::vector<CEObservation> &coords, int line)
 {
     DrawGrid(line) ;
@@ -182,6 +188,8 @@ void DrawSkyMap(std::vector<CEObservation> &coords, int line)
     }
 }
 
+/**********************************************************************//**
+ *************************************************************************/
 void DrawGrid(int line)
 {
     // Draw the coordinate grid first
@@ -209,6 +217,8 @@ void DrawGrid(int line)
     
 }
 
+/**********************************************************************//**
+ *************************************************************************/
 int Description()
 {
     int line(0) ;

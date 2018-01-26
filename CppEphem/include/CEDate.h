@@ -20,8 +20,9 @@
 // SOFA HEADER
 #include "sofa.h"
 
-/////////////////////////////////////////////
-/// Date enum
+/**********************************************************************//**
+ * Date enum
+ *************************************************************************/
 enum CEDateType {JD,              ///< Julian Date
                  MJD,             ///< Modified Julian Date
                  GREGORIAN        ///< Gregorian calendar (year, month, day)
@@ -32,9 +33,7 @@ public:
     // Default constructor
     CEDate(double date=CurrentJD(), CEDateType date_format=CEDateType::JD) ;
     CEDate(std::vector<double> date) ;
-    // Copy constructor
     CEDate(const CEDate& other) ;
-    // Destructor
     virtual ~CEDate() {} ;
     
     // Method that can be used to change the date that is stored in this object
@@ -45,63 +44,38 @@ public:
     /***********************************************************
      * Methods for getting the stored date in the various formats
      ***********************************************************/
-    double GetDate(CEDateType time_format=CEDateType::JD) ;
-    /// Get the Julian date represented by this object
-    virtual double JD() {return julian_date_ ;}
-    /// Get the Modified Julian date represented by this object
-    virtual double MJD() {return mod_julian_date_ ;}
-    /// Get the Gregorian calendar date formatted as a double
-    virtual double Gregorian() {return gregorian_date_ ;}
-    /// Get the Gregorian calendar date formatted as a vector
-    virtual std::vector<double> GregorianVect() {return gregorian_date_vect_ ;}
-    
-    /// Get the Gregorian calendar year
-    int Year() {return gregorian_date_vect_[0] ;}
-    /// Get the Gregorian calendar month
-    int Month() {return gregorian_date_vect_[1] ;}
-    /// Get the Gregorian calendar day
-    int Day() {return gregorian_date_vect_[2] ;}
-    /// Get the Gregorian calendar day fraction
-    double DayFraction() {return gregorian_date_vect_[3] ;}
+    double                      GetDate(CEDateType time_format=CEDateType::JD);
+    virtual double              JD();
+    virtual double              MJD();
+    virtual double              Gregorian();
+    virtual std::vector<double> GregorianVect();
+    int                         Year();
+    int                         Month();
+    int                         Day();
+    double                      DayFraction();
     
     /***********************************************************
      * Methods for converting between different formats
      ***********************************************************/
-    // Methods for converting from julian date (JD) to something else
-    static double JD2MJD(double jd) ;
-    static double JD2Gregorian(const double jd) ;
-    static std::vector<double> JD2GregorianVect(double jd) ;
-    
-    // Methods for converting from modified julian date to something else
-    static double MJD2JD(double mjd) ;
-    static double MJD2Gregorian(double mjd) ;
-    static std::vector<double> MJD2GregorianVect(double mjd) ;
-    
-    // Methods for converting from Gregorian calendar date to something else
-    static double Gregorian2JD(double gregorian) ;
-    static double GregorianVect2JD(std::vector<double> gregorian) ;
-    static double Gregorian2MJD(double gregorian) ;
-    static double GregorianVect2MJD(std::vector<double> gregorian) ;
-    
-    // Convert the UTC JD to UT1 JD
-    static double UTC2UT1(double jd_utc, double dut1=0.0) ;
-    // Convert the UTC JD to TT JD
-    static double UTC2TT(double jd_utc, double dut1=0.0) ;
-    // Convert the UTC JD to TDB JD (useful for planet computations)
-    static double UTC2TDB(double jd_utc, double dut1=0.0) ;
-    
+    static double               Gregorian2JD(double gregorian);
+    static double               GregorianVect2JD(std::vector<double> gregorian);
+    static double               Gregorian2MJD(double gregorian);
+    static double               GregorianVect2MJD(std::vector<double> gregorian);
+    static double               JD2MJD(double jd);
+    static double               JD2Gregorian(const double jd);
+    static std::vector<double>  JD2GregorianVect(double jd);    
+    static double               MJD2JD(double mjd);
+    static double               MJD2Gregorian(double mjd);
+    static std::vector<double>  MJD2GregorianVect(double mjd);
+    static double               UTC2UT1(double jd_utc, double dut1=0.0) ;
+    static double               UTC2TT(double jd_utc, double dut1=0.0) ;
+    static double               UTC2TDB(double jd_utc, double dut1=0.0) ;
     
     /***********************************************************
      * Some useful helper methods
      ***********************************************************/
     
-    /// Gets the stored SOFA Julian date to Mod Julian date factor 'DJM0'.
-    ///     @return conversion factor for Julian date -> Modified Julian date conversions
-    /// Modified Julian date (mjd) can then be computed from this factor
-    /// and the Julian date (jd) by the following:
-    ///
-    ///     mjd = jd - CEDate::GetMJD2JDFactor()
-    static inline double GetMJD2JDFactor() {return DJM0;}
+    static inline double GetMJD2JDFactor();
     
     /// Returns the 'dut1' value representing the 'UTC-UT1. These methods should
     /// be considered unreliable for the moment.
@@ -161,5 +135,101 @@ protected:
 private:
     
 };
+
+
+/**********************************************************************//**
+ * Get the Julian date represented by this object
+ *************************************************************************/
+inline 
+double CEDate::JD(void) 
+{
+    return julian_date_;
+}
+
+
+/**********************************************************************//**
+ * Get the Modified Julian date represented by this object
+ *************************************************************************/
+inline 
+double CEDate::MJD(void)
+{
+    return mod_julian_date_;
+}
+
+
+/**********************************************************************//**
+ * Get the Gregorian calendar date formatted as a double
+ *************************************************************************/
+inline 
+double CEDate::Gregorian(void)
+{
+    return gregorian_date_;
+}
+
+
+/**********************************************************************//**
+ * Get the Gregorian calendar date formatted as a vector
+ *************************************************************************/
+inline 
+std::vector<double> CEDate::GregorianVect(void)
+{
+    return gregorian_date_vect_;
+}
+
+
+/**********************************************************************//**
+ * Get the Gregorian calendar year
+ *************************************************************************/
+inline 
+int CEDate::Year(void)
+{
+    return gregorian_date_vect_[0];
+}
+
+
+/**********************************************************************//**
+ * Get the Gregorian calendar month
+ *************************************************************************/
+inline 
+int CEDate::Month(void) 
+{
+    return gregorian_date_vect_[1];
+}
+
+
+/**********************************************************************//**
+ * Get the Gregorian calendar day
+ *************************************************************************/
+inline 
+int CEDate::Day(void) 
+{
+    return gregorian_date_vect_[2];
+}
+
+
+/**********************************************************************//**
+ * Get the Gregorian calendar day fraction
+ *************************************************************************/
+inline 
+double CEDate::DayFraction(void)
+{
+    return gregorian_date_vect_[3];
+}
+
+
+/**********************************************************************//**
+ * Gets the stored SOFA Julian date to Mod Julian date factor 'DJM0'.
+ * 
+ * @return conversion factor for Julian date -> Modified Julian date conversions
+ * Modified Julian date (mjd) can then be computed from this factor
+ * and the Julian date (jd) by the following:
+ *
+ *     mjd = jd - CEDate::GetMJD2JDFactor()
+ *************************************************************************/
+inline 
+double CEDate::GetMJD2JDFactor(void) 
+{
+    return DJM0;
+}
 
 #endif /* CEDate_h */

@@ -10,7 +10,11 @@
 #include <stdio.h>
 #include "CENamespace.h"
 
-//__________________________________________________
+/**********************************************************************//**
+ * Return dut1 based on MJD
+ * 
+ * @param[in] mjd       Modified Julian Date (MJD)
+ *************************************************************************/
 double CppEphem::dut1(double mjd) {
     // Round the MJD down to the nearest integer
     mjd = std::floor(mjd) ;
@@ -24,7 +28,8 @@ double CppEphem::dut1(double mjd) {
     return dut1_list()[mjd] ;
 }
 
-//__________________________________________________
+/**********************************************************************//**
+ *************************************************************************/
 double CppEphem::dut1Error(double mjd) {
     // If the passed mjd is greater than the mininmum mjd or
     // larger than the largest mjd stored, then use the formula
@@ -40,10 +45,11 @@ double CppEphem::dut1Error(double mjd) {
     return dut1Error[mjd] ;
 }
 
-/////////////////////////////////////////////////////////
-/// Set the time from a vector representing Greenwich Apparent Sidereal Time.
-/// The elements are as follows:
-/// [0]=hours, [1]=minutes, [2]=whole seconds, [3]=fractional seconds
+/**********************************************************************//**
+ * Set the time from a vector representing Greenwich Apparent Sidereal Time.
+ * The elements are as follows:
+ * [0]=hours, [1]=minutes, [2]=whole seconds, [3]=fractional seconds
+ *************************************************************************/
 double CppEphem::dut1Calc(double mjd)
 {
     // There's a formula that could be used for calculating this value,

@@ -15,7 +15,8 @@
 // CppEphem HEADERS
 #include "CppEphem.h"
 
-//_________________________________________________________
+/**********************************************************************//**
+ *************************************************************************/
 void Print_Help()
 {
     // This is the help text to be printed if no command line options are provide
@@ -46,7 +47,8 @@ void Print_Help()
     std::printf("\n") ;
 }
 
-//_________________________________________________________
+/**********************************************************************//**
+ *************************************************************************/
 std::map<std::string, double> defaultoptions()
 {
     // Define the default values of some of the unnecessary parameters
@@ -73,7 +75,8 @@ std::map<std::string, double> defaultoptions()
     return options ;
 }
 
-//_________________________________________________________
+/**********************************************************************//**
+ *************************************************************************/
 void getoptions(struct option* longopts)
 {
     longopts[0]  = {"help",        no_argument,       0, 'h'};   // Print help information
@@ -93,7 +96,8 @@ void getoptions(struct option* longopts)
     longopts[14] = {0,0,0,0} ;
 }
 
-//_________________________________________________________
+/**********************************************************************//**
+ *************************************************************************/
 std::map<std::string, double> parseoptions(int argc, char** argv, const struct option* longopts)
 {
     // Setup the default parameters
@@ -179,7 +183,8 @@ std::map<std::string, double> parseoptions(int argc, char** argv, const struct o
     return options ;
 }
 
-//_________________________________________________________
+/**********************************************************************//**
+ *************************************************************************/
 void PrintResults(std::map<std::string, double> inputs, std::map<std::string, double> results)
 {
     std::printf("\n") ;
@@ -207,7 +212,8 @@ void PrintResults(std::map<std::string, double> inputs, std::map<std::string, do
     std::printf("\n") ;
 }
 
-//_________________________________________________________
+/**********************************************************************//**
+ *************************************************************************/
 int main(int argc, char** argv) {
     
     // If no arguments have been passed, print the help text and quit

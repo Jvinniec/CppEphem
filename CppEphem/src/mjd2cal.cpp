@@ -9,6 +9,8 @@
 #include <iostream>
 #include "CppEphem.h"
 
+/**********************************************************************//**
+ *************************************************************************/
 int main(int argc, const char * argv[]) {
     // Set the default return type ID
     int return_format(0) ;

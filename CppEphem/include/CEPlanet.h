@@ -27,58 +27,30 @@ public:
              CEAngleType angle_type = CEAngleType::RADIANS) ;
     virtual ~CEPlanet() ;
     
-    /****************************
-     * Atribute getters
-     ****************************/
-    /// @return Radius in meters.
-    double Radius_m() {return radius_m_ ;}
-    /// @return Mass in kilograms.
-    double Mass_kg() {return mass_kg_ ;}
-    /// @return Albedo.
-    double Albedo() {return albedo_ ;}
-    
-    /****************************
-     * Atribute setters
-     ****************************/
-    /// @param[in] new_radius New radius (meters)
-    void SetMeanRadius_m(double new_radius) {radius_m_ = new_radius ;}
-    /// @param[in] new_mass New mass (kilograms)
-    void SetMass_kg(double new_mass) {mass_kg_ = new_mass ;}
-    /// @param[in] new_albedo New Albedo
-    void SetAlbedo(double new_albedo) {albedo_ = new_albedo ;}
-    
-    /****************************
-     * Overloads to compute the planets position
-     ****************************/
-    virtual double XCoordinate_Rad(double new_date=-1.0e30)
-        {
-            UpdateCoordinates(new_date) ;
-            return CECoordinates::XCoordinate_Rad() ;
-        }
-    virtual double XCoordinate_Deg(double new_date=-1.0e30)
-        {return XCoordinate_Rad(new_date)*DR2D ;}
-    virtual double YCoordinate_Rad(double new_date=-1.0e30)
-        {
-            UpdateCoordinates(new_date) ;
-            return CECoordinates::YCoordinate_Rad() ;
-        }
-    virtual double YCoordinate_Deg(double new_date=-1.0e30)
-        {return YCoordinate_Rad(new_date)*DR2D ;}
-    
-    // Methods for updating the coordinates
-    virtual void UpdateCoordinates(double new_date=-1.0e30) ;
-    virtual void Update_JPL(double new_date=-1.0e30) ;
-    virtual void Update_SOFA(double new_date=-1.0e30) ;
+    /******  Methods  ******/
+    double         Radius_m();
+    double         Mass_kg();
+    double         Albedo();
+    void           SetMeanRadius_m(double new_radius);
+    void           SetMass_kg(double new_mass);
+    void           SetAlbedo(double new_albedo);
+    virtual double XCoordinate_Rad(double new_date=-1.0e30);
+    virtual double XCoordinate_Deg(double new_date=-1.0e30);
+    virtual double YCoordinate_Rad(double new_date=-1.0e30);
+    virtual double YCoordinate_Deg(double new_date=-1.0e30);
+    virtual void   UpdateCoordinates(double new_date=-1.0e30) ;
+    virtual void   Update_JPL(double new_date=-1.0e30) ;
+    virtual void   Update_SOFA(double new_date=-1.0e30) ;
     
     /****************************
      * Methods for getting the current x,y,z coordinates and velocities relative to the ICRS point
      ****************************/
-    double GetXICRS() {return x_icrs_ ;}    ///< X distance from solar system barycenter (AU)
-    double GetYICRS() {return y_icrs_ ;}    ///< Y distance from solar system barycenter (AU)
-    double GetZICRS() {return z_icrs_ ;}    ///< Z distance from solar system barycenter (AU)
-    double GetVxICRS() {return vx_icrs_ ;}  ///< X velocity relative to solar system center (AU/day)
-    double GetVyICRS() {return vy_icrs_ ;}  ///< Y velocity relative to solar system center (AU/day)
-    double GetVzICRS() {return vz_icrs_ ;}  ///< Z velocity relative to solar system center (AU/day)
+    double GetXICRS();
+    double GetYICRS();
+    double GetZICRS();
+    double GetVxICRS();
+    double GetVyICRS();
+    double GetVzICRS();
     
     /****************************
      * Methods for computing apparent "phase"
@@ -94,46 +66,24 @@ public:
      * Methods to set orbital properties
      ****************************/
     virtual void SetSemiMajorAxis_AU(double semi_major_axis_au,
-                                double semi_major_axis_au_per_cent=0.0) ;
+                                double semi_major_axis_au_per_cent=0.0);
     virtual void SetEccentricity(double eccentricity,
-                                double eccentricity_per_cent=0.0) ;
+                                double eccentricity_per_cent=0.0);
     virtual void SetInclination(double inclination,
                                 double inclination_per_cent=0.0,
-                                CEAngleType angle_type=CEAngleType::DEGREES) ;
+                                CEAngleType angle_type=CEAngleType::DEGREES);
     virtual void SetMeanLongitude(double mean_longitude,
                                 double mean_longitude_per_cent=0.0,
-                                CEAngleType angle_type=CEAngleType::DEGREES) ;
+                                CEAngleType angle_type=CEAngleType::DEGREES);
     virtual void SetPerihelionLongitude(double perihelion_lon,
                                 double perihelion_lon_per_cent=0.0,
-                                CEAngleType angle_type=CEAngleType::DEGREES) ;
+                                CEAngleType angle_type=CEAngleType::DEGREES);
     virtual void SetAscendingNodeLongitude(double ascending_node_lon,
                                 double ascending_node_lon_per_cent=0.0,
-                                CEAngleType angle_type=CEAngleType::DEGREES) ;
-    // Set the extra terms for the outer planets
-    virtual void SetExtraTerms(double b, double c, double s, double f)
-        {
-            b_ = b ;
-            c_ = c ;
-            s_ = s ;
-            f_ = f ;
-        }
-    
-    /// Set the tolerance for the eccentric anomoly recursive formula
-    ///     @param[in] tol          Tolerance (degrees)
-    virtual void SetTolerance(double tol = 1.0e-6) {E_tol = tol ;}
-    /// Set the reference object for computing more accurate RA,Dec values
-    ///     @param[in] reference    Reference object (i.e. planet where the observer is located
-    virtual void SetReference(CEPlanet* reference)
-        {
-            if (reference_ != nullptr) {
-                // redirect and delete
-                CEPlanet* tmp = reference_ ;
-                reference_ = nullptr ;
-                delete tmp ;
-            }
-            
-            reference_ = reference ;
-        }
+                                CEAngleType angle_type=CEAngleType::DEGREES);
+    virtual void SetExtraTerms(double b, double c, double s, double f);
+    virtual void SetTolerance(double tol = 1.0e-6);
+    virtual void SetReference(CEPlanet* reference);
     
     /****************************
      * Some generic planets in our solar system
@@ -150,20 +100,8 @@ public:
     static CEPlanet Pluto() ;
     
     // Set the algorithm
-    void SetAlgorithm(CEPlanetAlgo new_algo)
-        {
-            algorithm_type_ = new_algo;
-            if (reference_ != nullptr) reference_->SetAlgorithm(new_algo) ;
-        }
-    // Set the sofa planet id (note, only values from 1-8 are acceptable)
-    void SetSofaID(double new_id)
-        {
-            // If the id is outside the acceptable range, then set the algorithm to jpl
-            if ((new_id < 1.0)||(new_id > 8.0)) {
-                SetAlgorithm(CEPlanetAlgo::JPL) ;
-            }
-            sofa_planet_id_ = new_id;
-        }
+    void SetAlgorithm(CEPlanetAlgo new_algo);
+    void SetSofaID(double new_id);
     
 protected:
     
@@ -225,20 +163,220 @@ protected:
      * Methods for the JPL algorithm
      ******************************************/
 
-    /// Compute current value of a given element
-    ///     @param[in] value                    Once of the orbital property values
-    ///     @param[in] value_derivative_        Time derivative of 'value'
-    ///     @param[in] time                     Days since J2000 epoch
-    inline double ComputeElement(double value, double value_derivative_, double time)
-        {return value + value_derivative_*time;}
-    double MeanAnomaly(double mean_longitude_deg,
-                       double perihelion_long_deg,
-                       double T=0.0) ;
+    inline double ComputeElement(double value, double value_derivative_, double time);
+    double        MeanAnomaly(double mean_longitude_deg,
+                              double perihelion_long_deg,
+                              double T=0.0);
     
     // Recursive formula necessary for the computation of eccentric anomoly
     double EccentricAnomoly(double& M, double& e, double &En, double& del_E) ;
     
 };
 
+
+/**********************************************************************//**
+ * @return Radius in meters.
+ *************************************************************************/
+inline
+double CEPlanet::Radius_m() 
+{
+    return radius_m_;
+}
+
+
+/**********************************************************************//**
+ * @return Mass in kilograms.
+ *************************************************************************/
+inline
+double CEPlanet::Mass_kg() 
+{
+    return mass_kg_;
+}
+
+
+/**********************************************************************//**
+ * @return Albedo.
+ *************************************************************************/
+inline
+double CEPlanet::Albedo() 
+{
+    return albedo_;
+}
+
+
+/**********************************************************************//**
+ * @param[in] new_radius New radius (meters)
+ *************************************************************************/
+inline
+void CEPlanet::SetMeanRadius_m(double new_radius)
+{
+    radius_m_ = new_radius;
+}
+
+
+/**********************************************************************//**
+ * @param[in] new_mass New mass (kilograms)
+ *************************************************************************/
+inline
+void CEPlanet::SetMass_kg(double new_mass)
+{
+    mass_kg_ = new_mass ;
+}
+
+
+/**********************************************************************//**
+ * @param[in] new_albedo New Albedo
+ *************************************************************************/
+inline
+void CEPlanet::SetAlbedo(double new_albedo)
+{
+    albedo_ = new_albedo;
+}
+
+
+/**********************************************************************//**
+ *************************************************************************/
+inline
+double CEPlanet::XCoordinate_Rad(double new_date)
+{
+    UpdateCoordinates(new_date);
+    return CECoordinates::XCoordinate_Rad();
+}
+
+
+/**********************************************************************//**
+ *************************************************************************/
+inline
+double CEPlanet::XCoordinate_Deg(double new_date)
+{
+    return XCoordinate_Rad(new_date)*DR2D;
+}
+
+
+/**********************************************************************//**
+ *************************************************************************/
+inline
+double CEPlanet::YCoordinate_Rad(double new_date)
+{
+    UpdateCoordinates(new_date) ;
+    return CECoordinates::YCoordinate_Rad();
+}
+
+
+/**********************************************************************//**
+ *************************************************************************/
+inline
+double CEPlanet::YCoordinate_Deg(double new_date)
+{
+    return YCoordinate_Rad(new_date)*DR2D;
+}
+
+
+/**********************************************************************//**
+ * Return X distance from solar system barycenter (AU)
+ *************************************************************************/
+inline
+double CEPlanet::GetXICRS()
+{
+    return x_icrs_ ;
+}
+
+
+/**********************************************************************//**
+ * Y distance from solar system barycenter (AU)
+ *************************************************************************/
+inline
+double CEPlanet::GetYICRS() 
+{
+    return y_icrs_ ;
+}
+
+
+/**********************************************************************//**
+ * Z distance from solar system barycenter (AU)
+ *************************************************************************/
+inline
+double CEPlanet::GetZICRS() 
+{
+    return z_icrs_ ;
+}
+
+
+/**********************************************************************//**
+ * X velocity relative to solar system center (AU/day)
+ *************************************************************************/
+inline
+double CEPlanet::GetVxICRS() 
+{
+    return vx_icrs_ ;
+}
+
+
+/**********************************************************************//**
+ * Y velocity relative to solar system center (AU/day)
+ *************************************************************************/
+inline
+double CEPlanet::GetVyICRS() 
+{
+    return vy_icrs_ ;
+} 
+
+
+/**********************************************************************//**
+ * Z velocity relative to solar system center (AU/day)
+ *************************************************************************/
+inline
+double CEPlanet::GetVzICRS() 
+{
+    return vz_icrs_ ;
+}
+
+
+/**********************************************************************//**
+ *************************************************************************/
+inline
+void CEPlanet::SetExtraTerms(double b, double c, double s, double f)
+{
+    b_ = b ;
+    c_ = c ;
+    s_ = s ;
+    f_ = f ;
+}
+
+
+/**********************************************************************//**
+ * Set the tolerance for the eccentric anomoly recursive formula
+ * 
+ * @param[in] tol          Tolerance (degrees)
+ *************************************************************************/
+inline
+void CEPlanet::SetTolerance(double tol) 
+{
+    E_tol = tol ;
+}
+
+
+/**********************************************************************//**
+ *************************************************************************/
+inline
+void CEPlanet::SetAlgorithm(CEPlanetAlgo new_algo)
+{
+    algorithm_type_ = new_algo;
+    if (reference_ != nullptr) reference_->SetAlgorithm(new_algo) ;
+}
+
+
+/**********************************************************************//**
+ * Compute current value of a given element
+ * 
+ * @param[in] value                    Once of the orbital property values
+ * @param[in] value_derivative_        Time derivative of 'value'
+ * @param[in] time                     Days since J2000 epoch
+ *************************************************************************/
+inline 
+double CEPlanet::ComputeElement(double value, double value_derivative_, double time)
+{
+    return value + value_derivative_*time;
+}
 
 #endif /* CEPlanet_h */

@@ -34,6 +34,8 @@ enum class CECoordinateType {CIRS,           ///< RA, Dec (referenced at the cen
 // Initiate the class that holds the coordinate information
 class CECoordinates {
 public:
+
+    /****** CONSTRUCTORS ******/
     CECoordinates() ;
     CECoordinates(double xcoord, double ycoord,
                   CECoordinateType coord_type=CECoordinateType::ICRS,
@@ -56,32 +58,18 @@ public:
     /**********************************************************
      * Methods for accessing the coordinate information
      **********************************************************/
-    /// @param[in] jd   Julian date (used only by derived classes)
-    /// @return X-coordinate in radians
-    virtual double XCoordinate_Rad(double jd=CppEphem::julian_date_J2000())
-        {return xcoord_ ;}
     
-    /// @param[in] jd   Julian date (used only by derived classes)
-    /// @return X-coordinate in degrees
-    virtual double XCoordinate_Deg(double jd=CppEphem::julian_date_J2000())
-        {return XCoordinate_Rad(jd) * DR2D ;}
+    virtual double XCoordinate_Rad(double jd=CppEphem::julian_date_J2000());
+    virtual double XCoordinate_Deg(double jd=CppEphem::julian_date_J2000());
+    virtual double YCoordinate_Rad(double jd=CppEphem::julian_date_J2000());
+    virtual double YCoordinate_Deg(double jd=CppEphem::julian_date_J2000());
     
-    /// @param[in] jd   Julian date (used only by derived classes)
-    /// @return Y-coordinate in radians
-    virtual double YCoordinate_Rad(double jd=CppEphem::julian_date_J2000())
-        {return ycoord_ ;}
-    
-    /// @param[in] jd   Julian date (used only by derived classes)
-    /// @return Y-coordinate in degrees
-    virtual double YCoordinate_Deg(double jd=CppEphem::julian_date_J2000())
-        {return YCoordinate_Rad(jd) * DR2D ;}
-    
-    /// Convert an angle into Hours:minutes:seconds format
+    // Convert an angle into Hours:minutes:seconds format
     static std::vector<double> GetHMS(double angle, CEAngleType angle_type = CEAngleType::DEGREES);
     static std::vector<double> GetDMS(double angle, CEAngleType angle_type = CEAngleType::DEGREES);
-    
-    /// @return Coordinate type of this object
-    CECoordinateType GetCoordSystem() const {return coord_type_;}
+
+    // Return coordinate system    
+    CECoordinateType GetCoordSystem(void) const;
     
     /**********************************************************
      * Methods for converting between coordinate types
@@ -93,10 +81,10 @@ public:
     // Convert from CIRS to other coordinates
     static void CIRS2ICRS(double input_ra, double input_dec, double *return_ra, double *return_dec,
                           CEDate date=CEDate(DJ00, CEDateType::JD),
-                          CEAngleType angle_type=CEAngleType::RADIANS) ;
+                          CEAngleType angle_type=CEAngleType::RADIANS);
     static void CIRS2Galactic(double ra, double dec, double *glon, double *glat,
                               CEDate date=CEDate(DJ00, CEDateType::JD),
-                              CEAngleType angle_type=CEAngleType::RADIANS) ;
+                              CEAngleType angle_type=CEAngleType::RADIANS);
     static int CIRS2Observed(double ra,
                              double dec,
                              double *az,
@@ -106,7 +94,7 @@ public:
                              double wavelength_um=0.5,
                              double *observed_ra=nullptr,
                              double *observed_dec=nullptr,
-                             double *hour_angle=nullptr) ;
+                             double *hour_angle=nullptr);
     
     // Convert from ICRS to other coordinates
     static void ICRS2CIRS(double input_ra,
@@ -119,7 +107,7 @@ public:
                               double dec,
                               double *glon,
                               double *glat,
-                              CEAngleType angle_type=CEAngleType::RADIANS) ;
+                              CEAngleType angle_type=CEAngleType::RADIANS);
     static int ICRS2Observed(double ra,
                              double dec,
                              double *az,
@@ -134,9 +122,9 @@ public:
     // Convert from GALACTIC to other coordinates
     static void Galactic2CIRS(double glon, double glat, double *ra, double *dec,
                               CEDate date=CEDate(),
-                              CEAngleType angle_type=CEAngleType::RADIANS) ;
+                              CEAngleType angle_type=CEAngleType::RADIANS);
     static void Galactic2ICRS(double glon, double glat, double *ra, double *dec,
-                              CEAngleType angle_type=CEAngleType::RADIANS) ;
+                              CEAngleType angle_type=CEAngleType::RADIANS);
     static int Galactic2Observed(double glon,
                                  double glat,
                                  double *az,
@@ -153,19 +141,19 @@ public:
                               double *ra,
                               double *dec,
                               CEObserver& observer,
-                              CEAngleType angle_type=CEAngleType::RADIANS) ;
+                              CEAngleType angle_type=CEAngleType::RADIANS);
     static int Observed2ICRS(double az,
                               double zen,
                               double *ra,
                               double *dec,
                               CEObserver& observer,
-                              CEAngleType angle_type=CEAngleType::RADIANS) ;
+                              CEAngleType angle_type=CEAngleType::RADIANS);
     static int Observed2Galactic(double az,
                               double zen,
                               double *glon,
                               double *glat,
                               CEObserver& observer,
-                              CEAngleType angle_type=CEAngleType::RADIANS) ;
+                              CEAngleType angle_type=CEAngleType::RADIANS);
     
     
     // The following are provided to allow converting to OBSERVED
@@ -206,7 +194,7 @@ public:
                              double dut1=0.0,
                              double xp=0.0,
                              double yp=0.0,
-                             double wavelength_um=0.5) ;
+                             double wavelength_um=0.5);
     
     /* Raw methods for converting ICRS <-> Observed (observer specific) coordinates. */
     static int ICRS2Observed(double ra,
@@ -225,7 +213,7 @@ public:
                              double wavelength_um=0.5,
                              double *observed_ra=nullptr,
                              double *observed_dec=nullptr,
-                             double *hour_angle=nullptr) ;
+                             double *hour_angle=nullptr);
     static int Observed2ICRS(double az,
                              double zen,
                              double *ra,
@@ -258,7 +246,7 @@ public:
                              double wavelength_um=0.50,
                              double *observed_glon=nullptr,
                              double *observed_glat=nullptr,
-                             double *hour_angle=nullptr) ;
+                             double *hour_angle=nullptr);
     static int Observed2Galactic(double az,
                              double zen,
                              double *glon,
@@ -272,7 +260,7 @@ public:
                              double relative_humidity=0.0,
                              double dut1=0.0,
                              double xp=0.0, double yp=0.0,
-                             double wavelength_um=0.50) ;
+                             double wavelength_um=0.50);
     
     virtual CECoordinates GetObservedCoords(double julian_date,
                             double longitude,
@@ -283,19 +271,19 @@ public:
                             double relative_humidity=0.0,
                             double dut1=0.0,
                             double xp=0.0, double yp=0.0,
-                            double wavelength_um=0.5) ;
+                            double wavelength_um=0.5);
     virtual CECoordinates GetObservedCoords(CEDate& date,
                             CEObserver& observer,
                             double dut1=0.0,
                             double xp=0.0, double yp=0.0,
-                            double wavelength_um=0.5) ;
+                            double wavelength_um=0.5);
 
     /*********************************************************
      * More generic methods for converting between coordinate types
      *********************************************************/
     CECoordinates ConvertTo(CECoordinateType output_coord_type,
                             CEObserver* observer=nullptr,
-                            double jd=CEDate::CurrentJD()) ;
+                            double jd=CEDate::CurrentJD());
     
     CECoordinates ConvertTo(CECoordinateType output_coord_type,
                             double jd=CEDate::CurrentJD(),
@@ -307,7 +295,7 @@ public:
                             double relative_humidity=0.0,
                             double dut1=0.0,
                             double xp=0.0, double yp=0.0,
-                            double wavelength_um=0.5) ;
+                            double wavelength_um=0.5);
     
     CECoordinates ConvertToCIRS(double jd=CEDate::CurrentJD(),
                                 double longitude=0.0,
@@ -318,7 +306,7 @@ public:
                                 double relative_humidity=0.0,
                                 double dut1=0.0,
                                 double xp=0.0, double yp=0.0,
-                                double wavelength_um=0.5) ;
+                                double wavelength_um=0.5);
     CECoordinates ConvertToICRS(double jd=CEDate::CurrentJD(),
                                 double longitude=0.0,
                                 double latitude=0.0,
@@ -328,7 +316,7 @@ public:
                                 double relative_humidity=0.0,
                                 double dut1=0.0,
                                 double xp=0.0, double yp=0.0,
-                                double wavelength_um=0.5) ;
+                                double wavelength_um=0.5);
     CECoordinates ConvertToGalactic(double jd=CEDate::CurrentJD(),
                                     double longitude=0.0,
                                     double latitude=0.0,
@@ -338,7 +326,7 @@ public:
                                     double relative_humidity=0.0,
                                     double dut1=0.0,
                                     double xp=0.0, double yp=0.0,
-                                    double wavelength_um=0.5) ;
+                                    double wavelength_um=0.5);
     CECoordinates ConvertToObserved(double jd=CEDate::CurrentJD(),
                                     double longitude=0.0,
                                     double latitude=0.0,
@@ -348,25 +336,87 @@ public:
                                     double relative_humidity=0.0,
                                     double dut1=0.0,
                                     double xp=0.0, double yp=0.0,
-                                    double wavelength_um=0.5) ;
+                                    double wavelength_um=0.5);
     
     /*********************************************************
      * Methods for setting the coordinates of this object
      *********************************************************/
     virtual void SetCoordinates(double xcoord, double ycoord,
                                 CECoordinateType coord_type = CECoordinateType::ICRS,
-                                CEAngleType angle_type = CEAngleType::RADIANS) ;
-    virtual void SetCoordinates(CECoordinates& coords) ;
+                                CEAngleType angle_type = CEAngleType::RADIANS);
+    virtual void SetCoordinates(CECoordinates& coords);
     
 protected:
     // Coordinate variables
-    double xcoord_ ;                ///< X coordinate (radians)
-    double ycoord_ ;                ///< Y coordinate (radians)
-    CECoordinateType coord_type_ ;  ///< Coordinate system to which 'xcoord_' and 'ycoord_' belong.
-                                    ///< Possible values are "CIRS", "ICRS", "GALACTIC", "OBSERVED", and "GEOGRAPHIC"
+    double xcoord_;                 //<! X coordinate (radians)
+    double ycoord_;                 //<! Y coordinate (radians)
+    CECoordinateType coord_type_;   //<! Coordinate system to which 'xcoord_' and 'ycoord_' belong.
+                                    //<! Possible values are "CIRS", "ICRS", "GALACTIC", "OBSERVED", and "GEOGRAPHIC"
     
 private:
     
 };
+
+
+/**********************************************************************//**
+ * Return x coordinate at given Julian date in radius
+ * 
+ * @param[in] jd   Julian date (used only by derived classes)
+ * @return X-coordinate in radians
+ *************************************************************************/
+inline
+double CECoordinates::XCoordinate_Rad(double jd)
+{
+    return xcoord_;
+}
+
+
+/**********************************************************************//**
+ * Returns x coordinate at given julian date in degrees
+ * 
+ * @param[in] jd   Julian date (used only by derived classes)
+ * @return X-coordinate in degrees
+ *************************************************************************/
+inline
+double CECoordinates::XCoordinate_Deg(double jd)
+{
+    return XCoordinate_Rad(jd) * DR2D;
+}
+
+
+/**********************************************************************//**
+ * Returns y coordinate at given Julian date in radius
+ * 
+ * @param[in] jd   Julian date (used only by derived classes)
+ * @return Y-coordinate in radians
+*************************************************************************/
+inline
+double CECoordinates::YCoordinate_Rad(double jd)
+{
+    return ycoord_;
+}
+    
+/**********************************************************************//**
+ * Returns y coordinate at given Julian date in degrees
+ * 
+ * @param[in] jd   Julian date (used only by derived classes)
+ * @return Y-coordinate in degrees
+ *************************************************************************/
+inline
+double CECoordinates::YCoordinate_Deg(double jd)
+{
+    return YCoordinate_Rad(jd) * DR2D;
+}
+
+
+/**********************************************************************//**
+ * Return coordinate system
+ * @return Coordinate type of this object
+ *************************************************************************/
+inline
+CECoordinateType CECoordinates::GetCoordSystem(void) const 
+{
+    return coord_type_;
+}
 
 #endif /* CECoordinates_h */

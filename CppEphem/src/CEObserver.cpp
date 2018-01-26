@@ -25,21 +25,18 @@
 
 // CPPEPHEM HEADERS
 #include "CEObserver.h"
-/*
-/////////////////////////////////////////////////////////////////
-/// Default constructor
-CEObserver::CEObserver()
-{
-}
-*/
-/////////////////////////////////////////////////////////////////
-/// Constructor from a geographic position (latitude, longitude, altitude)
-/// Note that altitude defaults to sea-level
-///     @param longitude            Observer longitude (east positive)
-///     @param latitude             Observer latitude
-///     @param elevation            Observer elevation above sea-level (meters)
-///     @param angle_type           Angle type for longitude and latitude (RADIANS or DEGREES)
-///     @param date                 Current date for the observer
+
+
+/**********************************************************************//**
+ * Constructor from a geographic position (latitude, longitude, altitude)
+ * Note that altitude defaults to sea-level
+ * 
+ * @param longitude            Observer longitude (east positive)
+ * @param latitude             Observer latitude
+ * @param elevation            Observer elevation above sea-level (meters)
+ * @param angle_type           Angle type for longitude and latitude (RADIANS or DEGREES)
+ * @param date                 Current date for the observer
+ *************************************************************************/
 CEObserver::CEObserver(double longitude, double latitude,
                        double elevation, CEAngleType angle_type,
                        CEDate* date)
@@ -57,9 +54,11 @@ CEObserver::CEObserver(double longitude, double latitude,
     SetDate(date) ;
 }
 
-/////////////////////////////////////////////////////////////////
-/// Copy constructor
-///     @param other            Another observer object that will be copied
+/**********************************************************************//**
+ * Copy constructor
+ * 
+ * @param other            Another observer object that will be copied
+ *************************************************************************/
 CEObserver::CEObserver(const CEObserver& other) :
     longitude_(other.longitude_),
     latitude_(other.latitude_),
@@ -69,8 +68,9 @@ CEObserver::CEObserver(const CEObserver& other) :
     relative_humidity_(other.relative_humidity_)
 {}
 
-/////////////////////////////////////////////////////////////////
-/// Destructor
+/**********************************************************************//**
+ * Destructor
+ *************************************************************************/
 CEObserver::~CEObserver()
 {
     // Delete the date object if we own it
@@ -79,22 +79,25 @@ CEObserver::~CEObserver()
 
 #pragma mark - Public Methods
 
-/////////////////////////////////////////////////////////////////
-/// Get the local sky coordinates for an object as observed
-/// by this observer
-///     @param object           Object that we want to find the local coordinates of
-///     @return                 Local coordinates of the object
+/**********************************************************************//**
+ * Get the local sky coordinates for an object as observed
+ * by this observer
+ * 
+ * @param object           Object that we want to find the local coordinates of
+ * @return                 Local coordinates of the object
+ *************************************************************************/
 CECoordinates CEObserver::ObservedPosition(CEBody& object)
 {
     CECoordinates coords = object.GetCoordinates() ;
     return ObservedPosition(coords) ;
 }
 
-/////////////////////////////////////////////////////////////////
-/// Get the local sky coordinates for an object as observed
-/// by this observer
-///     @param coords           Coordinates of an object that we want to find the local coordinates of
-///     @return                 'coords' converted into the local coordinates of this observer.
+/**********************************************************************//**
+ * Get the local sky coordinates for an object as observed
+ * by this observer
+ * @param coords           Coordinates of an object that we want to find the local coordinates of
+ * @return                 'coords' converted into the local coordinates of this observer.
+ *************************************************************************/
 CECoordinates CEObserver::ObservedPosition(CECoordinates& coords)
 {
     // Compute the observed coordinates for these coordinates
@@ -102,9 +105,10 @@ CECoordinates CEObserver::ObservedPosition(CECoordinates& coords)
     return observed_coords ;
 }
 
-/////////////////////////////////////////////////////////////////
-/// Set the date object for this observer
-///     @param[in]  date                CEDate object
+/**********************************************************************//**
+ * Set the date object for this observer
+ * @param[in]  date                CEDate object
+ *************************************************************************/
 void CEObserver::SetDate(CEDate* date)
 {
     // Prepare to update the current date object

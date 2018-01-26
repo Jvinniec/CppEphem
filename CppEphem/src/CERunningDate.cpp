@@ -28,69 +28,82 @@
  * </ul>
  */
 
-///////////////////////////////////////////////////////////////
-/// Default constructor
+/**********************************************************************//**
+ * Default constructor
+ *************************************************************************/
 CERunningDate::CERunningDate() :
     CEDate()
 {}
 
-///////////////////////////////////////////////////////////////
-/// Destructor
+/**********************************************************************//**
+ * Destructor
+ *************************************************************************/
 CERunningDate::~CERunningDate()
 {}
 
 #pragma mark - Public Methods.
 
-///////////////////////////////////////////////////////////////
-/// Get the current Julian date.
-///     @return Instantaneous Julian date
+/**********************************************************************//**
+ * Get the current Julian date.
+ * 
+ * @return Instantaneous Julian date
+ *************************************************************************/
 double CERunningDate::JD()
 {
     // Get the current Julian date
     return julian_date_ + (ScaledRunTime()/86400.0) ;
 }
 
-///////////////////////////////////////////////////////////////
-/// Get the current modified Julian date.
-///     @return Instantaneous modified Julian date
+/**********************************************************************//**
+ * Get the current modified Julian date.
+ * 
+ * @return Instantaneous modified Julian date
+ *************************************************************************/
 double CERunningDate::MJD()
 {
     return JD2MJD( JD() ) ;
 }
 
-///////////////////////////////////////////////////////////////
-/// Get the current Gregorian calendar date formatted as YYYYMMDD.D
-///     @return Instantaneous Gregorian calendar date formatted as YYYYMMDD.D
+/**********************************************************************//**
+ * Get the current Gregorian calendar date formatted as YYYYMMDD.D
+ * 
+ * @return Instantaneous Gregorian calendar date formatted as YYYYMMDD.D
+ *************************************************************************/
 double CERunningDate::Gregorian()
 {
     return JD2Gregorian( JD() ) ;
 }
 
-/////////////////////////////////////////////////////////////////
-/// Set the date based on an actual date and the desired time_format.
-/// This method will also reset the underlying timer.
-///     @param date             Date
-///     @param time_format      Time format (see ::CEDateType)
+/**********************************************************************//**
+ * Set the date based on an actual date and the desired time_format.
+ * This method will also reset the underlying timer.
+ * 
+ * @param date             Date
+ * @param time_format      Time format (see ::CEDateType)
+ *************************************************************************/
 void CERunningDate::SetDate(double date, CEDateType time_format)
 {
     CEDate::SetDate(date, time_format) ;
     ResetTime() ;
 }
 
-/////////////////////////////////////////////////////////////////
-/// Set the date based on an actual date and the desired time_format
-///     @param date             Gregorian Date
-///                             - [0] = Year
-///                             - [1] = Month
-///                             - [2] = Day
-///                             - [3] = Day fraction
+/**********************************************************************//**
+ * Set the date based on an actual date and the desired time_format
+ * 
+ * @param date             Gregorian Date
+ *                         - [0] = Year
+ *                         - [1] = Month
+ *                         - [2] = Day
+ *                         - [3] = Day fraction
+ *************************************************************************/
 void CERunningDate::SetDate(std::vector<double> date)
 {
     SetDate(GregorianVect2JD(date)) ;
 }
 
-/////////////////////////////////////////////////////////////////
-/// Get the number of seconds since the creation of this object
+/**********************************************************************//**
+ * Get the number of seconds since the creation of this object
+ *************************************************************************/
 double CERunningDate::RunTime()
 {
     return (std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() - std::chrono::duration_cast<std::chrono::microseconds>(start.time_since_epoch()).count())/1000000.0;

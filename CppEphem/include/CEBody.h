@@ -32,18 +32,15 @@ public:
     CEBody(const CECoordinates& coords, const std::string& name="") ;
     virtual ~CEBody() ;
     
-    /// Get the name of this object
-    ///     @return the name of this object
-    std::string Name() {return name_;}
-    /// Set the name of this object
-    ///     @param[in] new_name     New name of this object
-    void SetName(const std::string& new_name) {name_ = new_name;}
+    std::string Name();
+    void        SetName(const std::string& new_name);
     
     // -------------------------------------------------------
     // Methods for getting the coordinates of this object
     // -------------------------------------------------------
-    /** Returns the coordinates associated with this object as a 'CECoordinates' object */
-    CECoordinates GetCoordinates() {return CECoordinates(*this) ;}
+    
+    // Returns the coordinates associated with this object as a 'CECoordinates' object
+    CECoordinates GetCoordinates(void);
     
 protected:
     
@@ -55,5 +52,37 @@ protected:
 private:
     
 };
+
+
+/**********************************************************************//**
+ * Get the name of this object
+ * 
+ * @return the name of this object
+ *************************************************************************/
+inline
+std::string CEBody::Name()
+{
+    return name_;
+} 
+
+/**********************************************************************//**
+ * Set the name of this object
+ * 
+ * @param[in] new_name     New name of this object
+ *************************************************************************/
+inline
+void CEBody::SetName(const std::string& new_name) 
+{
+    name_ = new_name;
+}
+
+/**********************************************************************//**
+ * Return the coordinates associated with this object as a 'CECoordinates' object 
+ *************************************************************************/
+inline
+CECoordinates CEBody::GetCoordinates(void) 
+{
+    return CECoordinates(*this) ;
+}
 
 #endif /* CEBody_h */
