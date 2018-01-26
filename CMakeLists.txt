@@ -60,12 +60,12 @@ endfunction(cppephem_executable)
 
 # Define the sub-directories for building in
 add_subdirectory (${SOFA_DIRECTORY})
-add_subdirectory (CppEphem/src)
+add_subdirectory (src)
 
 #-------------------------------------------
 
 # Define installation directories
-install(DIRECTORY CppEphem/include/
+install(DIRECTORY include/
     USE_SOURCE_PERMISSIONS
 	DESTINATION ${CMAKE_INSTALL_PREFIX}/include
     FILES_MATCHING PATTERN "C*.h")
