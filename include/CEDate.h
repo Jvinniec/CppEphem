@@ -59,6 +59,7 @@ public:
      ***********************************************************/
     double                      GetDate(CEDateType time_format=CEDateType::JD);
     virtual double              JD();
+    //virtual void                JD(const double& jd);
     virtual double              MJD();
     virtual double              Gregorian();
     virtual std::vector<double> GregorianVect();

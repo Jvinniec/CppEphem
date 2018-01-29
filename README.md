@@ -136,7 +136,7 @@ And that should do it.
 
 ### Troubleshooting
 If you run into a problem installing when using `cmake` and the `-Dprefix=` 
-option allong the following form:
+option along the following form:
 
 ```
 CMake Error at cmake_install.cmake:44 (file):

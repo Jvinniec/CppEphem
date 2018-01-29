@@ -1,5 +1,5 @@
 /***************************************************************************
- *  test_cpephem.cpp: CppEphem                                             *
+ *  test_CEDate.h: CppEphem                                                *
  * ----------------------------------------------------------------------- *
  *  Copyright © 2018 JCardenzana                                           *
  * ----------------------------------------------------------------------- *
@@ -19,44 +19,27 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <exception>
-#include <vector>
-#include "test_CEDate.h"
+#ifndef test_CEDate_h
+#define test_CEDate_h
 
-void register_tests(std::vector<CETestSuite*> &tests)
-{
-    // Add test objects to tests list
-    tests.push_back(new test_CEDate());
-    
-    return;
-}
+#include "CEDate.h"
+#include "CETestSuite.h"
 
+class test_CEDate : public CETestSuite {
+public:
+    test_CEDate();
+    virtual ~test_CEDate();
 
-int main(int argc, char** argv) 
-{
-    // Variable if tests are passed
-    bool fail = false;
+    virtual bool runtests();
 
-    // Get the tests
-    std::vector<CETestSuite*> tests;
-    register_tests(tests);
+    /****** METHODS ******/
+    virtual bool test_set_JD();
 
-    // Run the individual tests
-    for (int i=0; i<tests.size(); i++) {
-        // Make sure that other tests are still able to run
-        // if one of the tests throws an exception
-        try {
-            fail = fail || tests[i]->runtests();
-        } catch (std::exception& e) {
-            std::cout << e.what() << std::endl;
-            fail = false;
-        }
+protected:
 
-        if (tests[i] != nullptr) {
-            delete tests[i];
-            tests[i] = nullptr;
-        }
-    }
+    CEDate base_date;
+    CEDate test_date;
 
-    return fail;
-}
+};
+
+#endif /* test_CEDate_h */

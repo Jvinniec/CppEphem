@@ -1,5 +1,5 @@
 /***************************************************************************
- *  test_cpephem.cpp: CppEphem                                             *
+ *  test_CEDate.cpp: CppEphem                                              *
  * ----------------------------------------------------------------------- *
  *  Copyright © 2018 JCardenzana                                           *
  * ----------------------------------------------------------------------- *
@@ -19,44 +19,49 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <exception>
-#include <vector>
 #include "test_CEDate.h"
+#include "CENamespace.h"
 
-void register_tests(std::vector<CETestSuite*> &tests)
+
+/**********************************************************************//**
+ * Default constructor
+ *************************************************************************/
+test_CEDate::test_CEDate() :
+    CETestSuite()
 {
-    // Add test objects to tests list
-    tests.push_back(new test_CEDate());
-    
-    return;
+    base_date.SetDate(CppEphem::julian_date_J2000());
+    test_date.SetDate(base_date);
 }
 
 
-int main(int argc, char** argv) 
+/**********************************************************************//**
+ * Destructor
+ *************************************************************************/
+test_CEDate::~test_CEDate()
+{}
+
+
+/**********************************************************************//**
+ * Run tests
+ * 
+ * @return whether or not all tests succeeded
+ *************************************************************************/
+bool test_CEDate::runtests()
 {
-    // Variable if tests are passed
-    bool fail = false;
+    std::cout << "Testing CEDate: ";
 
-    // Get the tests
-    std::vector<CETestSuite*> tests;
-    register_tests(tests);
+    // Run each of the tests
+    update_pass(test_set_JD());
 
-    // Run the individual tests
-    for (int i=0; i<tests.size(); i++) {
-        // Make sure that other tests are still able to run
-        // if one of the tests throws an exception
-        try {
-            fail = fail || tests[i]->runtests();
-        } catch (std::exception& e) {
-            std::cout << e.what() << std::endl;
-            fail = false;
-        }
+    return pass;
+}
 
-        if (tests[i] != nullptr) {
-            delete tests[i];
-            tests[i] = nullptr;
-        }
-    }
 
-    return fail;
+/**********************************************************************//**
+ * Test ability to set julian date
+ *************************************************************************/
+bool test_CEDate::test_set_JD()
+{
+    test_date.SetDate(base_date + 1);
+    return test_double(test_date, base_date);
 }
