@@ -36,7 +36,6 @@ public:
     /******  METHODS  ******/
     
     virtual bool runtests() = 0;
-    virtual int main(int argc, char** argv);
 
     /****** VARIABLES ******/
     
