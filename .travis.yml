@@ -36,7 +36,7 @@ dist: trusty
 
 # Build steps
 script:
-  - cmake
+  - cmake ./
   - make
   - make test
 
