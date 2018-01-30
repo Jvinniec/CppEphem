@@ -1,6 +1,15 @@
 # Enable C++ support
 language: cpp
 
+addons:
+  sonarcloud:
+    organization: "jvinniec-github"
+    token:
+      secure: $SONAR_TOKEN
+    branches:
+      - master
+      - travis_buldtest
+
 # block the following branches from triggering builds
 branches:
   except:
@@ -21,7 +30,7 @@ matrix:
         - os: osx
           compiler: gcc
 
-        # Test OSX with Clang 8
+        # Test OSX with previous Clang
         - os: osx
           compiler: clang
           osx_image: xcode8.3
@@ -34,15 +43,6 @@ matrix:
 
 # Allow compiling with c++11
 dist: trusty
-
-addons:
-  sonarcloud:
-    organization: "jvinniec-github"
-    token:
-      secure: $SONAR_TOKEN
-    branches:
-      - master
-      - travis_buldtest
 
 # Build steps
 script:

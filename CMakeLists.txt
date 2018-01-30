@@ -33,18 +33,12 @@ endif()
 link_directories (${SOFA_DIRECTORY})
 
 # Define the default compile flags
+#set(GCC_COVERAGE_COMPILE_FLAGS "-fprofile-arcs -ftest-coverage")
+set(COVERAGE_COMPILE_FLAGS "--coverage")
 set (CPPEPHEM_CXX_FLAGS "-std=c++11")
-set (CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${CPPEPHEM_CXX_FLAGS}")
-#set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -c")
+set (CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${CPPEPHEM_CXX_FLAGS} ${COVERAGE_COMPILE_FLAGS}")
 
 
-# configure a header file to pass some of the CMake settings
-# to the source code
-#configure_file (
-#  "${PROJECT_SOURCE_DIR}/CppEphemConfig.h.in"
-#  "${PROJECT_BINARY_DIR}/CppEphemConfig.h"
-#  )
- 
 #-------------------------------------------
 
 # Define a macro for cppephem executable compilation
