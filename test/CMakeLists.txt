@@ -15,7 +15,7 @@ set (test_ce_HEADERS
     include/test_CEDate.h
     )
 
-add_library (testcppephem ${test_ce_SOURCES} ${test_ce_HEADERS})
+add_library (testcppephem SHARED ${test_ce_SOURCES} ${test_ce_HEADERS})
 
 cppephem_executable(test_cppephem src/test_cppephem.cpp)
 
