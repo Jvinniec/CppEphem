@@ -38,7 +38,8 @@ dist: trusty
 # Build steps
 script:
   - cmake ./
-  - make
+  - build-wrapper --out-dir build make
+#  - make
   - make test
 
 addons:
