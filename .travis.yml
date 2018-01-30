@@ -46,11 +46,12 @@ dist: trusty
 
 # Build steps
 script:
-  - cmake ./
+  - cmake ./ -Dcoverage=1
   - make
   - make test
 
 after_success:
+ - llvm-cov gcov test/CMakeFiles/test_cppephem.dir/src/test_cppephem.cpp.o
  - sonar-scanner
 
 # TODO: also need to test pure autotools build
