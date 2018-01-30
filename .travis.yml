@@ -47,8 +47,7 @@ addons:
 # Build steps
 script:
   - cmake ./
-  - build-wrapper --out-dir build make
-#  - make
+  - make
   - make test
 
 after_success:
