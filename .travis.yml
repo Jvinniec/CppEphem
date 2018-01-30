@@ -35,13 +35,6 @@ matrix:
 # Allow compiling with c++11
 dist: trusty
 
-# Build steps
-script:
-  - cmake ./
-  - build-wrapper --out-dir build make
-#  - make
-  - make test
-
 addons:
   sonarcloud:
     organization: "jvinniec-github"
@@ -50,6 +43,13 @@ addons:
     branches:
       - master
       - travis_buldtest
+
+# Build steps
+script:
+  - cmake ./
+  - build-wrapper --out-dir build make
+#  - make
+  - make test
 
 after_success:
  - sonar-scanner
