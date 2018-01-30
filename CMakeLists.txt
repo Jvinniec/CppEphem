@@ -34,7 +34,11 @@ link_directories (${SOFA_DIRECTORY})
 
 # Define the default compile flags
 #set(GCC_COVERAGE_COMPILE_FLAGS "-fprofile-arcs -ftest-coverage")
-set(COVERAGE_COMPILE_FLAGS "--coverage")
+set (COVERAGE_COMPILE_FLAGS "")
+if (coverage)
+    set (COVERAGE_COMPILE_FLAGS "--coverage")
+endif()
+
 set (CPPEPHEM_CXX_FLAGS "-std=c++11")
 set (CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${CPPEPHEM_CXX_FLAGS} ${COVERAGE_COMPILE_FLAGS}")
 

@@ -33,6 +33,7 @@ public:
     virtual bool runtests();
 
     /****** METHODS ******/
+    
     virtual bool test_set_JD();
 
 protected:

@@ -30,7 +30,7 @@ public:
     
     // Constructor destructor
     CETestSuite();
-    CETestSuite(const std::string& log_filename);
+    //CETestSuite(const std::string& log_filename);
     virtual ~CETestSuite();
     
     /******  METHODS  ******/
