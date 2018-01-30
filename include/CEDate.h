@@ -47,7 +47,7 @@ public:
     CEDate(double date=CurrentJD(), CEDateType date_format=CEDateType::JD) ;
     CEDate(std::vector<double> date) ;
     CEDate(const CEDate& other) ;
-    virtual ~CEDate() {} ;
+    virtual ~CEDate();
     
     // Method that can be used to change the date that is stored in this object
     virtual void SetDate(double date=CurrentJD(), CEDateType time_format=CEDateType::JD) ;
@@ -89,50 +89,29 @@ public:
      * Some useful helper methods
      ***********************************************************/
     
-    static inline double GetMJD2JDFactor();
-    
-    /// Returns the 'dut1' value representing the 'UTC-UT1. These methods should
-    /// be considered unreliable for the moment.
+    static double GetMJD2JDFactor();
     static double dut1(double date, CEDateType date_type=CEDateType::JD) ;
-    double dut1() ;
+    double        dut1() ;
     static double dut1Error(double date, CEDateType date_type=CEDateType::JD) ;
-    double dut1Error() ;
-    
-    /// Get the x,y polar motion variables associated with a given date. These
-    /// methods should be considered unreliable for the moment.
+    double        dut1Error() ;
     static double xpolar(double date, CEDateType date_type=CEDateType::JD) ;
-    double xpolar() ;
+    double        xpolar() ;
     static double ypolar(double date, CEDateType date_type=CEDateType::JD) ;
-    double ypolar() ;
+    double        ypolar() ;
     
-    /// Methods for converting between the double and vector<double> version of
-    /// the Gregorian date format.
     static double GregorianVect2Gregorian(std::vector<double> gregorian) ;
     static std::vector<double> Gregorian2GregorianVect(double gregorian) ;
-    
-    // Method for getting the current time. Set the 'utc_offset' in order
-    // to get local coordinates
     virtual double GetSecondsSinceMidnight(double utc_offset=0.0) ;
     virtual double GetTime(double utc_offset=0.0) ;
     virtual double GetTime_UTC() ;
-    
-    // Returns the current Julian date
     static double CurrentJD() ;
+    void          SetReturnType(CEDateType return_type);
     
     /************************************************************
      * Overloaded operators
      ************************************************************/
-    /// Overload of the CEDate object which allows the object to be treated as a
-    /// 'double' representing the date formatted according to 'return_type_'.
-    virtual operator double()
-    {
-        // Return the date formatted according to the 'return_type_' variable
-        return GetDate(return_type_) ;
-    }
     
-    /// Set the return type from the overloaded 'operator double'.
-    ///     @param return_type      ::CEDateType for the returned double
-    void SetReturnType(CEDateType return_type) {return_type_ = return_type;}
+    operator double();
     
 protected:
     
@@ -245,5 +224,17 @@ double CEDate::GetMJD2JDFactor(void)
 {
     return DJM0;
 }
+
+
+/**********************************************************************//**
+ * Set the return type from the overloaded 'operator double'.
+ * @param return_type      ::CEDateType for the returned double
+ *************************************************************************/
+inline
+void CEDate::SetReturnType(CEDateType return_type) 
+{
+    return_type_ = return_type;
+}
+
 
 #endif /* CEDate_h */

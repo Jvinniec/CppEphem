@@ -80,6 +80,14 @@ CEDate::CEDate(const CEDate& other) :
     gregorian_date_vect_(other.gregorian_date_vect_)
 {}
 
+
+/**********************************************************************//**
+ * Destructor
+ *************************************************************************/
+CEDate::~CEDate()
+{}
+
+
 #pragma mark - Public Methods
 
 /**********************************************************************//**
@@ -215,7 +223,10 @@ std::vector<double> CEDate::JD2GregorianVect(double jd)
  * @return Julian date
  *************************************************************************/
 double CEDate::MJD2JD(double mjd)
-{return mjd + GetMJD2JDFactor();}
+{
+    return mjd + GetMJD2JDFactor();
+}
+
 
 /**********************************************************************//**
  * Modified Julian date -> Gregorian calendar date conversion method
@@ -230,6 +241,7 @@ double CEDate::MJD2Gregorian(double mjd)
     // Now convert julian date to gregorian
     return JD2Gregorian(jd) ;
 }
+
 
 /**********************************************************************//**
  * Modified Julian date -> Gregorian calendar, vector formatted date
@@ -264,6 +276,7 @@ double CEDate::Gregorian2JD(double gregorian)
     
     return GregorianVect2JD(gregorian_vect) ;
 }
+
 
 /**********************************************************************//**
  * Gregorian calendar vector formatted date -> Julian date converter.
@@ -304,6 +317,7 @@ double CEDate::GregorianVect2JD(std::vector<double> gregorian)
     return mjd_factor + mjd + gregorian[3] ;
 }
 
+
 /**********************************************************************//**
  * Gregorian calendar formatted date -> Julian date converter.
  * 
@@ -317,6 +331,7 @@ double CEDate::Gregorian2MJD(double gregorian)
     // Now convert to Modified Julian Date
     return JD2MJD(jd) ;
 }
+
 
 /**********************************************************************//**
  * Gregorian calendar vector formatted date -> Modified Julian date converter.
@@ -336,6 +351,7 @@ double CEDate::GregorianVect2MJD(std::vector<double> gregorian)
     return JD2MJD(jd) ;
 }
 
+
 /**********************************************************************//**
  * Convert the UTC JD to UT1 JD
  *************************************************************************/
@@ -345,6 +361,7 @@ double CEDate::UTC2UT1(double jd_utc, double dut1)
     iauUtcut1(jd_utc, 0.0, dut1, &ut11, &ut12) ;
     return ut11+ut12 ;
 }
+
 
 /**********************************************************************//**
  * Convert the UTC JD to TT JD
@@ -356,6 +373,7 @@ double CEDate::UTC2TT(double jd_utc, double dut1)
     iauUt1tt(ut1, 0.0, 0.0, &tt1, &tt2) ;
     return tt1+tt2 ;
 }
+
 
 /**********************************************************************//**
  * Convert the UTC JD to TDB JD (useful for planet computations)
@@ -380,6 +398,7 @@ double CEDate::dut1(double date, CEDateType date_type)
     return input_date.dut1() ;
 }
 
+
 /**********************************************************************//**
  *************************************************************************/
 double CEDate::dut1()
@@ -388,6 +407,7 @@ double CEDate::dut1()
     return CppEphem::dut1(mod_julian_date_) ;
 }
 
+
 /**********************************************************************//**
  *************************************************************************/
 double CEDate::dut1Error(double date, CEDateType date_type)
@@ -395,6 +415,7 @@ double CEDate::dut1Error(double date, CEDateType date_type)
     CEDate input_date(date, date_type) ;
     return input_date.dut1Error() ;
 }
+
 
 /**********************************************************************//**
  *************************************************************************/
@@ -434,12 +455,14 @@ double CEDate::ypolar(double date, CEDateType date_type)
     return CppEphem::yp( input_date.JD() ) ;
 }
 
+
 /**********************************************************************//**
  *************************************************************************/
 double CEDate::ypolar()
 {
     return CppEphem::yp( julian_date_ ) ;
 }
+
 
 /**********************************************************************//**
  * Helper method for converting from Gregorian vector format to
@@ -478,6 +501,7 @@ std::vector<double> CEDate::Gregorian2GregorianVect(double gregorian)
     return gregorian_vect ;
 }
 
+
 /**********************************************************************//**
  * Method for getting the number of seconds since midnight. Set the
  * 'utc_offset' in order to get local relative seconds since midnight.
@@ -490,6 +514,7 @@ double CEDate::GetSecondsSinceMidnight(double utc_offset)
     double jd_offset = julian_date_ + (utc_offset/24.0) ;
     return CETime::UTC( jd_offset ) ;
 }
+
 
 /**********************************************************************//**
  * Method for getting the current time. Set the 'utc_offset' in order
@@ -504,6 +529,7 @@ double CEDate::GetTime(double utc_offset)
     return CETime::TimeSec2Time( CETime::UTC( jd_offset ) ) ;
 }
 
+
 /**********************************************************************//**
  * Method for getting the current UTC time.
  * 
@@ -513,6 +539,7 @@ double CEDate::GetTime_UTC()
 {
     return GetTime() ;
 }
+
 
 /**********************************************************************//**
  * Static method for getting the current Julian date.
@@ -537,5 +564,14 @@ double CEDate::CurrentJD()
 }
 
 
-# pragma mark - Protected methods
+/**********************************************************************//**
+ * Overload of the CEDate object which allows the object to be treated as a
+ * 'double' representing the date formatted according to 'return_type_'.
+ *************************************************************************/
+CEDate::operator double()
+{
+    // Return the date formatted according to the 'return_type_' variable
+    return GetDate(return_type_) ;
+}
 
+# pragma mark - Protected methods
