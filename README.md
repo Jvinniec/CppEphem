@@ -3,7 +3,6 @@ CPPEPHEM
 [![Build Status](https://travis-ci.org/Jvinniec/CppEphem.svg?branch=master)](https://travis-ci.org/Jvinniec/CppEphem)
 [![SonarCloud Quality Status](https://sonarcloud.io/api/badges/gate?key=cpp-ephem:master)](https://sonarcloud.io/dashboard?id=cpp-ephem%3Amaster)
 
-* Author: Joshua V. Cardenzana
 * Creation Date: March 2016
 * [Documentation available here](http://jvinniec.github.io/CppEphem/documentation/html/index.html)
 * [Download available here](https://github.com/Jvinniec/CppEphem)
