@@ -46,12 +46,12 @@ dist: trusty
 
 # Build steps
 script:
-  - cmake ./ -Dcoverage=1
+  - cmake -Dcoverage=1 ./
   - make
   - make test
 
 after_success:
- - gen_coverage.sh
+ - . gen_coverage.sh
  - sonar-scanner
 
 # TODO: also need to test pure autotools build

@@ -36,6 +36,12 @@ link_directories (${SOFA_DIRECTORY})
 #set(GCC_COVERAGE_COMPILE_FLAGS "-fprofile-arcs -ftest-coverage")
 set (COVERAGE_COMPILE_FLAGS "")
 if (coverage)
+    if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+        # using Clang
+
+    elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+        # using GCC
+    endif()
     set (COVERAGE_COMPILE_FLAGS "--coverage")
 endif()
 
