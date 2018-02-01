@@ -551,7 +551,8 @@ double CEDate::CurrentJD()
     // Get the current date information
     time_t now ;
     time (&now) ;
-    struct tm current_jd = *gmtime(&now) ;
+    struct tm current_jd;
+    gmtime_r(&now, &current_jd) ;
     
     // Put this into a vector
     std::vector<double> date_info = {current_jd.tm_year+1900.0,

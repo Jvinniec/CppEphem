@@ -72,7 +72,8 @@ std::map<std::string, double> defaultoptions()
     
     // Set the current time as the default date for query
     time_t current_time = time(NULL) ;
-    struct tm * timeinfo = gmtime(&current_time) ;
+    struct tm * timeinfo;
+    gmtime_r(&current_time, timeinfo) ;
     double dayfrac = (timeinfo->tm_hour + (timeinfo->tm_min/60.0) + ((timeinfo->tm_sec)/3600.0))/24.0 ;
     CEDate date({timeinfo->tm_year+1900.0, timeinfo->tm_mon+1.0, 1.0*timeinfo->tm_mday, dayfrac}) ;
     

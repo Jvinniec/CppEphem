@@ -108,7 +108,8 @@ double CETime::CurrentUTC()
                         std::chrono::system_clock::time_point(now)));
     
     // Get the time at midnight
-    struct tm midnight = *gmtime(&now_t) ;
+    struct tm midnight;
+    gmtime_r(&now_t, &midnight) ;
     midnight.tm_hour = 0 ;
     midnight.tm_min = 0 ;
     midnight.tm_sec = 0 ;
