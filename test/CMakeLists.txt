@@ -29,7 +29,6 @@ add_library (testcppephem SHARED ${test_ce_SOURCES} ${test_ce_HEADERS})
 #------------------------------------------
 # Test Executables
 #------------------------------------------
-#cppephem_executable(test_cppephem src/test_cppephem.cpp)
 add_executable(test_cppephem src/test_cppephem.cpp)
 target_link_libraries(test_cppephem testcppephem)
 

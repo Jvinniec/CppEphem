@@ -1,6 +1,7 @@
 cmake_minimum_required (VERSION 2.6)
 project (CppEphem)
 set(CMAKE_BUILD_TYPE Release)
+#set(CMAKE_VERBOSE_MAKEFILE ON)
 
 # Add Version number
 set (Tutorial_VERSION_MAJOR 1)
@@ -33,20 +34,12 @@ endif()
 link_directories (${SOFA_DIRECTORY})
 
 # Define the default compile flags
-#set(GCC_COVERAGE_COMPILE_FLAGS "-fprofile-arcs -ftest-coverage")
-set (COVERAGE_COMPILE_FLAGS "")
 if (coverage)
-    if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-        # using Clang
-
-    elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-        # using GCC
-    endif()
-    set (COVERAGE_COMPILE_FLAGS "--coverage")
+    include(CodeCoverage.cmake)
 endif()
 
-set (CPPEPHEM_CXX_FLAGS "-std=c++11")
-set (CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${CPPEPHEM_CXX_FLAGS} ${COVERAGE_COMPILE_FLAGS}")
+set (CPPEPHEM_CXX_FLAGS "${CPPEPHEM_CXX_FLAGS} -std=c++11")
+set (CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${CPPEPHEM_CXX_FLAGS}")
 
 
 #-------------------------------------------

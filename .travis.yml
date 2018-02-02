@@ -51,7 +51,7 @@ script:
   - make test
 
 after_success:
- - . gen_coverage.sh
+ - llvm-cov gcov ./test/CMakeFiles/test_cppephem.dir/src/test_cppephem.cpp.o
  - sonar-scanner
 
 # TODO: also need to test pure autotools build
