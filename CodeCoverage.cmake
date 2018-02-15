@@ -19,9 +19,9 @@ endif()
 
 # Set the compile and linker parameters
 if(CMAKE_C_COMPILER_ID STREQUAL "GNU")
-    set(CPPEPHEM_CXX_FLAGS "-g -O0 ${CPPEPHEM_CXX_FLAGS}")
+    set(CPPEPHEM_CXX_FLAGS "-g -O0 --coverage ${CPPEPHEM_CXX_FLAGS}")
     link_libraries(gcov)
 else()
     set(CPPEPHEM_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage ${CPPEPHEM_CXX_FLAGS}")
-    #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
 endif()
