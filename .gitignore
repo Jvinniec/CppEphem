@@ -1,14 +1,26 @@
-*.xcodeproj
-*.xcodeproj/*
-*.o
-*~
-*Makefile.in
+# Build files
+**Makefile.in
 *Makefile
 *makefile
+*.o
+*.lo
+*.la
+*.a
+**/CMakeFiles/**
+build/*
+sofa/*.a
+*.m4
+*.cmake
+
+# IDE or editor files
+*.xcodeproj
+*.xcodeproj/*
+
+*~
+
 COPYING
 *.deps
 INSTALL
-aclocal.m4
 ar-lib
 autom4te.*
 configure
@@ -17,13 +29,11 @@ install-sh
 libtool
 ltmain.sh
 missing
-sofa/*.a
 *t_sofa_c
 compile
 config.*
-*.lo
-*.la
-*.a
+
 documentation/*
-**/CMakeFiles/**
-build/*
+
+# Code coverage files
+*.gcov
