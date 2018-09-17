@@ -15,8 +15,8 @@ sofa/*.a
 # IDE or editor files
 *.xcodeproj
 *.xcodeproj/*
-
 *~
+*.vscode
 
 COPYING
 *.deps
