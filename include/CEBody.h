@@ -39,14 +39,15 @@
 class CEBody : public CECoordinates {
 public:
     CEBody() ;
-    CEBody(const std::string& name, double xcoord, double ycoord,
-           CECoordinateType coord_type = CECoordinateType::ICRS,
-           CEAngleType angle_type = CEAngleType::RADIANS) ;
+    CEBody(const std::string& name, 
+           const double& xcoord, const double& ycoord,
+           const CECoordinateType& coord_type = CECoordinateType::ICRS,
+           const CEAngleType& angle_type = CEAngleType::RADIANS) ;
     CEBody(const CEBody& other, const std::string& name="") ;
     CEBody(const CECoordinates& coords, const std::string& name="") ;
     virtual ~CEBody() ;
     
-    std::string Name();
+    std::string Name() const;
     void        SetName(const std::string& new_name);
     
     // -------------------------------------------------------
@@ -54,7 +55,7 @@ public:
     // -------------------------------------------------------
     
     // Returns the coordinates associated with this object as a 'CECoordinates' object
-    CECoordinates GetCoordinates(void);
+    CECoordinates GetCoordinates(void) const;
     
 protected:
     
@@ -74,7 +75,7 @@ private:
  * @return the name of this object
  *************************************************************************/
 inline
-std::string CEBody::Name()
+std::string CEBody::Name() const
 {
     return name_;
 } 
@@ -94,7 +95,7 @@ void CEBody::SetName(const std::string& new_name)
  * Return the coordinates associated with this object as a 'CECoordinates' object 
  *************************************************************************/
 inline
-CECoordinates CEBody::GetCoordinates(void) 
+CECoordinates CEBody::GetCoordinates(void) const
 {
     return CECoordinates(*this) ;
 }

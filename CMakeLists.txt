@@ -4,8 +4,8 @@ set(CMAKE_BUILD_TYPE Release)
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
 # Add Version number
-set (Tutorial_VERSION_MAJOR 1)
-set (Tutorial_VERSION_MINOR 0)
+set (CppEphem_VERSION_MAJOR 1)
+set (CppEphem_VERSION_MINOR 0)
 
 # Set some flags necessary for the MAC OS builds
 if (CMAKE_SYSTEM_NAME MATCHES Darwin)

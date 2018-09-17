@@ -45,9 +45,9 @@ CEBody::CEBody()
  * @param[in] coord_type   Coordinate type (see CECoordinateType)
  *************************************************************************/
 CEBody::CEBody(const std::string& name,
-               double xcoord, double ycoord,
-               CECoordinateType coord_type,
-               CEAngleType angle_type) :
+               const double& xcoord, const double& ycoord,
+               const CECoordinateType& coord_type,
+               const CEAngleType& angle_type) :
     CECoordinates(xcoord, ycoord, coord_type, angle_type),
     name_(name)
 {}

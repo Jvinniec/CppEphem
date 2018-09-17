@@ -53,8 +53,8 @@ CECoordinates::CECoordinates() :
  * @param[in] angle_type Angle type (either DEGREES or RADIANS)
  *************************************************************************/
 CECoordinates::CECoordinates(double xcoord, double ycoord,
-                             CECoordinateType coord_type,
-                             CEAngleType angle_type) :
+                             const CECoordinateType& coord_type,
+                             const CEAngleType& angle_type) :
     xcoord_(xcoord),
     ycoord_(ycoord),
     coord_type_(coord_type)
@@ -71,7 +71,7 @@ CECoordinates::CECoordinates(double xcoord, double ycoord,
  * 
  * @param[in] coord_type Coordinate type (see CECoordinateType)
  *************************************************************************/
-CECoordinates::CECoordinates(CECoordinateType coord_type) :
+CECoordinates::CECoordinates(const CECoordinateType& coord_type) :
     xcoord_(0.0),
     ycoord_(0.0),
     coord_type_(coord_type)
@@ -1068,8 +1068,8 @@ CECoordinates CECoordinates::GetObservedCoords(CEDate& julian_date,
  * @param[in] return_angle_type    Specify whether to return angle as DEGREES or RADIANS
  * @return Angular separation between these coordinates and 'coords'
  *************************************************************************/
-double CECoordinates::AngularSeparation(CECoordinates& coords,
-                                        CEAngleType return_angle_type)
+double CECoordinates::AngularSeparation(const CECoordinates& coords,
+                                        const CEAngleType& return_angle_type)
 {
     return AngularSeparation(*this, coords, return_angle_type) ;
 }
@@ -1085,9 +1085,9 @@ double CECoordinates::AngularSeparation(CECoordinates& coords,
  * @param[in] return_angle_type    Specify whether to return angle as DEGREES or RADIANS
  * @return Angular separation between two coordiantes
  *************************************************************************/
-double CECoordinates::AngularSeparation(CECoordinates& coords1, 
-                                        CECoordinates& coords2,
-                                        CEAngleType return_angle_type)
+double CECoordinates::AngularSeparation(const CECoordinates& coords1, 
+                                        const CECoordinates& coords2,
+                                        const CEAngleType& return_angle_type)
 {
     // Convert the second coordinates to be the same type as the first set of coordinates
     double angsep = AngularSeparation(coords1.XCoordinate_Rad(),
@@ -1117,9 +1117,11 @@ double CECoordinates::AngularSeparation(CECoordinates& coords1,
  *                                 (output angle will be in the same format)
  * @return Angular separation between two coordinates
  *************************************************************************/
-double CECoordinates::AngularSeparation(double xcoord_first, double ycoord_first,
-                                        double xcoord_second, double ycoord_second,
-                                        CEAngleType angle_type)
+double CECoordinates::AngularSeparation(const double& xcoord_first, 
+                                        const double& ycoord_first,
+                                        const double& xcoord_second, 
+                                        const double& ycoord_second,
+                                        const CEAngleType& angle_type)
 {
     // Note that the 'iauSeps' algorithm expects angles in radians,
     // so we need to convert if angles were passed in degrees

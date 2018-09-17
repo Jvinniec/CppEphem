@@ -50,32 +50,35 @@ public:
 
     /****** CONSTRUCTORS ******/
     CECoordinates() ;
-    CECoordinates(double xcoord, double ycoord,
+    CECoordinates(const double& xcoord, const double& ycoord,
                   CECoordinateType coord_type=CECoordinateType::ICRS,
                   CEAngleType angle_type=CEAngleType::RADIANS) ;
-    CECoordinates(CECoordinateType coord_type) ;
+    CECoordinates(const CECoordinateType& coord_type) ;
     CECoordinates(const CECoordinates& other) ;
     virtual ~CECoordinates() ;
     
     /*********************************************************
      * Angular separation between two coordinate positions
      *********************************************************/
-    virtual double AngularSeparation(CECoordinates& coords,
-                                     CEAngleType return_angle_type=CEAngleType::DEGREES) ;
-    static double AngularSeparation(CECoordinates& coords1, CECoordinates& coords2,
-                                    CEAngleType return_angle_type=CEAngleType::DEGREES) ;
-    static double AngularSeparation(double xcoord_first, double ycoord_first,
-                                    double xcoord_second, double ycoord_second,
-                                    CEAngleType angle_type=CEAngleType::DEGREES) ;
+    virtual double AngularSeparation(const CECoordinates& coords,
+                                     const CEAngleType& return_angle_type=CEAngleType::DEGREES) ;
+    static double AngularSeparation(const CECoordinates& coords1, 
+                                    const CECoordinates& coords2,
+                                    const CEAngleType& return_angle_type=CEAngleType::DEGREES) ;
+    static double AngularSeparation(const double& xcoord_first, 
+                                    const double& ycoord_first,
+                                    const double& xcoord_second, 
+                                    const double& ycoord_second,
+                                    const CEAngleType& angle_type=CEAngleType::DEGREES) ;
     
     /**********************************************************
      * Methods for accessing the coordinate information
      **********************************************************/
     
-    virtual double XCoordinate_Rad(double jd=CppEphem::julian_date_J2000());
-    virtual double XCoordinate_Deg(double jd=CppEphem::julian_date_J2000());
-    virtual double YCoordinate_Rad(double jd=CppEphem::julian_date_J2000());
-    virtual double YCoordinate_Deg(double jd=CppEphem::julian_date_J2000());
+    virtual double XCoordinate_Rad(double jd=CppEphem::julian_date_J2000()) const;
+    virtual double XCoordinate_Deg(double jd=CppEphem::julian_date_J2000()) const;
+    virtual double YCoordinate_Rad(double jd=CppEphem::julian_date_J2000()) const;
+    virtual double YCoordinate_Deg(double jd=CppEphem::julian_date_J2000()) const;
     
     // Convert an angle into Hours:minutes:seconds format
     static std::vector<double> GetHMS(double angle, CEAngleType angle_type = CEAngleType::DEGREES);
@@ -378,7 +381,7 @@ private:
  * @return X-coordinate in radians
  *************************************************************************/
 inline
-double CECoordinates::XCoordinate_Rad(double jd)
+double CECoordinates::XCoordinate_Rad(double jd) const
 {
     return xcoord_;
 }
@@ -391,7 +394,7 @@ double CECoordinates::XCoordinate_Rad(double jd)
  * @return X-coordinate in degrees
  *************************************************************************/
 inline
-double CECoordinates::XCoordinate_Deg(double jd)
+double CECoordinates::XCoordinate_Deg(double jd) const
 {
     return XCoordinate_Rad(jd) * DR2D;
 }
@@ -404,7 +407,7 @@ double CECoordinates::XCoordinate_Deg(double jd)
  * @return Y-coordinate in radians
 *************************************************************************/
 inline
-double CECoordinates::YCoordinate_Rad(double jd)
+double CECoordinates::YCoordinate_Rad(double jd) const
 {
     return ycoord_;
 }
@@ -416,7 +419,7 @@ double CECoordinates::YCoordinate_Rad(double jd)
  * @return Y-coordinate in degrees
  *************************************************************************/
 inline
-double CECoordinates::YCoordinate_Deg(double jd)
+double CECoordinates::YCoordinate_Deg(double jd) const
 {
     return YCoordinate_Rad(jd) * DR2D;
 }
