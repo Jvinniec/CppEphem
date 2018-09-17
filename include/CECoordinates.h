@@ -39,9 +39,9 @@ class CEObserver ;
 
 /** The following enum specifies what coordinates this object represents */
 enum class CECoordinateType {CIRS,           ///< RA, Dec (referenced at the center of the Earth)
-                            ICRS,            ///< RA, Dec (referenced at the barycenter of the solarsystem)
-                            GALACTIC,        ///< Galacitc longitude, latitude
-                            OBSERVED         ///< Azimuth, Zenith (requires additional observer information)
+                             ICRS,           ///< RA, Dec (referenced at the barycenter of the solarsystem)
+                             GALACTIC,       ///< Galacitc longitude, latitude
+                             OBSERVED        ///< Azimuth, Zenith (requires additional observer information)
                             };
 
 // Initiate the class that holds the coordinate information
@@ -50,9 +50,10 @@ public:
 
     /****** CONSTRUCTORS ******/
     CECoordinates() ;
-    CECoordinates(const double& xcoord, const double& ycoord,
-                  CECoordinateType coord_type=CECoordinateType::ICRS,
-                  CEAngleType angle_type=CEAngleType::RADIANS) ;
+    CECoordinates(const double& xcoord, 
+                  const double& ycoord,
+                  const CECoordinateType& coord_type=CECoordinateType::ICRS,
+                  const CEAngleType& angle_type=CEAngleType::RADIANS) ;
     CECoordinates(const CECoordinateType& coord_type) ;
     CECoordinates(const CECoordinates& other) ;
     virtual ~CECoordinates() ;
@@ -65,10 +66,10 @@ public:
     static double AngularSeparation(const CECoordinates& coords1, 
                                     const CECoordinates& coords2,
                                     const CEAngleType& return_angle_type=CEAngleType::DEGREES) ;
-    static double AngularSeparation(const double& xcoord_first, 
-                                    const double& ycoord_first,
-                                    const double& xcoord_second, 
-                                    const double& ycoord_second,
+    static double AngularSeparation(double xcoord_first, 
+                                    double ycoord_first,
+                                    double xcoord_second, 
+                                    double ycoord_second,
                                     const CEAngleType& angle_type=CEAngleType::DEGREES) ;
     
     /**********************************************************

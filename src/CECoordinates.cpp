@@ -52,7 +52,8 @@ CECoordinates::CECoordinates() :
  * @param[in] coord_type Coordinate type (see CECoordinateType)
  * @param[in] angle_type Angle type (either DEGREES or RADIANS)
  *************************************************************************/
-CECoordinates::CECoordinates(double xcoord, double ycoord,
+CECoordinates::CECoordinates(const double& xcoord, 
+                             const double& ycoord,
                              const CECoordinateType& coord_type,
                              const CEAngleType& angle_type) :
     xcoord_(xcoord),
@@ -1117,10 +1118,10 @@ double CECoordinates::AngularSeparation(const CECoordinates& coords1,
  *                                 (output angle will be in the same format)
  * @return Angular separation between two coordinates
  *************************************************************************/
-double CECoordinates::AngularSeparation(const double& xcoord_first, 
-                                        const double& ycoord_first,
-                                        const double& xcoord_second, 
-                                        const double& ycoord_second,
+double CECoordinates::AngularSeparation(double xcoord_first, 
+                                        double ycoord_first,
+                                        double xcoord_second, 
+                                        double ycoord_second,
                                         const CEAngleType& angle_type)
 {
     // Note that the 'iauSeps' algorithm expects angles in radians,
