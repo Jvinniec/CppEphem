@@ -200,11 +200,11 @@ int CECoordinates::CIRS2Observed(double ra, double dec,
     }
     
     // Setup the observed RA, Dec and hour_angle variables
-    double *temp_ra, *temp_dec, *temp_hour_angle ;
+    double temp_ra, temp_dec, temp_hour_angle ;
     // If values were passed, point these variables at the passed ones
-    if (observed_ra != nullptr) temp_ra = observed_ra ;
-    if (observed_dec != nullptr) temp_dec = observed_dec ;
-    if (hour_angle != nullptr) temp_hour_angle = hour_angle ;
+    if (observed_ra  == nullptr) observed_ra  = &temp_ra;
+    if (observed_dec == nullptr) observed_dec = &temp_dec;
+    if (hour_angle   == nullptr) hour_angle   = &temp_hour_angle;
     
     int err_code = CIRS2Observed(ra, dec,
                                  az, zen,
@@ -219,15 +219,17 @@ int CECoordinates::CIRS2Observed(double ra, double dec,
                                  observer.Date()->xpolar(),
                                  observer.Date()->xpolar(),
                                  wavelength,
-                                 temp_ra, temp_dec, temp_hour_angle) ;
+                                 observed_ra, 
+                                 observed_dec, 
+                                 hour_angle) ;
     
     // Now convert back to degrees if that's what we were passed
     if (angle_type == CEAngleType::DEGREES) {
         *az              *= DR2D ;
         *zen             *= DR2D ;
-        *temp_ra         *= DR2D ;
-        *temp_dec        *= DR2D ;
-        *temp_hour_angle *= DR2D ;
+        *observed_ra     *= DR2D ;
+        *observed_dec    *= DR2D ;
+        *hour_angle      *= DR2D ;
     }
     
     return err_code ;
@@ -258,8 +260,14 @@ void CECoordinates::ICRS2CIRS(double input_ra, double input_dec,
     double eo ; // Equation of the origins
     
     // Use the sofa library to convert these coordinates
-    iauAtci13(input_ra, input_dec, 0, 0, 0, 0, date.JD(), 0.0, return_ra, return_dec, &eo) ;
-    *return_ra -= eo ;
+    try {
+        iauAtci13(input_ra, input_dec, 0, 0, 0, 0, date.JD(), 0.0, return_ra, return_dec, &eo) ;
+        *return_ra -= eo ;
+    } catch (std::exception &e) {
+        throw CEException::sofa_exception("CECoordinates::ICRS2CIRS",
+                                          "iauAtci13", 
+                                          "Exception thrown");
+    }
     
     // Convert the returned coordinates to the correct angle type
     if (angle_type == CEAngleType::DEGREES) {
@@ -654,14 +662,17 @@ int CECoordinates::CIRS2Observed(double ra, double dec,
                                  double *hour_angle)
 {
     // Setup the observed RA, Dec and hour_angle variables
-    double *temp_ra, *temp_dec, *temp_hour_angle ;
-    // If values were passed, point these variables at the passed ones
-    if (observed_ra != nullptr) temp_ra = observed_ra ;
-    if (observed_dec != nullptr) temp_dec = observed_dec ;
-    if (hour_angle != nullptr) temp_hour_angle = hour_angle ;
+    double temp_ra, temp_dec, temp_hour_angle ;
+
+    // If values were not passed, point them at the temporary ones
+    if (observed_ra  == nullptr) observed_ra  = &temp_ra;
+    if (observed_dec == nullptr) observed_dec = &temp_dec;
+    if (hour_angle   == nullptr) hour_angle   = &temp_hour_angle;
 
     // Call the necessary sofa method
-    int err_code = iauAtio13(ra, dec,
+    int err_code = 0;
+    try {
+        err_code = iauAtio13(ra, dec,
                              julian_date, 0.0,
                              dut1,
                              longitude,
@@ -673,7 +684,14 @@ int CECoordinates::CIRS2Observed(double ra, double dec,
                              relative_humidity,
                              wavelength_um,
                              az, zen,
-                             temp_hour_angle, temp_dec, temp_ra) ;
+                             hour_angle, 
+                             observed_dec, 
+                             observed_ra) ;
+    } catch (std::exception &e) {
+        throw CEException::sofa_exception("CECoordinates::CIRS2Observed",
+                                          "iauAtio13",
+                                          e.what());
+    }
 
     return err_code ;
 }
@@ -766,10 +784,11 @@ int CECoordinates::ICRS2Observed(double ra, double dec,
                                  double *hour_angle)
 {
     // Setup the observed RA, Dec and hour_angle variables
-    double *temp_ra, *temp_dec ;
+    double temp_ra, temp_dec, temp_hour_angle ;
     // If values were passed, point these variables at the passed ones
-    if (observed_ra != nullptr) temp_ra = observed_ra ;
-    if (observed_dec != nullptr) temp_dec = observed_dec ;
+    if (observed_ra  == nullptr) observed_ra  = &temp_ra;
+    if (observed_dec == nullptr) observed_dec = &temp_dec;
+    if (hour_angle   == nullptr) hour_angle   = &temp_hour_angle;
     
     // First convert the ICRS coordinats to CIRS coordinates
     CEDate date(julian_date, CEDateType::JD) ;
@@ -787,12 +806,12 @@ int CECoordinates::ICRS2Observed(double ra, double dec,
                                  relative_humidity,
                                  dut1, xp, yp,
                                  wavelength_um,
-                                 temp_ra,
-                                 temp_dec,
+                                 observed_ra,
+                                 observed_dec,
                                  hour_angle) ;
     
     // Convert the apparent CIRS RA,Dec to ICRS RA,Dec
-    CIRS2ICRS(*temp_ra, *temp_dec, temp_ra, temp_dec, date, CEAngleType::RADIANS) ;
+    CIRS2ICRS(*observed_ra, *observed_dec, observed_ra, observed_dec, date, CEAngleType::RADIANS) ;
     
     return err_code ;
 }
@@ -888,11 +907,11 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
                                      double *hour_angle)
 {
     // Setup the observed RA, Dec and hour_angle variables
-    double *temp_glon, *temp_glat ;
-    double temp_ra, temp_dec, temp_ha ;
+    double temp_glon, temp_glat ;
+    double temp_ra, temp_dec, temp_hour_angle ;
     // If values were passed, point these variables at the passed ones
-    if (observed_glon != nullptr) temp_glon = observed_glon ;
-    if (observed_glat != nullptr) temp_glat = observed_glat ;
+    if (observed_glon == nullptr) observed_glon = &temp_glon;
+    if (observed_glat == nullptr) observed_glat = &temp_glat;
     
     // Convert GALACTIC to ICRS
     double ra(0.0), dec(0.0) ;
@@ -913,10 +932,10 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
                                  wavelength,
                                  &temp_ra,
                                  &temp_dec,
-                                 &temp_ha) ;
+                                 &temp_hour_angle) ;
 
     // Convert the apparent RA,Dec to galactic longitude,latitude
-    CIRS2Galactic(temp_ra, temp_dec, temp_glon, temp_glat, date) ;
+    CIRS2Galactic(temp_ra, temp_dec, observed_glon, observed_glat, date) ;
     
     return err_code ;
 }
@@ -1014,14 +1033,14 @@ CECoordinates CECoordinates::GetObservedCoords(double julian_date,
                       julian_date, longitude, latitude,
                       elevation_m, pressure_hPa, temperature_celsius,
                       relative_humidity, dut1, xp, yp, wavelength,
-                      &observed1, &observed2) ;
+                      &observed1, &observed2, &observed3) ;
     } else if (coord_type_ == CECoordinateType::GALACTIC) {
         // Convert Galactic to Observed
         Galactic2Observed(xcoord_, ycoord_, &azimuth, &zenith,
                           julian_date, longitude, latitude,
                           elevation_m, pressure_hPa, temperature_celsius,
                           relative_humidity, dut1, xp, yp, wavelength,
-                          &observed1, &observed2) ;
+                          &observed1, &observed2, &observed3) ;
     }
     
     // Create the CECoordinates object to be returned
