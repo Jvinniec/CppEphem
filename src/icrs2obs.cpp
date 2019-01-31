@@ -58,23 +58,26 @@ CLOptions DefineOpts()
 
 /**********************************************************************//**
  *************************************************************************/
-void PrintResults(CECoordinates& input,
-                  CECoordinates& output,
-                  CEObserver&    observer,
-                  double jd)
+void PrintResults(CECoordinates& input_icrs,
+                  CECoordinates& observed_altaz,
+                  CECoordinates& observed_icrs,
+                  CEObserver&    observer)
 {
     std::printf("\n") ;
     std::printf("******************************************\n") ;
     std::printf("* Results of ICRS -> Observed conversion *\n") ;
     std::printf("******************************************\n") ;
     std::printf("Observed Coordinates (output)\n") ;
-    std::printf("    Azimuth        : %f degrees\n", output.XCoordinate_Deg()) ;
-    std::printf("    Zenith         : %+f degrees\n", output.YCoordinate_Deg()) ;
-    std::printf("    Altitude       : %+f degrees\n", 90.0-output.YCoordinate_Deg()) ;
+    std::printf("    Azimuth        : %f deg\n", observed_altaz.XCoordinate_Deg()) ;
+    std::printf("    Zenith         : %+f deg\n", observed_altaz.YCoordinate_Deg()) ;
+    std::printf("    Altitude       : %+f deg\n", 90.0-observed_altaz.YCoordinate_Deg()) ;
     std::printf("ICRS Coordinates (input)\n") ;
-    std::printf("    Right Ascension: %f degrees\n", input.XCoordinate_Deg()) ;
-    std::printf("    Declination    : %+f degrees\n", input.YCoordinate_Deg()) ;
-    std::printf("    Julian Date    : %f\n", jd) ;
+    std::printf("    Right Ascension: %f deg\n", input_icrs.XCoordinate_Deg()) ;
+    std::printf("    Declination    : %+f deg\n", input_icrs.YCoordinate_Deg()) ;
+    std::printf("    Julian Date    : %f\n", observer.Date()->JD()) ;
+    //std::printf("Apparent ICRS Coordinates\n");
+    //std::printf("    Right Ascension: %f deg\n", observed_icrs.XCoordinate_Deg());
+    //std::printf("    Declination    : %f deg\n", observed_icrs.XCoordinate_Deg());
     std::printf("Observer Info\n") ;
     std::printf("    Longitude      : %f deg\n", observer.Longitude_Deg()) ;
     std::printf("    Latitude       : %+f deg\n", observer.Latitude_Deg()) ;
@@ -102,27 +105,13 @@ int main(int argc, char** argv)
     CEObserver observer(opts.AsDouble("longitude"),
                         opts.AsDouble("latitude"),
                         opts.AsDouble("elevation"),
-                        CEAngleType::DEGREES, &date);
+                        CEAngleType::DEGREES, 
+                        &date);
     observer.SetPressure(opts.AsDouble("pressure"));
     observer.SetTemperature_C(opts.AsDouble("temperature"));
     observer.SetRelativeHumidity(opts.AsDouble("humidity"));
 
     // Convert the coordinates
-    /*
-    CECoordinates output = input.ConvertToObserved(opts.AsDouble("juliandate"),
-                                                   opts.AsDouble("longitude"),
-                                                   opts.AsDouble("latitude"),
-                                                   opts.AsDouble("elevation"),
-                                                   opts.AsDouble("pressure"),
-                                                   opts.AsDouble("temperature"),
-                                                   opts.AsDouble("humidity"),
-                                                   opts.AsDouble("dut1"),
-                                                   opts.AsDouble("xpolar"),
-                                                   opts.AsDouble("ypolar"),
-                                                   opts.AsDouble("wavelength"));
-    
-
-    */
     CECoordinates output;
     try {
         output = input.GetObservedCoords(date, observer,
@@ -135,7 +124,7 @@ int main(int argc, char** argv)
     }
     
     // Print the results
-    PrintResults(input, output, observer, opts.AsDouble("juliandate")) ;
+    PrintResults(input, output, output, observer) ;
     
     return 0 ;
 }
