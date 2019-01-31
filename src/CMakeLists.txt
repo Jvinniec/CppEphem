@@ -13,6 +13,7 @@ set (cppephem_SOURCES
     CEBody.cpp
     CECoordinates.cpp
     CEDate.cpp
+    CEException.cpp
     CEObservation.cpp
     CEObserver.cpp
     CEPlanet.cpp
@@ -26,6 +27,7 @@ set (cppephem_HEADERS
     ../include/CEBody.h
     ../include/CECoordinates.h
     ../include/CEDate.h
+    ../include/CEException.h
     ../include/CEObservation.h
     ../include/CEObserver.h
     ../include/CEPlanet.h
