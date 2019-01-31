@@ -260,8 +260,14 @@ void CECoordinates::ICRS2CIRS(double input_ra, double input_dec,
     double eo ; // Equation of the origins
     
     // Use the sofa library to convert these coordinates
-    iauAtci13(input_ra, input_dec, 0, 0, 0, 0, date.JD(), 0.0, return_ra, return_dec, &eo) ;
-    *return_ra -= eo ;
+    try {
+        iauAtci13(input_ra, input_dec, 0, 0, 0, 0, date.JD(), 0.0, return_ra, return_dec, &eo) ;
+        *return_ra -= eo ;
+    } catch (std::exception &e) {
+        throw CEException::sofa_exception("CECoordinates::ICRS2CIRS",
+                                          "iauAtci13", 
+                                          "Exception thrown");
+    }
     
     // Convert the returned coordinates to the correct angle type
     if (angle_type == CEAngleType::DEGREES) {
