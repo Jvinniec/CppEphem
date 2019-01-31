@@ -52,6 +52,6 @@ script:
 
 after_success:
  - llvm-cov gcov ./test/CMakeFiles/test_cppephem.dir/src/test_cppephem.cpp.o
- - sonar-scanner
+ - sonar-scanner -Dproject.settings=sonar-project.properties
 
 # TODO: also need to test pure autotools build
