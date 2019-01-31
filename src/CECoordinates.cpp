@@ -935,7 +935,7 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
                                  &temp_hour_angle) ;
 
     // Convert the apparent RA,Dec to galactic longitude,latitude
-    CIRS2Galactic(temp_ra, temp_dec, &temp_glon, &temp_glat, date) ;
+    CIRS2Galactic(temp_ra, temp_dec, observed_glon, observed_glat, date) ;
     
     return err_code ;
 }
