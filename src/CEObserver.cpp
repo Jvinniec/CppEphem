@@ -51,7 +51,7 @@
  * @param date                 Current date for the observer
  *************************************************************************/
 CEObserver::CEObserver(double longitude, double latitude,
-                       double elevation, CEAngleType angle_type,
+                       double elevation, CppEphem::CEAngleType angle_type,
                        CEDate* date)
 {
     // Set the date
@@ -61,7 +61,7 @@ CEObserver::CEObserver(double longitude, double latitude,
     SetLongitude(longitude, angle_type) ;
     SetLatitude(latitude, angle_type) ;
     SetElevation(elevation) ;
-    SetPressure(EstimatePressure_hPa(elevation_m_)) ;
+    SetPressure(CppEphem::EstimatePressure_hPa(elevation_m_)) ;
     SetTemperature_C() ;
     SetRelativeHumidity() ;
     SetDate(date) ;
