@@ -34,6 +34,7 @@
 #include <stdio.h>
 
 #include "CEDate.h"
+#include "CEException.h"
 
 /**********************************************************************//**
  * Constructor from some date format.
