@@ -26,13 +26,11 @@
 #include "CEDate.h"
 #include "CENamespace.h"
 
-using namespace CppEphem ;
-
 class CEObserver {
 public:
 //    CEObserver() ;
     CEObserver(double longitude=0.0, double latitude=51.4778, double elevation=0.0,
-               CEAngleType angle_type=CEAngleType::DEGREES,
+               CppEphem::CEAngleType angle_type=CppEphem::CEAngleType::DEGREES,
                CEDate* date = nullptr) ;
     CEObserver(const CEObserver& other) ;
     virtual ~CEObserver() ;
@@ -63,15 +61,17 @@ public:
      ****************************************************/
 
     void SetElevation(double elevation=0.0);
-    void SetLongitude(double longitude, CEAngleType angle_type=CEAngleType::RADIANS);
-    void SetLatitude(double latitude, CEAngleType angle_type=CEAngleType::RADIANS);
+    void SetLongitude(double longitude, 
+                      CppEphem::CEAngleType angle_type=CppEphem::CEAngleType::RADIANS);
+    void SetLatitude(double latitude, 
+                     CppEphem::CEAngleType angle_type=CppEphem::CEAngleType::RADIANS);
     void SetGeographicCoordinates(double longitude, double latitude,
-                                  CEAngleType angle_type=CEAngleType::RADIANS);
-    void SetPressure(double pressure=EstimatePressure_hPa(SeaLevelTemp_C()));
+                                  CppEphem::CEAngleType angle_type=CppEphem::CEAngleType::RADIANS);
+    void SetPressure(double pressure=CppEphem::EstimatePressure_hPa(CppEphem::SeaLevelTemp_C()));
     void SetRelativeHumidity(double humidity=0.0);
-    void SetTemperature_C(double temp_C=SeaLevelTemp_C());
-    void SetTemperature_K(double temp_K=SeaLevelTemp_K());
-    void SetTemperature_F(double temp_F=SeaLevelTemp_F());
+    void SetTemperature_C(double temp_C=CppEphem::SeaLevelTemp_C());
+    void SetTemperature_K(double temp_K=CppEphem::SeaLevelTemp_K());
+    void SetTemperature_F(double temp_F=CppEphem::SeaLevelTemp_F());
     void SetWavelength_um(double new_wavelength_um);
     
     // Set the date
@@ -91,10 +91,10 @@ protected:
     double elevation_m_ = 0.0;          ///< Elevation (in meters) above sea-level
 
     // Variables defining the observers atmospheric conditions
-    double pressure_hPa_ = EstimatePressure_hPa(SeaLevelTemp_C()); ///< Atmospheric pressure (in units of hPa)
-    double temperature_celsius_ = SeaLevelTemp_C();                ///< Temperature in degrees celsius
-    double relative_humidity_  = 0.0;                              ///< Relative humidity (in range 0-1)
-    double wavelength_um_ = 0.5 ;                                  ///< Observing wavelength (micrometers)
+    double pressure_hPa_ = CppEphem::EstimatePressure_hPa(CppEphem::SeaLevelTemp_C()); ///< Atmospheric pressure (in units of hPa)
+    double temperature_celsius_ = CppEphem::SeaLevelTemp_C();   ///< Temperature in degrees celsius
+    double relative_humidity_  = 0.0;                           ///< Relative humidity (in range 0-1)
+    double wavelength_um_ = 0.5 ;                               ///< Observing wavelength (micrometers)
     
     // Variables defining the time of the observer
     double utc_offset_ = CETime::SystemUTCOffset_hrs() ;          ///< UTC offset in hours (set by default to system offset)
@@ -278,18 +278,18 @@ void CEObserver::SetElevation(double elevation)
 /**********************************************************************//**
  *************************************************************************/
 inline
-void CEObserver::SetLongitude(double longitude, CEAngleType angle_type)
+void CEObserver::SetLongitude(double longitude, CppEphem::CEAngleType angle_type)
 {
-    longitude_ = longitude * ((angle_type==CEAngleType::RADIANS) ? 1 : DD2R) ;
+    longitude_ = longitude * ((angle_type==CppEphem::CEAngleType::RADIANS) ? 1 : DD2R) ;
 }
 
 
 /**********************************************************************//**
  *************************************************************************/
 inline
-void CEObserver::SetLatitude(double latitude, CEAngleType angle_type)
+void CEObserver::SetLatitude(double latitude, CppEphem::CEAngleType angle_type)
 {
-    latitude_ = latitude * ((angle_type==CEAngleType::RADIANS) ? 1 : DD2R) ;
+    latitude_ = latitude * ((angle_type==CppEphem::CEAngleType::RADIANS) ? 1 : DD2R) ;
 }
 
 
