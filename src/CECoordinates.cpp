@@ -1017,8 +1017,8 @@ CECoordinates CECoordinates::GetObservedCoords(double julian_date,
                                 double xp, double yp,
                                 double wavelength)
 {
-    double azimuth, zenith ;
-    double observed1, observed2, observed3 ;
+    double azimuth(0), zenith(0);
+    double observed1(0), observed2(0), observed3(0);
     
     if (coord_type_ == CECoordinateType::CIRS) {
         // Convert CIRS to Observed
@@ -1041,6 +1041,9 @@ CECoordinates CECoordinates::GetObservedCoords(double julian_date,
                           elevation_m, pressure_hPa, temperature_celsius,
                           relative_humidity, dut1, xp, yp, wavelength,
                           &observed1, &observed2, &observed3) ;
+    } else {
+        std::string msg = "Unrecognized coordinate type";
+        throw CEException::invalid_value("CECoordinates::GetObservedCoords", msg);
     }
     
     // Create the CECoordinates object to be returned
