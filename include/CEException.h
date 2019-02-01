@@ -43,7 +43,7 @@ public:
     CEExceptionHandler(const std::string& origin,
                        const std::string& message,
                        const std::string& type = "<no type>");
-    virtual ~CEExceptionHandler() throw() {}
+    virtual ~CEExceptionHandler() noexcept {}
     virtual const char* what() const noexcept;
 
 protected:
