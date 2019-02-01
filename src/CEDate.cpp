@@ -141,17 +141,22 @@ void CEDate::SetDate(std::vector<double> date)
  *************************************************************************/
 double CEDate::GetDate(CEDateType time_format)
 {
+    // Initialize the return date
+    double date(0);
+
     // Return the julian date if requested
     if (time_format == CEDateType::JD) {
-        return JD() ;
+        date = JD() ;
     } else if (time_format == CEDateType::MJD) {
-        return MJD() ;
+        date = MJD() ;
     } else if (time_format == CEDateType::GREGORIAN) {
-        return Gregorian() ;
+        date = Gregorian() ;
     } else {
-        throw std::runtime_error("[ERROR] CEDate::GetDate() :: Unrecognized time format!") ;
-        return -1.0 ;
+        throw CEException::invalid_value("CEDate::GetDate()", 
+                                         "Unrecognized time format!");
     }
+
+    return date;
 }
 
 #pragma mark - Julian Date Converters
