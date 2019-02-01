@@ -51,7 +51,7 @@
  * @param date                 Current date for the observer
  *************************************************************************/
 CEObserver::CEObserver(double longitude, double latitude,
-                       double elevation, CppEphem::CEAngleType angle_type,
+                       double elevation, CEAngleType angle_type,
                        CEDate* date)
 {
     // Set the date
