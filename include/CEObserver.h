@@ -30,7 +30,7 @@ class CEObserver {
 public:
 //    CEObserver() ;
     CEObserver(double longitude=0.0, double latitude=51.4778, double elevation=0.0,
-               CppEphem::CEAngleType angle_type=CppEphem::CEAngleType::DEGREES,
+               CEAngleType angle_type=CEAngleType::DEGREES,
                CEDate* date = nullptr) ;
     CEObserver(const CEObserver& other) ;
     virtual ~CEObserver() ;
@@ -62,11 +62,11 @@ public:
 
     void SetElevation(double elevation=0.0);
     void SetLongitude(double longitude, 
-                      CppEphem::CEAngleType angle_type=CppEphem::CEAngleType::RADIANS);
+                      CEAngleType angle_type=CEAngleType::RADIANS);
     void SetLatitude(double latitude, 
-                     CppEphem::CEAngleType angle_type=CppEphem::CEAngleType::RADIANS);
+                     CEAngleType angle_type=CEAngleType::RADIANS);
     void SetGeographicCoordinates(double longitude, double latitude,
-                                  CppEphem::CEAngleType angle_type=CppEphem::CEAngleType::RADIANS);
+                                  CEAngleType angle_type=CEAngleType::RADIANS);
     void SetPressure(double pressure=CppEphem::EstimatePressure_hPa(CppEphem::SeaLevelTemp_C()));
     void SetRelativeHumidity(double humidity=0.0);
     void SetTemperature_C(double temp_C=CppEphem::SeaLevelTemp_C());
@@ -278,18 +278,18 @@ void CEObserver::SetElevation(double elevation)
 /**********************************************************************//**
  *************************************************************************/
 inline
-void CEObserver::SetLongitude(double longitude, CppEphem::CEAngleType angle_type)
+void CEObserver::SetLongitude(double longitude, CEAngleType angle_type)
 {
-    longitude_ = longitude * ((angle_type==CppEphem::CEAngleType::RADIANS) ? 1 : DD2R) ;
+    longitude_ = longitude * ((angle_type==CEAngleType::RADIANS) ? 1 : DD2R) ;
 }
 
 
 /**********************************************************************//**
  *************************************************************************/
 inline
-void CEObserver::SetLatitude(double latitude, CppEphem::CEAngleType angle_type)
+void CEObserver::SetLatitude(double latitude, CEAngleType angle_type)
 {
-    latitude_ = latitude * ((angle_type==CppEphem::CEAngleType::RADIANS) ? 1 : DD2R) ;
+    latitude_ = latitude * ((angle_type==CEAngleType::RADIANS) ? 1 : DD2R) ;
 }
 
 

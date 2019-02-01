@@ -52,7 +52,7 @@ public:
     CECoordinates(const double& xcoord, 
                   const double& ycoord,
                   const CECoordinateType& coord_type=CECoordinateType::ICRS,
-                  const CppEphem::CEAngleType& angle_type=CppEphem::CEAngleType::RADIANS) ;
+                  const CEAngleType& angle_type=CEAngleType::RADIANS) ;
     CECoordinates(const CECoordinateType& coord_type) ;
     CECoordinates(const CECoordinates& other) ;
     virtual ~CECoordinates() ;
@@ -61,15 +61,15 @@ public:
      * Angular separation between two coordinate positions
      *********************************************************/
     virtual double AngularSeparation(const CECoordinates& coords,
-                                     const CppEphem::CEAngleType& return_angle_type=CppEphem::CEAngleType::DEGREES) ;
+                                     const CEAngleType& return_angle_type=CEAngleType::DEGREES) ;
     static double AngularSeparation(const CECoordinates& coords1, 
                                     const CECoordinates& coords2,
-                                    const CppEphem::CEAngleType& return_angle_type=CppEphem::CEAngleType::DEGREES) ;
+                                    const CEAngleType& return_angle_type=CEAngleType::DEGREES) ;
     static double AngularSeparation(double xcoord_first, 
                                     double ycoord_first,
                                     double xcoord_second, 
                                     double ycoord_second,
-                                    const CppEphem::CEAngleType& angle_type=CppEphem::CEAngleType::DEGREES) ;
+                                    const CEAngleType& angle_type=CEAngleType::DEGREES) ;
     
     /**********************************************************
      * Methods for accessing the coordinate information
@@ -81,8 +81,8 @@ public:
     virtual double YCoordinate_Deg(double jd=CppEphem::julian_date_J2000()) const;
     
     // Convert an angle into Hours:minutes:seconds format
-    static std::vector<double> GetHMS(double angle, CppEphem::CEAngleType angle_type = CppEphem::CEAngleType::DEGREES);
-    static std::vector<double> GetDMS(double angle, CppEphem::CEAngleType angle_type = CppEphem::CEAngleType::DEGREES);
+    static std::vector<double> GetHMS(double angle, CEAngleType angle_type = CEAngleType::DEGREES);
+    static std::vector<double> GetDMS(double angle, CEAngleType angle_type = CEAngleType::DEGREES);
 
     // Return coordinate system    
     CECoordinateType GetCoordSystem(void) const;
@@ -97,16 +97,16 @@ public:
     // Convert from CIRS to other coordinates
     static void CIRS2ICRS(double input_ra, double input_dec, double *return_ra, double *return_dec,
                           CEDate date=CEDate(DJ00, CEDateType::JD),
-                          CppEphem::CEAngleType angle_type=CppEphem::CEAngleType::RADIANS);
+                          CEAngleType angle_type=CEAngleType::RADIANS);
     static void CIRS2Galactic(double ra, double dec, double *glon, double *glat,
                               CEDate date=CEDate(DJ00, CEDateType::JD),
-                              CppEphem::CEAngleType angle_type=CppEphem::CEAngleType::RADIANS);
+                              CEAngleType angle_type=CEAngleType::RADIANS);
     static int CIRS2Observed(double ra,
                              double dec,
                              double *az,
                              double *zen,
                              CEObserver& observer,
-                             CppEphem::CEAngleType angle_type=CppEphem::CEAngleType::RADIANS,
+                             CEAngleType angle_type=CEAngleType::RADIANS,
                              double wavelength_um=0.5,
                              double *observed_ra=nullptr,
                              double *observed_dec=nullptr,
@@ -118,18 +118,18 @@ public:
                           double *return_ra,
                           double *return_dec,
                           CEDate date=CEDate(),
-                          CppEphem::CEAngleType angle_type=CppEphem::CEAngleType::RADIANS);
+                          CEAngleType angle_type=CEAngleType::RADIANS);
     static void ICRS2Galactic(double ra,
                               double dec,
                               double *glon,
                               double *glat,
-                              CppEphem::CEAngleType angle_type=CppEphem::CEAngleType::RADIANS);
+                              CEAngleType angle_type=CEAngleType::RADIANS);
     static int ICRS2Observed(double ra,
                              double dec,
                              double *az,
                              double *zen,
                              CEObserver& observer,
-                             CppEphem::CEAngleType angle_type=CppEphem::CEAngleType::RADIANS,
+                             CEAngleType angle_type=CEAngleType::RADIANS,
                              double wavelength_um=0.5,
                              double *observed_ra=nullptr,
                              double *observed_dec=nullptr,
@@ -138,15 +138,15 @@ public:
     // Convert from GALACTIC to other coordinates
     static void Galactic2CIRS(double glon, double glat, double *ra, double *dec,
                               CEDate date=CEDate(),
-                              CppEphem::CEAngleType angle_type=CppEphem::CEAngleType::RADIANS);
+                              CEAngleType angle_type=CEAngleType::RADIANS);
     static void Galactic2ICRS(double glon, double glat, double *ra, double *dec,
-                              CppEphem::CEAngleType angle_type=CppEphem::CEAngleType::RADIANS);
+                              CEAngleType angle_type=CEAngleType::RADIANS);
     static int Galactic2Observed(double glon,
                                  double glat,
                                  double *az,
                                  double *zen,
                                  CEObserver& observer,
-                                 CppEphem::CEAngleType angle_type=CppEphem::CEAngleType::RADIANS,
+                                 CEAngleType angle_type=CEAngleType::RADIANS,
                                  double wavelength_um=0.5,
                                  double *observed_glon=nullptr,
                                  double *observed_glat=nullptr,
@@ -157,19 +157,19 @@ public:
                               double *ra,
                               double *dec,
                               CEObserver& observer,
-                              CppEphem::CEAngleType angle_type=CppEphem::CEAngleType::RADIANS);
+                              CEAngleType angle_type=CEAngleType::RADIANS);
     static int Observed2ICRS(double az,
                               double zen,
                               double *ra,
                               double *dec,
                               CEObserver& observer,
-                              CppEphem::CEAngleType angle_type=CppEphem::CEAngleType::RADIANS);
+                              CEAngleType angle_type=CEAngleType::RADIANS);
     static int Observed2Galactic(double az,
                               double zen,
                               double *glon,
                               double *glat,
                               CEObserver& observer,
-                              CppEphem::CEAngleType angle_type=CppEphem::CEAngleType::RADIANS);
+                              CEAngleType angle_type=CEAngleType::RADIANS);
     
     
     // The following are provided to allow converting to OBSERVED
@@ -359,7 +359,7 @@ public:
      *********************************************************/
     virtual void SetCoordinates(double xcoord, double ycoord,
                                 CECoordinateType coord_type = CECoordinateType::ICRS,
-                                CppEphem::CEAngleType angle_type = CppEphem::CEAngleType::RADIANS);
+                                CEAngleType angle_type = CEAngleType::RADIANS);
     virtual void SetCoordinates(CECoordinates& coords);
     
 protected:

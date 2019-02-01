@@ -42,7 +42,7 @@ public:
     CEBody(const std::string& name, 
            const double& xcoord, const double& ycoord,
            const CECoordinateType& coord_type = CECoordinateType::ICRS,
-           const CEAngleType& angle_type = CEAngleType::RADIANS) ;
+           const CEAngleType& angle_type=CEAngleType::RADIANS) ;
     CEBody(const CEBody& other, const std::string& name="") ;
     CEBody(const CECoordinates& coords, const std::string& name="") ;
     virtual ~CEBody() ;

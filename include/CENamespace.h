@@ -29,10 +29,11 @@
 #define MINMJDFORDUT1 43144.0
 #define MAXMJDFORDUT1 57448.0
 
+enum class CEAngleType{DEGREES, RADIANS} ;
+
 // Create a namespace with some useful stuff
 namespace CppEphem {
     // Define an angle type so that we can differentiate between degrees or radians
-    enum class CEAngleType{DEGREES, RADIANS} ;
 
     // Approximate temperature at sea-level in Kelvin
     inline double SeaLevelTemp_K() {return 288.2 ;}
