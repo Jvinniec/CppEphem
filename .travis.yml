@@ -52,6 +52,7 @@ script:
 
 after_success:
  - llvm-cov gcov ./test/CMakeFiles/test_cppephem.dir/src/test_cppephem.cpp.o
- - sonar-scanner
+ - build-wrapper-linux-x86-64 --out-dir bw_output make clean all
+ - sonar-scanner -Dproject.settings=sonar-project.properties
 
 # TODO: also need to test pure autotools build
