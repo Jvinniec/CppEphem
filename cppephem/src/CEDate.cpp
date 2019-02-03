@@ -118,6 +118,10 @@ void CEDate::SetDate(double date, CEDateType time_format)
         mod_julian_date_ = Gregorian2MJD(date) ;
         gregorian_date_ = date ;
         gregorian_date_vect_ = Gregorian2GregorianVect(date) ;
+    } else {
+        // Date type is invalid
+        throw CEException::invalid_value("CEDate::SetDate()", 
+                                         "Invalid date type");
     }
 }
 
