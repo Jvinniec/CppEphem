@@ -5,7 +5,7 @@
 # ------------------------------------------------------
 
 # Define some control variables
-outdir="build/coverage_report"
+outdir="bw_output/coverage_report"
 cov_reports="${outdir}/coverage_datafiles.txt"
 merge_report="${outdir}/cppephem.profdata"
 
@@ -20,7 +20,8 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
 
     # Run all of the individual tests with output
     # NOTE: Make sure the coverage files end with '.profraw'
-    LLVM_PROFILE_FILE="${outdir}/CEDate.profraw" ./build/bin/test_CEDate
+    echo "Running coverage"
+    LLVM_PROFILE_FILE="${outdir}/CEDate.profraw" ./bw_output/bin/test_CEDate
 
     # Put all the coverage output files into a single file
     ls ${outdir}/*.profraw > ${cov_reports}
@@ -34,9 +35,13 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
     llvm-cov show \
         -output-dir=${outdir} \
         -instr-profile ${merge_report} \
-        -object ./build/bin/test_CEDate \
+        -object ./bw_output/bin/test_CEDate \
         > ${outdir}/coverage_report.txt
 
     # Run sonnar scanner to analyze code and coverage statistics
     sonar-scanner
+
+    echo "ls:";ls
+    echo "ls build:";ls build
+    echo "ls bw_output:";ls bw_output
 fi
