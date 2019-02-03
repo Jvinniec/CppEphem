@@ -2,47 +2,7 @@
 #------------------------------------------
 # Define include directories
 #------------------------------------------
-include_directories (${CMAKE_CURRENT_SOURCE_DIR}/../include ${SOFA_DIRECTORY})
-
-#------------------------------------------
-# Define the source and header files needed
-# by the CppEphem library
-#------------------------------------------
-set (cppephem_SOURCES
-    CENamespace.cpp
-    CEBody.cpp
-    CECoordinates.cpp
-    CEDate.cpp
-    CEException.cpp
-    CEObservation.cpp
-    CEObserver.cpp
-    CEPlanet.cpp
-    CERunningDate.cpp
-    CETime.cpp
-    )
-
-set (cppephem_HEADERS
-    ../include/CppEphem.h
-    ../include/CENamespace.h
-    ../include/CEBody.h
-    ../include/CECoordinates.h
-    ../include/CEDate.h
-    ../include/CEException.h
-    ../include/CEObservation.h
-    ../include/CEObserver.h
-    ../include/CEPlanet.h
-    ../include/CERunningDate.h
-    ../include/CETime.h
-    )
-
-#------------------------------------------
-# Create both a static and shared version of the library
-#------------------------------------------
-add_library (cppephem SHARED ${cppephem_SOURCES} ${cppephem_HEADERS})
-add_library (cppephem_static STATIC ${cppephem_SOURCES} ${cppephem_HEADERS})
-
-# Make sure the static version has the same name
-set_target_properties(cppephem_static PROPERTIES OUTPUT_NAME cppephem)
+#include_directories (${CMAKE_CURRENT_SOURCE_DIR}/../include ${SOFA_DIRECTORY})
 
 #------------------------------------------
 # Executables
@@ -73,4 +33,3 @@ cppephem_executable (angsep   angsep.cpp)
 # Planet positions
 cppephem_executable (planetephem planetephem.cpp)
 
-target_link_libraries(cppephem sofa_c)
