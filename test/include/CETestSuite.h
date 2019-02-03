@@ -24,6 +24,7 @@
 
 #include <fstream>
 #include <string>
+#include <vector>
 
 class CETestSuite {
 public:
@@ -35,10 +36,9 @@ public:
     
     /******  METHODS  ******/
     
-    virtual bool runtests() = 0;
+    virtual bool runtests(void) = 0;
+    virtual bool pass(void);
 
-    /****** VARIABLES ******/
-    
 protected:
     
     /******  METHODS  ******/
@@ -54,35 +54,20 @@ protected:
                            bool expected);
     virtual bool test_string(const std::string& value, 
                              const std::string& expected);
-    virtual void update_pass(const bool& test_passed);
+    template<class T>
+    bool test_vect_(const std::vector<T>& value,
+                    const std::vector<T>& expected);
+    bool test_vect(const std::vector<double>& value,
+                   const std::vector<double>& expected);
 
-    /****** VARIABLES ******/
-    std::ifstream log;
-    bool pass = true;
+    virtual void update_pass(const bool& test_passed);
     
 private:
-    
+
+    /****** VARIABLES ******/
+    std::ifstream log_;
+    bool pass_ = true;
 };
-
-
-/**********************************************************************//**
- * Returns whether the analysis has succeeded or not
- *************************************************************************/
-inline
-void CETestSuite::cleanup(void)
-{
-    return;
-}
-
-
-/**********************************************************************//**
- * Returns whether the analysis has succeeded or not
- *************************************************************************/
-inline
-void CETestSuite::update_pass(const bool& test_passed)
-{
-    pass = pass && test_passed;
-}
 
 
 #endif /* CETestSuite_h */
