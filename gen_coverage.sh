@@ -1,19 +1,18 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 # ------------------------------------------------------
 # This file is meant to be run on Travis-CI only
 # ------------------------------------------------------
 
-outdir="coverage_report"
+# Define some control variables
+outdir="build/coverage_report"
 cov_reports="${outdir}/coverage_datafiles.txt"
 merge_report="${outdir}/cppephem.profdata"
 
 # Change into the build directory
 echo "$PWD"
 which bash
-cd build
 mkdir ${outdir}
-echo "$PWD"
 
 if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
     # Build the linux system wrapper
@@ -21,7 +20,7 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
 
     # Run all of the individual tests with output
     # NOTE: Make sure the coverage files end with '.profraw'
-    LLVM_PROFILE_FILE="${outdir}/CEDate.profraw" ./bin/test_CEDate
+    LLVM_PROFILE_FILE="${outdir}/CEDate.profraw" ./build/bin/test_CEDate
 
     # Put all the coverage output files into a single file
     ls ${outdir}/*.profraw > ${cov_reports}
@@ -30,7 +29,7 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
     llvm-profdata merge -sparse \
         -f ${cov_reports} \
         -o ${merge_report} \
-        -object ./bin/test_CEDate
+        -object ./build/bin/test_CEDate
 
     # Generate the output text to be read by sonar-scanner
     llvm-cov show \
