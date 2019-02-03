@@ -129,3 +129,69 @@ bool CETestSuite::test_string(const std::string& value, const std::string& expec
         return false;
     }
 }
+
+
+/**********************************************************************//**
+ * Return whether two vectors contain equivalent values
+ *
+ * @param[in] value         Value to be tested
+ * @param[in] expected      Expected value to test against
+ * @return Whether value and expected are the same
+ *************************************************************************/
+template<class T>
+bool CETestSuite::test_vect_(const std::vector<T>& value,
+                             const std::vector<T>& expected)
+{
+    bool isMatch = true;
+    if (value.size() == expected.size()) {
+        for (int i=0; i<value.size(); i++) {
+            if (value[i] != expected[i]) {
+                std::printf("VECTOR values at index %d are NOT equal", i);
+                isMatch = false;
+            }
+        }
+
+        if (isMatch) {
+            std::printf("VECTOR values and lengths ARE equal");
+        }
+    } else {
+        std::printf("VECTOR lengths are NOT equal");
+    }
+
+    return isMatch;
+}
+
+
+bool CETestSuite::test_vect(const std::vector<double>& value,
+                            const std::vector<double>& expected)
+{
+    return test_vect_<double>(value, expected);
+}
+
+
+/**********************************************************************//**
+ * Responsible for cleaning up anything that needs cleanup
+ *************************************************************************/
+void CETestSuite::cleanup(void)
+{
+    return;
+}
+
+
+/**********************************************************************//**
+ * Returns the status of the 'pass' variable
+ *************************************************************************/
+bool CETestSuite::pass(void)
+{
+    return pass_;
+}
+
+
+/**********************************************************************//**
+ * Returns whether the analysis has succeeded or not
+ *  @param[in] test_passed      Specifies whether the test has passed
+ *************************************************************************/
+void CETestSuite::update_pass(const bool& test_passed)
+{
+    pass_ = pass_ && test_passed;
+}

@@ -33,13 +33,18 @@ public:
     virtual bool runtests();
 
     /****** METHODS ******/
-    
-    virtual bool test_set_JD();
 
-protected:
+    virtual bool test_SetDate_JD(void);
+    virtual bool test_SetDate_MJD(void);
+    virtual bool test_Gregorian(void);
 
-    CEDate base_date;
-    CEDate test_date;
+    virtual bool test_ReturnType(void);
+
+
+private:
+
+    CEDate base_date_;
+    CEDate test_date_;
 
 };
 
