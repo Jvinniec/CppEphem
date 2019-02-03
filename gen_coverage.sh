@@ -1,4 +1,4 @@
-#! /usr/bin/env
+#!/usr/bin/bash
 
 # ------------------------------------------------------
 # This file is meant to be run on Travis-CI only
@@ -10,8 +10,10 @@ merge_report="${outdir}/cppephem.profdata"
 
 # Change into the build directory
 echo "$PWD"
+which bash
 cd build
 mkdir ${outdir}
+echo "$PWD"
 
 if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
     # Build the linux system wrapper

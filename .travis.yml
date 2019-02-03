@@ -54,6 +54,6 @@ after_success:
  # Only run sonar-scanner if we're using a linux machine with clang
  # This prevents generating a code coverage/status reports for each
  # build configuration
- - sh gen_coverage.sh
+ - bash gen_coverage.sh
 
 # TODO: also need to test pure autotools build
