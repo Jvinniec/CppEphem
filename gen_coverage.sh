@@ -28,13 +28,13 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
     # Merge the tests
     llvm-profdata merge -sparse \
         -f ${cov_reports} \
-        -o ${merge_report} \
-        -object ./build/bin/test_CEDate
+        -o ${merge_report}
 
     # Generate the output text to be read by sonar-scanner
     llvm-cov show \
         -output-dir=${outdir} \
         -instr-profile ${merge_report} \
+        -object ./build/bin/test_CEDate \
         > ${outdir}/coverage_report.txt
 
     # Run sonnar scanner to analyze code and coverage statistics
