@@ -1,6 +1,7 @@
 cmake_minimum_required (VERSION 2.6)
 project (CppEphem)
 set(CMAKE_BUILD_TYPE Release)
+#set(CMAKE_VERBOSE_MAKEFILE ON)
 
 # Add Version number
 set (CppEphem_VERSION_MAJOR 1)
