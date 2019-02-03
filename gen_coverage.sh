@@ -33,7 +33,6 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
 
     # Generate the output text to be read by sonar-scanner
     llvm-cov show \
-        -output-dir=${outdir} \
         -instr-profile ${merge_report} \
         -object ./build/bin/test_CEDate \
         > ${outdir}/coverage_report.txt
