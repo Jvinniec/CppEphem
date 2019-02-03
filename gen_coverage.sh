@@ -13,7 +13,7 @@ echo "$PWD"
 cd build
 mkdir ${outdir}
 
-if [ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ] ; then
+if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
     # Build the linux system wrapper
     build-wrapper-linux-x86-64 --out-dir bw_output make clean all
 
