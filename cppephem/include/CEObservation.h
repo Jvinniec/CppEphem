@@ -67,9 +67,9 @@ public:
     
 protected:
     
+    CEBody*     body_     = nullptr;    //<! Object being observed
+    CEDate*     date_     = nullptr;    //<! Store a pointer to a CEDate object
     CEObserver* observer_ = nullptr;    //<! Store a pointer to a CEObserver object
-    CEDate* date_ = nullptr;            //<! Store a pointer to a CEDate object
-    CEBody* body_ = nullptr;            //<! Object being observed
     
     // Cached the observed parameters to make subsequent calls faster,
     // i.e. since they all get computed at the same time there's no need
