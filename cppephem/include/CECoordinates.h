@@ -45,6 +45,10 @@ enum class CECoordinateType {CIRS,           ///< RA, Dec (referenced at the cen
 
 // Initiate the class that holds the coordinate information
 class CECoordinates {
+
+    friend bool operator==(const CECoordinates& lhs, const CECoordinates& rhs);
+    friend bool operator!=(const CECoordinates& lhs, const CECoordinates& rhs);
+
 public:
 
     /****** CONSTRUCTORS ******/

@@ -21,13 +21,15 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
     # Run all of the individual tests with output
     # NOTE: Make sure the coverage files end with '.profraw'
     echo "Running coverage"
-    LLVM_PROFILE_FILE="${outdir}/CEDate.profraw" ./build/bin/test_CEDate
+    LLVM_PROFILE_FILE="${outdir}/CEDate.profraw"        ./build/bin/test_CEDate
+    LLVM_PROFILE_FILE="${outdir}/CECoordinates.profraw" ./build/bin/test_CECoordinates
 
     # Put all the coverage output files into a single file
     ls ${outdir}/*.profraw > ${cov_reports}
 
     # Merge the tests
-    llvm-profdata merge -sparse \
+    llvm-profdata merge \
+        -sparse \
         -f ${cov_reports} \
         -o ${merge_report}
 
@@ -35,6 +37,7 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
     llvm-cov show \
         -instr-profile ${merge_report} \
         -object ./build/bin/test_CEDate \
+        -object ./build/bin/test_CECoordinates \
         > ${outdir}/coverage_report.txt
 
     # Run sonnar scanner to analyze code and coverage statistics

@@ -1583,3 +1583,44 @@ void CECoordinates::SetCoordinates(CECoordinates& coords)
     ycoord_ = coords.YCoordinate_Rad() ;
     coord_type_ = coords.GetCoordSystem() ;
 }
+
+
+/**********************************************************************//**
+ * Compare two coordinate objects
+ *  @return True if the two coordinates are equal to each other
+ *************************************************************************/
+bool operator==(const CECoordinates& lhs, const CECoordinates& rhs)
+{
+    bool are_equal = true;
+    
+    // Check the coordinate systems are equivalent
+    if (lhs.GetCoordSystem() != rhs.GetCoordSystem()) {
+        are_equal = false;
+    }
+    // Check that the x-coordinate and the y-coordinate are the same
+    else {
+        // Get the x,y values of the two coordinates
+        double lhs_x(lhs.XCoordinate_Rad());
+        double lhs_y(lhs.YCoordinate_Rad());
+        double rhs_x(rhs.XCoordinate_Rad());
+        double rhs_y(rhs.YCoordinate_Rad());
+
+        // Test the coordinates
+        if ((std::abs(lhs_x - rhs_x) > (rhs_x*1e-15)) ||
+            (std::abs(lhs_y - rhs_y) > (rhs_y*1e-15))) {
+            are_equal = false;
+        }
+    }
+
+    return are_equal;
+}
+
+
+/**********************************************************************//**
+ * Compare two coordinate objects
+ *  @return True if two coordinates are NOT equal to each other
+ *************************************************************************/
+bool operator!=(const CECoordinates& lhs, const CECoordinates& rhs)
+{
+    return !(lhs == rhs);
+}

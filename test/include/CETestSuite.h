@@ -46,7 +46,7 @@ protected:
     virtual void cleanup();
     virtual bool test_double(const double& value, 
                              const double& expected,
-                             const double& tol=1.0e-7);
+                             const double& tol=1.0e-15);
     virtual bool test_int(const int& value, 
                           const int& expected,
                           const int& tol=0);

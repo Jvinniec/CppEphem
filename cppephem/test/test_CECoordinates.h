@@ -1,5 +1,5 @@
 /***************************************************************************
- *  test_cpephem.cpp: CppEphem                                             *
+ *  test_CECoordinates.h: CppEphem                                         *
  * ----------------------------------------------------------------------- *
  *  Copyright © 2018 JCardenzana                                           *
  * ----------------------------------------------------------------------- *
@@ -19,44 +19,30 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <exception>
-#include <vector>
-#include "test_CEDate.h"
+#ifndef test_CECoordinates_h
+#define test_CECoordinates_h
 
-void register_tests(std::vector<CETestSuite*> &tests)
-{
-    // Add test objects to tests list
-    tests.push_back(new test_CEDate());
-    
-    return;
-}
+#include "CECoordinates.h"
+#include "CETestSuite.h"
 
+class test_CECoordinates : public CETestSuite {
+public:
+    test_CECoordinates();
+    virtual ~test_CECoordinates();
 
-int main(int argc, char** argv) 
-{
-    // Variable if tests are passed
-    bool fail = false;
+    virtual bool runtests();
 
-    // Get the tests
-    std::vector<CETestSuite*> tests;
-    register_tests(tests);
+    /****** METHODS ******/
 
-    // Run the individual tests
-    for (int i=0; i<tests.size(); i++) {
-        // Make sure that other tests are still able to run
-        // if one of the tests throws an exception
-        try {
-            fail = fail || tests[i]->runtests();
-        } catch (std::exception& e) {
-            std::cout << e.what() << std::endl;
-            fail = false;
-        }
+    virtual bool test_SetCoord_Icrs(void);
+    virtual bool test_SetCoord_Cirs(void);
+    virtual bool test_SetCoord_Galactic(void);
 
-        if (tests[i] != nullptr) {
-            delete tests[i];
-            tests[i] = nullptr;
-        }
-    }
+private:
 
-    return fail;
-}
+    // this is teh 
+    CECoordinates base_;
+
+};
+
+#endif /* test_CECoordinates_h */
