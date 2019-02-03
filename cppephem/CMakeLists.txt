@@ -54,5 +54,6 @@ add_subdirectory (src)
 set (CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${CPPEPHEM_TEST_CXX_FLAGS}")
 
 # Define the tests
+cppephem_test(test_CEBody        test/test_CEBody.cpp        test/test_CEBody.h        ${cppephem_SOURCES} ${cppephem_HEADERS})
 cppephem_test(test_CECoordinates test/test_CECoordinates.cpp test/test_CECoordinates.h ${cppephem_SOURCES} ${cppephem_HEADERS})
-cppephem_test(test_CEDate test/test_CEDate.cpp test/test_CEDate.h ${cppephem_SOURCES} ${cppephem_HEADERS})
+cppephem_test(test_CEDate        test/test_CEDate.cpp        test/test_CEDate.h        ${cppephem_SOURCES} ${cppephem_HEADERS})
