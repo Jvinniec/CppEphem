@@ -53,7 +53,7 @@ bool CETestSuite::test_double(const double& value,
                               const double& tol)
 {
     double relative_tol = expected * tol;
-    if (std::fabs(value - expected) < (expected*tol)) {
+    if (std::fabs(value - expected) <= (expected*tol)) {
         std::printf("DOUBLE value of %f is within tolerance of %f of expected value %f.\n",
                     value, relative_tol, expected);
         return true;
@@ -77,7 +77,7 @@ bool CETestSuite::test_int(const int& value, const int& expected,
                                   const int& tol)
 {
     int relative_tol = expected * tol;
-    if (std::abs(value - expected) < (expected * tol)) {
+    if (std::abs(value - expected) <= (expected * tol)) {
         std::printf("INT value of %d is within tolerance of %d of expected value %d.\n",
                     value, relative_tol, expected);
         return true;
