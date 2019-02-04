@@ -102,5 +102,5 @@ bool test_CEBody::test_GetCoordinates(void)
  *************************************************************************/
 int main(int argc, char** argv) {
     test_CEBody tester;
-    return tester.runtests();
+    return (!tester.runtests());
 }
