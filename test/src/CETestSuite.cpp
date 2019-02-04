@@ -31,8 +31,6 @@ CETestSuite::CETestSuite()
 {}
 
 
-
-
 /**********************************************************************//**
  * Default destructor
  *************************************************************************/
@@ -48,20 +46,34 @@ CETestSuite::~CETestSuite()
  * @param[in] tol           Tolerance for the comparison
  * @return Whether value is within 'tol' of expected
  *************************************************************************/
-bool CETestSuite::test_double(const double& value, 
-                              const double& expected,
-                              const double& tol)
+bool CETestSuite::test_double(const double&      value, 
+                              const double&      expected,
+                              const std::string& function,
+                              const int&         line)
 {
-    double relative_tol = expected * tol;
-    if (std::fabs(value - expected) <= (expected*tol)) {
-        std::printf("DOUBLE value of %f is within tolerance of %f of expected value %f.\n",
-                    value, relative_tol, expected);
-        return true;
-    } else {
-        std::printf("DOUBLE value of %f is NOT within tolerance of %f of expected value %f.\n",
-                    value, relative_tol, expected);
-        return false;
+    // Return status
+    bool   ret_val      = true;
+    double relative_tol = expected * tol_dbl_;
+
+    // Values equal within tolerance
+    if (std::fabs(value - expected) <= relative_tol) {
+        log_success("DOUBLE value of "+std::to_string(value)+" is within " +
+                    "tolerance of "+std::to_string(relative_tol)+" of " +
+                    "expected value "+std::to_string(expected)+".",
+                    function, line);
+        ret_val = true;
+    } 
+    // Values not within tolerance
+    else {
+        log_failure("DOUBLE value of "+std::to_string(value)+" is NOT within " +
+                    "tolerance of "+std::to_string(relative_tol)+" of " +
+                    "expected value "+std::to_string(expected)+".",
+                    function, line);
+        ret_val = false;
     }
+
+    update_pass(ret_val);
+    return ret_val;
 }
 
 
@@ -73,19 +85,30 @@ bool CETestSuite::test_double(const double& value,
  * @param[in] tol           Tolerance for the comparison
  * @return Whether value is within 'tol' of expected
  *************************************************************************/
-bool CETestSuite::test_int(const int& value, const int& expected,
-                                  const int& tol)
+bool CETestSuite::test_int(const int&         value, 
+                           const int&         expected,
+                           const std::string& function,
+                           const int&         line)
 {
-    int relative_tol = expected * tol;
-    if (std::abs(value - expected) <= (expected * tol)) {
-        std::printf("INT value of %d is within tolerance of %d of expected value %d.\n",
-                    value, relative_tol, expected);
-        return true;
+    // Return status
+    bool ret_val      = true;
+    int  relative_tol = expected * tol_int_;
+    if (std::abs(value - expected) <= relative_tol) {
+        log_success("INT value of "+std::to_string(value)+" is within " +
+                    "tolerance of "+std::to_string(relative_tol)+" of " +
+                    "expected value "+std::to_string(expected)+".",
+                    function, line);
+        ret_val = true;
     } else {
-        std::printf("INT value of %d is NOT within tolerance of %d of expected value %d.\n",
-                    value, relative_tol, expected);
-        return false;
+        log_failure("INT value of "+std::to_string(value)+" is NOT within " +
+                    "tolerance of "+std::to_string(relative_tol)+" of " +
+                    "expected value "+std::to_string(expected)+".",
+                    function, line);
+        ret_val = false;
     }
+
+    update_pass(ret_val);
+    return ret_val;
 }
 
 
@@ -96,17 +119,26 @@ bool CETestSuite::test_int(const int& value, const int& expected,
  * @param[in] expected      Expected value to test against
  * @return Whether value and expected are the same
  *************************************************************************/
-bool CETestSuite::test_bool(bool value, bool expected)
+bool CETestSuite::test_bool(bool               value, 
+                            bool               expected,
+                            const std::string& function,
+                            const int&         line)
 {
-    if (value == expected) {
-        std::printf("BOOLEAN value of %d is equal to expected value %d.\n",
-                    value, expected);
-        return true;
+    bool ret_val = true;
+    if ((value && expected) || (!value && !expected)) {
+        log_success("BOOLEAN value of "+std::to_string(value)+" is equal " +
+                    "to expected value " +std::to_string(expected)+ ".",
+                    function, line);
+        ret_val = true;
     } else {
-        std::printf("BOOLEAN value of %d is NOT equal to expected value %d.\n",
-                    value, expected);
-        return false;
+        log_failure("BOOLEAN value of "+std::to_string(value)+" is NOT equal to " +
+                    "to expected value " +std::to_string(expected)+ ".",
+                    function, line);
+        ret_val = false;
     }
+
+    update_pass(ret_val);
+    return ret_val;
 }
 
 
@@ -117,17 +149,26 @@ bool CETestSuite::test_bool(bool value, bool expected)
  * @param[in] expected      Expected value to test against
  * @return Whether value and expected are the same
  *************************************************************************/
-bool CETestSuite::test_string(const std::string& value, const std::string& expected)
+bool CETestSuite::test_string(const std::string& value, 
+                              const std::string& expected,
+                              const std::string& function,
+                              const int&         line)
 {
+    bool ret_val = true;
     if (value.compare(expected) == 0) {
-        std::printf("STRING value of %s is equal to expected value %s.\n",
-                    value.c_str(), expected.c_str());
-        return true;
+        log_success("STRING value of \""+value+"\" is equal to expected " +
+                    "value \""+expected+"\".",
+                    function, line);
+        ret_val = true;
     } else {
-        std::printf("STRING value of %s is NOT equal to expected value %s.\n",
-                    value.c_str(), expected.c_str());
-        return false;
+        log_failure("STRING value of \""+value+"\" is NOT equal to expected " +
+                    "value \""+expected+"\".",
+                    function, line);
+        ret_val = false;
     }
+
+    update_pass(ret_val);
+    return ret_val;
 }
 
 
@@ -140,32 +181,46 @@ bool CETestSuite::test_string(const std::string& value, const std::string& expec
  *************************************************************************/
 template<class T>
 bool CETestSuite::test_vect_(const std::vector<T>& value,
-                             const std::vector<T>& expected)
+                             const std::vector<T>& expected,
+                             const std::string& function,
+                             const int&         line)
 {
     bool isMatch = true;
     if (value.size() == expected.size()) {
         for (int i=0; i<value.size(); i++) {
             if (value[i] != expected[i]) {
-                std::printf("VECTOR values at index %d are NOT equal", i);
+                log_failure("VECTOR values at index "+std::to_string(i)+" "+
+                            "are NOT equal.", function, line);
                 isMatch = false;
             }
         }
 
+        // If there is a match, then we consider the vectors to be equal
         if (isMatch) {
-            std::printf("VECTOR values and lengths ARE equal");
+            log_success("VECTOR values and lengths ARE equal.", function, line);
         }
     } else {
-        std::printf("VECTOR lengths are NOT equal");
+        log_failure("VECTOR lengths are NOT equal.", function, line);
     }
 
+    update_pass(isMatch);
     return isMatch;
 }
 
 
+/**********************************************************************//**
+ * Return whether two vector<double>'s contain equivalent values
+ *
+ * @param[in] value         Value to be tested
+ * @param[in] expected      Expected value to test against
+ * @return Whether value and expected are the same
+ *************************************************************************/
 bool CETestSuite::test_vect(const std::vector<double>& value,
-                            const std::vector<double>& expected)
+                            const std::vector<double>& expected,
+                            const std::string&         function,
+                            const int&                 line)
 {
-    return test_vect_<double>(value, expected);
+    return test_vect_<double>(value, expected, function, line);
 }
 
 
@@ -194,4 +249,34 @@ bool CETestSuite::pass(void)
 void CETestSuite::update_pass(const bool& test_passed)
 {
     pass_ = pass_ && test_passed;
+}
+
+
+/**********************************************************************//**
+ * Prints a message identifying that a test has passed
+ *  @param[in] message      Message to be printed
+ *  @param[in] function     Name of the function containing the test
+ *  @param[in] line         Line number of the testing file
+ *************************************************************************/
+void CETestSuite::log_success(const std::string& message,
+                              const std::string& function,
+                              const int&         line)
+{
+    std::printf("- Fnc: %s, ln %d\n", function.c_str(), line);
+    std::printf("  [x] %s\n", message.c_str());
+}
+
+
+/**********************************************************************//**
+ * Prints a message identifying that a test has NOT passed
+ *  @param[in] message      Message to be printed
+ *  @param[in] function     Name of the function containing the test
+ *  @param[in] line         Line number of the testing file
+ *************************************************************************/
+void CETestSuite::log_failure(const std::string& message,
+                              const std::string& function,
+                              const int&         line)
+{
+    std::printf("- Fnc: %s, ln %d\n", function.c_str(), line);
+    std::printf("  [ ] %s\n", message.c_str());
 }

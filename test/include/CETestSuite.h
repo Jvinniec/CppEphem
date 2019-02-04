@@ -26,6 +26,9 @@
 #include <string>
 #include <vector>
 
+#define FUNC_DEFAULT "UNDEF"
+#define LINE_DEFAULT -1
+
 class CETestSuite {
 public:
     
@@ -44,29 +47,52 @@ protected:
     /******  METHODS  ******/
     
     virtual void cleanup();
-    virtual bool test_double(const double& value, 
-                             const double& expected,
-                             const double& tol=1.0e-15);
-    virtual bool test_int(const int& value, 
-                          const int& expected,
-                          const int& tol=0);
-    virtual bool test_bool(bool value, 
-                           bool expected);
+
+    // Logging methods
+    void log_success(const std::string& message,
+                     const std::string& function,
+                     const int&         line);
+    void log_failure(const std::string& message,
+                     const std::string& function,
+                     const int&         line);
+
+    // Testing methods
+    virtual bool test_double(const double&      value, 
+                             const double&      expected,
+                             const std::string& function = FUNC_DEFAULT,
+                             const int&         line     = LINE_DEFAULT);
+    virtual bool test_int(const int&         value, 
+                          const int&         expected,
+                          const std::string& function = FUNC_DEFAULT,
+                          const int&         line     = LINE_DEFAULT);
+    virtual bool test_bool(bool  value, 
+                           bool  expected,
+                           const std::string& function = FUNC_DEFAULT,
+                           const int&         line     = LINE_DEFAULT);
     virtual bool test_string(const std::string& value, 
-                             const std::string& expected);
+                             const std::string& expected,
+                             const std::string& function = FUNC_DEFAULT,
+                             const int&         line     = LINE_DEFAULT);
     template<class T>
     bool test_vect_(const std::vector<T>& value,
-                    const std::vector<T>& expected);
+                    const std::vector<T>& expected,
+                    const std::string& function = FUNC_DEFAULT,
+                    const int&         line     = LINE_DEFAULT);
     bool test_vect(const std::vector<double>& value,
-                   const std::vector<double>& expected);
+                   const std::vector<double>& expected,
+                   const std::string& function = FUNC_DEFAULT,
+                   const int&         line     = LINE_DEFAULT);
 
     virtual void update_pass(const bool& test_passed);
     
 private:
 
     /****** VARIABLES ******/
+
     std::ifstream log_;
-    bool pass_ = true;
+    bool   pass_    = true;
+    int    tol_int_ = 0;            //<! Expected integer precision
+    double tol_dbl_ = 1.0e-15;      //<! Expected double precision
 };
 
 
