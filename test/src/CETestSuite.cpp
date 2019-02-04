@@ -19,6 +19,12 @@
  *                                                                         *
  ***************************************************************************/
 
+/** \class CETestSuite
+ CETestSuite defines the methods that test values to make sure they are
+ equivalent to the values that are expected. This is the base class for
+ all test classes.
+ */
+
 #include <stdio.h>
 #include <cmath>
 #include "CETestSuite.h"
