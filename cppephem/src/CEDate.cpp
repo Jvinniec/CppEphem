@@ -506,7 +506,7 @@ std::vector<double> CEDate::Gregorian2GregorianVect(double gregorian)
     // Get the month
     gregorian_vect[1] = int(std::floor(gregorian - gregorian_vect[2]))/100 % 100 ;
     // Get the year
-    gregorian_vect[0] = (std::floor(gregorian - gregorian_vect[2] - gregorian_vect[1])/10000) ;
+    gregorian_vect[0] = int(std::floor(gregorian - gregorian_vect[2] - gregorian_vect[1]))/10000 ;
     
     return gregorian_vect ;
 }
