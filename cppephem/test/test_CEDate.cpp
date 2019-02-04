@@ -48,13 +48,13 @@ test_CEDate::~test_CEDate()
  *************************************************************************/
 bool test_CEDate::runtests()
 {
-    std::cout << "Testing CEDate:\n";
+    std::cout << "\nTesting CEDate:\n";
 
     // Run each of the tests
-    update_pass(test_SetDate_JD());
-    update_pass(test_SetDate_MJD());
-    update_pass(test_Gregorian());
-    update_pass(test_ReturnType());
+    test_SetDate_JD();
+    test_SetDate_MJD();
+    test_Gregorian();
+    test_ReturnType();
 
     return pass();
 }
@@ -65,8 +65,8 @@ bool test_CEDate::runtests()
  *************************************************************************/
 bool test_CEDate::test_SetDate_JD()
 {
-    test_date_.SetDate(base_date_.JD(), CEDateType::MJD);
-    return test_double(test_date_.JD(), base_date_.JD());
+    test_date_.SetDate(base_date_.JD(), CEDateType::JD);
+    return test_double(test_date_.JD(), base_date_.JD(), __func__, __LINE__);
 }
 
 /**********************************************************************//**
@@ -75,7 +75,7 @@ bool test_CEDate::test_SetDate_JD()
 bool test_CEDate::test_SetDate_MJD()
 {
     test_date_.SetDate(base_date_.MJD(), CEDateType::MJD);
-    return test_double(test_date_.MJD(), base_date_.MJD());
+    return test_double(test_date_.MJD(), base_date_.MJD(), __func__, __LINE__);
 }
 
 
@@ -85,16 +85,16 @@ bool test_CEDate::test_SetDate_MJD()
 bool test_CEDate::test_Gregorian()
 {
     test_date_.SetDate(base_date_.Gregorian(), CEDateType::GREGORIAN);
-    update_pass(test_double(test_date_.Gregorian(), base_date_.Gregorian()));
+    test_double(test_date_.Gregorian(), base_date_.Gregorian(), __func__, __LINE__);
 
     // Test getting the year, month, day, and day fraction
-    update_pass(test_int(test_date_.Year(), base_date_.Year()));
-    update_pass(test_int(test_date_.Month(), base_date_.Month()));
-    update_pass(test_int(test_date_.Day(), base_date_.Day()));
-    update_pass(test_double(test_date_.DayFraction(), base_date_.DayFraction()));
+    test_int(test_date_.Year(), base_date_.Year(), __func__, __LINE__);
+    test_int(test_date_.Month(), base_date_.Month(), __func__, __LINE__);
+    test_int(test_date_.Day(), base_date_.Day(), __func__, __LINE__);
+    test_double(test_date_.DayFraction(), base_date_.DayFraction(), __func__, __LINE__);
 
     // Test getting hte Gregorian date as a vector
-    update_pass(test_vect(test_date_.GregorianVect(), base_date_.GregorianVect()));
+    test_vect(test_date_.GregorianVect(), base_date_.GregorianVect(), __func__, __LINE__);
 
     return pass();
 }
@@ -110,23 +110,24 @@ bool test_CEDate::test_ReturnType(void)
 
     // Set the return type to JD
     test_date_.SetReturnType(CEDateType::JD);
-    update_pass(test_double(test_date_, base_date_.JD()));
+    test_double(test_date_, base_date_.JD(), __func__, __LINE__);
     
     // Set the return type to MJD
     test_date_.SetReturnType(CEDateType::MJD);
-    update_pass(test_double(test_date_, base_date_.MJD()));
+    test_double(test_date_, base_date_.MJD(), __func__, __LINE__);
 
     // Set the return type to Gregorian
     test_date_.SetReturnType(CEDateType::GREGORIAN);
-    update_pass(test_double(test_date_, base_date_.Gregorian()));
+    test_double(test_date_, base_date_.Gregorian(), __func__, __LINE__);
 
     return pass();
 }
+
 
 /**********************************************************************//**
  * Main method that actually runs the tests
  *************************************************************************/
 int main(int argc, char** argv) {
     test_CEDate tester;
-    return tester.runtests();
+    return (!tester.runtests());
 }

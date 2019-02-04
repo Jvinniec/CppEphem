@@ -50,12 +50,12 @@ test_CECoordinates::~test_CECoordinates()
  *************************************************************************/
 bool test_CECoordinates::runtests()
 {
-    std::cout << "Testing CECoordinates:\n";
+    std::cout << "\nTesting CECoordinates:\n";
 
     // Run each of the tests
-    update_pass(test_SetCoord_Icrs());
-    update_pass(test_SetCoord_Cirs());
-    update_pass(test_SetCoord_Galactic());
+    test_SetCoord_Cirs();
+    test_SetCoord_Icrs();
+    test_SetCoord_Galactic();
 
     return pass();
 }
@@ -77,7 +77,7 @@ bool test_CECoordinates::test_SetCoord_Cirs()
                               CEAngleType::DEGREES);
     
     // Compare the coordinates
-    return test_bool((test_coord == base_cirs), true);
+    return test_bool((test_coord == base_cirs), true, __func__, __LINE__);
 }
 
 
@@ -94,7 +94,7 @@ bool test_CECoordinates::test_SetCoord_Icrs()
                               CEAngleType::DEGREES);
 
     // Compare the coordinates
-    return test_bool((test_coord == base_), true);
+    return test_bool((test_coord == base_), true, __func__, __LINE__);
 }
 
 /**********************************************************************//**
@@ -109,11 +109,11 @@ bool test_CECoordinates::test_SetCoord_Galactic()
     CECoordinates test_coord;
     test_coord.SetCoordinates(base_galactic.XCoordinate_Deg(), 
                               base_galactic.YCoordinate_Deg(),
-                              CECoordinateType::CIRS, 
+                              CECoordinateType::GALACTIC, 
                               CEAngleType::DEGREES);
     
     // Compare the coordinates
-    return test_bool((test_coord == base_galactic), true);
+    return test_bool((test_coord == base_galactic), true, __func__, __LINE__);
 }
 
 
@@ -122,5 +122,5 @@ bool test_CECoordinates::test_SetCoord_Galactic()
  *************************************************************************/
 int main(int argc, char** argv) {
     test_CECoordinates tester;
-    return tester.runtests();
+    return (!tester.runtests());
 }

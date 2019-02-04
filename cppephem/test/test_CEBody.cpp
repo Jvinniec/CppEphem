@@ -50,11 +50,11 @@ test_CEBody::~test_CEBody()
  *************************************************************************/
 bool test_CEBody::runtests()
 {
-    std::cout << "Testing CEBody:\n";
+    std::cout << "\nTesting CEBody:\n";
 
     // Run each of the tests
-    update_pass(test_Name());
-    update_pass(test_GetCoordinates());
+    test_Name();
+    test_GetCoordinates();
 
     return pass();
 }
@@ -68,13 +68,13 @@ bool test_CEBody::runtests()
 bool test_CEBody::test_Name(void)
 {
     // Check that we can get the name
-    update_pass(test_string(base_.Name(), "Crab"));
+    test_string(base_.Name(), "Crab", __func__, __LINE__);
 
     // Check that we can set the name
     CEBody test_body(base_);
     std::string new_name = "NotCrab";
     test_body.SetName(new_name);
-    update_pass(test_string(test_body.Name(), new_name));
+    test_string(test_body.Name(), new_name, __func__, __LINE__);
 
     return pass();
 }
@@ -91,7 +91,7 @@ bool test_CEBody::test_GetCoordinates(void)
     CECoordinates test_coords = base_.GetCoordinates();
     
     // Test that the coordinates are equal
-    update_pass(test_bool(test_coords == base_, true));
+    test_bool(test_coords == base_, true, __func__, __LINE__);
 
     return pass();
 }
