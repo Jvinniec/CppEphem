@@ -1606,8 +1606,8 @@ bool operator==(const CECoordinates& lhs, const CECoordinates& rhs)
         double rhs_y(rhs.YCoordinate_Rad());
 
         // Test the coordinates
-        if ((std::abs(lhs_x - rhs_x) > (rhs_x*1e-15)) ||
-            (std::abs(lhs_y - rhs_y) > (rhs_y*1e-15))) {
+        if ((std::abs(lhs_x - rhs_x) > std::abs(rhs_x*1.0e-15)) ||
+            (std::abs(lhs_y - rhs_y) > std::abs(rhs_y*1.0e-15))) {
             are_equal = false;
         }
     }
