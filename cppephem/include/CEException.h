@@ -35,9 +35,9 @@ public:
         // print out all the frames to stderr
         char** bcktrace = backtrace_symbols(array, size);
 
-        std::cerr << "Exception encountered. Printing backtrace..." << std::endl;
+        message_ += "Exception encountered. Printing backtrace...\n";
         for (size_t i = 0; i < size; i++) {
-            std::cerr << std::string(bcktrace[i]) << std::endl;
+            message_ += std::string(bcktrace[i]) + "\n";
         }
     }
     CEExceptionHandler(const std::string& origin,
@@ -71,15 +71,7 @@ public:
     /* ----------------------------------------------------------- *
      *             EXCEPTIONS RELATED TO SOFA ERRORS
      * ----------------------------------------------------------- */
-
-    // When an exception happens inside a sofa method
-    class sofa_exception : public CEExceptionHandler {
-        public:
-            sofa_exception(const std::string& origin,
-                           const std::string& sofa_method,
-                           const std::string& message);
-    };
-
+    
     // When a particular error code is produced by a sofa method
     class sofa_error : public CEExceptionHandler {
         public: 
@@ -88,4 +80,12 @@ public:
                        const int&         errcode,
                        const std::string& message);
     };
+    // When an exception happens inside a sofa method
+    class sofa_exception : public CEExceptionHandler {
+        public:
+            sofa_exception(const std::string& origin,
+                           const std::string& sofa_method,
+                           const std::string& message);
+    };
+
 };
