@@ -10,8 +10,6 @@ cov_reports="${outdir}/coverage_datafiles.txt"
 merge_report="${outdir}/cppephem.profdata"
 
 # Change into the build directory
-echo "$PWD"
-which bash
 mkdir ${outdir}
 
 if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
