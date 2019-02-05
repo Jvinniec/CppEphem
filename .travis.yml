@@ -42,7 +42,7 @@ matrix:
 
 
 # Allow compiling with c++11
-dist: trusty
+dist: xenial
 
 # Build steps
 script:
