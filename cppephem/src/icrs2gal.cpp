@@ -60,7 +60,7 @@ void PrintResults(CECoordinates& input,
     std::printf("    Galactic Lat.: %+f degrees\n", output.YCoordinate_Deg()) ;
     std::printf("ICRS Coordinates (input)\n") ;
     std::printf("    Right Ascension: %02dh %02dm %04.1fs (%f deg)\n",
-                int(input_hms[0]), int(input_hms[1]), input_hms[2]+input_hms[3],
+                int(input_hms[0]), int(input_hms[1]), input_hms[2],
                 input.XCoordinate_Deg()) ;
     std::printf("    Declination    : %+f degrees\n", input.YCoordinate_Deg()) ;
     std::printf("\n") ;

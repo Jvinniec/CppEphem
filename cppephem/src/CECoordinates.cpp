@@ -1548,7 +1548,7 @@ std::vector<double> CECoordinates::GetHMS(double angle,
     std::vector<double> HMS(3) ;
     HMS[0] = std::floor(hrs) ;
     HMS[1] = std::floor((hrs - HMS[0])*60.0) ;
-    HMS[2] = (hrs - HMS[0] - HMS[1]/60.0) * 3600.0 ;
+    HMS[2] = (hrs - HMS[0] - (HMS[1]/60.0)) * 3600.0 ;
     return HMS ;
 }
 
