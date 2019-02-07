@@ -5,7 +5,7 @@ set(CMAKE_BUILD_TYPE Release)
 
 # Add Version number
 set (CppEphem_VERSION_MAJOR 1)
-set (CppEphem_VERSION_MINOR 0)
+set (CppEphem_VERSION_MINOR 1)
 
 # Set some flags necessary for the MAC OS builds
 if (CMAKE_SYSTEM_NAME MATCHES Darwin)
@@ -34,14 +34,14 @@ endif()
 link_directories (${SOFA_DIRECTORY})
 
 # Define the default compile flags
-set (CPPEPHEM_TEST_CXX_FLAGS "-g -O0")
+set (CPPEPHEM_TEST_CXX_FLAGS "")
 set (CODECOV "none")
 if (coverage)
     include(CodeCoverage.cmake)
     message ("Testing flags set to ${CPPEPHEM_TEST_CXX_FLAGS} (coverage = ${CODECOV})")
 endif()
 
-set (CPPEPHEM_CXX_FLAGS "${CPPEPHEM_CXX_FLAGS} -std=c++11")
+set (CPPEPHEM_CXX_FLAGS "${CPPEPHEM_CXX_FLAGS} -std=c++11 -Wall")
 set (CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${CPPEPHEM_CXX_FLAGS}")
 
 
