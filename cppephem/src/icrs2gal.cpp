@@ -53,7 +53,7 @@ void PrintResults(CECoordinates& input,
     
     std::printf("\n") ;
     std::printf("******************************************\n") ;
-    std::printf("* Results of CIRS -> Galactic conversion *\n") ;
+    std::printf("* Results of ICRS -> Galactic conversion *\n") ;
     std::printf("******************************************\n") ;
     std::printf("Galactic Coordinates (output)\n") ;
     std::printf("    Galactic Lon.: %f degrees\n", output.XCoordinate_Deg()) ;
