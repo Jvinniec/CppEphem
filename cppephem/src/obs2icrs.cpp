@@ -62,7 +62,7 @@ void PrintResults(CLOptions& inputs, std::map<std::string, double> results)
 {
     std::printf("\n") ;
     std::printf("******************************************\n") ;
-    std::printf("* Results of Observed -> CIRS conversion *\n") ;
+    std::printf("* Results of Observed -> ICRS conversion *\n") ;
     std::printf("******************************************\n") ;
     std::printf("Observed Coordinates (input)\n") ;
     std::printf("    Azimuth        : %f degrees\n", inputs.AsDouble("azimuth")*DR2D) ;
