@@ -76,5 +76,3 @@ CEBody::CEBody(const CECoordinates &coords, const std::string& name) :
 CEBody::~CEBody()
 {}
 
-#pragma Mark - Public methods
-

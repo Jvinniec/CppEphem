@@ -89,8 +89,6 @@ CEDate::~CEDate()
 {}
 
 
-#pragma mark - Public Methods
-
 /**********************************************************************//**
  * Set the date based on an actual date and the desired time_format
  * 
@@ -164,7 +162,6 @@ double CEDate::GetDate(CEDateType time_format)
     return date;
 }
 
-#pragma mark - Julian Date Converters
 
 /**********************************************************************//**
  * Julian date -> modified Julian date conversion method
@@ -396,7 +393,6 @@ double CEDate::UTC2TDB(double jd_utc, double dut1)
     return tdb1+tdb2 ;
 }
 
-#pragma mark - Helper Methods
 
 /**********************************************************************//**
  *************************************************************************/

@@ -90,7 +90,6 @@ CEObserver::~CEObserver()
     if (date_is_owned_) delete current_date_ ;
 }
 
-#pragma mark - Public Methods
 
 /**********************************************************************//**
  * Get the local sky coordinates for an object as observed
