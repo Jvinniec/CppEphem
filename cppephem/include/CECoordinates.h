@@ -368,8 +368,8 @@ public:
     
 protected:
     // Coordinate variables
-    double xcoord_;                 //<! X coordinate (radians)
-    double ycoord_;                 //<! Y coordinate (radians)
+    mutable double xcoord_;         //<! X coordinate (radians)
+    mutable double ycoord_;         //<! Y coordinate (radians)
     CECoordinateType coord_type_;   //<! Coordinate system to which 'xcoord_' and 'ycoord_' belong.
                                     //<! Possible values are "CIRS", "ICRS", "GALACTIC", "OBSERVED", and "GEOGRAPHIC"
     

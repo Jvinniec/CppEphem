@@ -47,13 +47,13 @@ public:
     void           SetMeanRadius_m(double new_radius);
     void           SetMass_kg(double new_mass);
     void           SetAlbedo(double new_albedo);
-    virtual double XCoordinate_Rad(double new_date=-1.0e30);
-    virtual double XCoordinate_Deg(double new_date=-1.0e30);
-    virtual double YCoordinate_Rad(double new_date=-1.0e30);
-    virtual double YCoordinate_Deg(double new_date=-1.0e30);
-    virtual void   UpdateCoordinates(double new_date=-1.0e30) ;
-    virtual void   Update_JPL(double new_date=-1.0e30) ;
-    virtual void   Update_SOFA(double new_date=-1.0e30) ;
+    virtual double XCoordinate_Rad(double new_date=-1.0e30) const;
+    virtual double XCoordinate_Deg(double new_date=-1.0e30) const;
+    virtual double YCoordinate_Rad(double new_date=-1.0e30) const;
+    virtual double YCoordinate_Deg(double new_date=-1.0e30) const;
+    virtual void   UpdateCoordinates(double new_date=-1.0e30) const;
+    virtual void   Update_JPL(double new_date=-1.0e30) const;
+    virtual void   Update_SOFA(double new_date=-1.0e30) const;
     
     /****************************
      * Methods for getting the current x,y,z coordinates and velocities relative to the ICRS point
@@ -135,14 +135,14 @@ protected:
     
     // The coordinates representing the current position will need to be
     // relative to some date, since planets move. This is the cached date
-    double cached_jd_ = 0.0 ;                   ///< Julian date of the current coordinates
-    double x_icrs_ = 0.0 ;                      ///< X-Coordinate relative to solar system barycenter
-    double y_icrs_ = 0.0 ;                      ///< Y-Coordinate relative to solar system barycenter
-    double z_icrs_ = 0.0 ;                      ///< Z-Coordinate relative to solar system barycenter
+    mutable double cached_jd_ = 0.0 ;                   ///< Julian date of the current coordinates
+    mutable double x_icrs_ = 0.0 ;                      ///< X-Coordinate relative to solar system barycenter
+    mutable double y_icrs_ = 0.0 ;                      ///< Y-Coordinate relative to solar system barycenter
+    mutable double z_icrs_ = 0.0 ;                      ///< Z-Coordinate relative to solar system barycenter
     // Note, these velocities are only computed for "algorithm_type_=SOFA" at the moment
-    double vx_icrs_ = 0.0 ;                     ///< X-velocity relative to solar system center
-    double vy_icrs_ = 0.0 ;                     ///< Y-velocity relative to solar system center
-    double vz_icrs_ = 0.0 ;                     ///< Z-velocity relative to solar system center
+    mutable double vx_icrs_ = 0.0 ;                     ///< X-velocity relative to solar system center
+    mutable double vy_icrs_ = 0.0 ;                     ///< Y-velocity relative to solar system center
+    mutable double vz_icrs_ = 0.0 ;                     ///< Z-velocity relative to solar system center
     
     /******************************************
      * Properties for the JPL algorithm
@@ -176,13 +176,15 @@ protected:
      * Methods for the JPL algorithm
      ******************************************/
 
-    inline double ComputeElement(double value, double value_derivative_, double time);
+    inline double ComputeElement(double value, 
+                                 double value_derivative_, 
+                                 double time) const;
     double        MeanAnomaly(double mean_longitude_deg,
                               double perihelion_long_deg,
-                              double T=0.0);
+                              double T=0.0) const;
     
     // Recursive formula necessary for the computation of eccentric anomoly
-    double EccentricAnomoly(double& M, double& e, double &En, double& del_E) ;
+    double EccentricAnomoly(double& M, double& e, double &En, double& del_E) const;
     
 };
 
@@ -250,7 +252,7 @@ void CEPlanet::SetAlbedo(double new_albedo)
 /**********************************************************************//**
  *************************************************************************/
 inline
-double CEPlanet::XCoordinate_Rad(double new_date)
+double CEPlanet::XCoordinate_Rad(double new_date) const
 {
     UpdateCoordinates(new_date);
     return CECoordinates::XCoordinate_Rad();
@@ -260,7 +262,7 @@ double CEPlanet::XCoordinate_Rad(double new_date)
 /**********************************************************************//**
  *************************************************************************/
 inline
-double CEPlanet::XCoordinate_Deg(double new_date)
+double CEPlanet::XCoordinate_Deg(double new_date) const
 {
     return XCoordinate_Rad(new_date)*DR2D;
 }
@@ -269,7 +271,7 @@ double CEPlanet::XCoordinate_Deg(double new_date)
 /**********************************************************************//**
  *************************************************************************/
 inline
-double CEPlanet::YCoordinate_Rad(double new_date)
+double CEPlanet::YCoordinate_Rad(double new_date) const
 {
     UpdateCoordinates(new_date) ;
     return CECoordinates::YCoordinate_Rad();
@@ -279,7 +281,7 @@ double CEPlanet::YCoordinate_Rad(double new_date)
 /**********************************************************************//**
  *************************************************************************/
 inline
-double CEPlanet::YCoordinate_Deg(double new_date)
+double CEPlanet::YCoordinate_Deg(double new_date) const
 {
     return YCoordinate_Rad(new_date)*DR2D;
 }
@@ -387,7 +389,7 @@ void CEPlanet::SetAlgorithm(CEPlanetAlgo new_algo)
  * @param[in] time                     Days since J2000 epoch
  *************************************************************************/
 inline 
-double CEPlanet::ComputeElement(double value, double value_derivative_, double time)
+double CEPlanet::ComputeElement(double value, double value_derivative_, double time) const
 {
     return value + value_derivative_*time;
 }

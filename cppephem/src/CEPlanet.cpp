@@ -585,7 +585,7 @@ void CEPlanet::SetAscendingNodeLongitude(double ascending_node_lon,
  * 
  * @param[in] new_jd       Julian date
  *************************************************************************/
-void CEPlanet::UpdateCoordinates(double new_jd)
+void CEPlanet::UpdateCoordinates(double new_jd) const
 {
     // If no date was supplied, or if the date hasnt changed, do nothing
     if ((new_jd < -1.0e29) || (new_jd == cached_jd_)) {
@@ -608,11 +608,11 @@ void CEPlanet::UpdateCoordinates(double new_jd)
     // Now compute the actual coordiantes in ICRS
     xcoord_ = std::atan2(y_eq, x_eq) ;
     ycoord_ = M_PI_2 - std::acos(z_eq / std::sqrt(x_eq*x_eq + y_eq*y_eq + z_eq*z_eq)) ;
-    
+
     // Make sure the x-coordinate is in the appropriate range
     while (xcoord_ > M_PI*2.0) xcoord_ -= M_PI*2.0 ;
     while (xcoord_ < 0.0) xcoord_ += M_PI*2.0 ;
-    
+
     // Now that the coordinates are updated, reset the time
     cached_jd_ = new_jd ;
 }
@@ -625,7 +625,7 @@ void CEPlanet::UpdateCoordinates(double new_jd)
  * 
  * @param[in] new_jd       Julian date
  *************************************************************************/
-void CEPlanet::Update_SOFA(double new_jd)
+void CEPlanet::Update_SOFA(double new_jd) const
 {
     //std::vector<std::vector<double> > p(2,std::vector<double>(3)) ;
     double pv[2][3] ;
@@ -661,7 +661,7 @@ void CEPlanet::Update_SOFA(double new_jd)
  * 
  * @param[in] new_jd       Julian date
  *************************************************************************/
-void CEPlanet::Update_JPL(double new_jd)
+void CEPlanet::Update_JPL(double new_jd) const
 {
     /* Date has changed, so we need to recompute the coordinates of this object */
     
@@ -737,7 +737,7 @@ void CEPlanet::Update_JPL(double new_jd)
  *************************************************************************/
 double CEPlanet::MeanAnomaly(double mean_longitude_deg,
                              double perihelion_long_deg,
-                             double T)
+                             double T) const
 {
     double M = mean_longitude_deg - perihelion_long_deg + (b_*T*T)
                 + c_*std::cos(f_*T*DD2R) + s_*std::sin(f_*T*DD2R) ;
@@ -759,7 +759,7 @@ double CEPlanet::MeanAnomaly(double mean_longitude_deg,
 double CEPlanet::EccentricAnomoly(double& M,
                                   double& e,
                                   double& En,
-                                  double& del_E)
+                                  double& del_E) const
 {
     // Note that because this method is called recursively, no
     // variables should be created inside of this method
