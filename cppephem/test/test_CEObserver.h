@@ -1,5 +1,5 @@
 /***************************************************************************
- *  test_CEObservation.h: CppEphem                                         *
+ *  test_CEObserver.h: CppEphem                                            *
  * ----------------------------------------------------------------------- *
  *  Copyright © 2019 JCardenzana                                           *
  * ----------------------------------------------------------------------- *
@@ -19,31 +19,29 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef test_CEObservation_h
-#define test_CEObservation_h
+#ifndef test_CEObserver_h
+#define test_CEObserver_h
 
-#include "CEObservation.h"
+#include "CEObserver.h"
 #include "CETestSuite.h"
 
-class test_CEObservation : public CETestSuite {
+class test_CEObserver : public CETestSuite {
 public:
-    test_CEObservation();
-    virtual ~test_CEObservation();
+    test_CEObserver();
+    virtual ~test_CEObserver();
 
     virtual bool runtests(void);
 
     /****** METHODS ******/
-
-    bool test_obj_return(void);
+    bool test_copy();
+    bool test_set_geoCoords(void);
+    bool test_set_atmoPars(void);
 
 private:
 
     /***** VARIABLES *****/
 
-    CEBody        base_body_;
-    CEDate        base_date_;
-    CEObserver    base_observer_;
-    CEObservation base_obs_;
+    CEObserver base_obs_;
 };
 
-#endif /* test_CEObservation_h */
+#endif /* test_CEObserver_h */

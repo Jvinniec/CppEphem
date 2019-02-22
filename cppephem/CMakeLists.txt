@@ -59,3 +59,5 @@ cppephem_test(test_CECoordinates test/test_CECoordinates.cpp test/test_CECoordin
 cppephem_test(test_CEDate        test/test_CEDate.cpp        test/test_CEDate.h        ${cppephem_SOURCES} ${cppephem_HEADERS})
 cppephem_test(test_CEException   test/test_CEException.cpp   test/test_CEException.h   ${cppephem_SOURCES} ${cppephem_HEADERS})
 cppephem_test(test_CENamespace   test/test_CENamespace.cpp   test/test_CENamespace.h   ${cppephem_SOURCES} ${cppephem_HEADERS})
+cppephem_test(test_CEObservation test/test_CEObservation.cpp test/test_CEObservation.h ${cppephem_SOURCES} ${cppephem_HEADERS})
+cppephem_test(test_CEObserver    test/test_CEObserver.cpp    test/test_CEObserver.h    ${cppephem_SOURCES} ${cppephem_HEADERS})

@@ -24,6 +24,8 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
     LLVM_PROFILE_FILE="${outdir}/CEDate.profraw"        ./build/bin/test_CEDate
     LLVM_PROFILE_FILE="${outdir}/CEException.profraw"   ./build/bin/test_CEException
     LLVM_PROFILE_FILE="${outdir}/CENamespace.profraw"   ./build/bin/test_CENamespace
+    LLVM_PROFILE_FILE="${outdir}/CEObservation.profraw" ./build/bin/test_CEObservation
+    LLVM_PROFILE_FILE="${outdir}/CEObserver.profraw"    ./build/bin/test_CEObserver
 
     # Put all the coverage output files into a single file
     ls ${outdir}/*.profraw > ${cov_reports}
@@ -42,6 +44,8 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
         -object ./build/bin/test_CEDate \
         -object ./build/bin/test_CEException \
         -object ./build/bin/test_CENamespace \
+        -object ./build/bin/test_CEObservation \
+        -object ./build/bin/test_CEObserver \
         > ${outdir}/coverage_report.txt
 
     # Run sonnar scanner to analyze code and coverage statistics
