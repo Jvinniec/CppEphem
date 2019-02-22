@@ -1,6 +1,9 @@
 # Enable C++ support
 language: cpp
 
+git:
+  depth: false
+  
 addons:
   sonarcloud:
     organization: "jvinniec-github"
