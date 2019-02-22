@@ -33,8 +33,6 @@
 #include "CECoordinates.h"
 #include "CEObserver.h"
 
-#pragma mark - Constructors & Destructors
-
 /**********************************************************************//**
  * Default constructor
  *************************************************************************/
@@ -92,9 +90,7 @@ CECoordinates::CECoordinates(const CECoordinates& other) :
  *************************************************************************/
 CECoordinates::~CECoordinates()
 {}
-#pragma mark - Public Methods
 
-#pragma mark - Conversion routines
 
 /**********************************************************************//**
  * CIRS -> ICRS coordinate conversion.
