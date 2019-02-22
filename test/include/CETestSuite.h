@@ -56,7 +56,7 @@ protected:
                      const std::string& function,
                      const int&         line);
 
-    // Testing methods
+    // Testing methods for basic types
     virtual bool test_double(const double&      value, 
                              const double&      expected,
                              const std::string& function = FUNC_DEFAULT,
