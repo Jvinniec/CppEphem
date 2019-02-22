@@ -1,7 +1,7 @@
 /***************************************************************************
  *  test_CENamespace.cpp: CppEphem                                         *
  * ----------------------------------------------------------------------- *
- *  Copyright © 2018 JCardenzana                                           *
+ *  Copyright © 2019 JCardenzana                                           *
  * ----------------------------------------------------------------------- *
  *                                                                         *
  *  This program is free software: you can redistribute it and/or modify   *
