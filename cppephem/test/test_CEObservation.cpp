@@ -35,10 +35,10 @@
 test_CEObservation::test_CEObservation() :
     CETestSuite()
 {
-    base_observer_;
+    base_observer_ = CEObserver(-110.952, 31.6751, 1268.0);
     base_date_ = CEDate(CppEphem::julian_date_J2000(), CEDateType::JD);
     base_body_ = CEBody();
-    base_obs_ = CEObservation();
+    base_obs_ = CEObservation(&base_observer_, &base_body_, &base_date_);
 }
 
 

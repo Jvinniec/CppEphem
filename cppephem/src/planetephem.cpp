@@ -52,10 +52,9 @@ int main(int argc, char** argv)
     CEObserver observer(opts.AsDouble("longitude"),
                         opts.AsDouble("latitude"),
                         opts.AsDouble("elevation"),
-                        CEAngleType::DEGREES,
-                        &date) ;
+                        CEAngleType::DEGREES) ;
     
-    CEObservation coords(&observer, &planet) ;
+    CEObservation coords(&observer, &planet, &date) ;
     
     // Now list the information requested
     PrintEphemeris(coords, opts.AsDouble("duration"), opts.AsDouble("step")) ;
@@ -131,7 +130,7 @@ void PrintEphemeris(CEObservation& obs, double duration, double step_size)
     CEDate* date = obs.Date() ;
     CEPlanet* planet = dynamic_cast<CEPlanet*>( obs.Body() ) ;
     CEObserver* observer = obs.Observer() ;
-    std::vector<double> localtime = CETime::TimeDbl2Vect(observer->Date()->GetTime(observer->UTCOffset())) ;
+    std::vector<double> localtime = CETime::TimeDbl2Vect(date->GetTime(observer->UTCOffset())) ;
     
     // Print some information about the observer
     std::vector<double> long_hms = CECoordinates::GetDMS( observer->Longitude_Deg() ) ;
