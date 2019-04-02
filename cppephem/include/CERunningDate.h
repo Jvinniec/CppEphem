@@ -34,9 +34,9 @@ public:
     
     // Some overloaded methods to make sure that the current
     // values are obtained first
-    virtual double JD() ;
-    virtual double MJD() ;
-    virtual double Gregorian() ;
+    virtual double JD() const;
+    virtual double MJD() const;
+    virtual double Gregorian() const;
     
     // Method that can be used to change the date that is stored in this object
     virtual void SetDate(double date=CEDate::CurrentJD(), CEDateType time_format=CEDateType::JD) ;
@@ -44,10 +44,10 @@ public:
     virtual void SetDate(std::vector<double> date) ;
     
     /// Method for getting the number of seconds since this object was created or reset
-    virtual double RunTime() ;
+    virtual double RunTime() const;
 
     /// Returns the ellapsed time scaled by some factor
-    inline double ScaledRunTime()
+    inline double ScaledRunTime() const
         {return timer_speed_factor_ * RunTime() ;}
     /// Method for resetting the 'start' variable
     inline void ResetTime()

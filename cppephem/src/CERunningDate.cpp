@@ -60,7 +60,7 @@ CERunningDate::~CERunningDate()
  * 
  * @return Instantaneous Julian date
  *************************************************************************/
-double CERunningDate::JD()
+double CERunningDate::JD() const
 {
     // Get the current Julian date
     return julian_date_ + (ScaledRunTime()/86400.0) ;
@@ -71,7 +71,7 @@ double CERunningDate::JD()
  * 
  * @return Instantaneous modified Julian date
  *************************************************************************/
-double CERunningDate::MJD()
+double CERunningDate::MJD() const
 {
     return JD2MJD( JD() ) ;
 }
@@ -81,7 +81,7 @@ double CERunningDate::MJD()
  * 
  * @return Instantaneous Gregorian calendar date formatted as YYYYMMDD.D
  *************************************************************************/
-double CERunningDate::Gregorian()
+double CERunningDate::Gregorian() const
 {
     return JD2Gregorian( JD() ) ;
 }
@@ -116,7 +116,7 @@ void CERunningDate::SetDate(std::vector<double> date)
 /**********************************************************************//**
  * Get the number of seconds since the creation of this object
  *************************************************************************/
-double CERunningDate::RunTime()
+double CERunningDate::RunTime() const
 {
     return (std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() - std::chrono::duration_cast<std::chrono::microseconds>(start.time_since_epoch()).count())/1000000.0;
 }
