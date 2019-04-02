@@ -27,13 +27,14 @@
 #include "CEBody.h"
 #include "CEDate.h"
 #include "CEObserver.h"
+#include "CENamespace.h"
 
 
 class CEObservation {
 public:
     // Constructors
     CEObservation() ;
-    CEObservation(CEObserver* observer, CEBody* body, CEDate* date=nullptr) ;
+    CEObservation(CEObserver* observer, CEBody* body, CEDate* date);
     virtual ~CEObservation() ;
     
     /// Set the observer object
@@ -67,9 +68,9 @@ public:
     
 protected:
     
-    CEBody*     body_     = nullptr;    //<! Object being observed
-    CEDate*     date_     = nullptr;    //<! Store a pointer to a CEDate object
-    CEObserver* observer_ = nullptr;    //<! Store a pointer to a CEObserver object
+    CEBody*     body_;                  //<! Object being observed
+    CEDate*     date_;                  //<! Store a pointer to a CEDate object
+    CEObserver* observer_;              //<! Store a pointer to a CEObserver object
     
     // Cached the observed parameters to make subsequent calls faster,
     // i.e. since they all get computed at the same time there's no need

@@ -46,14 +46,10 @@ CEObservation::CEObservation()
  *     @param date             CEDate object linked with these coordinates.
  *************************************************************************/
 CEObservation::CEObservation(CEObserver* observer, CEBody* body, CEDate* date) :
-    observer_(observer),
     body_(body),
-    date_(date)
+    date_(date),
+    observer_(observer)
 {
-    if (date_==nullptr) {
-        date_ = observer_->Date() ;
-    }
-    
     UpdateCoordinates() ;
 }
 
@@ -140,9 +136,10 @@ bool CEObservation::UpdateCoordinates()
     // Compute the observed coordinates based on the coordinates of "body_"
     if (body_coords == CECoordinateType::CIRS) {
         // Convert from CIRS -> Observed
-        CEBody::CIRS2Observed(body_->XCoordinate_Rad(*observer_->Date()),
-                              body_->YCoordinate_Rad(*observer_->Date()),
+        CEBody::CIRS2Observed(body_->XCoordinate_Rad(*date_),
+                              body_->YCoordinate_Rad(*date_),
                               &cached_azimuth_, &cached_zenith_,
+                              *date_,
                               *observer_,
                               CEAngleType::RADIANS,
                               observer_->Wavelength_um(),
@@ -151,9 +148,10 @@ bool CEObservation::UpdateCoordinates()
                               &cached_hour_angle_) ;
     } else if (body_coords == CECoordinateType::GALACTIC) {
         // Convert Galactic -> Observerd
-        CEBody::Galactic2Observed(body_->XCoordinate_Rad(*observer_->Date()),
-                              body_->YCoordinate_Rad(*observer_->Date()),
+        CEBody::Galactic2Observed(body_->XCoordinate_Rad(*date_),
+                              body_->YCoordinate_Rad(*date_),
                               &cached_azimuth_, &cached_zenith_,
+                              *date_,
                               *observer_,
                               CEAngleType::RADIANS,
                               observer_->Wavelength_um(),
@@ -162,9 +160,10 @@ bool CEObservation::UpdateCoordinates()
                               &cached_hour_angle_) ;
     } else if (body_coords == CECoordinateType::ICRS) {
         // Convert CIRS -> Observed
-        CEBody::ICRS2Observed(body_->XCoordinate_Rad(*observer_->Date()),
-                              body_->YCoordinate_Rad(*observer_->Date()),
+        CEBody::ICRS2Observed(body_->XCoordinate_Rad(*date_),
+                              body_->YCoordinate_Rad(*date_),
                               &cached_azimuth_, &cached_zenith_,
+                              *date_,
                               *observer_,
                               CEAngleType::RADIANS,
                               observer_->Wavelength_um(),
@@ -191,7 +190,7 @@ bool CEObservation::UpdateCoordinates()
 bool CEObservation::DateHasChanged()
 {
     // Make sure the date object isnt nullptr
-    if (date_==nullptr) {
+    if (date_ == nullptr) {
         return false ;
     }
     // Check if the date object has changed since the last time we querried it
