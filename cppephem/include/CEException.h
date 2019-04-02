@@ -36,7 +36,7 @@ public:
         char** bcktrace = backtrace_symbols(array, size);
 
         message_ += "Exception encountered. Printing backtrace...\n";
-        for (size_t i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             message_ += std::string(bcktrace[i]) + "\n";
         }
     }
