@@ -182,6 +182,7 @@ void CECoordinates::CIRS2Galactic(double input_ra, double input_dec, double *glo
  *************************************************************************/
 int CECoordinates::CIRS2Observed(double ra, double dec,
                                  double *az, double *zen,
+                                 CEDate&     date,
                                  CEObserver& observer,
                                  CEAngleType angle_type,
                                  double wavelength,
@@ -204,16 +205,16 @@ int CECoordinates::CIRS2Observed(double ra, double dec,
     
     int err_code = CIRS2Observed(ra, dec,
                                  az, zen,
-                                 observer.Date()->JD(),
+                                 date.JD(),
                                  observer.Longitude_Rad(),
                                  observer.Latitude_Rad(),
                                  observer.Elevation_m(),
                                  observer.Pressure_hPa(),
                                  observer.Temperature_C(),
                                  observer.RelativeHumidity(),
-                                 observer.Date()->dut1(),
-                                 observer.Date()->xpolar(),
-                                 observer.Date()->xpolar(),
+                                 date.dut1(),
+                                 date.xpolar(),
+                                 date.xpolar(),
                                  wavelength,
                                  observed_ra, 
                                  observed_dec, 
@@ -319,16 +320,15 @@ void CECoordinates::ICRS2Galactic(double input_ra, double input_dec, double *glo
  * @param[out] observed_dec Apparent ICRS Declination
  * @param[out] hour_angle   Observed hour angle of object
  *************************************************************************/
-int CECoordinates::ICRS2Observed(double ra, double dec,             // RA, Dec in CIRS coordinates
-                                 double *az, double *zen,           // Azimuth, zenith angle
-                                 CEObserver& observer,        // Observer quantities, like geographic position,
-                                                                    // weather conditions, and date
-                                 CEAngleType angle_type,  // Angle type for all angles provided
-                                                                    // (either RADIANS or DEGREES)
-                                 double wavelength,                 // Observing wavelength (micrometers)
-                                 double *observed_ra,               // Observed CIRS right ascension
-                                 double *observed_dec,              // Observed CIRS declination
-                                 double *hour_angle)                // Observed hour angle
+int CECoordinates::ICRS2Observed(double ra, double dec,
+                                 double *az, double *zen,
+                                 CEDate&     date,
+                                 CEObserver& observer,
+                                 CEAngleType angle_type,
+                                 double wavelength,
+                                 double *observed_ra,
+                                 double *observed_dec,
+                                 double *hour_angle)
 {
     // If we've passed in angles that are in degrees we need to convert to radians
     if (angle_type == CEAngleType::DEGREES) {
@@ -339,16 +339,16 @@ int CECoordinates::ICRS2Observed(double ra, double dec,             // RA, Dec i
     // Call the necessary sofa method
     int err_code = ICRS2Observed(ra, dec,
                                  az, zen,
-                                 observer.Date()->JD(),
+                                 date.JD(),
                                  observer.Longitude_Rad(),
                                  observer.Latitude_Rad(),
                                  observer.Elevation_m(),
                                  observer.Pressure_hPa(),
                                  observer.Temperature_C(),
                                  observer.RelativeHumidity(),
-                                 observer.Date()->dut1(),
-                                 observer.Date()->xpolar(),
-                                 observer.Date()->xpolar(),
+                                 date.dut1(),
+                                 date.xpolar(),
+                                 date.xpolar(),
                                  wavelength,
                                  observed_ra, observed_dec, hour_angle) ;
     
@@ -446,6 +446,7 @@ void CECoordinates::Galactic2ICRS(double glon, double glat, double *ra, double *
  *************************************************************************/
 int CECoordinates::Galactic2Observed(double glon, double glat,
                                      double *az, double *zen,
+                                     CEDate&     date,
                                      CEObserver& observer,
                                      CEAngleType angle_type,
                                      double wavelength,
@@ -462,16 +463,16 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
     // Do the conversion
     int error_code = Galactic2Observed(glon, glat,
                                        az, zen,
-                                       observer.Date()->JD(),
+                                       date.JD(),
                                        observer.Longitude_Rad(),
                                        observer.Latitude_Rad(),
                                        observer.Elevation_m(),
                                        observer.Pressure_hPa(),
                                        observer.Temperature_C(),
                                        observer.RelativeHumidity(),
-                                       observer.Date()->dut1(),
-                                       observer.Date()->xpolar(),
-                                       observer.Date()->xpolar(),
+                                       date.dut1(),
+                                       date.xpolar(),
+                                       date.xpolar(),
                                        wavelength,
                                        observed_glon, observed_glat, hour_angle) ;
     
@@ -504,6 +505,7 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
  *************************************************************************/
 int CECoordinates::Observed2CIRS(double az, double zen,
                             double *ra, double *dec,
+                            CEDate&     date,
                             CEObserver& observer,
                             CEAngleType angle_type)
 {
@@ -514,13 +516,14 @@ int CECoordinates::Observed2CIRS(double az, double zen,
     }
     
     // Call the raw method
-    int err_code = Observed2CIRS(az, zen, ra, dec, observer.Date()->JD(),
+    int err_code = Observed2CIRS(az, zen, ra, dec, date.JD(),
                   observer.Longitude_Rad(), observer.Latitude_Rad(),
                   observer.Elevation_m(),
                   observer.Pressure_hPa(), observer.Temperature_C(),
                   observer.RelativeHumidity(),
-                  observer.Date()->dut1(),
-                  observer.Date()->xpolar(), observer.Date()->ypolar(),
+                  date.dut1(),
+                  date.xpolar(), 
+                  date.ypolar(),
                   observer.Wavelength_um()) ;
     
     // Convert back to degrees if necessary
@@ -544,6 +547,7 @@ int CECoordinates::Observed2CIRS(double az, double zen,
  *************************************************************************/
 int CECoordinates::Observed2ICRS(double az, double zen,
                                  double *ra, double *dec,
+                                 CEDate&     date,
                                  CEObserver& observer,
                                  CEAngleType angle_type)
 {
@@ -554,13 +558,17 @@ int CECoordinates::Observed2ICRS(double az, double zen,
     }
     
     // Call the raw method
-    int err_code = Observed2ICRS(az, zen, ra, dec, observer.Date()->JD(),
-                  observer.Longitude_Rad(), observer.Latitude_Rad(),
+    int err_code = Observed2ICRS(az, zen, ra, dec, 
+                  date.JD(),
+                  observer.Longitude_Rad(), 
+                  observer.Latitude_Rad(),
                   observer.Elevation_m(),
-                  observer.Pressure_hPa(), observer.Temperature_C(),
+                  observer.Pressure_hPa(), 
+                  observer.Temperature_C(),
                   observer.RelativeHumidity(),
-                  observer.Date()->dut1(),
-                  observer.Date()->xpolar(), observer.Date()->ypolar(),
+                  date.dut1(),
+                  date.xpolar(), 
+                  date.ypolar(),
                   observer.Wavelength_um()) ;
     
     // Convert back to degrees if necessary
@@ -584,6 +592,7 @@ int CECoordinates::Observed2ICRS(double az, double zen,
  *************************************************************************/
 int CECoordinates::Observed2Galactic(double az, double zen,
                                  double *glon, double *glat,
+                                 CEDate&     date,
                                  CEObserver& observer,
                                  CEAngleType angle_type)
 {
@@ -594,13 +603,13 @@ int CECoordinates::Observed2Galactic(double az, double zen,
     }
     
     // Call the raw method
-    int err_code = Observed2Galactic(az, zen, glon, glat, observer.Date()->JD(),
+    int err_code = Observed2Galactic(az, zen, glon, glat, date.JD(),
                   observer.Longitude_Rad(), observer.Latitude_Rad(),
                   observer.Elevation_m(),
                   observer.Pressure_hPa(), observer.Temperature_C(),
                   observer.RelativeHumidity(),
-                  observer.Date()->dut1(),
-                  observer.Date()->xpolar(), observer.Date()->ypolar(),
+                  date.dut1(),
+                  date.xpolar(), date.ypolar(),
                   observer.Wavelength_um()) ;
     
     // Convert back to degrees if necessary
@@ -1003,16 +1012,16 @@ int CECoordinates::Observed2Galactic(double az, double zen,
  * @param[in]  wavelength_um        Wavelength being observed (micrometers)
  * @return These coordinates converted into the observed coordinates of the observer specified
  *************************************************************************/
-CECoordinates CECoordinates::GetObservedCoords(double julian_date,
-                                double longitude,
-                                double latitude,
-                                double elevation_m,
-                                double pressure_hPa,
-                                double temperature_celsius,
-                                double relative_humidity,
-                                double dut1,
-                                double xp, double yp,
-                                double wavelength)
+CECoordinates CECoordinates::GetObservedCoords(const double& julian_date,
+                                const double& longitude,
+                                const double& latitude,
+                                const double& elevation_m,
+                                const double& pressure_hPa,
+                                const double& temperature_celsius,
+                                const double& relative_humidity,
+                                const double& dut1,
+                                const double& xp, const double& yp,
+                                const double& wavelength)
 {
     double azimuth(0), zenith(0);
     double observed1(0), observed2(0), observed3(0);
@@ -1058,11 +1067,11 @@ CECoordinates CECoordinates::GetObservedCoords(double julian_date,
  * @param[in] wavelength_um        Wavelength being observed (micrometers)
  * @return These coordinates converted into the observed coordinates of 'observer'
  *************************************************************************/
-CECoordinates CECoordinates::GetObservedCoords(CEDate& julian_date,
-                                CEObserver& observer,
-                                double dut1,
-                                double xp, double yp,
-                                double wavelength_um)
+CECoordinates CECoordinates::GetObservedCoords(const CEDate& julian_date,
+                                               const CEObserver& observer,
+                                               const double& dut1,
+                                               const double& xp, const double& yp,
+                                               const double& wavelength_um)
 {
     return GetObservedCoords(julian_date,
                              observer.Longitude_Rad(),
@@ -1171,7 +1180,7 @@ double CECoordinates::AngularSeparation(double xcoord_first,
  *       date will instead be derived from the observers date.
  * 
  * @param[in] output_coord_type    Output coordinate type (see CECoordinateType)
- * @param[in] jd                   Julian date for conversion
+ * @param[in] date                 Julian date for conversion
  * @param[in] observer             If these coordinates are OBSERVED, then observer
  *                                 represents the observer for these coordinates.
  *                                 Otherwise they represent the observer to convert
@@ -1179,26 +1188,24 @@ double CECoordinates::AngularSeparation(double xcoord_first,
  * @return Coordinates object that represents coordinates we're converting to
  *************************************************************************/
 CECoordinates CECoordinates::ConvertTo(CECoordinateType output_coord_type,
-                                       CEObserver* observer, double jd)
+                                       const CEObserver& observer, 
+                                       const CEDate& date)
 {
-    if (observer == nullptr) {
-        return ConvertTo(output_coord_type, jd) ;
-    } else {
-        jd = observer->Date()->JD();
-        return ConvertTo(output_coord_type,
-                         jd,
-                         observer->Longitude_Rad(),
-                         observer->Latitude_Rad(),
-                         observer->Elevation_m(),
-                         observer->Pressure_hPa(),
-                         observer->Temperature_C(),
-                         observer->RelativeHumidity(),
-                         CEDate::dut1(jd),
-                         CEDate::xpolar(jd),
-                         CEDate::ypolar(jd),
-                         observer->Wavelength_um()) ;
-    }
+    CEDate tmpdate(date);
+    return ConvertTo(output_coord_type,
+                     tmpdate,
+                     observer.Longitude_Rad(),
+                     observer.Latitude_Rad(),
+                     observer.Elevation_m(),
+                     observer.Pressure_hPa(),
+                     observer.Temperature_C(),
+                     observer.RelativeHumidity(),
+                     tmpdate.dut1(),
+                     tmpdate.xpolar(),
+                     tmpdate.ypolar(),
+                     observer.Wavelength_um()) ;
 }
+
 
 /**********************************************************************//**
  * Convert these coordinates to another coordinate system

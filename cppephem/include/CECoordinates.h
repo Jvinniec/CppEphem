@@ -109,6 +109,7 @@ public:
                              double dec,
                              double *az,
                              double *zen,
+                             CEDate&     date,
                              CEObserver& observer,
                              CEAngleType angle_type=CEAngleType::RADIANS,
                              double wavelength_um=0.5,
@@ -132,6 +133,7 @@ public:
                              double dec,
                              double *az,
                              double *zen,
+                             CEDate&     date,
                              CEObserver& observer,
                              CEAngleType angle_type=CEAngleType::RADIANS,
                              double wavelength_um=0.5,
@@ -149,6 +151,7 @@ public:
                                  double glat,
                                  double *az,
                                  double *zen,
+                                 CEDate&     date,
                                  CEObserver& observer,
                                  CEAngleType angle_type=CEAngleType::RADIANS,
                                  double wavelength_um=0.5,
@@ -160,18 +163,21 @@ public:
                               double zen,
                               double *ra,
                               double *dec,
+                              CEDate&     date,
                               CEObserver& observer,
                               CEAngleType angle_type=CEAngleType::RADIANS);
     static int Observed2ICRS(double az,
                               double zen,
                               double *ra,
                               double *dec,
+                              CEDate&     date,
                               CEObserver& observer,
                               CEAngleType angle_type=CEAngleType::RADIANS);
     static int Observed2Galactic(double az,
                               double zen,
                               double *glon,
                               double *glat,
+                              CEDate&     date,
                               CEObserver& observer,
                               CEAngleType angle_type=CEAngleType::RADIANS);
     
@@ -282,28 +288,28 @@ public:
                              double xp=0.0, double yp=0.0,
                              double wavelength_um=0.50);
     
-    virtual CECoordinates GetObservedCoords(double julian_date,
-                            double longitude,
-                            double latitude,
-                            double elevation_m=0.0,
-                            double pressure_hPa=-1.0,
-                            double temperature_celsius=-1000,
-                            double relative_humidity=0.0,
-                            double dut1=0.0,
-                            double xp=0.0, double yp=0.0,
-                            double wavelength_um=0.5);
-    virtual CECoordinates GetObservedCoords(CEDate& date,
-                            CEObserver& observer,
-                            double dut1=0.0,
-                            double xp=0.0, double yp=0.0,
-                            double wavelength_um=0.5);
+    virtual CECoordinates GetObservedCoords(const double& julian_date,
+                            const double& longitude,
+                            const double& latitude,
+                            const double& elevation_m=0.0,
+                            const double& pressure_hPa=-1.0,
+                            const double& temperature_celsius=-1000,
+                            const double& relative_humidity=0.0,
+                            const double& dut1=0.0,
+                            const double& xp=0.0, const double& yp=0.0,
+                            const double& wavelength_um=0.5);
+    virtual CECoordinates GetObservedCoords(const CEDate& date,
+                            const CEObserver& observer,
+                            const double& dut1=0.0,
+                            const double& xp=0.0, const double& yp=0.0,
+                            const double& wavelength_um=0.5);
 
     /*********************************************************
      * More generic methods for converting between coordinate types
      *********************************************************/
     CECoordinates ConvertTo(CECoordinateType output_coord_type,
-                            CEObserver* observer=nullptr,
-                            double jd=CEDate::CurrentJD());
+                            const CEObserver& observer,
+                            const CEDate&     date=CEDate::CurrentJD());
     
     CECoordinates ConvertTo(CECoordinateType output_coord_type,
                             double jd=CEDate::CurrentJD(),
@@ -314,6 +320,7 @@ public:
                             double temperature_celsius=-1000,
                             double relative_humidity=0.0,
                             double dut1=0.0,
+
                             double xp=0.0, double yp=0.0,
                             double wavelength_um=0.5);
     
