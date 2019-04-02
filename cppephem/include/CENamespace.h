@@ -25,6 +25,7 @@
 #include <cmath>
 #include <map>
 #include <sofa.h>
+#include <memory>
 
 #define MINMJDFORDUT1 43144.0
 #define MAXMJDFORDUT1 57448.0
@@ -39,11 +40,13 @@ namespace CppEphem {
     inline double SeaLevelTemp_K() {return 288.2 ;}
     inline double SeaLevelTemp_C() {return SeaLevelTemp_K()-273.15 ;}
     inline double SeaLevelTemp_F() {return ((9.0/5.0)*SeaLevelTemp_C())+32.0 ;}
+    
     // Some constants taken from the sofa dictionary, but with some more discriptive names
     inline double julian_date_J2000() {return DJ00 ;}           ///< Julian Date corresponding to J2000
     inline double c() {return DC * DAU / DAYSEC ;}              ///< speed of light (meters/second)
     inline double c_au_per_day() {return DC ;}                  ///< speed of light (astronomical units)/day
     inline double m_per_au() {return DAU ;}                     ///< meters per astronomical unit
+    inline double sec_per_day() {return DAYSEC;}                ///< Seconds per day
     
     /*********************************************
      * Return the 'dut1' value which represents 
