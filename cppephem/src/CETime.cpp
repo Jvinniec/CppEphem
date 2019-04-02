@@ -47,7 +47,8 @@ CETime::CETime() :
  * @param time             Time from a HHMMSS.S formatted double
  * @param time_format      Specifies what type is represented by 'time' (see ::CETimeType)
  *************************************************************************/
-CETime::CETime(double time, CETimeType time_format) :
+CETime::CETime(const double& time, 
+               CETimeType    time_format) :
     CETime(TimeDbl2Vect(time), time_format)
 {}
 
@@ -67,7 +68,7 @@ CETime::CETime(std::vector<double> time, CETimeType time_format) :
     time_type_(time_format)
 {
     // Just in case the passed "time" variable isnt the same length
-    for (int i=0; i<time.size(); i++) {
+    for (size_t i=0; i<time.size(); i++) {
         time_[i] = time[i] ;
         // In case "time" has more than 4 elements,
         // quit when we've stored the first 4
@@ -145,7 +146,7 @@ std::vector<double> CETime::CurrentUTC_vect()
  * @param jd           Julian date
  * @return             Seconds since midnight for given Julian date
  *************************************************************************/
-double CETime::UTC(double jd)
+double CETime::UTC(const double& jd)
 {
     // Note that Julian date is defined such that midnight is at half julian days
     return (jd - (std::floor(jd+0.5)-0.5))*86400.0 ;
@@ -161,7 +162,7 @@ double CETime::UTC(double jd)
  *                     - time[2] = seconds
  *                     - time[3] = fractions of a second
  *************************************************************************/
-std::vector<double> CETime::UTC_vect(double jd)
+std::vector<double> CETime::UTC_vect(const double& jd)
 {
     return TimeDbl2Vect( TimeSec2Time( UTC(jd) ) ) ;
 }
@@ -171,7 +172,7 @@ std::vector<double> CETime::UTC_vect(double jd)
  * Set time from double of the form HHMMSS.SS and a specified time format
  * @param time             HHMMSS.SS formated time variable
  *************************************************************************/
-void CETime::SetTime(double time, CETimeType time_format)
+void CETime::SetTime(const double& time, CETimeType time_format)
 {
     // Convert the double into a vector
     std::vector<double> time_vect = TimeDbl2Vect(time) ;
@@ -208,14 +209,14 @@ void CETime::SetTime(std::vector<double> time_vect, CETimeType time_format)
  *************************************************************************/
 void CETime::UTC2GAST()
 {
-    
+    // TODO
 }
 
 /**********************************************************************//**
  *************************************************************************/
 void CETime::UTC2LAST()
 {
-    
+    // TODO
 }
 
 /**********************************************************************//**
@@ -254,7 +255,7 @@ double CETime::TimeVect2Dbl(std::vector<double> time)
  *                         - time[2] = seconds
  *                         - time[3] = fractions of a second
  *************************************************************************/
-std::vector<double> CETime::TimeDbl2Vect(double time)
+std::vector<double> CETime::TimeDbl2Vect(const double& time)
 {
     // Create a vector to hold the information
     std::vector<double> time_vect(4,0.0) ;
@@ -281,12 +282,19 @@ std::vector<double> CETime::TimeDbl2Vect(double time)
  *         - time[2] = seconds
  *         - time[3] = fractions of a second
  *************************************************************************/
-double CETime::TimeSec2Time(double seconds)
+double CETime::TimeSec2Time(const double& seconds)
 {
-    double fracsec = seconds - std::floor(seconds) ;    // Fractions of a second
-    double sec = int(std::floor(seconds)) % 60 ;        // Whole seconds
-    double min = int(std::floor(seconds-sec)/60) % 60 ; // Whole minutes
-    double hrs = int(std::floor(seconds-sec)/60)/60 ;   // Whole hours
+    // Make sure the seconds are positive
+    double secs(seconds);
+    while (secs < 0.0) {
+        secs += CppEphem::sec_per_day();
+    }
+
+    // Now do the actual conversion to a vector
+    double fracsec = secs - std::floor(secs) ;          // Fractions of a second
+    double sec = int(std::floor(secs)) % 60 ;           // Whole seconds
+    double min = int(std::floor(secs-sec)/60) % 60 ;    // Whole minutes
+    double hrs = int(std::floor(secs-sec)/60)/60 ;      // Whole hours
     return (hrs*10000) + (min*100) + sec + fracsec ;    // Formatted double (HHMMSS.S)
 }
 
@@ -296,7 +304,7 @@ double CETime::TimeSec2Time(double seconds)
  * @param seconds          Seconds since midnight
  * @return
  *************************************************************************/
-std::vector<double> CETime::TimeSec2Vect(double seconds)
+std::vector<double> CETime::TimeSec2Vect(const double& seconds)
 {
     return TimeDbl2Vect( TimeSec2Time(seconds) ) ;
 }
