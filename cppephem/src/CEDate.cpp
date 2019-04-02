@@ -142,7 +142,7 @@ void CEDate::SetDate(std::vector<double> date)
  * 
  * @param[in] time_format Format of the output time object (see ::CEDateType)
  *************************************************************************/
-double CEDate::GetDate(CEDateType time_format)
+double CEDate::GetDate(CEDateType time_format) const
 {
     // Initialize the return date
     double date(0);
@@ -529,7 +529,7 @@ double CEDate::GetSecondsSinceMidnight(double utc_offset)
  * @param utc_offset       Observer UTC offset (dont forget about daylight saving time)
  * @return Current time formatted as HHMMSS.S
  *************************************************************************/
-double CEDate::GetTime(double utc_offset)
+double CEDate::GetTime(const double& utc_offset) const
 {
     double jd_offset = JD() + (utc_offset/24.0) ;
     return CETime::TimeSec2Time( CETime::UTC( jd_offset ) ) ;
@@ -541,7 +541,7 @@ double CEDate::GetTime(double utc_offset)
  * 
  * @return Current time formatted as HHMMSS.S
  *************************************************************************/
-double CEDate::GetTime_UTC()
+double CEDate::GetTime_UTC() const
 {
     return GetTime() ;
 }
@@ -576,6 +576,16 @@ double CEDate::CurrentJD()
  * 'double' representing the date formatted according to 'return_type_'.
  *************************************************************************/
 CEDate::operator double()
+{
+    // Return the date formatted according to the 'return_type_' variable
+    return GetDate(return_type_) ;
+}
+
+/**********************************************************************//**
+ * Overload of the CEDate object which allows the object to be treated as a
+ * 'double' representing the date formatted according to 'return_type_'.
+ *************************************************************************/
+CEDate::operator double() const
 {
     // Return the date formatted according to the 'return_type_' variable
     return GetDate(return_type_) ;

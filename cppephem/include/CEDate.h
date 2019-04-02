@@ -57,11 +57,10 @@ public:
     /***********************************************************
      * Methods for getting the stored date in the various formats
      ***********************************************************/
-    double                      GetDate(CEDateType time_format=CEDateType::JD);
-    virtual double              JD();
-    //virtual void                JD(const double& jd);
-    virtual double              MJD();
-    virtual double              Gregorian();
+    double                      GetDate(CEDateType time_format=CEDateType::JD) const;
+    virtual double              JD() const;
+    virtual double              MJD() const;
+    virtual double              Gregorian() const;
     virtual std::vector<double> GregorianVect();
     int                         Year();
     int                         Month();
@@ -102,9 +101,9 @@ public:
     static double GregorianVect2Gregorian(std::vector<double> gregorian) ;
     static std::vector<double> Gregorian2GregorianVect(double gregorian) ;
     virtual double GetSecondsSinceMidnight(double utc_offset=0.0) ;
-    virtual double GetTime(double utc_offset=0.0) ;
-    virtual double GetTime_UTC() ;
-    static double CurrentJD() ;
+    virtual double GetTime(const double& utc_offset=0.0) const;
+    virtual double GetTime_UTC() const;
+    static double CurrentJD();
     void          SetReturnType(CEDateType return_type);
     
     /************************************************************
@@ -112,6 +111,7 @@ public:
      ************************************************************/
     
     operator double();
+    operator double() const;
     
 protected:
     
@@ -134,7 +134,7 @@ private:
  * Get the Julian date represented by this object
  *************************************************************************/
 inline 
-double CEDate::JD(void) 
+double CEDate::JD(void) const
 {
     return julian_date_;
 }
@@ -144,7 +144,7 @@ double CEDate::JD(void)
  * Get the Modified Julian date represented by this object
  *************************************************************************/
 inline 
-double CEDate::MJD(void)
+double CEDate::MJD(void) const
 {
     return mod_julian_date_;
 }
@@ -154,7 +154,7 @@ double CEDate::MJD(void)
  * Get the Gregorian calendar date formatted as a double
  *************************************************************************/
 inline 
-double CEDate::Gregorian(void)
+double CEDate::Gregorian(void) const
 {
     return gregorian_date_;
 }
