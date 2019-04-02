@@ -62,9 +62,7 @@ protected:
     // Proper motion variables for this object. These are used for
     // correctly getting the objects coordinates at some date other
     // than the date indicated in 'coords_'
-    std::string name_ = "NONE" ;        ///< Name of this object
-    
-private:
+    std::string name_;        ///< Name of this object
     
 };
 
