@@ -55,7 +55,7 @@ public:
     // -------------------------------------------------------
     
     // Returns the coordinates associated with this object as a 'CECoordinates' object
-    CECoordinates GetCoordinates(void) const;
+    CECoordinates GetCoordinates(const CEDate& date=CEDate::CurrentJD()) const;
     
 protected:
     
@@ -93,7 +93,7 @@ void CEBody::SetName(const std::string& new_name)
  * Return the coordinates associated with this object as a 'CECoordinates' object 
  *************************************************************************/
 inline
-CECoordinates CEBody::GetCoordinates(void) const
+CECoordinates CEBody::GetCoordinates(const CEDate& date) const
 {
     return CECoordinates(*this) ;
 }
