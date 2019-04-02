@@ -236,8 +236,8 @@ CEPlanet CEPlanet::Venus()
 }
 
 /**********************************************************************//**
- * Returns an object representing Venus.
- * @return CEPlanet object representing Venus
+ * Returns an object representing Earth.
+ * @return CEPlanet object representing Earth
  *************************************************************************/
 CEPlanet CEPlanet::Earth()
 {
@@ -330,7 +330,6 @@ CEPlanet CEPlanet::Jupiter()
     jupiter.SetExtraTerms(-0.00012452, 0.06064060, -0.35635438, 38.35125000) ;
     
     // Set the reference object as the Earth-Moon barycenter
-//    jupiter.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
     jupiter.SetReference(new CEPlanet(CEPlanet::Earth())) ;
     
     jupiter.SetMeanRadius_m(69911000.0) ;
