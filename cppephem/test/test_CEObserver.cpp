@@ -73,13 +73,11 @@ bool test_CEObserver::test_copy()
 {
     // Create a copy for testing
     CEObserver obs(base_obs_);
-
-    test_double(obs.Longitude_Rad(), base_obs_.Longitude_Rad(), __FILE__, __LINE__);
-    test_double(obs.Latitude_Rad(),  base_obs_.Latitude_Rad(),  __FILE__, __LINE__);
-    test_double(obs.Temperature_K(), base_obs_.Temperature_K(), __FILE__, __LINE__);
-    test_double(obs.Pressure_hPa(),  base_obs_.Pressure_hPa(),  __FILE__, __LINE__);
-    test_double(obs.RelativeHumidity(), base_obs_.RelativeHumidity(), __FILE__, __LINE__);
-    test_double(obs.Date()->JD(), base_obs_.Date()->JD(), __FILE__, __LINE__);
+    test_double(obs.Longitude_Rad(), base_obs_.Longitude_Rad(), __func__, __LINE__);
+    test_double(obs.Latitude_Rad(),  base_obs_.Latitude_Rad(),  __func__, __LINE__);
+    test_double(obs.Temperature_K(), base_obs_.Temperature_K(), __func__, __LINE__);
+    test_double(obs.Pressure_hPa(),  base_obs_.Pressure_hPa(),  __func__, __LINE__);
+    test_double(obs.RelativeHumidity(), base_obs_.RelativeHumidity(), __func__, __LINE__);
 
     return pass();
 }
@@ -129,12 +127,12 @@ bool test_CEObserver::test_set_atmoPars()
     // Test temperature
     double temp = obs.Temperature_K() + 10.0;
     obs.SetTemperature_K(temp);
-    test_double(obs.Temperature_K(), temp, __FILE__, __LINE__);
+    test_double(obs.Temperature_K(), temp, __func__, __LINE__);
 
     // Test pressure
     double pres = obs.Pressure_hPa() + 10.0;
     obs.SetPressure(pres);
-    test_double(obs.Latitude_Deg(),  pres, __FILE__, __LINE__);
+    test_double(obs.Pressure_hPa(),  pres, __func__, __LINE__);
 
     // Test Relative humidity
     double relHumidity = obs.RelativeHumidity();
@@ -144,6 +142,7 @@ bool test_CEObserver::test_set_atmoPars()
         relHumidity = 0.25;
     }
     obs.SetRelativeHumidity(relHumidity);
+    test_double(obs.RelativeHumidity(),  relHumidity, __func__, __LINE__);
     
     return pass();
 }
