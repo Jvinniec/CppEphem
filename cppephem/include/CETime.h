@@ -40,8 +40,10 @@ public:
     // Default constructor
     CETime() ;
     // Primary constructor
-    CETime(double time, CETimeType time_format=CETimeType::UTC) ;
-    CETime(std::vector<double> time, CETimeType time_format=CETimeType::UTC) ;
+    CETime(const double& time, 
+           CETimeType time_format=CETimeType::UTC) ;
+    CETime(std::vector<double> time, 
+           CETimeType time_format=CETimeType::UTC) ;
     // Copy constructor
     CETime(const CETime& other) ;
     // Destructor
@@ -53,17 +55,17 @@ public:
     
     static double CurrentUTC() ;
     static std::vector<double> CurrentUTC_vect() ;
-    static double UTC(double jd) ;
-    static std::vector<double> UTC_vect(double jd) ;
+    static double UTC(const double& jd) ;
+    static std::vector<double> UTC_vect(const double& jd) ;
     
     // Convert a double of the form HHMMSS.S to a vector with
     // the same format as 'time_'
-    static std::vector<double> TimeDbl2Vect(double time) ;
+    static std::vector<double> TimeDbl2Vect(const double& time) ;
     static double TimeVect2Dbl(std::vector<double> time) ;
     
     // Convert number of seconds since midnight to HHMMSS.S formatted double
-    static double TimeSec2Time(double seconds) ;
-    static std::vector<double> TimeSec2Vect(double seconds) ;
+    static double TimeSec2Time(const double& seconds) ;
+    static std::vector<double> TimeSec2Vect(const double& seconds) ;
     
     static double SystemUTCOffset_hrs()
     {
@@ -77,14 +79,15 @@ public:
      * Convert between the various time types
      *******************************************/
     
-    void SetTime(double time, CETimeType time_format=CETimeType::UTC) ;
+    void SetTime(const double& time, 
+                 CETimeType    time_format=CETimeType::UTC) ;
     void SetTime(std::vector<double> time_vect,
                  CETimeType time_format=CETimeType::UTC) ;
-    void SetHours(double hours)
+    void SetHours(const double& hours)
         {time_[0] = hours ;}
-    void SetMinutes(double minutes)
+    void SetMinutes(const double& minutes)
         {time_[1] = minutes ;}
-    void SetSeconds(double seconds)
+    void SetSeconds(const double& seconds)
         {time_[2] = std::floor(seconds) ;
          time_[3] = seconds-time_[2] ;}
     
@@ -114,10 +117,7 @@ protected:
     void SetTime_UTC(std::vector<double> time) ;
     void SetTime_GAST(std::vector<double> time) ;
     void SetTime_LST(std::vector<double> time) ;
-    void SetTime_LOCALTIME(std::vector<double> time) ;
-    
-private:
-    
+    void SetTime_LOCALTIME(std::vector<double> time) ;  
 };
 
 #endif /* CETime_h */
