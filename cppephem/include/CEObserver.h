@@ -1,7 +1,7 @@
 /***************************************************************************
  *  CEObserver.h: CppEphem                                                 *
  * ----------------------------------------------------------------------- *
- *  Copyright © 2016 JCardenzana                                           *
+ *  Copyright © 2016-2019 JCardenzana                                      *
  * ----------------------------------------------------------------------- *
  *                                                                         *
  *  This program is free software: you can redistribute it and/or modify   *
