@@ -132,7 +132,7 @@ bool CEObservation::UpdateCoordinates()
 {
     // Get the coordinate system of the body being observed
     CECoordinateType body_coords = body_->GetCoordSystem() ;
-    
+
     // Compute the observed coordinates based on the coordinates of "body_"
     if (body_coords == CECoordinateType::CIRS) {
         // Convert from CIRS -> Observed
