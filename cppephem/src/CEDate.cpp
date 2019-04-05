@@ -407,7 +407,7 @@ double CEDate::dut1(double date, CEDateType date_type)
 
 /**********************************************************************//**
  *************************************************************************/
-double CEDate::dut1()
+double CEDate::dut1() const
 {
     // return the value associated with 'UT1-UTC'
     return CppEphem::dut1(mod_julian_date_) ;
@@ -437,15 +437,15 @@ double CEDate::dut1Error()
 double CEDate::xpolar(double date, CEDateType date_type)
 {
     CEDate input_date(date, date_type) ;
-    return CppEphem::xp( input_date.JD() ) ;
+    return CppEphem::xp( input_date.MJD() ) ;
 }
 
 
 /**********************************************************************//**
  *************************************************************************/
-double CEDate::xpolar()
+double CEDate::xpolar() const
 {
-    return CppEphem::xp( julian_date_ ) ;
+    return CppEphem::xp( mod_julian_date_ ) ;
 }
 
 
@@ -458,15 +458,15 @@ double CEDate::xpolar()
 double CEDate::ypolar(double date, CEDateType date_type)
 {
     CEDate input_date(date, date_type) ;
-    return CppEphem::yp( input_date.JD() ) ;
+    return CppEphem::yp( input_date.MJD() ) ;
 }
 
 
 /**********************************************************************//**
  *************************************************************************/
-double CEDate::ypolar()
+double CEDate::ypolar() const
 {
-    return CppEphem::yp( julian_date_ ) ;
+    return CppEphem::yp( mod_julian_date_ ) ;
 }
 
 
