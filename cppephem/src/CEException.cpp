@@ -67,6 +67,17 @@ CEException::invalid_value::invalid_value(const std::string& origin,
 
 
 /**********************************************************************//**
+ * Generate an exception of type "corr_file_load_error"
+ *  @param[in] origin       Method that threw the error
+ *  @param[in] message      Diagnostic message
+ *************************************************************************/
+CEException::corr_file_load_error::corr_file_load_error(const std::string& origin,
+                                                        const std::string& message) :
+    CEExceptionHandler(origin, message, "Corrections File Load Error")
+{}
+
+
+/**********************************************************************//**
  * Generate an exception of type "sofa_exception"
  *  @param[in] origin       Method that threw the error
  *  @param[in] message      Diagnostic message

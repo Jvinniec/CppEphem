@@ -26,6 +26,7 @@
 #include <map>
 #include <sofa.h>
 #include <memory>
+#include "CECorrections.h"
 
 #define MINMJDFORDUT1 43144.0
 #define MAXMJDFORDUT1 57448.0
@@ -48,25 +49,23 @@ namespace CppEphem {
     inline double m_per_au() {return DAU ;}                     ///< meters per astronomical unit
     inline double sec_per_day() {return DAYSEC;}                ///< Seconds per day
     
+    static CECorrections corrections;
+
     /*********************************************
      * Return the 'dut1' value which represents 
      * 'UT1-UTC' for a given MJD or it's error
      *********************************************/
-    double dut1(double mjd=51544.5) ;
-    double dut1Error(double mjd=51544.5) ;
-    inline std::map<int, double> dut1_list() {return {{51544.5,0.0}};}
-    inline std::map<int, double> dut1Error_list() {return {{51544.5,0.0}};}
-    double dut1Calc(double mjd) ;
+    double dut1(const double& mjd) ;
+    double dut1Error(const double& mjd=51544.5) ;
+    double dut1Calc(const double& mjd) ;
     
     /*********************************************
      * Polar Motion methods
      * For the moment, 0.0 should be sufficient. This
      * assumption may need to be revisited
      *********************************************/
-    /** Polar motion (x). 0 should be fine for most computations */
-    inline double xp(double mjd=51544.5) {return 0.0 ;}
-    /** Polar motion (y). 0 should be fine for most computations */
-    inline double yp(double mjd=51544.5) {return 0.0 ;}
+    double xp(const double& mjd);
+    double yp(const double& mjd);
     
     /** Method for estimating altitude (in meters) from atmospheric pressure (in hPa) */
     inline double EstimateAltitude_m(double pressure_hPa)

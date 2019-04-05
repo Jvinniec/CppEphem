@@ -69,6 +69,17 @@ public:
     };
 
     /* ----------------------------------------------------------- *
+     *        EXCEPTIONS RELATED TO READING CORRECTIONS FILE
+     * ----------------------------------------------------------- */
+    class corr_file_load_error : public CEExceptionHandler {
+        public:
+            corr_file_load_error(const std::string& origin,
+                                 const std::string& message);
+    };
+    
+    
+    
+    /* ----------------------------------------------------------- *
      *             EXCEPTIONS RELATED TO SOFA ERRORS
      * ----------------------------------------------------------- */
     
