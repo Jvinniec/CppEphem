@@ -46,7 +46,7 @@ public:
     // Default constructor
     CEDate(double date=CurrentJD(), CEDateType date_format=CEDateType::JD) ;
     CEDate(std::vector<double> date) ;
-    CEDate(const CEDate& other) ;
+    explicit CEDate(const CEDate& other) ;
     virtual ~CEDate();
     
     // Method that can be used to change the date that is stored in this object
