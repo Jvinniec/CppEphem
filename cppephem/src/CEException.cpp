@@ -37,7 +37,7 @@ CEExceptionHandler::CEExceptionHandler(const std::string& origin,
     CEExceptionHandler()
 {
     origin_  = origin;
-    message_ = message;
+    message_ += message;
     type_    = type;
 }
 
