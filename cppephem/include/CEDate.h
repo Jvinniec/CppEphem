@@ -125,8 +125,6 @@ protected:
                                                 ///< 0 - Year, 1 - Month, 2 - date, 3 - date fraction
     CEDateType return_type_ = CEDateType::JD ;  ///< what format the 'operator double' will return
     
-private:
-    
 };
 
 
