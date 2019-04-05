@@ -38,6 +38,10 @@
 
 class CEBody : public CECoordinates {
 public:
+    /************************************
+     * Basic constructors & destructors
+     ***********************************/
+
     CEBody() ;
     CEBody(const std::string& name, 
            const double& xcoord, const double& ycoord,
@@ -47,18 +51,29 @@ public:
     CEBody(const CECoordinates& coords, const std::string& name="") ;
     virtual ~CEBody() ;
     
-    std::string Name() const;
-    void        SetName(const std::string& new_name);
-    
-    // -------------------------------------------------------
-    // Methods for getting the coordinates of this object
-    // -------------------------------------------------------
-    
-    // Returns the coordinates associated with this object as a 'CECoordinates' object
+    /************************************
+     * Overloaded operators
+     ***********************************/
+
+    CEBody& operator=(const CEBody& other);
+
+    /************************************
+     * Public methods
+     ***********************************/
+
     CECoordinates GetCoordinates(const CEDate& date=CEDate::CurrentJD()) const;
+    std::string   Name(void) const;
+    void          SetName(const std::string& new_name);
     
-protected:
+private:
     
+    /************************************
+     * Private methods
+     ***********************************/
+    void copy_members(const CEBody& other);
+    void free_members(void);
+    void init_members(void);
+
     // Proper motion variables for this object. These are used for
     // correctly getting the objects coordinates at some date other
     // than the date indicated in 'coords_'
@@ -73,7 +88,7 @@ protected:
  * @return the name of this object
  *************************************************************************/
 inline
-std::string CEBody::Name() const
+std::string CEBody::Name(void) const
 {
     return name_;
 } 
