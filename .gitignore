@@ -11,6 +11,7 @@ build/*
 sofa/*.a
 *.m4
 *.cmake
+*.log
 
 # IDE or editor files
 *.xcodeproj
