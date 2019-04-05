@@ -28,7 +28,6 @@
 // CppEphem HEADERS
 #include "CEDate.h"
 #include "CENamespace.h"
-//#include "CEObserver.h"
 #include "CEException.h"
 
 // SOFA HEADER
