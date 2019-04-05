@@ -36,10 +36,12 @@
 class CEObserver ;
 
 /** The following enum specifies what coordinates this object represents */
-enum class CECoordinateType {CIRS,           ///< RA, Dec (referenced at the center of the Earth)
-                             ICRS,           ///< RA, Dec (referenced at the barycenter of the solarsystem)
-                             GALACTIC,       ///< Galacitc longitude, latitude
-                             OBSERVED        ///< Azimuth, Zenith (requires additional observer information)
+enum class CECoordinateType
+{
+    CIRS=0,           ///< RA, Dec (referenced at the center of the Earth)
+    ICRS=1,           ///< RA, Dec (referenced at the barycenter of the solarsystem)
+    GALACTIC=2,       ///< Galacitc longitude, latitude
+    OBSERVED=3        ///< Azimuth, Zenith (requires additional observer information)
                             };
 
 // Initiate the class that holds the coordinate information
