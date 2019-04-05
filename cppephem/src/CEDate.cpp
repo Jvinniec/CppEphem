@@ -590,5 +590,3 @@ CEDate::operator double() const
     // Return the date formatted according to the 'return_type_' variable
     return GetDate(return_type_) ;
 }
-
-# pragma mark - Protected methods
