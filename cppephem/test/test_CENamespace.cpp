@@ -101,6 +101,9 @@ bool test_CENamespace::test_Conversions()
     // Meters per AU
     test_double(CppEphem::m_per_au(), DAU, __func__, __LINE__);
 
+    // Seconds per day
+    test_double(CppEphem::sec_per_day(), DAYSEC, __func__, __LINE__);
+
     return pass();
 }
 
@@ -111,15 +114,14 @@ bool test_CENamespace::test_Conversions()
  *************************************************************************/
 bool test_CENamespace::test_Corrections()
 {
-    // Get dut1 for J2000
-    test_double(CppEphem::dut1(), 0.0, __func__, __LINE__);
+    double mjd(51544.5);
 
-    // Get dut1 error for J2000 date
-    test_double(CppEphem::dut1Error(), 0.0, __func__, __LINE__);
+    // Get dut1 for J2000
+    test_double(CppEphem::dut1(mjd), 0.355499, __func__, __LINE__);
 
     // Test x,y polar motion
-    test_double(CppEphem::xp(), 0.0, __func__, __LINE__);
-    test_double(CppEphem::yp(), 0.0, __func__, __LINE__);
+    test_double(CppEphem::xp(mjd), 0.043190 * DAS2R, __func__, __LINE__);
+    test_double(CppEphem::yp(mjd), 0.377700 * DAS2R, __func__, __LINE__);
 
     // Estimate altitude/pressure based on pressure
     test_double(CppEphem::EstimateAltitude_m(1013.25), 0.0, __func__, __LINE__);
