@@ -24,38 +24,26 @@
 #include "CENamespace.h"
 
 /**********************************************************************//**
- * Return dut1 based on MJD
+ * Return dut1 based on a given modified julian date
  * 
  * @param[in] mjd       Modified Julian Date (MJD)
+ * @return UT1-UTC correction for a given MJD
  *************************************************************************/
-double CppEphem::dut1(double mjd) {
-    // Round the MJD down to the nearest integer
-    mjd = std::floor(mjd) ;
-    
-    // If the passed mjd is greater than the mininmum mjd or
-    // larger than the largest mjd stored, then use the formula
-    if (mjd < MINMJDFORDUT1) return 0.0 ;
-    if (mjd > MAXMJDFORDUT1) return dut1Calc(mjd) ;
-    
-    // Load the list of dut1 values
-    return dut1_list()[mjd] ;
+double CppEphem::dut1(const double& mjd) 
+{
+    double dut1(0.0);
+
+    // Fill dut1 if support dir has been defined
+    dut1 = CppEphem::corrections.dut1(mjd);
+
+    return dut1;
 }
 
 /**********************************************************************//**
  *************************************************************************/
-double CppEphem::dut1Error(double mjd) {
-    // If the passed mjd is greater than the mininmum mjd or
-    // larger than the largest mjd stored, then use the formula
-    if (mjd < MINMJDFORDUT1) return 0.0 ;
-    if (mjd > MAXMJDFORDUT1) return 0.0 ;
-    
-    // Load the list of dut1 values
-    std::map<int, double> dut1Error = dut1Error_list() ;
-    
-    // Round the MJD down to the nearest integer
-    mjd = std::floor(mjd) ;
-    
-    return dut1Error[mjd] ;
+double CppEphem::dut1Error(const double& mjd) 
+{
+    return 0.0;
 }
 
 /**********************************************************************//**
@@ -63,10 +51,34 @@ double CppEphem::dut1Error(double mjd) {
  * The elements are as follows:
  * [0]=hours, [1]=minutes, [2]=whole seconds, [3]=fractional seconds
  *************************************************************************/
-double CppEphem::dut1Calc(double mjd)
+double CppEphem::dut1Calc(const double& mjd)
 {
     // There's a formula that could be used for calculating this value,
     // but I'm a bit lazy at the moment and since the correction is
     // very small, I'm just going to return 0 for the time being.
     return 0.0 ;
+}
+
+
+/**********************************************************************//**
+ * Polar motion (x) for a given modified julian date
+ * 
+ * @param[in] mjd       Modified Julian Date (MJD)
+ * @return x-polar motion correction for a given MJD
+ *************************************************************************/
+double CppEphem::xp(const double& mjd) 
+{
+    return corrections.xpolar(mjd) ;
+}
+
+
+/**********************************************************************//**
+ * Polar motion (x) for a given modified julian date
+ * 
+ * @param[in] mjd       Modified Julian Date (MJD)
+ * @return x-polar motion correction for a given MJD
+ *************************************************************************/
+double CppEphem::yp(const double& mjd) 
+{
+    return corrections.ypolar(mjd);
 }

@@ -2,8 +2,9 @@
 #------------------------------------------
 # Define include directories
 #------------------------------------------
-include_directories (${CMAKE_CURRENT_SOURCE_DIR}/include 
-                     ${CMAKE_SOURCE_DIR}/test/include 
+include_directories (${CMAKE_CURRENT_SOURCE_DIR}/include
+                     ${CMAKE_CURRENT_SOURCE_DIR}/support
+                     ${CMAKE_SOURCE_DIR}/test/include
                      ${SOFA_DIRECTORY})
 
 #------------------------------------------
@@ -21,6 +22,7 @@ set (cppephem_SOURCES
     src/CEPlanet.cpp
     src/CERunningDate.cpp
     src/CETime.cpp
+    support/CECorrections.cpp
     )
 
 set (cppephem_HEADERS
@@ -35,6 +37,7 @@ set (cppephem_HEADERS
     include/CEPlanet.h
     include/CERunningDate.h
     include/CETime.h
+    support/CECorrections.h
     )
 
 #------------------------------------------
@@ -46,7 +49,7 @@ add_library (cppephem_static STATIC ${cppephem_SOURCES} ${cppephem_HEADERS})
 # Make sure the static version has the same name
 set_target_properties(cppephem_static PROPERTIES OUTPUT_NAME cppephem)
 
-target_link_libraries(cppephem sofa_c)
+target_link_libraries(cppephem sofa_c curl)
 
 # Make sure all of the executables are compiled
 add_subdirectory (src)
