@@ -23,6 +23,7 @@
 #define test_CECoordinates_h
 
 #include "CECoordinates.h"
+#include "CEDate.h"
 #include "CETestSuite.h"
 
 class test_CECoordinates : public CETestSuite {
@@ -34,15 +35,21 @@ public:
 
     /****** METHODS ******/
 
-    virtual bool test_SetCoord_Icrs(void);
-    virtual bool test_SetCoord_Cirs(void);
-    virtual bool test_SetCoord_Galactic(void);
+    virtual bool test_copy(void);
+
+    virtual bool test_Convert2Icrs(void);
+    virtual bool test_Convert2Cirs(void);
+    virtual bool test_Convert2Galactic(void);
+    virtual bool test_Convert2Observed(void);
 
 private:
 
-    // this is teh 
-    CECoordinates base_;
-
+    // Private coordin
+    CECoordinates base_cirs_;
+    CECoordinates base_icrs_;
+    CECoordinates base_gal_;
+    CECoordinates base_obs_;
+    CEDate        date_;
 };
 
 #endif /* test_CECoordinates_h */
