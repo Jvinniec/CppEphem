@@ -28,10 +28,11 @@
 #include <memory>
 #include "CECorrections.h"
 
-#define MINMJDFORDUT1 43144.0
-#define MAXMJDFORDUT1 57448.0
-
-enum class CEAngleType{DEGREES, RADIANS} ;
+enum class CEAngleType 
+{
+    DEGREES=0, 
+    RADIANS=1
+};
 
 // Create a namespace with some useful stuff
 namespace CppEphem {
