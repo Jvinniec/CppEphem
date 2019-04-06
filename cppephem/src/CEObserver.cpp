@@ -117,3 +117,32 @@ CECoordinates CEObserver::ObservedPosition(const CECoordinates& coords,
     CECoordinates observed_coords = tmpcoords.GetObservedCoords(date,*this);
     return observed_coords;
 }
+
+
+/**********************************************************************//**
+ * Returns a string containing information about this object
+ * @return Formatted string containing information about this observer
+ *************************************************************************/
+std::string CEObserver::print(void) const
+{
+    // Preliminary variables
+    const int buff_size(1024);
+    char  buffer[buff_size];
+    int   offset(0);
+
+    // Fill in the returned string with formatted strings
+    offset += std::sprintf(&buffer[0], "Observer:\n");
+    offset += std::sprintf(&buffer[offset], "   (Lon,Lat) = (%f, %f) deg\n",
+                           Longitude_Deg(), Latitude_Deg());
+    offset += std::sprintf(&buffer[offset], "   Elevation = %f m\n",
+                           Elevation_m());
+    offset += std::sprintf(&buffer[offset], "   Temp      = %f C\n",
+                           Temperature_C());
+    offset += std::sprintf(&buffer[offset], "   Pressure  = %f hPa\n",
+                           Pressure_hPa());
+    offset += std::sprintf(&buffer[offset], "   Humidity  = %f %%\n",
+                           RelativeHumidity());
+    offset += std::sprintf(&buffer[offset], "   Wavelength= %f um\n",
+                           Wavelength_um());
+    return std::string(buffer);
+}
