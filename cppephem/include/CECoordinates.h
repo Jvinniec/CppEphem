@@ -42,7 +42,7 @@ enum class CECoordinateType
     ICRS=1,           ///< RA, Dec (referenced at the barycenter of the solarsystem)
     GALACTIC=2,       ///< Galacitc longitude, latitude
     OBSERVED=3        ///< Azimuth, Zenith (requires additional observer information)
-                            };
+};
 
 // Initiate the class that holds the coordinate information
 class CECoordinates {
@@ -100,7 +100,7 @@ public:
     static double              DMSToAngle(const std::vector<double>& angle,
                                           const CEAngleType& return_type = CEAngleType::DEGREES);
 
-    // Return coordinate system    
+    // Return coordinate system
     CECoordinateType GetCoordSystem(void) const;
     
     /**********************************************************
@@ -312,8 +312,6 @@ public:
                             const double& wavelength_um=0.5);
     virtual CECoordinates GetObservedCoords(const CEDate& date,
                             const CEObserver& observer,
-                            const double& dut1=0.0,
-                            const double& xp=0.0, const double& yp=0.0,
                             const double& wavelength_um=0.5);
 
     /*********************************************************
@@ -394,7 +392,7 @@ protected:
     mutable double xcoord_;         //<! X coordinate (radians)
     mutable double ycoord_;         //<! Y coordinate (radians)
     CECoordinateType coord_type_;   //<! Coordinate system to which 'xcoord_' and 'ycoord_' belong.
-                                    //<! Possible values are "CIRS", "ICRS", "GALACTIC", "OBSERVED", and "GEOGRAPHIC"
+                                    //<! Possible values are "CIRS", "ICRS", "GALACTIC", "OBSERVED", and "GEOGRAPHIC" 
 
 private:
     /*********************************************************
