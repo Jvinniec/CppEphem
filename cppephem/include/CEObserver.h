@@ -65,8 +65,7 @@ public:
                      CEAngleType angle_type=CEAngleType::RADIANS);
     void SetGeographicCoordinates(const double& longitude,
                                   const double& latitude,
-                                  CEAngleType angle_type=CEAngleType::RADIANS);
-    void SetPressure(const double& pressure=CppEphem::EstimatePressure_hPa(CppEphem::SeaLevelTemp_C()));
+    void SetPressure_hPa(const double& pressure=CppEphem::EstimatePressure_hPa(CppEphem::SeaLevelTemp_C()));
     void SetRelativeHumidity(const double& humidity=0.0);
     void SetTemperature_C(const double& temp_C=CppEphem::SeaLevelTemp_C());
     void SetTemperature_K(const double& temp_K=CppEphem::SeaLevelTemp_K());

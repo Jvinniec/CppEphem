@@ -107,7 +107,7 @@ int main(int argc, char** argv)
                         opts.AsDouble("latitude"),
                         opts.AsDouble("elevation"),
                         CEAngleType::DEGREES);
-    observer.SetPressure(opts.AsDouble("pressure"));
+    observer.SetPressure_hPa(opts.AsDouble("pressure"));
     observer.SetTemperature_C(opts.AsDouble("temperature"));
     observer.SetRelativeHumidity(opts.AsDouble("humidity"));
 
