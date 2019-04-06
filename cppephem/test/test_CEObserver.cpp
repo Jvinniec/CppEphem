@@ -149,6 +149,9 @@ bool test_CEObserver::test_set_atmoPars()
     obs.SetRelativeHumidity(relHumidity);
     test_double(obs.RelativeHumidity(),  relHumidity, __func__, __LINE__);
     
+    // Make sure the print statement actually does something
+    test(obs.print().size() > 0, __func__, __LINE__);
+
     return pass();
 }
 
