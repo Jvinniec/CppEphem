@@ -58,6 +58,9 @@ public:
                   const double& ycoord,
                   const CECoordinateType& coord_type=CECoordinateType::ICRS,
                   const CEAngleType& angle_type=CEAngleType::RADIANS) ;
+    CECoordinates(const std::vector<double>& xcoord,
+                  const std::vector<double>& ycoord,
+                  const CECoordinateType& coord_type=CECoordinateType::ICRS);
     CECoordinates(const CECoordinateType& coord_type) ;
     CECoordinates(const CECoordinates& other) ;
     virtual ~CECoordinates() ;
@@ -92,6 +95,10 @@ public:
                                       const CEAngleType& angle_type = CEAngleType::DEGREES);
     static std::vector<double> GetDMS(const double& angle, 
                                       const CEAngleType& angle_type = CEAngleType::DEGREES);
+    static double              HMSToAngle(const std::vector<double>& angle,
+                                          const CEAngleType& return_type = CEAngleType::DEGREES);
+    static double              DMSToAngle(const std::vector<double>& angle,
+                                          const CEAngleType& return_type = CEAngleType::DEGREES);
 
     // Return coordinate system    
     CECoordinateType GetCoordSystem(void) const;
