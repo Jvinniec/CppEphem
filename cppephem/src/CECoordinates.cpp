@@ -821,6 +821,7 @@ int CECoordinates::ICRS2Observed(double ra, double dec,
 {
     // Setup the observed RA, Dec and hour_angle variables
     double temp_ra, temp_dec, temp_hour_angle ;
+
     // If values were passed, point these variables at the passed ones
     if (observed_ra  == nullptr) observed_ra  = &temp_ra;
     if (observed_dec == nullptr) observed_dec = &temp_dec;
@@ -1097,18 +1098,19 @@ CECoordinates CECoordinates::GetObservedCoords(const double& julian_date,
  *************************************************************************/
 CECoordinates CECoordinates::GetObservedCoords(const CEDate& date,
                                                const CEObserver& observer,
-                                               const double& dut1,
-                                               const double& xp, const double& yp,
                                                const double& wavelength_um)
 {
-    return GetObservedCoords(julian_date,
+    return GetObservedCoords(date,
                              observer.Longitude_Rad(),
                              observer.Latitude_Rad(),
                              observer.Elevation_m(),
                              observer.Pressure_hPa(),
                              observer.Temperature_C(),
                              observer.RelativeHumidity(),
-                             dut1, xp, yp, wavelength_um);
+                             date.dut1(), 
+                             date.xpolar(), 
+                             date.ypolar(), 
+                             wavelength_um);
 }
 
 
