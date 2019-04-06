@@ -52,24 +52,18 @@
 /**********************************************************************//**
  * Constructor for coordinate corrections object
  *************************************************************************/
-CECorrections::CECorrections() :
-    outfilename_(CESUPPORTDIR + "corrections.txt"),
-    corrections_(std::map<int, std::vector<double>>()),
-    min_mjd_(1000000),
-    max_mjd_(-1)
+CECorrections::CECorrections()
 {
+    init_members();
 }
 
 
 /**********************************************************************//**
  * Copy constructor
  *************************************************************************/
-CECorrections::CECorrections(const CECorrections& other) :
-    outfilename_(other.outfilename_),
-    corrections_(other.corrections_),
-    min_mjd_(other.min_mjd_),
-    max_mjd_(other.max_mjd_)
+CECorrections::CECorrections(const CECorrections& other)
 {
+    copy_members(other);
 }
 
 
@@ -110,6 +104,60 @@ double CECorrections::ypolar(const double& mjd) const
 
 
 /**********************************************************************//**
+ * Overloaded assignment operator
+ * 
+ * @param[in] other     CECorrections object to be copied
+ * @return Reference to this object post-assignment
+ *************************************************************************/
+CECorrections& CECorrections::operator=(const CECorrections& other)
+{
+    if (this != &other) {
+        free_members();
+        init_members();
+        copy_members(other);
+    }
+    return *this;
+}
+
+
+/**********************************************************************//**
+ * Free data member objects
+ *************************************************************************/
+void CECorrections::free_members(void)
+{
+    corrections_.clear();
+}
+
+
+/**********************************************************************//**
+ * Copy data members from another object
+ * 
+ * @param[in] other     CECorrections object to be copied
+ *************************************************************************/
+void CECorrections::copy_members(const CECorrections& other)
+{
+    filename_    = other.filename_;
+    corrections_ = other.corrections_;
+    min_mjd_     = other.min_mjd_;
+    max_mjd_     = other.max_mjd_;
+    interp_      = other.interp_;
+}
+
+
+/**********************************************************************//**
+ * Initialize data members
+ *************************************************************************/
+void CECorrections::init_members(void)
+{
+    filename_    = CESUPPORTDIR + "corrections.txt";
+    corrections_ = std::map<int, std::vector<double>>();
+    min_mjd_     = 1000000;
+    max_mjd_     = -1;
+    interp_      = false;
+}
+
+
+/**********************************************************************//**
  * Downloads the IERS earth orientation correction parameters
  * 
  * @return Whether or not the download was successful
@@ -125,7 +173,7 @@ bool CECorrections::DownloadTables(void) const
         curl = curl_easy_init();                                                                                                                                                                                                                                                           
         if (curl)
         {   
-            fp = fopen(outfilename_.c_str(), "wb");
+            fp = fopen(filename_.c_str(), "wb");
             curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
             curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, NULL);
             curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
@@ -155,7 +203,7 @@ bool CECorrections::LoadTables(void) const
     bool loaded = true;
     if (corrections_.size() == 0) {
         // Check if the file has been stored
-        std::ifstream corrections_file(outfilename_, std::ios::in);
+        std::ifstream corrections_file(filename_, std::ios::in);
 
         // Try downloading the file
         if (!corrections_file.is_open()) {
@@ -167,10 +215,10 @@ bool CECorrections::LoadTables(void) const
                 throw CEException::exception();
 
             // Try to open the file again
-            corrections_file.open(outfilename_, std::ios::in);
+            corrections_file.open(filename_, std::ios::in);
             // Make sure the file is open
             if (!corrections_file.is_open()) {
-                std::string msg = "Unable to load corrections file: " + outfilename_;
+                std::string msg = "Unable to load corrections file: " + filename_;
                 throw CEException::corr_file_load_error(__func__, msg);
             }
         }
