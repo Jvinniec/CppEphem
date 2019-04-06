@@ -53,10 +53,7 @@ CECoordinates::CECoordinates() :
 CECoordinates::CECoordinates(const double& xcoord, 
                              const double& ycoord,
                              const CECoordinateType& coord_type,
-                             const CEAngleType& angle_type) :
-    xcoord_(xcoord),
-    ycoord_(ycoord),
-    coord_type_(coord_type)
+                             const CEAngleType& angle_type)
 {
     // If we've been given the coordinates in degrees, convert to radians
     if (angle_type == CEAngleType::DEGREES) {
@@ -105,7 +102,7 @@ CECoordinates::~CECoordinates()
  *************************************************************************/
 void CECoordinates::CIRS2ICRS(double input_ra, double input_dec,
                               double *return_ra, double *return_dec,
-                              CEDate date, CEAngleType angle_type)
+                              const CEDate& date, const CEAngleType& angle_type)
 {
     // Convert to radians if that's what is passed
     if (angle_type==CEAngleType::DEGREES) {
@@ -138,7 +135,7 @@ void CECoordinates::CIRS2ICRS(double input_ra, double input_dec,
  * @param[in]  angle_type   Angle format (DEGREES or RADIANS)
  *************************************************************************/
 void CECoordinates::CIRS2Galactic(double input_ra, double input_dec, double *glon, double *glat,
-                                  CEDate date, CEAngleType angle_type)
+                                  const CEDate& date, const CEAngleType& angle_type)
 {
     // Convert to radians if that's what is passed
     if (angle_type==CEAngleType::DEGREES) {
@@ -182,9 +179,9 @@ void CECoordinates::CIRS2Galactic(double input_ra, double input_dec, double *glo
  *************************************************************************/
 int CECoordinates::CIRS2Observed(double ra, double dec,
                                  double *az, double *zen,
-                                 CEDate&     date,
-                                 CEObserver& observer,
-                                 CEAngleType angle_type,
+                                 const CEDate&     date,
+                                 const CEObserver& observer,
+                                 const CEAngleType& angle_type,
                                  double wavelength,
                                  double *observed_ra,
                                  double *observed_dec,
@@ -245,7 +242,7 @@ int CECoordinates::CIRS2Observed(double ra, double dec,
  *************************************************************************/
 void CECoordinates::ICRS2CIRS(double input_ra, double input_dec,
                               double *return_ra, double *return_dec,
-                              CEDate date, CEAngleType angle_type)
+                              const CEDate& date, const CEAngleType& angle_type)
 {
     // Convert to radians if necessary
     if (angle_type==CEAngleType::DEGREES) {
@@ -284,8 +281,9 @@ void CECoordinates::ICRS2CIRS(double input_ra, double input_dec,
  * @param[out] glat         Galactic latitude
  * @param[in]  angle_type   Angle type
  *************************************************************************/
-void CECoordinates::ICRS2Galactic(double input_ra, double input_dec, double *glon, double *glat,
-                                  CEAngleType angle_type)
+void CECoordinates::ICRS2Galactic(double input_ra, double input_dec, 
+                                  double *glon, double *glat,
+                                  const CEAngleType& angle_type)
 {
     // Convert to radians if necessary
     if (angle_type == CEAngleType::DEGREES) {
@@ -322,9 +320,9 @@ void CECoordinates::ICRS2Galactic(double input_ra, double input_dec, double *glo
  *************************************************************************/
 int CECoordinates::ICRS2Observed(double ra, double dec,
                                  double *az, double *zen,
-                                 CEDate&     date,
-                                 CEObserver& observer,
-                                 CEAngleType angle_type,
+                                 const CEDate&     date,
+                                 const CEObserver& observer,
+                                 const CEAngleType& angle_type,
                                  double wavelength,
                                  double *observed_ra,
                                  double *observed_dec,
@@ -380,7 +378,7 @@ int CECoordinates::ICRS2Observed(double ra, double dec,
  * @param[in]  angle_type   Angle type (RADIANS or DEGREES)
  *************************************************************************/
 void CECoordinates::Galactic2CIRS(double glon, double glat, double *ra, double *dec,
-                                  CEDate date, CEAngleType angle_type)
+                                  const CEDate& date, const CEAngleType& angle_type)
 {
     // Check for degrees
     if (angle_type == CEAngleType::DEGREES) {
@@ -411,8 +409,9 @@ void CECoordinates::Galactic2CIRS(double glon, double glat, double *ra, double *
  * @param[out] dec          ICRS declinaton (returned)
  * @param[in]  angle_type   Angle type (DEGREES or RADIANS)
  *************************************************************************/
-void CECoordinates::Galactic2ICRS(double glon, double glat, double *ra, double *dec,
-                                  CEAngleType angle_type)
+void CECoordinates::Galactic2ICRS(double glon, double glat, 
+                                  double *ra, double *dec,
+                                  const CEAngleType& angle_type)
 {
     // Check for degrees
     if (angle_type == CEAngleType::DEGREES) {
@@ -446,9 +445,9 @@ void CECoordinates::Galactic2ICRS(double glon, double glat, double *ra, double *
  *************************************************************************/
 int CECoordinates::Galactic2Observed(double glon, double glat,
                                      double *az, double *zen,
-                                     CEDate&     date,
-                                     CEObserver& observer,
-                                     CEAngleType angle_type,
+                                     const CEDate&     date,
+                                     const CEObserver& observer,
+                                     const CEAngleType& angle_type,
                                      double wavelength,
                                      double *observed_glon,
                                      double *observed_glat,
@@ -505,9 +504,9 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
  *************************************************************************/
 int CECoordinates::Observed2CIRS(double az, double zen,
                             double *ra, double *dec,
-                            CEDate&     date,
-                            CEObserver& observer,
-                            CEAngleType angle_type)
+                            const CEDate&     date,
+                            const CEObserver& observer,
+                            const CEAngleType& angle_type)
 {
     // Convert to radians if necessary
     if (angle_type == CEAngleType::DEGREES) {
@@ -547,9 +546,9 @@ int CECoordinates::Observed2CIRS(double az, double zen,
  *************************************************************************/
 int CECoordinates::Observed2ICRS(double az, double zen,
                                  double *ra, double *dec,
-                                 CEDate&     date,
-                                 CEObserver& observer,
-                                 CEAngleType angle_type)
+                                 const CEDate&     date,
+                                 const CEObserver& observer,
+                                 const CEAngleType& angle_type)
 {
     // Convert to radians if necessary
     if (angle_type == CEAngleType::DEGREES) {
@@ -592,9 +591,9 @@ int CECoordinates::Observed2ICRS(double az, double zen,
  *************************************************************************/
 int CECoordinates::Observed2Galactic(double az, double zen,
                                  double *glon, double *glat,
-                                 CEDate&     date,
-                                 CEObserver& observer,
-                                 CEAngleType angle_type)
+                                 const CEDate&     date,
+                                 const CEObserver& observer,
+                                 const CEAngleType& angle_type)
 {
     // Convert to radians if necessary
     if (angle_type == CEAngleType::DEGREES) {
@@ -642,7 +641,7 @@ int CECoordinates::Observed2Galactic(double az, double zen,
  * @param[in]  pressure_hPa         Atmospheric pressure (HPa)
  * @param[in]  temperature_celsius  Temperature (degrees Celsius)
  * @param[in]  relative_humidity    Relative humidity (0.0 - 1.0)
- * @param[in]  dut1                 UTC - UT1
+ * @param[in]  dut1                 UT1 - UTC
  * @param[in]  xp                   "x" polar motion
  * @param[in]  yp                   "y" polar motion
  * @param[in]  wavelength_um        Wavelength (micrometers)
@@ -1059,15 +1058,12 @@ CECoordinates CECoordinates::GetObservedCoords(const double& julian_date,
 /**********************************************************************//**
  * Return the observed coordinates using an observer object (CEObserver)
  * 
- * @param[in] julian_date          Julian date of the observation
+ * @param[in] date                 Julian date of the observation
  * @param[in] observer             Observer information
- * @param[in] dut1                 'UTC-UT1'
- * @param[in] xp                   x-polar motion
- * @param[in] yp                   y-polar motion
  * @param[in] wavelength_um        Wavelength being observed (micrometers)
  * @return These coordinates converted into the observed coordinates of 'observer'
  *************************************************************************/
-CECoordinates CECoordinates::GetObservedCoords(const CEDate& julian_date,
+CECoordinates CECoordinates::GetObservedCoords(const CEDate& date,
                                                const CEObserver& observer,
                                                const double& dut1,
                                                const double& xp, const double& yp,
@@ -1513,17 +1509,19 @@ CECoordinates CECoordinates::ConvertToObserved(double jd,
  * @param[in] angle            What is the angle value
  * @param[in] angle_type       Specifies what type of angle
  * @return Vector containing the following values
- *         -[1] = Degrees
- *         -[2] = Arcminutes
- *         -[3] = Arcseconds
+ *         -[0] = Degrees
+ *         -[1] = Arcminutes
+ *         -[2] = Arcseconds
  *************************************************************************/
-std::vector<double> CECoordinates::GetDMS(double angle,
-                                          CEAngleType angle_type)
+std::vector<double> CECoordinates::GetDMS(const double& angle,
+                                          const CEAngleType& angle_type)
 {
     // Convert to degrees if passed radians
-    if (angle_type == CEAngleType::RADIANS) angle *= DR2D ;
-    double unsign_angle = std::fabs( angle ) ;
-    std::vector<double> DMS(3) ;
+    double unsign_angle = std::fabs( angle );
+    if (angle_type == CEAngleType::RADIANS) 
+        unsign_angle *= DR2D ;
+
+    std::vector<double> DMS(3, 0.0) ;
     DMS[0] = std::floor(unsign_angle) ;
     DMS[1] = std::floor((unsign_angle - DMS[0])*60.0) ;
     DMS[2] = (unsign_angle - DMS[0] - DMS[1]/60.0) * 3600.0 ;
@@ -1537,21 +1535,22 @@ std::vector<double> CECoordinates::GetDMS(double angle,
  * @param[in] angle            What is the angle value
  * @param[in] angle_type       Specifies what type of angle
  * @return Vector containing the following values
- *         -[1] = Hours
- *         -[2] = Minutes
- *         -[3] = Seconds
+ *         -[0] = Hours
+ *         -[1] = Minutes
+ *         -[2] = Seconds
  *************************************************************************/
-std::vector<double> CECoordinates::GetHMS(double angle,
-                                          CEAngleType angle_type)
+std::vector<double> CECoordinates::GetHMS(const double& angle,
+                                          const CEAngleType& angle_type)
 {
     // Convert to degrees if passed radians
-    if (angle_type == CEAngleType::RADIANS) angle *= DR2D ;
+    double ang(angle/15.0);
+    if (angle_type == CEAngleType::RADIANS) 
+        ang *= DR2D ;
     
-    double hrs = angle/15.0 ;
     std::vector<double> HMS(3) ;
-    HMS[0] = std::floor(hrs) ;
-    HMS[1] = std::floor((hrs - HMS[0])*60.0) ;
-    HMS[2] = (hrs - HMS[0] - (HMS[1]/60.0)) * 3600.0 ;
+    HMS[0] = std::floor(ang) ;
+    HMS[1] = std::floor((ang - HMS[0])*60.0) ;
+    HMS[2] = (ang - HMS[0] - (HMS[1]/60.0)) * 3600.0 ;
     return HMS ;
 }
 
@@ -1562,9 +1561,10 @@ std::vector<double> CECoordinates::GetHMS(double angle,
  * @param[in] coord_type       Coordinate type (see ::CECoordinateType)
  * @param[in] angle_type       Specifies whether xcoord & ycoord are in RADIANS or DEGREES (see ::CEAngleType)
  *************************************************************************/
-void CECoordinates::SetCoordinates(double xcoord, double ycoord,
-                                   CECoordinateType coord_type,
-                                   CEAngleType angle_type)
+void CECoordinates::SetCoordinates(const double& xcoord, 
+                                   const double& ycoord,
+                                   const CECoordinateType& coord_type,
+                                   const CEAngleType& angle_type)
 {
     if (angle_type == CEAngleType::RADIANS) {
         xcoord_ = xcoord ;

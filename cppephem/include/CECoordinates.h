@@ -86,8 +86,10 @@ public:
     virtual double YCoordinate_Deg(double jd=CppEphem::julian_date_J2000()) const;
     
     // Convert an angle into Hours:minutes:seconds format
-    static std::vector<double> GetHMS(double angle, CEAngleType angle_type = CEAngleType::DEGREES);
-    static std::vector<double> GetDMS(double angle, CEAngleType angle_type = CEAngleType::DEGREES);
+    static std::vector<double> GetHMS(const double& angle, 
+                                      const CEAngleType& angle_type = CEAngleType::DEGREES);
+    static std::vector<double> GetDMS(const double& angle, 
+                                      const CEAngleType& angle_type = CEAngleType::DEGREES);
 
     // Return coordinate system    
     CECoordinateType GetCoordSystem(void) const;
@@ -101,18 +103,18 @@ public:
     
     // Convert from CIRS to other coordinates
     static void CIRS2ICRS(double input_ra, double input_dec, double *return_ra, double *return_dec,
-                          CEDate date=CEDate(DJ00, CEDateType::JD),
-                          CEAngleType angle_type=CEAngleType::RADIANS);
+                          const CEDate& date=CEDate(),
+                          const CEAngleType& angle_type=CEAngleType::RADIANS);
     static void CIRS2Galactic(double ra, double dec, double *glon, double *glat,
-                              CEDate date=CEDate(DJ00, CEDateType::JD),
-                              CEAngleType angle_type=CEAngleType::RADIANS);
+                              const CEDate& date=CEDate(),
+                              const CEAngleType& angle_type=CEAngleType::RADIANS);
     static int CIRS2Observed(double ra,
                              double dec,
                              double *az,
                              double *zen,
-                             CEDate&     date,
-                             CEObserver& observer,
-                             CEAngleType angle_type=CEAngleType::RADIANS,
+                             const CEDate&     date,
+                             const CEObserver& observer,
+                             const CEAngleType& angle_type=CEAngleType::RADIANS,
                              double wavelength_um=0.5,
                              double *observed_ra=nullptr,
                              double *observed_dec=nullptr,
@@ -123,20 +125,20 @@ public:
                           double input_dec,
                           double *return_ra,
                           double *return_dec,
-                          CEDate date=CEDate(),
-                          CEAngleType angle_type=CEAngleType::RADIANS);
+                          const CEDate& date=CEDate(),
+                          const CEAngleType& angle_type=CEAngleType::RADIANS);
     static void ICRS2Galactic(double ra,
                               double dec,
                               double *glon,
                               double *glat,
-                              CEAngleType angle_type=CEAngleType::RADIANS);
+                              const CEAngleType& angle_type=CEAngleType::RADIANS);
     static int ICRS2Observed(double ra,
                              double dec,
                              double *az,
                              double *zen,
-                             CEDate&     date,
-                             CEObserver& observer,
-                             CEAngleType angle_type=CEAngleType::RADIANS,
+                             const CEDate&     date,
+                             const CEObserver& observer,
+                             const CEAngleType& angle_type=CEAngleType::RADIANS,
                              double wavelength_um=0.5,
                              double *observed_ra=nullptr,
                              double *observed_dec=nullptr,
@@ -144,17 +146,17 @@ public:
     
     // Convert from GALACTIC to other coordinates
     static void Galactic2CIRS(double glon, double glat, double *ra, double *dec,
-                              CEDate date=CEDate(),
-                              CEAngleType angle_type=CEAngleType::RADIANS);
+                              const CEDate& date=CEDate(),
+                              const CEAngleType& angle_type=CEAngleType::RADIANS);
     static void Galactic2ICRS(double glon, double glat, double *ra, double *dec,
-                              CEAngleType angle_type=CEAngleType::RADIANS);
+                              const CEAngleType& angle_type=CEAngleType::RADIANS);
     static int Galactic2Observed(double glon,
                                  double glat,
                                  double *az,
                                  double *zen,
-                                 CEDate&     date,
-                                 CEObserver& observer,
-                                 CEAngleType angle_type=CEAngleType::RADIANS,
+                                 const CEDate&     date,
+                                 const CEObserver& observer,
+                                 const CEAngleType& angle_type=CEAngleType::RADIANS,
                                  double wavelength_um=0.5,
                                  double *observed_glon=nullptr,
                                  double *observed_glat=nullptr,
@@ -164,23 +166,23 @@ public:
                               double zen,
                               double *ra,
                               double *dec,
-                              CEDate&     date,
-                              CEObserver& observer,
-                              CEAngleType angle_type=CEAngleType::RADIANS);
+                              const CEDate&     date,
+                              const CEObserver& observer,
+                              const CEAngleType& angle_type=CEAngleType::RADIANS);
     static int Observed2ICRS(double az,
                               double zen,
                               double *ra,
                               double *dec,
-                              CEDate&     date,
-                              CEObserver& observer,
-                              CEAngleType angle_type=CEAngleType::RADIANS);
+                              const CEDate&     date,
+                              const CEObserver& observer,
+                              const CEAngleType& angle_type=CEAngleType::RADIANS);
     static int Observed2Galactic(double az,
                               double zen,
                               double *glon,
                               double *glat,
-                              CEDate&     date,
-                              CEObserver& observer,
-                              CEAngleType angle_type=CEAngleType::RADIANS);
+                              const CEDate&     date,
+                              const CEObserver& observer,
+                              const CEAngleType& angle_type=CEAngleType::RADIANS);
     
     
     // The following are provided to allow converting to OBSERVED
@@ -369,10 +371,12 @@ public:
     /*********************************************************
      * Methods for setting the coordinates of this object
      *********************************************************/
-    virtual void SetCoordinates(double xcoord, double ycoord,
-                                CECoordinateType coord_type = CECoordinateType::ICRS,
-                                CEAngleType angle_type = CEAngleType::RADIANS);
-    virtual void SetCoordinates(CECoordinates& coords);
+    virtual void SetCoordinates(const double& xcoord, 
+                                const double& ycoord,
+                                const CECoordinateType& coord_type = CECoordinateType::ICRS,
+                                const CEAngleType& angle_type = CEAngleType::RADIANS);
+    virtual void SetCoordinates(const CECoordinates& coords);
+
     
 protected:
     // Coordinate variables
