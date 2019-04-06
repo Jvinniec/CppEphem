@@ -146,8 +146,8 @@ void CECoordinates::CIRS2ICRS(double input_ra, double input_dec,
     double eo ; // Equation of the origins
     iauAtic13(input_ra, input_dec, date.JD(), 0.0, return_ra, return_dec, &eo) ;
 
-    // Subtract the eo from RA
-    *return_ra -= eo ;
+    // Subtract the eo from RA if J2000 coordinates are desired
+    //*return_ra -= eo ;
     
     // Return the coordinates in the requested units
     if (angle_type == CEAngleType::DEGREES) {
@@ -287,8 +287,13 @@ void CECoordinates::ICRS2CIRS(double input_ra, double input_dec,
     
     // Use the sofa library to convert these coordinates
     try {
-        iauAtci13(input_ra, input_dec, 0, 0, 0, 0, date.JD(), 0.0, return_ra, return_dec, &eo) ;
-        *return_ra -= eo ;
+        iauAtci13(input_ra, input_dec, 
+                  0.0, 0.0, 0.0, 0.0, 
+                  date.JD(), 0.0, 
+                  return_ra, return_dec, &eo) ;
+        
+        // Subtract the equation of the origins if J2000 coordinates are desired
+        //*return_ra -= eo ;
     } catch (std::exception &e) {
         throw CEException::sofa_exception("CECoordinates::ICRS2CIRS",
                                           "iauAtci13", 
