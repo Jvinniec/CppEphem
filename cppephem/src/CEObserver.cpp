@@ -125,24 +125,14 @@ CECoordinates CEObserver::ObservedPosition(const CECoordinates& coords,
  *************************************************************************/
 std::string CEObserver::print(void) const
 {
-    // Preliminary variables
-    const int buff_size(1024);
-    char  buffer[buff_size];
-    int   offset(0);
-
     // Fill in the returned string with formatted strings
-    offset += std::sprintf(&buffer[0], "Observer:\n");
-    offset += std::sprintf(&buffer[offset], "   (Lon,Lat) = (%f, %f) deg\n",
-                           Longitude_Deg(), Latitude_Deg());
-    offset += std::sprintf(&buffer[offset], "   Elevation = %f m\n",
-                           Elevation_m());
-    offset += std::sprintf(&buffer[offset], "   Temp      = %f C\n",
-                           Temperature_C());
-    offset += std::sprintf(&buffer[offset], "   Pressure  = %f hPa\n",
-                           Pressure_hPa());
-    offset += std::sprintf(&buffer[offset], "   Humidity  = %f %%\n",
-                           RelativeHumidity());
-    offset += std::sprintf(&buffer[offset], "   Wavelength= %f um\n",
-                           Wavelength_um());
-    return std::string(buffer);
+    std::string msg("Observer:\n");
+    msg += "   (Lon,Lat) = (" + std::to_string(Longitude_Deg()) + ", "  + 
+                                std::to_string(Latitude_Deg()) + ") deg\n";
+    msg += "   Elevation = " + std::to_string(Elevation_m()) + " m\n";
+    msg += "   Temp      = " + std::to_string(Temperature_C()) + " C\n";
+    msg += "   Pressure  = " + std::to_string(Pressure_hPa()) + " hPa\n";
+    msg += "   Humidity  = " + std::to_string(RelativeHumidity()) + " %%\n";
+    msg += "   Wavelength= " + std::to_string(Wavelength_um()) + " um\n";
+    return msg;
 }
