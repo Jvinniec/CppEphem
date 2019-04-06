@@ -81,6 +81,8 @@ public:
     CECoordinates ObservedPosition(const CECoordinates& coords,
                                    const CEDate&        date) ;
     
+    std::string print(void) const;
+
 protected:
     // Variables which define the observers location on Earth
     double longitude_;              ///< Geographic longitude (radians)
