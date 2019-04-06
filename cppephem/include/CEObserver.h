@@ -29,10 +29,10 @@
 class CEObserver {
 public:
 //    CEObserver() ;
-    CEObserver(const double& longitude  = 0.0, 
-               const double& latitude   = 51.4778, 
-               const double& elevation  = 0.0,
-               CEAngleType   angle_type = CEAngleType::DEGREES) ;
+    CEObserver(const double& longitude = 0.0, 
+               const double& latitude  = 51.4778, 
+               const double& elevation = 0.0,
+               const CEAngleType& angle_type = CEAngleType::DEGREES) ;
     CEObserver(const CEObserver& other) ;
     virtual ~CEObserver() ;
     
@@ -60,11 +60,12 @@ public:
      ****************************************************/
     void SetElevation(const double& elevation=0.0);
     void SetLongitude(const double& longitude, 
-                      CEAngleType angle_type=CEAngleType::RADIANS);
+                      const CEAngleType&  angle_type=CEAngleType::RADIANS);
     void SetLatitude(const double& latitude, 
-                     CEAngleType angle_type=CEAngleType::RADIANS);
-    void SetGeographicCoordinates(const double& longitude,
-                                  const double& latitude,
+                     const CEAngleType&  angle_type=CEAngleType::RADIANS);
+    void SetGeoCoordinates(const double& longitude,
+                           const double& latitude,
+                           const CEAngleType&  angle_type=CEAngleType::RADIANS);
     void SetPressure_hPa(const double& pressure=CppEphem::EstimatePressure_hPa(CppEphem::SeaLevelTemp_C()));
     void SetRelativeHumidity(const double& humidity=0.0);
     void SetTemperature_C(const double& temp_C=CppEphem::SeaLevelTemp_C());
@@ -267,7 +268,7 @@ void CEObserver::SetElevation(const double& elevation)
  *************************************************************************/
 inline
 void CEObserver::SetLongitude(const double& longitude, 
-                              CEAngleType angle_type)
+                              const CEAngleType&  angle_type)
 {
     longitude_ = longitude * ((angle_type==CEAngleType::RADIANS) ? 1 : DD2R) ;
 }
@@ -277,7 +278,7 @@ void CEObserver::SetLongitude(const double& longitude,
  *************************************************************************/
 inline
 void CEObserver::SetLatitude(const double& latitude, 
-                             CEAngleType angle_type)
+                             const CEAngleType&  angle_type)
 {
     latitude_ = latitude * ((angle_type==CEAngleType::RADIANS) ? 1 : DD2R) ;
 }
@@ -286,7 +287,18 @@ void CEObserver::SetLatitude(const double& latitude,
 /**********************************************************************//**
  *************************************************************************/
 inline
-void CEObserver::SetPressure(const double& pressure)
+void CEObserver::SetGeoCoordinates(const double& longitude,
+                                   const double& latitude,
+                                   const CEAngleType&  angle_type)
+{
+    SetLongitude(longitude, angle_type);
+    SetLatitude(latitude, angle_type);
+}
+
+/**********************************************************************//**
+ *************************************************************************/
+inline
+void CEObserver::SetPressure_hPa(const double& pressure)
 {
     pressure_hPa_ = pressure ;
 }
