@@ -62,6 +62,8 @@ public:
     CECoordinates(const CECoordinates& other) ;
     virtual ~CECoordinates() ;
     
+    CECoordinates& operator=(const CECoordinates& other);
+
     /*********************************************************
      * Angular separation between two coordinate positions
      *********************************************************/
@@ -377,6 +379,8 @@ public:
                                 const CEAngleType& angle_type = CEAngleType::RADIANS);
     virtual void SetCoordinates(const CECoordinates& coords);
 
+    // Support methods
+    std::string print(void);
     
 protected:
     // Coordinate variables

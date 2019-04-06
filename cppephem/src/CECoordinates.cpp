@@ -90,6 +90,20 @@ CECoordinates::~CECoordinates()
 
 
 /**********************************************************************//**
+ * Overloaded '=' (assignment) operator
+ *************************************************************************/
+CECoordinates& CECoordinates::operator=(const CECoordinates& other)
+{
+    if (this != &other) {
+        free_members();
+        init_members();
+        copy_members(other);
+    }
+    return *this;
+}
+
+
+/**********************************************************************//**
  * CIRS -> ICRS coordinate conversion.
  * (uses SOFA 'iauAtic13' function)
  * 
@@ -1580,7 +1594,24 @@ void CECoordinates::SetCoordinates(const double& xcoord,
  * Set the coordinates from another CECoordinates object
  * @param[in] coords       Another coordinates object to copy
  *************************************************************************/
-void CECoordinates::SetCoordinates(CECoordinates& coords)
+void CECoordinates::SetCoordinates(const CECoordinates& coords)
+{
+    copy_members(coords);
+}
+
+
+/**********************************************************************//**
+ * Generate a message string that specifies the information about this coordinate
+ * @return String describing this object
+ *************************************************************************/
+std::string CECoordinates::print(void)
+{
+    std::string msg = "Coordinates:\n";
+    msg += "   - System : " + std::to_string(int(coord_type_)) + "\n";
+    msg += "   - X-coord: " + std::to_string(XCoordinate_Rad()) + " radians\n";
+    msg += "   - Y-coord: " + std::to_string(YCoordinate_Rad()) + " radians\n";
+    return msg;
+}
 {
     xcoord_ = coords.XCoordinate_Rad() ;
     ycoord_ = coords.YCoordinate_Rad() ;
