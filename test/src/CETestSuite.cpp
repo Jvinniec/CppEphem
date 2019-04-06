@@ -47,9 +47,36 @@ CETestSuite::~CETestSuite()
 /**********************************************************************//**
  * Return whether value is within a specified tolerance of 'expected'
  *
+ * @param[in] test_success  A simple boolean for whether a test passed
+ * @param[in] function      Name of the function where test was run
+ * @param[in] line          Line where test was run
+ * @return The same value as @p test_success
+ *************************************************************************/
+bool CETestSuite::test(bool  test_success, 
+                       const std::string& function,
+                       const int&         line)
+{
+    // Values equal within tolerance
+    if (test_success) {
+        log_success("Generic test SUCCEEDED.", function, line);
+    } 
+    // Values not within tolerance
+    else {
+        log_failure("Generic test FAILED.", function, line);
+    }
+
+    update_pass(test_success);
+    return test_success;
+}
+
+
+/**********************************************************************//**
+ * Return whether value is within a specified tolerance of 'expected'
+ *
  * @param[in] value         Value to be tested
  * @param[in] expected      Expected value to test against
- * @param[in] tol           Tolerance for the comparison
+ * @param[in] function      Name of the function where test was run
+ * @param[in] line          Line where test was run
  * @return Whether value is within 'tol' of expected
  *************************************************************************/
 bool CETestSuite::test_double(const double&      value, 
@@ -88,7 +115,8 @@ bool CETestSuite::test_double(const double&      value,
  *
  * @param[in] value         Value to be tested
  * @param[in] expected      Expected value to test against
- * @param[in] tol           Tolerance for the comparison
+ * @param[in] function      Name of the function where test was run
+ * @param[in] line          Line where test was run
  * @return Whether value is within 'tol' of expected
  *************************************************************************/
 bool CETestSuite::test_int(const int&         value, 
@@ -123,6 +151,8 @@ bool CETestSuite::test_int(const int&         value,
  *
  * @param[in] value         Value to be tested
  * @param[in] expected      Expected value to test against
+ * @param[in] function      Name of the function where test was run
+ * @param[in] line          Line where test was run
  * @return Whether value and expected are the same
  *************************************************************************/
 bool CETestSuite::test_bool(bool               value, 
@@ -153,6 +183,8 @@ bool CETestSuite::test_bool(bool               value,
  *
  * @param[in] value         Value to be tested
  * @param[in] expected      Expected value to test against
+ * @param[in] function      Name of the function where test was run
+ * @param[in] line          Line where test was run
  * @return Whether value and expected are the same
  *************************************************************************/
 bool CETestSuite::test_string(const std::string& value, 
@@ -183,6 +215,8 @@ bool CETestSuite::test_string(const std::string& value,
  *
  * @param[in] value         Value to be tested
  * @param[in] expected      Expected value to test against
+ * @param[in] function      Name of the function where test was run
+ * @param[in] line          Line where test was run
  * @return Whether value and expected are the same
  *************************************************************************/
 template<class T>
@@ -219,6 +253,8 @@ bool CETestSuite::test_vect_(const std::vector<T>& value,
  *
  * @param[in] value         Value to be tested
  * @param[in] expected      Expected value to test against
+ * @param[in] function      Name of the function where test was run
+ * @param[in] line          Line where test was run
  * @return Whether value and expected are the same
  *************************************************************************/
 bool CETestSuite::test_vect(const std::vector<double>& value,
@@ -227,6 +263,90 @@ bool CETestSuite::test_vect(const std::vector<double>& value,
                             const int&                 line)
 {
     return test_vect_<double>(value, expected, function, line);
+}
+
+
+/**********************************************************************//**
+ * Return whether a value is less than a specified value
+ *
+ * @param[in] value         Value to be tested
+ * @param[in] maxval        Maximum allowed value
+ * @param[in] function      Name of the function where test was run
+ * @param[in] line          Line where test was run
+ * @return Whether value < maxval
+ *************************************************************************/
+template<class T>
+bool CETestSuite::test_lessthan_(const T& value,
+                                const T& maxval,
+                                const std::string& function,
+                                const int&         line)
+{
+    bool ret_val = true;
+    if (value < maxval) {
+        log_success("Value of \"" + std::to_string(value) + 
+                    "\" is less than \"" + std::to_string(maxval) + "\".",
+                    function, line);
+        ret_val = true;
+    } else {
+        log_failure("Value of \"" + std::to_string(value) + 
+                    "\" is NOT less than \"" + std::to_string(maxval) + "\".",
+                    function, line);
+        ret_val = false;
+    }
+
+    update_pass(ret_val);
+    return ret_val;
+}
+
+
+/**********************************************************************//**
+ * Return whether a value is less than a specified value (double)
+ *
+ * @param[in] value         Value to be tested
+ * @param[in] maxval        Maximum allowed value
+ * @param[in] function      Name of the function where test was run
+ * @param[in] line          Line where test was run
+ * @return Whether value < maxval
+ *************************************************************************/
+bool CETestSuite::test_lessthan(const double& value,
+                                const double& maxval,
+                                const std::string& function,
+                                const int&         line)
+{
+    return test_lessthan_<double>(value, maxval, function, line);   
+}
+
+
+/**********************************************************************//**
+ * Return whether a value is greater than a specified value
+ *
+ * @param[in] value         Value to be tested
+ * @param[in] minval        Minimum allowed value
+ * @param[in] function      Name of the function where test was run
+ * @param[in] line          Line where test was run
+ * @return Whether value > minval
+ *************************************************************************/
+template<class T>
+bool CETestSuite::test_greaterthan(const T& value,
+                                   const T& minval,
+                                   const std::string& function,
+                                   const int&         line)
+{
+    bool ret_val = true;
+    if (value > minval) {
+        log_success("Value of \"" + std::to_string(value) + 
+                    "\" is greater than \"" + std::to_string(minval) + "\".",
+                    function, line);
+        ret_val = true;
+    } else {
+        log_failure("Value of \"" + std::to_string(value) + 
+                    "\" is NOT greater than \"" + std::to_string(minval) + "\".",
+                    function, line);
+        ret_val = false;
+    }
+
+    update_pass(ret_val);
+    return ret_val;
 }
 
 
