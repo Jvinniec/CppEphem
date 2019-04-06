@@ -1732,15 +1732,9 @@ bool operator==(const CECoordinates& lhs, const CECoordinates& rhs)
     }
     // Check that the x-coordinate and the y-coordinate are the same
     else {
-        // Get the x,y values of the two coordinates
-        double lhs_x(lhs.XCoordinate_Rad());
-        double lhs_y(lhs.YCoordinate_Rad());
-        double rhs_x(rhs.XCoordinate_Rad());
-        double rhs_y(rhs.YCoordinate_Rad());
-
-        // Test the coordinates
-        if ((std::abs(lhs_x - rhs_x) > std::abs(rhs_x*1.0e-15)) ||
-            (std::abs(lhs_y - rhs_y) > std::abs(rhs_y*1.0e-15))) {
+        // Check how far appart the coordinates are from each other
+        double angsep(CECoordinates::AngularSeparation(lhs, rhs, CEAngleType::RADIANS));
+        if (angsep > 4.8e-6) {
             are_equal = false;
         }
     }
