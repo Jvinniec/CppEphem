@@ -57,7 +57,7 @@ CECoordinates::CECoordinates(const double& xcoord,
 {
     init_members();
     SetCoordinates(xcoord, ycoord, coord_type, angle_type);
-    }
+}
 
 
 /**********************************************************************//**
@@ -178,10 +178,10 @@ void CECoordinates::CIRS2Galactic(double input_ra, double input_dec, double *glo
     // In order to do this with the sofa package, we must first
     // convert from CIRS -> ICRS
     double ICRS_ra(0.0), ICRS_dec(0.0) ;
-    CIRS2ICRS(input_ra, input_dec, &ICRS_ra, &ICRS_dec, date) ;
+    CIRS2ICRS(input_ra, input_dec, &ICRS_ra, &ICRS_dec, date, CEAngleType::RADIANS);
     
     // Now we can convert to galactic
-    ICRS2Galactic(ICRS_ra, ICRS_dec, glon, glat) ;
+    ICRS2Galactic(ICRS_ra, ICRS_dec, glon, glat, CEAngleType::RADIANS) ;
     
     // Convert to the desired units
     if (angle_type == CEAngleType::DEGREES) {
@@ -386,7 +386,7 @@ int CECoordinates::ICRS2Observed(double ra, double dec,
                                  date.xpolar(),
                                  wavelength,
                                  observed_ra, observed_dec, hour_angle) ;
-    
+
     // Now convert back to degrees if that's what we were passed
     if (angle_type == CEAngleType::DEGREES) {
         *az           *= DR2D ;
@@ -424,11 +424,11 @@ void CECoordinates::Galactic2CIRS(double glon, double glat, double *ra, double *
     }
     
     // Do the Galactic -> ICRS converstion
-    Galactic2ICRS(glon, glat, ra, dec) ;
+    Galactic2ICRS(glon, glat, ra, dec, CEAngleType::RADIANS) ;
     
     // Now convert ICRS -> CIRS
     double tmp_ra(*ra), tmp_dec(*dec) ;
-    ICRS2CIRS(tmp_ra, tmp_dec, ra, dec, date) ;
+    ICRS2CIRS(tmp_ra, tmp_dec, ra, dec, date, CEAngleType::RADIANS) ;
     
     // Now make sure to return the coordinates in the correct format
     if (angle_type == CEAngleType::DEGREES) {
