@@ -60,7 +60,26 @@ CECoordinates::CECoordinates(const double& xcoord,
         xcoord_ *= DD2R ;
         ycoord_ *= DD2R ;
     }
+
+
+/**********************************************************************//**
+ * Primary constructor 
+ * 
+ * @param[in] xcoord X-Coordinate {hours,minutes,seconds}
+ * @param[in] ycoord Y-Coordinate {degrees, arcmin, arcsec}
+ * @param[in] coord_type Coordinate type (see CECoordinateType)
+ * @param[in] angle_type Angle type (either DEGREES or RADIANS)
+ *************************************************************************/
+CECoordinates::CECoordinates(const std::vector<double>& xcoord,
+                             const std::vector<double>& ycoord,
+                             const CECoordinateType& coord_type)
+{
+    init_members();
+    double x = CECoordinates::HMSToAngle(xcoord, CEAngleType::RADIANS);
+    double y = CECoordinates::DMSToAngle(ycoord, CEAngleType::RADIANS);
+    SetCoordinates(x, y, coord_type, CEAngleType::RADIANS);
 }
+
 
 /**********************************************************************//**
  * Constructor from a coordinate type
@@ -1567,6 +1586,54 @@ std::vector<double> CECoordinates::GetHMS(const double& angle,
     HMS[2] = (ang - HMS[0] - (HMS[1]/60.0)) * 3600.0 ;
     return HMS ;
 }
+
+
+/**********************************************************************//**
+ * Convert from {hours, minutes, seconds} to an angle
+ * @param[in] angle            What is the angle value
+ * @param[in] return_type      Specifies angle type for returned value
+ * @return Angle
+ * 
+ * The supplied @p angle value should be of length 3 with the indices having
+ * the following values
+ *         -[0] = Hours
+ *         -[1] = Minutes
+ *         -[2] = Seconds
+ *************************************************************************/
+double CECoordinates::HMSToAngle(const std::vector<double>& angle,
+                                 const CEAngleType& return_type)
+{
+    return DMSToAngle(angle, return_type) * 15.0;
+}
+
+
+/**********************************************************************//**
+ * Convert a given angle vector from {degrees, minutes, seconds} to an angle
+ * @param[in] angle            What is the angle value
+ * @param[in] return_type      Specifies angle type for returned value
+ * @return Angle
+ * 
+ * The supplied @p angle value should be of length 3 with the indices having
+ * the following values
+ *         -[0] = Degrees
+ *         -[1] = Arcminutes
+ *         -[2] = Arcseconds
+ *************************************************************************/
+double CECoordinates::DMSToAngle(const std::vector<double>& angle,
+                                 const CEAngleType& return_type)
+{
+    // Convert the values to an angle in degrees
+    double ret_angle(angle[0]);
+    ret_angle += angle[1] / 60.0;
+    ret_angle += angle[2] / 3600.0;
+
+    if (return_type == CEAngleType::RADIANS) {
+        ret_angle *= DD2R;
+    }
+
+    return ret_angle;
+}
+
 
 /**********************************************************************//**
  * Set the coordinates of this object
