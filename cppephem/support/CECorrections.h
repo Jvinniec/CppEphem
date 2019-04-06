@@ -32,17 +32,25 @@ public:
     CECorrections(const CECorrections& other);
     virtual ~CECorrections() {}
 
-    double dut1(const double& mjd) const;
-    double xpolar(const double& mjd) const;
-    double ypolar(const double& mjd) const;
+    CECorrections& operator=(const CECorrections& other);
+
+    double      dut1(const double& mjd) const;
+    double      xpolar(const double& mjd) const;
+    double      ypolar(const double& mjd) const;
+    std::string Filename(void) const;
+    void        SetFilename(const std::string& filename);
 
 private:
+
+    void   copy_members(const CECorrections& other);
+    void   free_members(void);
+    void   init_members(void);
 
     bool   DownloadTables(void) const;
     bool   LoadTables(void) const;
     double GetTableValue(const double& mjd, const int& tbl_indx) const;
 
-    std::string outfilename_;   ///< File where corrections are stored
+    std::string filename_;   ///< File where corrections are stored
 
     // Table to hold the corrections for a given MJD
     mutable std::map<int, std::vector<double>> corrections_;
@@ -51,10 +59,34 @@ private:
     // Specifies whether to interpolate values between dates or not
     // Interpolating will give slightly more accurate results at the expense
     // of increasing computation time.
-    static  bool interp_;
+    bool         interp_;
     mutable int  min_mjd_;
     mutable int  max_mjd_;
 
 };
+
+
+/**********************************************************************//**
+ * Returns the name of the corrections file
+ * 
+ * @return Corrections filename
+ *************************************************************************/
+inline
+std::string CECorrections::Filename(void) const
+{
+    return filename_;
+}
+
+
+/**********************************************************************//**
+ * Sets the name of the corrections file
+ * 
+ * @param[in] filename      Filename to read/write corrections from/to
+ *************************************************************************/
+inline
+void CECorrections::SetFilename(const std::string& filename)
+{
+    filename_ = filename;
+}
 
 #endif /* CECorrections_h */
