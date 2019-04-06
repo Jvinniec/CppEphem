@@ -165,19 +165,7 @@ bool test_CEObserver::test_get_obsCoords(void)
     CECoordinates obs_coords = base_obs_.ObservedPosition(body, date);
 
     // Note that these test coordinates were derived using Astropy
-    // to make the exact same computation. The code used is as follows:
-    // >>> import astropy.units as u
-    // >>> from astropy.coordinates import AltAz
-    // >>> from astropy.coordinates import SkyCoord
-    // >>> from astropy.coordinates import EarthLocation
-    // >>> from astropy.time import Time
-    // >>> earth_pos = EarthLocation(lat='0d0m', lon='0d0m', height=0*u.m)
-    // >>> observing_time = Time('2000-01-01 12:00')
-    // >>> aa = AltAz(location=earth_pos, obstime=observing_time)
-    // >>> test = SkyCoord(0.0*u.deg, 90.0*u.deg, frame='icrs')
-    // >>> obs_coords = test.transform_to(aa)
-    // >>> zenith = 90 - obs_coords.alt.deg
-    // >>> print(f"(az,alt) = ({obs_coords.az}, {zenith})")
+    // to ensure the values returned are correct
     CECoordinates test_coords(359.9960211433963, 90.00137453000666, 
                               CECoordinateType::OBSERVED, CEAngleType::DEGREES);
 
