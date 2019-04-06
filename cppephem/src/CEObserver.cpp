@@ -23,11 +23,11 @@
  CEObserver class is a self contained object for describing an observer.
  Information relevant to the observer includes:
  - Geographic longitude  (East positive)
- - Geographic latitude
+ - Geographic latitude (North positive)
  - Elevation (meters above sea level)
  - Atmospheric pressure (hPa)
- - Temperature
- - Relative humidity
+ - Temperature (Kelvin, Celsius, Fahrenheit)
+ - Relative humidity (in range 0-1)
  
  The above are used in the SOFA software to more accurately calculate
  the affect of refraction through the atmosphere.
@@ -47,12 +47,12 @@
  * @param[in] longitude         Observer longitude (east positive)
  * @param[in] latitude          Observer latitude
  * @param[in] elevation         Observer elevation above sea-level (meters)
- * @param[in] angle_type        Angle type for longitude and latitude (RADIANS or DEGREES)
+ * @param[in] angle_type        Angle type for lon,lat (default is degrees)
  *************************************************************************/
 CEObserver::CEObserver(const double& longitude, 
                        const double& latitude,
                        const double& elevation, 
-                       CEAngleType   angle_type)
+                       const CEAngleType& angle_type)
 {
     // Use the internal methods for setting the values
     SetLongitude(longitude, angle_type) ;
