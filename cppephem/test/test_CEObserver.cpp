@@ -26,6 +26,7 @@
 #include <iostream>
 
 #include "test_CEObserver.h"
+#include "CECoordinates.h"
 #include "CENamespace.h"
 
 
@@ -36,6 +37,9 @@ test_CEObserver::test_CEObserver() :
     CETestSuite()
 {
     base_obs_ = CEObserver(0.0, 0.0, 0.0, CEAngleType::DEGREES);
+    base_obs_.SetWavelength_um(1.0);
+    base_obs_.SetTemperature_C(0.0);
+    base_obs_.SetPressure_hPa(0.0);
 }
 
 
@@ -59,6 +63,7 @@ bool test_CEObserver::runtests()
     test_copy();
     test_set_geoCoords();
     test_set_atmoPars();
+    test_get_obsCoords();
 
     return pass();
 }
@@ -131,7 +136,7 @@ bool test_CEObserver::test_set_atmoPars()
 
     // Test pressure
     double pres = obs.Pressure_hPa() + 10.0;
-    obs.SetPressure(pres);
+    obs.SetPressure_hPa(pres);
     test_double(obs.Pressure_hPa(),  pres, __func__, __LINE__);
 
     // Test Relative humidity
@@ -144,6 +149,51 @@ bool test_CEObserver::test_set_atmoPars()
     obs.SetRelativeHumidity(relHumidity);
     test_double(obs.RelativeHumidity(),  relHumidity, __func__, __LINE__);
     
+    return pass();
+}
+
+
+/**********************************************************************//**
+ * Test that we can get correct observed coordinates
+ * 
+ * @return whether or not all tests succeeded
+ *************************************************************************/
+bool test_CEObserver::test_get_obsCoords(void)
+{
+    CEBody body("North Pole", 0.0, 90.0, CECoordinateType::ICRS, CEAngleType::DEGREES);
+    CEDate date(CppEphem::julian_date_J2000(), CEDateType::JD);
+    CECoordinates obs_coords = base_obs_.ObservedPosition(body, date);
+
+    // Note that these test coordinates were derived using Astropy
+    // to make the exact same computation. The code used is as follows:
+    // >>> import astropy.units as u
+    // >>> from astropy.coordinates import AltAz
+    // >>> from astropy.coordinates import SkyCoord
+    // >>> from astropy.coordinates import EarthLocation
+    // >>> from astropy.time import Time
+    // >>> earth_pos = EarthLocation(lat='0d0m', lon='0d0m', height=0*u.m)
+    // >>> observing_time = Time('2000-01-01 12:00')
+    // >>> aa = AltAz(location=earth_pos, obstime=observing_time)
+    // >>> test = SkyCoord(0.0*u.deg, 90.0*u.deg, frame='icrs')
+    // >>> obs_coords = test.transform_to(aa)
+    // >>> zenith = 90 - obs_coords.alt.deg
+    // >>> print(f"(az,alt) = ({obs_coords.az}, {zenith})")
+    CECoordinates test_coords(359.9960211433963, 90.00137453000666, 
+                              CECoordinateType::OBSERVED, CEAngleType::DEGREES);
+
+    // Make sure observed coordinates are near where we expect them to be
+    double angsep = CECoordinates::AngularSeparation(obs_coords, test_coords, 
+                                                     CEAngleType::RADIANS);
+    // Make sure the accuracy is within 0.5 arcsecond
+    if (!test_lessthan(angsep, 0.5*DAS2R, __func__, __LINE__)) {
+        std::printf("date: %f\n", date.Gregorian());
+        std::printf("dut1,x,y: %f sec, %e rad, %e rad\n", date.dut1(), date.xpolar(), date.ypolar());
+        std::printf("Obs %s", obs_coords.print().c_str());
+        std::printf("Test %s", test_coords.print().c_str());
+        std::printf("Angsep: %e deg\n", angsep * DR2D);
+        std::printf("%s", base_obs_.print().c_str());
+    }
+
     return pass();
 }
 

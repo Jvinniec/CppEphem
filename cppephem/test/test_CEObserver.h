@@ -36,6 +36,7 @@ public:
     bool test_copy();
     bool test_set_geoCoords(void);
     bool test_set_atmoPars(void);
+    bool test_get_obsCoords(void);
 
 private:
 
