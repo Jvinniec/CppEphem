@@ -45,7 +45,7 @@ class CEDate {
 public:
     // Default constructor
     CEDate(double date=CurrentJD(), CEDateType date_format=CEDateType::JD) ;
-    CEDate(std::vector<double> date) ;
+    explicit CEDate(std::vector<double> date) ;
     explicit CEDate(const CEDate& other) ;
     virtual ~CEDate();
     
