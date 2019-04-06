@@ -58,7 +58,7 @@ CEObserver::CEObserver(const double& longitude,
     SetLongitude(longitude, angle_type) ;
     SetLatitude(latitude, angle_type) ;
     SetElevation(elevation) ;
-    SetPressure(CppEphem::EstimatePressure_hPa(elevation_m_)) ;
+    SetPressure_hPa(CppEphem::EstimatePressure_hPa(elevation_m_)) ;
     SetTemperature_C() ;
     SetRelativeHumidity() ;
 }
