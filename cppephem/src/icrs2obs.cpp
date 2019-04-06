@@ -114,10 +114,7 @@ int main(int argc, char** argv)
     // Convert the coordinates
     CECoordinates output;
     try {
-        output = input.GetObservedCoords(date, observer,
-                                         opts.AsDouble("dut1"),
-                                         opts.AsDouble("xpolar"), 
-                                         opts.AsDouble("ypolar"), 
+        output = input.GetObservedCoords(date, observer, 
                                          opts.AsDouble("wavelength"));
     } catch (CEException & e) {
         std::cerr << e.what() << std::endl;
