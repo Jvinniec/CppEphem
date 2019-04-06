@@ -71,7 +71,8 @@ public:
     {
         time_t now ;
         time (&now) ;
-        struct tm local = *localtime(&now) ;
+        struct tm local;
+        localtime_r(&now, &local) ;
         return local.tm_gmtoff/DAYSEC * 24.0 ;
     }
     
