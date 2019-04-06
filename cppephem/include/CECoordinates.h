@@ -395,6 +395,14 @@ protected:
     mutable double ycoord_;         //<! Y coordinate (radians)
     CECoordinateType coord_type_;   //<! Coordinate system to which 'xcoord_' and 'ycoord_' belong.
                                     //<! Possible values are "CIRS", "ICRS", "GALACTIC", "OBSERVED", and "GEOGRAPHIC"
+
+private:
+    /*********************************************************
+     * Private methods
+     *********************************************************/
+    void copy_members(const CECoordinates& other);
+    void free_members(void);
+    void init_members(void);
 };
 
 

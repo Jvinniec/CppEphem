@@ -36,11 +36,11 @@
 /**********************************************************************//**
  * Default constructor
  *************************************************************************/
-CECoordinates::CECoordinates() :
-    xcoord_(0.0),
-    ycoord_(0.0),
-    coord_type_(CECoordinateType::CIRS)
-{}
+CECoordinates::CECoordinates()
+{
+    init_members();
+}
+
 
 /**********************************************************************//**
  * Primary constructor (NOTE: xcoord & ycoord are expected to be in radians by default.
@@ -55,10 +55,8 @@ CECoordinates::CECoordinates(const double& xcoord,
                              const CECoordinateType& coord_type,
                              const CEAngleType& angle_type)
 {
-    // If we've been given the coordinates in degrees, convert to radians
-    if (angle_type == CEAngleType::DEGREES) {
-        xcoord_ *= DD2R ;
-        ycoord_ *= DD2R ;
+    init_members();
+    SetCoordinates(xcoord, ycoord, coord_type, angle_type);
     }
 
 
@@ -86,20 +84,21 @@ CECoordinates::CECoordinates(const std::vector<double>& xcoord,
  * 
  * @param[in] coord_type Coordinate type (see CECoordinateType)
  *************************************************************************/
-CECoordinates::CECoordinates(const CECoordinateType& coord_type) :
-    xcoord_(0.0),
-    ycoord_(0.0),
-    coord_type_(coord_type)
-{}
+CECoordinates::CECoordinates(const CECoordinateType& coord_type)
+{
+    init_members();
+    coord_type_ = coord_type;
+}
 
 /**********************************************************************//**
  * Copy constructor
  *************************************************************************/
-CECoordinates::CECoordinates(const CECoordinates& other) :
-    xcoord_(other.xcoord_),
-    ycoord_(other.ycoord_),
-    coord_type_(other.coord_type_)
-{}
+CECoordinates::CECoordinates(const CECoordinates& other)
+{
+    free_members();
+    init_members();
+    copy_members(other);
+}
 
 /**********************************************************************//**
  * Destructor
@@ -1679,10 +1678,36 @@ std::string CECoordinates::print(void)
     msg += "   - Y-coord: " + std::to_string(YCoordinate_Rad()) + " radians\n";
     return msg;
 }
+
+
+/**********************************************************************//**
+ * Copy data members from another CECoordinates object
+ * @param[in] other         Another coordinates objec to copy
+ *************************************************************************/
+void CECoordinates::copy_members(const CECoordinates& other)
 {
-    xcoord_ = coords.XCoordinate_Rad() ;
-    ycoord_ = coords.YCoordinate_Rad() ;
-    coord_type_ = coords.GetCoordSystem() ;
+    coord_type_ = other.coord_type_;
+    xcoord_     = other.xcoord_;
+    ycoord_     = other.ycoord_;
+}
+
+
+/**********************************************************************//**
+ * Cleanup data members that need to be freed or cleared
+ *************************************************************************/
+void CECoordinates::free_members(void)
+{
+}
+
+
+/**********************************************************************//**
+ * Set initial values and allocate memory for data members
+ *************************************************************************/
+void CECoordinates::init_members(void)
+{
+    coord_type_ = CECoordinateType::ICRS;
+    xcoord_     = 0.0;
+    ycoord_     = 0.0;
 }
 
 
