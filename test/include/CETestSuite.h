@@ -29,6 +29,8 @@
 #define FUNC_DEFAULT "UNDEF"
 #define LINE_DEFAULT -1
 
+class CECoordinates;
+
 class CETestSuite {
 public:
     
@@ -57,6 +59,9 @@ protected:
                      const int&         line);
 
     // Testing methods for basic types
+    virtual bool test(bool  test_success, 
+                      const std::string& function = FUNC_DEFAULT,
+                      const int&         line     = LINE_DEFAULT);
     virtual bool test_double(const double&      value, 
                              const double&      expected,
                              const std::string& function = FUNC_DEFAULT,
@@ -69,6 +74,7 @@ protected:
                            bool  expected,
                            const std::string& function = FUNC_DEFAULT,
                            const int&         line     = LINE_DEFAULT);
+
     virtual bool test_string(const std::string& value, 
                              const std::string& expected,
                              const std::string& function = FUNC_DEFAULT,
@@ -82,6 +88,22 @@ protected:
                    const std::vector<double>& expected,
                    const std::string& function = FUNC_DEFAULT,
                    const int&         line     = LINE_DEFAULT);
+
+    template<class T>
+    bool test_lessthan_(const T& value,
+                        const T& maxval,
+                        const std::string& function = FUNC_DEFAULT,
+                        const int&         line     = LINE_DEFAULT);
+    bool test_lessthan(const double& value,
+                       const double& maxval,
+                       const std::string& function,
+                       const int&         line);
+
+    template<class T>
+    bool test_greaterthan(const T& value,
+                          const T& minval,
+                          const std::string& function = FUNC_DEFAULT,
+                          const int&         line     = LINE_DEFAULT);
 
     virtual void update_pass(const bool& test_passed);
     
