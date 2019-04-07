@@ -56,6 +56,26 @@ const char* CEExceptionHandler::what() const noexcept
 
 
 /**********************************************************************//**
+ * Append a string to the end of the message
+ * @param[in] msg       Error message to be appended
+ *************************************************************************/
+void CEExceptionHandler::message_append(const std::string& msg)
+{
+    message_ += msg;
+}
+
+
+/**********************************************************************//**
+ * Overwrite the error message
+ * @param[in] msg       Error message
+ *************************************************************************/
+void CEExceptionHandler::message(const std::string& msg)
+{
+    message_ = msg;
+}
+
+
+/**********************************************************************//**
  * Generate an exception of type "invalid_value"
  *  @param[in] origin       Method that threw the error
  *  @param[in] message      Diagnostic message
@@ -88,7 +108,7 @@ CEException::sofa_exception::sofa_exception(const std::string& origin,
     CEExceptionHandler(origin, message, "SOFA exception")
 {
     // Overwrite the message
-    message_ = "SOFA method: " + sofa_method + "; " + message;
+    this->message("SOFA method: " + sofa_method + "; " + message);
 }
 
 
@@ -107,6 +127,6 @@ CEException::sofa_error::sofa_error(const std::string& origin,
     CEExceptionHandler(origin, message, "SOFA error")
 {
     // Overwrite the message
-    message_ = "SOFA method: " + sofa_method + ", ErrCode: "+ std::to_string(errcode) +
-               "\n" + message;
+    this->message("SOFA method: " + sofa_method + ", ErrCode: "+ std::to_string(errcode) +
+                  "\n" + message);
 }

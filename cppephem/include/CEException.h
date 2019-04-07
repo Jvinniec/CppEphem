@@ -48,8 +48,10 @@ public:
                        const std::string& type = "<no type>");
     virtual ~CEExceptionHandler() noexcept {}
     virtual const char* what() const noexcept;
+    virtual void        message_append(const std::string& msg);
+    virtual void        message(const std::string& msg);
 
-protected:
+private:
     std::string origin_;
     std::string type_;
     std::string message_;
