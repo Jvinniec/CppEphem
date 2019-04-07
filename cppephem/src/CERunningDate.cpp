@@ -63,7 +63,7 @@ CERunningDate::~CERunningDate()
 double CERunningDate::JD() const
 {
     // Get the current Julian date
-    return julian_date_ + (ScaledRunTime()/86400.0) ;
+    return CEDate::JD() + (ScaledRunTime()/86400.0) ;
 }
 
 /**********************************************************************//**
