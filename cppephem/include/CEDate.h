@@ -113,7 +113,7 @@ public:
     operator double();
     operator double() const;
     
-protected:
+private:
     
     /************************************************************
      * Variables that hold the time information
