@@ -49,6 +49,8 @@ public:
     explicit CEDate(const CEDate& other) ;
     virtual ~CEDate();
     
+    CEDate& operator=(const CEDate& other);
+
     // Method that can be used to change the date that is stored in this object
     virtual void SetDate(double date=CurrentJD(), CEDateType time_format=CEDateType::JD) ;
     // Method for setting the dates from the Gregorian calendar dates
@@ -115,6 +117,10 @@ public:
     
 private:
     
+    void free_members(void);
+    void copy_members(const CEDate& other);
+    void init_members(void);
+
     /************************************************************
      * Variables that hold the time information
      ************************************************************/

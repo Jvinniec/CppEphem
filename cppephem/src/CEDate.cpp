@@ -43,12 +43,9 @@
  * - MJD: Modified Julian date
  * - GREGORIAN: Gregorian calendar date
  *************************************************************************/
-CEDate::CEDate(double date, CEDateType date_format) :
-    julian_date_(0.0),
-    mod_julian_date_(0.0),
-    gregorian_date_(0.0),
-    gregorian_date_vect_(std::vector<double>(4,0.0))
+CEDate::CEDate(double date, CEDateType date_format)
 {
+    init_members();
     // Use the SetDate function to set the actual time
     SetDate(date, date_format) ;
 }
@@ -61,12 +58,9 @@ CEDate::CEDate(double date, CEDateType date_format) :
  *                 - date[2] = day
  *                 - date[3] = day fraction
  *************************************************************************/
-CEDate::CEDate(std::vector<double> date) :
-    julian_date_(0.0),
-    mod_julian_date_(0.0),
-    gregorian_date_(0.0),
-    gregorian_date_vect_(std::vector<double>(4,0.0))
+CEDate::CEDate(std::vector<double> date)
 {
+    init_members();
     // First get the gregorian date double from the vector, then set the date
     SetDate(GregorianVect2Gregorian(date), CEDateType::GREGORIAN) ;
 }
@@ -74,12 +68,11 @@ CEDate::CEDate(std::vector<double> date) :
 /**********************************************************************//**
  * Copy constructor
  *************************************************************************/
-CEDate::CEDate(const CEDate& other) :
-    julian_date_(other.julian_date_),
-    mod_julian_date_(other.mod_julian_date_),
-    gregorian_date_(other.gregorian_date_),
-    gregorian_date_vect_(other.gregorian_date_vect_)
-{}
+CEDate::CEDate(const CEDate& other)
+{
+    init_members();
+    copy_members(other);
+}
 
 
 /**********************************************************************//**
@@ -87,6 +80,23 @@ CEDate::CEDate(const CEDate& other) :
  *************************************************************************/
 CEDate::~CEDate()
 {}
+
+
+/**********************************************************************//**
+ * Copy assignent operator
+ * 
+ * @param[in] other         CEDate object to be copied
+ * @return 
+ *************************************************************************/
+CEDate& CEDate::operator=(const CEDate& other)
+{
+    if (this != &other) {
+        free_members();
+        init_members();
+        copy_members(other);
+    }
+    return *this;
+}
 
 
 /**********************************************************************//**
@@ -589,4 +599,41 @@ CEDate::operator double() const
 {
     // Return the date formatted according to the 'return_type_' variable
     return GetDate(return_type_) ;
+}
+
+
+/**********************************************************************//**
+ * Free data members
+ *************************************************************************/
+void CEDate::free_members(void)
+{
+    gregorian_date_vect_.clear();
+}
+
+
+/**********************************************************************//**
+ * Copy data members from another date object
+ * 
+ * @param[in] other         CEDate object to copy from
+ *************************************************************************/
+void CEDate::copy_members(const CEDate& other)
+{
+    gregorian_date_vect_ = other.gregorian_date_vect_;
+    julian_date_         = other.julian_date_;
+    mod_julian_date_     = other.mod_julian_date_;
+    gregorian_date_      = other.gregorian_date_;
+    return_type_         = other.return_type_;
+}
+
+
+/**********************************************************************//**
+ * Initialize the data members
+ *************************************************************************/
+void CEDate::init_members(void)
+{
+    gregorian_date_vect_ = std::vector<double>(4, 0.0);
+    julian_date_         = 0.0;
+    mod_julian_date_     = 0.0;
+    gregorian_date_      = 0.0;
+    return_type_         = CEDateType::JD ;
 }
