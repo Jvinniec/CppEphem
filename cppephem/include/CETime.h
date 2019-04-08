@@ -49,6 +49,8 @@ public:
     // Destructor
     virtual ~CETime() ;
     
+    CETime& operator=(const CETime& other);
+
     /*******************************************
      * Get the time
      *******************************************/
@@ -103,7 +105,18 @@ public:
     
     // GAST conversions
     
-protected:
+private:
+
+    void copy_members(const CETime& other);
+    void init_members(void);
+    void free_members(void);
+
+    // Internal methods for setting the time
+    void SetTime_UTC(std::vector<double> time);
+    void SetTime_GAST(std::vector<double> time);
+    void SetTime_LST(std::vector<double> time);
+    void SetTime_LOCALTIME(std::vector<double> time);  
+
     // Variables for storing the time in various formats
     // The vectors store the time in the following format:
     // element 0 - hours
@@ -113,12 +126,6 @@ protected:
     // Note that the internal stored time is UTC
     std::vector<double> time_ ;
     CETimeType time_type_ ;
-    
-    // Internal methods for setting the time
-    void SetTime_UTC(std::vector<double> time) ;
-    void SetTime_GAST(std::vector<double> time) ;
-    void SetTime_LST(std::vector<double> time) ;
-    void SetTime_LOCALTIME(std::vector<double> time) ;  
 };
 
 #endif /* CETime_h */

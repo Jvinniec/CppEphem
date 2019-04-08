@@ -36,10 +36,10 @@
 /**********************************************************************//**
  * Default constructor
  *************************************************************************/
-CETime::CETime() :
-    time_(std::vector<double>(4,0.0)),
-    time_type_(CETimeType::UTC)
-{}
+CETime::CETime()
+{
+    init_members();
+}
 
 /**********************************************************************//**
  * Primary constructor
@@ -48,9 +48,11 @@ CETime::CETime() :
  * @param time_format      Specifies what type is represented by 'time' (see ::CETimeType)
  *************************************************************************/
 CETime::CETime(const double& time, 
-               CETimeType    time_format) :
-    CETime(TimeDbl2Vect(time), time_format)
-{}
+               CETimeType    time_format)
+{
+    init_members();
+    SetTime(time, time_format);
+}
 
 
 /**********************************************************************//**
@@ -63,10 +65,10 @@ CETime::CETime(const double& time,
  *                         - time[3] = fractions of a second
  * @param time_format      Specifies what type is represented by 'time' (see ::CETimeType)
  *************************************************************************/
-CETime::CETime(std::vector<double> time, CETimeType time_format) :
-    time_(std::vector<double>(4,0.0)),
-    time_type_(time_format)
+CETime::CETime(std::vector<double> time, CETimeType time_format)
 {
+    init_members();
+    time_type_ = time_format;
     // Just in case the passed "time" variable isnt the same length
     for (size_t i=0; i<time.size(); i++) {
         time_[i] = time[i] ;
@@ -82,19 +84,21 @@ CETime::CETime(std::vector<double> time, CETimeType time_format) :
  * 
  * @param other
  *************************************************************************/
-CETime::CETime(const CETime& other) :
-    time_(other.time_),
-    time_type_(other.time_type_)
-{}
+CETime::CETime(const CETime& other)
+{
+    init_members();
+    copy_members(other);
+}
 
 
 /**********************************************************************//**
  * Destructor
  *************************************************************************/
 CETime::~CETime()
-{}
+{
+    free_members();
+}
 
-# pragma mark - Public Methods
 
 /**********************************************************************//**
  * Get the current UTC time as seconds since midnight
@@ -199,9 +203,9 @@ void CETime::SetTime(std::vector<double> time_vect, CETimeType time_format)
     } else if (time_format==CETimeType::GAST) {
         SetTime_GAST(time_vect) ;
     } else if (time_format==CETimeType::LAST) {
-        void SetTime_LST(std::vector<double> time) ;
+        SetTime_LST(time_vect) ;
     } else if (time_format==CETimeType::LOCALTIME) {
-        void SetTime_LOCALTIME(std::vector<double> time) ;
+        SetTime_LOCALTIME(time_vect) ;
     }
 }
 
@@ -309,12 +313,50 @@ std::vector<double> CETime::TimeSec2Vect(const double& seconds)
     return TimeDbl2Vect( TimeSec2Time(seconds) ) ;
 }
 
+/*----------------------------------------
+ * PRIVATE MEMBERS
+ *---------------------------------------*/
+
+/**********************************************************************//**
+ * Copy data members from another object of the same type
+ * 
+ * @param[in] other             CETime object to copy from
+ *************************************************************************/
+void CETime::copy_members(const CETime& other)
+{
+    time_      = other.time_;
+    time_type_ = other.time_type_;
+}
+
+
+/**********************************************************************//**
+ * Initialize data members
+ *************************************************************************/
+void CETime::init_members(void)
+{
+    // Initialize the time information
+    time_      = std::vector<double>(4,0.0);
+    time_type_ = CETimeType::UTC;
+}
+
+
+/**********************************************************************//**
+ * Deallocate data members if necessary
+ *************************************************************************/
+void CETime::free_members(void)
+{
+    time_.clear();
+}
+
+
 /**********************************************************************//**
  * Set the time from a vector representing UTC time. The elements are as follows:
  * [0]=hours, [1]=minutes, [2]=whole seconds, [3]=fractional seconds
  *************************************************************************/
 void CETime::SetTime_UTC(std::vector<double> time)
 {
+    time_ = time;
+    time_type_ = CETimeType::UTC;
 }
 
 
