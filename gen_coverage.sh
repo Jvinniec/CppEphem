@@ -26,6 +26,11 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
     LLVM_PROFILE_FILE="${outdir}/CENamespace.profraw"   ./build/bin/test_CENamespace
     LLVM_PROFILE_FILE="${outdir}/CEObservation.profraw" ./build/bin/test_CEObservation
     LLVM_PROFILE_FILE="${outdir}/CEObserver.profraw"    ./build/bin/test_CEObserver
+    LLVM_PROFILE_FILE="${outdir}/CEPlanet.profraw"      ./build/bin/test_CEPlanet
+    LLVM_PROFILE_FILE="${outdir}/angsep.profraw"        ./build/bin/angsep --xcoord1=0.0 --ycoord1=0.0 --xcoord2=0.0 --ycoord2=1.0
+    LLVM_PROFILE_FILE="${outdir}/icrs2gal.profraw"      ./build/bin/icrs2gal --ra=83.633 --dec=22.0145
+    LLVM_PROFILE_FILE="${outdir}/cirs2gal.profraw"      ./build/bin/cirs2gal --ra=83.633 --dec=22.0145
+    LLVM_PROFILE_FILE="${outdir}/planetephem.profraw"   ./build/bin/planetephem --planet=4 --longitude=0 --latitude=42 --elevation=0
 
     # Put all the coverage output files into a single file
     ls ${outdir}/*.profraw > ${cov_reports}
@@ -46,6 +51,9 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
         -object ./build/bin/test_CENamespace \
         -object ./build/bin/test_CEObservation \
         -object ./build/bin/test_CEObserver \
+        -object ./build/bin/angsep \
+        -object ./build/bin/icrs2gal \
+        -object ./build/bin/cirs2gal \
         > ${outdir}/coverage_report.txt
 
     # Run sonnar scanner to analyze code and coverage statistics
