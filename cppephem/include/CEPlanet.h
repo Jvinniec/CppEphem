@@ -38,8 +38,11 @@ public:
     CEPlanet(const std::string& name, double xcoord, double ycoord,
              CECoordinateType coord_type = CECoordinateType::CIRS,
              CEAngleType angle_type = CEAngleType::RADIANS) ;
+    CEPlanet(const CEPlanet& other);
     virtual ~CEPlanet() ;
     
+    CEPlanet& operator=(const CEPlanet& other);
+
     /******  Methods  ******/
     double         Radius_m();
     double         Mass_kg();
@@ -116,62 +119,12 @@ public:
     void SetAlgorithm(CEPlanetAlgo new_algo);
     void SetSofaID(double new_id);
     
-protected:
+private:
     
-    // Basic properties
-    double radius_m_ ;          ///< Radius (in meters)
-    double mass_kg_ ;           ///< Mass (kilograms)
-    double albedo_ ;            ///< Albedo (0 -> 1)
-    
-    // The following is a reference point for the observer
-    // This will almost always be the Earth-Moon barycenter
-    CEPlanet* reference_ = nullptr ;
-    
-    // Define the algorithm used to compute the planets position
-    CEPlanetAlgo algorithm_type_ = CEPlanetAlgo::SOFA ;
-    /// Sofa planet id (note: 3.5 implies the earth-center which uses a different method
-    /// than the other planets)
-    double sofa_planet_id_ = 0 ;
-    
-    // The coordinates representing the current position will need to be
-    // relative to some date, since planets move. This is the cached date
-    mutable double cached_jd_ = 0.0 ;                   ///< Julian date of the current coordinates
-    mutable double x_icrs_ = 0.0 ;                      ///< X-Coordinate relative to solar system barycenter
-    mutable double y_icrs_ = 0.0 ;                      ///< Y-Coordinate relative to solar system barycenter
-    mutable double z_icrs_ = 0.0 ;                      ///< Z-Coordinate relative to solar system barycenter
-    // Note, these velocities are only computed for "algorithm_type_=SOFA" at the moment
-    mutable double vx_icrs_ = 0.0 ;                     ///< X-velocity relative to solar system center
-    mutable double vy_icrs_ = 0.0 ;                     ///< Y-velocity relative to solar system center
-    mutable double vz_icrs_ = 0.0 ;                     ///< Z-velocity relative to solar system center
-    
-    /******************************************
-     * Properties for the JPL algorithm
-     ******************************************/
-    // Orbital properties (element 2 is the derivative)
-    double semi_major_axis_au_ = 0.0 ;          ///< a - Semi major axis in Astronomical Units (AU)
-    double eccentricity_ = 0.0 ;                ///< e - Eccentricity
-    double inclination_deg_ = 0.0 ;             ///< I - inclination in radians
-    double mean_longitude_deg_ = 0.0 ;          ///< L - Mean longitude (radians)
-    double perihelion_lon_deg_ = 0.0 ;          ///< w - Longitude of perihelion (radians)
-    double ascending_node_lon_deg_ = 0.0 ;      ///< Omega - Longitude of ascending node (radians)
-    
-    // Derivatives of orbital properties
-    double semi_major_axis_au_per_cent_ = 0.0 ;
-    double eccentricity_per_cent_ = 0.0 ;
-    double inclination_deg_per_cent_ = 0.0 ;
-    double mean_longitude_deg_per_cent_ = 0.0 ;
-    double perihelion_long_deg_per_cent_ = 0.0 ;
-    double ascending_node_lon_deg_per_cent_ = 0.0 ;
-    
-    // The following is the tolerance for the computation of eccentric anomoly
-    double E_tol = 1.0e-6 ;
-    
-    // Extra terms for outer planets (Jupiter, Saturn, Uranus, Neptune, and Pluto)
-    double b_ = 0.0 ;
-    double c_ = 0.0 ;
-    double s_ = 0.0 ;
-    double f_ = 0.0 ;
-    
+    void copy_members(const CEPlanet& other);
+    void init_members(void);
+    void free_members(void);
+
     /******************************************
      * Methods for the JPL algorithm
      ******************************************/
@@ -185,7 +138,60 @@ protected:
     
     // Recursive formula necessary for the computation of eccentric anomoly
     double EccentricAnomoly(double& M, double& e, double &En, double& del_E) const;
+
+    // Basic properties
+    double radius_m_ ;          ///< Radius (in meters)
+    double mass_kg_ ;           ///< Mass (kilograms)
+    double albedo_ ;            ///< Albedo (0 -> 1)
     
+    // The following is a reference point for the observer
+    // This will almost always be the Earth-Moon barycenter
+    CEPlanet* reference_;
+    
+    // Define the algorithm used to compute the planets position
+    CEPlanetAlgo algorithm_type_;
+    /// Sofa planet id (note: 3.5 implies the earth-center which uses a different method
+    /// than the other planets)
+    double sofa_planet_id_;
+    
+    // The coordinates representing the current position will need to be
+    // relative to some date, since planets move. This is the cached date
+    mutable double cached_jd_;           ///< Julian date of the current coordinates
+    mutable double x_icrs_;              ///< X-Coordinate relative to solar system barycenter
+    mutable double y_icrs_;              ///< Y-Coordinate relative to solar system barycenter
+    mutable double z_icrs_;              ///< Z-Coordinate relative to solar system barycenter
+    // Note, these velocities are only computed for "algorithm_type_=SOFA" at the moment
+    mutable double vx_icrs_;             ///< X-velocity relative to solar system center
+    mutable double vy_icrs_;             ///< Y-velocity relative to solar system center
+    mutable double vz_icrs_;             ///< Z-velocity relative to solar system center
+    
+    /******************************************
+     * Properties for the JPL algorithm
+     ******************************************/
+    // Orbital properties (element 2 is the derivative)
+    double semi_major_axis_au_;          ///< a - Semi major axis in Astronomical Units (AU)
+    double eccentricity_;                ///< e - Eccentricity
+    double inclination_deg_;             ///< I - inclination in radians
+    double mean_longitude_deg_;          ///< L - Mean longitude (radians)
+    double perihelion_lon_deg_;          ///< w - Longitude of perihelion (radians)
+    double ascending_node_lon_deg_;      ///< Omega - Longitude of ascending node (radians)
+    
+    // Derivatives of orbital properties
+    double semi_major_axis_au_per_cent_;
+    double eccentricity_per_cent_;
+    double inclination_deg_per_cent_;
+    double mean_longitude_deg_per_cent_;
+    double perihelion_long_deg_per_cent_;
+    double ascending_node_lon_deg_per_cent_;
+    
+    // The following is the tolerance for the computation of eccentric anomoly
+    double E_tol = 1.0e-6 ;
+    
+    // Extra terms for outer planets (Jupiter, Saturn, Uranus, Neptune, and Pluto)
+    double b_;
+    double c_;
+    double s_;
+    double f_;    
 };
 
 

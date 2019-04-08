@@ -141,7 +141,9 @@
  *************************************************************************/
 CEPlanet::CEPlanet() :
     CEBody()
-{}
+{
+    init_members();
+}
 
 /**********************************************************************//**
  * Primary constructor
@@ -156,29 +158,52 @@ CEPlanet::CEPlanet(const std::string& name, double xcoord, double ycoord,
                    CECoordinateType coord_type,
                    CEAngleType angle_type) :
     CEBody(name, xcoord, ycoord, coord_type, angle_type)
-{}
+{
+    init_members();
+}
 
-/*
-/////////////////////////////////////////////////////
-/// Primary constructor
-///     @param[in] name             Some identifying name for this object
-///     @param[in] coordinates      Coordinates of this object
-CEPlanet::CEPlanet(const std::string& name,
-                   CECoordinates coordinates) :
-    CEBody(coordinates, name)
-{}
-*/
+
+/**********************************************************************//**
+ * Copy constructor
+ * 
+ * @param[in] other            CEPlanet object to copy from
+ *************************************************************************/
+CEPlanet::CEPlanet(const CEPlanet& other) :
+    CEBody(other)
+{
+    init_members();
+    copy_members(other);
+}
+
 
 /**********************************************************************//**
  * Destructor
  *************************************************************************/
 CEPlanet::~CEPlanet()
 {
-    // Delete the reference object if we no longer need it
-    if (reference_ != nullptr) delete reference_ ;
+    free_members();
 }
 
-# pragma mark - Specific Planetary objects
+
+/**********************************************************************//**
+ * Copy assignment operator
+ * 
+ * @param[in] other             CEPlanet object to be copied
+ * @return Reference to this object post-copy
+ *************************************************************************/
+CEPlanet& CEPlanet::operator=(const CEPlanet& other)
+{
+    if (this != &other) {
+        // Copy parent class members
+        this->CEBody::operator=(other);
+
+        free_members();
+        init_members();
+        copy_members(other);
+    }
+    return *this;
+}
+
 
 /**********************************************************************//**
  * Returns an object representing Mercury.
@@ -798,6 +823,8 @@ void CEPlanet::SetReference(CEPlanet* reference)
 
 /**********************************************************************//**
  * Set the sofa planet id (note, only values from 1-8 are acceptable)
+ * 
+ * @param[in] new_id            New planet ID
  *************************************************************************/
 void CEPlanet::SetSofaID(double new_id)
 {
@@ -806,4 +833,138 @@ void CEPlanet::SetSofaID(double new_id)
         SetAlgorithm(CEPlanetAlgo::JPL) ;
     }
     sofa_planet_id_ = new_id;
+}
+
+
+/**********************************************************************//**
+ * Copy data members from another CEPlanet object
+ * 
+ * @param[in] other             CEPlanet object to copy from
+ *************************************************************************/
+void CEPlanet::copy_members(const CEPlanet& other)
+{
+    // Basic properties
+    radius_m_ = other.radius_m_;
+    mass_kg_  = other.mass_kg_;
+    albedo_   = other.albedo_;
+    
+    // The following is a reference point for the observer
+    // This will almost always be the Earth-Moon barycenter
+    reference_ = new CEPlanet(other);
+    
+    // Define the algorithm used to compute the planets position
+    algorithm_type_ = other.algorithm_type_;
+    /// Sofa planet id (note: 3.5 implies the earth-center which uses a different method
+    /// than the other planets)
+    sofa_planet_id_ = other.sofa_planet_id_;
+    
+    // The coordinates representing the current position will need to be
+    // relative to some date, since planets move. This is the cached date
+    cached_jd_ = other.cached_jd_;
+    x_icrs_ = other.x_icrs_;
+    y_icrs_ = other.y_icrs_;
+    z_icrs_ = other.z_icrs_;
+    // Note, these velocities are only computed for "algorithm_type_=SOFA" at the moment
+    vx_icrs_ = other.vx_icrs_;
+    vy_icrs_ = other.vy_icrs_;
+    vz_icrs_ = other.vz_icrs_;
+    
+    /******************************************
+     * Properties for the JPL algorithm
+     ******************************************/
+    // Orbital properties (element 2 is the derivative)
+    semi_major_axis_au_     = other.semi_major_axis_au_;
+    eccentricity_           = other.eccentricity_;
+    inclination_deg_        = other.inclination_deg_;
+    mean_longitude_deg_     = other.mean_longitude_deg_;
+    perihelion_lon_deg_     = other.perihelion_lon_deg_;
+    ascending_node_lon_deg_ = other.ascending_node_lon_deg_;
+    
+    // Derivatives of orbital properties
+    semi_major_axis_au_per_cent_     = other.semi_major_axis_au_per_cent_;
+    eccentricity_per_cent_           = other.eccentricity_per_cent_;
+    inclination_deg_per_cent_        = other.inclination_deg_per_cent_;
+    mean_longitude_deg_per_cent_     = other.mean_longitude_deg_per_cent_;
+    perihelion_long_deg_per_cent_    = other.perihelion_long_deg_per_cent_;
+    ascending_node_lon_deg_per_cent_ = other.ascending_node_lon_deg_per_cent_;
+    
+    // The following is the tolerance for the computation of eccentric anomoly
+    E_tol = other.E_tol;
+    
+    // Extra terms for outer planets (Jupiter, Saturn, Uranus, Neptune, and Pluto)
+    b_ = other.b_;
+    c_ = other.c_;
+    s_ = other.s_;
+    f_ = other.f_;
+}
+
+
+/**********************************************************************//**
+ * Initialize data members
+ *************************************************************************/
+void CEPlanet::init_members(void)
+{
+    // Basic properties
+    radius_m_ = 0.0;
+    mass_kg_  = 0.0;
+    albedo_   = 0.0;
+    
+    // The following is a reference point for the observer
+    // This will almost always be the Earth-Moon barycenter
+    reference_ = new CEPlanet(CEPlanet::EMBarycenter());
+    
+    // Define the algorithm used to compute the planets position
+    algorithm_type_ = CEPlanetAlgo::SOFA;
+    /// Sofa planet id (note: 3.5 implies the earth-center which uses a different method
+    /// than the other planets)
+    sofa_planet_id_ = 0;
+    
+    // The coordinates representing the current position will need to be
+    // relative to some date, since planets move. This is the cached date
+    cached_jd_ = 0.0;
+    x_icrs_ = 0.0;
+    y_icrs_ = 0.0;
+    z_icrs_ = 0.0;
+    // Note, these velocities are only computed for "algorithm_type_=SOFA" at the moment
+    vx_icrs_ = 0.0;
+    vy_icrs_ = 0.0;
+    vz_icrs_ = 0.0;
+    
+    /******************************************
+     * Properties for the JPL algorithm
+     ******************************************/
+    // Orbital properties (element 2 is the derivative)
+    semi_major_axis_au_     = 0.0;
+    eccentricity_           = 0.0;
+    inclination_deg_        = 0.0;
+    mean_longitude_deg_     = 0.0;
+    perihelion_lon_deg_     = 0.0;
+    ascending_node_lon_deg_ = 0.0;
+    
+    // Derivatives of orbital properties
+    semi_major_axis_au_per_cent_     = 0.0;
+    eccentricity_per_cent_           = 0.0;
+    inclination_deg_per_cent_        = 0.0;
+    mean_longitude_deg_per_cent_     = 0.0;
+    perihelion_long_deg_per_cent_    = 0.0;
+    ascending_node_lon_deg_per_cent_ = 0.0;
+    
+    // The following is the tolerance for the computation of eccentric anomoly
+    E_tol = 1.0e-6;
+    
+    // Extra terms for outer planets (Jupiter, Saturn, Uranus, Neptune, and Pluto)
+    b_ = 0.0;
+    c_ = 0.0;
+    s_ = 0.0;
+    f_ = 0.0;
+}
+
+
+void CEPlanet::free_members(void)
+{
+    // Delete the reference object if we no longer need it
+    if (reference_ != nullptr) {
+        delete reference_ ;
+        reference_ = nullptr;
+    }
 }
