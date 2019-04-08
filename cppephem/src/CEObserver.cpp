@@ -41,6 +41,15 @@
 
 
 /**********************************************************************//**
+ * Default constructor
+ *************************************************************************/
+CEObserver::CEObserver(void)
+{
+    init_members();
+}
+
+
+/**********************************************************************//**
  * Constructor from a geographic position (latitude, longitude, altitude)
  * Note that altitude defaults to sea-level
  * 
@@ -54,13 +63,12 @@ CEObserver::CEObserver(const double& longitude,
                        const double& elevation, 
                        const CEAngleType& angle_type)
 {
+    init_members();
+
     // Use the internal methods for setting the values
     SetLongitude(longitude, angle_type) ;
     SetLatitude(latitude, angle_type) ;
     SetElevation(elevation) ;
-    SetPressure_hPa(CppEphem::EstimatePressure_hPa(elevation_m_)) ;
-    SetTemperature_C() ;
-    SetRelativeHumidity() ;
 }
 
 
@@ -69,22 +77,36 @@ CEObserver::CEObserver(const double& longitude,
  * 
  * @param[in] other            Another observer object that will be copied
  *************************************************************************/
-CEObserver::CEObserver(const CEObserver& other) :
-    longitude_(other.longitude_),
-    latitude_(other.latitude_),
-    elevation_m_(other.elevation_m_),
-    pressure_hPa_(other.pressure_hPa_),
-    temperature_celsius_(other.temperature_celsius_),
-    relative_humidity_(other.relative_humidity_)
+CEObserver::CEObserver(const CEObserver& other)
 {
+    init_members();
+    copy_members(other);
 }
 
 
 /**********************************************************************//**
  * Destructor
  *************************************************************************/
-CEObserver::~CEObserver()
+CEObserver::~CEObserver(void)
 {
+    free_members();
+}
+
+
+/**********************************************************************//**
+ * Copy assignment operator
+ * 
+ * @param[in] other             CEObserver object to be copied
+ * @return Reference to this CEObserver object post-copy
+ *************************************************************************/
+CEObserver& CEObserver::operator=(const CEObserver& other)
+{
+    if (this != &other) {
+        free_members();
+        init_members();
+        copy_members(other);
+    }
+    return *this;
 }
 
 
@@ -135,4 +157,43 @@ std::string CEObserver::print(void) const
     msg += "   Humidity  = " + std::to_string(RelativeHumidity()) + " %%\n";
     msg += "   Wavelength= " + std::to_string(Wavelength_um()) + " um\n";
     return msg;
+}
+
+
+/**********************************************************************//**
+ * Initialize the data members
+ *************************************************************************/
+void CEObserver::free_members(void)
+{
+
+}
+
+
+/**********************************************************************//**
+ * Copy data members from another CEObserver object
+ * 
+ * @param[in] other         CEObserver object to copy from
+ *************************************************************************/
+void CEObserver::copy_members(const CEObserver& other)
+{
+    longitude_           = other.longitude_;
+    latitude_            = other.latitude_;
+    elevation_m_         = other.elevation_m_;
+    pressure_hPa_        = other.pressure_hPa_;
+    temperature_celsius_ = other.temperature_celsius_;
+    relative_humidity_   = other.relative_humidity_;
+}
+
+
+/**********************************************************************//**
+ * Initialize the data members
+ *************************************************************************/
+void CEObserver::init_members(void)
+{
+    longitude_           = 0.0;
+    latitude_            = 51.4778;
+    elevation_m_         = 0.0;
+    temperature_celsius_ = CppEphem::SeaLevelTemp_C();
+    pressure_hPa_        = CppEphem::EstimatePressure_hPa(temperature_celsius_);
+    relative_humidity_   = 0.0;
 }

@@ -28,14 +28,16 @@
 
 class CEObserver {
 public:
-//    CEObserver() ;
-    CEObserver(const double& longitude = 0.0, 
-               const double& latitude  = 51.4778, 
-               const double& elevation = 0.0,
+    CEObserver(void) ;
+    CEObserver(const double& longitude, 
+               const double& latitude, 
+               const double& elevation,
                const CEAngleType& angle_type = CEAngleType::DEGREES) ;
     CEObserver(const CEObserver& other) ;
-    virtual ~CEObserver() ;
+    virtual ~CEObserver(void) ;
     
+    CEObserver& operator=(const CEObserver& other);
+
     /****************************************************
      * Methods for accessing the underlying observer info
      ****************************************************/
@@ -84,7 +86,12 @@ public:
     
     std::string print(void) const;
 
-protected:
+private:
+
+    void copy_members(const CEObserver& other);
+    void init_members(void);
+    void free_members(void);
+
     // Variables which define the observers location on Earth
     double longitude_;              ///< Geographic longitude (radians)
     double latitude_;               ///< Geographic latitude (radians)
