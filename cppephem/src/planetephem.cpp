@@ -29,8 +29,10 @@
  * Forward declarations
  *************************************************************************/
 CLOptions DefineOpts() ;
-CEPlanet GetPlanet(int p_id) ;
-void PrintEphemeris(CEObservation& obs, double duration, double step_size) ;
+CEPlanet GetPlanet(const int& p_id) ;
+void PrintEphemeris(CEObservation& obs, 
+                    const double&  duration, 
+                    const double&  step_size) ;
 
 /**********************************************************************//**
  * Main method
@@ -96,7 +98,7 @@ CLOptions DefineOpts()
 /**********************************************************************//**
  * Returns the planet requested by the user
  *************************************************************************/
-CEPlanet GetPlanet(int p_id)
+CEPlanet GetPlanet(const int& p_id)
 {
     switch (p_id)
     {
@@ -124,7 +126,9 @@ CEPlanet GetPlanet(int p_id)
 /**********************************************************************//**
  * Prints the results of the planet position query
  *************************************************************************/
-void PrintEphemeris(CEObservation& obs, double duration, double step_size)
+void PrintEphemeris(CEObservation& obs, 
+                    const double&  duration, 
+                    const double&  step_size)
 {
     // Lets get the objects in obs
     CEDate* date = obs.Date() ;
