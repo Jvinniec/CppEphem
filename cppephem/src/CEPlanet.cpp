@@ -814,9 +814,8 @@ void CEPlanet::SetReference(CEPlanet* reference)
 {
     if (reference_ != nullptr) {
         // redirect and delete
-        CEPlanet* tmp = reference_;
+        delete reference_;
         reference_ = nullptr;
-        delete tmp;
     }
     
     reference_ = reference;
@@ -852,8 +851,14 @@ void CEPlanet::copy_members(const CEPlanet& other)
     
     // The following is a reference point for the observer
     // This will almost always be the Earth-Moon barycenter
-    reference_ = new CEPlanet(other);
-    
+    if (other.reference_ != nullptr) {
+        if (reference_ != nullptr) {
+            delete reference_;
+            reference_ = nullptr;
+        }
+        reference_ = new CEPlanet(*other.reference_);
+    }
+
     // Define the algorithm used to compute the planets position
     algorithm_type_ = other.algorithm_type_;
     /// Sofa planet id (note: 3.5 implies the earth-center which uses a different method
@@ -913,7 +918,7 @@ void CEPlanet::init_members(void)
     
     // The following is a reference point for the observer
     // This will almost always be the Earth-Moon barycenter
-    reference_ = new CEPlanet(CEPlanet::EMBarycenter());
+    reference_ = nullptr;//new CEPlanet(CEPlanet::EMBarycenter());
     
     // Define the algorithm used to compute the planets position
     algorithm_type_ = CEPlanetAlgo::SOFA;
@@ -962,6 +967,9 @@ void CEPlanet::init_members(void)
 }
 
 
+/**********************************************************************//**
+ * Free allocated memory
+ *************************************************************************/
 void CEPlanet::free_members(void)
 {
     // Delete the reference object if we no longer need it
