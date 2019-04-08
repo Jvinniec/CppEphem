@@ -53,6 +53,7 @@ bool test_CEBody::runtests()
     std::cout << "\nTesting CEBody:\n";
 
     // Run each of the tests
+    test_construct();
     test_Name();
     test_GetCoordinates();
 
@@ -61,7 +62,44 @@ bool test_CEBody::runtests()
 
 
 /**********************************************************************//**
- * Run tests
+ * Test the various constructor methods
+ * 
+ * @return whether or not all tests succeeded
+ *************************************************************************/
+bool test_CEBody::test_construct(void)
+{
+    // Default coordinates
+    CECoordinates test1_coord;
+    // Default constructor
+    CEBody test1;
+    test_string(test1.Name(), "undefined", __func__, __LINE__);
+    test(test1.GetCoordinates() == test1_coord, __func__, __LINE__);
+
+    // Copy constructor
+    test1.SetName("test1");
+    test1.SetCoordinates(12.345, 67.89);
+    CEBody test2(test1);
+    test_string(test2.Name(), test1.Name(), __func__, __LINE__);
+    test((test2.GetCoordinates() == test1.GetCoordinates()), __func__, __LINE__);
+
+    // Copy assignment operator
+    CEBody test3 = test1;
+    test_string(test3.Name(), test1.Name(), __func__, __LINE__);
+    test((test3.GetCoordinates() == test1.GetCoordinates()), __func__, __LINE__);
+    
+    // Basic constructor
+    CEBody test4(test1.Name(),
+                 test1.XCoordinate_Rad(), test1.YCoordinate_Rad(),
+                 test1.GetCoordSystem(), CEAngleType::RADIANS);
+    test_string(test4.Name(), test1.Name(), __func__, __LINE__);
+    test(test4.GetCoordinates() == test1.GetCoordinates(), __func__, __LINE__);
+
+    return pass();
+}
+
+
+/**********************************************************************//**
+ * Test getting the CEBody object's name
  * 
  * @return whether or not all tests succeeded
  *************************************************************************/
