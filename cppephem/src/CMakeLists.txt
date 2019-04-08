@@ -33,3 +33,11 @@ cppephem_executable (angsep   angsep.cpp)
 # Planet positions
 cppephem_executable (planetephem planetephem.cpp)
 
+set (CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${CPPEPHEM_TEST_CXX_FLAGS}")
+
+# Note that the following tests do not test if the outputs are correct. Tests
+# of whether the classes are correct are handled elsewhere.
+add_test(NAME angsep   COMMAND angsep --xcoord1=0.0 --ycoord1=0.0 --xcoord2=0.0 --ycoord2=1.0)
+add_test(NAME icrs2gal COMMAND icrs2gal --ra=83.633 --dec=22.0145)
+add_test(NAME cirs2gal COMMAND cirs2gal --ra=83.633 --dec=22.0145)
+add_test(NAME planetephem COMMAND planetephem --planet=4 --longitude=0 --latitude=42 --elevation=0)
