@@ -35,9 +35,11 @@ enum CEPlanetAlgo {SOFA,              ///< Use methods included in sofa software
 class CEPlanet : public CEBody {
 public:
     CEPlanet() ;
-    CEPlanet(const std::string& name, double xcoord, double ycoord,
-             CECoordinateType coord_type = CECoordinateType::CIRS,
-             CEAngleType angle_type = CEAngleType::RADIANS) ;
+    CEPlanet(const std::string&      name, 
+             const double&           xcoord, 
+             const double&           ycoord,
+             const CECoordinateType& coord_type=CECoordinateType::CIRS,
+             const CEAngleType&      angle_type=CEAngleType::RADIANS) ;
     CEPlanet(const CEPlanet& other);
     virtual ~CEPlanet() ;
     
