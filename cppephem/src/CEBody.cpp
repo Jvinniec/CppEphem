@@ -66,7 +66,9 @@ CEBody::CEBody(const CEBody &other, const std::string& name) :
 {
     init_members();
     copy_members(other);
-    SetName(name);
+
+    // Set the name if it is not empty
+    if (name.size() > 0) SetName(name);
 }
 
 /**********************************************************************//**
@@ -77,7 +79,9 @@ CEBody::CEBody(const CECoordinates &coords, const std::string& name) :
     CECoordinates(coords)
 {
     init_members();
-    SetName(name);
+    
+    // Set the name if it is not empty
+    if (name.size() > 0) SetName(name);
 }
 
 /**********************************************************************//**
