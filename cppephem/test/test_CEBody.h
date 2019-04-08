@@ -34,6 +34,7 @@ public:
 
     /****** METHODS ******/
 
+    virtual bool test_construct(void);
     virtual bool test_Name(void);
     virtual bool test_GetCoordinates(void);
 
