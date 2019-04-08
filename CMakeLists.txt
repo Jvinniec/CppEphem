@@ -62,7 +62,6 @@ endfunction(cppephem_executable)
 # so that we dont have to specify multiple lines
 # EVERY SINGLE TIME!
 function (cppephem_test _name _source)
-    #set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CPPEPHEM_TEST_CXX_FLAGS}")
     add_executable(${_name} ${_source} ${ARGN})
     target_link_libraries(${_name} testcppephem sofa_c)
     add_test(NAME ${_name} COMMAND ${_name})
