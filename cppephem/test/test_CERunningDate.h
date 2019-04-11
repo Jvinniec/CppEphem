@@ -37,8 +37,9 @@ public:
     virtual bool test_construct(void);
 
 private:
-    CEDate        base_date_;
-    CERunningDate base_;
+    CEDate                    base_date_;
+    CERunningDate             base_;
+    std::chrono::milliseconds naptime_;
 
 };
 

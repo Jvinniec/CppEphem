@@ -20,6 +20,7 @@
  ***************************************************************************/
 
 #include <stdlib.h>
+#include <thread>
 #include "test_CERunningDate.h"
 #include "CENamespace.h"
 
@@ -30,9 +31,13 @@
 test_CERunningDate::test_CERunningDate() :
     CETestSuite()
 {
-    // Let's use the Crab Nebula
+    // Create the base objects for comparison
     base_date_ = CEDate();
     base_ = CERunningDate();
+    naptime_ = std::chrono::milliseconds(500);
+
+    // pause execution to give the the date time to run
+    std::this_thread::sleep_for(naptime_);
 }
 
 
@@ -73,7 +78,7 @@ bool test_CERunningDate::test_construct(void)
     test(base_date_.JD() != base_.JD(), __func__, __LINE__);
 
     // These should give the same value
-    test_double(base_date_.JD(), test1.JD(), __func__, __LINE__);
+    test_double(test1.JD(), base_.JD(), __func__, __LINE__);
 
     return pass();
 }
