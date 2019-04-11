@@ -1,0 +1,36 @@
+
+This file serves as a note on all of the tables
+included in this directory
+
+*****************************************
+* corrections.txt
+*****************************************
+
+This file is used exclusively for testing the
+code.
+
+For some of the sofa methods, it is required
+to supply the 'UT1-UTC' value for an accurate
+result. This value is also known as 'dut1'.
+These methods generally also take x,y polar
+motion correction values.
+
+This file contains the daily 'dut1', 'xpolar',
+and 'ypolar' values for every date in the 
+following range:
+      start:  December 22, 1999 (MJD 51534)
+      stop :  January  11, 2000 (MJD 51554)
+
+A definition of the column values can be found
+here:
+      http://maia.usno.navy.mil/ser7/readme.finals
+
+A full list of all the correction values (going 
+back to January 2, 1973) can be found here:
+      http://maia.usno.navy.mil/ser7/finals2000A.all
+
+If the code is compiled with libcurl support, 
+this full list of correction values will be
+downloaded automatically the first time these
+corrections are requested. The full file size
+is a few megabytes.

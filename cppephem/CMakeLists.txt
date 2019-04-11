@@ -12,17 +12,17 @@ include_directories (${CMAKE_CURRENT_SOURCE_DIR}/include
 # by the CppEphem library
 #------------------------------------------
 set (cppephem_SOURCES
-    src/CENamespace.cpp
-    src/CEBody.cpp
-    src/CECoordinates.cpp
-    src/CEDate.cpp
-    src/CEException.cpp
-    src/CEObservation.cpp
-    src/CEObserver.cpp
-    src/CEPlanet.cpp
-    src/CERunningDate.cpp
-    src/CETime.cpp
-    support/CECorrections.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CENamespace.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CEBody.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CECoordinates.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CECorrections.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CEDate.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CEException.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CEObservation.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CEObserver.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CEPlanet.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CERunningDate.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CETime.cpp
     )
 
 set (cppephem_HEADERS
@@ -30,6 +30,7 @@ set (cppephem_HEADERS
     include/CENamespace.h
     include/CEBody.h
     include/CECoordinates.h
+    include/CECorrections.h
     include/CEDate.h
     include/CEException.h
     include/CEObservation.h
@@ -37,7 +38,6 @@ set (cppephem_HEADERS
     include/CEPlanet.h
     include/CERunningDate.h
     include/CETime.h
-    support/CECorrections.h
     )
 
 #------------------------------------------
@@ -45,23 +45,25 @@ set (cppephem_HEADERS
 #------------------------------------------
 add_library (cppephem SHARED ${cppephem_SOURCES} ${cppephem_HEADERS})
 add_library (cppephem_static STATIC ${cppephem_SOURCES} ${cppephem_HEADERS})
+target_compile_definitions(cppephem PUBLIC -DCECORRFILEPATH=\"${CPPEPHEM_CORRFILEPATH}\")
+target_compile_definitions(cppephem_static PUBLIC -DCECORRFILEPATH=\"${CPPEPHEM_CORRFILEPATH}\")
 
 # Make sure the static version has the same name
 set_target_properties(cppephem_static PROPERTIES OUTPUT_NAME cppephem)
 
-target_link_libraries(cppephem sofa_c curl)
+# Link against the sofa and curl (optional) libraries
+target_link_libraries(cppephem sofa_c)
+if (NOT nocurl)
+    target_link_libraries(cppephem curl)
+endif()
+
+#------------------------------------------
+# Create both a static and shared version of the library
+#------------------------------------------
+
+set (testcppephem_HEADERS ${cppephem_HEADERS} PARENT_SCOPE)
+set (testcppephem_SOURCES ${cppephem_SOURCES} PARENT_SCOPE)
 
 # Make sure all of the executables are compiled
+add_subdirectory (test)
 add_subdirectory (src)
-
-set (CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${CPPEPHEM_TEST_CXX_FLAGS}")
-
-# Define the tests
-cppephem_test(test_CEBody        test/test_CEBody.cpp        test/test_CEBody.h        ${cppephem_SOURCES} ${cppephem_HEADERS})
-cppephem_test(test_CECoordinates test/test_CECoordinates.cpp test/test_CECoordinates.h ${cppephem_SOURCES} ${cppephem_HEADERS})
-cppephem_test(test_CEDate        test/test_CEDate.cpp        test/test_CEDate.h        ${cppephem_SOURCES} ${cppephem_HEADERS})
-cppephem_test(test_CEException   test/test_CEException.cpp   test/test_CEException.h   ${cppephem_SOURCES} ${cppephem_HEADERS})
-cppephem_test(test_CENamespace   test/test_CENamespace.cpp   test/test_CENamespace.h   ${cppephem_SOURCES} ${cppephem_HEADERS})
-cppephem_test(test_CEObservation test/test_CEObservation.cpp test/test_CEObservation.h ${cppephem_SOURCES} ${cppephem_HEADERS})
-cppephem_test(test_CEObserver    test/test_CEObserver.cpp    test/test_CEObserver.h    ${cppephem_SOURCES} ${cppephem_HEADERS})
-cppephem_test(test_CEPlanet      test/test_CEPlanet.cpp      test/test_CEPlanet.h      ${cppephem_SOURCES} ${cppephem_HEADERS})
