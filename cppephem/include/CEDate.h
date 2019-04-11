@@ -52,7 +52,8 @@ public:
     CEDate& operator=(const CEDate& other);
 
     // Method that can be used to change the date that is stored in this object
-    virtual void SetDate(double date=CurrentJD(), CEDateType time_format=CEDateType::JD) ;
+    virtual void SetDate(const double&     date=CurrentJD(), 
+                         const CEDateType& time_format=CEDateType::JD) ;
     // Method for setting the dates from the Gregorian calendar dates
     virtual void SetDate(std::vector<double> date) ;
     
