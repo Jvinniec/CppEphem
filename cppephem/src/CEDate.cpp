@@ -105,7 +105,8 @@ CEDate& CEDate::operator=(const CEDate& other)
  * @param[in] date             Date
  * @param[in] time_format      Time format (see ::CEDateType)
  *************************************************************************/
-void CEDate::SetDate(double date, CEDateType time_format)
+void CEDate::SetDate(const double&     date, 
+                     const CEDateType& time_format)
 {
     // Fill the internal date storage objects based on the format of the input "date"
     if (time_format == CEDateType::JD) {
