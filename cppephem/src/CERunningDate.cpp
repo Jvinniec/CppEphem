@@ -46,14 +46,47 @@
  *************************************************************************/
 CERunningDate::CERunningDate() :
     CEDate()
-{}
+{
+    init_members();
+}
+
+
+/**********************************************************************//**
+ * Copy constructor
+ * 
+ * @param[in] other             CERunningDate object to copy from
+ *************************************************************************/
+CERunningDate::CERunningDate(const CERunningDate& other)
+{
+    init_members();
+    copy_members(other);
+}
+
 
 /**********************************************************************//**
  * Destructor
  *************************************************************************/
 CERunningDate::~CERunningDate()
-{}
+{
+    free_members();
+}
 
+
+/**********************************************************************//**
+ * Copy assignment operator
+ * 
+ * @param[in] other             CERunningDate object to copy from
+ *************************************************************************/
+CERunningDate& CERunningDate::operator=(const CERunningDate& other)
+{
+    if (this != &other) {
+        this->CEDate::operator=(other);
+        free_members();
+        init_members();
+        copy_members(other);
+    }
+    return *this;
+}
 
 /**********************************************************************//**
  * Get the current Julian date.
@@ -73,7 +106,7 @@ double CERunningDate::JD() const
  *************************************************************************/
 double CERunningDate::MJD() const
 {
-    return JD2MJD( JD() ) ;
+    return JD2MJD( this->JD() ) ;
 }
 
 /**********************************************************************//**
@@ -83,7 +116,7 @@ double CERunningDate::MJD() const
  *************************************************************************/
 double CERunningDate::Gregorian() const
 {
-    return JD2Gregorian( JD() ) ;
+    return JD2Gregorian( this->JD() ) ;
 }
 
 /**********************************************************************//**
@@ -93,7 +126,8 @@ double CERunningDate::Gregorian() const
  * @param date             Date
  * @param time_format      Time format (see ::CEDateType)
  *************************************************************************/
-void CERunningDate::SetDate(double date, CEDateType time_format)
+void CERunningDate::SetDate(const double&     date, 
+                            const CEDateType& time_format)
 {
     CEDate::SetDate(date, time_format) ;
     ResetTime() ;
@@ -118,5 +152,46 @@ void CERunningDate::SetDate(std::vector<double> date)
  *************************************************************************/
 double CERunningDate::RunTime() const
 {
-    return (std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() - std::chrono::duration_cast<std::chrono::microseconds>(start.time_since_epoch()).count())/1000000.0;
+    // Get the current system time in nanoseconds
+    std::chrono::nanoseconds cur_time(std::chrono::high_resolution_clock::now().time_since_epoch());
+    std::chrono::nanoseconds start_time(start_.time_since_epoch());
+
+    // Return the difference in seconds
+    return (cur_time.count() - start_time.count())/1000000000.0;
+}
+
+
+//-------------------------------------------------
+// PRIVATE METHODS
+//-------------------------------------------------
+
+
+/**********************************************************************//**
+ * Copy data members from another object
+ * 
+ * @param[in] other             CERunningDate object to copy from
+ *************************************************************************/
+void CERunningDate::copy_members(const CERunningDate& other)
+{
+    start_              = other.start_;
+    timer_speed_factor_ = other.timer_speed_factor_;
+}
+
+
+/**********************************************************************//**
+ * Initialize data members
+ *************************************************************************/
+void CERunningDate::init_members(void)
+{
+    start_              = std::chrono::high_resolution_clock::now();
+    timer_speed_factor_ = 1.0;
+}
+
+
+/**********************************************************************//**
+ * Deallocate data members
+ *************************************************************************/
+void CERunningDate::free_members(void)
+{
+    return;
 }
