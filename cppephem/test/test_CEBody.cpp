@@ -1,7 +1,7 @@
 /***************************************************************************
  *  test_CEBody.cpp: CppEphem                                              *
  * ----------------------------------------------------------------------- *
- *  Copyright © 2018 JCardenzana                                           *
+ *  Copyright © 2019 JCardenzana                                           *
  * ----------------------------------------------------------------------- *
  *                                                                         *
  *  This program is free software: you can redistribute it and/or modify   *
@@ -138,7 +138,8 @@ bool test_CEBody::test_GetCoordinates(void)
 /**********************************************************************//**
  * Main method that actually runs the tests
  *************************************************************************/
-int main(int argc, char** argv) {
+int main(int argc, char** argv) 
+{
     test_CEBody tester;
     return (!tester.runtests());
 }

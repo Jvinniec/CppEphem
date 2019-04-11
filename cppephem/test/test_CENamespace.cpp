@@ -133,7 +133,8 @@ bool test_CENamespace::test_Corrections()
 /**********************************************************************//**
  * Main method that actually runs the tests
  *************************************************************************/
-int main(int argc, char** argv) {
+int main(int argc, char** argv) 
+{    
     test_CENamespace tester;
     return (!tester.runtests());
 }
