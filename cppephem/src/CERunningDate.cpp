@@ -56,7 +56,8 @@ CERunningDate::CERunningDate() :
  * 
  * @param[in] other             CERunningDate object to copy from
  *************************************************************************/
-CERunningDate::CERunningDate(const CERunningDate& other)
+CERunningDate::CERunningDate(const CERunningDate& other) :
+    CEDate(other)
 {
     init_members();
     copy_members(other);
