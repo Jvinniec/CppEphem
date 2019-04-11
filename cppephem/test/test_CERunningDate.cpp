@@ -19,6 +19,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <stdlib.h>
 #include "test_CERunningDate.h"
 #include "CENamespace.h"
 
@@ -66,10 +67,13 @@ bool test_CERunningDate::runtests()
 bool test_CERunningDate::test_construct(void)
 {
     // Create a comparison running date object that should be different
-    CEDate test1(base_);
+    CERunningDate test1(base_);
 
     // Default constructor
-    test(test1.JD() != base_.JD(), __func__, __LINE__);
+    test(base_date_.JD() != base_.JD(), __func__, __LINE__);
+
+    // These should give the same value
+    test_double(base_date_.JD(), test1.JD(), __func__, __LINE__);
 
     return pass();
 }
