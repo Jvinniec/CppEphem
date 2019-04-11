@@ -23,6 +23,11 @@
 #include <stdio.h>
 #include "CENamespace.h"
 
+void CppEphem::SetCorrFilename(const std::string& filename)
+{
+    CppEphem::corrections.SetFilename(filename);
+}
+
 /**********************************************************************//**
  * Return dut1 based on a given modified julian date
  * 
