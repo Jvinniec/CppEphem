@@ -49,9 +49,9 @@ CLOptions DefineOpts()
     opts.AddDoubleParam("p,pressure","Observer's atmospheric pressure (hPa)",obs.Pressure_hPa()) ;
     opts.AddDoubleParam("t,temperature","Observer's atmospheric temperature (degrees Celsius)", obs.Temperature_C()) ;
     opts.AddDoubleParam("w,wavelength","Wavelength of light being observed (micrometers)",obs.Wavelength_um()) ;
-    opts.AddDoubleParam("d,dut1","UT1-UTC (not necessary for rough positions)",CEDate::dut1(CEDate::CurrentJD())) ;
-    opts.AddDoubleParam("x,xpolar","x-polar motion (not necessary for rough positions)",CEDate::xpolar(CEDate::CurrentJD())) ;
-    opts.AddDoubleParam("y,ypolar","y-polar motion (not necessary for rough positions)",CEDate::ypolar(CEDate::CurrentJD())) ;
+    //opts.AddDoubleParam("d,dut1","UT1-UTC (not necessary for rough positions)",CEDate::dut1(CEDate::CurrentJD())) ;
+    //opts.AddDoubleParam("x,xpolar","x-polar motion (not necessary for rough positions)",CEDate::xpolar(CEDate::CurrentJD())) ;
+    //opts.AddDoubleParam("y,ypolar","y-polar motion (not necessary for rough positions)",CEDate::ypolar(CEDate::CurrentJD())) ;
     
     return opts ;
 }
@@ -95,21 +95,38 @@ int main(int argc, char** argv) {
     results["glon"] = 0.0 ;
     results["glat"]  = 0.0 ;
     
+    // Define the observer
+    CEObserver observer(opts.AsDouble("longitude"),
+                        opts.AsDouble("latitude"),
+                        opts.AsDouble("elevation"),
+                        CEAngleType::DEGREES);
+    observer.SetPressure_hPa(opts.AsDouble("pressure"));
+    observer.SetTemperature_C(opts.AsDouble("temperature"));
+    observer.SetRelativeHumidity(opts.AsDouble("humidity"));
+    observer.SetWavelength_um(opts.AsDouble("wavelength"));
+
+    // Define the date
+    CEDate date(opts.AsDouble("juliandate"), CEDateType::JD);
+
     // Convert the coordinates
-    int errcode = CECoordinates::Observed2CIRS(opts.AsDouble("azimuth")*DD2R,
-                                               opts.AsDouble("zenith")*DD2R,
-                                               &results["glon"], &results["glat"],
-                                               opts.AsDouble("juliandate"),
-                                               opts.AsDouble("longitude")*DD2R,
-                                               opts.AsDouble("latitude")*DD2R,
-                                               opts.AsDouble("elevation"),
-                                               opts.AsDouble("pressure"),
-                                               opts.AsDouble("temperature"),
-                                               opts.AsDouble("humidity"),
-                                               opts.AsDouble("dut1"),
-                                               opts.AsDouble("xpolar"),
-                                               opts.AsDouble("ypolar"),
-                                               opts.AsDouble("wavelength")) ;
+    int errcode = CECoordinates::Observed2Galactic(opts.AsDouble("azimuth")*DD2R,
+                                                   opts.AsDouble("zenith")*DD2R,
+                                                   &results["ra"], &results["dec"],
+                                                   date, observer, CEAngleType::RADIANS);
+    // int errcode = CECoordinates::Observed2CIRS(opts.AsDouble("azimuth")*DD2R,
+    //                                            opts.AsDouble("zenith")*DD2R,
+    //                                            &results["glon"], &results["glat"],
+    //                                            opts.AsDouble("juliandate"),
+    //                                            opts.AsDouble("longitude")*DD2R,
+    //                                            opts.AsDouble("latitude")*DD2R,
+    //                                            opts.AsDouble("elevation"),
+    //                                            opts.AsDouble("pressure"),
+    //                                            opts.AsDouble("temperature"),
+    //                                            opts.AsDouble("humidity"),
+    //                                            opts.AsDouble("dut1"),
+    //                                            opts.AsDouble("xpolar"),
+    //                                            opts.AsDouble("ypolar"),
+    //                                            opts.AsDouble("wavelength")) ;
     // Print the results
     PrintResults(opts, results) ;
     
