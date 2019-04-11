@@ -19,8 +19,8 @@ endif()
 
 # User defined corrections file location
 set (CPPEPHEM_CORRFILEPATH "${CMAKE_INSTALL_PREFIX}/share/cppephem/corrections.txt")
-if (corrfilepath)
-    set (CPPEPHEM_CORRFILEPATH ${corrfilepath})
+if (CORRFILEPATH)
+    set (CPPEPHEM_CORRFILEPATH ${CORRFILEPATH})
 endif()
 
 # Defined when user does not want to download the corrections file
