@@ -80,7 +80,8 @@ bool test_CEObservation::test_obj_return(void)
 /**********************************************************************//**
  * Main method that actually runs the tests
  *************************************************************************/
-int main(int argc, char** argv) {
+int main(int argc, char** argv) 
+{
     test_CEObservation tester;
     return (!tester.runtests());
 }

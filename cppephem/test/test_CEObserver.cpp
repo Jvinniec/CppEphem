@@ -192,7 +192,8 @@ bool test_CEObserver::test_get_obsCoords(void)
 /**********************************************************************//**
  * Main method that actually runs the tests
  *************************************************************************/
-int main(int argc, char** argv) {
+int main(int argc, char** argv) 
+{
     test_CEObserver tester;
     return (!tester.runtests());
 }

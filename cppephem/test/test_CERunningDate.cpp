@@ -1,5 +1,5 @@
 /***************************************************************************
- *  test_CEPlanet.cpp: CppEphem                                            *
+ *  test_CERunningDate.cpp: CppEphem                                       *
  * ----------------------------------------------------------------------- *
  *  Copyright © 2019 JCardenzana                                           *
  * ----------------------------------------------------------------------- *
@@ -19,27 +19,26 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "test_CEPlanet.h"
+#include "test_CERunningDate.h"
 #include "CENamespace.h"
 
 
 /**********************************************************************//**
  * Default constructor
  *************************************************************************/
-test_CEPlanet::test_CEPlanet() :
+test_CERunningDate::test_CERunningDate() :
     CETestSuite()
 {
     // Let's use the Crab Nebula
-    base_ = CEPlanet("Crab", 83.633, 22.0145, 
-                   CECoordinateType::ICRS, 
-                   CEAngleType::DEGREES);
+    base_date_ = CEDate();
+    base_ = CERunningDate();
 }
 
 
 /**********************************************************************//**
  * Destructor
  *************************************************************************/
-test_CEPlanet::~test_CEPlanet()
+test_CERunningDate::~test_CERunningDate()
 {}
 
 
@@ -48,9 +47,9 @@ test_CEPlanet::~test_CEPlanet()
  * 
  * @return whether or not all tests succeeded
  *************************************************************************/
-bool test_CEPlanet::runtests()
+bool test_CERunningDate::runtests()
 {
-    std::cout << "\nTesting CEPlanet:\n";
+    std::cout << "\nTesting CERunningDate:\n";
 
     // Run each of the tests
     test_construct();
@@ -64,51 +63,13 @@ bool test_CEPlanet::runtests()
  * 
  * @return whether the tests succeed
  *************************************************************************/
-bool test_CEPlanet::test_construct(void)
+bool test_CERunningDate::test_construct(void)
 {
-    CECoordinates test_coord;
+    // Create a comparison running date object that should be different
+    CEDate test1(base_);
 
     // Default constructor
-    CEPlanet test1;
-    test_string(test1.Name(), "undefined", __func__, __LINE__);
-    test(test1.GetCoordinates() == test_coord, __func__, __LINE__);
-
-    // Default constructors
-    CEPlanet test2("DefaultPlanet", 123.45, 67.89, CECoordinateType::ICRS, CEAngleType::DEGREES);
-    test_string(test2.Name(), "DefaultPlanet", __func__, __LINE__);
-    test_double(test2.XCoordinate_Deg(), 123.45, __func__, __LINE__);
-    test_double(test2.YCoordinate_Deg(), 67.89, __func__, __LINE__);
-    test_int(int(test2.GetCoordSystem()), int(CECoordinateType::ICRS), __func__, __LINE__);
-
-    // Copy constructor
-    test1.SetName("DefaultPlanet");
-    test1.SetCoordinates(123.45, 67.89, CECoordinateType::ICRS, CEAngleType::DEGREES);
-    CEPlanet test3(test1);
-    test_Planet(test1, test3, __func__, __LINE__);
-
-    return pass();
-}
-
-
-/**********************************************************************//**
- * Compare 
- * 
- * @return whether the tests succeed
- *************************************************************************/
-bool test_CEPlanet::test_Planet(const CEPlanet& planet1, 
-                                const CEPlanet& planet2,
-                                const std::string& func,
-                                const int&         line)
-{
-    // Consider them equal if they have the same name and coordinates
-    if ((planet1.Name() == planet2.Name()) &&
-        (planet1.GetCoordinates() == planet2.GetCoordinates())) {
-        log_success("Planet objects ARE the same", func, line);
-        update_pass(true);
-    } else {
-        log_failure("Planet objects are NOT the same", func, line);
-        update_pass(false);
-    }
+    test(test1.JD() != base_.JD(), __func__, __LINE__);
 
     return pass();
 }
@@ -119,6 +80,6 @@ bool test_CEPlanet::test_Planet(const CEPlanet& planet1,
  *************************************************************************/
 int main(int argc, char** argv) 
 {
-    test_CEPlanet tester;
+    test_CERunningDate tester;
     return (!tester.runtests());
 }

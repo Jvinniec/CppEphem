@@ -29,7 +29,8 @@
 test_CEDate::test_CEDate() :
     CETestSuite()
 {
-    base_date_.SetDate(CppEphem::julian_date_J2000());
+    // Set the date to J2000 Julian date
+    base_date_.SetDate(2451545.000000);
     test_date_.SetDate(base_date_);
 }
 
@@ -127,7 +128,8 @@ bool test_CEDate::test_ReturnType(void)
 /**********************************************************************//**
  * Main method that actually runs the tests
  *************************************************************************/
-int main(int argc, char** argv) {
+int main(int argc, char** argv) 
+{
     test_CEDate tester;
     return (!tester.runtests());
 }

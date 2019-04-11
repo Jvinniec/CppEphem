@@ -234,7 +234,8 @@ bool test_CECoordinates::test_Convert2Observed()
 /**********************************************************************//**
  * Main method that actually runs the tests
  *************************************************************************/
-int main(int argc, char** argv) {
+int main(int argc, char** argv) 
+{
     test_CECoordinates tester;
     return (!tester.runtests());
 }

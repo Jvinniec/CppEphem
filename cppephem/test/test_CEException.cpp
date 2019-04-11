@@ -132,7 +132,8 @@ bool test_CEException::test_sofa_exception(void)
 /**********************************************************************//**
  * Main method that actually runs the tests
  *************************************************************************/
-int main(int argc, char** argv) {
+int main(int argc, char** argv) 
+{
     test_CEException tester;
     return (!tester.runtests());
 }
