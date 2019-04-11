@@ -38,14 +38,17 @@
 #include "CECorrections.h"
 #include "CEException.h"
 #include <sofam.h>
-#include <curl/curl.h>
 #include <exception>
 #include <iostream>
 #include <cmath>
 #include <fstream>
 
-#ifndef CESUPPORTDIR
-#define CESUPPORTDIR std::string("")
+#ifndef NOCURL
+#include <curl/curl.h>
+#endif
+
+#ifndef CECORRFILEPATH
+#define CECORRFILEPATH std::string("")
 #endif
 
 
@@ -121,6 +124,17 @@ CECorrections& CECorrections::operator=(const CECorrections& other)
 
 
 /**********************************************************************//**
+ * Sets the name of the corrections file
+ * 
+ * @param[in] filename      Filename to read/write corrections from/to
+ *************************************************************************/
+void CECorrections::SetFilename(const std::string& filename)
+{
+    filename_ = filename;
+}
+
+
+/**********************************************************************//**
  * Free data member objects
  *************************************************************************/
 void CECorrections::free_members(void)
@@ -149,7 +163,8 @@ void CECorrections::copy_members(const CECorrections& other)
  *************************************************************************/
 void CECorrections::init_members(void)
 {
-    filename_    = CESUPPORTDIR + "corrections.txt";
+    // Note that CECORRFILEPATH is defined at compile time
+    filename_    = CECORRFILEPATH;
     corrections_ = std::map<int, std::vector<double>>();
     min_mjd_     = 1000000;
     max_mjd_     = -1;
@@ -165,6 +180,7 @@ void CECorrections::init_members(void)
 bool CECorrections::DownloadTables(void) const
 {
     bool success = true;
+    #ifndef NOCURL
     try {
         CURL *curl;
         FILE *fp;
@@ -187,6 +203,11 @@ bool CECorrections::DownloadTables(void) const
                   << e.what() << std::endl;
         success = false;
     }
+    #else
+    std::cout << "CppEphem was not compiled with curl support. To download the corrections file automatically, recompile with -DNOCURL=0." << std::endl;
+    success = false;
+    #endif
+
     return success;
 }
 
@@ -293,7 +314,8 @@ double CECorrections::GetTableValue(const double& mjd,
 {
     LoadTables();
     int i_mjd(mjd);
-    if (corrections_.count(i_mjd) == 0) {
+    if ((i_mjd < min_mjd_) || (i_mjd > max_mjd_)) {
+        // TODO: Make this a warning message
         std::string msg = "Invalid mjd: " + std::to_string(mjd) + ". Accepted " +
                           "range is " + std::to_string(min_mjd_) + "-" + std::to_string(max_mjd_);
         throw CEException::invalid_value(__func__, msg);

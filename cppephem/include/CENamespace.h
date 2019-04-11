@@ -50,7 +50,7 @@ namespace CppEphem {
     inline double m_per_au() {return DAU ;}                     ///< meters per astronomical unit
     inline double sec_per_day() {return DAYSEC;}                ///< Seconds per day
     
-    static CECorrections corrections;
+    void SetCorrFilename(const std::string& filename);
 
     /*********************************************
      * Return the 'dut1' value which represents 
@@ -74,6 +74,8 @@ namespace CppEphem {
     /** Method for estimating atmospheric pressure (in hPa) from altitude (in meters) */
     inline double EstimatePressure_hPa(double elevation_m)
         {return 1013.25 * std::exp(-elevation_m / (29.3*SeaLevelTemp_K() )) ;}
+
+    static CECorrections corrections;
 }
 
 #endif /* CENamespace_h */

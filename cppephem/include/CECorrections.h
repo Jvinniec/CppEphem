@@ -50,7 +50,7 @@ private:
     bool   LoadTables(void) const;
     double GetTableValue(const double& mjd, const int& tbl_indx) const;
 
-    std::string filename_;   ///< File where corrections are stored
+    mutable std::string filename_;   ///< File where corrections are stored
 
     // Table to hold the corrections for a given MJD
     mutable std::map<int, std::vector<double>> corrections_;
@@ -75,18 +75,6 @@ inline
 std::string CECorrections::Filename(void) const
 {
     return filename_;
-}
-
-
-/**********************************************************************//**
- * Sets the name of the corrections file
- * 
- * @param[in] filename      Filename to read/write corrections from/to
- *************************************************************************/
-inline
-void CECorrections::SetFilename(const std::string& filename)
-{
-    filename_ = filename;
 }
 
 #endif /* CECorrections_h */
