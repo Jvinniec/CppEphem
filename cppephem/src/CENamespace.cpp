@@ -23,10 +23,28 @@
 #include <stdio.h>
 #include "CENamespace.h"
 
+
+/**********************************************************************//**
+ * Set the name of the file to use for defining the corrections
+ * 
+ * @param[in] filename          Filename of corrections file
+ *************************************************************************/
 void CppEphem::SetCorrFilename(const std::string& filename)
 {
     CppEphem::corrections.SetFilename(filename);
 }
+
+
+/**********************************************************************//**
+ * Return the name of the file used for defining the corrections
+ * 
+ * @return Filename of corrections file
+ *************************************************************************/
+std::string CppEphem::CorrFilename(void)
+{
+    return CppEphem::corrections.Filename();
+}
+
 
 /**********************************************************************//**
  * Return dut1 based on a given modified julian date

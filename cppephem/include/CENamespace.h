@@ -50,7 +50,8 @@ namespace CppEphem {
     inline double m_per_au() {return DAU ;}                     ///< meters per astronomical unit
     inline double sec_per_day() {return DAYSEC;}                ///< Seconds per day
     
-    void SetCorrFilename(const std::string& filename);
+    void        SetCorrFilename(const std::string& filename);
+    std::string CorrFilename(void);
 
     /*********************************************
      * Return the 'dut1' value which represents 
