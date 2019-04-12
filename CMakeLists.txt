@@ -1,11 +1,14 @@
-cmake_minimum_required (VERSION 2.6)
+cmake_minimum_required (VERSION 3.0)
 project (CppEphem)
 set(CMAKE_BUILD_TYPE Release)
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
 # Add Version number
 set (CppEphem_VERSION_MAJOR 1)
-set (CppEphem_VERSION_MINOR 1)
+set (CppEphem_VERSION_MINOR 2)
+set (CppEphem_VERSION_PATCH 0)
+set (cppephem_version "${CppEphem_VERSION_MAJOR}.${CppEphem_VERSION_MINOR}.${CppEphem_VERSION_PATCH}")
+message ("\nCOMPILING CPPEPHEM VERSION ${cppephem_version}\n")
 
 # Set some flags necessary for the MAC OS builds
 if (CMAKE_SYSTEM_NAME MATCHES Darwin)
@@ -68,6 +71,7 @@ function (cppephem_executable _name _sources)
     # invoke built-in add_executable
     add_executable(${_name} ${_sources})
     target_link_libraries(${_name} cppephem)
+    target_compile_definitions(${_name} PUBLIC -DCPPEPHEM_VERSION=\"${cppephem_version}\")
 endfunction(cppephem_executable)
 
 #-------------------------------------------
@@ -77,9 +81,10 @@ endfunction(cppephem_executable)
 # EVERY SINGLE TIME!
 function (cppephem_test _name _source)
     add_executable(${_name} ${_source} ${cppephem_SOURCES})
-    target_compile_definitions(${_name} PUBLIC -DCECORRFILEPATH=\"${CMAKE_BINARY_DIR}/build/share/cppephem/corrections.txt\")
+    target_compile_definitions(${_name} PUBLIC -DCECORRFILEPATH=\"${CMAKE_BINARY_DIR}/build/share/cppephem/corrections.txt\"
+                                               -DCPPEPHEM_VERSION=\"${cppephem_version}-TEST\"
+                                               -DNOCURL)
     target_link_libraries(${_name} testcesuite sofa_c)
-    target_compile_definitions(${_name} PUBLIC -DNOCURL)
     add_test(NAME ${_name} COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${_name} ${ARGN})
 endfunction (cppephem_test)
 
