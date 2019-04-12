@@ -122,12 +122,13 @@ public:
     T getDefault() {return default_value;}
     T getValue() {return value;}
     std::string getParamName() {return parameter_name;}
-    std::string getShortParamName() {return parameter_name_short;}
+    char        getShortParamName() {return parameter_name_short;}
+    std::string getShortParamNameStr() {return std::string(1,parameter_name_short);}
     std::string getFullParamName()
     {
         std::string fullname = std::string("-")+parameter_name ;
-        if (!parameter_name_short.empty()) {
-            fullname = parameter_name_short+", -"+fullname ;
+        if (parameter_name_short != 0) {
+            fullname = "-"+getShortParamNameStr()+", -"+fullname ;
         }
         return fullname ;
     }
@@ -159,7 +160,7 @@ public:
     }
 protected:
     std::string parameter_name ;
-    std::string parameter_name_short = std::string();
+    char        parameter_name_short = 0;
     std::string description ;
     T value ;
     T default_value ;
@@ -391,7 +392,7 @@ public:
     // This method actually sets the options from the passed command line arguements
     bool ParseCommandLine(int argc, char ** argv) ;
     
-    std::map<std::string,std::string> GetShortOpts(std::string& short_opts) ;
+    std::map<char,std::string> GetShortOpts(std::string& short_opts) ;
     
     // Overload operator for getting objects as strings
     std::string operator[](std::string param_name) ;
@@ -433,7 +434,7 @@ protected:
     // This method puts together the full list of parameters into
     // the longopts vector so that it can be used by getopt
     void DefineParams() ;
-    struct option DefineOptSingle(const char* name, int has_arg, int *flag, int val) ;
+    struct option DefineOptSingle(const std::string& name, int has_arg, int *flag, char val) ;
     
     
     // Fill the options from a configuration file
@@ -462,7 +463,8 @@ bool CLOptions::ParseCommandLine(int argc, char** argv)
 {
     // Establish the actual parameters
     DefineParams() ;
-    
+    std::cout << "PARS DEFINED" << std::endl;
+
     // If we've defined a configuration file parameter, do a pre-loop to see if
     // the user has passed that parameter
     if (configfile_opt_name.size() > 0) {
@@ -493,9 +495,10 @@ bool CLOptions::ParseCommandLine(int argc, char** argv)
     optind = 0 ;
     
     std::string short_opts ;
-    std::map<std::string, std::string> short_to_long_map = GetShortOpts(short_opts) ;
+    std::map<char, std::string> short_to_long_map = GetShortOpts(short_opts) ;
     //    std::string short_opts = std::string("h") + (version_opt.getValue().empty() ? "" : "v") ;
-    
+    std::cout << "SHORT OPTS2: " << short_opts << std::endl;
+
     // Loop through all the passed options
     while (1)
     {
@@ -503,7 +506,7 @@ bool CLOptions::ParseCommandLine(int argc, char** argv)
         /* getopt_long stores the option index here. */
         int option_index = -1;
         
-        //std::cout << "size: " << short_to_long_map.size() << std::endl;
+        std::cout << "size: " << short_to_long_map.size() << std::endl;
         
         if (short_to_long_map.size()==0) {
             // If no short form options were given, then assume only long options
@@ -548,7 +551,7 @@ bool CLOptions::ParseCommandLine(int argc, char** argv)
                 } else {
                     // The short form of the name was supplied
                     char c_char(c) ;
-                    opt_name = short_to_long_map[std::string(&c_char)] ;
+                    opt_name = short_to_long_map[c_char] ;
                 }
                 std::string opt_val ( optarg ) ;
                 std::vector<std::string> values = CLOptionsHelper::split( optarg, ' ') ;
@@ -556,48 +559,51 @@ bool CLOptions::ParseCommandLine(int argc, char** argv)
                 
                 break ;
         }
+
+        std::cout << "SO: " << short_opts << std::endl;
     }
     // Note that it is up to the user to handle conflicts between parameters
     return false ;
 }
 
 //__________________________________________________________
-std::map<std::string, std::string> CLOptions::GetShortOpts(std::string& short_opts)
+std::map<char, std::string> CLOptions::GetShortOpts(std::string& short_opts)
 {
     // Fill with the default help and version information
     short_opts = std::string("h") + (version_opt.getValue().empty() ? "" : "v") ;
     
     // Create a map of "short" -> "long" variables
-    std::map<std::string,std::string> short_to_long ;
+    std::map<char,std::string> short_to_long ;
     
     std::map<std::string, CLBool*>::iterator bool_itr ;
     for (bool_itr=params_bools.begin(); bool_itr!=params_bools.end(); ++bool_itr) {
-        if (!bool_itr->second->getShortParamName().empty()) {
-            short_opts += bool_itr->second->getShortParamName()+":";
+        if (bool_itr->second->getShortParamName() != 0) {
+            short_opts += bool_itr->second->getShortParamNameStr()+":";
             short_to_long[bool_itr->second->getShortParamName()] = bool_itr->second->getParamName() ;
         }
     }
     // DOUBLES
     std::map<std::string, CLDouble*>::iterator dbl_itr ;
     for (dbl_itr=params_doubles.begin(); dbl_itr!=params_doubles.end(); ++dbl_itr) {
-        if (!dbl_itr->second->getShortParamName().empty()) {
-            short_opts += dbl_itr->second->getShortParamName()+":";
+        if (dbl_itr->second->getShortParamName() != 0) {
+            short_opts += dbl_itr->second->getShortParamNameStr()+":";
+            std::cout << short_opts << std::endl;
             short_to_long[dbl_itr->second->getShortParamName()] = dbl_itr->second->getParamName() ;
         }
     }
     // INTEGERS
     std::map<std::string, CLInt*>::iterator int_itr ;
     for (int_itr=params_ints.begin(); int_itr!=params_ints.end(); ++int_itr) {
-        if (!int_itr->second->getShortParamName().empty()) {
-            short_opts += int_itr->second->getShortParamName()+":";
+        if (int_itr->second->getShortParamName() != 0) {
+            short_opts += int_itr->second->getShortParamNameStr()+":";
             short_to_long[int_itr->second->getShortParamName()] = int_itr->second->getParamName() ;
         }
     }
     // STRINGS
     std::map<std::string, CLString*>::iterator str_itr ;
     for (str_itr=params_strings.begin(); str_itr!=params_strings.end(); ++str_itr) {
-        if (!str_itr->second->getShortParamName().empty()) {
-            short_opts += str_itr->second->getShortParamName()+":";
+        if (str_itr->second->getShortParamName() != 0) {
+            short_opts += str_itr->second->getShortParamNameStr()+":";
             short_to_long[str_itr->second->getShortParamName()] = str_itr->second->getParamName() ;
         }
     }
@@ -925,42 +931,44 @@ void CLOptions::DefineParams()
     
     // Add the version information if so requested
     if (!version_opt.getParamName().empty()) {
-        longopts[opt_num++] = DefineOptSingle(version_opt.getParamNameChar(), no_argument, 0, 'v') ;
+        longopts[opt_num++] = DefineOptSingle(version_opt.getParamName(), no_argument, 0, 'v') ;
     }
     
     // Add the bool options
     std::map<std::string, CLBool*>::iterator biter ;
     for (biter=params_bools.begin(); biter!=params_bools.end(); ++biter) {
-        longopts[opt_num++] = DefineOptSingle(biter->first.c_str(), required_argument, 0, 'b') ;
+        longopts[opt_num++] = DefineOptSingle(biter->first, 
+                                              required_argument, 0, 'b') ;
     }
     
     // Add the double options
     std::map<std::string, CLDouble*>::iterator diter ;
     for (diter=params_doubles.begin(); diter!=params_doubles.end(); ++diter) {
-        longopts[opt_num++] = DefineOptSingle(diter->first.c_str(), required_argument, 0, 'd') ;
+        longopts[opt_num++] = DefineOptSingle(diter->first, required_argument, 0, 
+                                              diter->second->getShortParamName()) ;
     }
     
     // Add the int options
     std::map<std::string, CLInt*>::iterator iiter ;
     for (iiter=params_ints.begin(); iiter!=params_ints.end(); ++iiter) {
-        longopts[opt_num++] = DefineOptSingle(iiter->first.c_str(), required_argument, 0, 'i') ;
+        longopts[opt_num++] = DefineOptSingle(iiter->first, required_argument, 0, 'i') ;
     }
     
     // Add the string options
     std::map<std::string, CLString*>::iterator siter ;
     for (siter=params_strings.begin(); siter!=params_strings.end(); ++siter) {
-        longopts[opt_num++] = DefineOptSingle(siter->first.c_str(), required_argument, 0, 's') ;
+        longopts[opt_num++] = DefineOptSingle(siter->first, required_argument, 0, 's') ;
     }
     
     // Add the terminating options
-    longopts.back() = DefineOptSingle(0,0,0,0) ;
+    longopts.back() = DefineOptSingle("",0,0,0) ;
 }
 
 //__________________________________________________________
-struct option CLOptions::DefineOptSingle(const char* name, int has_arg, int *flag, int val)
+struct option CLOptions::DefineOptSingle(const std::string& name, int has_arg, int *flag, char val)
 {
     struct option new_opt ;
-    new_opt.name = name ;
+    new_opt.name = (name != "") ? name.c_str() : 0 ;
     new_opt.has_arg = has_arg ;
     new_opt.flag = flag ;
     new_opt.val = val ;
