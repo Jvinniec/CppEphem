@@ -101,6 +101,23 @@ CETime::~CETime()
 
 
 /**********************************************************************//**
+ * Copy assignment operator
+ * 
+ * @param[in] other             CETime object to be copied
+ * @return Reference to this object post-copy
+ *************************************************************************/
+CETime& CETime::operator=(const CETime& other)
+{
+    if (this != &other) {
+        free_members();
+        init_members();
+        copy_members(other);
+    }
+    return *this;
+}
+
+
+/**********************************************************************//**
  * Get the current UTC time as seconds since midnight
  * 
  * @return Seconds since midnight
