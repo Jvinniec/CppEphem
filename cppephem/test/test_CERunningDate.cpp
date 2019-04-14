@@ -33,8 +33,8 @@ test_CERunningDate::test_CERunningDate() :
 {
     // Create the base objects for comparison
     base_date_ = CEDate();
-    base_ = CERunningDate();
-    naptime_ = std::chrono::milliseconds(500);
+    base_      = CERunningDate();
+    naptime_   = std::chrono::milliseconds(500);
 
     // pause execution to give the the date time to run
     std::this_thread::sleep_for(naptime_);
