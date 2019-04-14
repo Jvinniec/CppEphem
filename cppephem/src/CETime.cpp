@@ -288,7 +288,7 @@ std::vector<double> CETime::TimeDbl2Vect(const double& time)
     // Get the minutes
     time_vect[1] = int(std::floor(time - time_vect[2]))/100 % 100 ;
     // Get the hours
-    time_vect[0] = (std::floor(time - time_vect[2] - time_vect[1])/10000) ;
+    time_vect[0] = int(std::floor(time - time_vect[2] - time_vect[1])/10000) ;
     
     return time_vect ;
 }
@@ -372,7 +372,7 @@ void CETime::free_members(void)
  *************************************************************************/
 void CETime::SetTime_UTC(std::vector<double> time)
 {
-    time_ = time;
+    time_      = time;
     time_type_ = CETimeType::UTC;
 }
 
