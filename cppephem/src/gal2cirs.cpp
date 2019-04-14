@@ -55,7 +55,7 @@ std::map<std::string, double> defaultoptions()
     std::map<std::string, double> options ;
     
     // Set January 1, 2000 as the default date
-    options["juliandate"] = CppEphem::julian_date_J2000() ;
+    options["juliandate"] = CEDate::CurrentJD();
     
     return options ;
 }
