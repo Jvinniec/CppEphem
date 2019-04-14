@@ -55,6 +55,10 @@ public:
      * Get the time
      *******************************************/
     
+    double Hour(void) const;
+    double Min(void) const;
+    double Sec(void) const;
+
     static double CurrentUTC() ;
     static std::vector<double> CurrentUTC_vect() ;
     static double UTC(const double& jd) ;
@@ -127,5 +131,41 @@ private:
     std::vector<double> time_ ;
     CETimeType time_type_ ;
 };
+
+
+/**********************************************************************//**
+ * Return the Hour associated with this time object
+ * 
+ * @return Hour associated with this time object
+ *************************************************************************/
+inline
+double CETime::Hour(void) const
+{
+    return time_[0];
+}
+
+
+/**********************************************************************//**
+ * Return the Minute associated with this time object
+ * 
+ * @return Minute associated with this time object
+ *************************************************************************/
+inline
+double CETime::Min(void) const
+{
+    return time_[1];
+}
+
+
+/**********************************************************************//**
+ * Return the Second associated with this time object
+ * 
+ * @return Second associated with this time object
+ *************************************************************************/
+inline
+double CETime::Sec(void) const
+{
+    return time_[2]+time_[3];
+}
 
 #endif /* CETime_h */
