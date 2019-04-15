@@ -101,9 +101,9 @@ public:
     CLParam<T>(const std::string& param_name,
                const std::string& info,
                T default_val) :
-    parameter_name(param_name), description(info),
-    value(default_val), default_value(default_val),
-    is_set(false)
+        parameter_name(param_name), description(info),
+        value(default_val), default_value(default_val),
+        is_set(false)
     {
         if (description.empty()) description="No description for " + parameter_name + ". I guess you're on your own.";
         std::vector<std::string> param_name_split = CLOptionsHelper::split(param_name, ',') ;
@@ -127,8 +127,8 @@ public:
     std::string getFullParamName()
     {
         std::string fullname = std::string("-")+parameter_name ;
-        if (parameter_name_short != 0) {
-            fullname = "-"+getShortParamNameStr()+", -"+fullname ;
+        if (parameter_name_short > 10) {
+            fullname = getShortParamNameStr()+", -"+fullname ;
         }
         return fullname ;
     }
@@ -180,6 +180,7 @@ public:
            std::map<std::string, CLBool*> &bool_map) :
     CLParam<bool>(param_name, info, default_val)
     {
+        parameter_name_short = 1;
         bool_map[parameter_name] = this ;
     }
     CLBool& operator=(std::string& other) {
@@ -208,6 +209,7 @@ public:
              std::map<std::string, CLString*> &str_map) :
     CLParam<std::string>(param_name, info, default_val)
     {
+        parameter_name_short = 2;
         str_map[parameter_name] = this ;
     }
     CLString& operator=(std::string other) {
@@ -243,6 +245,7 @@ public:
              std::map<std::string, CLDouble*> &dbl_map) :
     CLParam<double>(param_name, info, default_val)
     {
+        parameter_name_short = 3;
         dbl_map[parameter_name] = this ;
     }
     CLDouble& operator=(const std::string& other) {
@@ -272,6 +275,7 @@ public:
           std::map<std::string, CLInt*> &int_map) :
     CLParam<int>(param_name, info, default_val)
     {
+        parameter_name_short = 4;
         int_map[parameter_name] = this ;
     }
     CLInt& operator=(const std::string& other) {
@@ -379,20 +383,19 @@ public:
                         const std::string& param_descrip = "")
     {
         // Set the name of the parameter
-        std::string version_opt_name = (param_name.length()>0) ? param_name : "version" ;
+        version_str = (param_name.size() > 0) ? param_name : "version" ;
         std::string version_opt_desc = (param_descrip.empty()) ? "Print version information and exit." : param_descrip ;
         
         // Set the actual parameter
-        version_opt.setParamName(version_opt_name) ;
+        version_opt.setParamName(version_str) ;
         version_opt.setDescription(version_opt_desc) ;
         version_opt.setValue(text_to_be_printed) ;
-        
     }
     
     // This method actually sets the options from the passed command line arguements
     bool ParseCommandLine(int argc, char ** argv) ;
     
-    std::map<char,std::string> GetShortOpts(std::string& short_opts) ;
+    std::map<int,std::string> GetShortOpts(std::string& short_opts) ;
     
     // Overload operator for getting objects as strings
     std::string operator[](std::string param_name) ;
@@ -426,10 +429,13 @@ protected:
     std::vector<struct option> longopts ;
     
     // Storage objects for the different parameter types
-    std::map<std::string, CLBool*> params_bools ;
+    std::map<std::string, CLBool*>   params_bools ;
     std::map<std::string, CLDouble*> params_doubles ;
-    std::map<std::string, CLInt*> params_ints ;
+    std::map<std::string, CLInt*>    params_ints ;
     std::map<std::string, CLString*> params_strings ;
+
+    std::string help_str    = "help";
+    std::string version_str = "version";
     
     // This method puts together the full list of parameters into
     // the longopts vector so that it can be used by getopt
@@ -463,7 +469,6 @@ bool CLOptions::ParseCommandLine(int argc, char** argv)
 {
     // Establish the actual parameters
     DefineParams() ;
-    std::cout << "PARS DEFINED" << std::endl;
 
     // If we've defined a configuration file parameter, do a pre-loop to see if
     // the user has passed that parameter
@@ -495,29 +500,20 @@ bool CLOptions::ParseCommandLine(int argc, char** argv)
     optind = 0 ;
     
     std::string short_opts ;
-    std::map<char, std::string> short_to_long_map = GetShortOpts(short_opts) ;
-    //    std::string short_opts = std::string("h") + (version_opt.getValue().empty() ? "" : "v") ;
-    std::cout << "SHORT OPTS2: " << short_opts << std::endl;
+    std::map<int, std::string> short_to_long_map = GetShortOpts(short_opts) ;
 
     // Loop through all the passed options
     while (1)
     {
         int c(0) ;
+
         /* getopt_long stores the option index here. */
         int option_index = -1;
-        
-        std::cout << "size: " << short_to_long_map.size() << std::endl;
-        
-        if (short_to_long_map.size()==0) {
-            // If no short form options were given, then assume only long options
-            c = getopt_long_only(argc, argv, short_opts.c_str(),
-                                 &longopts[0], &option_index);
-        } else {
-            // If short form options were given, then enforce the "double-dash" policy
-            // for long options
-            c = getopt_long (argc, argv, short_opts.c_str(),
-                             &longopts[0], &option_index);
-        }
+                
+        // If short form options were given, then enforce the "double-dash" policy
+        // for long options
+        c = getopt_long (argc, argv, short_opts.c_str(),
+                         &longopts[0], &option_index);
         
         /* Detect the end of the options. */
         if (c == -1) break;
@@ -537,10 +533,10 @@ bool CLOptions::ParseCommandLine(int argc, char** argv)
                 PrintDescription(version_opt.getValue(), 0) ;
                 return true ;
             case '?':
-                // getopt_long_only already printed an error message.
-                // This will most typically happen when an unrecognized
-                // option has been passed, or when an option expecting
-                // an argument was not given one on the commandline.
+                // getopt_long already printed an error message. This will
+                // most typically happen when an unrecognized option has 
+                // been passed, or when an option expecting an argument 
+                // was not given one on the commandline.
                 return true ;
             default:
                 // We have found an option, so get the option name
@@ -559,25 +555,23 @@ bool CLOptions::ParseCommandLine(int argc, char** argv)
                 
                 break ;
         }
-
-        std::cout << "SO: " << short_opts << std::endl;
     }
     // Note that it is up to the user to handle conflicts between parameters
     return false ;
 }
 
 //__________________________________________________________
-std::map<char, std::string> CLOptions::GetShortOpts(std::string& short_opts)
+std::map<int, std::string> CLOptions::GetShortOpts(std::string& short_opts)
 {
     // Fill with the default help and version information
     short_opts = std::string("h") + (version_opt.getValue().empty() ? "" : "v") ;
     
     // Create a map of "short" -> "long" variables
-    std::map<char,std::string> short_to_long ;
+    std::map<int,std::string> short_to_long ;
     
     std::map<std::string, CLBool*>::iterator bool_itr ;
     for (bool_itr=params_bools.begin(); bool_itr!=params_bools.end(); ++bool_itr) {
-        if (bool_itr->second->getShortParamName() != 0) {
+        if (bool_itr->second->getShortParamName() > 10) {
             short_opts += bool_itr->second->getShortParamNameStr()+":";
             short_to_long[bool_itr->second->getShortParamName()] = bool_itr->second->getParamName() ;
         }
@@ -585,16 +579,15 @@ std::map<char, std::string> CLOptions::GetShortOpts(std::string& short_opts)
     // DOUBLES
     std::map<std::string, CLDouble*>::iterator dbl_itr ;
     for (dbl_itr=params_doubles.begin(); dbl_itr!=params_doubles.end(); ++dbl_itr) {
-        if (dbl_itr->second->getShortParamName() != 0) {
+        if (dbl_itr->second->getShortParamName() > 10) {
             short_opts += dbl_itr->second->getShortParamNameStr()+":";
-            std::cout << short_opts << std::endl;
             short_to_long[dbl_itr->second->getShortParamName()] = dbl_itr->second->getParamName() ;
         }
     }
     // INTEGERS
     std::map<std::string, CLInt*>::iterator int_itr ;
     for (int_itr=params_ints.begin(); int_itr!=params_ints.end(); ++int_itr) {
-        if (int_itr->second->getShortParamName() != 0) {
+        if (int_itr->second->getShortParamName() > 10) {
             short_opts += int_itr->second->getShortParamNameStr()+":";
             short_to_long[int_itr->second->getShortParamName()] = int_itr->second->getParamName() ;
         }
@@ -602,7 +595,7 @@ std::map<char, std::string> CLOptions::GetShortOpts(std::string& short_opts)
     // STRINGS
     std::map<std::string, CLString*>::iterator str_itr ;
     for (str_itr=params_strings.begin(); str_itr!=params_strings.end(); ++str_itr) {
-        if (str_itr->second->getShortParamName() != 0) {
+        if (str_itr->second->getShortParamName() > 10) {
             short_opts += str_itr->second->getShortParamNameStr()+":";
             short_to_long[str_itr->second->getShortParamName()] = str_itr->second->getParamName() ;
         }
@@ -820,12 +813,18 @@ void CLOptions::PrintStrings(bool detailed)
 //__________________________________________________________
 void CLOptions::PrintHelp(const std::string& executable_name)
 {
+    // Print version if available
+    if (!version_opt.getParamName().empty()) {
+        std::cout << version_opt.getValue() << std::endl;
+    }
+
+    // Print usage information
     std::cout << "\nUSAGE: " << executable_name << " [options]" << std::endl;
     
     // Print the descripton of the program
     if (!program_desc_.empty()) {
-        std::cout << "\n" ;
-        PrintDescription(program_desc_, 0) ;
+        std::cout << "\nDESCRIPTION:\n" ;
+        PrintDescription(program_desc_, 2) ;
     }
     
     std::cout << "\nAVAILABLE OPTIONS:" << std::endl;
@@ -918,27 +917,27 @@ void CLOptions::DefineParams()
     
     // Resize it to hold exactly the number of variables we need
     int options_count = params_bools.size() +
-    params_doubles.size() +
-    params_ints.size() +
-    params_strings.size() + 2 ;
+                        params_doubles.size() +
+                        params_ints.size() +
+                        params_strings.size() + 2 ;
     if (!version_opt.getParamName().empty()) options_count++ ;
     
     longopts = std::vector<struct option>(options_count) ;
     int opt_num(0) ;
     
     // Add the help option
-    longopts[opt_num++] = DefineOptSingle("help", no_argument, 0, 'h') ;
+    longopts[opt_num++] = DefineOptSingle(help_str, no_argument, 0, 'h') ;
     
     // Add the version information if so requested
     if (!version_opt.getParamName().empty()) {
-        longopts[opt_num++] = DefineOptSingle(version_opt.getParamName(), no_argument, 0, 'v') ;
+        longopts[opt_num++] = DefineOptSingle(version_str, no_argument, 0, 'v') ;
     }
     
     // Add the bool options
     std::map<std::string, CLBool*>::iterator biter ;
     for (biter=params_bools.begin(); biter!=params_bools.end(); ++biter) {
-        longopts[opt_num++] = DefineOptSingle(biter->first, 
-                                              required_argument, 0, 'b') ;
+        longopts[opt_num++] = DefineOptSingle(biter->first, required_argument, 0,
+                                              biter->second->getShortParamName()) ;
     }
     
     // Add the double options
@@ -951,13 +950,15 @@ void CLOptions::DefineParams()
     // Add the int options
     std::map<std::string, CLInt*>::iterator iiter ;
     for (iiter=params_ints.begin(); iiter!=params_ints.end(); ++iiter) {
-        longopts[opt_num++] = DefineOptSingle(iiter->first, required_argument, 0, 'i') ;
+        longopts[opt_num++] = DefineOptSingle(iiter->first, required_argument, 0, 
+                                              iiter->second->getShortParamName()) ;
     }
     
     // Add the string options
     std::map<std::string, CLString*>::iterator siter ;
     for (siter=params_strings.begin(); siter!=params_strings.end(); ++siter) {
-        longopts[opt_num++] = DefineOptSingle(siter->first, required_argument, 0, 's') ;
+        longopts[opt_num++] = DefineOptSingle(siter->first, required_argument, 0, 
+                                              siter->second->getShortParamName()) ;
     }
     
     // Add the terminating options
@@ -971,7 +972,7 @@ struct option CLOptions::DefineOptSingle(const std::string& name, int has_arg, i
     new_opt.name = (name != "") ? name.c_str() : 0 ;
     new_opt.has_arg = has_arg ;
     new_opt.flag = flag ;
-    new_opt.val = val ;
+    new_opt.val = val;
     
     return new_opt ;
 }
