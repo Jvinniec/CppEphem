@@ -20,6 +20,7 @@
  ***************************************************************************/
 
 #include "test_CECoordinates.h"
+#include "CEObserver.h"
 #include "CENamespace.h"
 
 
@@ -80,6 +81,10 @@ bool test_CECoordinates::runtests()
     test_Convert2Galactic();
     test_Convert2Observed();
 
+    // Test dedicated methods
+    test_AngularSeparation();
+    test_ConvertTo();
+
     return pass();
 }
 
@@ -108,6 +113,16 @@ bool test_CECoordinates::test_construct()
     test_double(test3.XCoordinate_Deg(), testx, __func__, __LINE__);
     test_double(test3.YCoordinate_Deg(), testy, __func__, __LINE__);
     
+
+    // Test copy constructor
+    CECoordinates test4(test2);
+    test_double(test4.XCoordinate_Deg(), testx, __func__, __LINE__);
+    test_double(test4.YCoordinate_Deg(), testy, __func__, __LINE__);
+    test_int(int(test4.GetCoordSystem()), int(test2.GetCoordSystem()), __func__, __LINE__);
+
+    // Test print of constructed coordinates
+    test_greaterthan(test4.print().size(), 0, __func__, __LINE__);
+
     return pass();
 }
 
@@ -137,6 +152,10 @@ bool test_CECoordinates::test_copy()
     // Copy Observed
     CECoordinates obs = base_obs_;
     test((obs == base_obs_), __func__, __LINE__);
+
+    // Copy coordinates directly
+    gal.SetCoordinates(icrs);
+    test((gal == icrs), __func__, __LINE__);
 
     return pass();
 }
@@ -299,6 +318,71 @@ bool test_CECoordinates::test_HmsDms2Angle(void)
 
     // Reset the tolerance
     SetDblTol(tol_old);
+
+    return pass();
+}
+
+
+/**********************************************************************//**
+ * Test computation of angular separation
+ *************************************************************************/
+bool test_CECoordinates::test_AngularSeparation(void)
+{
+    // Establish the preliminary variables that will be used 
+    double test1_x(0.0);
+    double test1_y(-1.0);
+    double test2_x(0.0);
+    double test2_y(1.0);
+    CECoordinates test1(test1_x, test1_y, CECoordinateType::ICRS, CEAngleType::DEGREES);
+    CECoordinates test2(test2_x, test2_y, CECoordinateType::ICRS, CEAngleType::DEGREES);
+    
+    // Test the default coordinate separation
+    double angsep = test1.AngularSeparation(test2, CEAngleType::DEGREES);
+    test_double(angsep, 2.0, __func__, __LINE__);
+    angsep = CECoordinates::AngularSeparation(test1, test2, CEAngleType::DEGREES);
+    test_double(angsep, 2.0, __func__, __LINE__);
+    angsep = CECoordinates::AngularSeparation(test1_x, test1_y,
+                                              test2_x, test2_y, 
+                                              CEAngleType::DEGREES);
+    test_double(angsep, 2.0, __func__, __LINE__);
+
+    // Test that the two coordinates are not equal
+    test((test1 != test2), __func__, __LINE__);
+    
+    return pass();
+}
+
+
+/**********************************************************************//**
+ * Tests the CECoordinates::ConvrtTo methods
+ *************************************************************************/
+bool test_CECoordinates::test_ConvertTo(void)
+{
+    // Create an observer object
+    CEObserver observer(0.0, 0.0, 0.0, CEAngleType::DEGREES);
+    observer.SetTemperature_C(0.0);
+    observer.SetPressure_hPa(0.0);
+    observer.SetWavelength_um(0.0);
+    observer.SetRelativeHumidity(0.0);
+
+    // Create a date object
+    CEDate date(CppEphem::julian_date_J2000(), CEDateType::JD);
+
+    /* ---------------------------*
+     * ConvertTo basic form
+     * ---------------------------*/
+    CECoordinates test_icrs = base_icrs_.ConvertTo(CECoordinateType::ICRS,
+                                                   observer, date);
+    test(test_icrs == base_icrs_, __func__, __LINE__);
+    CECoordinates test_cirs = base_icrs_.ConvertTo(CECoordinateType::CIRS,
+                                                   observer, date);
+    test(test_cirs == base_cirs_, __func__, __LINE__);
+    CECoordinates test_gal = base_icrs_.ConvertTo(CECoordinateType::GALACTIC,
+                                                  observer, date);
+    test(test_gal == base_gal_, __func__, __LINE__);
+    CECoordinates test_obs = base_icrs_.ConvertTo(CECoordinateType::OBSERVED,
+                                                  observer, date);
+    test(test_obs == base_obs_, __func__, __LINE__);
 
     return pass();
 }
