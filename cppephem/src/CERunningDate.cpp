@@ -107,7 +107,7 @@ double CERunningDate::JD() const
  *************************************************************************/
 double CERunningDate::MJD() const
 {
-    return JD2MJD( this->JD() ) ;
+    return CEDate::JD2MJD( this->JD() ) ;
 }
 
 /**********************************************************************//**
@@ -117,36 +117,9 @@ double CERunningDate::MJD() const
  *************************************************************************/
 double CERunningDate::Gregorian() const
 {
-    return JD2Gregorian( this->JD() ) ;
+    return CEDate::JD2Gregorian( this->JD() ) ;
 }
 
-/**********************************************************************//**
- * Set the date based on an actual date and the desired time_format.
- * This method will also reset the underlying timer.
- * 
- * @param date             Date
- * @param time_format      Time format (see ::CEDateType)
- *************************************************************************/
-void CERunningDate::SetDate(const double&     date, 
-                            const CEDateType& time_format)
-{
-    CEDate::SetDate(date, time_format) ;
-    ResetTime() ;
-}
-
-/**********************************************************************//**
- * Set the date based on an actual date and the desired time_format
- * 
- * @param date             Gregorian Date
- *                         - [0] = Year
- *                         - [1] = Month
- *                         - [2] = Day
- *                         - [3] = Day fraction
- *************************************************************************/
-void CERunningDate::SetDate(std::vector<double> date)
-{
-    SetDate(GregorianVect2JD(date)) ;
-}
 
 /**********************************************************************//**
  * Get the number of seconds since the creation of this object

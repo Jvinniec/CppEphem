@@ -41,12 +41,6 @@ public:
     virtual double MJD() const;
     virtual double Gregorian() const;
     
-    // Method that can be used to change the date that is stored in this object
-    virtual void SetDate(const double&     date=CEDate::CurrentJD(), 
-                         const CEDateType& time_format=CEDateType::JD) ;
-    // Method for setting the dates from the Gregorian calendar dates
-    virtual void SetDate(std::vector<double> date) ;
-    
     /// Method for getting the number of seconds since this object was created or reset
     virtual double RunTime(void) const;
     double         ScaledRunTime(void) const;
