@@ -221,7 +221,7 @@ CEPlanet CEPlanet::Mercury()
     mercury.SetPerihelionLongitude(77.45771895, 0.15940013, CEAngleType::DEGREES) ;
     mercury.SetAscendingNodeLongitude(48.33961819, -0.12214182, CEAngleType::DEGREES) ;
     
-    // Set the reference object as the Earth-Moon barycenter
+    // Set the reference object as the Earth center
     mercury.SetReference(new CEPlanet(CEPlanet::Earth())) ;
     
     // Set planet characteristics
@@ -249,7 +249,7 @@ CEPlanet CEPlanet::Venus()
     venus.SetPerihelionLongitude(131.76755713, 0.05679648, CEAngleType::DEGREES) ;
     venus.SetAscendingNodeLongitude(76.67261496, -0.27274174, CEAngleType::DEGREES) ;
     
-    // Set the reference object as the Earth-Moon barycenter
+    // Set the reference object as the Earth center
     venus.SetReference(new CEPlanet(CEPlanet::Earth())) ;
     
     venus.SetMeanRadius_m(6051800.0) ;
@@ -301,7 +301,7 @@ CEPlanet CEPlanet::EMBarycenter()
     em_barycenter.SetPerihelionLongitude(102.93005885, 0.31795260, CEAngleType::DEGREES) ;
     em_barycenter.SetAscendingNodeLongitude(-5.11260389, -0.24123856, CEAngleType::DEGREES) ;
 
-    // Set the reference object as the Earth-Moon barycenter
+    // Set the reference object as the Earth center
 //    em_barycenter.SetReference(new CEPlanet(CEPlanet::Earth())) ;
     
     // Set the sofa planet ID
@@ -325,7 +325,7 @@ CEPlanet CEPlanet::Mars()
     mars.SetPerihelionLongitude(-23.91744784, 0.45223625, CEAngleType::DEGREES) ;
     mars.SetAscendingNodeLongitude(49.71320984, -0.26852431, CEAngleType::DEGREES) ;
     
-    // Set the reference object as the Earth-Moon barycenter
+    // Set the reference object as the Earth center
     mars.SetReference(new CEPlanet(CEPlanet::Earth())) ;
     
     mars.SetMeanRadius_m(3389900.0) ;
@@ -356,7 +356,7 @@ CEPlanet CEPlanet::Jupiter()
     
     jupiter.SetExtraTerms(-0.00012452, 0.06064060, -0.35635438, 38.35125000) ;
     
-    // Set the reference object as the Earth-Moon barycenter
+    // Set the reference object as the Earth center
     jupiter.SetReference(new CEPlanet(CEPlanet::Earth())) ;
     
     jupiter.SetMeanRadius_m(69911000.0) ;
@@ -386,7 +386,7 @@ CEPlanet CEPlanet::Saturn()
     
     saturn.SetExtraTerms(0.00025899, -0.13434469, 0.87320147, 38.35125000) ;
     
-    // Set the reference object as the Earth-Moon barycenter
+    // Set the reference object as the Earth center
     saturn.SetReference(new CEPlanet(CEPlanet::Earth())) ;
     
     saturn.SetMeanRadius_m(58232000.0) ;
@@ -416,7 +416,7 @@ CEPlanet CEPlanet::Uranus()
     
     uranus.SetExtraTerms(0.00058331, -0.97731848, 0.17689245, 7.67025000) ;
     
-    // Set the reference object as the Earth-Moon barycenter
+    // Set the reference object as the Earth center
     uranus.SetReference(new CEPlanet(CEPlanet::Earth())) ;
     
     uranus.SetMeanRadius_m(25362000.0) ;
@@ -446,7 +446,7 @@ CEPlanet CEPlanet::Neptune()
     
     neptune.SetExtraTerms(-0.00041348, 0.68346318, -0.10162547, 7.67025000) ;
     
-    // Set the reference object as the Earth-Moon barycenter
+    // Set the reference object as the Earth center
     neptune.SetReference(new CEPlanet(CEPlanet::Earth())) ;
     
     neptune.SetMeanRadius_m(24624000.0) ;
@@ -477,8 +477,8 @@ CEPlanet CEPlanet::Pluto()
     
     pluto.SetExtraTerms(-0.01262724, 0.0, 0.0, 0.0) ;
     
-    // Set the reference object as the Earth-Moon barycenter
-    pluto.SetReference(new CEPlanet(CEPlanet::EMBarycenter())) ;
+    // Set the reference object as the Earth center
+    pluto.SetReference(new CEPlanet(CEPlanet::Earth())) ;
     
     pluto.SetMeanRadius_m(1195000.0) ;
     pluto.SetAlbedo(0.3) ;
@@ -491,7 +491,6 @@ CEPlanet CEPlanet::Pluto()
     return pluto ;
 }
 
-# pragma mark - Public Methods
 
 /**********************************************************************//**
  * Set the semi-major axis (in AU) and it's derivative
