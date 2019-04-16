@@ -35,9 +35,23 @@
 test_CEObservation::test_CEObservation() :
     CETestSuite()
 {
-    base_observer_ = CEObserver(-110.952, 31.6751, 1268.0);
+    // Setup the observer
+    base_observer_ = CEObserver(0.0, 0.0, 0.0, CEAngleType::DEGREES);
+    base_observer_.SetTemperature_C(0.0);
+    base_observer_.SetPressure_hPa(0.0);
+    base_observer_.SetRelativeHumidity(0.0);
+    base_observer_.SetWavelength_um(0.0);
+
+    // Setup the date
     base_date_ = CEDate(CppEphem::julian_date_J2000(), CEDateType::JD);
-    base_body_ = CEBody();
+    base_date_.SetReturnType(CEDateType::JD);
+
+    // Set the object that will be observed
+    base_body_ = CEBody("test", 83.663, 22.0145, 
+                        CECoordinateType::ICRS, 
+                        CEAngleType::DEGREES);
+    
+    // Put it all together
     base_obs_ = CEObservation(&base_observer_, &base_body_, &base_date_);
 }
 
@@ -59,19 +73,123 @@ bool test_CEObservation::runtests()
     std::cout << "\nTesting CEObservation:\n";
 
     // Run each of the tests
+    test_constructor();
     test_obj_return();
+    test_cache();
 
     return pass();
 }
 
 
 /**********************************************************************//**
- * Tests return values for temperature at sea level
+ * Tests constructing a CEObservation object
  *  @return Status of tests
+ *************************************************************************/
+bool test_CEObservation::test_constructor(void)
+{
+    // Default constructor
+    CEObservation test1;
+    test(test1.Body() == nullptr, __func__, __LINE__);
+    test(test1.Date() == nullptr, __func__, __LINE__);
+    test(test1.Observer() == nullptr, __func__, __LINE__);
+
+    // Test the copy constructor
+    CEObservation test2(base_obs_);
+    test(test2.Body() == base_obs_.Body(), __func__, __LINE__);
+    test(test2.Date() == base_obs_.Date(), __func__, __LINE__);
+    test(test2.Observer() == base_obs_.Observer(), __func__, __LINE__);
+
+    // Test construction from base objects
+    CEObservation test3(&base_observer_, &base_body_, &base_date_);
+    test(test3.Body() == &base_body_, __func__, __LINE__);
+    test(test3.Date() == &base_date_, __func__, __LINE__);
+    test(test3.Observer() == &base_observer_, __func__, __LINE__);
+
+    // Test the copy assignment operator
+    CEObservation test4 = test3;
+    test(test4.Body() == &base_body_, __func__, __LINE__);
+    test(test4.Date() == &base_date_, __func__, __LINE__);
+    test(test4.Observer() == &base_observer_, __func__, __LINE__);
+
+    return pass();
+}
+
+
+/**********************************************************************//**
+ * Tests accessing underlying observer, date, and object classes
+ * @return Status of tests
  *************************************************************************/
 bool test_CEObservation::test_obj_return(void)
 {
-    // Try to return the body object
+    // Test getting the pointers to the objects
+    CEObservation test1 = base_obs_;
+    test(test1.Body() != nullptr, __func__, __LINE__);
+    test(test1.Body() == &base_body_, __func__, __LINE__);
+    test(test1.Date() != nullptr, __func__, __LINE__);
+    test(test1.Date() == &base_date_, __func__, __LINE__);
+    test(test1.Observer() != nullptr, __func__, __LINE__);
+    test(test1.Observer() == &base_observer_, __func__, __LINE__);
+
+    // Copy base objects for testing (the pointers will be different)
+    CEBody     test_body(base_body_);
+    CEDate     test_date(base_date_);
+    CEObserver test_observer(base_observer_);
+
+    // Now reset the pointers
+    test1.SetBody(&test_body);
+    test1.SetDate(&test_date);
+    test1.SetObserver(&test_observer);
+
+    // Test that the pointers have been reset
+    test(test1.Body() != nullptr, __func__, __LINE__);
+    test(test1.Date() != nullptr, __func__, __LINE__);
+    test(test1.Observer() != nullptr, __func__, __LINE__);
+
+    return pass();
+}
+
+
+/**********************************************************************//**
+ * Tests accessing and updating of cached parameters
+ * @return Status of tests
+ *************************************************************************/
+bool test_CEObservation::test_cache(void)
+{
+    // Test default values
+    CEObservation test1;
+    test_double(test1.GetAltitude_Deg(), 90.0, __func__, __LINE__);
+    test_double(test1.GetAzimuth_Deg(), 0.0, __func__, __LINE__);
+    test_double(test1.GetZenith_Deg(), 0.0, __func__, __LINE__);
+    test_double(test1.GetApparentXCoordinate_Deg(), 0.0, __func__, __LINE__);
+    test_double(test1.GetApparentYCoordinate_Deg(), 0.0, __func__, __LINE__);
+    test_double(test1.GetHourAngle_Deg(), 0.0, __func__, __LINE__);
+    
+    // Now we setup the actual tests for observed coordinates
+    // Note: these coordinates are derived from CECoordinates tests
+    CECoordinates obs_coords(35.55160709646245, 152.5681387256824,
+                             CECoordinateType::OBSERVED, CEAngleType::DEGREES);
+    CECoordinates test2(base_obs_.GetAzimuth_Deg(),
+                        base_obs_.GetZenith_Deg(),
+                        CECoordinateType::OBSERVED, CEAngleType::DEGREES);
+
+    // Test that the coordinates update when the date is changed
+    test(obs_coords == test2, __func__, __LINE__);
+    test_double(base_obs_.GetApparentXCoordinate_Deg(), 0.0, __func__, __LINE__);
+    test_double(base_obs_.GetApparentYCoordinate_Deg(), 0.0, __func__, __LINE__);
+    test_double(base_obs_.GetHourAngle_Deg(), 0.0, __func__, __LINE__);
+
+    // Test the actual coordinates
+    double test_x(0), test_y(0);
+        
+    // Test observed coordinates
+    base_obs_.GetAzimuthZenith_Deg(&test_x, &test_y);
+    test_double(test_x, test2.XCoordinate_Deg(), __func__, __LINE__);
+    test_double(test_y, test2.YCoordinate_Deg(), __func__, __LINE__);
+
+    // Test apparent coordinates
+    base_obs_.GetApparentXYCoordinate_Deg(&test_x, &test_y);
+    test_double(test_x, 0.0, __func__, __LINE__);
+    test_double(test_y, 0.0, __func__, __LINE__);
 
     return pass();
 }

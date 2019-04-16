@@ -34,7 +34,9 @@ public:
 
     /****** METHODS ******/
 
+    bool test_constructor(void);
     bool test_obj_return(void);
+    bool test_cache(void);
 
 private:
 

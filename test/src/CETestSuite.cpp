@@ -86,7 +86,7 @@ bool CETestSuite::test_double(const double&      value,
 {
     // Return status
     bool   ret_val      = true;
-    double relative_tol = expected * tol_dbl_;
+    double relative_tol = std::fabs(expected * tol_dbl_);
 
     // Values equal within tolerance
     if (std::fabs(value - expected) <= relative_tol) {
@@ -215,6 +215,7 @@ bool CETestSuite::test_string(const std::string& value,
  *
  * @param[in] value         Value to be tested
  * @param[in] expected      Expected value to test against
+ * @param[in] tol           Tolerance on value difference
  * @param[in] function      Name of the function where test was run
  * @param[in] line          Line where test was run
  * @return Whether value and expected are the same
@@ -222,15 +223,19 @@ bool CETestSuite::test_string(const std::string& value,
 template<class T>
 bool CETestSuite::test_vect_(const std::vector<T>& value,
                              const std::vector<T>& expected,
+                             const T&           tol,
                              const std::string& function,
                              const int&         line)
 {
     bool isMatch = true;
     if (value.size() == expected.size()) {
         for (int i=0; i<value.size(); i++) {
-            if (value[i] != expected[i]) {
-                log_failure("VECTOR values at index "+std::to_string(i)+" "+
-                            "are NOT equal.", function, line);
+            double rel_tol = std::fabs(expected[i] * tol);
+            double diff = value[i] - expected[i];
+            if (std::fabs(diff) > rel_tol) {
+                log_failure("VECTOR values at index "+std::to_string(i)+" " +
+                            "are NOT equal (difference = " + 
+                            std::to_string(diff) + ")", function, line);
                 isMatch = false;
             }
         }
@@ -262,7 +267,7 @@ bool CETestSuite::test_vect(const std::vector<double>& value,
                             const std::string&         function,
                             const int&                 line)
 {
-    return test_vect_<double>(value, expected, function, line);
+    return test_vect_<double>(value, expected, tol_dbl_, function, line);
 }
 
 
@@ -327,10 +332,10 @@ bool CETestSuite::test_lessthan(const double& value,
  * @return Whether value > minval
  *************************************************************************/
 template<class T>
-bool CETestSuite::test_greaterthan(const T& value,
-                                   const T& minval,
-                                   const std::string& function,
-                                   const int&         line)
+bool CETestSuite::test_greaterthan_(const T& value,
+                                    const T& minval,
+                                    const std::string& function,
+                                    const int&         line)
 {
     bool ret_val = true;
     if (value > minval) {
@@ -349,6 +354,16 @@ bool CETestSuite::test_greaterthan(const T& value,
     return ret_val;
 }
 
+/**********************************************************************//**
+ * Greater than test for doubles
+ *************************************************************************/
+bool CETestSuite::test_greaterthan(const double& value,
+                                   const double& minval,
+                                   const std::string& function,
+                                   const int&         line)
+{
+    return test_greaterthan_<double>(value, minval, function, line);
+}
 
 /**********************************************************************//**
  * Responsible for cleaning up anything that needs cleanup
