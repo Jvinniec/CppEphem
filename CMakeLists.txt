@@ -84,6 +84,7 @@ function (cppephem_test _name _source)
     target_compile_definitions(${_name} PUBLIC -DCECORRFILEPATH=\"${CMAKE_BINARY_DIR}/build/share/cppephem/corrections.txt\"
                                                -DCPPEPHEM_VERSION=\"${cppephem_version}-TEST\"
                                                -DNOCURL)
+    target_compile_options(${_name} PUBLIC -fno-inline)
     target_link_libraries(${_name} testcesuite sofa_c)
     add_test(NAME ${_name} COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${_name} ${ARGN})
 endfunction (cppephem_test)

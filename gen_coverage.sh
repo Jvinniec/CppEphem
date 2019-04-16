@@ -78,6 +78,7 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
         -object ./build/bin/test_CERunningDate \
         -object ./build/bin/test_CETime \
         -object ./build/bin/test_angsep \
+        -object ./build/bin/test_planetephem \
         -object ./build/bin/test_cal2jd \
         -object ./build/bin/test_cal2mjd \
         -object ./build/bin/test_jd2cal \
