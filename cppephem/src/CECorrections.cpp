@@ -313,12 +313,29 @@ double CECorrections::GetTableValue(const double& mjd,
                                     const int& tbl_indx) const
 {
     LoadTables();
-    int i_mjd(mjd);
+    int    i_mjd(mjd);
+    double correction(0.0);
     if ((i_mjd < min_mjd_) || (i_mjd > max_mjd_)) {
         // TODO: Make this a warning message
         std::string msg = "Invalid mjd: " + std::to_string(mjd) + ". Accepted " +
                           "range is " + std::to_string(min_mjd_) + "-" + std::to_string(max_mjd_);
         throw CEException::invalid_value(__func__, msg);
+    } 
+    
+    // Get the uninterpolated value
+    else if (!interp_) {
+        correction = corrections_[i_mjd][tbl_indx];
+    } 
+    
+    // Otherwise interpolate between closest two values (a bit slower)
+    else {
+        int    mjd_upper = i_mjd + 1;
+        double val_upper = corrections_[mjd_upper][tbl_indx];
+        double val_lower = corrections_[i_mjd][tbl_indx];
+
+        correction  = val_lower*(mjd_upper - mjd) + val_upper*(mjd - i_mjd);
+        correction /= (mjd_upper - i_mjd);
     }
-    return corrections_[i_mjd][tbl_indx];
+
+    return correction;
 }
