@@ -727,30 +727,8 @@ void CEPlanet::Update_JPL(double new_jd) const
     x_icrs_ = x_ecl ;
     y_icrs_ = y_ecl * std::cos(obl) - z_ecl * std::sin(obl) ;
     z_icrs_ = y_ecl * std::sin(obl) + z_ecl * std::cos(obl) ;
-/*
-    double x_eq(x_icrs_), y_eq(y_icrs_), z_eq(z_icrs_) ;
-    // If there is a reference object, then compute more accurate RA,DEC
-    if (reference_ != nullptr) {
-        reference_->UpdateCoordinates(new_jd) ;
-        x_eq = x_icrs_ - reference_->GetXICRS() ;
-        y_eq = y_icrs_ - reference_->GetYICRS() ;
-        z_eq = z_icrs_ - reference_->GetZICRS() ;
-    }
-    
-    // Now compute the actual coordiantes in ICRS
-    xcoord_ = std::atan2(y_eq, x_eq) ;
-    ycoord_ = M_PI_2 - std::acos(z_eq / std::sqrt(x_eq*x_eq + y_eq*y_eq + z_eq*z_eq)) ;
-    
-    // Make sure the x-coordinate is in the appropriate range
-    while (xcoord_ > M_PI*2.0) xcoord_ -= M_PI*2.0 ;
-    while (xcoord_ < 0.0) xcoord_ += M_PI*2.0 ;
-    
-    // Now that the coordinates are updated, reset the time
-    cached_jd_ = new_jd ;
- */
 }
 
-# pragma mark - Protected Methods
 
 /**********************************************************************//**
  * Computes the mean anomaly
@@ -921,8 +899,8 @@ void CEPlanet::init_members(void)
     
     // Define the algorithm used to compute the planets position
     algorithm_type_ = CEPlanetAlgo::SOFA;
-    /// Sofa planet id (note: 3.5 implies the earth-center which uses a different method
-    /// than the other planets)
+    // Sofa planet id (note: 3.5 implies the earth-center which uses a different method
+    // than the other planets)
     sofa_planet_id_ = 0;
     
     // The coordinates representing the current position will need to be
