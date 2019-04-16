@@ -47,6 +47,17 @@ std::string CppEphem::CorrFilename(void)
 
 
 /**********************************************************************//**
+ * Set the corrections object to use interpolation
+ * 
+ * @param[in] set_interp        Specifiy whether or not to use interpolation
+ *************************************************************************/
+void CppEphem::CorrectionsInterp(bool set_interp)
+{
+    CppEphem::corrections.SetInterp(set_interp);
+}
+
+
+/**********************************************************************//**
  * Return dut1 based on a given modified julian date
  * 
  * @param[in] mjd       Modified Julian Date (MJD)
