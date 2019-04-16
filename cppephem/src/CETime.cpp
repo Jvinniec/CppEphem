@@ -164,28 +164,28 @@ std::vector<double> CETime::CurrentUTC_vect()
 /**********************************************************************//**
  * Get the current UTC time
  * 
- * @param jd           Julian date
+ * @param mjd          Modified Julian date
  * @return             Seconds since midnight for given Julian date
  *************************************************************************/
-double CETime::UTC(const double& jd)
+double CETime::UTC(const double& mjd)
 {
     // Note that Julian date is defined such that midnight is at half julian days
-    return (jd - (std::floor(jd+0.5)-0.5))*86400.0 ;
+    return (mjd - (std::floor(mjd))) * CppEphem::sec_per_day();
 }
 
 /**********************************************************************//**
  * Get the UTC time of a given julian date as a vector
  * 
- * @param jd           Julian date (with day fraction)
+ * @param mjd          Modified Julian date (with day fraction)
  * @return             Vector containing the various time components
  *                     - time[0] = hours
  *                     - time[1] = minutes
  *                     - time[2] = seconds
  *                     - time[3] = fractions of a second
  *************************************************************************/
-std::vector<double> CETime::UTC_vect(const double& jd)
+std::vector<double> CETime::UTC_vect(const double& mjd)
 {
-    return TimeDbl2Vect( TimeSec2Time( UTC(jd) ) ) ;
+    return TimeDbl2Vect( TimeSec2Time( UTC(mjd) ) ) ;
 }
 
 
@@ -297,11 +297,7 @@ std::vector<double> CETime::TimeDbl2Vect(const double& time)
  * Convert number of seconds since midnight to HHMMSS.S formatted double
  * 
  * @param seconds          Seconds since midnight
- * @return Vector containing the various time components
- *         - time[0] = hours
- *         - time[1] = minutes
- *         - time[2] = seconds
- *         - time[3] = fractions of a second
+ * @return Time formatted as HHMMSS.S
  *************************************************************************/
 double CETime::TimeSec2Time(const double& seconds)
 {
@@ -323,7 +319,11 @@ double CETime::TimeSec2Time(const double& seconds)
  * Convert number of seconds since midnight to HHMMSS.S formatted double
  * 
  * @param seconds          Seconds since midnight
- * @return
+ * @return Vector containing the various time components
+ *         - time[0] = hours
+ *         - time[1] = minutes
+ *         - time[2] = seconds
+ *         - time[3] = fractions of a second
  *************************************************************************/
 std::vector<double> CETime::TimeSec2Vect(const double& seconds)
 {

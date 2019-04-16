@@ -79,7 +79,7 @@ public:
         time (&now) ;
         struct tm local;
         localtime_r(&now, &local) ;
-        return local.tm_gmtoff/DAYSEC * 24.0 ;
+        return local.tm_gmtoff/3600.0;
     }
     
     /*******************************************
