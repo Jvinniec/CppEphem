@@ -72,8 +72,11 @@ CLOptions DefineOpts()
     CLOptions opts;
     
     // Add program description
-    opts.AddProgramDescription(std::string("Computes the angular separation between two coordinates in either ICRS or GALACTIC. ") +
-                               "Note that the coordinate types need to be the same for both positions.");
+    opts.AddProgramDescription(std::string() +
+                               "Computes the angular separation between two " +
+                               "coordinates in either ICRS or GALACTIC. Note " +
+                               "that the coordinate types need to be the same " +
+                               "for both positions.");
     
     // Specify the actual options
     opts.AddBoolParam("InputDegrees",
