@@ -1060,8 +1060,12 @@ CECoordinates CECoordinates::GetObservedCoords(const double& julian_date,
                                 const double& xp, const double& yp,
                                 const double& wavelength)
 {
-    double azimuth(0), zenith(0);
-    double observed1(0), observed2(0), observed3(0);
+    // Preliminary variables
+    double azimuth(0);
+    double zenith(0);
+    double observed1(0);
+    double observed2(0);
+    double observed3(0);
     
     if (coord_type_ == CECoordinateType::CIRS) {
         // Convert CIRS to Observed
@@ -1327,7 +1331,8 @@ CECoordinates CECoordinates::ConvertToCIRS(double jd,
                             double xp, double yp,
                             double wavelength_um)
 {
-    double xcoord_new(0.0), ycoord_new(0.0) ;
+    double xcoord_new(0.0);
+    double ycoord_new(0.0) ;
     if (coord_type_ == CECoordinateType::CIRS) {
         // CIRS -> CIRS
         xcoord_new = XCoordinate_Rad() ;
@@ -1388,7 +1393,8 @@ CECoordinates CECoordinates::ConvertToICRS(double jd,
                             double xp, double yp,
                             double wavelength_um)
 {
-    double xcoord_new(0.0), ycoord_new(0.0) ;
+    double xcoord_new(0.0);
+    double ycoord_new(0.0);
     if (coord_type_ == CECoordinateType::CIRS) {
         CIRS2ICRS(XCoordinate_Rad(), YCoordinate_Rad(),
                   &xcoord_new, &ycoord_new, jd, CEAngleType::RADIANS) ;
@@ -1443,7 +1449,8 @@ CECoordinates CECoordinates::ConvertToGalactic(double jd,
                                 double xp, double yp,
                                 double wavelength_um)
 {
-    double xcoord_new(0.0), ycoord_new(0.0) ;
+    double xcoord_new(0.0);
+    double ycoord_new(0.0);
     if (coord_type_ == CECoordinateType::CIRS) {
         CIRS2Galactic(XCoordinate_Rad(), YCoordinate_Rad(),
                       &xcoord_new, &ycoord_new, jd, CEAngleType::RADIANS) ;
@@ -1496,7 +1503,8 @@ CECoordinates CECoordinates::ConvertToObserved(double jd,
                                 double xp, double yp,
                                 double wavelength_um)
 {
-    double xcoord_new(0.0), ycoord_new(0.0) ;
+    double xcoord_new(0.0);
+    double ycoord_new(0.0);
     double apparent_x, apparent_y, apparent_hourangle;
     if (coord_type_ == CECoordinateType::CIRS) {
         CIRS2Observed(XCoordinate_Rad(), YCoordinate_Rad(),
@@ -1703,6 +1711,7 @@ void CECoordinates::copy_members(const CECoordinates& other)
  *************************************************************************/
 void CECoordinates::free_members(void)
 {
+    // Nothing to do here
 }
 
 
