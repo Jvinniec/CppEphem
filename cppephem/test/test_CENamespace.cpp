@@ -104,6 +104,21 @@ bool test_CENamespace::test_Conversions()
     // Seconds per day
     test_double(CppEphem::sec_per_day(), DAYSEC, __func__, __LINE__);
 
+    // Test temperature conversions
+    double temp_K(0.0);
+    double temp_C(-273.15);
+    double temp_F(-459.67);
+    // Reduce accuracy for the tests
+    double old_tol = DblTol();
+    SetDblTol(1.0e-11);
+    test_double(CppEphem::Temp_C2F(temp_C), temp_F, __func__, __LINE__);
+    test_double(CppEphem::Temp_C2K(temp_C), temp_K, __func__, __LINE__);
+    test_double(CppEphem::Temp_F2C(temp_F), temp_C, __func__, __LINE__);
+    test_double(CppEphem::Temp_F2K(temp_F), temp_K, __func__, __LINE__);
+    test_double(CppEphem::Temp_K2C(temp_K), temp_C, __func__, __LINE__);
+    test_double(CppEphem::Temp_K2F(temp_K), temp_F, __func__, __LINE__);
+    SetDblTol(old_tol);
+
     return pass();
 }
 
@@ -116,9 +131,18 @@ bool test_CENamespace::test_Corrections()
 {
     double mjd(51544.5);
 
-    // Get dut1 for J2000
+    // Get dut1 for J2000 (and test interpolation)
+    CppEphem::CorrectionsInterp(false);
     test_double(CppEphem::dut1(mjd), 0.355499, __func__, __LINE__);
+    CppEphem::CorrectionsInterp(true);
+    test_double(CppEphem::dut1(mjd), 0.355066, __func__, __LINE__);
 
+    // Turn off interpolation for future tests
+    CppEphem::CorrectionsInterp(false);
+
+    test_double(CppEphem::dut1Error(mjd), 0.0, __func__, __LINE__);
+    test_double(CppEphem::dut1Calc(mjd), 0.0, __func__, __LINE__);
+    
     // Test x,y polar motion
     test_double(CppEphem::xp(mjd), 0.043190 * DAS2R, __func__, __LINE__);
     test_double(CppEphem::yp(mjd), 0.377700 * DAS2R, __func__, __LINE__);
@@ -126,6 +150,19 @@ bool test_CENamespace::test_Corrections()
     // Estimate altitude/pressure based on pressure
     test_double(CppEphem::EstimateAltitude_m(1013.25), 0.0, __func__, __LINE__);
     test_double(CppEphem::EstimatePressure_hPa(0.0), 1013.25, __func__, __LINE__);
+
+    // Test the name of the corrections file
+    std::string corrfilename(CppEphem::CorrFilename());
+    test_string(corrfilename, CECORRFILEPATH, __func__, __LINE__);
+
+    // Test setting the corrections filename
+    std::string newfilename("testfilename.txt");
+    CppEphem::SetCorrFilename(newfilename);
+    test_string(CppEphem::CorrFilename(), newfilename, __func__, __LINE__);
+    // Reset the filename
+    CppEphem::SetCorrFilename(corrfilename);
+
+    
 
     return pass();
 }

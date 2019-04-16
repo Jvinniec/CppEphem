@@ -41,7 +41,15 @@ namespace CppEphem {
     // Approximate temperature at sea-level in Kelvin
     inline double SeaLevelTemp_K() {return 288.2 ;}
     inline double SeaLevelTemp_C() {return SeaLevelTemp_K()-273.15 ;}
-    inline double SeaLevelTemp_F() {return ((9.0/5.0)*SeaLevelTemp_C())+32.0 ;}
+    inline double SeaLevelTemp_F() {return (1.8*SeaLevelTemp_C())+32.0 ;}
+
+    // Temperature conversion methods
+    inline double Temp_C2F(const double& temp_C) {return (1.8 * temp_C) + 32.0;}
+    inline double Temp_C2K(const double& temp_C) {return temp_C+273.15;}
+    inline double Temp_F2C(const double& temp_F) {return (temp_F - 32.0)/1.8;}
+    inline double Temp_F2K(const double& temp_F) {return Temp_C2K(Temp_F2C(temp_F));}
+    inline double Temp_K2C(const double& temp_K) {return temp_K - 273.15;}
+    inline double Temp_K2F(const double& temp_K) {return 1.8*temp_K-459.67;}
     
     // Some constants taken from the sofa dictionary, but with some more discriptive names
     inline double julian_date_J2000() {return DJ00 ;}           ///< Julian Date corresponding to J2000
@@ -49,9 +57,6 @@ namespace CppEphem {
     inline double c_au_per_day() {return DC ;}                  ///< speed of light (astronomical units)/day
     inline double m_per_au() {return DAU ;}                     ///< meters per astronomical unit
     inline double sec_per_day() {return DAYSEC;}                ///< Seconds per day
-    
-    void        SetCorrFilename(const std::string& filename);
-    std::string CorrFilename(void);
 
     /*********************************************
      * Return the 'dut1' value which represents 
@@ -76,6 +81,10 @@ namespace CppEphem {
     inline double EstimatePressure_hPa(double elevation_m)
         {return 1013.25 * std::exp(-elevation_m / (29.3*SeaLevelTemp_K() )) ;}
 
+    // Methods for getting the corrections values
+    void        SetCorrFilename(const std::string& filename);
+    std::string CorrFilename(void);
+    void        CorrectionsInterp(bool set_interp);
     static CECorrections corrections;
 }
 
