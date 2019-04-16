@@ -311,8 +311,7 @@ public:
                             const double& xp=0.0, const double& yp=0.0,
                             const double& wavelength_um=0.5);
     virtual CECoordinates GetObservedCoords(const CEDate& date,
-                            const CEObserver& observer,
-                            const double& wavelength_um=0.5);
+                            const CEObserver& observer);
 
     /*********************************************************
      * More generic methods for converting between coordinate types
