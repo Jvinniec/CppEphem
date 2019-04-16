@@ -84,10 +84,10 @@ CECoordinates::CECoordinates(const std::vector<double>& xcoord,
  * 
  * @param[in] coord_type Coordinate type (see CECoordinateType)
  *************************************************************************/
-CECoordinates::CECoordinates(const CECoordinateType& coord_type)
+CECoordinates::CECoordinates(const CECoordinateType& coord_type) :
+    coord_type_(coord_type)
 {
     init_members();
-    coord_type_ = coord_type;
 }
 
 /**********************************************************************//**
@@ -1102,8 +1102,7 @@ CECoordinates CECoordinates::GetObservedCoords(const double& julian_date,
  * @return These coordinates converted into the observed coordinates of 'observer'
  *************************************************************************/
 CECoordinates CECoordinates::GetObservedCoords(const CEDate& date,
-                                               const CEObserver& observer,
-                                               const double& wavelength_um)
+                                               const CEObserver& observer)
 {
     return GetObservedCoords(date,
                              observer.Longitude_Rad(),
@@ -1115,7 +1114,7 @@ CECoordinates CECoordinates::GetObservedCoords(const CEDate& date,
                              date.dut1(), 
                              date.xpolar(), 
                              date.ypolar(), 
-                             wavelength_um);
+                             observer.Wavelength_um());
 }
 
 
