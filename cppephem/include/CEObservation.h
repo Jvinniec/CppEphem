@@ -35,14 +35,16 @@ public:
     // Constructors
     CEObservation() ;
     CEObservation(CEObserver* observer, CEBody* body, CEDate* date);
+    CEObservation(const CEObservation& other);
     virtual ~CEObservation() ;
     
-    /// Set the observer object
-    virtual void SetObserver(CEObserver* new_observer) {observer_ = new_observer;}
-    /// Set the object being observed
-    virtual void SetBody(CEBody* new_body) {body_ = new_body;}
-    /// Set the date of the observation
-    virtual void SetDate(CEDate* new_date) {date_ = new_date;}
+    // Copy assignment operator
+    CEObservation& operator=(const CEObservation& other);
+
+    // Setting underlying object pointers
+    virtual void   SetObserver(CEObserver* new_observer);
+    virtual void   SetBody(CEBody* new_body);
+    virtual void   SetDate(CEDate* new_date);
     
     /// Access the underlying objects
     CEObserver*    Observer();
@@ -66,7 +68,15 @@ public:
     virtual void   GetApparentXYCoordinate_Deg(double *apparent_X, double *apparent_Y);
     bool           UpdateCoordinates();
     
-protected:
+private:
+    
+    // Member functions for setup and tear down
+    void copy_members(const CEObservation& other);
+    void init_members(void);
+    void free_members(void);
+
+    // Updates the coordinates if the date, observer or object has changed
+    bool NeedsUpdate(void);
     
     CEBody*     body_;                  //<! Object being observed
     CEDate*     date_;                  //<! Store a pointer to a CEDate object
@@ -75,23 +85,20 @@ protected:
     // Cached the observed parameters to make subsequent calls faster,
     // i.e. since they all get computed at the same time there's no need
     // to recompute them unless something changes.
-    double cached_date_       = 0.0 ;   //<! Cached date, observed params recomputed if this has changed
-    double cached_azimuth_    = 0.0 ;   //<! Cached azimuth (radians)
-    double cached_zenith_     = 0.0 ;   //<! Cached zenith (radians)
-    double cached_altitude_   = 0.0 ;   //<! Cached altitude (radians)
-    double cached_hour_angle_ = 0.0 ;   //<! Cached hour angle (radians)
+    double cached_date_;         //<! Cached date, observed params recomputed if this has changed
+    double cached_azimuth_;      //<! Cached azimuth (radians)
+    double cached_zenith_;       //<! Cached zenith (radians)
     
-    // Cache the apparent coordinates fo
-    double cached_apparentxcoord_ = 0.0 ;
-    double cached_apparentycoord_ = 0.0 ;
-    
-    bool   DateHasChanged() ;
-    
+    // Cache the apparent coordinates
+    double cached_hour_angle_;   //<! Cached hour angle (radians)
+    double cached_apparentxcoord_;
+    double cached_apparentycoord_;
 };
 
 
 /**********************************************************************//**
  * Access the underlying objects
+ * @return Pointer to current observer object
  *************************************************************************/
 inline
 CEObserver* CEObservation::Observer() 
@@ -100,6 +107,8 @@ CEObserver* CEObservation::Observer()
 }
 
 /**********************************************************************//**
+ * Access underlying CEBody object
+ * @return Pointer to current CEBody object
  *************************************************************************/
 inline
 CEBody* CEObservation::Body() 
@@ -109,6 +118,8 @@ CEBody* CEObservation::Body()
 
 
 /**********************************************************************//**
+ * Access underlying CEDate object
+ * @return Pointer to current CEDate object
  *************************************************************************/
 inline
 CEDate* CEObservation::Date() 
@@ -118,12 +129,45 @@ CEDate* CEObservation::Date()
 
 
 /**********************************************************************//**
+ * Set underlying CEObserver object
+ * @param[in] new_observer      Pointer to new CEObserver object
+ *************************************************************************/
+inline
+void CEObservation::SetObserver(CEObserver* new_observer) 
+{
+    observer_ = new_observer;
+}
+
+
+/**********************************************************************//**
+ * Set underlying CEBody object
+ * @param[in] new_body          Pointer to new CEBody object
+ *************************************************************************/
+inline
+void CEObservation::SetBody(CEBody* new_body) 
+{
+    body_ = new_body;
+}
+
+
+/**********************************************************************//**
+ * Set underlying CEDate object
+ * @param[in] new_date          Pointer to new CEDate object
+ *************************************************************************/
+inline
+void CEObservation::SetDate(CEDate* new_date) 
+{
+    date_ = new_date;
+}
+
+
+/**********************************************************************//**
  * @return azimuth in radians
  *************************************************************************/
 inline
 double CEObservation::GetAzimuth_Rad()
 {
-    if (DateHasChanged()) UpdateCoordinates();
+    UpdateCoordinates();
     return cached_azimuth_;
 }
 
@@ -144,7 +188,7 @@ double CEObservation::GetAzimuth_Deg()
 inline
 double CEObservation::GetZenith_Rad()
 {
-    if (DateHasChanged()) UpdateCoordinates();
+    UpdateCoordinates();
     return cached_zenith_;
 }
 
@@ -165,8 +209,8 @@ double CEObservation::GetZenith_Deg()
 inline
 double CEObservation::GetAltitude_Rad()
 {
-    if (DateHasChanged()) UpdateCoordinates() ;
-    return cached_altitude_ ;
+    UpdateCoordinates() ;
+    return (DPI/2.0) - cached_zenith_ ;
 }
 
 
@@ -186,7 +230,7 @@ double CEObservation::GetAltitude_Deg()
 inline
 double CEObservation::GetHourAngle_Rad()
 {
-    if (DateHasChanged()) UpdateCoordinates();
+    UpdateCoordinates();
     return cached_hour_angle_;
 }
 
@@ -206,7 +250,7 @@ double CEObservation::GetHourAngle_Deg()
 inline
 double CEObservation::GetApparentXCoordinate_Rad()
 {
-    if (DateHasChanged()) UpdateCoordinates() ;
+    UpdateCoordinates() ;
     return cached_apparentxcoord_ ;
 }
 
@@ -227,7 +271,7 @@ double CEObservation::GetApparentXCoordinate_Deg()
 inline
 double CEObservation::GetApparentYCoordinate_Rad()
 {
-    if (DateHasChanged()) UpdateCoordinates() ;
+    UpdateCoordinates() ;
     return cached_apparentycoord_ ;
 }
 

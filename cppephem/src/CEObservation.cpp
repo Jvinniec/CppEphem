@@ -36,6 +36,7 @@
  *************************************************************************/
 CEObservation::CEObservation()
 {
+    init_members();
 }
 
 /**********************************************************************//**
@@ -45,22 +46,54 @@ CEObservation::CEObservation()
  *     @param body             CEBody being observed
  *     @param date             CEDate object linked with these coordinates.
  *************************************************************************/
-CEObservation::CEObservation(CEObserver* observer, CEBody* body, CEDate* date) :
-    body_(body),
-    date_(date),
-    observer_(observer)
+CEObservation::CEObservation(CEObserver* observer, CEBody* body, CEDate* date)
 {
-    UpdateCoordinates() ;
+    init_members();
+
+    // Set the objects
+    SetObserver(observer);
+    SetBody(body);
+    SetDate(date);
 }
+
+
+/**********************************************************************//**
+ * Copy constructor
+ * 
+ * @param[in] other                CEObservation object to be copied
+ *************************************************************************/
+CEObservation::CEObservation(const CEObservation& other)
+{
+    init_members();
+    copy_members(other);
+}
+
 
 /**********************************************************************//**
  * Destructor
  *************************************************************************/
 CEObservation::~CEObservation()
 {
+    free_members();
 }
 
-# pragma mark - Public Methods
+
+/**********************************************************************//**
+ * Copy assignment operator
+ * 
+ * @param[in] other                CEObservation object to be copied
+ * @return Pointer to this object post copy
+ *************************************************************************/
+CEObservation& CEObservation::operator=(const CEObservation& other)
+{
+    if (this != &other) {
+        free_members();
+        init_members();
+        copy_members(other);
+    }
+    return *this;
+}
+
 
 /**********************************************************************//**
  * Returns both the azimuth and zenith angle of a given 'body_' as
@@ -73,7 +106,7 @@ CEObservation::~CEObservation()
 void CEObservation::GetAzimuthZenith_Rad(double *azimuth, double *zenith)
 {
     *azimuth = GetAzimuth_Rad() ;
-    *zenith  = cached_zenith_ ;
+    *zenith  = GetZenith_Rad() ;
 }
 
 /**********************************************************************//**
@@ -130,71 +163,85 @@ void CEObservation::GetApparentXYCoordinate_Deg(double *apparent_X, double *appa
  *************************************************************************/
 bool CEObservation::UpdateCoordinates()
 {
-    // Get the coordinate system of the body being observed
-    CECoordinateType body_coords = body_->GetCoordSystem() ;
-
-    // Compute the observed coordinates based on the coordinates of "body_"
-    if (body_coords == CECoordinateType::CIRS) {
-        // Convert from CIRS -> Observed
-        CEBody::CIRS2Observed(body_->XCoordinate_Rad(*date_),
-                              body_->YCoordinate_Rad(*date_),
-                              &cached_azimuth_, &cached_zenith_,
-                              *date_,
-                              *observer_,
-                              CEAngleType::RADIANS,
-                              observer_->Wavelength_um(),
-                              &cached_apparentxcoord_,
-                              &cached_apparentycoord_,
-                              &cached_hour_angle_) ;
-    } else if (body_coords == CECoordinateType::GALACTIC) {
-        // Convert Galactic -> Observerd
-        CEBody::Galactic2Observed(body_->XCoordinate_Rad(*date_),
-                              body_->YCoordinate_Rad(*date_),
-                              &cached_azimuth_, &cached_zenith_,
-                              *date_,
-                              *observer_,
-                              CEAngleType::RADIANS,
-                              observer_->Wavelength_um(),
-                              &cached_apparentxcoord_,
-                              &cached_apparentycoord_,
-                              &cached_hour_angle_) ;
-    } else if (body_coords == CECoordinateType::ICRS) {
-        // Convert CIRS -> Observed
-        CEBody::ICRS2Observed(body_->XCoordinate_Rad(*date_),
-                              body_->YCoordinate_Rad(*date_),
-                              &cached_azimuth_, &cached_zenith_,
-                              *date_,
-                              *observer_,
-                              CEAngleType::RADIANS,
-                              observer_->Wavelength_um(),
-                              &cached_apparentxcoord_,
-                              &cached_apparentycoord_,
-                              &cached_hour_angle_) ;
-    } else {
-        return false ;
-    }
-    
-    // Update the cached_date_ object
-    cached_date_ = *date_ ;
-    
+    if (NeedsUpdate()) {
+        // Get the coordinates
+        CECoordinates coords = observer_->ObservedPosition(*body_, *date_);
+        
+        // Update the cached parameters
+        cached_date_     = *date_ ;
+        cached_azimuth_  = coords.XCoordinate_Rad();
+        cached_zenith_   = coords.YCoordinate_Rad();
+    }    
     return true ;
 }
 
-# pragma mark - Protected Methods
+
+/**********************************************************************//**
+ * Copy data members from another object
+ * 
+ * @param[in] other             CEObservation object to copy from
+ *************************************************************************/
+void CEObservation::copy_members(const CEObservation& other)
+{
+    // Copy the pointers (this object does not own them)
+    body_     = other.body_;
+    date_     = other.date_;
+    observer_ = other.observer_;
+
+    // Copy the cached values
+    cached_date_       = other.cached_date_;
+    cached_azimuth_    = other.cached_azimuth_;
+    cached_zenith_     = other.cached_zenith_;
+    cached_hour_angle_ = other.cached_hour_angle_;
+    cached_apparentxcoord_ = other.cached_apparentxcoord_;
+    cached_apparentycoord_ = other.cached_apparentycoord_;
+}
+
+
+/**********************************************************************//**
+ * Initialize the data members
+ *************************************************************************/
+void CEObservation::init_members(void)
+{
+    // Copy the pointers (this object does not own them)
+    body_     = nullptr;
+    date_     = nullptr;
+    observer_ = nullptr;
+
+    // Copy the cached values
+    cached_date_           = 0.0;
+    cached_azimuth_        = 0.0;
+    cached_zenith_         = 0.0;
+
+    // Note that these are not filled at the moment
+    cached_hour_angle_     = 0.0;
+    cached_apparentxcoord_ = 0.0;
+    cached_apparentycoord_ = 0.0;
+}
+
+
+/**********************************************************************//**
+ * Deallocate memory
+ *************************************************************************/
+void CEObservation::free_members(void)
+{
+    // This object is not responsible for its objects
+}
+
 
 /**********************************************************************//**
  * Check whether the date has changed since the last time
  * all of the parameters were updated (i.e. since the last
  * time UpdateCoordinates() was called)
  *************************************************************************/
-bool CEObservation::DateHasChanged()
+bool CEObservation::NeedsUpdate(void)
 {
     // Make sure the date object isnt nullptr
     if (date_ == nullptr) {
         return false ;
     }
     // Check if the date object has changed since the last time we querried it
-    else if (*date_ != cached_date_) {
+    else if ((*date_) != cached_date_) {
         return true ;
     }
     // Otherwise we want to return false
