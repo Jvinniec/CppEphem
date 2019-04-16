@@ -49,9 +49,6 @@ CLOptions DefineOpts()
     opts.AddDoubleParam("p,pressure","Observer's atmospheric pressure (hPa)",obs.Pressure_hPa()) ;
     opts.AddDoubleParam("t,temperature","Observer's atmospheric temperature (degrees Celsius)", obs.Temperature_C()) ;
     opts.AddDoubleParam("w,wavelength","Wavelength of light being observed (micrometers)",obs.Wavelength_um()) ;
-    //opts.AddDoubleParam("d,dut1","UT1-UTC (not necessary for rough positions)",CEDate::dut1(CEDate::CurrentJD())) ;
-    //opts.AddDoubleParam("x,xpolar","x-polar motion (not necessary for rough positions)",CEDate::xpolar(CEDate::CurrentJD())) ;
-    //opts.AddDoubleParam("y,ypolar","y-polar motion (not necessary for rough positions)",CEDate::ypolar(CEDate::CurrentJD())) ;
     
     return opts ;
 }

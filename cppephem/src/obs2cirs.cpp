@@ -35,9 +35,18 @@
 CLOptions DefineOpts()
 {
     CLOptions opts ;
-    // Add a program description
-    opts.AddProgramDescription("Takes observed positions (azimuth,zenith angle) and computes the CIRS RA,Dec positions based on the observer location and atmospheric properties. The only values necessary to get rough coordinates are 'longitude', 'latitude', 'azimuth', 'zenith', and 'juliandate'.") ;
-    
+
+    // Add a program version and description
+    std::string vers_str = std::string("obs2cirs v") + CPPEPHEM_VERSION;
+    opts.AddVersionInfo(vers_str);
+    opts.AddProgramDescription(std::string() +
+                               "Takes observed positions (azimuth,zenith angle) " +
+                               "and computes the CIRS RA,Dec positions based on " +
+                               "the observer location and atmospheric properties. " +
+                               "The only values necessary to get rough coordinates " +
+                               "are 'longitude', 'latitude', 'azimuth', 'zenith', " +
+                               "and 'juliandate'.") ;
+
     // Setup the defaults
     CEObserver obs ;
     opts.AddDoubleParam("X,longitude","Observer longitude (degrees, East-positive)",obs.Longitude_Deg()) ;
@@ -50,9 +59,6 @@ CLOptions DefineOpts()
     opts.AddDoubleParam("p,pressure","Observer's atmospheric pressure (hPa)",obs.Pressure_hPa()) ;
     opts.AddDoubleParam("t,temperature","Observer's atmospheric temperature (degrees Celsius)", obs.Temperature_C()) ;
     opts.AddDoubleParam("w,wavelength","Wavelength of light being observed (micrometers)",obs.Wavelength_um()) ;
-    //opts.AddDoubleParam("d,dut1","UT1-UTC (not necessary for rough positions)",CEDate::dut1(CEDate::CurrentJD())) ;
-    //opts.AddDoubleParam("x,xpolar","x-polar motion (not necessary for rough positions)",CEDate::xpolar(CEDate::CurrentJD())) ;
-    //opts.AddDoubleParam("y,ypolar","y-polar motion (not necessary for rough positions)",CEDate::ypolar(CEDate::CurrentJD())) ;
     
     return opts ;
 }
@@ -66,9 +72,9 @@ void PrintResults(CLOptions& inputs, std::map<std::string, double> results)
     std::printf("* Results of Observed -> CIRS conversion *\n") ;
     std::printf("******************************************\n") ;
     std::printf("Observed Coordinates (input)\n") ;
-    std::printf("    Azimuth        : %f degrees\n", inputs.AsDouble("azimuth")*DR2D) ;
-    std::printf("    Zenith         : %+f degrees\n", inputs.AsDouble("zenith")*DR2D) ;
-    std::printf("    Altitude       : %+f degrees\n", 90.0-inputs.AsDouble("zenith")*DR2D) ;
+    std::printf("    Azimuth        : %f degrees\n", inputs.AsDouble("azimuth")) ;
+    std::printf("    Zenith         : %+f degrees\n", inputs.AsDouble("zenith")) ;
+    std::printf("    Altitude       : %+f degrees\n", 90.0-inputs.AsDouble("zenith")) ;
     std::printf("CIRS Coordinates (output)\n") ;
     std::printf("    Right Ascension: %f degrees\n", results["ra"]) ;
     std::printf("    Declination    : %+f degrees\n", results["dec"]) ;

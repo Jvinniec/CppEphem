@@ -110,12 +110,12 @@ int main(int argc, char** argv)
     observer.SetPressure_hPa(opts.AsDouble("pressure"));
     observer.SetTemperature_C(opts.AsDouble("temperature"));
     observer.SetRelativeHumidity(opts.AsDouble("humidity"));
+    observer.SetWavelength_um(opts.AsDouble("wavelength"));
 
     // Convert the coordinates
     CECoordinates output;
     try {
-        output = input.GetObservedCoords(date, observer, 
-                                         opts.AsDouble("wavelength"));
+        output = input.GetObservedCoords(date, observer);
     } catch (CEException & e) {
         std::cerr << e.what() << std::endl;
     }
