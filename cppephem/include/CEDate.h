@@ -112,7 +112,7 @@ public:
     
     static double GregorianVect2Gregorian(std::vector<double> gregorian) ;
     static std::vector<double> Gregorian2GregorianVect(double gregorian) ;
-    virtual double GetSecondsSinceMidnight(double utc_offset=0.0) ;
+    virtual double GetSecondsSinceMidnight(const double& utc_offset=0.0) ;
     virtual double GetTime(const double& utc_offset=0.0) const;
     virtual double GetTime_UTC() const;
     static double CurrentJD();
