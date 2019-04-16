@@ -35,10 +35,12 @@ public:
     /****** METHODS ******/
 
     virtual bool test_construct(void);
+    virtual bool test_timer_manip(void);
 
 private:
     CEDate                    base_date_;
     CERunningDate             base_;
+    long long                 naptime_ms_;
     std::chrono::milliseconds naptime_;
 
 };
