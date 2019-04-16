@@ -60,10 +60,11 @@ bool test_CEObserver::runtests()
     std::cout << "\nTesting CEObserver:\n";
 
     // Run each of the tests
-    test_copy();
+    test_constructor();
     test_set_geoCoords();
     test_set_atmoPars();
     test_get_obsCoords();
+    test_time();
 
     return pass();
 }
@@ -74,15 +75,31 @@ bool test_CEObserver::runtests()
  * 
  * @return whether or not all tests succeeded
  *************************************************************************/
-bool test_CEObserver::test_copy()
+bool test_CEObserver::test_constructor(void)
 {
+    // Default constructor
+    CEObserver test1;
+    test_double(test1.Longitude_Rad(), 0.0, __func__, __LINE__);
+    test_double(test1.Latitude_Rad(),  51.4778,  __func__, __LINE__);
+    test_double(test1.Temperature_C(), CppEphem::SeaLevelTemp_C(), __func__, __LINE__);
+    test_double(test1.Pressure_hPa(),  CppEphem::EstimatePressure_hPa(test1.Temperature_C()),  __func__, __LINE__);
+    test_double(test1.RelativeHumidity(), 0.0, __func__, __LINE__);
+
     // Create a copy for testing
-    CEObserver obs(base_obs_);
-    test_double(obs.Longitude_Rad(), base_obs_.Longitude_Rad(), __func__, __LINE__);
-    test_double(obs.Latitude_Rad(),  base_obs_.Latitude_Rad(),  __func__, __LINE__);
-    test_double(obs.Temperature_K(), base_obs_.Temperature_K(), __func__, __LINE__);
-    test_double(obs.Pressure_hPa(),  base_obs_.Pressure_hPa(),  __func__, __LINE__);
-    test_double(obs.RelativeHumidity(), base_obs_.RelativeHumidity(), __func__, __LINE__);
+    CEObserver test2(base_obs_);
+    test_double(test2.Longitude_Rad(), base_obs_.Longitude_Rad(), __func__, __LINE__);
+    test_double(test2.Latitude_Rad(),  base_obs_.Latitude_Rad(),  __func__, __LINE__);
+    test_double(test2.Temperature_K(), base_obs_.Temperature_K(), __func__, __LINE__);
+    test_double(test2.Pressure_hPa(),  base_obs_.Pressure_hPa(),  __func__, __LINE__);
+    test_double(test2.RelativeHumidity(), base_obs_.RelativeHumidity(), __func__, __LINE__);
+
+    // Copy assignment operator
+    CEObserver test3 = base_obs_;
+    test_double(test3.Longitude_Rad(), base_obs_.Longitude_Rad(), __func__, __LINE__);
+    test_double(test3.Latitude_Rad(),  base_obs_.Latitude_Rad(),  __func__, __LINE__);
+    test_double(test3.Temperature_K(), base_obs_.Temperature_K(), __func__, __LINE__);
+    test_double(test3.Pressure_hPa(),  base_obs_.Pressure_hPa(),  __func__, __LINE__);
+    test_double(test3.RelativeHumidity(), base_obs_.RelativeHumidity(), __func__, __LINE__);
 
     return pass();
 }
@@ -101,19 +118,27 @@ bool test_CEObserver::test_set_geoCoords()
     // Test longitude
     double lon  = obs.Longitude_Deg() + 10.0;
     obs.SetLongitude(lon, CEAngleType::DEGREES);
-    test_double(obs.Longitude_Deg(), lon,  __FILE__, __LINE__);
+    test_double(obs.Longitude_Deg(), lon,  __func__, __LINE__);
 
     // Test latitude
     double lat  = obs.Latitude_Deg() + 10.0;
     obs.SetLatitude(lat, CEAngleType::DEGREES);
-    test_double(obs.Latitude_Deg(),  lat,  __FILE__, __LINE__);
+    test_double(obs.Latitude_Deg(),  lat,  __func__, __LINE__);
+
+    // Set both longitude and latitude
+    obs.SetGeoCoordinates(lon-10.0, lat-10.0, CEAngleType::DEGREES);
+    test_double(obs.Longitude_Deg(), base_obs_.Longitude_Deg(), __func__, __LINE__);
+    test_double(obs.Latitude_Deg(), base_obs_.Latitude_Deg(), __func__, __LINE__);
 
     // Test elevation
     double elev = obs.Elevation_m() + 10.0;
     obs.SetElevation(elev);
-    test_double(obs.Elevation_m(),   elev, __FILE__, __LINE__);
+    test_double(obs.Elevation_m(),   elev, __func__, __LINE__);
     
-    // Test setting lat,lon together
+    // Test setting UTC offset
+    double utc_offset = obs.UTCOffset() + 2.5;
+    obs.SetUTCOffset(utc_offset);
+    test_double(obs.UTCOffset(), utc_offset, __func__, __LINE__);
 
     return pass();
 }
@@ -126,13 +151,29 @@ bool test_CEObserver::test_set_geoCoords()
  *************************************************************************/
 bool test_CEObserver::test_set_atmoPars()
 {
+    // Cache the tolerance
+    double old_tol(DblTol());
+    SetDblTol(1.0e-11);
+
     // Create a copy with different values for testing
     CEObserver obs(base_obs_);
 
     // Test temperature
-    double temp = obs.Temperature_K() + 10.0;
-    obs.SetTemperature_K(temp);
-    test_double(obs.Temperature_K(), temp, __func__, __LINE__);
+    double temp_K = obs.Temperature_K() + 10.0;
+    double temp_C = CppEphem::Temp_K2C(temp_K);
+    double temp_F = CppEphem::Temp_K2F(temp_K);
+    obs.SetTemperature_K(temp_K);
+    test_double(obs.Temperature_K(), temp_K, __func__, __LINE__);
+    test_double(obs.Temperature_C(), temp_C, __func__, __LINE__);
+    test_double(obs.Temperature_F(), temp_F, __func__, __LINE__);
+
+    // Test Temperature setting
+    temp_F += 10.0;
+    obs.SetTemperature_F(temp_F);
+    test_double(obs.Temperature_F(), temp_F, __func__, __LINE__);
+    temp_C -= 10.0;
+    obs.SetTemperature_C(temp_C);
+    test_double(obs.Temperature_C(), temp_C, __func__, __LINE__);
 
     // Test pressure
     double pres = obs.Pressure_hPa() + 10.0;
@@ -149,9 +190,16 @@ bool test_CEObserver::test_set_atmoPars()
     obs.SetRelativeHumidity(relHumidity);
     test_double(obs.RelativeHumidity(),  relHumidity, __func__, __LINE__);
     
+    // Test wavelength
+    double wavelength = obs.Wavelength_um() + 10.0;
+    obs.SetWavelength_um(wavelength);
+    test_double(obs.Wavelength_um(), wavelength, __func__, __LINE__);
+
     // Make sure the print statement actually does something
     test(obs.print().size() > 0, __func__, __LINE__);
 
+    // Reset the tolerance
+    SetDblTol(old_tol);
     return pass();
 }
 
@@ -185,6 +233,30 @@ bool test_CEObserver::test_get_obsCoords(void)
         std::printf("%s", base_obs_.print().c_str());
     }
 
+    return pass();
+}
+
+
+/**********************************************************************//**
+ * Test that the time methods are valid
+ * 
+ * @return Whether or not all tests succeeded
+ *************************************************************************/
+bool test_CEObserver::test_time(void)
+{
+    double offset = base_obs_.UTCOffset();
+    double old_tol(DblTol());
+    SetDblTol(1.0e-12);
+
+    // Make sure the time is noon on J2000
+    CEDate date(CppEphem::julian_date_J2000());
+    std::vector<double> local = base_obs_.Time( date.MJD() );
+    std::vector<double> utc   = base_obs_.Time_UTC( date );
+    
+    test_vect(local, {offset, 0.0, 0.0, 0.0}, __func__, __LINE__);
+    test_vect(utc,   {12.0, 0.0, 0.0, 0.0}, __func__, __LINE__);
+
+    SetDblTol(old_tol);
     return pass();
 }
 

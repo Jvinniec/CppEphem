@@ -34,8 +34,9 @@ public:
     virtual bool runtests();
 
     /****** METHODS ******/
-
+    virtual bool test_construct(void);
     virtual bool test_copy(void);
+    virtual bool test_HmsDms2Angle(void);
 
     virtual bool test_Convert2Icrs(void);
     virtual bool test_Convert2Cirs(void);

@@ -44,6 +44,12 @@ public:
     virtual bool runtests(void) = 0;
     virtual bool pass(void);
 
+    virtual double DblTol(void) const;
+    virtual int    IntTol(void) const;
+
+    virtual void SetDblTol(const double& tol);
+    virtual void SetIntTol(const int& tol);
+
 protected:
     
     /******  METHODS  ******/
@@ -82,6 +88,7 @@ protected:
     template<class T>
     bool test_vect_(const std::vector<T>& value,
                     const std::vector<T>& expected,
+                    const T&           tol,
                     const std::string& function = FUNC_DEFAULT,
                     const int&         line     = LINE_DEFAULT);
     bool test_vect(const std::vector<double>& value,
@@ -100,10 +107,14 @@ protected:
                        const int&         line);
 
     template<class T>
-    bool test_greaterthan(const T& value,
-                          const T& minval,
-                          const std::string& function = FUNC_DEFAULT,
-                          const int&         line     = LINE_DEFAULT);
+    bool test_greaterthan_(const T& value,
+                           const T& minval,
+                           const std::string& function = FUNC_DEFAULT,
+                           const int&         line     = LINE_DEFAULT);
+    bool test_greaterthan(const double& value,
+                          const double& minval,
+                          const std::string& function,
+                          const int&         line);
 
     virtual void update_pass(const bool& test_passed);
     
@@ -117,5 +128,40 @@ private:
     double tol_dbl_ = 1.0e-15;      //<! Expected double precision
 };
 
+
+inline
+double CETestSuite::DblTol(void) const
+{
+    return tol_dbl_;
+}
+
+
+inline
+int CETestSuite::IntTol(void) const
+{
+    return tol_int_;
+}
+
+
+/**********************************************************************//**
+ * Set the tolerance for comparing doubles
+ * @param[in] tol               New tolerance for double tests
+ *************************************************************************/
+inline
+void CETestSuite::SetDblTol(const double& tol)
+{
+    this->tol_dbl_ = tol;
+}
+
+
+/**********************************************************************//**
+ * Set the tolerance for comparing integers
+ * @param[in] tol               New tolerance for integer tests
+ *************************************************************************/
+inline
+void CETestSuite::SetIntTol(const int& tol)
+{
+    this->tol_int_ = tol;
+}
 
 #endif /* CETestSuite_h */
