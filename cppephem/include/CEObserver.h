@@ -184,7 +184,7 @@ double CEObserver::Temperature_C() const
 inline
 double CEObserver::Temperature_K() const
 {
-    return temperature_celsius_ + 273.15 ;
+    return CppEphem::Temp_C2K(temperature_celsius_);
 }
 
 
@@ -194,7 +194,7 @@ double CEObserver::Temperature_K() const
 inline
 double CEObserver::Temperature_F() const
 {
-    return temperature_celsius_ * (9.0/5.0) + 32.0 ;
+    return CppEphem::Temp_C2F(temperature_celsius_);
 }
 
 
@@ -245,14 +245,17 @@ double CEObserver::UTCOffset() const
 inline
 std::vector<double> CEObserver::Time(const CEDate& date)
 {
-    double utc = CETime::UTC(date.JD() - utc_offset_);
+    double utc = date.MJD();
+    utc -= std::floor(utc);
+    utc = CETime::UTC(utc + utc_offset_/24.0);
     return CETime::TimeDbl2Vect( CETime::TimeSec2Time(utc) ) ;
 }
 
 
 /**********************************************************************//**
  * Get the current local time information (see CETime)
- * @param[in] date      A date object to convert to local time of this observer* @return time as vector
+ * @param[in] date      A date object to convert to local time of this observer
+ * @return time as vector
  *************************************************************************/
 inline
 std::vector<double> CEObserver::Time_UTC(const CEDate& date) 
@@ -263,6 +266,7 @@ std::vector<double> CEObserver::Time_UTC(const CEDate& date)
 
 /**********************************************************************//**
  * Set elevation in meters above sea level.
+ * @param[in] elevation         A new value for the elevation (meters)
  *************************************************************************/
 inline
 void CEObserver::SetElevation(const double& elevation)
@@ -272,6 +276,9 @@ void CEObserver::SetElevation(const double& elevation)
 
 
 /**********************************************************************//**
+ * Set the observer's longitude
+ * @param[in] longitude         Longitude for the observer
+ * @param[in] angle_type        Angle type of the provided longitude
  *************************************************************************/
 inline
 void CEObserver::SetLongitude(const double& longitude, 
@@ -282,6 +289,9 @@ void CEObserver::SetLongitude(const double& longitude,
 
 
 /**********************************************************************//**
+ * Set the observer's latitude
+ * @param[in] latitude          Latitude for the observer
+ * @param[in] angle_type        Angle type of the provided latitude
  *************************************************************************/
 inline
 void CEObserver::SetLatitude(const double& latitude, 
@@ -292,6 +302,10 @@ void CEObserver::SetLatitude(const double& latitude,
 
 
 /**********************************************************************//**
+ * Set the observer's longitude and latitude
+ * @param[in] longitude         Longitude for the observer
+ * @param[in] latitude          Latitude for the observer
+ * @param[in] angle_type        Angle type of the provided lon,lat
  *************************************************************************/
 inline
 void CEObserver::SetGeoCoordinates(const double& longitude,
@@ -302,7 +316,10 @@ void CEObserver::SetGeoCoordinates(const double& longitude,
     SetLatitude(latitude, angle_type);
 }
 
+
 /**********************************************************************//**
+ * Set the observer's pressure
+ * @param[in] pressure          Pressure (hPa) for the observer
  *************************************************************************/
 inline
 void CEObserver::SetPressure_hPa(const double& pressure)
@@ -312,6 +329,8 @@ void CEObserver::SetPressure_hPa(const double& pressure)
 
 
 /**********************************************************************//**
+ * Set the observer's relative humidity
+ * @param[in] humidity          Relative humidity (0-1) for the observer
  *************************************************************************/
 inline
 void CEObserver::SetRelativeHumidity(const double& humidity)
@@ -321,6 +340,8 @@ void CEObserver::SetRelativeHumidity(const double& humidity)
 
 
 /**********************************************************************//**
+ * Set the observer's temperature (Celsius)
+ * @param[in] temp_C            New temperature (Celsius)
  *************************************************************************/
 inline
 void CEObserver::SetTemperature_C(const double& temp_C)
@@ -330,24 +351,30 @@ void CEObserver::SetTemperature_C(const double& temp_C)
 
 
 /**********************************************************************//**
+ * Set the observer's temperature (Kelvin)
+ * @param[in] temp_K            New temperature (Kelvin)
  *************************************************************************/
 inline
 void CEObserver::SetTemperature_K(const double& temp_K)
 {
-    temperature_celsius_ = temp_K - 273.15 ;
+    temperature_celsius_ = CppEphem::Temp_K2C(temp_K) ;
 }
 
 
 /**********************************************************************//**
+ * Set the observer's temperature (Fahrenheit)
+ * @param[in] temp_K            New temperature (Fahrenheit)
  *************************************************************************/
 inline
 void CEObserver::SetTemperature_F(const double& temp_F)
 {
-    temperature_celsius_ = (temp_F - 32.0) * (5.0/9.0) ;
+    temperature_celsius_ = CppEphem::Temp_F2C(temp_F);
 }
 
 
 /**********************************************************************//**
+ * Set the observer's observing wavelength (micrometers)
+ * @param[in] new_wavelength_um New wavelength (micrometers)
  *************************************************************************/
 inline
 void CEObserver::SetWavelength_um(const double& new_wavelength_um)
