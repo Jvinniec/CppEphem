@@ -52,10 +52,46 @@ bool test_CEDate::runtests()
     std::cout << "\nTesting CEDate:\n";
 
     // Run each of the tests
+    test_constructor();
     test_SetDate_JD();
     test_SetDate_MJD();
     test_Gregorian();
     test_ReturnType();
+    test_support_methods();
+
+    return pass();
+}
+
+
+/**********************************************************************//**
+ * Test ability to create a CEDate object
+ *************************************************************************/
+bool test_CEDate::test_constructor(void)
+{
+    // Values for testing
+    std::vector<double> greg_20190101 = {2019, 1.0, 1.0, 0.5};
+    double              jd_20190101   = 2458485.0;
+
+    // Default constructor. Because the default date is given as the current
+    // date, the check is just that the value is greater than 01-01-2019
+    CEDate test1;
+    test_greaterthan(test1.JD(), jd_20190101, __func__, __LINE__);
+
+    // Copy constructor
+    CEDate test2(base_date_);
+    test_double(test2.JD(), base_date_.JD(), __func__, __LINE__);
+
+    // Copy assignment operator
+    CEDate test3 = base_date_;
+    test_double(test3.JD(), base_date_.JD(), __func__, __LINE__);
+
+    // Construct from a vector
+    CEDate test4(greg_20190101);
+    test_double(test4.JD(), jd_20190101, __func__, __LINE__);
+
+    // Construct from a Julian date
+    CEDate test5(jd_20190101);
+    test_double(test5.JD(), jd_20190101, __func__, __LINE__);
 
     return pass();
 }
@@ -94,8 +130,41 @@ bool test_CEDate::test_Gregorian()
     test_int(test_date_.Day(), base_date_.Day(), __func__, __LINE__);
     test_double(test_date_.DayFraction(), base_date_.DayFraction(), __func__, __LINE__);
 
-    // Test getting hte Gregorian date as a vector
+    // Test getting the Gregorian date as a vector
     test_vect(test_date_.GregorianVect(), base_date_.GregorianVect(), __func__, __LINE__);
+
+    // Test setting the date as a gregorian vector
+    std::vector<double> greg_vec = base_date_.GregorianVect();
+    CEDate test1;
+    test(test1.JD() != base_date_.JD(), __func__, __LINE__);
+    test1.SetDate(greg_vec);
+    test_vect(test1.GregorianVect(), greg_vec, __func__, __LINE__);
+
+    // Make sure that the returned errors of GregorianVect2JD are handled
+    greg_vec                      = base_date_.GregorianVect();
+    std::vector<double> greg_vec2 = greg_vec;
+    // Test invalid year
+    greg_vec2[0] = -50000;
+    test_double(CEDate::GregorianVect2JD(greg_vec2), 0.0, __func__, __LINE__);
+    greg_vec2 = greg_vec;
+    // Test invalid month
+    greg_vec2[1] = -1;
+    test_double(CEDate::GregorianVect2JD(greg_vec2), 0.0, __func__, __LINE__);
+    greg_vec2[1] = 13;
+    test_double(CEDate::GregorianVect2JD(greg_vec2), 0.0, __func__, __LINE__);
+    greg_vec2 = greg_vec;
+    // Test date
+    greg_vec2[2] += 100;
+    test_double(CEDate::GregorianVect2JD(greg_vec2), base_date_.JD() + 100.0, __func__, __LINE__);
+
+    // Test conversion of gregorian vector to JD, MJD, Gregorian date
+    greg_vec = {2000, 01, 01, 0.5};
+    double test_jd   = CppEphem::julian_date_J2000();
+    double test_mjd  = test_jd - DJM0;
+    double test_greg = 20000101.5;
+    test_double(CEDate::GregorianVect2JD(greg_vec), test_jd, __func__, __LINE__);
+    test_double(CEDate::GregorianVect2MJD(greg_vec), test_mjd, __func__, __LINE__);
+    test_double(CEDate::GregorianVect2Gregorian(greg_vec), test_greg, __func__, __LINE__);
 
     return pass();
 }
@@ -120,6 +189,70 @@ bool test_CEDate::test_ReturnType(void)
     // Set the return type to Gregorian
     test_date_.SetReturnType(CEDateType::GREGORIAN);
     test_double(test_date_, base_date_.Gregorian(), __func__, __LINE__);
+
+    return pass();
+}
+
+
+/**********************************************************************//**
+ * Test the various 
+ *************************************************************************/
+bool test_CEDate::test_support_methods(void)
+{
+    // Seconds since midnight
+    double test1 = base_date_.MJD() - std::floor(base_date_.MJD());
+    test1 *= CppEphem::sec_per_day();
+    test_double(base_date_.GetSecondsSinceMidnight(0.0), test1, __func__, __LINE__);
+
+    // Test CurrentJD (that it is in some reasonable range)
+    double test_JD = CEDate::CurrentJD();
+    test_greaterthan(test_JD, 2458485.0, __func__, __LINE__);
+    test_lessthan(test_JD, 2468485.0, __func__, __LINE__);
+
+    // Test GetTime
+    double test_GetTime = base_date_.GetTime(2.0);
+    double test_GetTime_UTC = base_date_.GetTime_UTC();
+    test_double(test_GetTime, 140000.0, __func__, __LINE__);
+    test_double(test_GetTime_UTC, 120000.0, __func__, __LINE__);
+    
+    // Test DUT1
+    double mjd  = base_date_.MJD();
+    double dut1 = CppEphem::dut1(mjd);
+    test_double(base_date_.dut1(), dut1, __func__, __LINE__);
+    test_double(CEDate::dut1(mjd, CEDateType::MJD), dut1, __func__, __LINE__);
+
+    // Test xp,yp
+    double xpolar = CppEphem::xp(mjd);
+    double ypolar = CppEphem::yp(mjd);
+    test_double(base_date_.xpolar(), xpolar, __func__, __LINE__);
+    test_double(base_date_.ypolar(), ypolar, __func__, __LINE__);
+    test_double(CEDate::xpolar(mjd, CEDateType::MJD), xpolar, __func__, __LINE__);
+    test_double(CEDate::ypolar(mjd, CEDateType::MJD), ypolar, __func__, __LINE__);
+
+    // UTC -> UT1
+    double test_ut1 = base_date_.MJD() + (base_date_.dut1() / CppEphem::sec_per_day());
+    double ut11, ut12;
+    CEDate::UTC2UT1(base_date_.MJD(), &ut11, &ut12);
+    test_double(ut11, CEDate::GetMJD2JDFactor(), __func__, __LINE__);
+    test_double(ut12, test_ut1, __func__, __LINE__);
+
+    // UTC -> TT
+    // NOTE: This is not a good test without the correct corrections
+    double test_tt(test_ut1);
+    double tt1, tt2;
+    CEDate::UTC2TT(base_date_.MJD(), &tt1, &tt2);
+    test_double(tt1, CEDate::GetMJD2JDFactor(), __func__, __LINE__);
+    test_double(tt2, test_tt, __func__, __LINE__);
+
+    // UTC -> TDB
+    // NOTE: This is not a good test without the correct corrections
+    double test_tdb(test_ut1);
+    double tdb1, tdb2;
+    CEDate::UTC2TDB(base_date_.MJD(), &tdb1, &tdb2);
+    test_double(tdb1, CEDate::GetMJD2JDFactor(), __func__, __LINE__);
+    test_double(tdb2, test_tdb, __func__, __LINE__);
+
+
 
     return pass();
 }

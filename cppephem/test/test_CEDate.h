@@ -34,12 +34,12 @@ public:
 
     /****** METHODS ******/
 
+    virtual bool test_constructor(void);
     virtual bool test_SetDate_JD(void);
     virtual bool test_SetDate_MJD(void);
     virtual bool test_Gregorian(void);
-
     virtual bool test_ReturnType(void);
-
+    virtual bool test_support_methods(void);
 
 private:
 
