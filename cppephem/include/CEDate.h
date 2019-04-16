@@ -83,9 +83,15 @@ public:
     static double               MJD2JD(double mjd);
     static double               MJD2Gregorian(double mjd);
     static std::vector<double>  MJD2GregorianVect(double mjd);
-    static double               UTC2UT1(double jd_utc, double dut1=0.0) ;
-    static double               UTC2TT(double jd_utc, double dut1=0.0) ;
-    static double               UTC2TDB(double jd_utc, double dut1=0.0) ;
+    static void                 UTC2UT1(const double& mjd,
+                                        double*       ut11,
+                                        double*       ut12) ;
+    static void                 UTC2TT(const double& mjd,
+                                       double*       tt1,
+                                       double*       tt2) ;
+    static void                 UTC2TDB(const double& mjd,
+                                        double*       tdb1,
+                                        double*       tdb2) ;
     
     /***********************************************************
      * Some useful helper methods
