@@ -3,7 +3,7 @@ CPPEPHEM
 [![Build Status](https://travis-ci.org/Jvinniec/CppEphem.svg?branch=master)](https://travis-ci.org/Jvinniec/CppEphem)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cpp-ephem&metric=alert_status)](https://sonarcloud.io/dashboard?id=cpp-ephem)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=cpp-ephem&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=cpp-ephem)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=cpp-ephem%3Atravis_buldtest&metric=coverage)](https://sonarcloud.io/dashboard?id=cpp-ephem)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=cpp-ephem&metric=coverage)](https://sonarcloud.io/dashboard?id=cpp-ephem)
 
 * Creation Date: March 2016
 * [Documentation available here](http://jvinniec.github.io/CppEphem/documentation/html/index.html)
