@@ -371,37 +371,71 @@ double CEDate::GregorianVect2MJD(std::vector<double> gregorian)
 
 
 /**********************************************************************//**
- * Convert the UTC JD to UT1 JD
+ * Convert the UTC MJD to UT1 JD
+ * 
+ * @param[in]  mjd          Input modified Julian date for computation
+ * @param[out] ut11         First part of returned UT1 in JD
+ * @param[out] ut12         Second part of returned UT1 in JD
+ * 
+ * Notes:
+ *    1) The full ut1 in Julian date format can be obtained by summing
+ *       ut11 and ut12.
+ *    2) @p ut12 represents the UT1 in modified Julian date
+ *    3) @p ut11 should be the conversion factor between JD and MJD
  *************************************************************************/
-double CEDate::UTC2UT1(double jd_utc, double dut1)
+void CEDate::UTC2UT1(const double& mjd,
+                     double*       ut11,
+                     double*       ut12)
 {
-    double ut11, ut12 ;
-    iauUtcut1(jd_utc, 0.0, dut1, &ut11, &ut12) ;
-    return ut11+ut12 ;
+    iauUtcut1(CEDate::GetMJD2JDFactor(), mjd, CppEphem::dut1(mjd), ut11, ut12) ;
 }
 
 
 /**********************************************************************//**
- * Convert the UTC JD to TT JD
+ * Convert the UTC MJD to TT JD
+ * 
+ * @param[in]  mjd          Input modified Julian date for computation
+ * @param[out] tt1          First part of returned TT in JD
+ * @param[out] tt2          Second part of returned TT in JD
+ * 
+ * Notes:
+ *    1) The full TT in Julian date format can be obtained by summing
+ *       tt1 and tt2.
+ *    2) @p tt2 represents the TT in modified Julian date
+ *    3) @p tt1 should be the conversion factor between JD and MJD
  *************************************************************************/
-double CEDate::UTC2TT(double jd_utc, double dut1)
+void CEDate::UTC2TT(const double& mjd,
+                    double*       tt1,
+                    double*       tt2)
 {
-    double ut1( UTC2UT1(jd_utc, dut1) ) ;
-    double tt1, tt2 ;
-    iauUt1tt(ut1, 0.0, 0.0, &tt1, &tt2) ;
-    return tt1+tt2 ;
+    double ut11(0.0);
+    double ut12(0.0);
+    CEDate::UTC2UT1(mjd, &ut11, &ut12);
+    iauUt1tt(ut11, ut12, 0.0, tt1, tt2) ;
 }
 
 
 /**********************************************************************//**
- * Convert the UTC JD to TDB JD (useful for planet computations)
+ * Convert the UTC MJD to TDB JD (useful for planet computations)
+ * 
+ * @param[in]  mjd          Input modified Julian date for computation
+ * @param[out] tdb1         First part of returned TDB in JD
+ * @param[out] tdb2         Second part of returned TDB in JD
+ * 
+ * Notes:
+ *    1) The full TDB in Julian date format can be obtained by summing
+ *       tdb1 and tdb2.
+ *    2) @p tdb2 represents the TDB in modified Julian date
+ *    3) @p tdb1 should be the conversion factor between JD and MJD
  *************************************************************************/
-double CEDate::UTC2TDB(double jd_utc, double dut1)
+void CEDate::UTC2TDB(const double& mjd,
+                     double*       tdb1,
+                     double*       tdb2)
 {
-    double tt( UTC2TT(jd_utc, dut1) );
-    double tdb1, tdb2;
-    iauTttdb(tt, 0.0, 0.0, &tdb1, &tdb2) ;
-    return tdb1+tdb2 ;
+    double tt1(0.0);
+    double tt2(0.0);
+    CEDate::UTC2TT(mjd, &tt1, &tt2);
+    iauTttdb(tt1, tt2, 0.0, tdb1, tdb2) ;
 }
 
 
