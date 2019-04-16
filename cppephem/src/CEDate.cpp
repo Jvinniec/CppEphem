@@ -47,7 +47,7 @@ CEDate::CEDate(double date, CEDateType date_format)
 {
     init_members();
     // Use the SetDate function to set the actual time
-    SetDate(date, date_format) ;
+    CEDate::SetDate(date, date_format) ;
 }
 
 /**********************************************************************//**
@@ -62,7 +62,7 @@ CEDate::CEDate(std::vector<double> date)
 {
     init_members();
     // First get the gregorian date double from the vector, then set the date
-    SetDate(GregorianVect2Gregorian(date), CEDateType::GREGORIAN) ;
+    CEDate::SetDate(GregorianVect2Gregorian(date), CEDateType::GREGORIAN) ;
 }
 
 /**********************************************************************//**
@@ -229,7 +229,6 @@ std::vector<double> CEDate::JD2GregorianVect(double jd)
     return full_gregorian_vect ;
 }
 
-# pragma mark - Modified Julian Date Converters
 
 // Note that the modified julian date converters first do a conversion
 // to Julian Date and then call the Julian Date converters
@@ -279,7 +278,6 @@ std::vector<double> CEDate::MJD2GregorianVect(double mjd)
     return JD2GregorianVect(jd) ;
 }
 
-# pragma mark - Gregorian Date Converters
 
 /**********************************************************************//**
  * Gregorian calendar date -> Julian date
@@ -583,10 +581,12 @@ std::vector<double> CEDate::Gregorian2GregorianVect(double gregorian)
  * @param utc_offset       Observer UTC offset (dont forget about daylight saving time)
  * @return Seconds since midnight
  *************************************************************************/
-double CEDate::GetSecondsSinceMidnight(double utc_offset)
+double CEDate::GetSecondsSinceMidnight(const double& utc_offset)
 {
-    double jd_offset = julian_date_ + (utc_offset/24.0) ;
-    return CETime::UTC( jd_offset ) ;
+    double mjd_offset = MJD();
+    mjd_offset -= std::floor(mjd_offset);
+    mjd_offset += utc_offset/24.0;
+    return CETime::UTC( mjd_offset ) ;
 }
 
 
@@ -599,19 +599,21 @@ double CEDate::GetSecondsSinceMidnight(double utc_offset)
  *************************************************************************/
 double CEDate::GetTime(const double& utc_offset) const
 {
-    double jd_offset = JD() + (utc_offset/24.0) ;
-    return CETime::TimeSec2Time( CETime::UTC( jd_offset ) ) ;
+    double mjd_offset = MJD();
+    mjd_offset -= std::floor(mjd_offset);
+    mjd_offset += utc_offset/24.0;
+    return CETime::TimeSec2Time( CETime::UTC( mjd_offset ) ) ;
 }
 
 
 /**********************************************************************//**
- * Method for getting the current UTC time.
+ * Method for getting the current UTC time
  * 
  * @return Current time formatted as HHMMSS.S
  *************************************************************************/
 double CEDate::GetTime_UTC() const
 {
-    return GetTime() ;
+    return GetTime(0.0) ;
 }
 
 
