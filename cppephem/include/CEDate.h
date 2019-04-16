@@ -98,14 +98,17 @@ public:
      ***********************************************************/
     
     static double GetMJD2JDFactor();
-    static double dut1(double date, CEDateType date_type=CEDateType::JD) ;
-    double        dut1() const;
-    static double dut1Error(double date, CEDateType date_type=CEDateType::JD) ;
-    double        dut1Error() ;
-    static double xpolar(double date, CEDateType date_type=CEDateType::JD) ;
-    double        xpolar() const;
-    static double ypolar(double date, CEDateType date_type=CEDateType::JD) ;
-    double        ypolar() const;
+    static double dut1(const double&     date, 
+                       const CEDateType& date_type=CEDateType::JD) ;
+    double        dut1(void) const;
+    // static double dut1Error(double date, CEDateType date_type=CEDateType::JD) ;
+    // double        dut1Error() ;
+    static double xpolar(const double&     date, 
+                         const CEDateType& date_type=CEDateType::JD) ;
+    double        xpolar(void) const;
+    static double ypolar(const double&     date, 
+                         const CEDateType& date_type=CEDateType::JD) ;
+    double        ypolar(void) const;
     
     static double GregorianVect2Gregorian(std::vector<double> gregorian) ;
     static std::vector<double> Gregorian2GregorianVect(double gregorian) ;

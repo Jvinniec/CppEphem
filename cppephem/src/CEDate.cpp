@@ -440,8 +440,14 @@ void CEDate::UTC2TDB(const double& mjd,
 
 
 /**********************************************************************//**
+ * Return dut1 based on a given modified date
+ * 
+ * @param[in] date          Date object
+ * @param[in] date_type     Date format of @p date
+ * @return UT1-UTC correction (seconds) for a given date
  *************************************************************************/
-double CEDate::dut1(double date, CEDateType date_type)
+double CEDate::dut1(const double&     date, 
+                    const CEDateType& date_type)
 {
     // Create an object from the date information
     CEDate input_date(date, date_type) ;
@@ -451,35 +457,44 @@ double CEDate::dut1(double date, CEDateType date_type)
 
 
 /**********************************************************************//**
+ * Return dut1 based on the date represented by this object
+ * 
+ * @return UT1-UTC correction (seconds) for this date object
  *************************************************************************/
-double CEDate::dut1() const
+double CEDate::dut1(void) const
 {
     // return the value associated with 'UT1-UTC'
     return CppEphem::dut1(mod_julian_date_) ;
 }
 
 
-/**********************************************************************//**
- *************************************************************************/
-double CEDate::dut1Error(double date, CEDateType date_type)
-{
-    CEDate input_date(date, date_type) ;
-    return input_date.dut1Error() ;
-}
+// /**********************************************************************//**
+//  *************************************************************************/
+// double CEDate::dut1Error(double date, CEDateType date_type)
+// {
+//     CEDate input_date(date, date_type) ;
+//     return input_date.dut1Error() ;
+// }
+
+
+// /**********************************************************************//**
+//  *************************************************************************/
+// double CEDate::dut1Error()
+// {
+//     // Return the error on the dut1 value
+//     return CppEphem::dut1Error(mod_julian_date_) ;
+// }
 
 
 /**********************************************************************//**
+ * Polar motion (x) for a given date
+ * 
+ * @param[in] date          Date object
+ * @param[in] date_type     Date format of @p date
+ * @return x-polar motion correction for a given date
  *************************************************************************/
-double CEDate::dut1Error()
-{
-    // Return the error on the dut1 value
-    return CppEphem::dut1Error(mod_julian_date_) ;
-}
-
-
-/**********************************************************************//**
- *************************************************************************/
-double CEDate::xpolar(double date, CEDateType date_type)
+double CEDate::xpolar(const double&     date, 
+                      const CEDateType& date_type)
 {
     CEDate input_date(date, date_type) ;
     return CppEphem::xp( input_date.MJD() ) ;
@@ -487,20 +502,25 @@ double CEDate::xpolar(double date, CEDateType date_type)
 
 
 /**********************************************************************//**
+ * Polar motion (x) for a given date
+ * 
+ * @return x-polar motion correction for this date
  *************************************************************************/
-double CEDate::xpolar() const
+double CEDate::xpolar(void) const
 {
     return CppEphem::xp( mod_julian_date_ ) ;
 }
 
 
 /**********************************************************************//**
- *
+ * Polar motion (xy for a given date
  * 
- * @param[in] date
- * @param[in] date_type
+ * @param[in] date          Date object
+ * @param[in] date_type     Date format of @p date
+ * @return y-polar motion correction for a given date
  *************************************************************************/
-double CEDate::ypolar(double date, CEDateType date_type)
+double CEDate::ypolar(const double&     date, 
+                      const CEDateType& date_type)
 {
     CEDate input_date(date, date_type) ;
     return CppEphem::yp( input_date.MJD() ) ;
@@ -508,8 +528,11 @@ double CEDate::ypolar(double date, CEDateType date_type)
 
 
 /**********************************************************************//**
+ * Polar motion (y) for a given date
+ * 
+ * @return y-polar motion correction for this date
  *************************************************************************/
-double CEDate::ypolar() const
+double CEDate::ypolar(void) const
 {
     return CppEphem::yp( mod_julian_date_ ) ;
 }
