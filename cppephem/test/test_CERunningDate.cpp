@@ -32,9 +32,10 @@ test_CERunningDate::test_CERunningDate() :
     CETestSuite()
 {
     // Create the base objects for comparison
-    base_date_ = CEDate();
-    base_      = CERunningDate();
-    naptime_   = std::chrono::milliseconds(500);
+    base_date_  = CEDate();
+    base_       = CERunningDate();
+    naptime_ms_ = 500;
+    naptime_    = std::chrono::milliseconds(naptime_ms_);
 
     // pause execution to give the the date time to run
     std::this_thread::sleep_for(naptime_);
@@ -59,6 +60,7 @@ bool test_CERunningDate::runtests()
 
     // Run each of the tests
     test_construct();
+    test_timer_manip();
 
     return pass();
 }
@@ -76,10 +78,42 @@ bool test_CERunningDate::test_construct(void)
 
     // Default constructor
     test(base_date_.JD() != base_.JD(), __func__, __LINE__);
+    test(base_date_.MJD() != base_.MJD(), __func__, __LINE__);
+    test(base_date_.Gregorian() != base_.Gregorian(), __func__, __LINE__);
 
     // These should give the same value
     test_double(test1.JD(), base_.JD(), __func__, __LINE__);
 
+    // Make sure the timer has run
+    test_greaterthan(test1.RunTime(), naptime_ms_/1000.0, __func__, __LINE__);
+
+    return pass();
+}
+
+
+/**********************************************************************//**
+ * Test manipulating the timer
+ * 
+ * @return whether the tests succeed
+ *************************************************************************/
+bool test_CERunningDate::test_timer_manip(void)
+{
+    // Get a copy of the base timer
+    CERunningDate test1(base_);
+    
+    // Test updating the timer speed
+    test_double(test1.GetTimerSpeed(), 1.0, __func__, __LINE__);
+    double new_speed(100.0);
+    test1.SetTimerSpeed(new_speed);
+    test_double(test1.GetTimerSpeed(), new_speed, __func__, __LINE__);
+    
+    // Pause for some amount of time and test that the 
+    test1.ResetTime();
+    test1.SetTimerSpeed(new_speed);
+    std::this_thread::sleep_for(naptime_);
+    test_greaterthan(test1.ScaledRunTime(), naptime_ms_*2.0/1000.0, __func__, __LINE__);
+
+    // Reset the timer
     return pass();
 }
 
