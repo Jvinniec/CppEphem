@@ -43,6 +43,8 @@ public:
     virtual bool test_Convert2Galactic(void);
     virtual bool test_Convert2Observed(void);
 
+    virtual bool test_AngularSeparation(void);
+    virtual bool test_ConvertTo(void);
 private:
 
     // Private coordin
