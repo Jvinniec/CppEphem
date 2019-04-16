@@ -39,6 +39,7 @@ public:
     double      ypolar(const double& mjd) const;
     std::string Filename(void) const;
     void        SetFilename(const std::string& filename);
+    void        SetInterp(bool set_interp);
 
 private:
 
@@ -54,7 +55,6 @@ private:
 
     // Table to hold the corrections for a given MJD
     mutable std::map<int, std::vector<double>> corrections_;
-    //std::map<int, std::vector<double>> errors_;
 
     // Specifies whether to interpolate values between dates or not
     // Interpolating will give slightly more accurate results at the expense
@@ -75,6 +75,18 @@ inline
 std::string CECorrections::Filename(void) const
 {
     return filename_;
+}
+
+
+/**********************************************************************//**
+ * Defines that the correction values should be interpolated
+ * 
+ * @param[in] set_interp        New interpolation boolean
+ *************************************************************************/
+inline
+void CECorrections::SetInterp(bool set_interp)
+{
+    interp_ = set_interp;
 }
 
 #endif /* CECorrections_h */
