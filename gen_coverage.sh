@@ -32,7 +32,7 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
 
     # Generic executables
     LLVM_PROFILE_FILE="${outdir}/angsep.profraw"        ./build/bin/test_angsep --xcoord1=0.0 --ycoord1=0.0 --xcoord2=0.0 --ycoord2=1.0
-    LLVM_PROFILE_FILE="${outdir}/planetephem.profraw"   ./build/bin/test_planetephem --planet=4 --longitude=0 --latitude=42 --elevation=0 --startJD=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/planetephem.profraw"   ./build/bin/test_planetephem --planet=4 --longitude=0 --latitude=0 --elevation=0 --startJD=2451545.0
 
     # Date conversion tests
     LLVM_PROFILE_FILE="${outdir}/cal2jd.profraw"        ./build/bin/test_cal2jd 20000101.5
