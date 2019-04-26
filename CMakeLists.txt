@@ -21,7 +21,7 @@ if (prefix)
 endif()
 
 # User defined corrections file location
-set (CPPEPHEM_CORRFILEPATH "${CMAKE_INSTALL_PREFIX}/share/cppephem/corrections.txt")
+set (CPPEPHEM_CORRFILEPATH "${CMAKE_INSTALL_PREFIX}/share/cppephem/")
 if (CORRFILEPATH)
     set (CPPEPHEM_CORRFILEPATH ${CORRFILEPATH})
 endif()
@@ -81,7 +81,7 @@ endfunction(cppephem_executable)
 # EVERY SINGLE TIME!
 function (cppephem_test _name _source)
     add_executable(${_name} ${_source} ${cppephem_SOURCES})
-    target_compile_definitions(${_name} PUBLIC -DCECORRFILEPATH=\"${CMAKE_BINARY_DIR}/build/share/cppephem/corrections.txt\"
+    target_compile_definitions(${_name} PUBLIC -DCECORRFILEPATH=\"${CMAKE_BINARY_DIR}/build/share/cppephem/\"
                                                -DCPPEPHEM_VERSION=\"${cppephem_version}-TEST\"
                                                -DNOCURL)
     target_compile_options(${_name} PUBLIC -fno-inline)
@@ -115,7 +115,7 @@ install(DIRECTORY ${SOFA_DIRECTORY}/
 install(DIRECTORY ${CPPEPHEM_SHARE_OUTPUT_DIRECTORY}
     USE_SOURCE_PERMISSIONS
     DESTINATION ${CMAKE_INSTALL_PREFIX}/share
-    PATTERN "corrections.txt" EXCLUDE)
+    PATTERN "*.txt" EXCLUDE)
 
 install(DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
 	USE_SOURCE_PERMISSIONS
