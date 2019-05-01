@@ -12,7 +12,7 @@ from astropy.time import Time
 print("Computing input values for test_CECoordinates")
 
 # Coordinates to be observed
-test = SkyCoord(83.663*u.deg, 22.0145*u.deg, frame='icrs')
+test = SkyCoord(83.633*u.deg, 22.0145*u.deg, frame='icrs')
 # Observer position
 earth_pos = EarthLocation(lat=0*u.deg, lon=0*u.deg, height=0*u.m)
 # Observation time
