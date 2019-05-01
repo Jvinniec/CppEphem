@@ -22,6 +22,8 @@
 #ifndef test_CEPlanet_h
 #define test_CEPlanet_h
 
+#include "CEDate.h"
+#include "CEObserver.h"
 #include "CEPlanet.h"
 #include "CETestSuite.h"
 
@@ -36,14 +38,28 @@ public:
 
     virtual bool test_construct(void);
 
+    // Test individual planets
+    virtual bool test_mercury(void);
+    virtual bool test_venus(void);
+    virtual bool test_earth(void);
+    virtual bool test_mars(void);
+    virtual bool test_jupiter(void);
+    virtual bool test_saturn(void);
+    virtual bool test_uranus(void);
+    virtual bool test_neptune(void);
+
+    // Run the actual tests
+    virtual bool test_planet(const CEPlanet&            test_planet,
+                             const CECoordinates&       true_icrs,
+                             const std::vector<double>& true_pos,
+                             const std::vector<double>& true_vel);
+
 private:
 
-    bool test_Planet(const CEPlanet&    planet1, 
-                     const CEPlanet&    planet2,
-                     const std::string& func,
-                     const int&         line);
+    bool test_Planets(void);
 
-    CEPlanet base_;
+    CEObserver base_observer_;
+    CEDate     base_date_;
 
 };
 
