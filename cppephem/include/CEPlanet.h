@@ -66,9 +66,11 @@ public:
     double GetXICRS();
     double GetYICRS();
     double GetZICRS();
+    std::vector<double> PositionICRS(void) const;
     double GetVxICRS();
     double GetVyICRS();
     double GetVzICRS();
+    std::vector<double> VelocityICRS(void) const;
     
     /****************************
      * Methods for computing apparent "phase"
@@ -118,14 +120,17 @@ public:
     static CEPlanet Pluto() ;
     
     // Set the algorithm
-    void SetAlgorithm(CEPlanetAlgo new_algo);
-    void SetSofaID(double new_id);
+    CEPlanetAlgo Algorithm(void) const;
+    void         SetAlgorithm(const CEPlanetAlgo& new_algo);
+    void         SetSofaID(const double& new_id);
     
 private:
     
     void copy_members(const CEPlanet& other);
     void init_members(void);
     void free_members(void);
+
+    void UpdatePosition(const double& jd) const;
 
     /******************************************
      * Methods for the JPL algorithm
@@ -158,14 +163,10 @@ private:
     
     // The coordinates representing the current position will need to be
     // relative to some date, since planets move. This is the cached date
-    mutable double cached_jd_;           ///< Julian date of the current coordinates
-    mutable double x_icrs_;              ///< X-Coordinate relative to solar system barycenter
-    mutable double y_icrs_;              ///< Y-Coordinate relative to solar system barycenter
-    mutable double z_icrs_;              ///< Z-Coordinate relative to solar system barycenter
+    mutable double cached_jd_;             ///< Julian date of the current coordinates
+    mutable std::vector<double> pos_icrs_; ///< XYZ position (AU) relative to solar system barycenter
     // Note, these velocities are only computed for "algorithm_type_=SOFA" at the moment
-    mutable double vx_icrs_;             ///< X-velocity relative to solar system center
-    mutable double vy_icrs_;             ///< Y-velocity relative to solar system center
-    mutable double vz_icrs_;             ///< Z-velocity relative to solar system center
+    mutable std::vector<double> vel_icrs_; ///< XYZ velocity (AU/day) relative to solar system barycenter
     
     /******************************************
      * Properties for the JPL algorithm
@@ -195,6 +196,16 @@ private:
     double s_;
     double f_;    
 };
+
+
+/**********************************************************************//**
+ * @return Algorithm used for computing the planet position
+ *************************************************************************/
+inline
+CEPlanetAlgo CEPlanet::Algorithm(void) const
+{
+    return algorithm_type_;
+}
 
 
 /**********************************************************************//**
@@ -301,7 +312,7 @@ double CEPlanet::YCoordinate_Deg(double new_date) const
 inline
 double CEPlanet::GetXICRS()
 {
-    return x_icrs_ ;
+    return pos_icrs_[0] ;
 }
 
 
@@ -311,7 +322,7 @@ double CEPlanet::GetXICRS()
 inline
 double CEPlanet::GetYICRS() 
 {
-    return y_icrs_ ;
+    return pos_icrs_[1] ;
 }
 
 
@@ -321,39 +332,58 @@ double CEPlanet::GetYICRS()
 inline
 double CEPlanet::GetZICRS() 
 {
-    return z_icrs_ ;
+    return pos_icrs_[2] ;
 }
 
 
 /**********************************************************************//**
- * X velocity relative to solar system center (AU/day)
+ * Z distance from solar system barycenter (AU)
+ *************************************************************************/
+inline
+std::vector<double> CEPlanet::PositionICRS(void) const
+{
+    return pos_icrs_;
+}
+
+
+/**********************************************************************//**
+ * X velocity relative to solar system barycenter (AU/day)
  *************************************************************************/
 inline
 double CEPlanet::GetVxICRS() 
 {
-    return vx_icrs_ ;
+    return vel_icrs_[0];
 }
 
 
 /**********************************************************************//**
- * Y velocity relative to solar system center (AU/day)
+ * Y velocity relative to solar system barycenter (AU/day)
  *************************************************************************/
 inline
 double CEPlanet::GetVyICRS() 
 {
-    return vy_icrs_ ;
+    return vel_icrs_[1];
 } 
 
 
 /**********************************************************************//**
- * Z velocity relative to solar system center (AU/day)
+ * Z velocity relative to solar system barycenter (AU/day)
  *************************************************************************/
 inline
 double CEPlanet::GetVzICRS() 
 {
-    return vz_icrs_ ;
+    return vel_icrs_[2];
 }
 
+
+/**********************************************************************//**
+ * Vector of velocities relative to solar system barycenter (AU/day)
+ *************************************************************************/
+inline
+std::vector<double> CEPlanet::VelocityICRS(void) const
+{
+    return vel_icrs_;
+}
 
 /**********************************************************************//**
  *************************************************************************/
@@ -380,9 +410,12 @@ void CEPlanet::SetTolerance(double tol)
 
 
 /**********************************************************************//**
+ * Set the desired planet computation algorithm
+ * 
+ * @param[in] new_algo      Algorithm for computing planet spatial parameters
  *************************************************************************/
 inline
-void CEPlanet::SetAlgorithm(CEPlanetAlgo new_algo)
+void CEPlanet::SetAlgorithm(const CEPlanetAlgo& new_algo)
 {
     algorithm_type_ = new_algo;
     if (reference_ != nullptr) reference_->SetAlgorithm(new_algo) ;

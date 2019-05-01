@@ -160,7 +160,9 @@ void PrintEphemeris(CEObservation& obs,
     std::printf(" =======================================================================\n") ;
     int max_steps = int(duration/step_size) ;
     for (int s=0; s<=max_steps; s++) {
-        
+
+        // Update the coordiantes of the planet
+        planet->UpdateCoordinates(date->JD());
         ra = CECoordinates::GetHMS( planet->XCoordinate_Deg() );
         dec = CECoordinates::GetDMS( planet->YCoordinate_Deg() );
         

@@ -221,9 +221,6 @@ CEPlanet CEPlanet::Mercury()
     mercury.SetPerihelionLongitude(77.45771895, 0.15940013, CEAngleType::DEGREES) ;
     mercury.SetAscendingNodeLongitude(48.33961819, -0.12214182, CEAngleType::DEGREES) ;
     
-    // Set the reference object as the Earth center
-    mercury.SetReference(new CEPlanet(CEPlanet::Earth())) ;
-    
     // Set planet characteristics
     mercury.SetMeanRadius_m(2440000.0) ;
     mercury.SetAlbedo(0.106) ;
@@ -249,9 +246,7 @@ CEPlanet CEPlanet::Venus()
     venus.SetPerihelionLongitude(131.76755713, 0.05679648, CEAngleType::DEGREES) ;
     venus.SetAscendingNodeLongitude(76.67261496, -0.27274174, CEAngleType::DEGREES) ;
     
-    // Set the reference object as the Earth center
-    venus.SetReference(new CEPlanet(CEPlanet::Earth())) ;
-    
+    // Set the planetary properties
     venus.SetMeanRadius_m(6051800.0) ;
     venus.SetAlbedo(0.65) ;
     venus.SetMass_kg(48.685E23) ;
@@ -276,6 +271,7 @@ CEPlanet CEPlanet::Earth()
     earth.SetPerihelionLongitude(102.93005885, 0.31795260, CEAngleType::DEGREES) ;
     earth.SetAscendingNodeLongitude(-5.11260389, -0.24123856, CEAngleType::DEGREES) ;
     
+    // Set planetary properties
     earth.SetMeanRadius_m(0.0) ;
     earth.SetAlbedo(0.0) ;
     earth.SetMass_kg(0.0) ;
@@ -301,9 +297,6 @@ CEPlanet CEPlanet::EMBarycenter()
     em_barycenter.SetPerihelionLongitude(102.93005885, 0.31795260, CEAngleType::DEGREES) ;
     em_barycenter.SetAscendingNodeLongitude(-5.11260389, -0.24123856, CEAngleType::DEGREES) ;
 
-    // Set the reference object as the Earth center
-//    em_barycenter.SetReference(new CEPlanet(CEPlanet::Earth())) ;
-    
     // Set the sofa planet ID
     em_barycenter.SetSofaID(3) ;
     
@@ -325,9 +318,7 @@ CEPlanet CEPlanet::Mars()
     mars.SetPerihelionLongitude(-23.91744784, 0.45223625, CEAngleType::DEGREES) ;
     mars.SetAscendingNodeLongitude(49.71320984, -0.26852431, CEAngleType::DEGREES) ;
     
-    // Set the reference object as the Earth center
-    mars.SetReference(new CEPlanet(CEPlanet::Earth())) ;
-    
+    // Set planetary properties
     mars.SetMeanRadius_m(3389900.0) ;
     mars.SetAlbedo(0.150) ;
     mars.SetMass_kg(6.4185E23) ;
@@ -356,9 +347,7 @@ CEPlanet CEPlanet::Jupiter()
     
     jupiter.SetExtraTerms(-0.00012452, 0.06064060, -0.35635438, 38.35125000) ;
     
-    // Set the reference object as the Earth center
-    jupiter.SetReference(new CEPlanet(CEPlanet::Earth())) ;
-    
+    // Set planetary properties
     jupiter.SetMeanRadius_m(69911000.0) ;
     jupiter.SetAlbedo(0.52) ;
     jupiter.SetMass_kg(1.89813E27) ;
@@ -386,9 +375,7 @@ CEPlanet CEPlanet::Saturn()
     
     saturn.SetExtraTerms(0.00025899, -0.13434469, 0.87320147, 38.35125000) ;
     
-    // Set the reference object as the Earth center
-    saturn.SetReference(new CEPlanet(CEPlanet::Earth())) ;
-    
+    // Set planetary properties
     saturn.SetMeanRadius_m(58232000.0) ;
     saturn.SetAlbedo(0.47) ;
     saturn.SetMass_kg(5.68319E26) ;
@@ -416,9 +403,7 @@ CEPlanet CEPlanet::Uranus()
     
     uranus.SetExtraTerms(0.00058331, -0.97731848, 0.17689245, 7.67025000) ;
     
-    // Set the reference object as the Earth center
-    uranus.SetReference(new CEPlanet(CEPlanet::Earth())) ;
-    
+    // Set planetary properties
     uranus.SetMeanRadius_m(25362000.0) ;
     uranus.SetAlbedo(0.51) ;
     uranus.SetMass_kg(8.68103E25) ;
@@ -446,9 +431,7 @@ CEPlanet CEPlanet::Neptune()
     
     neptune.SetExtraTerms(-0.00041348, 0.68346318, -0.10162547, 7.67025000) ;
     
-    // Set the reference object as the Earth center
-    neptune.SetReference(new CEPlanet(CEPlanet::Earth())) ;
-    
+    // Set planetary properties
     neptune.SetMeanRadius_m(24624000.0) ;
     neptune.SetAlbedo(0.41) ;
     neptune.SetMass_kg(1.0241E26) ;
@@ -477,9 +460,7 @@ CEPlanet CEPlanet::Pluto()
     
     pluto.SetExtraTerms(-0.01262724, 0.0, 0.0, 0.0) ;
     
-    // Set the reference object as the Earth center
-    pluto.SetReference(new CEPlanet(CEPlanet::Earth())) ;
-    
+    // Set planetary properties
     pluto.SetMeanRadius_m(1195000.0) ;
     pluto.SetAlbedo(0.3) ;
     pluto.SetMass_kg(1.307E22) ;
@@ -613,33 +594,59 @@ void CEPlanet::SetAscendingNodeLongitude(double ascending_node_lon,
 void CEPlanet::UpdateCoordinates(double new_jd) const
 {
     // If no date was supplied, or if the date hasnt changed, do nothing
-    if ((new_jd < -1.0e29) || (new_jd == cached_jd_)) {
-        return ;
-    } else if (algorithm_type_ == CEPlanetAlgo::JPL) {
-        Update_JPL(new_jd) ;
-    } else if (algorithm_type_ == CEPlanetAlgo::SOFA) {
-        Update_SOFA(new_jd) ;
-    }
-    
-    double x_eq(x_icrs_), y_eq(y_icrs_), z_eq(z_icrs_) ;
-    // If there is a reference object, then compute more accurate RA,DEC
-    if (reference_ != nullptr) {
-        reference_->UpdateCoordinates(new_jd) ;
-        x_eq = x_icrs_ - reference_->GetXICRS() ;
-        y_eq = y_icrs_ - reference_->GetYICRS() ;
-        z_eq = z_icrs_ - reference_->GetZICRS() ;
-    }
-    
-    // Now compute the actual coordiantes in ICRS
-    xcoord_ = std::atan2(y_eq, x_eq) ;
-    ycoord_ = M_PI_2 - std::acos(z_eq / std::sqrt(x_eq*x_eq + y_eq*y_eq + z_eq*z_eq)) ;
+    if ((new_jd < -1.0e29) || (new_jd == cached_jd_)) return;
 
+    // Update the positions given the current julian date
+    UpdatePosition(new_jd);
+
+    // Compute the position of the earth relative to the planet to account
+    // for the time delay of the planet
+    CEPlanet earth = CEPlanet::Earth();
+    earth.SetAlgorithm(Algorithm());
+    earth.UpdatePosition(new_jd);
+
+    std::vector<double> pos = pos_icrs_;
+    std::vector<double> vel = vel_icrs_;
+    double x = pos[0] - earth.GetXICRS();
+    double y = pos[1] - earth.GetYICRS();
+    double z = pos[2] - earth.GetZICRS();
+
+    // Compute the light travel time from the planet to Earth in days
+    double dist_au = std::sqrt(x*x + y*y + z*z);
+    double delay_d = dist_au / CppEphem::c_au_per_day();
+    
+    // Reupdate the position
+    UpdatePosition(new_jd-delay_d);
+
+    // Now compute the actual sky coordinates in ICRS
+    iauC2s(&pos_icrs_[0], &xcoord_, &ycoord_);
+    
     // Make sure the x-coordinate is in the appropriate range
-    while (xcoord_ > M_PI*2.0) xcoord_ -= M_PI*2.0 ;
-    while (xcoord_ < 0.0) xcoord_ += M_PI*2.0 ;
+    xcoord_ = iauAnp(xcoord_);
+
+    // Reset the position and velocity
+    pos_icrs_ = pos;
+    vel_icrs_ = vel;
 
     // Now that the coordinates are updated, reset the time
     cached_jd_ = new_jd ;
+}
+
+/**********************************************************************//**
+ * Recomputes the spatial position for a planet based on chosen algorithm
+ * 
+ * @param[in] jd            Julian date
+ *************************************************************************/
+void CEPlanet::UpdatePosition(const double& jd) const
+{
+    // If no date was supplied, or if the date hasnt changed, do nothing
+    if ((jd < -1.0e29) || (jd == cached_jd_)) {
+        return ;
+    } else if (algorithm_type_ == CEPlanetAlgo::JPL) {
+        Update_JPL(jd) ;
+    } else if (algorithm_type_ == CEPlanetAlgo::SOFA) {
+        Update_SOFA(jd) ;
+    }
 }
 
 /**********************************************************************//**
@@ -652,29 +659,38 @@ void CEPlanet::UpdateCoordinates(double new_jd) const
  *************************************************************************/
 void CEPlanet::Update_SOFA(double new_jd) const
 {
-    //std::vector<std::vector<double> > p(2,std::vector<double>(3)) ;
-    double pv[2][3] ;
-    int err (0) ;
-    if (sofa_planet_id_ == 3.5) {
-        double pvb[2][3] ;
-        err = iauEpv00(CppEphem::julian_date_J2000(),
-                        new_jd - CppEphem::julian_date_J2000(),
-                        pv, pvb) ;
-    } else {
-        err = iauPlan94(CppEphem::julian_date_J2000(),
-                        new_jd - CppEphem::julian_date_J2000(),
-                        sofa_planet_id_, pv) ;
+    // Compute the TDB based on supplied jd
+    double tdb1(0.0);
+    double tdb2(0.0);
+    double mjd = new_jd - CEDate::GetMJD2JDFactor();
+    CEDate::UTC2TDB(mjd, &tdb1, &tdb2);
+
+    // Compute the Earth relative corrections
+    double pvb[2][3];
+    double pvhe[2][3];
+    int err = iauEpv00(tdb1, tdb2, pvhe, pvb);
+
+    // If this isn't the earth, compute the planet's heliocentric position
+    if (sofa_planet_id_ != 3.5) {
+        double pvh[2][3];
+        err = iauPlan94(tdb1, tdb2, sofa_planet_id_, pvh) ;
+
+        // Compute the corrected factors for heliocentric -> barycentric as
+        //      bary_planet = helio_planet + (bary_earth - helio_earth)
+        for (int i=0; i<2; i++) {
+            for (int j=0; j<3; j++) {
+                pvb[i][j] = pvh[i][j] + (pvb[i][j] - pvhe[i][j]);
+            }
+        }
     }
     
+    // If the Error is not zero, compute the values
     if (err == 0) {
-        x_icrs_ = pv[0][0] ;
-        y_icrs_ = pv[0][1] ;
-        z_icrs_ = pv[0][2] ;
+        // position
+        pos_icrs_ = std::vector<double>(pvb[0], pvb[0]+3);
     
-        // Set the velocity coordinates
-        vx_icrs_ = pv[1][0] ;
-        vy_icrs_ = pv[1][1] ;
-        vz_icrs_ = pv[1][2] ;
+        // velocity
+        vel_icrs_ = std::vector<double>(pvb[1], pvb[1]+3);
     } else {
         std::cerr << "[ERROR] failed to compute planet positions for " << Name() << ". ErrCode=" << err << "\n" ;
     }
@@ -724,9 +740,9 @@ void CEPlanet::Update_JPL(double new_jd) const
     
     // Convert from the ecliptic coordinates to ICRS
     double obl = DD2R * 23.43928 ;
-    x_icrs_ = x_ecl ;
-    y_icrs_ = y_ecl * std::cos(obl) - z_ecl * std::sin(obl) ;
-    z_icrs_ = y_ecl * std::sin(obl) + z_ecl * std::cos(obl) ;
+    pos_icrs_[0] = x_ecl ;
+    pos_icrs_[1] = y_ecl * std::cos(obl) - z_ecl * std::sin(obl) ;
+    pos_icrs_[2] = y_ecl * std::sin(obl) + z_ecl * std::cos(obl) ;
 }
 
 
@@ -796,6 +812,9 @@ void CEPlanet::SetReference(CEPlanet* reference)
     }
     
     reference_ = reference;
+
+    // Reset cached date so that coordinates are recomputed
+    cached_jd_ = -1.0e30;
 }
 
 
@@ -804,7 +823,7 @@ void CEPlanet::SetReference(CEPlanet* reference)
  * 
  * @param[in] new_id            New planet ID
  *************************************************************************/
-void CEPlanet::SetSofaID(double new_id)
+void CEPlanet::SetSofaID(const double& new_id)
 {
     // If the id is outside the acceptable range, then set the algorithm to jpl
     if ((new_id < 1.0)||(new_id > 8.0)) {
@@ -845,13 +864,8 @@ void CEPlanet::copy_members(const CEPlanet& other)
     // The coordinates representing the current position will need to be
     // relative to some date, since planets move. This is the cached date
     cached_jd_ = other.cached_jd_;
-    x_icrs_ = other.x_icrs_;
-    y_icrs_ = other.y_icrs_;
-    z_icrs_ = other.z_icrs_;
-    // Note, these velocities are only computed for "algorithm_type_=SOFA" at the moment
-    vx_icrs_ = other.vx_icrs_;
-    vy_icrs_ = other.vy_icrs_;
-    vz_icrs_ = other.vz_icrs_;
+    pos_icrs_  = other.pos_icrs_;
+    vel_icrs_  = other.vel_icrs_;
     
     /******************************************
      * Properties for the JPL algorithm
@@ -905,14 +919,10 @@ void CEPlanet::init_members(void)
     
     // The coordinates representing the current position will need to be
     // relative to some date, since planets move. This is the cached date
-    cached_jd_ = 0.0;
-    x_icrs_ = 0.0;
-    y_icrs_ = 0.0;
-    z_icrs_ = 0.0;
+    cached_jd_ = -1.0e30;
+    pos_icrs_ = std::vector<double>(3, 0.0);
     // Note, these velocities are only computed for "algorithm_type_=SOFA" at the moment
-    vx_icrs_ = 0.0;
-    vy_icrs_ = 0.0;
-    vz_icrs_ = 0.0;
+    vel_icrs_ = std::vector<double>(3, 0.0);
     
     /******************************************
      * Properties for the JPL algorithm
