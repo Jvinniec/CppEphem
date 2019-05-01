@@ -1672,17 +1672,14 @@ double CECoordinates::HMSToAngle(const std::vector<double>& angle,
             case 1:
                 msg += "Hour value \'" + std::to_string(angle[0]) + "\' not in range 0-23";
                 throw CEException::invalid_value("CECoordinates::HMSToAngle", msg);
-                break;
             // Minutes out of bounds
             case 2:
                 msg += "Minutes value \'" + std::to_string(angle[1]) + "\' not in range 0-59";
                 throw CEException::invalid_value("CECoordinates::HMSToAngle", msg);
-                break;
             // Seconds out of bounds
             case 3:
                 msg += "Seconds value \'" + std::to_string(sec) + "\' not in range 0-59.999...";
                 throw CEException::invalid_value("CECoordinates::HMSToAngle", msg);
-                break;
         }
     }
 
