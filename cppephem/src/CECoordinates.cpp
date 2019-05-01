@@ -56,7 +56,7 @@ CECoordinates::CECoordinates(const double& xcoord,
                              const CEAngleType& angle_type)
 {
     init_members();
-    SetCoordinates(xcoord, ycoord, coord_type, angle_type);
+    CECoordinates::SetCoordinates(xcoord, ycoord, coord_type, angle_type);
 }
 
 
@@ -75,7 +75,7 @@ CECoordinates::CECoordinates(const std::vector<double>& xcoord,
     init_members();
     double x = CECoordinates::HMSToAngle(xcoord, CEAngleType::RADIANS);
     double y = CECoordinates::DMSToAngle(ycoord, CEAngleType::RADIANS);
-    SetCoordinates(x, y, coord_type, CEAngleType::RADIANS);
+    CECoordinates::SetCoordinates(x, y, coord_type, CEAngleType::RADIANS);
 }
 
 
@@ -144,7 +144,10 @@ void CECoordinates::CIRS2ICRS(double input_ra, double input_dec,
     
     // Use the sofa library to convert these coordinates
     double eo ; // Equation of the origins
-    iauAtic13(input_ra, input_dec, date.JD(), 0.0, return_ra, return_dec, &eo) ;
+    double tdb1(0.0);
+    double tdb2(0.0);
+    CEDate::UTC2TDB(date.MJD(), &tdb1, &tdb2);
+    iauAtic13(input_ra, input_dec, tdb1, tdb2, return_ra, return_dec, &eo) ;
 
     // Subtract the eo from RA if J2000 coordinates are desired
     //*return_ra -= eo ;
@@ -243,7 +246,7 @@ int CECoordinates::CIRS2Observed(double ra, double dec,
                                  observer.RelativeHumidity(),
                                  date.dut1(),
                                  date.xpolar(),
-                                 date.xpolar(),
+                                 date.ypolar(),
                                  wavelength,
                                  observed_ra, 
                                  observed_dec, 
@@ -287,9 +290,12 @@ void CECoordinates::ICRS2CIRS(double input_ra, double input_dec,
     
     // Use the sofa library to convert these coordinates
     try {
+        double tdb1(0.0);
+        double tdb2(0.0);
+        CEDate::UTC2TDB(date.MJD(), &tdb1, &tdb2);
         iauAtci13(input_ra, input_dec, 
                   0.0, 0.0, 0.0, 0.0, 
-                  date.JD(), 0.0, 
+                  tdb1, tdb2, 
                   return_ra, return_dec, &eo) ;
         
         // Subtract the equation of the origins if J2000 coordinates are desired
@@ -365,6 +371,16 @@ int CECoordinates::ICRS2Observed(double ra, double dec,
                                  double *observed_dec,
                                  double *hour_angle)
 {
+    // Setup the observed RA, Dec and hour_angle variables
+    double temp_ra(0.0);
+    double temp_dec(0.0);
+    double temp_hour_angle(0.0);
+
+    // If values were not passed, point them at the temporary ones
+    if (observed_ra  == nullptr) observed_ra  = &temp_ra;
+    if (observed_dec == nullptr) observed_dec = &temp_dec;
+    if (hour_angle   == nullptr) hour_angle   = &temp_hour_angle;
+
     // If we've passed in angles that are in degrees we need to convert to radians
     if (angle_type == CEAngleType::DEGREES) {
         ra  *= DD2R ;
@@ -383,7 +399,7 @@ int CECoordinates::ICRS2Observed(double ra, double dec,
                                  observer.RelativeHumidity(),
                                  date.dut1(),
                                  date.xpolar(),
-                                 date.xpolar(),
+                                 date.ypolar(),
                                  wavelength,
                                  observed_ra, observed_dec, hour_angle) ;
 
@@ -427,7 +443,8 @@ void CECoordinates::Galactic2CIRS(double glon, double glat, double *ra, double *
     Galactic2ICRS(glon, glat, ra, dec, CEAngleType::RADIANS) ;
     
     // Now convert ICRS -> CIRS
-    double tmp_ra(*ra), tmp_dec(*dec) ;
+    double tmp_ra(*ra);
+    double tmp_dec(*dec);
     ICRS2CIRS(tmp_ra, tmp_dec, ra, dec, date, CEAngleType::RADIANS) ;
     
     // Now make sure to return the coordinates in the correct format
@@ -508,7 +525,7 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
                                        observer.RelativeHumidity(),
                                        date.dut1(),
                                        date.xpolar(),
-                                       date.xpolar(),
+                                       date.ypolar(),
                                        wavelength,
                                        observed_glon, observed_glat, hour_angle) ;
     
@@ -703,7 +720,9 @@ int CECoordinates::CIRS2Observed(double ra, double dec,
                                  double *hour_angle)
 {
     // Setup the observed RA, Dec and hour_angle variables
-    double temp_ra, temp_dec, temp_hour_angle ;
+    double temp_ra(0.0);
+    double temp_dec(0.0);
+    double temp_hour_angle(0.0);
 
     // If values were not passed, point them at the temporary ones
     if (observed_ra  == nullptr) observed_ra  = &temp_ra;
@@ -825,7 +844,9 @@ int CECoordinates::ICRS2Observed(double ra, double dec,
                                  double *hour_angle)
 {
     // Setup the observed RA, Dec and hour_angle variables
-    double temp_ra, temp_dec, temp_hour_angle ;
+    double temp_ra(0.0);
+    double temp_dec(0.0);
+    double temp_hour_angle(0.0);
 
     // If values were passed, point these variables at the passed ones
     if (observed_ra  == nullptr) observed_ra  = &temp_ra;
@@ -950,14 +971,20 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
                                      double *hour_angle)
 {
     // Setup the observed RA, Dec and hour_angle variables
-    double temp_glon, temp_glat ;
-    double temp_ra, temp_dec, temp_hour_angle ;
+    double temp_glon(0.0);
+    double temp_glat(0.0);
+    double temp_ra(0.0);
+    double temp_dec(0.0);
+    double temp_hour_angle(0.0);
+
     // If values were passed, point these variables at the passed ones
     if (observed_glon == nullptr) observed_glon = &temp_glon;
     if (observed_glat == nullptr) observed_glat = &temp_glat;
+    if (hour_angle    == nullptr) hour_angle    = &temp_hour_angle;
     
     // Convert GALACTIC to ICRS
-    double ra(0.0), dec(0.0) ;
+    double ra(0.0);
+    double dec(0.0);
     CEDate date(julian_date, CEDateType::JD) ;
     Galactic2CIRS(glon, glat, &ra, &dec, date) ;
 
@@ -1058,7 +1085,7 @@ CECoordinates CECoordinates::GetObservedCoords(const double& julian_date,
                                 const double& relative_humidity,
                                 const double& dut1,
                                 const double& xp, const double& yp,
-                                const double& wavelength)
+                                const double& wavelength) const
 {
     // Preliminary variables
     double azimuth(0);
@@ -1106,7 +1133,7 @@ CECoordinates CECoordinates::GetObservedCoords(const double& julian_date,
  * @return These coordinates converted into the observed coordinates of 'observer'
  *************************************************************************/
 CECoordinates CECoordinates::GetObservedCoords(const CEDate& date,
-                                               const CEObserver& observer)
+                                               const CEObserver& observer) const
 {
     return GetObservedCoords(date,
                              observer.Longitude_Rad(),
@@ -1122,9 +1149,6 @@ CECoordinates CECoordinates::GetObservedCoords(const CEDate& date,
 }
 
 
-# pragma mark - End Conversions
-
-
 /**********************************************************************//**
  * Get the angular separation between the coordinates represented
  * by this object and another coordinate object. NOTE: The coordinates
@@ -1136,7 +1160,7 @@ CECoordinates CECoordinates::GetObservedCoords(const CEDate& date,
  * @return Angular separation between these coordinates and 'coords'
  *************************************************************************/
 double CECoordinates::AngularSeparation(const CECoordinates& coords,
-                                        const CEAngleType& return_angle_type)
+                                        const CEAngleType& return_angle_type) const
 {
     return AngularSeparation(*this, coords, return_angle_type) ;
 }
@@ -1359,7 +1383,8 @@ CECoordinates CECoordinates::ConvertToCIRS(double jd,
         std::cerr << "[ERROR] Unknown coordinate type!\n" ;
     }
     
-    return CECoordinates(xcoord_new, ycoord_new,
+    return CECoordinates(xcoord_new, 
+                         ycoord_new,
                          CECoordinateType::CIRS,
                          CEAngleType::RADIANS) ;
 }
@@ -1584,20 +1609,34 @@ std::vector<double> CECoordinates::GetDMS(const double& angle,
  *         -[0] = Hours
  *         -[1] = Minutes
  *         -[2] = Seconds
+ *         -[3] = Fractions of a second
  *************************************************************************/
 std::vector<double> CECoordinates::GetHMS(const double& angle,
                                           const CEAngleType& angle_type)
 {
     // Convert to degrees if passed radians
-    double ang(angle/15.0);
-    if (angle_type == CEAngleType::RADIANS) 
-        ang *= DR2D ;
+    double ang(angle);
+
+    if (angle_type == CEAngleType::DEGREES) 
+        ang *= DD2R ;
     
-    std::vector<double> HMS(3) ;
-    HMS[0] = std::floor(ang) ;
-    HMS[1] = std::floor((ang - HMS[0])*60.0) ;
-    HMS[2] = (ang - HMS[0] - (HMS[1]/60.0)) * 3600.0 ;
-    return HMS ;
+    // Stores the resulting values
+    std::vector<int> HMS_i(4);
+    // Stores the sign
+    char pm;
+    iauA2tf(9, ang, &pm, &HMS_i[0]);
+    
+    // Convert the values into doubles
+    std::vector<double> HMS_d(HMS_i.size());
+    // Scale the fraction to be a true fraction
+    HMS_d[0] = double(HMS_i[0]);
+    HMS_d[1] = double(HMS_i[1]);
+    HMS_d[2] = double(HMS_i[2]);
+    HMS_d[3] = double(HMS_i[3])/1.0e9;
+    // Multiply the degree by a negative
+    if (pm == '-') HMS_d[0] *= -1;
+
+    return HMS_d;
 }
 
 
@@ -1612,11 +1651,45 @@ std::vector<double> CECoordinates::GetHMS(const double& angle,
  *         -[0] = Hours
  *         -[1] = Minutes
  *         -[2] = Seconds
+ *         -[3] = Fraction of a second (not absolutely necessary)
  *************************************************************************/
 double CECoordinates::HMSToAngle(const std::vector<double>& angle,
                                  const CEAngleType& return_type)
 {
-    return DMSToAngle(angle, return_type) * 15.0;
+    // Get the angle sign
+    char pm = (angle[0] >= 0.0) ? '+' : '-';
+
+    // Do the conversion
+    double ang(0.0);
+    double sec = (angle.size() == 4) ? angle[2]+angle[3] : angle[2];
+    int err = iauTf2a(pm, std::abs(angle[0]), int(angle[1]), sec, &ang);
+
+    // Handle the error
+    if (err != 0) {
+        std::string msg = "[ERROR] ";
+        switch(err) {
+            // Hours out of bounds
+            case 1:
+                msg += "Hour value \'" + std::to_string(angle[0]) + "\' not in range 0-23";
+                throw CEException::invalid_value("CECoordinates::HMSToAngle", msg);
+                break;
+            // Minutes out of bounds
+            case 2:
+                msg += "Minutes value \'" + std::to_string(angle[1]) + "\' not in range 0-59";
+                throw CEException::invalid_value("CECoordinates::HMSToAngle", msg);
+                break;
+            // Seconds out of bounds
+            case 3:
+                msg += "Seconds value \'" + std::to_string(sec) + "\' not in range 0-59.999...";
+                throw CEException::invalid_value("CECoordinates::HMSToAngle", msg);
+                break;
+        }
+    }
+
+    // Convert to appropriate return_type
+    if (return_type == CEAngleType::DEGREES) ang *= DR2D;
+
+    return ang;
 }
 
 
@@ -1684,12 +1757,12 @@ void CECoordinates::SetCoordinates(const CECoordinates& coords)
  * Generate a message string that specifies the information about this coordinate
  * @return String describing this object
  *************************************************************************/
-std::string CECoordinates::print(void)
+std::string CECoordinates::print(void) const
 {
     std::string msg = "Coordinates:\n";
     msg += "   - System : " + std::to_string(int(coord_type_)) + "\n";
-    msg += "   - X-coord: " + std::to_string(XCoordinate_Rad()) + " radians\n";
-    msg += "   - Y-coord: " + std::to_string(YCoordinate_Rad()) + " radians\n";
+    msg += "   - X-coord: " + std::to_string(XCoordinate_Deg()) + " deg\n";
+    msg += "   - Y-coord: " + std::to_string(YCoordinate_Deg()) + " deg\n";
     return msg;
 }
 
@@ -1742,7 +1815,9 @@ bool operator==(const CECoordinates& lhs, const CECoordinates& rhs)
     else {
         // Check how far appart the coordinates are from each other
         double angsep(CECoordinates::AngularSeparation(lhs, rhs, CEAngleType::RADIANS));
-        if (angsep > 4.8e-6) {
+        // Currently require separation < 0.03 arcsec
+        double marcsec_rad = 4.848e-6;
+        if (angsep > 3.0*marcsec_rad) {
             are_equal = false;
         }
     }
