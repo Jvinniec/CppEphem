@@ -71,15 +71,15 @@ public:
      * Angular separation between two coordinate positions
      *********************************************************/
     virtual double AngularSeparation(const CECoordinates& coords,
-                                     const CEAngleType& return_angle_type=CEAngleType::DEGREES) ;
+                                     const CEAngleType& return_angle_type=CEAngleType::DEGREES) const;
     static double AngularSeparation(const CECoordinates& coords1, 
                                     const CECoordinates& coords2,
-                                    const CEAngleType& return_angle_type=CEAngleType::DEGREES) ;
+                                    const CEAngleType& return_angle_type=CEAngleType::DEGREES);
     static double AngularSeparation(double xcoord_first, 
                                     double ycoord_first,
                                     double xcoord_second, 
                                     double ycoord_second,
-                                    const CEAngleType& angle_type=CEAngleType::DEGREES) ;
+                                    const CEAngleType& angle_type=CEAngleType::DEGREES);
     
     /**********************************************************
      * Methods for accessing the coordinate information
@@ -309,9 +309,9 @@ public:
                             const double& relative_humidity=0.0,
                             const double& dut1=0.0,
                             const double& xp=0.0, const double& yp=0.0,
-                            const double& wavelength_um=0.5);
+                            const double& wavelength_um=0.5) const;
     virtual CECoordinates GetObservedCoords(const CEDate& date,
-                            const CEObserver& observer);
+                            const CEObserver& observer) const;
 
     /*********************************************************
      * More generic methods for converting between coordinate types
@@ -384,7 +384,7 @@ public:
     virtual void SetCoordinates(const CECoordinates& coords);
 
     // Support methods
-    std::string print(void);
+    std::string print(void) const;
     
 protected:
     // Coordinate variables
