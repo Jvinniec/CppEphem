@@ -150,7 +150,7 @@ int CETestSuite::IntTol(void) const
 inline
 void CETestSuite::SetDblTol(const double& tol)
 {
-    this->tol_dbl_ = tol;
+    tol_dbl_ = tol;
 }
 
 

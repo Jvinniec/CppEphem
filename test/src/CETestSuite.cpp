@@ -230,12 +230,13 @@ bool CETestSuite::test_vect_(const std::vector<T>& value,
     bool isMatch = true;
     if (value.size() == expected.size()) {
         for (int i=0; i<value.size(); i++) {
-            double rel_tol = std::fabs(expected[i] * tol);
-            double diff = value[i] - expected[i];
+            T rel_tol = std::fabs(expected[i] * tol);
+            T diff = value[i] - expected[i];
             if (std::fabs(diff) > rel_tol) {
                 log_failure("VECTOR values at index "+std::to_string(i)+" " +
                             "are NOT equal (difference = " + 
                             std::to_string(diff) + ")", function, line);
+                std::printf("%e\n", tol);
                 isMatch = false;
             }
         }
