@@ -24,6 +24,7 @@
 
 #include "CECoordinates.h"
 #include "CEDate.h"
+#include "CEObserver.h"
 #include "CETestSuite.h"
 
 class test_CECoordinates : public CETestSuite {
@@ -47,12 +48,18 @@ public:
     virtual bool test_ConvertTo(void);
 private:
 
+    virtual bool test_coords(const CECoordinates& test,
+                             const CECoordinates& expected,
+                             const std::string&   func,
+                             const int&           line);
+
     // Private coordin
     CECoordinates base_cirs_;
     CECoordinates base_icrs_;
     CECoordinates base_gal_;
     CECoordinates base_obs_;
-    CEDate        date_;
+    CEDate        base_date_;
+    CEObserver    base_observer_;
 };
 
 #endif /* test_CECoordinates_h */

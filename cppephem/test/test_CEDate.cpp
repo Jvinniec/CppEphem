@@ -238,7 +238,7 @@ bool test_CEDate::test_support_methods(void)
 
     // UTC -> TT
     // NOTE: This is not a good test without the correct corrections
-    double test_tt(test_ut1);
+    double test_tt(test_ut1 + 63.8285/DAYSEC);
     double tt1, tt2;
     CEDate::UTC2TT(base_date_.MJD(), &tt1, &tt2);
     test_double(tt1, CEDate::GetMJD2JDFactor(), __func__, __LINE__);
@@ -246,13 +246,11 @@ bool test_CEDate::test_support_methods(void)
 
     // UTC -> TDB
     // NOTE: This is not a good test without the correct corrections
-    double test_tdb(test_ut1);
+    double test_tdb(test_tt);
     double tdb1, tdb2;
     CEDate::UTC2TDB(base_date_.MJD(), &tdb1, &tdb2);
     test_double(tdb1, CEDate::GetMJD2JDFactor(), __func__, __LINE__);
     test_double(tdb2, test_tdb, __func__, __LINE__);
-
-
 
     return pass();
 }

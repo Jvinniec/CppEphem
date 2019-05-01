@@ -147,22 +147,37 @@ bool test_CENamespace::test_Corrections()
     test_double(CppEphem::xp(mjd), 0.043190 * DAS2R, __func__, __LINE__);
     test_double(CppEphem::yp(mjd), 0.377700 * DAS2R, __func__, __LINE__);
 
+    // Test dpsi,deps corrections
+    test_double(CppEphem::dpsi(mjd), -0.252*DMAS2R, __func__, __LINE__);
+    test_double(CppEphem::deps(mjd), -0.119*DMAS2R, __func__, __LINE__);
+
     // Estimate altitude/pressure based on pressure
     test_double(CppEphem::EstimateAltitude_m(1013.25), 0.0, __func__, __LINE__);
     test_double(CppEphem::EstimatePressure_hPa(0.0), 1013.25, __func__, __LINE__);
 
-    // Test the name of the corrections file
-    std::string corrfilename(CppEphem::CorrFilename());
-    test_string(corrfilename, CECORRFILEPATH, __func__, __LINE__);
+    // Test the name of the corrections files
+    std::string file_path(CECORRFILEPATH);
+    std::string nut_file = file_path + "/nutation.txt";
+    std::string ttut1_hist = file_path + "/ttut1_historic.txt";
+    std::string ttut1_pred = file_path + "/ttut1_predicted.txt";
+    
+    test_string(CppEphem::NutationFile(), nut_file, __func__, __LINE__);
+    test_string(CppEphem::TtUt1HistFile(), ttut1_hist, __func__, __LINE__);
+    test_string(CppEphem::TtUt1PredFile(), ttut1_pred, __func__, __LINE__);
 
     // Test setting the corrections filename
     std::string newfilename("testfilename.txt");
-    CppEphem::SetCorrFilename(newfilename);
-    test_string(CppEphem::CorrFilename(), newfilename, __func__, __LINE__);
-    // Reset the filename
-    CppEphem::SetCorrFilename(corrfilename);
+    CppEphem::SetNutationFile(newfilename);
+    CppEphem::SetTtUt1HistFile(newfilename);
+    CppEphem::SetTtUt1PredFile(newfilename);
+    test_string(CppEphem::NutationFile(), newfilename, __func__, __LINE__);
+    test_string(CppEphem::TtUt1HistFile(), newfilename, __func__, __LINE__);
+    test_string(CppEphem::TtUt1PredFile(), newfilename, __func__, __LINE__);
 
-    
+    // Reset the filenames
+    CppEphem::SetNutationFile(nut_file);
+    CppEphem::SetTtUt1HistFile(ttut1_hist);
+    CppEphem::SetTtUt1PredFile(ttut1_pred);
 
     return pass();
 }
