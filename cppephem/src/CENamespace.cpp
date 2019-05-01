@@ -25,13 +25,13 @@
 
 
 /**********************************************************************//**
- * Set the name of the file to use for defining the corrections
+ * Return the name of the file used for defining the corrections
  * 
- * @param[in] filename          Filename of corrections file
+ * @return Filename of corrections file
  *************************************************************************/
-void CppEphem::SetCorrFilename(const std::string& filename)
+std::string CppEphem::NutationFile(void)
 {
-    CppEphem::corrections.SetFilename(filename);
+    return CppEphem::corrections.NutationFile();
 }
 
 
@@ -40,9 +40,53 @@ void CppEphem::SetCorrFilename(const std::string& filename)
  * 
  * @return Filename of corrections file
  *************************************************************************/
-std::string CppEphem::CorrFilename(void)
+std::string CppEphem::TtUt1HistFile(void)
 {
-    return CppEphem::corrections.Filename();
+    return CppEphem::corrections.TtUt1HistFile();
+}
+
+
+/**********************************************************************//**
+ * Return the name of the file used for defining the corrections
+ * 
+ * @return Filename of corrections file
+ *************************************************************************/
+std::string CppEphem::TtUt1PredFile(void)
+{
+    return CppEphem::corrections.TtUt1PredFile();
+}
+
+
+/**********************************************************************//**
+ * Set the name of the file to use for defining the nutation corrections
+ * 
+ * @param[in] filename          Filename of corrections file
+ *************************************************************************/
+void CppEphem::SetNutationFile(const std::string& filename)
+{
+    CppEphem::corrections.SetNutationFile(filename);
+}
+
+
+/**********************************************************************//**
+ * Set the name of the file to use for defining the historic TT-UT1 corrections
+ * 
+ * @param[in] filename          Filename of corrections file
+ *************************************************************************/
+void CppEphem::SetTtUt1HistFile(const std::string& filename)
+{
+    CppEphem::corrections.SetTtUt1HistFile(filename);
+}
+
+
+/**********************************************************************//**
+ * Set the name of the file to use for defining the predicted TT-UT1 corrections
+ * 
+ * @param[in] filename          Filename of corrections file
+ *************************************************************************/
+void CppEphem::SetTtUt1PredFile(const std::string& filename)
+{
+    CppEphem::corrections.SetTtUt1PredFile(filename);
 }
 
 
@@ -58,10 +102,10 @@ void CppEphem::CorrectionsInterp(bool set_interp)
 
 
 /**********************************************************************//**
- * Return dut1 based on a given modified julian date
+ * Return dut1 based on a given modified julian date (seconds)
  * 
  * @param[in] mjd       Modified Julian Date (MJD)
- * @return UT1-UTC correction for a given MJD
+ * @return UT1-UTC correction for a given MJD (seconds)
  *************************************************************************/
 double CppEphem::dut1(const double& mjd) 
 {
@@ -95,10 +139,10 @@ double CppEphem::dut1Calc(const double& mjd)
 
 
 /**********************************************************************//**
- * Polar motion (x) for a given modified julian date
+ * Polar motion (x) for a given modified julian date (radians)
  * 
  * @param[in] mjd       Modified Julian Date (MJD)
- * @return x-polar motion correction for a given MJD
+ * @return x-polar motion correction for a given MJD (radians)
  *************************************************************************/
 double CppEphem::xp(const double& mjd) 
 {
@@ -107,12 +151,48 @@ double CppEphem::xp(const double& mjd)
 
 
 /**********************************************************************//**
- * Polar motion (x) for a given modified julian date
+ * Polar motion (x) for a given modified julian date (radians)
  * 
  * @param[in] mjd       Modified Julian Date (MJD)
- * @return x-polar motion correction for a given MJD
+ * @return x-polar motion correction for a given MJD (radians)
  *************************************************************************/
 double CppEphem::yp(const double& mjd) 
 {
     return corrections.ypolar(mjd);
+}
+
+
+/**********************************************************************//**
+ * Earth obliquity correction for a given modified julian date (radians)
+ * 
+ * @param[in] mjd       Modified Julian Date (MJD)
+ * @return Earth obliquity correction for a given MJD (radians)
+ *************************************************************************/
+double CppEphem::deps(const double& mjd)
+{
+    return corrections.deps(mjd);
+}
+
+
+/**********************************************************************//**
+ * Earth longitude correction for a given modified julian date (radians)
+ * 
+ * @param[in] mjd       Modified Julian Date (MJD)
+ * @return Earth longitude correction for a given MJD (radians)
+ *************************************************************************/
+double CppEphem::dpsi(const double& mjd)
+{
+    return corrections.dpsi(mjd);
+}
+
+
+/**********************************************************************//**
+ * TT-UT1 correction for a given MJD (seconds)
+ * 
+ * @param[in] mjd       Modified Julian Date (MJD)
+ * @return TT-UT1 correction for a given MJD (seconds)
+ *************************************************************************/
+double CppEphem::ttut1(const double& mjd)
+{
+    return corrections.ttut1(mjd);
 }

@@ -37,8 +37,15 @@ public:
     double      dut1(const double& mjd) const;
     double      xpolar(const double& mjd) const;
     double      ypolar(const double& mjd) const;
-    std::string Filename(void) const;
-    void        SetFilename(const std::string& filename);
+    double      deps(const double& mjd) const;
+    double      dpsi(const double& mjd) const;
+    double      ttut1(const double& mjd) const;
+    std::string NutationFile(void) const;
+    std::string TtUt1HistFile(void) const;
+    std::string TtUt1PredFile(void) const;
+    void        SetNutationFile(const std::string& filename);
+    void        SetTtUt1HistFile(const std::string& filename);
+    void        SetTtUt1PredFile(const std::string& filename);
     void        SetInterp(bool set_interp);
 
 private:
@@ -46,47 +53,85 @@ private:
     void   copy_members(const CECorrections& other);
     void   free_members(void);
     void   init_members(void);
+    std::ifstream LoadFile(const std::string& filename,
+                          const std::string& url) const;
+    bool   DownloadTable(const std::string& filename,
+                         const std::string& url) const;
+    bool   LoadNutation(void) const;
+    bool   LoadTtUt1(void) const;
+    double InterpValue(const double& x,
+                       const double& x0, const double& x1,
+                       const double& y0, const double& y1) const;
+    void   UpdateNutationCache(const double& mjd) const;
+    void   UpdateTtUt1Cache(const double& mjd) const;
 
-    bool   DownloadTables(void) const;
-    bool   LoadTables(void) const;
-    double GetTableValue(const double& mjd, const int& tbl_indx) const;
-
-    mutable std::string filename_;   ///< File where corrections are stored
+    // Filenames for storing/loading correction values
+    mutable std::string nutation_file_;   ///< File for nutation corrections
+    mutable std::string ttut1_file_hist_; ///< File for historic TT-UT1 corrections
+    mutable std::string ttut1_file_pred_; ///< File for predicted TT-UT1 corrections
 
     // Table to hold the corrections for a given MJD
-    mutable std::map<int, std::vector<double>> corrections_;
+    mutable std::vector<int>    nutation_mjd_;
+    mutable std::vector<double> nutation_dut1_;
+    mutable std::vector<double> nutation_xp_;
+    mutable std::vector<double> nutation_yp_;
+    mutable std::vector<double> nutation_deps_;
+    mutable std::vector<double> nutation_dpsi_;
+
+    mutable std::vector<double> ttut1_mjd_;
+    mutable std::vector<double> ttut1_delt_;
 
     // Specifies whether to interpolate values between dates or not
     // Interpolating will give slightly more accurate results at the expense
     // of increasing computation time.
-    bool         interp_;
-    mutable int  min_mjd_;
-    mutable int  max_mjd_;
+    bool interp_;
 
+    // Caching variables so that we dont need to find new values if we've
+    // already looked up the appropriate index
+    mutable double cache_nut_mjd_;
+    mutable double cache_nut_dut1_;
+    mutable double cache_nut_xp_;
+    mutable double cache_nut_yp_;
+    mutable double cache_nut_deps_;
+    mutable double cache_nut_dpsi_;
+    mutable double cache_ttut1_mjd_;
+    mutable double cache_ttut1_delt_;
 };
 
 
 /**********************************************************************//**
- * Returns the name of the corrections file
+ * Returns the name of the nutation corrections file
  * 
- * @return Corrections filename
+ * @return Nutation corrections filename
  *************************************************************************/
 inline
-std::string CECorrections::Filename(void) const
+std::string CECorrections::NutationFile(void) const
 {
-    return filename_;
+    return nutation_file_;
 }
 
 
 /**********************************************************************//**
- * Defines that the correction values should be interpolated
+ * Returns the name of the historic TT-UT1 corrections file
  * 
- * @param[in] set_interp        New interpolation boolean
+ * @return Historic TT-UT1 corrections filename
  *************************************************************************/
 inline
-void CECorrections::SetInterp(bool set_interp)
+std::string CECorrections::TtUt1HistFile(void) const
 {
-    interp_ = set_interp;
+    return ttut1_file_hist_;
+}
+
+
+/**********************************************************************//**
+ * Returns the name of the precited TT-UT1 corrections file
+ * 
+ * @return Predicted TT-UT1 corrections filename
+ *************************************************************************/
+inline
+std::string CECorrections::TtUt1PredFile(void) const
+{
+    return ttut1_file_pred_;
 }
 
 #endif /* CECorrections_h */

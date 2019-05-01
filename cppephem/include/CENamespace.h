@@ -73,7 +73,18 @@ namespace CppEphem {
      *********************************************/
     double xp(const double& mjd);
     double yp(const double& mjd);
+
+    /*********************************************
+     * Earth longitude & obliquity correction
+     *********************************************/
+    double deps(const double& mjd);
+    double dpsi(const double& mjd);
     
+    /*********************************************
+     * TT-UT1 correction
+     *********************************************/
+    double ttut1(const double& mjd);
+
     /** Method for estimating altitude (in meters) from atmospheric pressure (in hPa) */
     inline double EstimateAltitude_m(double pressure_hPa)
         {return -29.3 * SeaLevelTemp_K() * std::log(pressure_hPa/1013.25) ;}
@@ -82,10 +93,14 @@ namespace CppEphem {
         {return 1013.25 * std::exp(-elevation_m / (29.3*SeaLevelTemp_K() )) ;}
 
     // Methods for getting the corrections values
-    void        SetCorrFilename(const std::string& filename);
-    std::string CorrFilename(void);
+    std::string NutationFile(void);
+    std::string TtUt1HistFile(void);
+    std::string TtUt1PredFile(void);
+    void        SetNutationFile(const std::string& filename);
+    void        SetTtUt1HistFile(const std::string& filename);
+    void        SetTtUt1PredFile(const std::string& filename);
     void        CorrectionsInterp(bool set_interp);
-    static CECorrections corrections;
+    static      CECorrections corrections;
 }
 
 #endif /* CENamespace_h */
