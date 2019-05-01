@@ -8,7 +8,6 @@ from astropy.coordinates import solar_system
 from astropy.coordinates import EarthLocation
 from astropy.time import Time
 
-
 # Print the results of the planet position test
 def print_planet_position(name, observer, time):
     """
@@ -24,9 +23,8 @@ def print_planet_position(name, observer, time):
         Time of the observation
     """
     # Compute the observed coordinates of the object
-    planet = solar_system.get_body(body     = name, 
-                                   time     = time, 
-                                   location = observer)
+    planet = solar_system.get_body(body = name, 
+                                   time = time)
     aa   = AltAz(location=observer, obstime=time)
     obs  = planet.transform_to(aa)
     icrs = planet.transform_to('icrs')
