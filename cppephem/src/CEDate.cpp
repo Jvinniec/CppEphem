@@ -308,7 +308,8 @@ double CEDate::Gregorian2JD(double gregorian)
 double CEDate::GregorianVect2JD(std::vector<double> gregorian)
 {
     // The following stores the two values needed to get the julian date
-    double mjd_factor(0.0), mjd(0.0) ;
+    double mjd_factor(0.0);
+    double mjd(0.0);
     
     // Now use the sofa function for converting to julian date
     int err_code = iauCal2jd(int(gregorian[0]), int(gregorian[1]),
@@ -385,7 +386,7 @@ void CEDate::UTC2UT1(const double& mjd,
                      double*       ut11,
                      double*       ut12)
 {
-    iauUtcut1(CEDate::GetMJD2JDFactor(), mjd, CppEphem::dut1(mjd), ut11, ut12) ;
+    iauUtcut1(CEDate::GetMJD2JDFactor(), mjd, CppEphem::dut1(mjd), ut11, ut12);
 }
 
 
@@ -406,10 +407,10 @@ void CEDate::UTC2TT(const double& mjd,
                     double*       tt1,
                     double*       tt2)
 {
-    double ut11(0.0);
-    double ut12(0.0);
-    CEDate::UTC2UT1(mjd, &ut11, &ut12);
-    iauUt1tt(ut11, ut12, 0.0, tt1, tt2) ;
+    // Convert UTC to UT1
+    CEDate::UTC2UT1(mjd, tt1, tt2);
+    // Convert UT1 to TT
+    iauUt1tt(*tt1, *tt2, CppEphem::ttut1(mjd), tt1, tt2) ;
 }
 
 
@@ -430,10 +431,10 @@ void CEDate::UTC2TDB(const double& mjd,
                      double*       tdb1,
                      double*       tdb2)
 {
-    double tt1(0.0);
-    double tt2(0.0);
-    CEDate::UTC2TT(mjd, &tt1, &tt2);
-    iauTttdb(tt1, tt2, 0.0, tdb1, tdb2) ;
+    // Convert UTC to TT
+    CEDate::UTC2TT(mjd, tdb1, tdb2);
+    // Convert TT to TDB
+    iauTttdb(*tdb1, *tdb2, 0.0, tdb1, tdb2) ;
 }
 
 
