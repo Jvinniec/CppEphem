@@ -3,7 +3,7 @@ This file serves as a note on all of the tables
 included in this directory
 
 *****************************************
-* corrections.txt
+* nutation.txt
 *****************************************
 
 This file is used exclusively for testing the
@@ -34,3 +34,69 @@ this full list of correction values will be
 downloaded automatically the first time these
 corrections are requested. The full file size
 is a few megabytes.
+
+
+*****************************************
+* ttut1_historic.txt
+*****************************************
+
+This file is used exclusively for testing the
+code.
+
+For some of the sofa methods, it is required
+to supply the 'TT-UT1' value for an accurate
+result. 
+
+This file contains monthly 'TT-UT1' values in
+the following range:
+      start:  December, 1999
+      stop :  February, 2000
+
+A definition of the column values:
+       1973  2  1  43.4724
+      00000000011111111112
+      12345678901234567890
+      _YYYY_MM_DD_TTTTTTTT
+
+A full list of all the correction values (going 
+back to February, 1973) can be found here:
+      http://maia.usno.navy.mil/ser7/deltat.data
+
+If the code is compiled with libcurl support, 
+this full list of correction values will be
+downloaded automatically the first time these
+corrections are requested. The full file size
+is 10-15 kilobytes.
+
+
+*****************************************
+* ttut1_predicted.txt
+*****************************************
+
+This file is used exclusively for testing the
+code.
+
+For some of the sofa methods, it is required
+to supply the 'TT-UT1' value for an accurate
+result. 
+
+This file contains quarterly 'TT-UT1' values in 
+the following range:
+      start:  January, 2019
+      stop :  October, 2027
+
+A definition of the column values is provided
+in the header of the file. Relevant column 
+indices are (0-based):
+      MJD    [3-11]
+      TT-UT1 [23-28]
+
+A full list of all the correction values can 
+be found here:
+      http://maia.usno.navy.mil/ser7/deltat.pred
+
+If the code is compiled with libcurl support, 
+this full list of correction values will be
+downloaded automatically the first time these
+corrections are requested. The full file size
+is insignificant
