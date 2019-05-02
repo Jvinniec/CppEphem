@@ -169,8 +169,7 @@ std::vector<double> CETime::CurrentUTC_vect()
  *************************************************************************/
 double CETime::UTC(const double& mjd)
 {
-    // Note that Julian date is defined such that midnight is at half julian days
-    return (mjd - (std::floor(mjd))) * CppEphem::sec_per_day();
+    return (mjd - std::floor(mjd)) * CppEphem::sec_per_day();
 }
 
 /**********************************************************************//**
