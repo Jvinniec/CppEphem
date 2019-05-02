@@ -43,9 +43,11 @@ def test_planets():
     """
     # Observer position
     earth_pos = EarthLocation(lat=0*u.deg, lon=0*u.deg, height=0*u.m)
+    print(f"Observer (lon={earth_pos.lon}, lat={earth_pos.lat}, elev={earth_pos.height})")
 
     # Observation time
     observing_time = Time('2000-01-01 12:00:00', scale='utc')
+    print(f"Julian date = {observing_time.jd}")
 
     # Names of each of the major planets
     planets = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune']
