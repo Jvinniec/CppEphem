@@ -115,6 +115,7 @@ bool test_CECoordinates::test_construct()
     test_double(test2.XCoordinate_Deg(), testx, __func__, __LINE__);
     test_double(test2.YCoordinate_Deg(), testy, __func__, __LINE__);
 
+    // Test constructor from vectors of values
     std::vector<double> testHMS = CECoordinates::GetHMS(testx,
                                                         CEAngleType::DEGREES);
     std::vector<double> testDMS = CECoordinates::GetDMS(testy,
@@ -361,14 +362,6 @@ bool test_CECoordinates::test_HmsDms2Angle(void)
     std::vector<double> ang_vec = {45, 30, 30, 0.0};
     std::vector<double> hrs_vec = {3.0, 2.0, 2.0, 0.0};
 
-    // Test DMS -> angle
-    double test2(CECoordinates::DMSToAngle(ang_vec, CEAngleType::DEGREES));
-    test_double(test2, ang_var, __func__, __LINE__);
-
-    // Test HMS -> angle
-    double test4(CECoordinates::HMSToAngle(hrs_vec, CEAngleType::DEGREES));
-    test_double(test4, ang_var, __func__, __LINE__);
-
     // Increase the acceptable tolerance
     double tol_old(DblTol());
     SetDblTol(1.0e-11);
@@ -377,9 +370,17 @@ bool test_CECoordinates::test_HmsDms2Angle(void)
     std::vector<double> test1 = CECoordinates::GetDMS(ang_var, CEAngleType::DEGREES);
     test_vect(test1, ang_vec, __func__, __LINE__);
 
+    // Test DMS -> angle
+    double test2(CECoordinates::DMSToAngle(ang_vec, CEAngleType::DEGREES));
+    test_double(test2, ang_var, __func__, __LINE__);
+
     // Test angle -> HMS 
     std::vector<double> test3 = CECoordinates::GetHMS(ang_var, CEAngleType::DEGREES);
     test_vect(test3, hrs_vec, __func__, __LINE__);
+
+    // Test HMS -> angle
+    double test4(CECoordinates::HMSToAngle(hrs_vec, CEAngleType::DEGREES));
+    test_double(test4, ang_var, __func__, __LINE__);
 
     // Reset the tolerance
     SetDblTol(tol_old);
