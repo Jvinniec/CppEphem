@@ -707,7 +707,11 @@ void CEPlanet::Update_JPL(double new_jd) const
     /* Date has changed, so we need to recompute the coordinates of this object */
     
     // Compute the number of centuries since J2000 epoch
-    double T = (new_jd-CppEphem::julian_date_J2000()) / 36525.6898326 ;
+    double mjd = new_jd - CEDate::GetMJD2JDFactor();
+    double tdb1;
+    double tdb2;
+    CEDate::UTC2TDB(mjd, &tdb1, &tdb2);
+    double T = (tdb1+tdb2 - CppEphem::julian_date_J2000()) / DJC;
     
     // Compute the values
     double a = ComputeElement(semi_major_axis_au_, semi_major_axis_au_per_cent_, T) ;
