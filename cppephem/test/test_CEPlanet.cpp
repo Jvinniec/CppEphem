@@ -201,6 +201,14 @@ bool test_CEPlanet::test_mars(void)
                 {1.38356924, -0.0011989, -0.0378561},
                 {0.00067763, 0.01380768, 0.00631503});
     
+    // Run the test now for the JPL algorithm. Note that the precision is going
+    // to be much worse, so we only check for rough agreement (within 0.1 deg).
+    CEPlanet mars2 = CEPlanet::Mars();
+    mars2.SetAlgorithm(CEPlanetAlgo::JPL);
+    mars2.UpdateCoordinates(base_date_.JD());
+    double angsep = mars.AngularSeparation(mars2, CEAngleType::DEGREES);
+    test(angsep < 0.1, __func__, __LINE__);
+
     return pass();
 }
 
@@ -305,13 +313,13 @@ bool test_CEPlanet::test_neptune(void)
  * Test parameters for a given planet
  * 
  * @param[in] test_planet           Planet information to be tested
- * @param[in] true_obs              Expected observed coordinates
+ * @param[in] true_icrs             Expected observed coordinates
  * @param[in] true_pos              Expected physical position (AU)
  * @param[in] true_vel              Expected physical velocity (AU/day)
  * @return whether the tests succeed
  *************************************************************************/
 bool test_CEPlanet::test_planet(const CEPlanet&            test_planet,
-                                const CECoordinates&       true_obs,
+                                const CECoordinates&       true_icrs,
                                 const std::vector<double>& true_pos,
                                 const std::vector<double>& true_vel)
 {
@@ -323,13 +331,13 @@ bool test_CEPlanet::test_planet(const CEPlanet&            test_planet,
                               CECoordinateType::ICRS,
                               CEAngleType::RADIANS);
     
-    if (!test(icrs_coords == true_obs, func_name, __LINE__)) {
+    if (!test(icrs_coords == true_icrs, func_name, __LINE__)) {
         // Print information about the coordinates
-        std::printf("   %s   %s   %s", icrs_coords.print().c_str(), true_obs.print().c_str(), icrs_coords.print().c_str());
-        std::printf("   X-diff: %f arcsec\n", (icrs_coords.XCoordinate_Deg()-true_obs.XCoordinate_Deg())*3600.0);
-        std::printf("   Y-diff: %f arcsec\n", (icrs_coords.YCoordinate_Deg()-true_obs.YCoordinate_Deg())*3600.0);
+        std::printf("   %s   %s   %s", icrs_coords.print().c_str(), true_icrs.print().c_str(), icrs_coords.print().c_str());
+        std::printf("   X-diff: %f arcsec\n", (icrs_coords.XCoordinate_Deg()-true_icrs.XCoordinate_Deg())*3600.0);
+        std::printf("   Y-diff: %f arcsec\n", (icrs_coords.YCoordinate_Deg()-true_icrs.YCoordinate_Deg())*3600.0);
     }
-    std::printf("      AngSep: %e arcsec\n", icrs_coords.AngularSeparation(true_obs, CEAngleType::DEGREES)*3600.0);
+    std::printf("      AngSep: %e arcsec\n", icrs_coords.AngularSeparation(true_icrs, CEAngleType::DEGREES)*3600.0);
 
     // Update the tolerance
     double tol_old = DblTol();
