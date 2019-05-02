@@ -9,9 +9,6 @@ addons:
     organization: "jvinniec-github"
     token:
       secure: $SONAR_TOKEN
-    branches:
-      - master
-      - travis_buldtest
 
 # block the following branches from triggering builds
 branches:
@@ -54,9 +51,9 @@ script:
   - make test
 
 after_success:
- # Only run sonar-scanner if we're using a linux machine with clang
- # This prevents generating a code coverage/status reports for each
- # build configuration
- - bash gen_coverage.sh
+  # Only run sonar-scanner if we're using a linux machine with clang
+  # This prevents generating a code coverage/status reports for each
+  # build configuration
+  - bash gen_coverage.sh
 
 # TODO: also need to test pure autotools build
