@@ -1583,21 +1583,31 @@ CECoordinates CECoordinates::ConvertToObserved(double jd,
  *         -[0] = Degrees
  *         -[1] = Arcminutes
  *         -[2] = Arcseconds
+ *         -[3] = Arcsec fraction
  *************************************************************************/
 std::vector<double> CECoordinates::GetDMS(const double& angle,
                                           const CEAngleType& angle_type)
 {
     // Convert to degrees if passed radians
-    double unsign_angle = std::fabs( angle );
-    if (angle_type == CEAngleType::RADIANS) 
-        unsign_angle *= DR2D ;
+    double ang = angle;
+    if (angle_type == CEAngleType::DEGREES) 
+        ang *= DD2R ;
 
-    std::vector<double> DMS(3, 0.0) ;
-    DMS[0] = std::floor(unsign_angle) ;
-    DMS[1] = std::floor((unsign_angle - DMS[0])*60.0) ;
-    DMS[2] = (unsign_angle - DMS[0] - DMS[1]/60.0) * 3600.0 ;
-    if (angle < 0.0) DMS[0] *= -1.0 ;
-    return DMS ;
+    // Variables for holding the results
+    char sign;
+    std::vector<int> DMS_i(4, 0.0);
+
+    // Run the appropriate SOFA value
+    iauA2af(9, ang, &sign, &DMS_i[0]);
+
+    // Fill the values into a double vector
+    std::vector<double> DMS_d(4, 0.0);
+    DMS_d[0] = DMS_i[0] * (sign == '-' ? -1.0 : 1.0);
+    DMS_d[1] = DMS_i[1];
+    DMS_d[2] = DMS_i[2];
+    DMS_d[3] = DMS_i[3] * 1.0e-9;
+
+    return DMS_d ;
 }
 
 /**********************************************************************//**
@@ -1701,17 +1711,21 @@ double CECoordinates::HMSToAngle(const std::vector<double>& angle,
  *         -[0] = Degrees
  *         -[1] = Arcminutes
  *         -[2] = Arcseconds
+ *         -[3] = Arcsec fraction (can be omitted if [2] is the decimal value)
  *************************************************************************/
 double CECoordinates::DMSToAngle(const std::vector<double>& angle,
                                  const CEAngleType& return_type)
 {
     // Convert the values to an angle in degrees
-    double ret_angle(angle[0]);
-    ret_angle += angle[1] / 60.0;
-    ret_angle += angle[2] / 3600.0;
+    double ret_angle;
+    char   sign = (angle[0] < 0.0) ? '-' : '+';
+    double sec  = (angle.size() == 3) ? angle[2] : angle[2]+angle[3];
 
-    if (return_type == CEAngleType::RADIANS) {
-        ret_angle *= DD2R;
+    // Pass the values to the appropriate SOFA algorithm
+    iauAf2a(sign, int(angle[0]), int(angle[1]), sec, &ret_angle);
+    
+    if (return_type == CEAngleType::DEGREES) {
+        ret_angle *= DR2D;
     }
 
     return ret_angle;
