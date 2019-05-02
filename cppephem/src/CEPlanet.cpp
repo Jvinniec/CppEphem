@@ -84,16 +84,16 @@
  
     // Create a default observer, longitude and latitude in degrees. 
     // I'm using Ames, IA, USA.
-    CEObserver observer(-93.62, 42.0347, 287.0, CEAngleType::DEGREES, &date) ;
+    CEObserver observer(-93.62, 42.0347, 287.0, CEAngleType::DEGREES) ;
  
     // Create a planet object representing Mercury
     CEPlanet mercury = CEPlanet::Mercury() ;
  
     // Now assemble the observer and the 
     // planet into an observation object
-    CEObservation observed_coords(&observer, &mercury) ;
+    CEObservation observed_coords(&observer, &mercury, &date) ;
  
-    // == ACCESS THE OBSERVED PLANET POSIITON == //
+    // == ACCESS THE OBSERVED PLANET POSITION == //
     
     // Now we can get the current positions of mercury
     double azimuth(0.0), zenith(0.0);
@@ -705,14 +705,14 @@ void CEPlanet::Update_SOFA(double new_jd) const
 void CEPlanet::Update_JPL(double new_jd) const
 {
     /* Date has changed, so we need to recompute the coordinates of this object */
-    
+
     // Compute the number of centuries since J2000 epoch
     double mjd = new_jd - CEDate::GetMJD2JDFactor();
     double tdb1;
     double tdb2;
     CEDate::UTC2TDB(mjd, &tdb1, &tdb2);
     double T = (tdb1+tdb2 - CppEphem::julian_date_J2000()) / DJC;
-    
+
     // Compute the values
     double a = ComputeElement(semi_major_axis_au_, semi_major_axis_au_per_cent_, T) ;
     double e = ComputeElement(eccentricity_, eccentricity_per_cent_, T) ;
