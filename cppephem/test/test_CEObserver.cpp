@@ -250,10 +250,10 @@ bool test_CEObserver::test_time(void)
 
     // Make sure the time is noon on J2000
     CEDate date(CppEphem::julian_date_J2000());
-    std::vector<double> local = base_obs_.Time( date.MJD() );
+    std::vector<double> local = base_obs_.Time( date );
     std::vector<double> utc   = base_obs_.Time_UTC( date );
     
-    test_vect(local, {offset, 0.0, 0.0, 0.0}, __func__, __LINE__);
+    test_vect(local, {offset+12, 0.0, 0.0, 0.0}, __func__, __LINE__);
     test_vect(utc,   {12.0, 0.0, 0.0, 0.0}, __func__, __LINE__);
 
     SetDblTol(old_tol);
