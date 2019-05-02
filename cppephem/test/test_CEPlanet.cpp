@@ -200,7 +200,18 @@ bool test_CEPlanet::test_mars(void)
                               CEAngleType::DEGREES),
                 {1.38356924, -0.0011989, -0.0378561},
                 {0.00067763, 0.01380768, 0.00631503});
-    
+
+    // Test that we can return the position and velocity values
+    std::vector<double> pos = mars.PositionICRS();
+    std::vector<double> vel = mars.VelocityICRS();
+    test_double(mars.GetXICRS(),  pos[0], __func__, __LINE__);
+    test_double(mars.GetYICRS(),  pos[1], __func__, __LINE__);
+    test_double(mars.GetZICRS(),  pos[2], __func__, __LINE__);
+    test_double(mars.GetVxICRS(), vel[0], __func__, __LINE__);
+    test_double(mars.GetVyICRS(), vel[1], __func__, __LINE__);
+    test_double(mars.GetVzICRS(), vel[2], __func__, __LINE__);
+
+
     // Run the test now for the JPL algorithm. Note that the precision is going
     // to be much worse, so we only check for rough agreement (within 0.1 deg).
     CEPlanet mars2 = CEPlanet::Mars();
