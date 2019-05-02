@@ -19,6 +19,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <algorithm>
 #include <stdio.h>
 
 #include "CppEphem.h"
@@ -46,6 +47,18 @@ int main(int argc, char** argv)
     // Create the observed object
     CEPlanet planet = GetPlanet(opts.AsInt("planet")) ;
     if (planet.Name().empty()) return 0 ;
+
+    // Set the algorithm
+    std::string method = opts.AsString("method");
+    std::transform(method.begin(), method.end(), method.begin(), ::tolower);
+    if (method == "sofa") {
+        planet.SetAlgorithm(CEPlanetAlgo::SOFA);
+    } else if (method == "jpl") {
+        planet.SetAlgorithm(CEPlanetAlgo::JPL);
+    } else {
+        throw CEException::invalid_value("planetephem.cpp", 
+                                "[ERROR] Invalid planet algorithm: " + method);
+    }
     
     // Create the date object
     CEDate date(opts.AsDouble("startJD")) ;
@@ -77,7 +90,7 @@ CLOptions DefineOpts()
     opts.AddDoubleParam("l,longitude",
                         "Observer geographic longitude (degrees, east positive)",
                         0.0);
-    opts.AddDoubleParam("a,latitude",
+    opts.AddDoubleParam("b,latitude",
                         "Observer geographic latitude (degrees)",
                         0.0);
     opts.AddDoubleParam("e,elevation",
@@ -92,6 +105,9 @@ CLOptions DefineOpts()
     opts.AddDoubleParam("s,step",
                         "Number of minutes between each line of the print out.",
                         30.0);
+    opts.AddStringParam("m,method",
+                        "Method for computing planet positions ('sofa' or 'jpl', default='sofa')",
+                        "sofa");
     return opts ;
 }
 
@@ -165,7 +181,7 @@ void PrintEphemeris(CEObservation& obs,
         // Update the coordiantes of the planet
         planet->UpdateCoordinates(date->JD());
         ra  = CECoordinates::GetHMS( planet->XCoordinate_Rad(), CEAngleType::RADIANS );
-        dec = CECoordinates::GetDMS( planet->YCoordinate_Deg(), CEAngleType::RADIANS);
+        dec = CECoordinates::GetDMS( planet->YCoordinate_Rad(), CEAngleType::RADIANS);
         
         std::printf(" %11.2f  %08.1f  %2.0fh %2.0fm %4.1fs  %+3.0fd %2.0fm %4.1fs  %8.3f  %+7.3f\n",
                     double(*date), date->GetTime(observer->UTCOffset()),
