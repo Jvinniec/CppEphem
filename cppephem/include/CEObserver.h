@@ -229,6 +229,7 @@ void CEObserver::SetUTCOffset(const double& utc_offset)
 
 
 /**********************************************************************//**
+ * @return UTCOffset value of this observer
  *************************************************************************/
 inline
 double CEObserver::UTCOffset() const
@@ -247,7 +248,8 @@ std::vector<double> CEObserver::Time(const CEDate& date)
 {
     double utc = date.MJD();
     utc -= std::floor(utc);
-    utc = CETime::UTC(utc + utc_offset_/24.0);
+    utc += utc_offset_/24.0;            // Do this here for precision reasons
+    utc *= CppEphem::sec_per_day();
     return CETime::TimeDbl2Vect( CETime::TimeSec2Time(utc) ) ;
 }
 
