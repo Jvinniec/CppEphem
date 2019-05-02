@@ -92,10 +92,18 @@ bool test_CEPlanet::test_construct(void)
     test_int(int(test2.GetCoordSystem()), int(CECoordinateType::ICRS), __func__, __LINE__);
 
     // Copy constructor
-    test1.SetName("DefaultPlanet");
-    test1.SetCoordinates(123.45, 67.89, CECoordinateType::ICRS, CEAngleType::DEGREES);
-    CEPlanet test3(test1);
-    //test_Planet(test1, test3, __func__, __LINE__);
+    CEPlanet test3(test2);
+    test_string(test3.Name(), test2.Name(), __func__, __LINE__);
+    test_double(test3.XCoordinate_Deg(), test2.XCoordinate_Deg(), __func__, __LINE__);
+    test_double(test3.YCoordinate_Deg(), test2.YCoordinate_Deg(), __func__, __LINE__);
+    test_int(int(test3.GetCoordSystem()), int(test2.GetCoordSystem()), __func__, __LINE__);
+
+    // Copy assignment operator
+    CEPlanet test4 = test2;
+    test_string(test4.Name(), test2.Name(), __func__, __LINE__);
+    test_double(test4.XCoordinate_Deg(), test2.XCoordinate_Deg(), __func__, __LINE__);
+    test_double(test4.YCoordinate_Deg(), test2.YCoordinate_Deg(), __func__, __LINE__);
+    test_int(int(test4.GetCoordSystem()), int(test2.GetCoordSystem()), __func__, __LINE__);
 
     return pass();
 }
