@@ -180,7 +180,7 @@ public:
            std::map<std::string, CLBool*> &bool_map) :
     CLParam<bool>(param_name, info, default_val)
     {
-        parameter_name_short = 1;
+        if (parameter_name_short == 0) parameter_name_short = 1;
         bool_map[parameter_name] = this ;
     }
     CLBool& operator=(std::string& other) {
@@ -209,7 +209,7 @@ public:
              std::map<std::string, CLString*> &str_map) :
     CLParam<std::string>(param_name, info, default_val)
     {
-        parameter_name_short = 2;
+        if (parameter_name_short == 0) parameter_name_short = 2;
         str_map[parameter_name] = this ;
     }
     CLString& operator=(std::string other) {
@@ -245,7 +245,7 @@ public:
              std::map<std::string, CLDouble*> &dbl_map) :
     CLParam<double>(param_name, info, default_val)
     {
-        parameter_name_short = 3;
+        if (parameter_name_short == 0) parameter_name_short = 3;
         dbl_map[parameter_name] = this ;
     }
     CLDouble& operator=(const std::string& other) {
@@ -275,7 +275,7 @@ public:
           std::map<std::string, CLInt*> &int_map) :
     CLParam<int>(param_name, info, default_val)
     {
-        parameter_name_short = 4;
+        if (parameter_name_short == 0) parameter_name_short = 4;
         int_map[parameter_name] = this ;
     }
     CLInt& operator=(const std::string& other) {
