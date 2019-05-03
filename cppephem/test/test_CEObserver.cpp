@@ -80,7 +80,7 @@ bool test_CEObserver::test_constructor(void)
     // Default constructor
     CEObserver test1;
     test_double(test1.Longitude_Rad(), 0.0, __func__, __LINE__);
-    test_double(test1.Latitude_Rad(),  51.4778,  __func__, __LINE__);
+    test_double(test1.Latitude_Rad(),  0.0,  __func__, __LINE__);
     test_double(test1.Temperature_C(), CppEphem::SeaLevelTemp_C(), __func__, __LINE__);
     test_double(test1.Pressure_hPa(),  CppEphem::EstimatePressure_hPa(test1.Temperature_C()),  __func__, __LINE__);
     test_double(test1.RelativeHumidity(), 0.0, __func__, __LINE__);
