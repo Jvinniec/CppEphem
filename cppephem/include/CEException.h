@@ -38,9 +38,9 @@ public:
         // print out all the frames to stderr
         char** bcktrace = backtrace_symbols(array, size);
 
-        message_ += "Exception encountered. Printing backtrace...\n";
+        backtrace_ += "Exception encountered. Printing backtrace...\n";
         for (int i = 0; i < size; i++) {
-            message_ += std::string(bcktrace[i]) + "\n";
+            backtrace_ += std::string(bcktrace[i]) + "\n";
         }
     }
     CEExceptionHandler(const std::string& origin,
@@ -50,11 +50,15 @@ public:
     virtual const char* what() const noexcept;
     virtual void        message_append(const std::string& msg);
     virtual void        message(const std::string& msg);
+    virtual const char* message(void) const noexcept;
+    virtual const char* trace(void) const noexcept;
 
 private:
     std::string origin_;
     std::string type_;
     std::string message_;
+    std::string backtrace_;
+    mutable std::string full_msg_;
 };
 
 
