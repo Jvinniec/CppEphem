@@ -74,9 +74,7 @@ int main(int argc, char** argv) {
     // Get the options from the command line
     CLOptions opts = DefineOpts() ;
     if (opts.ParseCommandLine(argc, argv)) return 0 ;
-    
-    //std::cout << opts.AsDouble("ra") <<"," << opts.AsDouble("dec") << std::endl;
-    
+        
     // Create a map to store the results
     CECoordinates input(opts.AsDouble("ra"), opts.AsDouble("dec"),
                         CECoordinateType::ICRS, CEAngleType::DEGREES) ;
