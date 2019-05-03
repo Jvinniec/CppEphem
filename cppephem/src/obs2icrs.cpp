@@ -62,9 +62,9 @@ void PrintResults(CLOptions& inputs, std::map<std::string, double> results)
     std::printf("* Results of Observed -> ICRS conversion *\n") ;
     std::printf("******************************************\n") ;
     std::printf("Observed Coordinates (input)\n") ;
-    std::printf("    Azimuth        : %f degrees\n", inputs.AsDouble("azimuth")*DR2D) ;
-    std::printf("    Zenith         : %+f degrees\n", inputs.AsDouble("zenith")*DR2D) ;
-    std::printf("    Altitude       : %+f degrees\n", 90.0-inputs.AsDouble("zenith")*DR2D) ;
+    std::printf("    Azimuth        : %f degrees\n", inputs.AsDouble("azimuth")) ;
+    std::printf("    Zenith         : %+f degrees\n", inputs.AsDouble("zenith")) ;
+    std::printf("    Altitude       : %+f degrees\n", 90.0-inputs.AsDouble("zenith")) ;
     std::printf("ICRS Coordinates (output)\n") ;
     std::printf("    Right Ascension: %f degrees\n", results["ra"]) ;
     std::printf("    Declination    : %+f degrees\n", results["dec"]) ;
@@ -89,8 +89,8 @@ int main(int argc, char** argv) {
     
     // Create a map to store the results
     std::map<std::string, double> results ;
-    results["ra"] = 0.0 ;
-    results["dec"]  = 0.0 ;
+    results["ra"]  = 0.0 ;
+    results["dec"] = 0.0 ;
     
     // Define the observer
     CEObserver observer(opts.AsDouble("longitude"),
@@ -110,20 +110,11 @@ int main(int argc, char** argv) {
                                                opts.AsDouble("zenith")*DD2R,
                                                &results["ra"], &results["dec"],
                                                date, observer, CEAngleType::RADIANS);
-    // int errcode = CECoordinates::Observed2ICRS(opts.AsDouble("azimuth")*DD2R,
-    //                                            opts.AsDouble("zenith")*DD2R,
-    //                                            &results["ra"], &results["dec"],
-    //                                            opts.AsDouble("juliandate"),
-    //                                            opts.AsDouble("longitude")*DD2R,
-    //                                            opts.AsDouble("latitude")*DD2R,
-    //                                            opts.AsDouble("elevation"),
-    //                                            opts.AsDouble("pressure"),
-    //                                            opts.AsDouble("temperature"),
-    //                                            opts.AsDouble("humidity"),
-    //                                            opts.AsDouble("dut1"),
-    //                                            opts.AsDouble("xpolar"),
-    //                                            opts.AsDouble("ypolar"),
-    //                                            opts.AsDouble("wavelength")) ;
+    
+    // Scale values back to degrees
+    results["ra"]  *= DR2D;
+    results["dec"] *= DR2D;
+
     // Print the results
     PrintResults(opts, results) ;
     

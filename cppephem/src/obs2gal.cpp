@@ -61,13 +61,13 @@ void PrintResults(CLOptions& inputs, std::map<std::string, double> results)
     std::printf("**********************************************\n") ;
     std::printf("* Results of Observed -> Galactic conversion *\n") ;
     std::printf("**********************************************\n") ;
-    std::printf("Observed Coordinates (output)\n") ;
-    std::printf("    Azimuth        : %f degrees\n", inputs.AsDouble("azimuth")*DR2D) ;
-    std::printf("    Zenith         : %+f degrees\n", inputs.AsDouble("zenith")*DR2D) ;
-    std::printf("    Altitude       : %+f degrees\n", 90.0-inputs.AsDouble("zenith")*DR2D) ;
-    std::printf("Galactic Coordinates (input)\n") ;
-    std::printf("    G. Longitude   : %f degrees\n", results["ra"]) ;
-    std::printf("    G. Latitude    : %+f degrees\n", results["dec"]) ;
+    std::printf("Observed Coordinates (input)\n") ;
+    std::printf("    Azimuth        : %f degrees\n", inputs.AsDouble("azimuth")) ;
+    std::printf("    Zenith         : %+f degrees\n", inputs.AsDouble("zenith")) ;
+    std::printf("    Altitude       : %+f degrees\n", 90.0-inputs.AsDouble("zenith")) ;
+    std::printf("Galactic Coordinates (output)\n") ;
+    std::printf("    G. Longitude   : %f degrees\n", results["glon"]) ;
+    std::printf("    G. Latitude    : %+f degrees\n", results["glat"]) ;
     std::printf("Observer Info\n") ;
     std::printf("    Julian Date    : %f\n", inputs.AsDouble("juliandate")) ;
     std::printf("    Longitude      : %f deg\n", inputs.AsDouble("longitude")) ;
@@ -90,7 +90,7 @@ int main(int argc, char** argv) {
     // Create a map to store the results
     std::map<std::string, double> results ;
     results["glon"] = 0.0 ;
-    results["glat"]  = 0.0 ;
+    results["glat"] = 0.0 ;
     
     // Define the observer
     CEObserver observer(opts.AsDouble("longitude"),
@@ -108,22 +108,11 @@ int main(int argc, char** argv) {
     // Convert the coordinates
     int errcode = CECoordinates::Observed2Galactic(opts.AsDouble("azimuth")*DD2R,
                                                    opts.AsDouble("zenith")*DD2R,
-                                                   &results["ra"], &results["dec"],
+                                                   &results["glon"], &results["glat"],
                                                    date, observer, CEAngleType::RADIANS);
-    // int errcode = CECoordinates::Observed2CIRS(opts.AsDouble("azimuth")*DD2R,
-    //                                            opts.AsDouble("zenith")*DD2R,
-    //                                            &results["glon"], &results["glat"],
-    //                                            opts.AsDouble("juliandate"),
-    //                                            opts.AsDouble("longitude")*DD2R,
-    //                                            opts.AsDouble("latitude")*DD2R,
-    //                                            opts.AsDouble("elevation"),
-    //                                            opts.AsDouble("pressure"),
-    //                                            opts.AsDouble("temperature"),
-    //                                            opts.AsDouble("humidity"),
-    //                                            opts.AsDouble("dut1"),
-    //                                            opts.AsDouble("xpolar"),
-    //                                            opts.AsDouble("ypolar"),
-    //                                            opts.AsDouble("wavelength")) ;
+    results["glon"] *= DR2D;
+    results["glat"] *= DR2D;
+    
     // Print the results
     PrintResults(opts, results) ;
     
