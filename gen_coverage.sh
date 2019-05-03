@@ -43,7 +43,7 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
     LLVM_PROFILE_FILE="${outdir}/mjd2jd.profraw"        ./build/bin/test_mjd2jd 58515.5
 
     # Coordinate conversion tests
-    LLVM_PROFILE_FILE="${outdir}/cirs2gal.profraw"      ./build/bin/test_cirs2gal --ra=83.633 --dec=22.0145
+    LLVM_PROFILE_FILE="${outdir}/cirs2gal.profraw"      ./build/bin/test_cirs2gal --ra=83.633 --dec=22.0145 --juliandate=2451545.0
     #LLVM_PROFILE_FILE="${outdir}/cirs2icrs.profraw"     ./build/bin/test_cirs2icrs --ra=83.633 --dec=22.0145
     LLVM_PROFILE_FILE="${outdir}/cirs2obs.profraw"      ./build/bin/test_cirs2obs --ra=83.633 --dec=22.0145 --longitude=0.0 --latitude=0.0 --juliandate=2451545.0
     LLVM_PROFILE_FILE="${outdir}/icrs2cirs.profraw"     ./build/bin/test_icrs2cirs --ra=83.633 --dec=22.0145 --juliandate=2451545.0
