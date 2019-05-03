@@ -33,11 +33,19 @@
  *************************************************************************/
 CLOptions DefineOpts()
 {
-    // Create a default observer
-    CEObserver obs;
-    
-    // Create the
     CLOptions opts;
+    
+    // Add version and description
+    std::string vers_str = std::string("icrs2obs v") + CPPEPHEM_VERSION;
+    opts.AddVersionInfo(vers_str);
+    opts.AddProgramDescription(std::string() +
+                               "Converts from ICRS (solar system barycentric) " +
+                               "coordinates to observed altitude, zenith " +
+                               "coordinates for a given Julian date. Additional " +
+                               "observing parameters can also be supplied for " +
+                               "more accurate coordinate values");
+
+    // Create the required parameters
     opts.AddDoubleParam("x,longitude", "Observer longitude (degrees)",0.0);
     opts.AddDoubleParam("y,latitude", "Observer latitude (degrees)",0.0);
     opts.AddDoubleParam("r,ra", "Right Ascension (degrees)", 0.0);
@@ -45,6 +53,7 @@ CLOptions DefineOpts()
     opts.AddDoubleParam("j,juliandate", "Julian Date for query", CEDate::CurrentJD());
 
     // Define observer parameters
+    CEObserver obs;
     opts.AddDoubleParam("e,elevation", "Observer elevation (meters above sea-level)", obs.Elevation_m());
     opts.AddDoubleParam("h,humidity", "Observer's relative humidity (0-1)", obs.RelativeHumidity());
     opts.AddDoubleParam("p,pressure", "Observer's atmospheric pressure (hPa)", obs.Pressure_hPa());

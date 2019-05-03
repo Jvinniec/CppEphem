@@ -31,6 +31,7 @@ int main(int argc, const char * argv[]) {
     // Check that we've been passed an actual argument
     if ((argc != 2)&&(argc != 4)) {
         // Print some usage information
+        std::cout << "cal2mjd v" << CPPEPHEM_VERSION << "\n";
         std::cout << "\nUSAGE: May be called in one of two ways:\n";
         std::cout << "    1: cal2mjd YYYYMMDD.<day fraction>\n" ;
         std::cout << "    2: cal2mjd <year> <month> <day>.<day fraction>\n" ;

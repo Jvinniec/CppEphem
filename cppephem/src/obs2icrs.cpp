@@ -34,8 +34,16 @@
  *************************************************************************/
 CLOptions DefineOpts()
 {
-    CLOptions opts ;
-    opts.AddProgramDescription("Takes observed positions (azimuth,zenith angle) and computes the ICRS RA,Dec positions based on the observer location and atmospheric properties. The only values necessary to get rough coordinates are 'longitude', 'latitude', 'azimuth', 'zenith', and 'juliandate'.") ;
+    CLOptions opts;
+
+    // Add a program version and description
+    std::string vers_str = std::string("obs2icrs v") + CPPEPHEM_VERSION;
+    opts.AddVersionInfo(vers_str);
+    opts.AddProgramDescription(std::string() +
+        "Takes observed positions (azimuth,zenith angle) and computes the ICRS " +
+        "RA,Dec positions based on the observer location and atmospheric " +
+        "properties. The only values necessary to get rough coordinates are " +
+        "'longitude', 'latitude', 'azimuth', 'zenith', and 'juliandate'.") ;
     
     // Setup the defaults
     CEObserver obs ;

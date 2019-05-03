@@ -45,7 +45,7 @@ CLOptions DefineOpts()
                                "the observer location and atmospheric properties. " +
                                "The only values necessary to get rough coordinates " +
                                "are 'longitude', 'latitude', 'azimuth', 'zenith', " +
-                               "and 'juliandate'.") ;
+                               "and 'juliandate'.");
 
     // Setup the defaults
     CEObserver obs ;

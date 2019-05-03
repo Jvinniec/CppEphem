@@ -33,7 +33,16 @@
  *************************************************************************/
 CLOptions DefineOpts()
 {
-    CLOptions opts ;
+    CLOptions opts;
+
+    // Add version and description
+    std::string vers_str = std::string("icrs2cirs v") + CPPEPHEM_VERSION;
+    opts.AddVersionInfo(vers_str);
+    opts.AddProgramDescription(std::string() +
+                               "Converts from ICRS (solar system barycentric) " +
+                               "coordinates to CIRS (Earth centric) coordinates " +
+                               "for a given Julian date.");
+
     // Set the options
     opts.AddDoubleParam("r,ra", "ICRS right ascension for the conversion (degrees)",0.0) ;
     opts.AddDoubleParam("d,dec", "ICRS declination for the conversion (degrees)", 0.0) ;
