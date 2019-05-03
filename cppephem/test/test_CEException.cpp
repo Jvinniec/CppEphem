@@ -89,7 +89,6 @@ bool test_CEException::test_construct(void)
 
         // Make sure the combined output exceeds both the message and trace
         std::string test_what(e.what());
-        std::cout << e.what() << std::endl;
         test_greaterthan(test_what.size(), test_msg.size()+test_trace.size(), __func__, __LINE__);
 
         // See if we can append to the exception
