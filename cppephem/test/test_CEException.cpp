@@ -49,8 +49,55 @@ bool test_CEException::runtests()
 
     // Run each of the tests
     test_invalid_value();
+    test_construct();
     test_sofa_error();
     test_sofa_exception();
+    test_corr_file_except();
+
+    return pass();
+}
+
+
+/**********************************************************************//**
+ * Try constructing and accesing information about a CEException
+ *  @return whether or not all tests succeeded
+ *************************************************************************/
+bool test_CEException::test_construct(void)
+{
+    // Create a message
+    std::string msg = "Testing throwing 'CEException::invalid_value'";
+
+    // Try throwing
+    try {
+        throw CEException::invalid_value("test_CEException::test_invalid_value()",
+                                         msg);
+        // If we get here there's a problem
+        log_failure("CEException::invalid_value failed to throw", __func__, __LINE__);
+        update_pass(false);
+    } catch (CEException::invalid_value & e) {
+        // This is where we should be
+        log_success("CEException::invalid_value thrown successfully", __func__, __LINE__);
+        update_pass(true);
+
+        // Test that we can access the message
+        std::string test_msg(e.message());
+        test_string(test_msg, msg, __func__, __LINE__);
+
+        // Test that the backtrace is in fact filled
+        std::string test_trace(e.trace());
+        test_greaterthan(test_trace.size(), 1, __func__, __LINE__);
+
+        // Make sure the combined output exceeds both the message and trace
+        std::string test_what(e.what());
+        std::cout << e.what() << std::endl;
+        test_greaterthan(test_what.size(), test_msg.size()+test_trace.size(), __func__, __LINE__);
+
+        // See if we can append to the exception
+        std::string msg2(" ... now with more text!");
+        e.message_append(msg2);
+        test_msg = std::string(e.message());
+        test_string(test_msg, msg+msg2, __func__, __LINE__);
+    }
 
     return pass();
 }
@@ -65,7 +112,7 @@ bool test_CEException::test_invalid_value(void)
     // Try throwing
     try {
         throw CEException::invalid_value("test_CEException::test_invalid_value()",
-                                         "Testing throwing 'CEException::invalid_value");
+                                         "Testing throwing 'CEException::invalid_value'");
         // If we get here there's a problem
         log_failure("CEException::invalid_value failed to throw", __func__, __LINE__);
         update_pass(false);
@@ -115,13 +162,37 @@ bool test_CEException::test_sofa_exception(void)
         // TODO: find a sofa method that can be configured to return a bad error code
         throw CEException::sofa_exception("test_CEException::test_sofa_exception()",
                                       "No method currently checked",
-                                      "Testing throwing 'CEException::sofa_exception");
+                                      "Testing throwing 'CEException::sofa_exception'");
         // If we get here there's a problem
         log_failure("CEException::sofa_exception failed to throw", __func__, __LINE__);
         update_pass(false);
     } catch (CEException::sofa_exception & e) {
         // This is where we should be
         log_success("CEException::sofa_exception thrown successfully", __func__, __LINE__);
+        update_pass(true);
+    }
+
+    return pass();
+}
+
+
+/**********************************************************************//**
+ * Try throwing 'CEException::sofa_exception'
+ *  @return whether or not all tests succeeded
+ *************************************************************************/
+bool test_CEException::test_corr_file_except(void)
+{
+    // Try throwing
+    try {
+        // TODO: find a sofa method that can be configured to return a bad error code
+        throw CEException::corr_file_load_error("test_CEException::test_corr_file_except()",
+                                                "Testing throwing 'CEException::corr_file_load_error'");
+        // If we get here there's a problem
+        log_failure("CEException::corr_file_load_error failed to throw", __func__, __LINE__);
+        update_pass(false);
+    } catch (CEException::corr_file_load_error & e) {
+        // This is where we should be
+        log_success("CEException::corr_file_load_error thrown and caught successfully", __func__, __LINE__);
         update_pass(true);
     }
 

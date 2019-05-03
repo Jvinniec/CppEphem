@@ -33,10 +33,11 @@ public:
     virtual bool runtests();
 
     /****** METHODS ******/
-
+    virtual bool test_construct(void);
     virtual bool test_invalid_value(void);
     virtual bool test_sofa_error(void);
     virtual bool test_sofa_exception(void);
+    virtual bool test_corr_file_except(void);
 
 };
 
