@@ -82,8 +82,16 @@ int main(int argc, char** argv)
  *************************************************************************/
 CLOptions DefineOpts()
 {
-    CLOptions opts ;
-    opts.AddProgramDescription("Returns the RA,Dec and observed Az,Alt coordinates for a given planet for a given observer.");
+    CLOptions opts;
+
+    // Add version and description
+    std::string vers_str = std::string("planetephem v") + CPPEPHEM_VERSION;
+    opts.AddVersionInfo(vers_str);
+    opts.AddProgramDescription(std::string() +
+        "Returns the RA,Dec and observed Az,Alt coordinates for a given " +
+        "planet for a given observer.");
+
+    // Define the parameters
     opts.AddIntParam("p,planet",
                      "Planet number (1=Mercury, 2=Venus, 4=Mars, 5=Jupiter, 6=Saturn, 7=Uranus, 8=Neptune)",
                      0);

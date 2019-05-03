@@ -34,7 +34,18 @@
  *************************************************************************/
 CLOptions DefineOpts()
 {
-    CLOptions opts ;
+    CLOptions opts;
+
+    // Add a program version and description
+    std::string vers_str = std::string("gal2obs v") + CPPEPHEM_VERSION;
+    opts.AddVersionInfo(vers_str);
+    opts.AddProgramDescription(std::string() +
+                               "Converts from Galactic coordinates to observed " +
+                               "altitude and zenith coordinates for a given " +
+                               "Julian date. Additional observing conditions " +
+                               "an also be specified to allow more accurate " +
+                               "coordinate values.");
+
     // Set the options
     opts.AddDoubleParam("x,longitude", "Observer longitude (degrees, East-positive)",0.0) ;
     opts.AddDoubleParam("y,latitude", "observer latitude (degrees)", 0.0) ;

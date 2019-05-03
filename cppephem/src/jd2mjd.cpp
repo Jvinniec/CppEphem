@@ -28,6 +28,7 @@ int main(int argc, const char * argv[]) {
     // Check that we've been passed an actual argument
     if (argc < 2) {
         // Print some usage information
+        std::cout << "jd2mjd v" << CPPEPHEM_VERSION << "\n";
         std::cout << "\nUSAGE: jd2mjd <julian date>\n" ;
         std::cout << "RETURNED: Modified Julian Date\n\n" ;
         return 0 ;

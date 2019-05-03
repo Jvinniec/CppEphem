@@ -34,7 +34,16 @@
  *************************************************************************/
 CLOptions DefineOpts()
 {
-    CLOptions opts ;
+    CLOptions opts;
+
+    // Add a program version and description
+    std::string vers_str = std::string("gal2cirs v") + CPPEPHEM_VERSION;
+    opts.AddVersionInfo(vers_str);
+    opts.AddProgramDescription(std::string() +
+                               "Converts from Galactic coordinates to CIRS " +
+                               "(Earth centric) coordinates for a given " +
+                               "Julian date.");
+
     // Set the options
     opts.AddDoubleParam("l,glon", "Galactic longitude (degrees)",0.0);
     opts.AddDoubleParam("b,glat", "Galactic latitude (degrees)", 0.0);

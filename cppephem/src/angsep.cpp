@@ -71,12 +71,15 @@ CLOptions DefineOpts()
 {
     CLOptions opts;
     
+    // Add a program version and description
+    std::string vers_str = std::string("angsep v") + CPPEPHEM_VERSION;
+    opts.AddVersionInfo(vers_str);
+
     // Add program description
     opts.AddProgramDescription(std::string() +
                                "Computes the angular separation between two " +
-                               "coordinates in either ICRS or GALACTIC. Note " +
-                               "that the coordinate types need to be the same " +
-                               "for both positions.");
+                               "coordinates. Note that the coordinate types " +
+                               "need to be the same for both positions.");
     
     // Specify the actual options
     opts.AddBoolParam("InputDegrees",

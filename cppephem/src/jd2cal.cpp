@@ -31,6 +31,7 @@ int main(int argc, const char * argv[]) {
     // Check that we've been passed an actual argument
     if (argc < 2) {
         // Print some usage information
+        std::cout << "jd2cal v" << CPPEPHEM_VERSION << "\n";
         std::cout << "\nUSAGE: jd2cal <julian date> <return format ID>\n" ;
         std::cout << "RETURNED: Gregorian calendar date in one of two formats:\n" ;
         std::cout << "   (default) ID=0: YYYYMMDD.<date fraction>\n" ;
