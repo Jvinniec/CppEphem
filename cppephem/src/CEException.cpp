@@ -49,9 +49,11 @@ CEExceptionHandler::CEExceptionHandler(const std::string& origin,
 const char* CEExceptionHandler::what() const noexcept
 {
     // Define the header of the error message
-    std::string msg = "[ERROR] " + type_ + ": " + origin_ + "\n" + message_ + "\n";
+    full_msg_.clear();
+    full_msg_ += "[ERROR] " + type_ + ": " + origin_ + "\n" + 
+                      message_ + "\n" + backtrace_ + "\n";
 
-    return msg.c_str();
+    return full_msg_.c_str();
 }
 
 
@@ -72,6 +74,24 @@ void CEExceptionHandler::message_append(const std::string& msg)
 void CEExceptionHandler::message(const std::string& msg)
 {
     message_ = msg;
+}
+
+
+/**********************************************************************//**
+ * Return the message passed by the user
+ *************************************************************************/
+const char* CEExceptionHandler::message(void) const noexcept
+{
+    return message_.c_str();
+}
+
+
+/**********************************************************************//**
+ * Return the backtrace string
+ *************************************************************************/
+const char* CEExceptionHandler::trace(void) const noexcept
+{
+    return backtrace_.c_str();
 }
 
 
