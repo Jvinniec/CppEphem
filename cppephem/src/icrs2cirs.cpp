@@ -35,9 +35,9 @@ CLOptions DefineOpts()
 {
     CLOptions opts ;
     // Set the options
-    opts.AddDoubleParam("r,RA", "ICRS right ascension for the conversion (degrees)",0.0) ;
-    opts.AddDoubleParam("d,Dec", "ICRS declination for the conversion (degrees)", 0.0) ;
-    opts.AddDoubleParam("j,JulianDate", "Julian date for the returned coordinates", CEDate::CurrentJD()) ;
+    opts.AddDoubleParam("r,ra", "ICRS right ascension for the conversion (degrees)",0.0) ;
+    opts.AddDoubleParam("d,dec", "ICRS declination for the conversion (degrees)", 0.0) ;
+    opts.AddDoubleParam("j,juliandate", "Julian date for the returned coordinates", CEDate::CurrentJD()) ;
     
     return opts;
 }
@@ -81,12 +81,12 @@ int main (int argc, char** argv)
     if (opts.ParseCommandLine(argc, argv)) return 0 ;
     
     // Create a CECoordinates object
-    CECoordinates input(opts.AsDouble("RA"), opts.AsDouble("Dec"),
+    CECoordinates input(opts.AsDouble("ra"), opts.AsDouble("dec"),
                         CECoordinateType::ICRS, CEAngleType::DEGREES) ;
     
     // Get the coordinates as CIRS
-    CECoordinates output = input.ConvertToCIRS(opts.AsDouble("JulianDate")) ;
+    CECoordinates output = input.ConvertToCIRS(opts.AsDouble("juliandate")) ;
     
     // Print the result
-    PrintResults(input, output, opts.AsDouble("JulianDate")) ;
+    PrintResults(input, output, opts.AsDouble("juliandate")) ;
 }
