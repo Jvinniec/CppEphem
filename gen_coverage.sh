@@ -98,5 +98,5 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
         > ${outdir}/coverage_report.txt
 
     # Run sonnar scanner to analyze code and coverage statistics
-    sonar-scanner -X
+    sonar-scanner
 fi
