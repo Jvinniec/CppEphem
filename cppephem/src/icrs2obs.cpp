@@ -38,19 +38,18 @@ CLOptions DefineOpts()
     
     // Create the
     CLOptions opts;
-    opts.AddDoubleParam("X,longitude", "Observer longitude (degrees)",0.0);
-    opts.AddDoubleParam("Y,latitude", "Observer latitude (degrees)",0.0);
-    opts.AddDoubleParam("R,ra", "Right Ascension (degrees)", 0.0);
-    opts.AddDoubleParam("D,dec", "Declination (degrees)", 0.0);
+    opts.AddDoubleParam("x,longitude", "Observer longitude (degrees)",0.0);
+    opts.AddDoubleParam("y,latitude", "Observer latitude (degrees)",0.0);
+    opts.AddDoubleParam("r,ra", "Right Ascension (degrees)", 0.0);
+    opts.AddDoubleParam("d,dec", "Declination (degrees)", 0.0);
     opts.AddDoubleParam("j,juliandate", "Julian Date for query", CEDate::CurrentJD());
+
+    // Define observer parameters
     opts.AddDoubleParam("e,elevation", "Observer elevation (meters above sea-level)", obs.Elevation_m());
     opts.AddDoubleParam("h,humidity", "Observer's relative humidity (0-1)", obs.RelativeHumidity());
     opts.AddDoubleParam("p,pressure", "Observer's atmospheric pressure (hPa)", obs.Pressure_hPa());
     opts.AddDoubleParam("t,temperature", "Observer's temperature (degrees Celsius)", obs.Temperature_C());
     opts.AddDoubleParam("w,wavelength", "Wavelength of light being observed (micrometers)", 0.5);
-    opts.AddDoubleParam("d,dut1", "UT1-UTC", 0.0);
-    opts.AddDoubleParam("x,xpolar", "x-polar motion (best to leave alone)", 0.0);
-    opts.AddDoubleParam("y,ypolar", "y-polar motion (best to leave alone)", 0.0);
     
     return opts;
 }
@@ -76,9 +75,9 @@ void PrintResults(CECoordinates& input_icrs,
     std::printf("    Right Ascension: %f deg\n", input_icrs.XCoordinate_Deg()) ;
     std::printf("    Declination    : %+f deg\n", input_icrs.YCoordinate_Deg()) ;
     std::printf("    Julian Date    : %f\n", date.JD()) ;
-    //std::printf("Apparent ICRS Coordinates\n");
-    //std::printf("    Right Ascension: %f deg\n", observed_icrs.XCoordinate_Deg());
-    //std::printf("    Declination    : %f deg\n", observed_icrs.XCoordinate_Deg());
+    std::printf("Apparent ICRS Coordinates\n");
+    std::printf("    Right Ascension: %f deg\n", observed_icrs.XCoordinate_Deg());
+    std::printf("    Declination    : %f deg\n", observed_icrs.YCoordinate_Deg());
     std::printf("Observer Info\n") ;
     std::printf("    Longitude      : %f deg\n", observer.Longitude_Deg()) ;
     std::printf("    Latitude       : %+f deg\n", observer.Latitude_Deg()) ;
@@ -101,8 +100,10 @@ int main(int argc, char** argv)
     CECoordinates input(opts.AsDouble("ra"), opts.AsDouble("dec"),
                         CECoordinateType::ICRS, CEAngleType::DEGREES);
     
+    // Define the date
     CEDate date(opts.AsDouble("juliandate"), CEDateType::JD);
 
+    // Define the observer
     CEObserver observer(opts.AsDouble("longitude"),
                         opts.AsDouble("latitude"),
                         opts.AsDouble("elevation"),
