@@ -120,20 +120,11 @@ int main(int argc, char** argv) {
                                                opts.AsDouble("zenith")*DD2R,
                                                &results["ra"], &results["dec"],
                                                date, observer, CEAngleType::RADIANS);
-    // int errcode = CECoordinates::Observed2CIRS(opts.AsDouble("azimuth")*DD2R,
-    //                                            opts.AsDouble("zenith")*DD2R,
-    //                                            &results["ra"], &results["dec"],
-    //                                            opts.AsDouble("juliandate"),
-    //                                            opts.AsDouble("longitude")*DD2R,
-    //                                            opts.AsDouble("latitude")*DD2R,
-    //                                            opts.AsDouble("elevation"),
-    //                                            opts.AsDouble("pressure"),
-    //                                            opts.AsDouble("temperature"),
-    //                                            opts.AsDouble("humidity"),
-    //                                            opts.AsDouble("dut1"),
-    //                                            opts.AsDouble("xpolar"),
-    //                                            opts.AsDouble("ypolar"),
-    //                                            opts.AsDouble("wavelength")) ;
+    
+    // Convert back to degrees
+    results["ra"]  *= DR2D;
+    results["dec"] *= DR2D;
+    
     // Print the results
     PrintResults(opts, results) ;
     
