@@ -192,7 +192,7 @@ void CEObserver::copy_members(const CEObserver& other)
 void CEObserver::init_members(void)
 {
     longitude_           = 0.0;
-    latitude_            = 51.4778;
+    latitude_            = 0.0;
     elevation_m_         = 0.0;
     temperature_celsius_ = CppEphem::SeaLevelTemp_C();
     pressure_hPa_        = CppEphem::EstimatePressure_hPa(temperature_celsius_);
