@@ -54,7 +54,7 @@ cppephem_test (test_mjd2cal   mjd2cal.cpp     51544.5)
 cppephem_test (test_mjd2jd    mjd2jd.cpp      51544.5)
 
 # Coordinate conversion tests
-cppephem_test (test_cirs2gal  cirs2gal.cpp    --ra=83.633 --dec=22.0145)
+cppephem_test (test_cirs2gal  cirs2gal.cpp    --ra=83.633 --dec=22.0145 --juliandate=2451545.0)
 #cppephem_test (test_cirs2icrs cirs2icrs.cpp   --ra=83.633 --dec=22.0145)
 cppephem_test (test_cirs2obs  cirs2obs.cpp    --ra=83.633 --dec=22.0145 --longitude=0.0 --latitude=0.0 --juliandate=2451545.0)
 cppephem_test (test_icrs2cirs icrs2cirs.cpp   --ra=83.633 --dec=22.0145 --juliandate=2451545.0)
