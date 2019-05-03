@@ -1,7 +1,7 @@
 /***************************************************************************
  *  cal2jd.cpp: CppEphem                                                   *
  * ----------------------------------------------------------------------- *
- *  Copyright © 2016 JCardenzana                                           *
+ *  Copyright © 2016-2019 JCardenzana                                      *
  * ----------------------------------------------------------------------- *
  *                                                                         *
  *  This program is free software: you can redistribute it and/or modify   *
@@ -40,7 +40,9 @@ int main(int argc, const char * argv[]) {
         jd = CEDate::Gregorian2JD(std::stod(argv[1])) ;
     } else if (argc == 4) {
         // First get the year, month, day information from the pass parameters
-        double year(std::stod(argv[1])), month(std::stod(argv[2])), day(std::stod(argv[3])) ;
+        double year(std::stod(argv[1]));
+        double month(std::stod(argv[2]));
+        double day(std::stod(argv[3]));
         std::vector<double> gregorian_vect = {year, month, std::floor(day), 0.0} ;
         gregorian_vect[3] = day - gregorian_vect[2] ;
                 
