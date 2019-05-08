@@ -135,7 +135,6 @@ CECoordinates CEObserver::ObservedPosition(const CECoordinates& coords,
                                            const CEDate&        date)
 {
     // Compute the observed coordinates for these coordinates
-    //CECoordinates tmpcoords(coords);
     CECoordinates observed_coords = coords.GetObservedCoords(date,*this);
     return observed_coords;
 }
