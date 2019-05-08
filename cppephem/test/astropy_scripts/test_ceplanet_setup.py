@@ -28,11 +28,13 @@ def print_planet_position(name, observer, time):
     aa   = AltAz(location=observer, obstime=time)
     obs  = planet.transform_to(aa)
     icrs = planet.transform_to('icrs')
+    cirs = planet.transform_to('cirs')
 
     # Compute the position/velocity of the object
     pos, vel = solar_system.get_body_barycentric_posvel(body = name, 
                                                         time = time)
     print(f"{name:8}: obs=({obs.az:20.16f},{obs.zen:20.16f}) | icrs=({icrs.ra:20.16f},{icrs.dec:20.16f})")
+    print(f"          cirs=({cirs.ra:20.16f},{cirs.dec:20.16f})")
     print(f"          pos={pos}, vel={vel}")
 
 
