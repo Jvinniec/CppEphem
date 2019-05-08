@@ -1175,16 +1175,36 @@ double CECoordinates::AngularSeparation(const CECoordinates& coords,
  * @param[in] coords2              Second set of coordinates
  * @param[in] return_angle_type    Specify whether to return angle as DEGREES or RADIANS
  * @return Angular separation between two coordiantes
+ * 
+ * Note that the x-coordinates are expected in the range [0, 2pi] and the
+ * y-coordinates are expected in the range [-pi, pi]. Because of this, you
+ * need to pass:
+ *  - ICRS: RA, Dec
+ *  - CIRS: RA, Dec
+ *  - GALACTIC: G.Lon, G.Lat
+ *  - OBSERVED: Az, Alt (by default the y-coordinate is zenith)
  *************************************************************************/
 double CECoordinates::AngularSeparation(const CECoordinates& coords1, 
                                         const CECoordinates& coords2,
                                         const CEAngleType& return_angle_type)
 {
+    // Make sure the coordinates are in the same frame
+    if (coords1.GetCoordSystem() != coords2.GetCoordSystem()) {
+        throw CEException::invalid_value("CECoordinates::AngularSeparation(CECoords&, CECoords&)",
+                                         "Supplied coordinates are in different frames");
+    }
+
+    // Get the appropriate Y-Coordinates
+    double y1 = coords1.YCoordinate_Rad();
+    double y2 = coords2.YCoordinate_Rad();
+    if (coords1.GetCoordSystem() == CECoordinateType::OBSERVED) {
+        y1 = M_PI_2 - y1;
+        y2 = M_PI_2 - y2;
+    }
+
     // Convert the second coordinates to be the same type as the first set of coordinates
-    double angsep = AngularSeparation(coords1.XCoordinate_Rad(),
-                                      coords1.YCoordinate_Rad(),
-                                      coords2.XCoordinate_Rad(),
-                                      coords2.YCoordinate_Rad(),
+    double angsep = AngularSeparation(coords1.XCoordinate_Rad(), y1,
+                                      coords2.XCoordinate_Rad(), y2,
                                       CEAngleType::RADIANS) ;
     // Convert radians to degrees if a return type of degrees is requested
     if (return_angle_type == CEAngleType::DEGREES) {
@@ -1207,6 +1227,14 @@ double CECoordinates::AngularSeparation(const CECoordinates& coords1,
  * @param[in] return_angle_type    Specify whether input angles are DEGREES or RADIANS.
  *                                 (output angle will be in the same format)
  * @return Angular separation between two coordinates
+ * 
+ * Note that the x-coordinates are expected in the range [0, 2pi] and the
+ * y-coordinates are expected in the range [-pi, pi]. Because of this, you
+ * need to pass:
+ *  - ICRS: RA, Dec
+ *  - CIRS: RA, Dec
+ *  - GALACTIC: G.Lon, G.Lat
+ *  - OBSERVED: Az, Alt (by default the y-coordinate is zenith)
  *************************************************************************/
 double CECoordinates::AngularSeparation(double xcoord_first, 
                                         double ycoord_first,
