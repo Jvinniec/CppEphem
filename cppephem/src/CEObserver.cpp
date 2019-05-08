@@ -142,6 +142,69 @@ CECoordinates CEObserver::ObservedPosition(const CECoordinates& coords,
 
 
 /**********************************************************************//**
+ * Returns the observers geocentric position in meters
+ * @return Geocentric position of observer (in meters)
+ * 
+ * The position returned is in reference to the WGS84 coordinates
+ *************************************************************************/
+std::vector<double> CEObserver::PositionGeo(void) const
+{
+    // Get the position
+    double xyzm[3];
+    iauGd2gc(1, longitude_, latitude_, elevation_m_, xyzm);
+
+    return std::vector<double>(&xyzm[0], &xyzm[0]+3);
+}
+
+/**********************************************************************//**
+ * Get the position vector for this observer relative to CIRS (Earth center)
+ * @param[in] date          Date object for computing position
+ * @return Position vector relative to earth center position (AU)
+ *************************************************************************/
+std::vector<double> CEObserver::PositionCIRS(const CEDate& date) const
+{
+    UpdatePosVel(date);
+    return pos_cirs_;
+}
+
+
+/**********************************************************************//**
+ * Get the position vector for this observer relative to ICRS (solar system barycenter)
+ * @param[in] date          Date object for computing position
+ * @return Position vector relative to solar system barycenter position (AU)
+ *************************************************************************/
+std::vector<double> CEObserver::PositionICRS(const CEDate& date) const
+{
+    UpdatePosVel(date);
+    return pos_icrs_;
+}
+
+
+/**********************************************************************//**
+ * Get the velocity vector for this observer relative to CIRS (solar system barycenter)
+ * @param[in] date          Date object for computing position
+ * @return Velocity vector relative to Earth center position (AU)
+ *************************************************************************/
+std::vector<double> CEObserver::VelocityCIRS(const CEDate& date) const
+{
+    UpdatePosVel(date);
+    return vel_cirs_;
+}
+
+
+/**********************************************************************//**
+ * Get the velocity vector for this observer relative to ICRS (solar system barycenter)
+ * @param[in] date          Date object for computing position
+ * @return Velocity vector relative to solar system barycenter position (AU)
+ *************************************************************************/
+std::vector<double> CEObserver::VelocityICRS(const CEDate& date) const
+{
+    UpdatePosVel(date);
+    return vel_icrs_;
+}
+
+
+/**********************************************************************//**
  * Returns a string containing information about this object
  * @return Formatted string containing information about this observer
  *************************************************************************/
@@ -183,6 +246,13 @@ void CEObserver::copy_members(const CEObserver& other)
     temperature_celsius_ = other.temperature_celsius_;
     relative_humidity_   = other.relative_humidity_;
     utc_offset_          = other.utc_offset_;
+
+    // Copy cached parameters
+    cache_date_ = other.cache_date_;
+    pos_cirs_   = other.pos_cirs_;
+    pos_icrs_   = other.pos_icrs_;
+    vel_cirs_   = other.vel_cirs_;
+    vel_icrs_   = other.vel_icrs_;
 }
 
 
@@ -198,4 +268,78 @@ void CEObserver::init_members(void)
     pressure_hPa_        = CppEphem::EstimatePressure_hPa(temperature_celsius_);
     relative_humidity_   = 0.0;
     utc_offset_          = CETime::SystemUTCOffset_hrs();
+
+    // cached pos/vel parameters
+    cache_date_ = -1.0e30;
+    pos_cirs_   = std::vector<double>(3, 0.0);
+    pos_icrs_   = std::vector<double>(3, 0.0);
+    vel_cirs_   = std::vector<double>(3, 0.0);
+    vel_icrs_   = std::vector<double>(3, 0.0);
+}
+
+
+/**********************************************************************//**
+ * Update cached position/velocity vectors
+ * 
+ * @param[in] date          Date for computation
+ *************************************************************************/
+void CEObserver::UpdatePosVel(const CEDate& date) const
+{
+    // Check if the cached date has changed
+    if (date.MJD() != cache_date_) {
+
+        // Convert UTC to UT1 and TDB
+        double ut11(0.0);
+        double ut12(0.0);
+        double tdb1(0.0);
+        double tdb2(0.0);
+        double tt1(0.0);
+        double tt2(0.0);
+        CEDate::UTC2UT1(date.MJD(), &ut11, &ut12);
+        CEDate::UTC2TDB(date.MJD(), &tdb1, &tdb2);
+        CEDate::UTC2TT(date.MJD(), &tt1, &tt2);
+
+        // Compute the Earth rotation angle at UT1
+        //iauBpn2xy(r, &x, &y);
+        double theta = iauEra00(ut11, ut12);
+        //double s     = iauS06(tt1, tt2, x, y);
+        double sp    = iauSp00(tt1, tt2);
+
+        // Vectors for intermediate position/velocities
+        double pvc[2][3];   // CIRS pos,vel
+        double pvg[2][3];   // GCRS pos,vel
+
+        // Get the position and velocity values in CIRS
+        iauPvtob(longitude_, 
+                 latitude_, 
+                 elevation_m_, 
+                 date.xpolar(),
+                 date.ypolar(),
+                 sp,
+                 theta,
+                 pvc);
+
+        // Apply rotattion from CIRS -> GCRS
+        double r[3][3];
+        iauPnm06a(tt1, tt2, r);
+        iauTrxpv(r, pvc, pvg);
+
+        // Earth centric distance/velocity in ICRS (AU and AU/day)
+        double ebpv[2][3];
+        double ehpv[2][3];
+        iauEpv00(tdb1, tdb2, ehpv, ebpv);
+
+        // Get the CIRS and ICRS pos,vel
+        double mps_apd = CppEphem::sec_per_day() / CppEphem::m_per_au();
+        for (int i=0; i<3; i++) {
+            // CIRS
+            pos_cirs_[i] = pvc[0][i] / CppEphem::m_per_au();
+            vel_cirs_[i] = pvc[1][i] * mps_apd;
+
+            // ICRS (Earth barycenter + GCRS offset)
+            pos_icrs_[i] = ebpv[0][i] + (pvg[0][i] / CppEphem::m_per_au());
+            vel_icrs_[i] = ebpv[1][i] + (pvg[1][i] * mps_apd);
+        }
+    }
+    return;
 }
