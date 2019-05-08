@@ -684,13 +684,13 @@ int CECoordinates::Observed2Galactic(double az, double zen,
  * (uses the SOFA 'iauAtio13' function)
  * Note: All angles are expected to be in radians.
  * 
- * @param[in]  ra                   CIRS right ascension
- * @param[in]  dec                  CIRS declination
- * @param[out] az                   Observed azimuth angle (returned)
- * @param[out] zen                  Observed zenith angle (returned)
+ * @param[in]  ra                   CIRS right ascension (radians)
+ * @param[in]  dec                  CIRS declination (radians)
+ * @param[out] az                   Observed azimuth angle (radians, returned)
+ * @param[out] zen                  Observed zenith angle (radians, returned)
  * @param[in]  julian_date          Julian date for conversion
- * @param[in]  latitude             Observer geographic latitude
- * @param[in]  longitude            Observer geographic longitude
+ * @param[in]  longitude            Observer geographic longitude (radians)
+ * @param[in]  latitude             Observer geographic latitude (radians)
  * @param[in]  elevation_m          Observer elevation (meters)
  * @param[in]  pressure_hPa         Atmospheric pressure (HPa)
  * @param[in]  temperature_celsius  Temperature (degrees Celsius)
@@ -766,8 +766,8 @@ int CECoordinates::CIRS2Observed(double ra, double dec,
  * @param[out] ra                   CIRS right ascension (returned)
  * @param[out] dec                  CIRS declination (returned)
  * @param[in]  julian_date          Julian date for conversion
- * @param[in]  latitude             Observer geographic latitude
  * @param[in]  longitude            Observer geographic longitude
+ * @param[in]  latitude             Observer geographic latitude
  * @param[in]  elevation_m          Observer elevation (meters)
  * @param[in]  pressure_hPa         Atmospheric pressure (HPa)
  * @param[in]  temperature_celsius  Temperature (degrees Celsius)
@@ -808,13 +808,13 @@ int CECoordinates::Observed2CIRS(double az, double zen,
  * Raw method for converting CIRS -> Observed (observer specific) coordinates.
  * Note: All angles are expected to be in radians.
  * 
- * @param[in]  ra                   CIRS right ascension
- * @param[in]  dec                  CIRS declination
- * @param[out] az                   Observed azimuth angle (returned)
- * @param[out] zen                  Observed zenith angle (returned)
+ * @param[in]  ra                   CIRS right ascension (radians)
+ * @param[in]  dec                  CIRS declination (radians)
+ * @param[out] az                   Observed azimuth angle (radians, returned)
+ * @param[out] zen                  Observed zenith angle (radians, returned)
  * @param[in]  julian_date          Julian date for conversion
- * @param[in]  latitude             Observer geographic latitude
- * @param[in]  longitude            Observer geographic longitude
+ * @param[in]  longitude            Observer geographic longitude (radians)
+ * @param[in]  latitude             Observer geographic latitude (radians)
  * @param[in]  elevation_m          Observer elevation (meters)
  * @param[in]  pressure_hPa         Atmospheric pressure (HPa)
  * @param[in]  temperature_celsius  Temperature (degrees Celsius)
@@ -884,13 +884,13 @@ int CECoordinates::ICRS2Observed(double ra, double dec,
  * Raw method for converting Observed (observer specific) -> ICRS coordinates
  * Note: All angles are expected to be in radians.
  * 
- * @param[in]  az                   Observed azimuth angle
- * @param[in]  zen                  Observed zenith angle
- * @param[out] ra                   ICRS right ascension (returned)
- * @param[out] dec                  ICRS declination (returned)
+ * @param[in]  az                   Observed azimuth angle (radians)
+ * @param[in]  zen                  Observed zenith angle (radians)
+ * @param[out] ra                   ICRS right ascension (radians, returned)
+ * @param[out] dec                  ICRS declination (radians, returned)
  * @param[in]  julian_date          Julian date for conversion
- * @param[in]  latitude             Observer geographic latitude
- * @param[in]  longitude            Observer geographic longitude
+ * @param[in]  longitude            Observer geographic longitude (radians)
+ * @param[in]  latitude             Observer geographic latitude (radians)
  * @param[in]  elevation_m          Observer elevation (meters)
  * @param[in]  pressure_hPa         Atmospheric pressure (HPa)
  * @param[in]  temperature_celsius  Temperature (degrees Celsius)
@@ -935,13 +935,13 @@ int CECoordinates::Observed2ICRS(double az, double zen,
  * Raw method for converting Galactic -> Observed (observer specific) coordinates.
  * Note: All angles are expected to be in radians.
  * 
- * @param[in]  glon                 Galactic longitude
- * @param[in]  glat                 Galactic latitude
- * @param[out] az                   Observed azimuth angle (returned)
- * @param[out] zen                  Observed zenith angle (returned)
+ * @param[in]  glon                 Galactic longitude (radians)
+ * @param[in]  glat                 Galactic latitude (radians)
+ * @param[out] az                   Observed azimuth angle (radians, returned)
+ * @param[out] zen                  Observed zenith angle (radians, returned)
  * @param[in]  julian_date          Julian date for conversion
- * @param[in]  latitude             Observer geographic latitude
- * @param[in]  longitude            Observer geographic longitude
+ * @param[in]  longitude            Observer geographic longitude (radians)
+ * @param[in]  latitude             Observer geographic latitude (radians)
  * @param[in]  elevation_m          Observer elevation (meters)
  * @param[in]  pressure_hPa         Atmospheric pressure (HPa)
  * @param[in]  temperature_celsius  Temperature (degrees Celsius)
@@ -1016,11 +1016,11 @@ int CECoordinates::Galactic2Observed(double glon, double glat,
  * 
  * @param[in]  az                   Observed azimuth angle (radians)
  * @param[in]  zen                  Observed zenith angle (radians)
- * @param[out] glon                 Galactic longitude (returned)
- * @param[out] glat                 Galactic latitude (returned)
+ * @param[out] glon                 Galactic longitude (radians, returned)
+ * @param[out] glat                 Galactic latitude (radians, returned)
  * @param[in]  julian_date          Julian date for conversion
- * @param[in]  latitude             Observer geographic latitude
- * @param[in]  longitude            Observer geographic longitude
+ * @param[in]  longitude            Observer geographic longitude (radians)
+ * @param[in]  latitude             Observer geographic latitude (radians)
  * @param[in]  elevation_m          Observer elevation (meters)
  * @param[in]  pressure_hPa         Atmospheric pressure (HPa)
  * @param[in]  temperature_celsius  Temperature (degrees Celsius)
@@ -1180,12 +1180,8 @@ double CECoordinates::AngularSeparation(const CECoordinates& coords,
  * @return Angular separation between two coordiantes
  * 
  * Note that the x-coordinates are expected in the range [0, 2pi] and the
- * y-coordinates are expected in the range [-pi, pi]. Because of this, you
- * need to pass:
- *  - ICRS: RA, Dec
- *  - CIRS: RA, Dec
- *  - GALACTIC: G.Lon, G.Lat
- *  - OBSERVED: Az, Alt (by default the y-coordinate is zenith)
+ * y-coordinates are expected in the range [-pi, pi]. Because of this, OBSERVED
+ * coordinates first convert the zenith angle to altitude
  *************************************************************************/
 double CECoordinates::AngularSeparation(const CECoordinates& coords1, 
                                         const CECoordinates& coords2,
