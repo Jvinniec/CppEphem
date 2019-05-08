@@ -13,5 +13,6 @@ test = SkyCoord(0.0*u.deg, 90.0*u.deg, frame='icrs')
 obs_coords = test.transform_to(aa)
 zenith = 90 - obs_coords.alt.deg
 
+print(f"Observer Info:\n   {earth_pos.x:10.5f}")
 print(f"Input: {test}")
 print(f"Output: (az,alt) = ({obs_coords.az}, {zenith} deg)")
