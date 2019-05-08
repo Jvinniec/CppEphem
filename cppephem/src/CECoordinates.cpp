@@ -1115,6 +1115,9 @@ CECoordinates CECoordinates::GetObservedCoords(const double& julian_date,
                           elevation_m, pressure_hPa, temperature_celsius,
                           relative_humidity, dut1, xp, yp, wavelength,
                           &observed1, &observed2, &observed3) ;
+    } else if (coord_type_ == CECoordinateType::OBSERVED) {
+        azimuth = xcoord_;
+        zenith  = ycoord_; 
     } else {
         std::string msg = "Unrecognized coordinate type";
         throw CEException::invalid_value("CECoordinates::GetObservedCoords", msg);
