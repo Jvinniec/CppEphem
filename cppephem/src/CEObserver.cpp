@@ -300,14 +300,11 @@ void CEObserver::UpdatePosVel(const CEDate& date) const
         CEDate::UTC2TT(date.MJD(), &tt1, &tt2);
 
         // Compute the Earth rotation angle at UT1
-        //iauBpn2xy(r, &x, &y);
         double theta = iauEra00(ut11, ut12);
-        //double s     = iauS06(tt1, tt2, x, y);
         double sp    = iauSp00(tt1, tt2);
 
         // Vectors for intermediate position/velocities
         double pvc[2][3];   // CIRS pos,vel
-        double pvg[2][3];   // GCRS pos,vel
 
         // Get the position and velocity values in CIRS
         iauPvtob(longitude_, 
@@ -318,11 +315,6 @@ void CEObserver::UpdatePosVel(const CEDate& date) const
                  sp,
                  theta,
                  pvc);
-
-        // Apply rotattion from CIRS -> GCRS
-        double r[3][3];
-        iauPnm06a(tt1, tt2, r);
-        iauTrxpv(r, pvc, pvg);
 
         // Earth centric distance/velocity in ICRS (AU and AU/day)
         double ebpv[2][3];
@@ -336,9 +328,9 @@ void CEObserver::UpdatePosVel(const CEDate& date) const
             pos_cirs_[i] = pvc[0][i] / CppEphem::m_per_au();
             vel_cirs_[i] = pvc[1][i] * mps_apd;
 
-            // ICRS (Earth barycenter + GCRS offset)
-            pos_icrs_[i] = ebpv[0][i] + (pvg[0][i] / CppEphem::m_per_au());
-            vel_icrs_[i] = ebpv[1][i] + (pvg[1][i] * mps_apd);
+            // ICRS (Earth barycenter + CIRS offset)
+            pos_icrs_[i] = ebpv[0][i] + pos_cirs_[i];
+            vel_icrs_[i] = ebpv[1][i] + vel_cirs_[i];
         }
     }
     return;
