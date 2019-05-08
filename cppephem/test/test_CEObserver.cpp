@@ -140,6 +140,12 @@ bool test_CEObserver::test_set_geoCoords()
     obs.SetUTCOffset(utc_offset);
     test_double(obs.UTCOffset(), utc_offset, __func__, __LINE__);
 
+    // Test that we get similar positions to Astropy
+    CEDate date(CppEphem::julian_date_J2000(), CEDateType::JD);
+    std::vector<double> earth_pos_m = {6378137.00000, 0.0, 0.0};
+    std::vector<double> test_pos_m  = base_obs_.PositionGeo();
+    test_vect(test_pos_m, earth_pos_m, __func__, __LINE__);
+
     return pass();
 }
 

@@ -76,7 +76,8 @@ public:
     void SetWavelength_um(const double& new_wavelength_um);
         
     /****************************************************
-     * Methods for interacting with the sofa functions
+     * Methods for extracting observed coordinates for
+     * a given object or coordinate
      ****************************************************/
     
     CECoordinates ObservedPosition(const CEBody& object,
@@ -84,6 +85,17 @@ public:
     CECoordinates ObservedPosition(const CECoordinates& coords,
                                    const CEDate&        date) ;
     
+    /****************************************************
+     * Methods for getting observer position and velocity
+     * vectors relative to CIRS and ICRS coordinates
+     ****************************************************/
+    std::vector<double> PositionGeo(void) const;
+    std::vector<double> PositionCIRS(const CEDate& date) const;
+    std::vector<double> PositionICRS(const CEDate& date) const;
+    std::vector<double> VelocityCIRS(const CEDate& date) const;
+    std::vector<double> VelocityICRS(const CEDate& date) const;
+
+    // Print information about the observer
     std::string print(void) const;
 
 private:
@@ -91,6 +103,9 @@ private:
     void copy_members(const CEObserver& other);
     void init_members(void);
     void free_members(void);
+
+    // Update teh Position and velocity vectors
+    void UpdatePosVel(const CEDate& date) const;
 
     // Variables which define the observers location on Earth
     double longitude_;              ///< Geographic longitude (radians)
@@ -103,6 +118,13 @@ private:
     double relative_humidity_;      ///< Relative humidity (in range 0-1)
     double wavelength_um_;          ///< Observing wavelength (micrometers)
     
+    // Cached position/velocity vectors
+    mutable double              cache_date_; ///< Date used to copute pos/vel vectors
+    mutable std::vector<double> pos_cirs_;   ///< XYZ position (AU) relative to Earth center
+    mutable std::vector<double> pos_icrs_;   ///< XYZ position (AU) relative to solar system barycenter
+    mutable std::vector<double> vel_cirs_;   ///< XYZ velocity (AU) relative to Earth center
+    mutable std::vector<double> vel_icrs_;   ///< XYZ veloicty (AU) relative to solar system barycenter
+
     // Variables defining the time of the observer
     double  utc_offset_;            ///< UTC offset in hours (set by default to system offset)
 };
