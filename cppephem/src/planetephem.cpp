@@ -61,13 +61,14 @@ int main(int argc, char** argv)
     }
     
     // Create the date object
-    CEDate date(opts.AsDouble("startJD")) ;
+    CEDate date(opts.AsDouble("startJD"), CEDateType::JD) ;
     
     // Create the observer,
     CEObserver observer(opts.AsDouble("longitude"),
                         opts.AsDouble("latitude"),
                         opts.AsDouble("elevation"),
                         CEAngleType::DEGREES) ;
+    observer.SetUTCOffset(CETime::SystemUTCOffset_hrs());
     
     CEObservation coords(&observer, &planet, &date) ;
     
@@ -141,9 +142,9 @@ CEPlanet GetPlanet(const int& p_id)
         case 8:
             return CEPlanet::Neptune();
         default:
-            std::cout << "[ERROR] Planet ID (" << p_id << ") is not valid!" << std::endl;
-            CEPlanet noplanet ;
-            return noplanet ;
+            std::string msg = std::string() + "[ERROR] Planet ID (" +
+                              std::to_string(p_id) + ") is not valid!";
+            throw CEException::invalid_value("planetephem, GetPlanet()", msg);
     }
 }
 
@@ -162,14 +163,15 @@ void PrintEphemeris(CEObservation& obs,
     
     // Print some information about the observer
     std::vector<double> long_hms = CECoordinates::GetDMS( observer->Longitude_Deg() );
-    std::vector<double> lat_hms = CECoordinates::GetDMS( observer->Latitude_Deg() );
+    std::vector<double> lat_hms  = CECoordinates::GetDMS( observer->Latitude_Deg() );
     std::printf("\n") ;
     std::printf("= OBSERVER ===================\n");
     std::printf("  Longitude: %+4dd %02dm %4.1fs\n", int(long_hms[0]), int(long_hms[1]), long_hms[2]);
     std::printf("  Latitude :  %+2dd %02dm %4.1fs\n", int(lat_hms[0]), int(lat_hms[1]), lat_hms[2]);
     std::printf("  Elevation: %f m \n", observer->Elevation_m());
-    std::printf("  LocalTime: %02d:%02d:%04.1f\n\n", int(localtime[0]), int(localtime[1]), localtime[2]+localtime[3]);
-    
+    std::printf("  LocalTime: %02d:%02d:%04.1f\n", int(localtime[0]), int(localtime[1]), localtime[2]+localtime[3]);
+    std::printf("  UTCOffset: %2d hrs\n\n", int(observer->UTCOffset()));
+
     // Print some basic information regarding the planet itself
     std::printf("= PLANET =====================\n");
     std::printf("  Name  : %s\n", planet->Name().c_str());
@@ -187,9 +189,8 @@ void PrintEphemeris(CEObservation& obs,
     for (int s=0; s<=max_steps; s++) {
 
         // Update the coordiantes of the planet
-        planet->UpdateCoordinates(date->JD());
-        ra  = CECoordinates::GetHMS( planet->XCoordinate_Rad(), CEAngleType::RADIANS );
-        dec = CECoordinates::GetDMS( planet->YCoordinate_Rad(), CEAngleType::RADIANS);
+        ra  = CECoordinates::GetHMS( planet->XCoordinate_Rad(date->JD()), CEAngleType::RADIANS );
+        dec = CECoordinates::GetDMS( planet->YCoordinate_Rad(date->JD()), CEAngleType::RADIANS);
         
         std::printf(" %11.2f  %08.1f  %2.0fh %2.0fm %4.1fs  %+3.0fd %2.0fm %4.1fs  %8.3f  %+7.3f\n",
                     double(*date), date->GetTime(observer->UTCOffset()),
