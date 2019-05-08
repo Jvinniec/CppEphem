@@ -122,6 +122,18 @@ CEBody& CEBody::operator=(const CEBody& other)
  *--------------------------------------------------*/
 
 
+/**********************************************************************//**
+ * Computes the observed coordinates for this object based 
+ *************************************************************************/
+CECoordinates CEBody::ObservedCoords(const CEDate&     date,
+                                     const CEObserver& observer) const
+{
+    std::cout << "CALLED FROM CEBODY" << std::endl;
+    CECoordinates coords_icrs = GetCoordinates(date);
+    return coords_icrs.ConvertTo(CECoordinateType::OBSERVED, observer, date);
+}                                         
+
+
 /*--------------------------------------------------*
  *                  Private methods
  *--------------------------------------------------*/
