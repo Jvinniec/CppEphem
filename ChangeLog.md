@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## v1.2.0 : HEAD
+- Update CEPlanet's conversion to observed coordinates
 - Update SOFA files to 20180130 [#5]
 - Add executables for cirs2icrs and gal2icrs [#14]
 - Standardize all executable parameters [#10]
