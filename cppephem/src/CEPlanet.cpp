@@ -584,6 +584,92 @@ void CEPlanet::SetAscendingNodeLongitude(double ascending_node_lon,
     ascending_node_lon_deg_per_cent_ = ascending_node_lon_per_cent ;
 }
 
+
+/**********************************************************************//**
+ * Return the distance to Earth for this planet at a given UTC date
+ * 
+ * @param[in] date              Date of observation
+ * @return Distance in AU to the Earth's center
+ *************************************************************************/
+double CEPlanet::EarthDist_AU(const CEDate& date)
+{
+    // Compute the position of the earth relative to the planet to account
+    // for the time delay of the planet
+    CEPlanet earth = CEPlanet::Earth();
+    earth.SetAlgorithm(Algorithm());
+    earth.UpdatePosition(date.JD());
+
+    std::vector<double> pos = pos_icrs_;
+    double x = pos[0] - earth.GetXICRS();
+    double y = pos[1] - earth.GetYICRS();
+    double z = pos[2] - earth.GetZICRS();
+
+    // Compute the light travel time from the planet to Earth in days
+    return std::sqrt(x*x + y*y + z*z);
+}
+
+
+/**********************************************************************//**
+ * Get the observed position on a given date
+ * 
+ * @param[in] date              Date of observation
+ * @param[in] observer          Observer
+ * @return Observed coordinates
+ *************************************************************************/
+std::vector<double> CEPlanet::PositionICRS_Obs(const CEDate& date) const
+{
+    // Make a copy of the planet so we dont need to reset values
+    CEPlanet past(*this);
+    past.UpdatePosition(date);
+
+    // Compute the light travel-time delay
+    double earth_dist = past.EarthDist_AU(date);
+    double delay      = earth_dist / CppEphem::c_au_per_day();
+
+    // Return the positions as observed
+    past.UpdatePosition(date.JD() - delay);
+    return past.PositionICRS();
+}
+
+
+/**********************************************************************//**
+ * Get the observed coordinates for a given observer/date
+ * 
+ * @param[in] date              Date of observation
+ * @param[in] observer          Observer
+ * @return Observed coordinates
+ *************************************************************************/
+CECoordinates CEPlanet::ObservedCoords(const CEDate&     date,
+                                       const CEObserver& observer) const
+{
+    // Update planet position
+    UpdatePosition(date);
+
+    // Get the observer ICRS position on a given date and the time-delayed
+    // position of the planet on that date
+    std::vector<double> offset  = observer.PositionICRS(date);
+    std::vector<double> pos_obs = PositionICRS_Obs(date);
+
+    // Compute the difference in coordinates
+    for (int i=0; i<3; i++)
+        offset[i] = pos_obs[i] - offset[i];
+
+    // Convert the offset into RA,Dec
+    double ra(0.0);
+    double dec(0.0);
+    iauC2s(&offset[0], &ra, &dec);
+
+    // Note that the coordinate system depends on the planet
+    CECoordinateType coordsys = CECoordinateType::ICRS;
+    if (sofa_planet_id_ == 3.5) {
+        coordsys = CECoordinateType::CIRS;
+    }
+    CECoordinates coord(ra, dec, coordsys, CEAngleType::RADIANS);
+    
+    return coord.GetObservedCoords(date, observer);
+}
+
+
 /**********************************************************************//**
  * Recomputes the coordinates of the planet if the date
  * has changed from the last time the coordinates were
@@ -599,34 +685,14 @@ void CEPlanet::UpdateCoordinates(double new_jd) const
     // Update the positions given the current julian date
     UpdatePosition(new_jd);
 
-    // Compute the position of the earth relative to the planet to account
-    // for the time delay of the planet
-    CEPlanet earth = CEPlanet::Earth();
-    earth.SetAlgorithm(Algorithm());
-    earth.UpdatePosition(new_jd);
-
-    std::vector<double> pos = pos_icrs_;
-    std::vector<double> vel = vel_icrs_;
-    double x = pos[0] - earth.GetXICRS();
-    double y = pos[1] - earth.GetYICRS();
-    double z = pos[2] - earth.GetZICRS();
-
-    // Compute the light travel time from the planet to Earth in days
-    double dist_au = std::sqrt(x*x + y*y + z*z);
-    double delay_d = dist_au / CppEphem::c_au_per_day();
-    
-    // Reupdate the position
-    UpdatePosition(new_jd-delay_d);
+    CEDate date(new_jd, CEDateType::JD);
+    std::vector<double> pos_delayed = PositionICRS_Obs(date);
 
     // Now compute the actual sky coordinates in ICRS
-    iauC2s(&pos_icrs_[0], &xcoord_, &ycoord_);
+    iauC2s(&pos_delayed[0], &xcoord_, &ycoord_);
     
     // Make sure the x-coordinate is in the appropriate range
     xcoord_ = iauAnp(xcoord_);
-
-    // Reset the position and velocity
-    pos_icrs_ = pos;
-    vel_icrs_ = vel;
 
     // Now that the coordinates are updated, reset the time
     cached_jd_ = new_jd ;
@@ -684,7 +750,7 @@ void CEPlanet::Update_SOFA(double new_jd) const
         }
     }
     
-    // If the Error is not zero, compute the values
+    // If the returned error code is zero, compute the values
     if (err == 0) {
         // position
         pos_icrs_ = std::vector<double>(pvb[0], pvb[0]+3);

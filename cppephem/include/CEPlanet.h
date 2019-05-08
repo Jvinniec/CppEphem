@@ -24,6 +24,7 @@
 
 #include <cmath>
 #include "CEBody.h"
+#include "CEObserver.h"
 
 /////////////////////////////////////////////
 /// Date enum
@@ -56,6 +57,9 @@ public:
     virtual double XCoordinate_Deg(double new_date=-1.0e30) const;
     virtual double YCoordinate_Rad(double new_date=-1.0e30) const;
     virtual double YCoordinate_Deg(double new_date=-1.0e30) const;
+    virtual double EarthDist_AU(const CEDate& date);
+    CECoordinates  ObservedCoords(const CEDate&     date,
+                                  const CEObserver& observer) const;
     virtual void   UpdateCoordinates(double new_date=-1.0e30) const;
     virtual void   Update_JPL(double new_date=-1.0e30) const;
     virtual void   Update_SOFA(double new_date=-1.0e30) const;
@@ -67,6 +71,7 @@ public:
     double GetYICRS();
     double GetZICRS();
     std::vector<double> PositionICRS(void) const;
+    std::vector<double> PositionICRS_Obs(const CEDate& date) const;
     double GetVxICRS();
     double GetVyICRS();
     double GetVzICRS();
