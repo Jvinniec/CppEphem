@@ -251,7 +251,7 @@ void CEObserver::SetUTCOffset(const double& utc_offset)
 
 
 /**********************************************************************//**
- * @return UTCOffset value of this observer
+ * @return UTCOffset value of this observer (hours)
  *************************************************************************/
 inline
 double CEObserver::UTCOffset() const

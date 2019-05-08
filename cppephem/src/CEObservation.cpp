@@ -171,7 +171,7 @@ bool CEObservation::UpdateCoordinates()
         cached_date_     = *date_ ;
         cached_azimuth_  = coords.XCoordinate_Rad();
         cached_zenith_   = coords.YCoordinate_Rad();
-    }    
+    }
     return true ;
 }
 

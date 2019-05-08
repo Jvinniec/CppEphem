@@ -120,7 +120,7 @@ CEObserver& CEObserver::operator=(const CEObserver& other)
 CECoordinates CEObserver::ObservedPosition(const CEBody& object,
                                            const CEDate& date)
 {
-    CECoordinates coords = object.GetCoordinates(date);
+    CECoordinates coords = object.ObservedCoords(date, *this);
     return this->ObservedPosition(coords, date);
 }
 
@@ -135,8 +135,8 @@ CECoordinates CEObserver::ObservedPosition(const CECoordinates& coords,
                                            const CEDate&        date)
 {
     // Compute the observed coordinates for these coordinates
-    CECoordinates tmpcoords(coords);
-    CECoordinates observed_coords = tmpcoords.GetObservedCoords(date,*this);
+    //CECoordinates tmpcoords(coords);
+    CECoordinates observed_coords = coords.GetObservedCoords(date,*this);
     return observed_coords;
 }
 
