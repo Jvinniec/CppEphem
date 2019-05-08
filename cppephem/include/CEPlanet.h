@@ -58,11 +58,13 @@ public:
     virtual double YCoordinate_Rad(double new_date=-1.0e30) const;
     virtual double YCoordinate_Deg(double new_date=-1.0e30) const;
     virtual double EarthDist_AU(const CEDate& date);
-    CECoordinates  ObservedCoords(const CEDate&     date,
-                                  const CEObserver& observer) const;
     virtual void   UpdateCoordinates(double new_date=-1.0e30) const;
     virtual void   Update_JPL(double new_date=-1.0e30) const;
     virtual void   Update_SOFA(double new_date=-1.0e30) const;
+    
+    // Override CEBody methods
+    virtual CECoordinates  ObservedCoords(const CEDate&     date,
+                                          const CEObserver& observer) const;
     
     /****************************
      * Methods for getting the current x,y,z coordinates and velocities relative to the ICRS point

@@ -61,7 +61,9 @@ public:
      * Public methods
      ***********************************/
 
-    CECoordinates GetCoordinates(const CEDate& date=CEDate::CurrentJD()) const;
+    virtual CECoordinates GetCoordinates(const CEDate& date=CEDate::CurrentJD()) const;
+    virtual CECoordinates ObservedCoords(const CEDate&     date,
+                                         const CEObserver& observer) const;
     std::string   Name(void) const;
     void          SetName(const std::string& new_name);
     
@@ -105,7 +107,13 @@ void CEBody::SetName(const std::string& new_name)
 }
 
 /**********************************************************************//**
- * Return the coordinates associated with this object as a 'CECoordinates' object 
+ * Return the ICRS coordinates associated with this object
+ * 
+ * @param[in] date          Date for the coordinates
+ * @return Coordinates of this object in the ICRS frame 
+ * 
+ * Note that the date information is useful for those objects that may
+ * be either planets or stars with proper motion.
  *************************************************************************/
 inline
 CECoordinates CEBody::GetCoordinates(const CEDate& date) const
