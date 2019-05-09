@@ -85,9 +85,8 @@ private:
     // Cached the observed parameters to make subsequent calls faster,
     // i.e. since they all get computed at the same time there's no need
     // to recompute them unless something changes.
-    double cached_date_;         //<! Cached date, observed params recomputed if this has changed
-    double cached_azimuth_;      //<! Cached azimuth (radians)
-    double cached_zenith_;       //<! Cached zenith (radians)
+    double        cached_date_;   //<! Cached date, observed params recomputed if this has changed
+    CECoordinates cached_coords_; //<! Cached observed coordinates
     
     // Cache the apparent coordinates
     double cached_hour_angle_;   //<! Cached hour angle (radians)
@@ -168,7 +167,7 @@ inline
 double CEObservation::GetAzimuth_Rad()
 {
     UpdateCoordinates();
-    return cached_azimuth_;
+    return cached_coords_.XCoordinate_Rad();
 }
 
 
@@ -189,7 +188,7 @@ inline
 double CEObservation::GetZenith_Rad()
 {
     UpdateCoordinates();
-    return cached_zenith_;
+    return cached_coords_.YCoordinate_Rad();
 }
 
 
@@ -210,7 +209,7 @@ inline
 double CEObservation::GetAltitude_Rad()
 {
     UpdateCoordinates() ;
-    return (DPI/2.0) - cached_zenith_ ;
+    return (DPI/2.0) - GetZenith_Rad() ;
 }
 
 
