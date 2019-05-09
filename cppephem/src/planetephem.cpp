@@ -178,12 +178,14 @@ void PrintEphemeris(CEObservation& obs,
     std::vector<double> localtime = CETime::TimeDbl2Vect(date->GetTime(observer->UTCOffset()));
     
     // Print some information about the observer
-    std::vector<double> long_hms = CECoordinates::GetDMS( observer->Longitude_Deg() );
-    std::vector<double> lat_hms  = CECoordinates::GetDMS( observer->Latitude_Deg() );
+    std::vector<double> long_hms = CECoordinates::GetDMS( observer->Longitude_Deg(),
+                                                          CEAngleType::DEGREES );
+    std::vector<double> lat_hms  = CECoordinates::GetDMS( observer->Latitude_Deg(),
+                                                          CEAngleType::DEGREES );
     std::printf("\n") ;
     std::printf("= OBSERVER ===================\n");
-    std::printf("  Longitude: %+4dd %02dm %4.1fs\n", int(long_hms[0]), int(long_hms[1]), long_hms[2]);
-    std::printf("  Latitude :  %+2dd %02dm %4.1fs\n", int(lat_hms[0]), int(lat_hms[1]), lat_hms[2]);
+    std::printf("  Longitude: %+4dd %02dm %4.1fs\n", int(long_hms[0]), int(long_hms[1]), long_hms[2]+long_hms[3]);
+    std::printf("  Latitude :  %+3dd %02dm %4.1fs\n", int(lat_hms[0]), int(lat_hms[1]), lat_hms[2]+lat_hms[3]);
     std::printf("  Elevation: %f m \n", observer->Elevation_m());
     std::printf("  Pressure : %f hPa\n", observer->Pressure_hPa());
     std::printf("  Temp     : %f Celsius\n", observer->Temperature_C());
