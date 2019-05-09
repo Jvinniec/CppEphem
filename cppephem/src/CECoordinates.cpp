@@ -1591,11 +1591,20 @@ CECoordinates CECoordinates::ConvertToObserved(double jd,
                       dut1, xp, yp,
                       wavelength_um,
                       &apparent_x, &apparent_y, &apparent_hourangle) ;
-    } else if (coord_type_ == CECoordinateType::OBSERVED) {
-        xcoord_new = XCoordinate_Rad() ;
-        ycoord_new = YCoordinate_Rad() ;
     } else {
-        std::cerr << "[ERROR] Unknown coordinate type!\n" ;
+        // Throw an exception
+        std::string msg = "[ERROR] ";
+        if (coord_type_ == CECoordinateType::OBSERVED) {
+            // Cant convert from observed to observed without additional
+            // observer information
+            msg += "Unable to convert to OBSERVED from OBSERVED";
+    } else {
+            // The coordinate type of this object is unknown... this shouldn't
+            // happen if the developers have done their job.
+            msg += "Unrecognized coordinate type";
+        }
+        throw CEException::invalid_value("CECoordinates::ConvertToObserved(long form)",
+                                         msg);
     }
  
     return CECoordinates(xcoord_new, ycoord_new, CECoordinateType::OBSERVED,
