@@ -194,10 +194,10 @@ void PrintEphemeris(CEObservation& obs,
         
         std::printf(" %11.2f  %08.1f  %2.0fh %2.0fm %4.1fs  %+3.0fd %2.0fm %4.1fs  %8.3f  %+7.3f\n",
                     double(*date), date->GetTime(observer->UTCOffset()),
-                    ra[0], ra[1], ra[2],
-                    dec[0], dec[1], dec[2],
-                    obs.GetAzimuth_Deg(),
-                    90.0-obs.GetZenith_Deg());
+                    ra[0], ra[1], ra[2] + ra[3],
+                    dec[0], dec[1], dec[2] + dec[3],
+                    obs_coords.XCoordinate_Deg(),
+                    90.0-obs_coords.YCoordinate_Deg());
         
         // Update the date
         date->SetDate(*date + step_size/(60.0*24.0));
