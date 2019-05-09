@@ -44,6 +44,9 @@ int main(int argc, char** argv)
     CLOptions opts = DefineOpts() ;
     if (opts.ParseCommandLine(argc,argv)) return 0;
     
+    // Turn on interpolation for correction terms
+    CppEphem::CorrectionsInterp(true);
+
     // Create the observed object
     CEPlanet planet = GetPlanet(opts.AsInt("planet")) ;
     if (planet.Name().empty()) return 0 ;
@@ -205,14 +208,35 @@ void PrintEphemeris(CEObservation& obs,
     std::vector<double> dec;
     
     // Now do the stuff we actually want
-    std::printf("      JD        LOCAL        RA              DEC          Az       Alt  \n") ;
+    std::printf("= NOTES ======================\n");
+    std::printf("  * RA,DEC represent apparent ICRS coordinates for the observer\n");
+    std::printf("  * Coordinates should be considered dubious at small altitudes\n");
+    std::printf("\n");
+    std::printf("      JD        LOCAL     RA (appar.)    DEC (appar.)     Az       Alt  \n") ;
     std::printf(" =======================================================================\n") ;
     int max_steps = int(duration/step_size);
+    CECoordinates obs_coords;
+    CECoordinates appar_coords;
     for (int s=0; s<=max_steps; s++) {
 
+        // Get the observed coordinates
+        obs_coords.SetCoordinates(obs.GetAzimuth_Rad(), obs.GetZenith_Rad(),
+                                  CECoordinateType::OBSERVED, CEAngleType::RADIANS);
+        // Convert to RA,DEC
+        appar_coords = obs_coords.ConvertToICRS(date->JD(),
+                                                observer->Longitude_Rad(),
+                                                observer->Latitude_Rad(),
+                                                observer->Elevation_m(),
+                                                observer->Pressure_hPa(),
+                                                observer->Temperature_C(),
+                                                observer->RelativeHumidity(),
+                                                date->dut1(),
+                                                date->xpolar(),
+                                                date->ypolar(),
+                                                observer->Wavelength_um());
         // Update the coordiantes of the planet
-        ra  = CECoordinates::GetHMS( planet->XCoordinate_Rad(date->JD()), CEAngleType::RADIANS );
-        dec = CECoordinates::GetDMS( planet->YCoordinate_Rad(date->JD()), CEAngleType::RADIANS);
+        ra  = CECoordinates::GetHMS( appar_coords.XCoordinate_Rad(), CEAngleType::RADIANS);
+        dec = CECoordinates::GetDMS( appar_coords.YCoordinate_Rad(), CEAngleType::RADIANS);
         
         std::printf(" %11.2f  %08.1f  %2.0fh %2.0fm %4.1fs  %+3.0fd %2.0fm %4.1fs  %8.3f  %+7.3f\n",
                     double(*date), date->GetTime(observer->UTCOffset()),
@@ -222,7 +246,7 @@ void PrintEphemeris(CEObservation& obs,
                     90.0-obs_coords.YCoordinate_Deg());
         
         // Update the date
-        date->SetDate(*date + step_size/(60.0*24.0));
+        date->SetDate(date->JD() + step_size/(60.0*24.0), CEDateType::JD);
     }
     
     std::printf(" -------------------------------------------------------------------\n");
