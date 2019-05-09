@@ -243,6 +243,7 @@ void CEObserver::copy_members(const CEObserver& other)
     elevation_m_         = other.elevation_m_;
     pressure_hPa_        = other.pressure_hPa_;
     temperature_celsius_ = other.temperature_celsius_;
+    wavelength_um_       = other.wavelength_um_;
     relative_humidity_   = other.relative_humidity_;
     utc_offset_          = other.utc_offset_;
 
@@ -266,6 +267,7 @@ void CEObserver::init_members(void)
     temperature_celsius_ = CppEphem::SeaLevelTemp_C();
     pressure_hPa_        = CppEphem::EstimatePressure_hPa(temperature_celsius_);
     relative_humidity_   = 0.0;
+    wavelength_um_       = 0.5;
     utc_offset_          = CETime::SystemUTCOffset_hrs();
 
     // cached pos/vel parameters
