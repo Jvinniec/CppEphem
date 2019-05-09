@@ -164,13 +164,9 @@ void CEObservation::GetApparentXYCoordinate_Deg(double *apparent_X, double *appa
 bool CEObservation::UpdateCoordinates()
 {
     if (NeedsUpdate()) {
-        // Get the coordinates
-        CECoordinates coords = observer_->ObservedPosition(*body_, *date_);
-        
-        // Update the cached parameters
-        cached_date_     = *date_ ;
-        cached_azimuth_  = coords.XCoordinate_Rad();
-        cached_zenith_   = coords.YCoordinate_Rad();
+        // Get the coordinates and date
+        cached_coords_ = body_->ObservedCoords(*date_, *observer_);
+        cached_date_   = *date_;
     }
     return true ;
 }
@@ -190,8 +186,7 @@ void CEObservation::copy_members(const CEObservation& other)
 
     // Copy the cached values
     cached_date_       = other.cached_date_;
-    cached_azimuth_    = other.cached_azimuth_;
-    cached_zenith_     = other.cached_zenith_;
+    cached_coords_     = other.cached_coords_;
     cached_hour_angle_ = other.cached_hour_angle_;
     cached_apparentxcoord_ = other.cached_apparentxcoord_;
     cached_apparentycoord_ = other.cached_apparentycoord_;
@@ -210,8 +205,7 @@ void CEObservation::init_members(void)
 
     // Copy the cached values
     cached_date_           = 0.0;
-    cached_azimuth_        = 0.0;
-    cached_zenith_         = 0.0;
+    cached_coords_         = CECoordinates();
 
     // Note that these are not filled at the moment
     cached_hour_angle_     = 0.0;
