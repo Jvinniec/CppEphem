@@ -63,11 +63,15 @@ int main(int argc, char** argv)
     // Create the date object
     CEDate date(opts.AsDouble("startJD"), CEDateType::JD) ;
     
-    // Create the observer,
+    // Create the observer
     CEObserver observer(opts.AsDouble("longitude"),
                         opts.AsDouble("latitude"),
                         opts.AsDouble("elevation"),
                         CEAngleType::DEGREES) ;
+    observer.SetPressure_hPa(opts.AsDouble("pressure"));
+    observer.SetTemperature_C(opts.AsDouble("temperature"));
+    observer.SetRelativeHumidity(opts.AsDouble("humidity"));
+    observer.SetWavelength_um(opts.AsDouble("wavelength"));
     observer.SetUTCOffset(CETime::SystemUTCOffset_hrs());
     
     CEObservation coords(&observer, &planet, &date) ;
@@ -89,22 +93,34 @@ CLOptions DefineOpts()
     std::string vers_str = std::string("planetephem v") + CPPEPHEM_VERSION;
     opts.AddVersionInfo(vers_str);
     opts.AddProgramDescription(std::string() +
-        "Returns the RA,Dec and observed Az,Alt coordinates for a given " +
-        "planet for a given observer.");
+        "Returns the apparent ICRS RA,Dec and observed Az,Alt coordinates for " +
+        "a given planet for a given observer. It is important also to note " +
+        "observed coordinates will be dubious very close to the horizon due " +
+        "to the atmospheric correction algorithms employed.");
 
     // Define the parameters
     opts.AddIntParam("p,planet",
                      "Planet number (1=Mercury, 2=Venus, 4=Mars, 5=Jupiter, 6=Saturn, 7=Uranus, 8=Neptune)",
                      0);
-    opts.AddDoubleParam("l,longitude",
-                        "Observer geographic longitude (degrees, east positive)",
-                        0.0);
-    opts.AddDoubleParam("b,latitude",
-                        "Observer geographic latitude (degrees)",
-                        0.0);
-    opts.AddDoubleParam("e,elevation",
-                        "Observer elevation (meters above sea level)",
-                        0.0);
+
+    // Observer parameters
+    CEObserver observer;
+    opts.AddDoubleParam("x,longitude", "Observer geographic longitude (degrees, east positive)",
+                        observer.Longitude_Deg());
+    opts.AddDoubleParam("y,latitude", "Observer geographic latitude (degrees)",
+                        observer.Latitude_Deg());
+    opts.AddDoubleParam("elevation", "Observer elevation (meters above sea level)",
+                        observer.Elevation_m());
+    opts.AddDoubleParam("humidity", "Observer relative humidity (0-1)", 
+                        observer.RelativeHumidity());
+    opts.AddDoubleParam("pressure", "Observer atomospheric pressure (hPa)", 
+                        observer.Pressure_hPa());
+    opts.AddDoubleParam("temperature", "Observer temperature (Celsius)", 
+                        observer.Temperature_C());
+    opts.AddDoubleParam("wavelength", "Observing wavelength (micrometers)", 
+                        observer.Wavelength_um());
+
+    // Time information
     opts.AddDoubleParam("t,startJD",
                         "Starting time as a Julian date. Default will be the current Julian date",
                         CEDate::CurrentJD());
@@ -169,6 +185,10 @@ void PrintEphemeris(CEObservation& obs,
     std::printf("  Longitude: %+4dd %02dm %4.1fs\n", int(long_hms[0]), int(long_hms[1]), long_hms[2]);
     std::printf("  Latitude :  %+2dd %02dm %4.1fs\n", int(lat_hms[0]), int(lat_hms[1]), lat_hms[2]);
     std::printf("  Elevation: %f m \n", observer->Elevation_m());
+    std::printf("  Pressure : %f hPa\n", observer->Pressure_hPa());
+    std::printf("  Temp     : %f Celsius\n", observer->Temperature_C());
+    std::printf("  Humidity : %f %%\n", 100.0*observer->RelativeHumidity());
+    std::printf("  Wavelen. : %f micrometers\n", observer->Wavelength_um());
     std::printf("  LocalTime: %02d:%02d:%04.1f\n", int(localtime[0]), int(localtime[1]), localtime[2]+localtime[3]);
     std::printf("  UTCOffset: %2d hrs\n\n", int(observer->UTCOffset()));
 
