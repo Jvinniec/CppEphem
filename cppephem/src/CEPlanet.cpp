@@ -666,7 +666,7 @@ CECoordinates CEPlanet::ObservedCoords(const CEDate&     date,
     }
     CECoordinates coord(ra, dec, coordsys, CEAngleType::RADIANS);
     
-    return coord.GetObservedCoords(date, observer);
+    return coord.ConvertTo(CECoordinateType::OBSERVED, observer, date);
 }
 
 
