@@ -265,7 +265,7 @@ void CEObserver::init_members(void)
     latitude_            = 0.0;
     elevation_m_         = 0.0;
     temperature_celsius_ = CppEphem::SeaLevelTemp_C();
-    pressure_hPa_        = CppEphem::EstimatePressure_hPa(temperature_celsius_);
+    pressure_hPa_        = CppEphem::EstimatePressure_hPa(elevation_m_);
     relative_humidity_   = 0.0;
     wavelength_um_       = 0.5;
     utc_offset_          = CETime::SystemUTCOffset_hrs();
