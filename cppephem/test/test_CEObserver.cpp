@@ -82,8 +82,9 @@ bool test_CEObserver::test_constructor(void)
     test_double(test1.Longitude_Rad(), 0.0, __func__, __LINE__);
     test_double(test1.Latitude_Rad(),  0.0,  __func__, __LINE__);
     test_double(test1.Temperature_C(), CppEphem::SeaLevelTemp_C(), __func__, __LINE__);
-    test_double(test1.Pressure_hPa(),  CppEphem::EstimatePressure_hPa(test1.Temperature_C()),  __func__, __LINE__);
+    test_double(test1.Pressure_hPa(),  CppEphem::EstimatePressure_hPa(test1.Elevation_m()),  __func__, __LINE__);
     test_double(test1.RelativeHumidity(), 0.0, __func__, __LINE__);
+    test_double(test1.Wavelength_um(), 0.5, __func__, __LINE__);
 
     // Create a copy for testing
     CEObserver test2(base_obs_);
@@ -92,6 +93,7 @@ bool test_CEObserver::test_constructor(void)
     test_double(test2.Temperature_K(), base_obs_.Temperature_K(), __func__, __LINE__);
     test_double(test2.Pressure_hPa(),  base_obs_.Pressure_hPa(),  __func__, __LINE__);
     test_double(test2.RelativeHumidity(), base_obs_.RelativeHumidity(), __func__, __LINE__);
+    test_double(test2.Wavelength_um(), base_obs_.Wavelength_um(), __func__, __LINE__);
 
     // Copy assignment operator
     CEObserver test3 = base_obs_;
@@ -100,6 +102,7 @@ bool test_CEObserver::test_constructor(void)
     test_double(test3.Temperature_K(), base_obs_.Temperature_K(), __func__, __LINE__);
     test_double(test3.Pressure_hPa(),  base_obs_.Pressure_hPa(),  __func__, __LINE__);
     test_double(test3.RelativeHumidity(), base_obs_.RelativeHumidity(), __func__, __LINE__);
+    test_double(test3.Wavelength_um(), base_obs_.Wavelength_um(), __func__, __LINE__);
 
     return pass();
 }
