@@ -732,8 +732,9 @@ int CECoordinates::CIRS2Observed(double ra, double dec,
     // Call the necessary sofa method
     int err_code = 0;
     try {
+        CEDate date(julian_date, CEDateType::JD);
         err_code = iauAtio13(ra, dec,
-                             julian_date, 0.0,
+                             CEDate::GetMJD2JDFactor(), date.MJD(),
                              dut1,
                              longitude,
                              latitude,
@@ -790,8 +791,9 @@ int CECoordinates::Observed2CIRS(double az, double zen,
                                  double xp, double yp,
                                  double wavelength_um)
 {
+    CEDate date(julian_date, CEDateType::JD);
     int err_code = iauAtoi13("A", az, zen,
-                             julian_date, 0.0,
+                             CEDate::GetMJD2JDFactor(), date.MJD(),
                              dut1,
                              longitude, latitude,
                              elevation_m,
@@ -853,7 +855,7 @@ int CECoordinates::ICRS2Observed(double ra, double dec,
     if (observed_dec == nullptr) observed_dec = &temp_dec;
     if (hour_angle   == nullptr) hour_angle   = &temp_hour_angle;
     
-    // First convert the ICRS coordinats to CIRS coordinates
+    // First convert the ICRS coordinates to CIRS coordinates
     CEDate date(julian_date, CEDateType::JD) ;
     ICRS2CIRS(ra, dec, &ra, &dec, date) ;
     
@@ -1598,7 +1600,7 @@ CECoordinates CECoordinates::ConvertToObserved(double jd,
             // Cant convert from observed to observed without additional
             // observer information
             msg += "Unable to convert to OBSERVED from OBSERVED";
-    } else {
+        } else {
             // The coordinate type of this object is unknown... this shouldn't
             // happen if the developers have done their job.
             msg += "Unrecognized coordinate type";
