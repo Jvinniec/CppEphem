@@ -27,40 +27,26 @@
 
 // CppEphem HEADERS
 #include "CppEphem.h"
-#include "CLOptions.h"
+#include "CEExecOptions.h"
 
 
 /**********************************************************************//**
  * Define the command line options for this program
  *************************************************************************/
-CLOptions DefineOpts()
+CEExecOptions DefineOpts()
 {
-    CLOptions opts;
+    CEExecOptions opts("cirs2obs");
 
     // Add a program version and description
-    std::string vers_str = std::string("cirs2gal v") + CPPEPHEM_VERSION;
-    opts.AddVersionInfo(vers_str);
     opts.AddProgramDescription(std::string() +
-                               "Converts from CIRS coordinates to observed " +
-                               "altitude and zenith coordinates for a given " +
-                               "Julian date. Additional observing conditions " +
-                               "an also be specified to allow more accurate " +
-                               "coordinate values.");
+        "Converts from CIRS coordinates to observed altitude and zenith " +
+        "coordinates for a given Julian date. Additional observing conditions " +
+        "an also be specified to allow more accurate coordinate values.");
 
     // Set the options
-    opts.AddDoubleParam("x,longitude", "Observer longitude (degrees, East-positive)",0.0) ;
-    opts.AddDoubleParam("y,latitude", "observer latitude (degrees)", 0.0) ;
-    opts.AddDoubleParam("r,ra", "CIRS right ascension (degrees)", 0.0);
-    opts.AddDoubleParam("d,dec", "CIRS declination", 0.0);
-    opts.AddDoubleParam("j,juliandate", "Julian date for query (default is current JD)", CEDate::CurrentJD());
-    
-    // Add optional observer related parameters
-    CEObserver obs;
-    opts.AddDoubleParam("e,elevation", "Observer elevation above sea-level (m)", obs.Elevation_m());
-    opts.AddDoubleParam("h,humidity", "Observer relative humidity (0-1)", obs.RelativeHumidity());
-    opts.AddDoubleParam("p,pressure", "Observer atomospheric pressure (hPa)", obs.Pressure_hPa());
-    opts.AddDoubleParam("t,temperature", "Observer temperature (Celsius)", obs.Temperature_C());
-    opts.AddDoubleParam("w,wavelength", "Observing wavelength (micrometers)", obs.Wavelength_um());
+    opts.AddCirsPars();
+    opts.AddObserverPars();
+    opts.AddJDPar();
 
     return opts;
 }
@@ -68,7 +54,7 @@ CLOptions DefineOpts()
 
 /**********************************************************************//**
  *************************************************************************/
-void PrintResults(CLOptions& inputs, std::map<std::string, double> results)
+void PrintResults(CEExecOptions& inputs, std::map<std::string, double> results)
 {
     std::printf("\n") ;
     std::printf("******************************************\n");
@@ -101,7 +87,7 @@ void PrintResults(CLOptions& inputs, std::map<std::string, double> results)
 int main(int argc, char** argv) {
     
     // Get the options from the command line
-    CLOptions opts = DefineOpts() ;
+    CEExecOptions opts = DefineOpts() ;
     if (opts.ParseCommandLine(argc, argv)) return 0 ;
     
     // Create a map to store the results

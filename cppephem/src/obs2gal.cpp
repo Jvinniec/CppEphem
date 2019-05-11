@@ -28,17 +28,15 @@
 
 // CppEphem HEADERS
 #include "CppEphem.h"
-#include "CLOptions.h"
+#include "CEExecOptions.h"
 
 /**********************************************************************//**
  *************************************************************************/
-CLOptions DefineOpts()
+CEExecOptions DefineOpts()
 {
-    CLOptions opts;
+    CEExecOptions opts("obs2gal");
 
     // Add a program version and description
-    std::string vers_str = std::string("obs2gal v") + CPPEPHEM_VERSION;
-    opts.AddVersionInfo(vers_str);
     opts.AddProgramDescription(std::string() +
         "Takes observed positions (azimuth,zenith angle) and computes the " +
         "Galactic longitude,latitude positions based on the observer location " +
@@ -47,24 +45,16 @@ CLOptions DefineOpts()
         "'juliandate'.") ;
     
     // Setup the defaults
-    CEObserver obs ;
-    opts.AddDoubleParam("x,longitude","Observer longitude (degrees, East-positive)",obs.Longitude_Deg());
-    opts.AddDoubleParam("y,latitude", "Observer latitude (degrees)", obs.Latitude_Deg());
-    opts.AddDoubleParam("a,azimuth", "Azimuth (degrees, positive North=0, East=90)", 0.0);
-    opts.AddDoubleParam("z,zenith", "Zenith angle (degrees)", 0.0);
-    opts.AddDoubleParam("j,juliandate", "Julian date for query (default is current time)", CEDate::CurrentJD());
-    opts.AddDoubleParam("e,elevation", "Observer elevation (meters above sea level)", obs.Elevation_m());
-    opts.AddDoubleParam("r,humidity", "Observer's relative humidity (0-1)", obs.RelativeHumidity());
-    opts.AddDoubleParam("p,pressure","Observer's atmospheric pressure (hPa)",obs.Pressure_hPa());
-    opts.AddDoubleParam("t,temperature","Observer's atmospheric temperature (degrees Celsius)", obs.Temperature_C());
-    opts.AddDoubleParam("w,wavelength","Wavelength of light being observed (micrometers)",obs.Wavelength_um());
-    
+    opts.AddObserverPars();
+    opts.AddObservedPars();
+    opts.AddJDPar();
+
     return opts ;
 }
 
 /**********************************************************************//**
  *************************************************************************/
-void PrintResults(CLOptions& inputs, std::map<std::string, double> results)
+void PrintResults(CEExecOptions& inputs, std::map<std::string, double> results)
 {
     std::printf("\n") ;
     std::printf("**********************************************\n") ;
@@ -93,7 +83,7 @@ void PrintResults(CLOptions& inputs, std::map<std::string, double> results)
 int main(int argc, char** argv) {
     
     // Parse the command line options
-    CLOptions opts = DefineOpts() ;
+    CEExecOptions opts = DefineOpts() ;
     if (opts.ParseCommandLine(argc, argv)) return 0 ;
     
     // Create a map to store the results

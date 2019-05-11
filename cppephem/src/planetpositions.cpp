@@ -30,16 +30,16 @@
 #include <unistd.h>
 #include <iostream>
 #include <ncurses.h>
-#include "CLOptions.h"
+#include "CEExecOptions.h"
 
 #include "CppEphem.h"
 
 /**********************************************************************//**
  * Define the command line options for this program
  *************************************************************************/
-CLOptions DefineOptions()
+CEExecOptions DefineOptions()
 {
-    CLOptions options ;
+    CEExecOptions options("planetpositions") ;
     options.AddDoubleParam("L,longitude","Geographic observer longitude (degrees, east positive)",-93.62) ;
     options.AddDoubleParam("B,latitude", "Geographic observer latitude (degrees)", 42.0347) ;
     options.AddDoubleParam("e,elevation","Observer elevation above sea-level (meters)", 287.0) ;
@@ -66,7 +66,7 @@ int Description() ;
 int main(int argc, char** argv)
 {
     // Parse the command line options
-    CLOptions opt = DefineOptions() ;
+    CEExecOptions opt = DefineOptions() ;
     if (opt.ParseCommandLine(argc, argv)) return 0.0 ;
     
     // Create the object representing Mercury

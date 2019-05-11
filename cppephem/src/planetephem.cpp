@@ -23,13 +23,13 @@
 #include <stdio.h>
 
 #include "CppEphem.h"
-#include "CLOptions.h"
+#include "CEExecOptions.h"
 
 
 /**********************************************************************//**
  * Forward declarations
  *************************************************************************/
-CLOptions DefineOpts() ;
+CEExecOptions DefineOpts() ;
 CEPlanet GetPlanet(const int& p_id) ;
 void PrintEphemeris(CEObservation& obs, 
                     const double&  duration, 
@@ -41,7 +41,7 @@ void PrintEphemeris(CEObservation& obs,
 int main(int argc, char** argv)
 {
     // Get the command line options
-    CLOptions opts = DefineOpts() ;
+    CEExecOptions opts = DefineOpts() ;
     if (opts.ParseCommandLine(argc,argv)) return 0;
     
     // Turn on interpolation for correction terms
@@ -88,13 +88,11 @@ int main(int argc, char** argv)
 /**********************************************************************//**
  * Set the command line options
  *************************************************************************/
-CLOptions DefineOpts()
+CEExecOptions DefineOpts()
 {
-    CLOptions opts;
+    CEExecOptions opts("planetephem");
 
     // Add version and description
-    std::string vers_str = std::string("planetephem v") + CPPEPHEM_VERSION;
-    opts.AddVersionInfo(vers_str);
     opts.AddProgramDescription(std::string() +
         "Returns the apparent ICRS RA,Dec and observed Az,Alt coordinates for " +
         "a given planet for a given observer. It is important also to note " +
@@ -107,33 +105,19 @@ CLOptions DefineOpts()
                      0);
 
     // Observer parameters
-    CEObserver observer;
-    opts.AddDoubleParam("x,longitude", "Observer geographic longitude (degrees, east positive)",
-                        observer.Longitude_Deg());
-    opts.AddDoubleParam("y,latitude", "Observer geographic latitude (degrees)",
-                        observer.Latitude_Deg());
-    opts.AddDoubleParam("elevation", "Observer elevation (meters above sea level)",
-                        observer.Elevation_m());
-    opts.AddDoubleParam("humidity", "Observer relative humidity (0-1)", 
-                        observer.RelativeHumidity());
-    opts.AddDoubleParam("pressure", "Observer atomospheric pressure (hPa)", 
-                        observer.Pressure_hPa());
-    opts.AddDoubleParam("temperature", "Observer temperature (Celsius)", 
-                        observer.Temperature_C());
-    opts.AddDoubleParam("wavelength", "Observing wavelength (micrometers)", 
-                        observer.Wavelength_um());
+    opts.AddObserverPars();
 
     // Time information
-    opts.AddDoubleParam("t,startJD",
+    opts.AddDoubleParam("startJD",
                         "Starting time as a Julian date. Default will be the current Julian date",
                         CEDate::CurrentJD());
-    opts.AddDoubleParam("d,duration",
+    opts.AddDoubleParam("duration",
                         "Duration for printing out results (in minutes). Results will be printed from 'startJD' to 'startJD + duration'. Default is for one 24 hour period",
                         24.0*60.0);
-    opts.AddDoubleParam("s,step",
+    opts.AddDoubleParam("step",
                         "Number of minutes between each line of the print out.",
                         30.0);
-    opts.AddStringParam("m,method",
+    opts.AddStringParam("method",
                         "Method for computing planet positions ('sofa' or 'jpl', default='sofa')",
                         "sofa");
     return opts ;
