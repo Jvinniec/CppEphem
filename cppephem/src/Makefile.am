@@ -8,26 +8,27 @@ AM_CXXFLAGS = -std=c++11 -I../include -I./ $(sofa_CXXFLAGS) -I$(SOFADIR)
 AM_CFLAGS =
 
 lib_LTLIBRARIES = libcppephem.la
-libcppephem_la_SOURCES = CENamespace.cpp \
-                        CEBody.cpp \
-                        CECoordinates.cpp \
-                        CEDate.cpp \
-                        CEObservation.cpp \
-                        CEObserver.cpp \
-                        CEPlanet.cpp \
-                        CERunningDate.cpp \
-                        CETime.cpp 
-include_HEADERS = ../include/CppEphem.h \
-                        ../include/CENamespace.h \
-                        ../include/CEBody.h \
-                        ../include/CECoordinates.h \
-                        ../include/CEDate.h \
-                        ../include/CEObservation.h \
-                        ../include/CEObserver.h \
-                        ../include/CEPlanet.h \
-                        ../include/CERunningDate.h \
-                        ../include/CETime.h \
-			../include/CLOptions.h
+libcppephem_la_SOURCES = cppephem/src/CENamespace.cpp \
+                        cppephem/src/CEBody.cpp \
+                        cppephem/src/CECoordinates.cpp \
+                        cppephem/src/CEDate.cpp \
+                        cppephem/src/CEObservation.cpp \
+                        cppephem/src/CEObserver.cpp \
+                        cppephem/src/CEPlanet.cpp \
+                        cppephem/src/CERunningDate.cpp \
+                        cppephem/src/CETime.cpp 
+include_HEADERS = ../cppephem/include/CppEphem.h \
+                        ../cppephem/include/CENamespace.h \
+                        ../cppephem/include/CEBody.h \
+                        ../cppephem/include/CECoordinates.h \
+                        ../cppephem/include/CEDate.h \
+                        ../cppephem/include/CEObservation.h \
+                        ../cppephem/include/CEObserver.h \
+                        ../cppephem/include/CEPlanet.h \
+                        ../cppephem/include/CERunningDate.h \
+                        ../cppephem/include/CETime.h \
+			../cppephem/support/CLOptions.h \
+                        ../cppephem/support/CEExecOptions.h
 
 libcppephem_la_CPPFLAGS = $(CppEphem_CPPFLAGS)
 libcppephem_la_LIBADD=$(LIBS)
