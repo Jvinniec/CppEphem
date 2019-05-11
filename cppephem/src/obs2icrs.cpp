@@ -53,7 +53,8 @@ CEExecOptions DefineOpts()
 
 /**********************************************************************//**
  *************************************************************************/
-void PrintResults(CEExecOptions& inputs, std::map<std::string, double> results)
+void PrintResults(CEExecOptions& inputs, 
+                  const std::map<std::string, double>& results)
 {
     std::printf("\n") ;
     std::printf("******************************************\n") ;
@@ -64,8 +65,8 @@ void PrintResults(CEExecOptions& inputs, std::map<std::string, double> results)
     std::printf("    Zenith         : %+f degrees\n", inputs.AsDouble("zenith")) ;
     std::printf("    Altitude       : %+f degrees\n", 90.0-inputs.AsDouble("zenith")) ;
     std::printf("ICRS Coordinates (output)\n") ;
-    std::printf("    Right Ascension: %f degrees\n", results["ra"]) ;
-    std::printf("    Declination    : %+f degrees\n", results["dec"]) ;
+    std::printf("    Right Ascension: %f degrees\n", results.at("ra")) ;
+    std::printf("    Declination    : %+f degrees\n", results.at("dec")) ;
     std::printf("Observer Info\n") ;
     std::printf("    Julian Date    : %f\n", inputs.AsDouble("juliandate")) ;
     std::printf("    Longitude      : %f deg\n", inputs.AsDouble("longitude")) ;

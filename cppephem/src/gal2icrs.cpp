@@ -54,8 +54,8 @@ CEExecOptions DefineOpts()
 /**********************************************************************//**
  * Print the results of the analysis
  *************************************************************************/
-void PrintResults(CECoordinates& input,
-                  CECoordinates& output)
+void PrintResults(const CECoordinates& input,
+                  const CECoordinates& output)
 {
     // Get the representation of the input icrs in hours, minutes, seconds
     std::vector<double> out_hms = CECoordinates::GetHMS( output.XCoordinate_Deg() );

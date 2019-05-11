@@ -50,8 +50,8 @@ CEExecOptions DefineOpts()
 /**********************************************************************//**
  * Print the results of the conversion
  *************************************************************************/
-void PrintResults(CECoordinates& input,
-                  CECoordinates& output,
+void PrintResults(const  CECoordinates& input,
+                  const  CECoordinates& output,
                   double jd)
 {
     std::vector<double> input_hms = CECoordinates::GetHMS( input.XCoordinate_Deg() ) ;

@@ -54,7 +54,8 @@ CEExecOptions DefineOpts()
 
 /**********************************************************************//**
  *************************************************************************/
-void PrintResults(CEExecOptions& inputs, std::map<std::string, double> results)
+void PrintResults(CEExecOptions& inputs, 
+                  const std::map<std::string, double>& results)
 {
     std::printf("\n") ;
     std::printf("**********************************************\n") ;
@@ -65,8 +66,8 @@ void PrintResults(CEExecOptions& inputs, std::map<std::string, double> results)
     std::printf("    Zenith         : %+f degrees\n", inputs.AsDouble("zenith")) ;
     std::printf("    Altitude       : %+f degrees\n", 90.0-inputs.AsDouble("zenith")) ;
     std::printf("Galactic Coordinates (output)\n") ;
-    std::printf("    G. Longitude   : %f degrees\n", results["glon"]) ;
-    std::printf("    G. Latitude    : %+f degrees\n", results["glat"]) ;
+    std::printf("    G. Longitude   : %f degrees\n", results.at("glon")) ;
+    std::printf("    G. Latitude    : %+f degrees\n", results.at("glat")) ;
     std::printf("Observer Info\n") ;
     std::printf("    Julian Date    : %f\n", inputs.AsDouble("juliandate")) ;
     std::printf("    Longitude      : %f deg\n", inputs.AsDouble("longitude")) ;

@@ -51,15 +51,16 @@ CEExecOptions DefineOpts()
 
 /**********************************************************************//**
  *************************************************************************/
-void PrintResults(CEExecOptions& opts, std::map<std::string, double> results)
+void PrintResults(CEExecOptions& opts, 
+                  const std::map<std::string, double>& results)
 {
     std::printf("\n") ;
     std::printf("******************************************\n") ;
     std::printf("* Results of CIRS -> Galactic conversion *\n") ;
     std::printf("******************************************\n") ;
     std::printf("Galactic Coordinates (output)\n") ;
-    std::printf("    Galactic Lon.: %f degrees\n", results["longitude"]*DR2D) ;
-    std::printf("    Galactic Lat.: %+f degrees\n", results["latitude"]*DR2D) ;
+    std::printf("    Galactic Lon.: %f degrees\n", results.at("longitude")*DR2D) ;
+    std::printf("    Galactic Lat.: %+f degrees\n", results.at("latitude")*DR2D) ;
     std::printf("CIRS Coordinates (input)\n") ;
     std::printf("    Right Ascension: %f degrees\n", opts.AsDouble("ra")) ;
     std::printf("    Declination    : %+f degrees\n", opts.AsDouble("dec")) ;

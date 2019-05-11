@@ -53,23 +53,24 @@ CEExecOptions DefineOpts()
 
 /**********************************************************************//**
  *************************************************************************/
-void PrintResults(CEExecOptions& inputs, std::map<std::string, double> results)
+void PrintResults(CEExecOptions& inputs, 
+                  const std::map<std::string, double>& results)
 {
     std::printf("\n");
     std::printf("**********************************************\n");
     std::printf("* Results of GALACTIC -> Observed conversion *\n");
     std::printf("**********************************************\n");
     std::printf("Observed Coordinates (output)\n");
-    std::printf("    Azimuth        : %f degrees\n", results["azimuth"]*DR2D);
-    std::printf("    Zenith         : %+f degrees\n", results["zenith"]*DR2D);
-    std::printf("    Altitude       : %+f degrees\n", 90.0-results["zenith"]*DR2D);
+    std::printf("    Azimuth        : %f degrees\n", results.at("azimuth")*DR2D);
+    std::printf("    Zenith         : %+f degrees\n", results.at("zenith")*DR2D);
+    std::printf("    Altitude       : %+f degrees\n", 90.0-results.at("zenith")*DR2D);
     std::printf("Galactic Coordinates (input)\n");
     std::printf("    Gal. Longitude : %f degrees\n", inputs.AsDouble("glon"));
     std::printf("    Gal. Latitude  : %+f degrees\n", inputs.AsDouble("glat"));
     std::printf("    Julian Date    : %f\n", inputs.AsDouble("juliandate"));
     std::printf("Apparent Galactic Coordinates\n");
-    std::printf("    Gal. Longitude : %f\n", results["observed_glon"]*DR2D);
-    std::printf("    Gal. Latitude  : %+f\n", results["observed_glat"]*DR2D);
+    std::printf("    Gal. Longitude : %f\n", results.at("observed_glon")*DR2D);
+    std::printf("    Gal. Latitude  : %+f\n", results.at("observed_glat")*DR2D);
     std::printf("Observer Info\n");
     std::printf("    Longitude      : %f deg\n", inputs.AsDouble("longitude"));
     std::printf("    Latitude       : %+f deg\n", inputs.AsDouble("latitude"));
