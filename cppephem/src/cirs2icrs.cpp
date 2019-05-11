@@ -24,29 +24,25 @@
  */
 
 #include <stdio.h>
-#include "CLOptions.h"
+#include "CEExecOptions.h"
 
 #include "CppEphem.h"
 
 /**********************************************************************//**
  * Define the command line options for this program
  *************************************************************************/
-CLOptions DefineOpts()
+CEExecOptions DefineOpts()
 {
-    CLOptions opts;
+    CEExecOptions opts("cirs2icrs");
 
     // Add version and description
-    std::string vers_str = std::string("cirs2icrs v") + CPPEPHEM_VERSION;
-    opts.AddVersionInfo(vers_str);
     opts.AddProgramDescription(std::string() +
-                               "Converts from CIRS (Earth centric) coordinates" +
-                               "to ICRS (solar system barycentric) coordinates " +
-                               "for a given Julian date.");
+        "Converts from CIRS (Earth centric) coordinates to ICRS (solar " +
+        "system barycentric) coordinates for a given Julian date.");
 
     // Set the options
-    opts.AddDoubleParam("r,ra", "CIRS right ascension for the conversion (degrees)",0.0) ;
-    opts.AddDoubleParam("d,dec", "CIRS declination for the conversion (degrees)", 0.0) ;
-    opts.AddDoubleParam("j,juliandate", "Julian date for the returned coordinates", CEDate::CurrentJD()) ;
+    opts.AddCirsPars();
+    opts.AddJDPar();
     
     return opts;
 }
@@ -86,7 +82,7 @@ void PrintResults(CECoordinates& input,
 int main (int argc, char** argv)
 {
     // Get the options from the command line
-    CLOptions opts = DefineOpts() ;
+    CEExecOptions opts = DefineOpts() ;
     if (opts.ParseCommandLine(argc, argv)) return 0 ;
     
     // Create a CECoordinates object

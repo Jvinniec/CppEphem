@@ -27,25 +27,22 @@
 
 // CppEphem HEADERS
 #include "CppEphem.h"
-#include "CLOptions.h"
+#include "CEExecOptions.h"
 
 /**********************************************************************//**
  * Define the command line options for this program
  *************************************************************************/
-CLOptions DefineOpts()
+CEExecOptions DefineOpts()
 {
-    CLOptions opts;
+    CEExecOptions opts("icrs2gal");
 
     // Add version and description
-    std::string vers_str = std::string("icrs2gal v") + CPPEPHEM_VERSION;
-    opts.AddVersionInfo(vers_str);
     opts.AddProgramDescription(std::string() +
-                               "Converts from ICRS (solar system barycentric) " +
-                               "coordinates to Galactic coordinates.");
+        "Converts from ICRS (solar system barycentric) coordinates to " +
+        "Galactic coordinates.");
 
     // Set the options
-    opts.AddDoubleParam("r,ra", "ICRS right ascension for the conversion (degrees)",0.0) ;
-    opts.AddDoubleParam("d,dec", "ICRS declination for the conversion (degrees)", 0.0) ;
+    opts.AddIcrsPars();
     
     return opts;
 }
@@ -77,10 +74,10 @@ void PrintResults(CECoordinates& input,
 /**********************************************************************//**
  * Main method
  *************************************************************************/
-int main(int argc, char** argv) {
-    
+int main(int argc, char** argv) 
+{    
     // Get the options from the command line
-    CLOptions opts = DefineOpts() ;
+    CEExecOptions opts = DefineOpts() ;
     if (opts.ParseCommandLine(argc, argv)) return 0 ;
         
     // Create a map to store the results

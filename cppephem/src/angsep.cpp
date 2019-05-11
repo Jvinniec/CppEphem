@@ -21,14 +21,14 @@
 
 #include <stdio.h>
 
-#include "CLOptions.h"
+#include "CEExecOptions.h"
 #include "CECoordinates.h"
 
 /*********************************************
  * Forward declarations
  *********************************************/
 
-CLOptions DefineOpts() ;
+CEExecOptions DefineOpts() ;
 
 /*********************************************
  * MAIN
@@ -36,7 +36,7 @@ CLOptions DefineOpts() ;
 int main(int argc, char** argv)
 {
     // Create and parse the command line options
-    CLOptions opts = DefineOpts();
+    CEExecOptions opts = DefineOpts();
     if (opts.ParseCommandLine(argc,argv)) return 0;
     
     // Establish the input coordinate type
@@ -67,19 +67,14 @@ int main(int argc, char** argv)
 /*********************************************
  * Define the options available from the command line
  *********************************************/
-CLOptions DefineOpts()
+CEExecOptions DefineOpts()
 {
-    CLOptions opts;
-    
-    // Add a program version and description
-    std::string vers_str = std::string("angsep v") + CPPEPHEM_VERSION;
-    opts.AddVersionInfo(vers_str);
+    CEExecOptions opts("angsep");
 
     // Add program description
     opts.AddProgramDescription(std::string() +
-                               "Computes the angular separation between two " +
-                               "coordinates. Note that the coordinate types " +
-                               "need to be the same for both positions.");
+        "Computes the angular separation between two coordinates. Note that " +
+        "the coordinate types need to be the same for both positions.");
     
     // Specify the actual options
     opts.AddBoolParam("InputDegrees",
