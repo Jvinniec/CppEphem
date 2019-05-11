@@ -54,24 +54,25 @@ CEExecOptions DefineOpts()
 
 /**********************************************************************//**
  *************************************************************************/
-void PrintResults(CEExecOptions& inputs, std::map<std::string, double> results)
+void PrintResults(CEExecOptions& inputs, 
+                  const std::map<std::string, double>& results)
 {
     std::printf("\n") ;
     std::printf("******************************************\n");
     std::printf("* Results of CIRS -> Observed conversion *\n");
     std::printf("******************************************\n");
     std::printf("Observed Coordinates (output)\n");
-    std::printf("    Azimuth        : %f degrees\n", results["azimuth"]*DR2D);
-    std::printf("    Zenith         : %+f degrees\n", results["zenith"]*DR2D);
-    std::printf("    Altitude       : %+f degrees\n", 90.0-results["zenith"]*DR2D);
+    std::printf("    Azimuth        : %f degrees\n", results.at("azimuth")*DR2D);
+    std::printf("    Zenith         : %+f degrees\n", results.at("zenith")*DR2D);
+    std::printf("    Altitude       : %+f degrees\n", 90.0-results.at("zenith")*DR2D);
     std::printf("CIRS Coordinates (input)\n");
     std::printf("    Right Ascension: %f degrees\n", inputs.AsDouble("ra"));
     std::printf("    Declination    : %+f degrees\n", inputs.AsDouble("dec"));
     std::printf("    Julian Date    : %f\n", inputs.AsDouble("juliandate"));
     std::printf("Apparent CIRS Coordinates\n");
-    std::printf("    Right Ascension: %f\n", results["observed_ra"]*DR2D);
-    std::printf("    Declination    : %+f\n", results["observed_dec"]*DR2D);
-    std::printf("    Hour Angle     : %+f\n", results["hour_angle"]*DR2D);
+    std::printf("    Right Ascension: %f\n", results.at("observed_ra")*DR2D);
+    std::printf("    Declination    : %+f\n", results.at("observed_dec")*DR2D);
+    std::printf("    Hour Angle     : %+f\n", results.at("hour_angle")*DR2D);
     std::printf("Observer Info\n");
     std::printf("    Longitude      : %f deg\n", inputs.AsDouble("longitude"));
     std::printf("    Latitude       : %+f deg\n", inputs.AsDouble("latitude"));

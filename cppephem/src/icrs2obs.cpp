@@ -53,11 +53,11 @@ CEExecOptions DefineOpts()
 
 /**********************************************************************//**
  *************************************************************************/
-void PrintResults(CECoordinates& input_icrs,
-                  CECoordinates& observed_altaz,
-                  CECoordinates& observed_icrs,
-                  CEObserver&    observer,
-                  CEDate    &    date)
+void PrintResults(const CECoordinates& input_icrs,
+                  const CECoordinates& observed_altaz,
+                  const CECoordinates& observed_icrs,
+                  const CEObserver&    observer,
+                  const CEDate    &    date)
 {
     std::printf("\n") ;
     std::printf("******************************************\n") ;
