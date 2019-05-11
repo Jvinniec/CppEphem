@@ -1,7 +1,7 @@
 /***************************************************************************
  *  planetephem.cpp: CppEphem                                              *
  * ----------------------------------------------------------------------- *
- *  Copyright © 2017 JCardenzana                                           *
+ *  Copyright © 2017-2019 JCardenzana                                      *
  * ----------------------------------------------------------------------- *
  *                                                                         *
  *  This program is free software: you can redistribute it and/or modify   *
