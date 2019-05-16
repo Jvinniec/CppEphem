@@ -1,6 +1,19 @@
-<map id="include/CEBody.h" name="include/CEBody.h">
-<area shape="rect" id="node3" href="$CECoordinates_8h.html" title="CECoordinates.h" alt="" coords="159,80,257,107"/>
-<area shape="rect" id="node5" href="$CEDate_8h.html" title="CEDate.h" alt="" coords="211,155,277,181"/>
-<area shape="rect" id="node10" href="$CENamespace_8h.html" title="CENamespace.h" alt="" coords="355,304,453,331"/>
-<area shape="rect" id="node7" href="$CETime_8h.html" title="CETime.h" alt="" coords="211,229,277,256"/>
+<map id="cppephem/include/CEBody.h" name="cppephem/include/CEBody.h">
+<area shape="rect" id="node1" title=" " alt="" coords="580,5,772,31"/>
+<area shape="rect" id="node2" title=" " alt="" coords="734,445,792,471"/>
+<area shape="rect" id="node3" href="$CECoordinates_8h.html" title=" " alt="" coords="284,79,407,104"/>
+<area shape="rect" id="node4" title=" " alt="" coords="240,445,294,471"/>
+<area shape="rect" id="node5" href="$CEDate_8h.html" title=" " alt="" coords="306,152,385,177"/>
+<area shape="rect" id="node10" href="$CENamespace_8h.html" title=" " alt="" coords="183,299,305,324"/>
+<area shape="rect" id="node12" title=" " alt="" coords="31,372,89,397"/>
+<area shape="rect" id="node15" href="$CEException_8h.html" title=" " alt="" coords="620,152,730,177"/>
+<area shape="rect" id="node6" title=" " alt="" coords="499,225,571,251"/>
+<area shape="rect" id="node7" href="$CETime_8h.html" title=" " alt="" coords="344,225,424,251"/>
+<area shape="rect" id="node8" title=" " alt="" coords="402,372,460,397"/>
+<area shape="rect" id="node9" title=" " alt="" coords="431,299,492,324"/>
+<area shape="rect" id="node11" title=" " alt="" coords="158,445,205,471"/>
+<area shape="rect" id="node13" title=" " alt="" coords="308,372,378,397"/>
+<area shape="rect" id="node14" href="$CECorrections_8h.html" title=" " alt="" coords="165,372,284,397"/>
+<area shape="rect" id="node16" title=" " alt="" coords="752,225,830,251"/>
+<area shape="rect" id="node17" title=" " alt="" coords="595,225,677,251"/>
 </map>

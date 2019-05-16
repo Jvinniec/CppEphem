@@ -1,13 +1,16 @@
 var searchData=
 [
-  ['jd',['JD',['../classCEDate.html#ae2037afc1279464fa1224b81226a3c41',1,'CEDate::JD()'],['../classCERunningDate.html#aea44104b940649f193cc0e25b95bda76',1,'CERunningDate::JD()'],['../CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746aabf8d7515962e526421842e8456798cc',1,'JD():&#160;CEDate.h']]],
-  ['jd2cal_2ecpp',['jd2cal.cpp',['../jd2cal_8cpp.html',1,'']]],
-  ['jd2gregorian',['JD2Gregorian',['../classCEDate.html#af699560be178f1ffbf9f9aae444085ad',1,'CEDate']]],
-  ['jd2gregorianvect',['JD2GregorianVect',['../classCEDate.html#a4dbfe2ea3d5083c90602baa2b3003587',1,'CEDate']]],
-  ['jd2mjd',['JD2MJD',['../classCEDate.html#a2f8aa5a0023c485407ce172c167d970d',1,'CEDate']]],
-  ['jd2mjd_2ecpp',['jd2mjd.cpp',['../jd2mjd_8cpp.html',1,'']]],
-  ['jpl',['JPL',['../CEPlanet_8h.html#ae0ffdf0d27cd448d21a16d3f9cb13029a521ba29afcb1097a25cc2e2cf1b94792',1,'CEPlanet.h']]],
-  ['julian_5fdate_5f',['julian_date_',['../classCEDate.html#a58170c23976d025cd631d42b10b8930c',1,'CEDate']]],
-  ['julian_5fdate_5fj2000',['julian_date_J2000',['../namespaceCppEphem.html#a0af24bad9d60de8e1748fb1479d3423b',1,'CppEphem']]],
-  ['jupiter',['Jupiter',['../classCEPlanet.html#a2b0d49aa45238b2b826f2bce561598c5',1,'CEPlanet']]]
+  ['icrs',['ICRS',['../CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2a37dfc89db165108163b0dd9be927434a',1,'CECoordinates.h']]],
+  ['icrs2cirs',['ICRS2CIRS',['../classCECoordinates.html#ab5b5be7d1167fd59e523df97d1a8b93c',1,'CECoordinates']]],
+  ['icrs2cirs_2ecpp',['icrs2cirs.cpp',['../icrs2cirs_8cpp.html',1,'']]],
+  ['icrs2gal_2ecpp',['icrs2gal.cpp',['../icrs2gal_8cpp.html',1,'']]],
+  ['icrs2galactic',['ICRS2Galactic',['../classCECoordinates.html#a1a2128b3a95180e6b144b9298a751ef0',1,'CECoordinates']]],
+  ['icrs2obs_2ecpp',['icrs2obs.cpp',['../icrs2obs_8cpp.html',1,'']]],
+  ['icrs2observed',['ICRS2Observed',['../classCECoordinates.html#a463bd50de9edecff8d322119ed921fe5',1,'CECoordinates::ICRS2Observed(double ra, double dec, double *az, double *zen, const CEDate &amp;date, const CEObserver &amp;observer, const CEAngleType &amp;angle_type=CEAngleType::RADIANS, double wavelength_um=0.5, double *observed_ra=nullptr, double *observed_dec=nullptr, double *hour_angle=nullptr)'],['../classCECoordinates.html#a4ca699bc58f9d7c371331cbcd1a60d5d',1,'CECoordinates::ICRS2Observed(double ra, double dec, double *az, double *zen, double julian_date, double longitude, double latitude, double elevation_m=0.0, double pressure_hPa=-1.0, double temperature_celsius=-1000, double relative_humidity=0.0, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength_um=0.5, double *observed_ra=nullptr, double *observed_dec=nullptr, double *hour_angle=nullptr)']]],
+  ['inclination_5fdeg_5f',['inclination_deg_',['../classCEPlanet.html#ad1d5d975d45a5b40f682f83fe5d59360',1,'CEPlanet']]],
+  ['inclination_5fdeg_5fper_5fcent_5f',['inclination_deg_per_cent_',['../classCEPlanet.html#ae64c3d295cef0c8d98dfae2d91b6628a',1,'CEPlanet']]],
+  ['init_5fmembers',['init_members',['../classCEBody.html#a5f2a5058a84f3db4ab6039a86cdcc114',1,'CEBody::init_members()'],['../classCECoordinates.html#abda20a5d084a6e89362c6973568ed812',1,'CECoordinates::init_members()'],['../classCECorrections.html#a65711f1a884c4bc35ff322316d609aff',1,'CECorrections::init_members()'],['../classCEDate.html#ad00529f4c2a739f7b053f6c4c4c490e4',1,'CEDate::init_members()'],['../classCEObservation.html#ae7f76be2f0e32835117ae70abbdbcefe',1,'CEObservation::init_members()'],['../classCEObserver.html#a2eee070d52a83ff3f5db6b1fa5de42fd',1,'CEObserver::init_members()'],['../classCEPlanet.html#a80ccc06355caeebbd88c3717d50325a4',1,'CEPlanet::init_members()'],['../classCERunningDate.html#a60c05eb6ff8baacf07a34608bc3851ca',1,'CERunningDate::init_members()'],['../classCETime.html#a597156dede2e4031e83cf4ca929d7afb',1,'CETime::init_members()'],['../classCEExecOptions.html#a5143be3f76eff1634f7a06cf79bc9afd',1,'CEExecOptions::init_members()']]],
+  ['interp_5f',['interp_',['../classCECorrections.html#a664c1747fb70740cd36e11170730e90f',1,'CECorrections']]],
+  ['interpvalue',['InterpValue',['../classCECorrections.html#a5559f422401ad78457621c7a607781b5',1,'CECorrections']]],
+  ['invalid_5fvalue',['invalid_value',['../classCEException_1_1invalid__value.html',1,'CEException::invalid_value'],['../classCEException_1_1invalid__value.html#a6cd7ce41684a79241492c5ebab685b47',1,'CEException::invalid_value::invalid_value()']]]
 ];

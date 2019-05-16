@@ -1,0 +1,7 @@
+<map id="test_CECoordinates" name="test_CECoordinates">
+<area shape="rect" id="node1" title=" " alt="" coords="166,132,307,157"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,100,31"/>
+<area shape="rect" id="node3" href="$classCECoordinates.html" title="CECoordinates class is responsible for doing all of the celestial coordinate conversions." alt="" coords="123,5,235,31"/>
+<area shape="rect" id="node4" href="$classCEObserver.html" title="CEObserver class is a self contained object for describing an observer." alt="" coords="259,5,353,31"/>
+<area shape="rect" id="node5" href="$classCEDate.html" title="CEDate class handles conversion between different date formats." alt="" coords="389,5,457,31"/>
+</map>

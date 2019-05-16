@@ -1,18 +1,17 @@
 var searchData=
 [
-  ['obs2cirs_2ecpp',['obs2cirs.cpp',['../obs2cirs_8cpp.html',1,'']]],
-  ['obs2gal_2ecpp',['obs2gal.cpp',['../obs2gal_8cpp.html',1,'']]],
-  ['obs2icrs_2ecpp',['obs2icrs.cpp',['../obs2icrs_8cpp.html',1,'']]],
-  ['observed',['OBSERVED',['../CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2aa87279f7222c5264100350e6074973a2',1,'CECoordinates.h']]],
-  ['observed2cirs',['Observed2CIRS',['../classCECoordinates.html#aadb0c752f8b2313132c3664b20e16a1e',1,'CECoordinates::Observed2CIRS(double az, double zen, double *ra, double *dec, CEObserver &amp;observer, CEAngleType angle_type=CEAngleType::RADIANS)'],['../classCECoordinates.html#ab82aa36758f9a0861ec24b82271d0df4',1,'CECoordinates::Observed2CIRS(double az, double zen, double *ra, double *dec, double julian_date, double longitude, double latitude, double elevation_m=0.0, double pressure_hPa=-1.0, double temperature_celsius=-1000, double relative_humidity=0.0, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength_um=0.5)']]],
-  ['observed2galactic',['Observed2Galactic',['../classCECoordinates.html#a7b30333ce8b66cc686568455decfce4c',1,'CECoordinates::Observed2Galactic(double az, double zen, double *glon, double *glat, CEObserver &amp;observer, CEAngleType angle_type=CEAngleType::RADIANS)'],['../classCECoordinates.html#a820c09effde1ff73e08a56dbaf94f151',1,'CECoordinates::Observed2Galactic(double az, double zen, double *glon, double *glat, double julian_date, double longitude, double latitude, double elevation_m=0.0, double pressure_hPa=-1.0, double temperature_celsius=-1000, double relative_humidity=0.0, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength_um=0.50)']]],
-  ['observed2icrs',['Observed2ICRS',['../classCECoordinates.html#afa9c8a0bb545fa669a09501f00db6e1a',1,'CECoordinates::Observed2ICRS(double az, double zen, double *ra, double *dec, CEObserver &amp;observer, CEAngleType angle_type=CEAngleType::RADIANS)'],['../classCECoordinates.html#a6f5373264ebcfec803182e0713951b28',1,'CECoordinates::Observed2ICRS(double az, double zen, double *ra, double *dec, double julian_date, double longitude, double latitude, double elevation_m=0.0, double pressure_hPa=-1.0, double temperature_celsius=-1000, double relative_humidity=0.0, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength_um=0.5)']]],
-  ['observedposition',['ObservedPosition',['../classCEObserver.html#ad9902f06e4961a6ed8e89609b53bc619',1,'CEObserver::ObservedPosition(CEBody &amp;object)'],['../classCEObserver.html#a465e0568f4555a343274bb4b80e2e37f',1,'CEObserver::ObservedPosition(CECoordinates &amp;coords)']]],
-  ['observer',['Observer',['../classCEObservation.html#a4a6413e48800cd23c42283ce39519fc1',1,'CEObservation']]],
-  ['observer_5f',['observer_',['../classCEObservation.html#ae4cbe1c9cf6a93809fd1fec1bd8c8d1f',1,'CEObservation']]],
-  ['operator_20double',['operator double',['../classCEDate.html#a6daf5a60fa8a682bf163fbfe80db27a8',1,'CEDate']]],
-  ['operator_20t',['operator T',['../classCLParam.html#abe3d19a3583aa070822b3546d20edecd',1,'CLParam']]],
-  ['operator_2b',['operator+',['../classCLString.html#aba75988e4b082a293ab59597ed12599e',1,'CLString']]],
-  ['operator_3d',['operator=',['../classCLParam.html#a6ec9f7f7eb2781729160301393b7332a',1,'CLParam::operator=()'],['../classCLBool.html#acad83fa3e7faa584ea971d8751b92e08',1,'CLBool::operator=(std::string &amp;other)'],['../classCLBool.html#a9a0edf63210d2c7fc9b6e9acecf4b6ce',1,'CLBool::operator=(bool other)'],['../classCLString.html#ad27d71c7e50226c4a4f8ac66ddfde734',1,'CLString::operator=()'],['../classCLDouble.html#a4f93bcacf1138dc1c441e574bec14e9a',1,'CLDouble::operator=(const std::string &amp;other)'],['../classCLDouble.html#a57a3a70e05ab61f1dba01abb15b5b7c0',1,'CLDouble::operator=(double other)'],['../classCLInt.html#a18d79028cb1bdb608c403673524f42dd',1,'CLInt::operator=(const std::string &amp;other)'],['../classCLInt.html#a289eb4a43daa309967235c44eec08266',1,'CLInt::operator=(int other)']]],
-  ['operator_5b_5d',['operator[]',['../classCLOptions.html#a7d21d72088eaf938397e5f3763e2582f',1,'CLOptions']]]
+  ['name',['Name',['../classCEBody.html#ab9c72437b822be4033e21f4a22c0d71a',1,'CEBody']]],
+  ['name_5f',['name_',['../classCEBody.html#adc115aa5ac5b3a98f39451ef4e527f9d',1,'CEBody']]],
+  ['naptime_5f',['naptime_',['../classtest__CERunningDate.html#a328153d6c83073deccde365f6f1d0506',1,'test_CERunningDate::naptime_()'],['../classtest__CETime.html#ac3db9bd863228840f1dd800011378446',1,'test_CETime::naptime_()']]],
+  ['naptime_5fms_5f',['naptime_ms_',['../classtest__CERunningDate.html#a9b2457f0d3b430c210c54bcd4ad3ec44',1,'test_CERunningDate']]],
+  ['needsupdate',['NeedsUpdate',['../classCEObservation.html#ac871984edb3b7c1095f23512ee36beaa',1,'CEObservation']]],
+  ['neptune',['Neptune',['../classCEPlanet.html#a7bb7ee31831b9c5c3df892ee5b71c63c',1,'CEPlanet']]],
+  ['nutation_5fdeps_5f',['nutation_deps_',['../classCECorrections.html#ac2d7f4b9b7488c6e889bb93df2980669',1,'CECorrections']]],
+  ['nutation_5fdpsi_5f',['nutation_dpsi_',['../classCECorrections.html#a75b8dfbf09e6816e2d879252d7259ba5',1,'CECorrections']]],
+  ['nutation_5fdut1_5f',['nutation_dut1_',['../classCECorrections.html#abfa3c627c70cdbec688aa4088c308381',1,'CECorrections']]],
+  ['nutation_5ffile_5f',['nutation_file_',['../classCECorrections.html#a5a7a83ebe6a138720825108718133317',1,'CECorrections']]],
+  ['nutation_5fmjd_5f',['nutation_mjd_',['../classCECorrections.html#a3da74320c5c3713887a58663fa76f01c',1,'CECorrections']]],
+  ['nutation_5fxp_5f',['nutation_xp_',['../classCECorrections.html#a889dc9616cfde7a9be29b89af0d4d7a2',1,'CECorrections']]],
+  ['nutation_5fyp_5f',['nutation_yp_',['../classCECorrections.html#a7837bc5e1b2230f2b294862b8871500a',1,'CECorrections']]],
+  ['nutationfile',['NutationFile',['../classCECorrections.html#ad34fd3eb8fdf94fcfb94928d682345a3',1,'CECorrections::NutationFile()'],['../namespaceCppEphem.html#a4e8f9a2f629e0cb2280d5e04570866d1',1,'CppEphem::NutationFile()']]]
 ];

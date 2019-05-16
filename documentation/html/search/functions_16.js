@@ -1,13 +1,8 @@
 var searchData=
 [
-  ['_7ecebody',['~CEBody',['../classCEBody.html#a48c972239b6ff122712a5771e6f6b7c1',1,'CEBody']]],
-  ['_7ececoordinates',['~CECoordinates',['../classCECoordinates.html#adfae4c048a969705b39c2890578862b7',1,'CECoordinates']]],
-  ['_7ecedate',['~CEDate',['../classCEDate.html#a380991e2f2eaa8cbbb85d0da466e7c7b',1,'CEDate']]],
-  ['_7eceobservation',['~CEObservation',['../classCEObservation.html#a97ede01128d819c7f0c6062c39dd53a7',1,'CEObservation']]],
-  ['_7eceobserver',['~CEObserver',['../classCEObserver.html#a3c8b8910cafadf1f57be6dc0e7878e80',1,'CEObserver']]],
-  ['_7eceplanet',['~CEPlanet',['../classCEPlanet.html#a4a9243746c1623eeb7555f04b5554923',1,'CEPlanet']]],
-  ['_7ecerunningdate',['~CERunningDate',['../classCERunningDate.html#a3d89ca1ef5627ad0af347ce5fc2df3f8',1,'CERunningDate']]],
-  ['_7ecetime',['~CETime',['../classCETime.html#ad295fb04601db862c2c0f733ce0d4a46',1,'CETime']]],
-  ['_7ecloptions',['~CLOptions',['../classCLOptions.html#a3eff183d2f5a99832c71bef6632fed3f',1,'CLOptions']]],
-  ['_7eclparam',['~CLParam',['../classCLParam.html#a281d11a1c82c521026d66ffb3ee7f997',1,'CLParam']]]
+  ['ycoordinate_5fdeg',['YCoordinate_Deg',['../classCECoordinates.html#a6d2ba054b5398902d773e3d86ba08d57',1,'CECoordinates::YCoordinate_Deg()'],['../classCEPlanet.html#ad633dffe34d327da4531eef202897458',1,'CEPlanet::YCoordinate_Deg()']]],
+  ['ycoordinate_5frad',['YCoordinate_Rad',['../classCECoordinates.html#af70ffabf8de34caf9288ca3829067140',1,'CECoordinates::YCoordinate_Rad()'],['../classCEPlanet.html#ab7f9e2e7ec6f9014fdcf8f644ab2768e',1,'CEPlanet::YCoordinate_Rad()']]],
+  ['year',['Year',['../classCEDate.html#a789944f6b9ac629f98feb4d936f1b7ca',1,'CEDate']]],
+  ['yp',['yp',['../namespaceCppEphem.html#a1e61f96fddfb82ef60776f91edb1ac85',1,'CppEphem']]],
+  ['ypolar',['ypolar',['../classCECorrections.html#a255654a6da66268af151dd99fb85652b',1,'CECorrections::ypolar()'],['../classCEDate.html#aa0870d61eeaae0f3db43ec8c582ad713',1,'CEDate::ypolar(const double &amp;date, const CEDateType &amp;date_type=CEDateType::JD)'],['../classCEDate.html#aeb0cb2f439085b09d622e9f674c2e866',1,'CEDate::ypolar(void) const']]]
 ];

@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['value',['value',['../classCLParam.html#adc4b4ac4db89e6e64f36d623ba9dee6c',1,'CLParam']]],
-  ['version_5fopt',['version_opt',['../classCLOptions.html#ad243aa57bc947fedbe5558e0a110f1e6',1,'CLOptions']]],
-  ['vx_5ficrs_5f',['vx_icrs_',['../classCEPlanet.html#a0a26a52baf994e49931c13f888f1a924',1,'CEPlanet']]],
-  ['vy_5ficrs_5f',['vy_icrs_',['../classCEPlanet.html#afa6a805ba91ac9eaba7e2f7ff15f3357',1,'CEPlanet']]],
-  ['vz_5ficrs_5f',['vz_icrs_',['../classCEPlanet.html#ae4a05b0f0c334bd710fda74fbab41166',1,'CEPlanet']]]
+  ['vel_5fcirs_5f',['vel_cirs_',['../classCEObserver.html#af4d59f683055a81bd1202470d04e5837',1,'CEObserver']]],
+  ['vel_5ficrs_5f',['vel_icrs_',['../classCEObserver.html#a867924577d8050176a158e4db3638349',1,'CEObserver::vel_icrs_()'],['../classCEPlanet.html#a096217f3778c9870f1ac546ced74a04f',1,'CEPlanet::vel_icrs_()']]]
 ];

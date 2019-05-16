@@ -1,4 +1,20 @@
 var searchData=
 [
-  ['venus',['Venus',['../classCEPlanet.html#af7e758086d83033df36b91a2fec124d3',1,'CEPlanet']]]
+  ['update_5fjpl',['Update_JPL',['../classCEPlanet.html#aef5d58e130a5beae9320cb0a20c39701',1,'CEPlanet']]],
+  ['update_5fsofa',['Update_SOFA',['../classCEPlanet.html#a8f756d3d67ca967cb8bd68bc575672a9',1,'CEPlanet']]],
+  ['updatecoordinates',['UpdateCoordinates',['../classCEObservation.html#ac27fc35b337170c4ff014455621618b5',1,'CEObservation::UpdateCoordinates()'],['../classCEPlanet.html#a09cfc51f41fd2808e87c161024946ebe',1,'CEPlanet::UpdateCoordinates()']]],
+  ['updatenutationcache',['UpdateNutationCache',['../classCECorrections.html#a8e3c4348c679237b3337e0842ed19698',1,'CECorrections']]],
+  ['updateposition',['UpdatePosition',['../classCEPlanet.html#a4715cd93b3934dbaae83b1767903db38',1,'CEPlanet']]],
+  ['updateposvel',['UpdatePosVel',['../classCEObserver.html#a78c677d03642d25b12ee80cdf6be90a0',1,'CEObserver']]],
+  ['updatettut1cache',['UpdateTtUt1Cache',['../classCECorrections.html#ab506012ac81632c4a9874aa0fed28565',1,'CECorrections']]],
+  ['uranus',['Uranus',['../classCEPlanet.html#a85c738a79ef43d9d5404465ff62baf34',1,'CEPlanet']]],
+  ['utc',['UTC',['../classCETime.html#a1afdc17966820e6170dd6c8a8bae4dfd',1,'CETime']]],
+  ['utc2gast',['UTC2GAST',['../classCETime.html#ae87974fef65c8ca6299105d339147b2b',1,'CETime']]],
+  ['utc2last',['UTC2LAST',['../classCETime.html#a29611223f9a5e423d234f546976f7a2c',1,'CETime']]],
+  ['utc2localtime',['UTC2LOCALTIME',['../classCETime.html#a5da0a3b3b4c2b54331c833e33c1abfb1',1,'CETime']]],
+  ['utc2tdb',['UTC2TDB',['../classCEDate.html#ae8fbcbcdfa19faaca1e8d5793d482dfb',1,'CEDate']]],
+  ['utc2tt',['UTC2TT',['../classCEDate.html#a311aaf1f566722a532063bbdefabfb18',1,'CEDate']]],
+  ['utc2ut1',['UTC2UT1',['../classCEDate.html#a985293ecdb14ad5d594c1b311802c442',1,'CEDate']]],
+  ['utc_5fvect',['UTC_vect',['../classCETime.html#ac35e86474bf0726531aaed2c8ab05720',1,'CETime']]],
+  ['utcoffset',['UTCOffset',['../classCEObserver.html#a3f785767c4ee2a1874706829dab82a25',1,'CEObserver']]]
 ];

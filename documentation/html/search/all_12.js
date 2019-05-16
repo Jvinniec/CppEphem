@@ -1,9 +1,21 @@
 var searchData=
 [
-  ['value',['value',['../classCLParam.html#adc4b4ac4db89e6e64f36d623ba9dee6c',1,'CLParam']]],
-  ['venus',['Venus',['../classCEPlanet.html#af7e758086d83033df36b91a2fec124d3',1,'CEPlanet']]],
-  ['version_5fopt',['version_opt',['../classCLOptions.html#ad243aa57bc947fedbe5558e0a110f1e6',1,'CLOptions']]],
-  ['vx_5ficrs_5f',['vx_icrs_',['../classCEPlanet.html#a0a26a52baf994e49931c13f888f1a924',1,'CEPlanet']]],
-  ['vy_5ficrs_5f',['vy_icrs_',['../classCEPlanet.html#afa6a805ba91ac9eaba7e2f7ff15f3357',1,'CEPlanet']]],
-  ['vz_5ficrs_5f',['vz_icrs_',['../classCEPlanet.html#ae4a05b0f0c334bd710fda74fbab41166',1,'CEPlanet']]]
+  ['update_5fjpl',['Update_JPL',['../classCEPlanet.html#aef5d58e130a5beae9320cb0a20c39701',1,'CEPlanet']]],
+  ['update_5fsofa',['Update_SOFA',['../classCEPlanet.html#a8f756d3d67ca967cb8bd68bc575672a9',1,'CEPlanet']]],
+  ['updatecoordinates',['UpdateCoordinates',['../classCEObservation.html#ac27fc35b337170c4ff014455621618b5',1,'CEObservation::UpdateCoordinates()'],['../classCEPlanet.html#a09cfc51f41fd2808e87c161024946ebe',1,'CEPlanet::UpdateCoordinates()']]],
+  ['updatenutationcache',['UpdateNutationCache',['../classCECorrections.html#a8e3c4348c679237b3337e0842ed19698',1,'CECorrections']]],
+  ['updateposition',['UpdatePosition',['../classCEPlanet.html#a4715cd93b3934dbaae83b1767903db38',1,'CEPlanet']]],
+  ['updateposvel',['UpdatePosVel',['../classCEObserver.html#a78c677d03642d25b12ee80cdf6be90a0',1,'CEObserver']]],
+  ['updatettut1cache',['UpdateTtUt1Cache',['../classCECorrections.html#ab506012ac81632c4a9874aa0fed28565',1,'CECorrections']]],
+  ['uranus',['Uranus',['../classCEPlanet.html#a85c738a79ef43d9d5404465ff62baf34',1,'CEPlanet']]],
+  ['utc',['UTC',['../classCETime.html#a1afdc17966820e6170dd6c8a8bae4dfd',1,'CETime::UTC()'],['../CETime_8h.html#ab50b2d3a782e5eea768b25bfb3d7e65fa2c56d07da8a08a92de9453a00e31d55d',1,'UTC():&#160;CETime.h']]],
+  ['utc2gast',['UTC2GAST',['../classCETime.html#ae87974fef65c8ca6299105d339147b2b',1,'CETime']]],
+  ['utc2last',['UTC2LAST',['../classCETime.html#a29611223f9a5e423d234f546976f7a2c',1,'CETime']]],
+  ['utc2localtime',['UTC2LOCALTIME',['../classCETime.html#a5da0a3b3b4c2b54331c833e33c1abfb1',1,'CETime']]],
+  ['utc2tdb',['UTC2TDB',['../classCEDate.html#ae8fbcbcdfa19faaca1e8d5793d482dfb',1,'CEDate']]],
+  ['utc2tt',['UTC2TT',['../classCEDate.html#a311aaf1f566722a532063bbdefabfb18',1,'CEDate']]],
+  ['utc2ut1',['UTC2UT1',['../classCEDate.html#a985293ecdb14ad5d594c1b311802c442',1,'CEDate']]],
+  ['utc_5foffset_5f',['utc_offset_',['../classCEObserver.html#a75ab3329a8138a0abe443b5b4456cf15',1,'CEObserver']]],
+  ['utc_5fvect',['UTC_vect',['../classCETime.html#ac35e86474bf0726531aaed2c8ab05720',1,'CETime']]],
+  ['utcoffset',['UTCOffset',['../classCEObserver.html#a3f785767c4ee2a1874706829dab82a25',1,'CEObserver']]]
 ];

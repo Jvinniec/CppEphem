@@ -1,4 +1,5 @@
 <map id="CEPlanet" name="CEPlanet">
-<area shape="rect" id="node2" href="$classCEBody.html" title="The CEBody class defines a celestial object. " alt="" coords="21,80,79,107"/>
-<area shape="rect" id="node3" href="$classCECoordinates.html" title="CECoordinates class is responsible for doing all of the celestial coordinate conversions. " alt="" coords="5,5,95,32"/>
+<area shape="rect" id="node1" title="The CEPlanet class describes a planetary object." alt="" coords="22,152,100,177"/>
+<area shape="rect" id="node2" href="$classCEBody.html" title="The CEBody class defines a celestial object." alt="" coords="26,79,96,104"/>
+<area shape="rect" id="node3" href="$classCECoordinates.html" title="CECoordinates class is responsible for doing all of the celestial coordinate conversions." alt="" coords="5,5,117,31"/>
 </map>

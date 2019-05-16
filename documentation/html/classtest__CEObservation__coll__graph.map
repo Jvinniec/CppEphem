@@ -1,0 +1,9 @@
+<map id="test_CEObservation" name="test_CEObservation">
+<area shape="rect" id="node1" title="Defines tests for CEObservation." alt="" coords="202,253,343,279"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,167,100,192"/>
+<area shape="rect" id="node3" href="$classCEBody.html" title="The CEBody class defines a celestial object." alt="" coords="163,80,233,105"/>
+<area shape="rect" id="node5" href="$classCEObservation.html" title="The CEObservation class serves as a constant link between an observer, a specified time,..." alt="" coords="370,167,482,192"/>
+<area shape="rect" id="node4" href="$classCECoordinates.html" title="CECoordinates class is responsible for doing all of the celestial coordinate conversions." alt="" coords="230,5,342,31"/>
+<area shape="rect" id="node6" href="$classCEObserver.html" title="CEObserver class is a self contained object for describing an observer." alt="" coords="500,80,595,105"/>
+<area shape="rect" id="node7" href="$classCEDate.html" title="CEDate class handles conversion between different date formats." alt="" coords="257,80,325,105"/>
+</map>

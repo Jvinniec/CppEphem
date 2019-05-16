@@ -1,5 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classCECoordinates.html" title="CECoordinates class is responsible for doing all of the celestial coordinate conversions. " alt="" coords="5,5,95,32"/>
-<area shape="rect" id="node2" href="$classCEBody.html" title="The CEBody class defines a celestial object. " alt="" coords="143,5,201,32"/>
-<area shape="rect" id="node3" href="$classCEPlanet.html" title="The CEPlanet class describes a planetary object. " alt="" coords="249,5,313,32"/>
+<area shape="rect" id="node1" href="$classCECoordinates.html" title="CECoordinates class is responsible for doing all of the celestial coordinate conversions." alt="" coords="5,5,117,31"/>
+<area shape="rect" id="node2" href="$classCEBody.html" title="The CEBody class defines a celestial object." alt="" coords="165,5,235,31"/>
+<area shape="rect" id="node3" href="$classCEPlanet.html" title="The CEPlanet class describes a planetary object." alt="" coords="283,5,361,31"/>
 </map>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['degrees',['DEGREES',['../namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15efafee20551b6d06fd83aa56a486e557307',1,'CppEphem']]]
+  ['degrees',['DEGREES',['../CENamespace_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307',1,'CENamespace.h']]]
 ];

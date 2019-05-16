@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['ceangletype',['CEAngleType',['../namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15ef',1,'CppEphem']]],
+  ['ceangletype',['CEAngleType',['../CENamespace_8h.html#ac3656523d606ff51136c38455aa59034',1,'CENamespace.h']]],
   ['cecoordinatetype',['CECoordinateType',['../CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2',1,'CECoordinates.h']]],
   ['cedatetype',['CEDateType',['../CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746',1,'CEDate.h']]],
   ['ceplanetalgo',['CEPlanetAlgo',['../CEPlanet_8h.html#ae0ffdf0d27cd448d21a16d3f9cb13029',1,'CEPlanet.h']]],

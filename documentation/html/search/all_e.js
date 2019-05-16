@@ -1,13 +1,20 @@
 var searchData=
 [
-  ['radians',['RADIANS',['../namespaceCppEphem.html#a9a974f6ccf329e8cb5f9208b725f15efaea3c82298fac1c706a4076b4aff53015',1,'CppEphem']]],
-  ['radius_5fm',['Radius_m',['../classCEPlanet.html#adc01375cc6ec37d630d49f866d9d7e4b',1,'CEPlanet']]],
-  ['radius_5fm_5f',['radius_m_',['../classCEPlanet.html#acf5a39663d366fb56a7fdf8a1afb8970',1,'CEPlanet']]],
-  ['readme_2emd',['README.md',['../README_8md.html',1,'']]],
-  ['reference_5f',['reference_',['../classCEPlanet.html#a65167fb59edd89e72afcd4d58400f6fd',1,'CEPlanet']]],
-  ['relative_5fhumidity_5f',['relative_humidity_',['../classCEObserver.html#a1517a290b142b72e5f82a5a42bc9f565',1,'CEObserver']]],
-  ['relativehumidity',['RelativeHumidity',['../classCEObserver.html#a5a99d5f72b2bb09dd49d477c65351e0c',1,'CEObserver']]],
-  ['resettime',['ResetTime',['../classCERunningDate.html#ad204bbf0eefc1d69a40b52eb989d748a',1,'CERunningDate']]],
-  ['return_5ftype_5f',['return_type_',['../classCEDate.html#a173516688bd54588ae204945ed1928a0',1,'CEDate']]],
-  ['runtime',['RunTime',['../classCERunningDate.html#a7cb395fac390ee783c8e93f1c4d25a4f',1,'CERunningDate']]]
+  ['perihelion_5flon_5fdeg_5f',['perihelion_lon_deg_',['../classCEPlanet.html#a1107fcb6c852930e2cce71a3c7e4f58b',1,'CEPlanet']]],
+  ['perihelion_5flong_5fdeg_5fper_5fcent_5f',['perihelion_long_deg_per_cent_',['../classCEPlanet.html#a870223878140d82abb338fa2d978adb5',1,'CEPlanet']]],
+  ['planetephem_2ecpp',['planetephem.cpp',['../planetephem_8cpp.html',1,'']]],
+  ['planetpositions_2ecpp',['planetpositions.cpp',['../planetpositions_8cpp.html',1,'']]],
+  ['pluto',['Pluto',['../classCEPlanet.html#a79c688c7d6f01bbe3348e11025a8df6c',1,'CEPlanet']]],
+  ['pos_5fcirs_5f',['pos_cirs_',['../classCEObserver.html#a9ba382f7095f6fd10811f9b2f543a4a7',1,'CEObserver']]],
+  ['pos_5ficrs_5f',['pos_icrs_',['../classCEObserver.html#a54d78702178c13cf17d104f69d1a750c',1,'CEObserver::pos_icrs_()'],['../classCEPlanet.html#a7941735ab8b9f922b17e145836a49e96',1,'CEPlanet::pos_icrs_()']]],
+  ['positioncirs',['PositionCIRS',['../classCEObserver.html#a9496a99311e3f070a995a8034bef46c1',1,'CEObserver']]],
+  ['positiongeo',['PositionGeo',['../classCEObserver.html#a746a46c0754601806fbd00daebc60c2e',1,'CEObserver']]],
+  ['positionicrs',['PositionICRS',['../classCEObserver.html#a12575dc14737b6570950de9f5ef4a14f',1,'CEObserver::PositionICRS()'],['../classCEPlanet.html#a5b75107fd3c8057c18d3f9e1b024b526',1,'CEPlanet::PositionICRS()']]],
+  ['positionicrs_5fobs',['PositionICRS_Obs',['../classCEPlanet.html#a29e5529137d049e351cd37cdef0c286b',1,'CEPlanet']]],
+  ['pressure_5fhpa',['Pressure_hPa',['../classCEObserver.html#a0ec68a73e08f9816dcdc0098a1f87593',1,'CEObserver']]],
+  ['pressure_5fhpa_5f',['pressure_hPa_',['../classCEObserver.html#a566c7f1ab1e66968981b52d4bd694474',1,'CEObserver']]],
+  ['print',['print',['../classCECoordinates.html#a054cd5011a1a70ba5234a8fc90cbdd81',1,'CECoordinates::print()'],['../classCEObserver.html#aab05a3d71d4c43bd5aa2b4661741854f',1,'CEObserver::print()']]],
+  ['printephemeris',['PrintEphemeris',['../planetephem_8cpp.html#a64a5d6525024b76fee5078b1d48af8e6',1,'planetephem.cpp']]],
+  ['printresults',['PrintResults',['../cirs2gal_8cpp.html#a3a1dd13324952fe883d279768348039f',1,'PrintResults(CEExecOptions &amp;opts, const std::map&lt; std::string, double &gt; &amp;results):&#160;cirs2gal.cpp'],['../cirs2icrs_8cpp.html#a635d5678940bea9c30af76ae70988578',1,'PrintResults(const CECoordinates &amp;input, const CECoordinates &amp;output, double jd):&#160;cirs2icrs.cpp'],['../cirs2obs_8cpp.html#a9b3084aedaaf4bbbc0bfeb410765dab1',1,'PrintResults(CEExecOptions &amp;inputs, const std::map&lt; std::string, double &gt; &amp;results):&#160;cirs2obs.cpp'],['../gal2cirs_8cpp.html#a9b3084aedaaf4bbbc0bfeb410765dab1',1,'PrintResults(CEExecOptions &amp;inputs, const std::map&lt; std::string, double &gt; &amp;results):&#160;gal2cirs.cpp'],['../gal2icrs_8cpp.html#a671b5ed0bdc972c363ec3703f97a0148',1,'PrintResults(const CECoordinates &amp;input, const CECoordinates &amp;output):&#160;gal2icrs.cpp'],['../gal2obs_8cpp.html#a9b3084aedaaf4bbbc0bfeb410765dab1',1,'PrintResults(CEExecOptions &amp;inputs, const std::map&lt; std::string, double &gt; &amp;results):&#160;gal2obs.cpp'],['../icrs2cirs_8cpp.html#a635d5678940bea9c30af76ae70988578',1,'PrintResults(const CECoordinates &amp;input, const CECoordinates &amp;output, double jd):&#160;icrs2cirs.cpp'],['../icrs2gal_8cpp.html#a671b5ed0bdc972c363ec3703f97a0148',1,'PrintResults(const CECoordinates &amp;input, const CECoordinates &amp;output):&#160;icrs2gal.cpp'],['../icrs2obs_8cpp.html#a122cee3aa3e546a9078bf4809ac5b1dd',1,'PrintResults(const CECoordinates &amp;input_icrs, const CECoordinates &amp;observed_altaz, const CECoordinates &amp;observed_icrs, const CEObserver &amp;observer, const CEDate &amp;date):&#160;icrs2obs.cpp'],['../obs2cirs_8cpp.html#a9b3084aedaaf4bbbc0bfeb410765dab1',1,'PrintResults(CEExecOptions &amp;inputs, const std::map&lt; std::string, double &gt; &amp;results):&#160;obs2cirs.cpp'],['../obs2gal_8cpp.html#a9b3084aedaaf4bbbc0bfeb410765dab1',1,'PrintResults(CEExecOptions &amp;inputs, const std::map&lt; std::string, double &gt; &amp;results):&#160;obs2gal.cpp'],['../obs2icrs_8cpp.html#a9b3084aedaaf4bbbc0bfeb410765dab1',1,'PrintResults(CEExecOptions &amp;inputs, const std::map&lt; std::string, double &gt; &amp;results):&#160;obs2icrs.cpp']]],
+  ['prog_5fname_5f',['prog_name_',['../classCEExecOptions.html#a429837ffba8d1a1d4e009ecf983fd61e',1,'CEExecOptions']]]
 ];
