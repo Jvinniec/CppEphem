@@ -102,7 +102,7 @@ add_subdirectory (test)
 #-------------------------------------------
 
 # Define installation directories
-install(DIRECTORY ${CMAKE_BINARY_DIR}include/
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/cppephem/include/
     USE_SOURCE_PERMISSIONS
 	DESTINATION ${CMAKE_INSTALL_PREFIX}/include
     FILES_MATCHING PATTERN "C*.h")
