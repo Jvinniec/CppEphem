@@ -26,10 +26,10 @@ int main(int argc, char** argv)
     
     // Create a default observer, longitude and latitude in degrees. I'm using Ames, IA, USA.
     // Note that longitude is "east-positive" from Greenwich.
-    CEObserver observer(-93.62, 42.0347, 287.0, CEAngleType::DEGREES, &date) ;
+    CEObserver observer(-93.62, 42.0347, 287.0, CEAngleType::DEGREES) ;
     
     // Now get the coordinates of the object as a constantly updating 'CEObservation' object
-    CEObservation observed_coords(&observer, &mercury) ;
+    CEObservation observed_coords(&observer, &mercury, &date) ;
     
     /*****************************************************************
      * At this point we're done. Everything below here is just to

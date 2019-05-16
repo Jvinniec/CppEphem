@@ -39,10 +39,10 @@ int main(int argc, char** argv)
     //      Arg3 - Elevation (meters above sea level)
     //      Arg4 - Tells CEObserver that longitude and latitude are in degrees
     //      Arg5 - Date for the observation
-    CEObserver observer(-93.62, 42.0347, 287.0, CEAngleType::DEGREES, date) ;
+    CEObserver observer(-93.62, 42.0347, 287.0, CEAngleType::DEGREES) ;
     
     // Now get the coordinates of the object
-    CECoordinates observed_coords = observer.ObservedPosition(crab_nebula) ;
+    CECoordinates observed_coords = observer.ObservedPosition(crab_nebula, date) ;
     
     /*****************************************************************
      * At this point we're done. Everything below here is just to
