@@ -6,7 +6,7 @@ set(CMAKE_BUILD_TYPE Release)
 # Add Version number
 set (CppEphem_VERSION_MAJOR 1)
 set (CppEphem_VERSION_MINOR 2)
-set (CppEphem_VERSION_PATCH 0)
+set (CppEphem_VERSION_PATCH 99)
 set (cppephem_version "${CppEphem_VERSION_MAJOR}.${CppEphem_VERSION_MINOR}.${CppEphem_VERSION_PATCH}")
 message ("\nCOMPILING CPPEPHEM VERSION ${cppephem_version}\n")
 

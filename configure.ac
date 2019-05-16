@@ -4,7 +4,7 @@ dnl DONT FORGET TO CHANGE THE VERSION!
 
 m4_define([CppEphem_VERSION_MAJOR], [1])
 m4_define([CppEphem_VERSION_MINOR], [2])
-m4_define([CppEphem_VERSION_PATCH], [0])
+m4_define([CppEphem_VERSION_PATCH], [99])
 m4_define([cppephem_version],
           [CppEphem_VERSION_MAJOR.CppEphem_VERSION_MINOR.CppEphem_VERSION_PATCH])
 
