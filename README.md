@@ -29,7 +29,7 @@ Here is a list of purposes I wish this code to serve:
   - [ICRS](https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#icrs) (Solarsystem barycentric RA, Dec)
   - [Galactic](https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#galactic) (Long, Lat)
   - [Observed](https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#observed) (Azimuth, Zenith angle) (Note: Zenith angle = 90&deg; - Altitude)
-  - [Ecliptic](https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#ecliptic) (Long, Lat) Will allow for either heliocentric or Earth centric variants (Not yet implemented)
+  - ~~[Ecliptic](https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#ecliptic)~~ (Not yet implemented, Long, Lat) Will allow for either heliocentric or Earth centric variants
 * Star & Planet ephemeris
   - __Star positions__ for a given observer at a given time (not accounting for proper motion yet)
   - __Planet positions__ for a given observer at a given time (implemented in [CEPlanet](http://jvinniec.github.io/CppEphem/documentation/html/classCEPlanet.html), see tutorials ce101, ce104, planetephem.cpp, and planetpositions.cpp)
@@ -59,8 +59,10 @@ executables which can be run from the command line:
   - __mjd2cal__: Modified Julian date to Gregorian calendar date
   - __mjd2jd__: Modified Julian date to Julian date
 * Coordinate conversion routines (all angles are expected in degrees)
+  - __cirs2icrs__: CIRS to ICRS coordinates
   - __cirs2obs__: CIRS to Observed coordinates
   - __cirs2gal__: CIRS to Galactic coordinates
+  - __gal2icrs__: Galactic to ICRS coordinates
   - __gal2cirs__: Galactic to CIRS coordinates
   - __gal2obs__: Galactic to Observed coordinates
   - __obs2cirs__: Observed to CIRS coordinates
@@ -82,25 +84,47 @@ git clone https://github.com/Jvinniec/CppEphem.git CppEphem
 
 Building the code:
 ----------------------------------------------------------
-The code can either be compiled using 'cmake' or autotools. To compile
-via cmake use the following set of commands:
+Once the code is downloaded, the advised method for compiling the code is via `cmake`. To compile via `cmake` use the following instructions:
 
-```bash
-cmake [-Dprefix=/install/dir]
-make
-```
+1. Create a new directory to build the code in. This enables you to create a completely clean build in the future by simply deleting and recreating this directory.
+   ```bash
+   mkdir /build/dir/
+   cd /build/dir/
+   ```
+2. Now run `cmake` with your desired configuration options to build the code:
+   ```bash
+   # configure
+   cmake [-DCMAKE_INSTALL_PREFIX=/install/dir] /path/to/cloned/CppEphem
+   # build (N = number of threads for compilation)
+   cmake --build . -- [-jN]
+   ```
+   NOTE: "-Dprefix=" and "-DCMAKE_INSTALL_PREFIX=" will have equivalent behavior of specifying the directory where the code will be installed into.
 
-NOTE: "-Dprefix=" and "-DCMAKE_INSTALL_PREFIX=" will have equivalent behavior.
-This will create a 'build' directory in the top level directory of the 
-CppEphem distribution and initially put all of the compiled libraries and
-executables in there. Once that's done, you can install the files by running
-
-```bash
-make install
-```
-This will install the headers, executables, and libraries in the default
+   OPTIONAL: You can now test that the code actually works
+   ```bash
+   cmake --build . --target test
+   make test
+   ```
+3. Install the code into the specified installation directory:
+   ```bash
+   cmake --build . --target install
+   ```
+   This will install the headers, executables, and libraries in the default
 installation directories (or alternatively the directory specified in 
-'-Dprefix' during the initial run of cmake).
+'-DCMAKE_INSTALL_PREFIX' during the initial run of cmake). You should make sure to update your `$PATH` and `$(DY)LD_LIBRARY_PATH` if installing the code to a non-standard location:
+   
+   ```bash
+   # On MAC:
+   export PATH=${PATH}:/install/dir/bin
+   export DYLD_LIBRARY_PATH=${DYLD_LIBRARY_PATH}:/install/dir/lib
+   # On Linux
+   export PATH=${PATH}:/install/dir/bin
+   export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/install/dir/lib 
+   ```
+
+
+## Autotools Build
+**NOTE:** *The code has grown to a point where it is no longer feasible to maintain two build systems. Because of this, it has been decided to depricate the autotools build system and remove it in v1.3.*
 
 To install via autotools, you should be able to build the software 
 very easily using the standard "./configure -> make -> make install" 
@@ -111,7 +135,7 @@ the code". Second, make sure that the "configure" file exists in
 the top directory. If not, then do:
 
 ```bash
-. autogen.sh 
+./autogen.sh 
 ```
 
 Third, configure the software (note the "prefix" option is optional):
