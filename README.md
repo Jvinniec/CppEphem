@@ -5,7 +5,7 @@ CPPEPHEM
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=cpp-ephem&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=cpp-ephem)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=cpp-ephem&metric=coverage)](https://sonarcloud.io/dashboard?id=cpp-ephem)
 
-* Creation Date: March 2016
+
 * [Documentation available here](http://jvinniec.github.io/CppEphem/documentation/html/index.html)
 * [Download available here](https://github.com/Jvinniec/CppEphem)
 * [Wiki (on GitHub)](https://github.com/Jvinniec/CppEphem/wiki)
@@ -88,30 +88,29 @@ Once the code is downloaded, the advised method for compiling the code is via `c
 
 1. Create a new directory to build the code in. This enables you to create a completely clean build in the future by simply deleting and recreating this directory.
    ```bash
-   mkdir /build/dir/
-   cd /build/dir/
+   mkdir /build/dir/cppephem
+   cd /build/dir/cppephem
    ```
 2. Now run `cmake` with your desired configuration options to build the code:
    ```bash
    # configure
-   cmake [-DCMAKE_INSTALL_PREFIX=/install/dir] /path/to/cloned/CppEphem
+   cmake [-DCMAKE_INSTALL_PREFIX=/your/install/directory/] /path/to/cloned/CppEphem
    # build (N = number of threads for compilation)
-   cmake --build . -- [-jN]
+   cmake --build . [-- -jN]
    ```
    NOTE: "-Dprefix=" and "-DCMAKE_INSTALL_PREFIX=" will have equivalent behavior of specifying the directory where the code will be installed into.
 
    OPTIONAL: You can now test that the code actually works
    ```bash
    cmake --build . --target test
-   make test
    ```
-3. Install the code into the specified installation directory:
+3. Install the code to the specified installation directory:
    ```bash
    cmake --build . --target install
    ```
    This will install the headers, executables, and libraries in the default
 installation directories (or alternatively the directory specified in 
-'-DCMAKE_INSTALL_PREFIX' during the initial run of cmake). You should make sure to update your `$PATH` and `$(DY)LD_LIBRARY_PATH` if installing the code to a non-standard location:
+`-DCMAKE_INSTALL_PREFIX` during the initial run of cmake). You should make sure to update your `$PATH` and `$(DY)LD_LIBRARY_PATH` if installing the code to a non-standard location:
    
    ```bash
    # On MAC:
@@ -124,7 +123,7 @@ installation directories (or alternatively the directory specified in
 
 
 ## Autotools Build
-**NOTE:** *The code has grown to a point where it is no longer feasible to maintain two build systems. Because of this, it has been decided to depricate the autotools build system and remove it in v1.3.*
+**NOTE:** *The code has grown to a point where it is no longer feasible to maintain two build systems. Because of this, it has been decided to depricate the autotools build system and remove it completely in a future version.*
 
 To install via autotools, you should be able to build the software 
 very easily using the standard "./configure -> make -> make install" 
@@ -141,7 +140,7 @@ the top directory. If not, then do:
 Third, configure the software (note the "prefix" option is optional):
 
 ```bash
-./configure [--prefix=/your/install/directory] 
+./configure [--prefix=/your/install/directory/] 
 ```
 
 Fourth, build the code:
