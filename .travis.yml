@@ -1,6 +1,15 @@
 # Enable C++ support
 language: cpp
 
+git:
+  depth: false
+  
+addons:
+  sonarcloud:
+    organization: "jvinniec-github"
+    token:
+      secure: $SONAR_TOKEN
+
 # block the following branches from triggering builds
 branches:
   except:
@@ -21,24 +30,30 @@ matrix:
         - os: osx
           compiler: gcc
 
-        # Test OSX with Clang (from OSX 10.11)
+        # Test OSX with previous Clang
         - os: osx
           compiler: clang
-          osx_image: xcode7.2
+          osx_image: xcode9.4
 
-        # Test OSX with Clang (most recent OSX)
+        # Test OSX with Clang (latest version)
         - os: osx
           compiler: clang
-          osx_image: xcode8.3
+          osx_image: xcode10.1
+
 
 # Allow compiling with c++11
-dist: trusty
+dist: xenial
 
 # Build steps
 script:
-  - mkdir build
-  - cd build
-  - cmake ..
+  - cmake -Dcoverage=1 ./
   - make
+  - make test
+
+after_success:
+  # Only run sonar-scanner if we're using a linux machine with clang
+  # This prevents generating a code coverage/status reports for each
+  # build configuration
+  - bash gen_coverage.sh
 
 # TODO: also need to test pure autotools build

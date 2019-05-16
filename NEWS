@@ -1,0 +1,13 @@
+v1.2.0
+-------
+This represents the most significant change to the code base since its creation.
+The most significant change involves more accurate coordinates by including
+the automatic download of 'UT1-UTC', 'x,y-polar motion', and "TT-UT1" correction
+values. These values are also automatically applied to coordinate conversions
+and planet position computations.
+
+Another decision that has been made is the choice to deprecate the autotools
+based method for installing the code. This is being done due to the complexity
+of maintaining the build system and testing code. It's just too much effort for
+a small project with a one-man development team. In the next release (v1.3.0)
+the autotools system will be removed and CMake will be required.
