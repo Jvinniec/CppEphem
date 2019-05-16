@@ -1,9 +1,10 @@
 ## Process this file with automake to produce Makefile.in
 #
-# Author: J. V. Cardenzana, jvinniec <at> gmail.com
-# 2016-2019
+# Author: Josh V. Cardenzana, jvinniec <at> gmail.com
+# Date: April, 2016
 #
 
+#AM_CXXFLAGS = -std=c++11 -I../include -I./ $(sofa_CXXFLAGS) -I$(SOFADIR)
 AM_CFLAGS = -I./
 
 lib_LTLIBRARIES = libsofa_c.la

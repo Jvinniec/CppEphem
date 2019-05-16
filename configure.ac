@@ -1,8 +1,16 @@
 
 dnl Initialize the build system
 dnl DONT FORGET TO CHANGE THE VERSION!
-AC_INIT([CppEphem],[MASTER],[jvinniec <at> gmail.com])
-AC_CONFIG_SRCDIR([CppEphem/src/mjd2jd.cpp],[sofa/20170420/c/src/cal2jd.c])
+
+m4_define([CppEphem_VERSION_MAJOR], [1])
+m4_define([CppEphem_VERSION_MINOR], [2])
+m4_define([CppEphem_VERSION_PATCH], [0])
+m4_define([cppephem_version],
+          [CppEphem_VERSION_MAJOR.CppEphem_VERSION_MINOR.CppEphem_VERSION_PATCH])
+
+AC_INIT([CppEphem],[cppephem_version],[jvinniec <at> gmail.com])
+AC_CONFIG_SRCDIR([cppephem/src/mjd2jd.cpp],[sofa/src/cal2jd.c])
+AC_CONFIG_HEADER([config.h])
 
 echo ""
 echo "================================================="
@@ -11,7 +19,7 @@ echo "================================================="
 
 dnl Run the automake stuff
 AC_CONFIG_MACRO_DIRS([m4])
-AM_INIT_AUTOMAKE([subdir-objects -Wall -Werror])
+AM_INIT_AUTOMAKE([subdir-objects -Wall -Werror foreign])
 
 dnl Make sure there is a c++ compiler installed
 AC_PROG_CC([clang gcc])
@@ -24,10 +32,11 @@ LT_INIT
 
 dnl This variable will be used to specify special compile options
 special_exec=
-CppEphem_CPPFLAGS=
+CppEphem_CPPFLAGS="-DCPPEPHEM_VERSION=\\\""cppephem_version"\\\""
+
 curDir=${PWD}
 
-BUILDSUBDIRS="CppEphem/src test"
+BUILDSUBDIRS="cppephem/src"
 
 dnl #################################
 dnl SOFA PACKAGE OPTIONS
@@ -38,17 +47,11 @@ have_sofa=no
 sofa_external=no
 
 # Set the default sofa directory to the included one
-SOFADIR="${curDir}/sofa/20160503/c/src"
+SOFADIR="${curDir}/sofa/src/"
 
 AC_ARG_WITH([sofa],
 	AS_HELP_STRING([--with-sofa],
 		[directory containing 'sofa.h']))
-#AC_ARG_WITH([sofa-libdir],
-#	AS_HELP_STRING([--with-sofa-libdir],
-#		[directory containing 'libsofa.a']))
-#AC_ARG_WITH([sofa-incdir],
-#	AS_HELP_STRING([--with-sofa-incdir],
-#		[directory containing 'sofa.h']))
 
 dnl The following is true if '--with-sofa' is specified
 if (test "x$with_sofa" != x) && (test -d ${with_sofa}); then
@@ -69,17 +72,6 @@ fi
 dnl Pass the SOFADIR to the makefiles
 AC_SUBST(SOFADIR)
 AC_SUBST(sofalibs)
-dnl Add the include flags and the library search paths
-#LIBS="${sofalibs} ${LIBS}"
-
-dnl Library checks
-#have_sofa=yes
-# AC_CHECK_LIB([sofa_c],[iauJd2cal],
-#	[have_sofa=yes],
-#	[AC_MSG_ERROR([sofa library does not contain 'iauJd2cal']) have_sofa=no])
-#AC_CHECK_LIB([sofa_c],[iauCal2jd],
-#	[have_sofa=yes],
-#	[AC_MSG_ERROR([sofa library does not contain 'iauCal2jd'])])
 
 if test "x${have_sofa}" != xyes; then
    echo "------------------------------------"
@@ -92,6 +84,7 @@ fi
 
 dnl Add the sofa_CXXFLAGS to the variables accessible in Makefiles
 AC_SUBST(sofa_CXXFLAGS)
+AC_SUBST(CppEphem_CPPFLAGS)
 
 dnl Add the BUILDSUBDIRS to the variables accessible in Makefiles
 AC_SUBST(BUILDSUBDIRS)
@@ -104,6 +97,43 @@ dnl #################################
 dnl #################################
 dnl ADDITIONAL OPTIONS FOR '--with-'/'--without-'
 dnl #################################
+
+# Corrections directory
+cecorrfilepath="${datarootdir}/cppephem/"
+cleanup_corrfilepath="rm -r ${cecorrfilepath}"
+
+AC_ARG_WITH([cecorrfilepath],
+	AS_HELP_STRING([--with-cecorrfilepath],
+		[directory corrections files for 'UT1-UTC' and 'TT-UT1']))
+
+# The following is true if '--with-cecorrfilepath' is specified
+if (test "x$with_cecorrfilepath" != x) && (test -d ${with_cecorrfilepath}); then
+   cecorrfilepath="${with_cecorrfilepath}/"
+   cleanup_corrfilepath=""
+fi
+# Add the corrections directory
+CppEphem_CPPFLAGS="${CppEphem_CPPFLAGS} -DCECORRFILEPATH=\\\"${cecorrfilepath}\\\""
+AC_SUBST(cecorrfilepath)
+AC_SUBST(cleanup_corrfilepath)
+
+# Add libcurl support
+curllibs="-lcurl"
+enable_curl=yes
+
+AC_ARG_ENABLE([curl],
+	AS_HELP_STRING([--enable-curl],
+		[disable support for downloading corrections files via libcurl]),
+  [enable_curl=yes], [enable_curl=no])
+
+dnl The following is true if '--enable-curl' is specified
+AS_IF([test "x$enable_curl" = "xno"], [
+  dnl Do the stuff needed for enabling the feature
+  CppEphem_CPPFLAGS="${CppEphem_CPPFLAGS} -DNOCURL"
+  curllibs = ""
+])
+# Add the corrections directory
+CppEphem_CPPFLAGS="${CppEphem_CPPFLAGS} -DCECORRFILEPATH=\\\"${cecorrfilepath}\\\""
+AC_SUBST(curllibs)
 
 
 dnl #################################
@@ -123,13 +153,8 @@ dnl #################################
 dnl Specify the Makefile locations
 dnl #################################
 
-AC_CONFIG_FILES([Makefile sofa/20160503/c/src/Makefile CppEphem/src/Makefile])
+AC_CONFIG_FILES([Makefile sofa/src/Makefile cppephem/src/Makefile])
 
-#AC_CONFIG_FILES([$SOFADIR/Makefile],[],[SOFADIR='$SOFA_default'])
-#AM_CONDITIONAL([SOFA_INTERNAL], [test "x${sofa_external}" != xyes])
-#AM_COND_IF([SOFA_INTERNAL],
-#	[AC_CONFIG_FILES([Makefile $SOFADIR/Makefile],[],[SOFADIR='$CPPEPH_SOFA_default'])],
-#	[AC_CONFIG_FILES([Makefile CppEphem/src/Makefile])])
 dnl 
 AC_OUTPUT
 
@@ -146,6 +171,7 @@ echo \
  CPPFLAGS: ${CPPFLAGS}
  CXXFLAGS: ${CXXFLAGS}
  SOFADIR : ${SOFADIR}
+ Corrections Dir : '${cecorrfilepath}'
 
  Additional compiler flags:
  --------------------------
