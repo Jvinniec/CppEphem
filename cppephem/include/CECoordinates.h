@@ -26,6 +26,7 @@
 #include <vector>
 
 // CppEphem HEADERS
+#include "CEAngle.h"
 #include "CEDate.h"
 #include "CENamespace.h"
 #include "CEException.h"
