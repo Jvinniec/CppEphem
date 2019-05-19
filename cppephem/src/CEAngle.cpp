@@ -28,6 +28,7 @@
  format they prefer
  */
 
+#include <algorithm>
 
 #include "CEAngle.h"
 #include "CEException.h"
@@ -82,6 +83,21 @@ CEAngle& CEAngle::operator=(const CEAngle& other)
 
 
 /**********************************************************************//**
+ * Copy assignment operator from a double
+ * 
+ * @param[in] other         double angle (radians)
+ * @return CEAngle object constructed from @p other
+ *************************************************************************/
+CEAngle& CEAngle::operator=(const double& other)
+{
+    free_members();
+    init_members();
+    SetAngle(other, CEAngleType::RADIANS);
+    return *this;
+}
+
+
+/**********************************************************************//**
  * Return a double object representing the angle in radians
  *************************************************************************/
 CEAngle::operator double()
@@ -100,10 +116,11 @@ CEAngle::operator double() const
 
 
 /**********************************************************************//**
- * Return CEAngle constructed from a string representing hours, minutes, seconds
+ * Return angle constructed from a string representing hours, minutes, seconds
  * 
- * @param[in] angle             Angle representing hours, minutes, seconds
+ * @param[in] angle_str         Angle representing hours, minutes, seconds
  * @param[in] delim             Delimiter, by default all methods will be tested
+ * @return Angle in radians
  * 
  * The following values for @p delim are special cases:
  *      * 0 (int) = tests all following possible values for delimiter
@@ -111,32 +128,58 @@ CEAngle::operator double() const
  *      * ' ' = 'HH MM SS'
  *      * <any char> = The DD, MM, SS is separated by a user defined char
  *************************************************************************/
-CEAngle CEAngle::Hms(const std::string& angle, const char& delim=0)
+double CEAngle::Hms(const std::string& angle_str, 
+                     const char&        delim)
 {
     CEAngle angle;
-    angle.SetAngle(angle, CEAngleType::HMS, delim);
-    return angle;
+    angle.SetAngle(angle_str, CEAngleType::HMS, delim);
+    return angle.Rad();
 }
 
 
 /**********************************************************************//**
- * Return CEAngle constructed from a string representing hours, minutes, seconds
+ * Return angle constructed from a string representing hours, minutes, seconds
  * 
- * @param[in] angle             Angle representing hours, minutes, seconds
- * @return CEAngle object
+ * @param[in] angle_vec         Angle representing hours, minutes, seconds
+ * @return Angle in radians
+ * 
+ * The input @p angle is represented in the following manner
+ *      [0] = hours
+ *      [1] = minutes
+ *      [2] = seconds
+ *      [3] = (optional) seconds fraction
+ * The index [3] is optional if index [2] contains the whole seconds portion
  *************************************************************************/
-CEAngle CEAngle::Hms(const std::vector<double>& angle)
+double CEAngle::Hms(const std::vector<double>& angle_vec)
 {
     CEAngle angle;
-    angle.SetAngle(angle, CEAngleType::HMS);
-    return angle;
+    angle.SetAngle(angle_vec, CEAngleType::HMS);
+    return angle.Rad();
 }
 
 
-std::string CEAngle::Hms(const char& delim)
+/**********************************************************************//**
+ * Return string representing the angle in HH:MM:SS
+ * 
+ * @param[in] delim             Delimiter to use in output string
+ * @return Angle formatted as a string HH:MM:SS
+ *************************************************************************/
+std::string CEAngle::HmsStr(const char& delim) const
 {
     // Get the angle as a vector
+    std::vector<double> hms_d = HmsVect();
+    
+    // Make sure there are only three values
+    if (hms_d.size() == 4) {
+        hms_d[2] += hms_d[3];
+    }
 
+    // Assemble the string using teh specified delimiter
+    std::string ret = std::to_string(int(hms_d[0])) + delim +
+                      std::to_string(int(hms_d[1])) + delim +
+                      std::to_string(hms_d[2]);
+    
+    return ret;
 }
 
 
@@ -175,9 +218,9 @@ std::vector<double> CEAngle::HmsVect(void) const
 
 
 /**********************************************************************//**
- * Return CEAngle constructed from a string representing degrees, minutes, seconds
+ * Return double constructed from a string representing degrees, minutes, seconds
  * 
- * @param[in] angle             Angle representing degrees, arcmins, arcsecs
+ * @param[in] angle_str         Angle representing degrees, arcmins, arcsecs
  * @param[in] delim             Delimiter, by default all methods will be tested
  * 
  * The following values for @p delim are special cases:
@@ -186,25 +229,58 @@ std::vector<double> CEAngle::HmsVect(void) const
  *      * ' ' = 'DD MM SS'
  *      * <any char> = The DD, MM, SS is separated by a user defined char
  *************************************************************************/
-CEAngle CEAngle::Dms(const std::string& angle, const char& delim=0)
+double CEAngle::Dms(const std::string& angle_str, 
+                    const char&        delim)
 {
     CEAngle angle;
-    angle.SetAngle(angle, CEAngleType::DMS, delim);
-    return angle;
+    angle.SetAngle(angle_str, CEAngleType::DMS, delim);
+    return angle.Rad();
 }
 
 
 /**********************************************************************//**
- * Return CEAngle constructed from a string representing degrees, minutes, seconds
+ * Return angle constructed from a string representing degrees, minutes, seconds
  * 
- * @param[in] angle             Angle representing degrees, arcmins, arcsecs
- * @return CEAngle object
+ * @param[in] angle_vec         Angle representing degrees, minutes, seconds
+ * @return Angle in radians
+ * 
+ * The input @p angle is represented in the following manner
+ *      [0] = degrees
+ *      [1] = minutes
+ *      [2] = seconds
+ *      [3] = (optional) seconds fraction
+ * The index [3] is optional if index [2] contains the whole seconds portion
  *************************************************************************/
-CEAngle CEAngle::Dms(const std::vector<double>& angle)
+double CEAngle::Dms(const std::vector<double>& angle_vec)
 {
     CEAngle angle;
-    angle.SetAngle(angle, CEAngleType::DMS);
-    return angle;
+    angle.SetAngle(angle_vec, CEAngleType::DMS);
+    return angle.Rad();
+}
+
+
+/**********************************************************************//**
+ * Return string representing the angle in DD:MM:SS
+ * 
+ * @param[in] delim             Delimiter to use in output string
+ * @return Angle formatted as a string DD:MM:SS
+ *************************************************************************/
+std::string CEAngle::DmsStr(const char& delim) const
+{
+    // Get the angle as a vector
+    std::vector<double> dms_d = DmsVect();
+    
+    // Make sure there are only three values
+    if (dms_d.size() == 4) {
+        dms_d[2] += dms_d[3];
+    }
+
+    // Assemble the string using teh specified delimiter
+    std::string ret = std::to_string(int(dms_d[0])) + delim +
+                      std::to_string(int(dms_d[1])) + delim +
+                      std::to_string(dms_d[2]);
+    
+    return ret;
 }
 
 
@@ -240,14 +316,14 @@ std::vector<double> CEAngle::DmsVect(void) const
 
 
 /**********************************************************************//**
- * Return CEAngle constructed from a degree angle
+ * Return angle (radians) constructed from a degree angle
  * 
  * @param[in] angle             Angle in degrees
  * @return CEAngle object
  *************************************************************************/
-CEAngle CEAngle::Deg(const double& angle)
+double CEAngle::Deg(const double& angle)
 {
-    return CEAngle(angle*DD2R);
+    return angle * DD2R;
 }
 
 
@@ -256,21 +332,21 @@ CEAngle CEAngle::Deg(const double& angle)
  * 
  * @return Angle in degrees as a double
  *************************************************************************/
-double CEAngle::Deg(void)
+double CEAngle::Deg(void) const
 {
     return angle_ * DR2D;
 }
 
 
 /**********************************************************************//**
- * Return CEAngle constructed from a radians angle
+ * Return angle constructed from a radians angle
  * 
  * @param[in] angle             Angle in radians
- * @return CEAngle object
+ * @return Angle constructed from a 'radians' object
  *************************************************************************/
-CEAngle CEAngle::Rad(const double& angle)
+double CEAngle::Rad(const double& angle)
 {
-    return CEAngle(angle);
+    return angle;
 }
 
 
@@ -279,7 +355,7 @@ CEAngle CEAngle::Rad(const double& angle)
  * 
  * @return Angle in radians as a double
  *************************************************************************/
-double CEAngle::Rad(void)
+double CEAngle::Rad(void) const
 {
     return angle_;
 }
@@ -346,7 +422,7 @@ void CEAngle::SetAngle(const std::string& angle,
             if (angle_str.size() < 3) {
                 throw CEException::invalid_value(
                     "CEAngle::SetAngle(const string&, const CEAngleType&, const char&)",
-                    "[ERROR] Could not find specified delimiter: " + std::string(delim));
+                    "[ERROR] Could not find specified delimiter: " + std::string(&delim));
             }
         } 
         
