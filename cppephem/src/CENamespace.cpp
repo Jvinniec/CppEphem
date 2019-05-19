@@ -21,6 +21,7 @@
 
 #include <cmath>
 #include <stdio.h>
+#include <sstream>
 #include "CENamespace.h"
 
 
@@ -205,23 +206,23 @@ double CppEphem::ttut1(const double& mjd)
  * @param[in] delim
  * @param[in] elems
  *************************************************************************/
-void CppEphem::StrOpt::split(const std::string &s, 
-                             char delim, 
-                             std::vector<std::string> &elems) 
+void CppEphem::StrOpt::split(const std::string&        s, 
+                             const char&               delim, 
+                             std::vector<std::string>& elems) 
 {
     std::stringstream ss(s);
     std::string item=std::string();
     while (std::getline(ss, item, delim)) {
         elems.push_back(item);
     }
-    return elems;
 }
 
 
 /**********************************************************************//**
  * Method for splitting a string based on some delimiter into a vector of strings
  *************************************************************************/
-std::vector<std::string> CppEphem::StrOpt::split(const std::string &s, char delim) 
+std::vector<std::string> CppEphem::StrOpt::split(const std::string& s, 
+                                                 const char&        delim) 
 {
     std::vector<std::string> elems;
     split(s, delim, elems);
