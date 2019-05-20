@@ -7,6 +7,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../include
                     )
 
 # Define the tests
+cppephem_test(test_CEAngle       test_CEAngle.cpp)
 cppephem_test(test_CEBody        test_CEBody.cpp)
 cppephem_test(test_CECoordinates test_CECoordinates.cpp)
 cppephem_test(test_CEDate        test_CEDate.cpp)

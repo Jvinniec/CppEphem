@@ -19,6 +19,7 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
     # Run all of the individual tests with output
     # NOTE: Make sure the coverage files end with '.profraw'
     echo "Running coverage"
+    LLVM_PROFILE_FILE="${outdir}/CEAngle.profraw"       ./build/bin/test_CEAngle
     LLVM_PROFILE_FILE="${outdir}/CEBody.profraw"        ./build/bin/test_CEBody
     LLVM_PROFILE_FILE="${outdir}/CECoordinates.profraw" ./build/bin/test_CECoordinates
     LLVM_PROFILE_FILE="${outdir}/CEDate.profraw"        ./build/bin/test_CEDate
@@ -85,6 +86,7 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
     # Generate the output text to be read by sonar-scanner
     llvm-cov show \
         -instr-profile ${merge_report} \
+        -object ./build/bin/test_CEAngle \
         -object ./build/bin/test_CEBody \
         -object ./build/bin/test_CECoordinates \
         -object ./build/bin/test_CEDate \
