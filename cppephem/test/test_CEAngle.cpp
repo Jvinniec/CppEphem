@@ -83,8 +83,9 @@ bool test_CEAngle::test_construct(void)
 
     // Copy-assignment operator (double)
     double angle_test = M_PI;
-    CEAngle test4 = angle_test;
-    test_double(test4.Rad(), angle_test, __func__, __LINE__);
+    CEAngle test4;
+    test4 = angle_test;
+    test_double(test4, angle_test, __func__, __LINE__);
 
     return pass();
 }

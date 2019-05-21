@@ -465,30 +465,14 @@ void CEAngle::SetAngle(const char*        angle_str,
 
             // Create vector of delimiters to be tried
             std::vector<char> delim_list = {':', ' '};
-            bool success = false;
 
             // Loop through the list of delimiters
             for (char d : delim_list) {
-
-                try {
+                // Check if the delimiter is in the string
+                if (std::string(angle_str).find(d) != std::string::npos) {
                     // Try to set the angle
                     SetAngle(angle_str, angle_type, d);
-                    success = true;
-                    break;
-                } catch (CEException::invalid_delimiter& e) {
-                    // Failed, but may need to try the next one
                 }
-            }
-
-            // Make sure setting the angle was a success
-            if (!success) {
-                // Throw a delimiter error
-                std::string msg = "Unable to parse angle string with default delimiters: ";
-                for (char d : delim_list) msg += std::string(1, d) + ", ";
-
-                throw CEException::invalid_delimiter(
-                    "CEAngle::SetAngle(const string&, const CEAngleType&, const char&)",
-                    msg);
             }
         }
     }
