@@ -22,6 +22,9 @@
 #ifndef CEAngle_h
 #define CEAngle_h
 
+#include <string> 
+#include <vector>
+
 #include "CENamespace.h"
 
 enum class CEAngleType 
@@ -36,7 +39,8 @@ class CEAngle {
 public:
     // Constructors
     CEAngle();
-    explicit CEAngle(const CEAngle& other);
+    CEAngle(const double& angle);
+    CEAngle(const CEAngle& other);
     virtual ~CEAngle();
 
     // Copy-assignment operators
@@ -47,11 +51,11 @@ public:
     operator double();
     operator double() const;
 
-    static double Hms(const std::string& angle_str, 
-                       const char&        delim=0);
+    static double Hms(const char* angle_str, 
+                      const char& delim=0);
     static double Hms(const std::vector<double>& angle_vec);
-    static double Dms(const std::string& angle_str, 
-                       const char&        delim=0);
+    static double Dms(const char* angle_str, 
+                      const char& delim=0);
     static double Dms(const std::vector<double>& angle_vec);
 
     // Create from an angle value
@@ -69,7 +73,7 @@ public:
     // Generic methods for setting the angle
     void SetAngle(const double&      angle,
                   const CEAngleType& angle_type=CEAngleType::RADIANS);
-    void SetAngle(const std::string& angle_str,
+    void SetAngle(const char*        angle_str,
                   const CEAngleType& angle_type,
                   const char&        delim=0);
     void SetAngle(const std::vector<double>& angle_vec,

@@ -29,6 +29,8 @@
  */
 
 #include <algorithm>
+#include <iomanip>
+#include <sstream>
 
 #include "CEAngle.h"
 #include "CEException.h"
@@ -43,11 +45,23 @@ CEAngle::CEAngle()
 
 
 /**********************************************************************//**
+ * Construct from an angle in radians
+ * 
+ * @param[in] angle         Angle in radians
+ * 
+ * The provided @p angle is assumed to be in units of radians
+ *************************************************************************/
+CEAngle::CEAngle(const double& angle)
+{
+    init_members();
+    SetAngle(angle, CEAngleType::RADIANS);
+}
+
+
+/**********************************************************************//**
  * Construct from another CEAngle object
  * 
  * @param[in] other         CEAngle to copy data members from
- * 
- * By default this method assumes the passed angle is provided in RADIANS
  *************************************************************************/
 CEAngle::CEAngle(const CEAngle& other)
 {
@@ -128,8 +142,8 @@ CEAngle::operator double() const
  *      * ' ' = 'HH MM SS'
  *      * <any char> = The DD, MM, SS is separated by a user defined char
  *************************************************************************/
-double CEAngle::Hms(const std::string& angle_str, 
-                     const char&        delim)
+double CEAngle::Hms(const char* angle_str, 
+                    const char& delim)
 {
     CEAngle angle;
     angle.SetAngle(angle_str, CEAngleType::HMS, delim);
@@ -174,12 +188,16 @@ std::string CEAngle::HmsStr(const char& delim) const
         hms_d[2] += hms_d[3];
     }
 
-    // Assemble the string using teh specified delimiter
-    std::string ret = std::to_string(int(hms_d[0])) + delim +
-                      std::to_string(int(hms_d[1])) + delim +
-                      std::to_string(hms_d[2]);
+    // Assemble the string using the specified delimiter
+    std::ostringstream ss;
+    ss << std::setfill('0') << std::setw(2) << int(hms_d[0]);
+    ss << delim;
+    ss << std::setfill('0') << std::setw(2) << int(hms_d[1]);
+    ss << delim;
+    ss << std::setfill('0') << std::setw(11) << std::fixed 
+       << std::setprecision(8) << hms_d[2];
     
-    return ret;
+    return std::string(ss.str());
 }
 
 
@@ -229,8 +247,8 @@ std::vector<double> CEAngle::HmsVect(void) const
  *      * ' ' = 'DD MM SS'
  *      * <any char> = The DD, MM, SS is separated by a user defined char
  *************************************************************************/
-double CEAngle::Dms(const std::string& angle_str, 
-                    const char&        delim)
+double CEAngle::Dms(const char* angle_str, 
+                    const char& delim)
 {
     CEAngle angle;
     angle.SetAngle(angle_str, CEAngleType::DMS, delim);
@@ -276,11 +294,16 @@ std::string CEAngle::DmsStr(const char& delim) const
     }
 
     // Assemble the string using teh specified delimiter
-    std::string ret = std::to_string(int(dms_d[0])) + delim +
-                      std::to_string(int(dms_d[1])) + delim +
-                      std::to_string(dms_d[2]);
+    // Assemble the string using the specified delimiter
+    std::ostringstream ss;
+    ss << std::setfill('0') << std::setw(2) << int(dms_d[0]);
+    ss << delim;
+    ss << std::setfill('0') << std::setw(2) << int(dms_d[1]);
+    ss << delim;
+    ss << std::setfill('0') << std::setw(11) << std::fixed 
+       << std::setprecision(8) << dms_d[2];
     
-    return ret;
+    return std::string(ss.str());
 }
 
 
@@ -400,58 +423,74 @@ void CEAngle::SetAngle(const double&      angle,
  * 
  * An exception is thrown if @p angle_type is neither HMS or DMS
  *************************************************************************/
-void CEAngle::SetAngle(const std::string& angle,
+void CEAngle::SetAngle(const char*        angle_str,
                        const CEAngleType& angle_type,
                        const char&        delim)
 {
     // Angle is a degree or radian
     if ((angle_type == CEAngleType::DEGREES) || (angle_type == CEAngleType::RADIANS)) {
-        SetAngle(std::stod(angle), angle_type);
+        SetAngle(std::stod(angle_str), angle_type);
     }
 
     // Otherwise the angle is a delimited string (i.e. something like HH:MM:SS)
     else {
+
         // Create a string vector to hold the parsed values
-        std::vector<std::string> angle_str;
-        angle_str.reserve(4);
+        std::vector<std::string> angle_vec;
+        angle_vec.reserve(4);
 
         // Handle specific delimitors
-        if (int(delim) != 0) {
+        if (delim != 0) {
+
             // Split the string
-            CppEphem::StrOpt::split(angle, delim, angle_str);
-            if (angle_str.size() < 3) {
-                throw CEException::invalid_value(
+            CppEphem::StrOpt::split(angle_str, delim, angle_vec);
+
+            // Throw an error if the string was not properly split
+            if (angle_vec.size() < 3) {
+                throw CEException::invalid_delimiter(
                     "CEAngle::SetAngle(const string&, const CEAngleType&, const char&)",
-                    "[ERROR] Could not find specified delimiter: " + std::string(&delim));
+                    "Could not find specified delimiter: " + std::string(1,delim));
             }
+
+            // Now format the string in the appropriate way
+            std::vector<double> angle_dbl;
+            for (auto& ang : angle_vec) {
+                angle_dbl.push_back(std::stod(ang));
+            }
+            SetAngle(angle_dbl, angle_type);
         } 
-        
+
         // Handle delimiter agnostic format
-        else if (int(delim) == 0) {
+        else if (delim == 0) {
+
             // Create vector of delimiters to be tried
             std::vector<char> delim_list = {':', ' '};
             bool success = false;
-            for (auto& d : delim_list) {
+
+            // Loop through the list of delimiters
+            for (char d : delim_list) {
+
                 try {
                     // Try to set the angle
-                    SetAngle(angle, angle_type, d);
+                    SetAngle(angle_str, angle_type, d);
                     success = true;
                     break;
-                } catch (CEException::invalid_value& e) {
-                    // Failed
+                } catch (CEException::invalid_delimiter& e) {
+                    // Failed, but may need to try the next one
                 }
             }
 
             // Make sure setting the angle was a success
             if (!success) {
-                throw CEException::invalid_value(
+                // Throw a delimiter error
+                std::string msg = "Unable to parse angle string with default delimiters: ";
+                for (char d : delim_list) msg += std::string(1, d) + ", ";
+
+                throw CEException::invalid_delimiter(
                     "CEAngle::SetAngle(const string&, const CEAngleType&, const char&)",
-                    "[ERROR] Unable to parse angle string");
+                    msg);
             }
         }
-
-        // Now format the string in the appropriate way
-        std::vector<double> angle_dbl(angle_str.size());
     }
 
     return;
@@ -470,7 +509,7 @@ void CEAngle::SetAngle(const std::vector<double>& angle,
                        const CEAngleType&         angle_type)
 {
     // Throw an error if the provided angle type does not make sense
-    if ((angle_type != CEAngleType::HMS) || (angle_type != CEAngleType::DMS)) {
+    if ((angle_type != CEAngleType::HMS) && (angle_type != CEAngleType::DMS)) {
         throw CEException::invalid_value(
             "CEAngle::SetAngle(const std::vector&, const CEAngleType&)",
             "[ERROR] Method cannot be called with the provided CEAngleType");
