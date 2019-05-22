@@ -87,6 +87,11 @@ bool test_CEAngle::test_construct(void)
     test4 = angle_test;
     test_double(test4, angle_test, __func__, __LINE__);
 
+    // Copy-assignment operator (CEAngle)
+    CEAngle test5;
+    test5 = base_;
+    test_double(test5, base_, __func__, __LINE__);
+
     return pass();
 }
 
@@ -133,6 +138,22 @@ bool test_CEAngle::test_setangle(void)
         test_ang.SetAngle(angle_hms_str1.c_str(), CEAngleType::HMS, ' ');
         test(false, __func__, __LINE__);
     } catch (CEException::invalid_delimiter& e) {
+        test(true, __func__, __LINE__);
+    }
+
+    // Try to set angle as a double, but with the wrong CEAngleType
+    try {
+        test_ang.SetAngle(123.456, CEAngleType::HMS);
+        test(false, __func__, __LINE__);
+    } catch (CEException::invalid_value& e) {
+        test(true, __func__, __LINE__);
+    }
+
+    // Try to set the angle from a vector<double> with wrong CEAngleType
+    try {
+        test_ang.SetAngle({123,45,6, 0.789}, CEAngleType::DEGREES);
+        test(false, __func__, __LINE__);
+    } catch (CEException::invalid_value& e) {
         test(true, __func__, __LINE__);
     }
 
@@ -194,6 +215,12 @@ bool test_CEAngle::test_retrieve(void)
 
     // DMS as vector<double>
     test_vect(test_ang.DmsVect(), {315, 15, 0, 0}, __func__, __LINE__);
+
+    // Can the angle be retrieved directly as a double?
+    test_double(test_ang, test_deg*DD2R, __func__, __LINE__);
+    const CEAngle test_ang2(test_ang);
+    // Test 'const' version
+    test_double(test_ang2, test_deg*DD2R, __func__, __LINE__);
 
     return pass();
 }
