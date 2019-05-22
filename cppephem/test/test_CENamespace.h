@@ -37,6 +37,7 @@ public:
     virtual bool test_SeaLevelVals(void);
     virtual bool test_Conversions(void);
     virtual bool test_Corrections(void);
+    virtual bool test_StrOpt(void);
 
 };
 
