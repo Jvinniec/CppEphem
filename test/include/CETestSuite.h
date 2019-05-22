@@ -95,6 +95,10 @@ protected:
                    const std::vector<double>& expected,
                    const std::string& function = FUNC_DEFAULT,
                    const int&         line     = LINE_DEFAULT);
+    bool test_vect(const std::vector<std::string>& value,
+                   const std::vector<std::string>& expected,
+                   const std::string&              function = FUNC_DEFAULT,
+                   const int&                      line     = LINE_DEFAULT);
 
     template<class T>
     bool test_lessthan_(const T& value,
