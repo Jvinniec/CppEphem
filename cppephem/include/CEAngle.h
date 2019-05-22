@@ -40,7 +40,7 @@ public:
     // Constructors
     CEAngle();
     CEAngle(const double& angle);
-    CEAngle(const CEAngle& other);
+    explicit CEAngle(const CEAngle& other);
     virtual ~CEAngle();
 
     // Copy-assignment operators
