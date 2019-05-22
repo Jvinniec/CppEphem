@@ -101,9 +101,16 @@ namespace CppEphem {
         // Method for splitting a string based on some delimiter into a vector of strings
         void                     split(const std::string&        s, 
                                        const char&               delim, 
-                                       std::vector<std::string>& elems);
+                                       std::vector<std::string>* elems);
         std::vector<std::string> split(const std::string& s, 
                                        const char&        delim);
+
+        // Join strings using a set delimiter
+        template<typename T>
+        std::string join(const std::vector<T>& values,
+                         const char&           delim);
+        std::string join_angle(const std::vector<double>& values,
+                               const char&                delim);
     }
 }
 

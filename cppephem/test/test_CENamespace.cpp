@@ -57,6 +57,7 @@ bool test_CENamespace::runtests()
     test_SeaLevelVals();
     test_Conversions();
     test_Corrections();
+    test_StrOpt();
 
     return pass();
 }
@@ -181,6 +182,35 @@ bool test_CENamespace::test_Corrections()
 
     return pass();
 }
+
+
+/**********************************************************************//**
+ * Tests the string operations
+ * @return Whether the tests are passing or not
+ *************************************************************************/
+bool test_CENamespace::test_StrOpt(void)
+{
+    // Create a string for parsing
+    std::string test1 = "hello world!";
+    test_vect(CppEphem::StrOpt::split(test1, ' '), {"hello", "world!"}, __func__, __LINE__);
+
+    // See if we can pass the vector and get the same results back
+    std::vector<std::string> test2;
+    CppEphem::StrOpt::split(test1, ' ', &test2);
+    test_vect(test2, {"hello", "world!"}, __func__, __LINE__);
+
+    // Check if we can put it back together
+    std::string test3 = CppEphem::StrOpt::join<std::string>(test2, ',');
+    test_string(test3, "hello,world!", __func__, __LINE__);
+
+    // See if we can join a vector of angle components into a legit string
+    std::vector<double> angles = {123, 34, 52, 0.542};
+    std::string angle_str = CppEphem::StrOpt::join_angle(angles, ':');
+    test_string(angle_str, "123:34:52.54200000", __func__, __LINE__);
+
+    return pass();
+}
+
 
 /**********************************************************************//**
  * Main method that actually runs the tests
