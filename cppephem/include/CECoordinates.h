@@ -405,7 +405,7 @@ private:
 
 
 /**********************************************************************//**
- * Return x coordinate at given Julian date in radius
+ * Return x coordinate at given Julian date in radians
  * 
  * @param[in] jd   Julian date (used only by derived classes)
  * @return X-coordinate in radians
@@ -431,7 +431,7 @@ double CECoordinates::XCoordinate_Deg(double jd) const
 
 
 /**********************************************************************//**
- * Returns y coordinate at given Julian date in radius
+ * Returns y coordinate at given Julian date in radians
  * 
  * @param[in] jd   Julian date (used only by derived classes)
  * @return Y-coordinate in radians
