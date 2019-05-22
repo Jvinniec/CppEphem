@@ -51,16 +51,16 @@ public:
     operator double();
     operator double() const;
 
-    static double Hms(const char* angle_str, 
+    static CEAngle Hms(const char* angle_str, 
                       const char& delim=0);
-    static double Hms(const std::vector<double>& angle_vec);
-    static double Dms(const char* angle_str, 
+    static CEAngle Hms(const std::vector<double>& angle_vec);
+    static CEAngle Dms(const char* angle_str, 
                       const char& delim=0);
-    static double Dms(const std::vector<double>& angle_vec);
+    static CEAngle Dms(const std::vector<double>& angle_vec);
 
     // Create from an angle value
-    static double Deg(const double& angle);
-    static double Rad(const double& angle);
+    static CEAngle Deg(const double& angle);
+    static CEAngle Rad(const double& angle);
 
     // Methods to return a formatted value for the angle
     std::string         HmsStr(const char& delim=':') const;

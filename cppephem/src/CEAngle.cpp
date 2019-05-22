@@ -140,12 +140,12 @@ CEAngle::operator double() const
  *      * ' ' = 'HH MM SS'
  *      * <any char> = The DD, MM, SS is separated by a user defined char
  *************************************************************************/
-double CEAngle::Hms(const char* angle_str, 
-                    const char& delim)
+CEAngle CEAngle::Hms(const char* angle_str, 
+                     const char& delim)
 {
     CEAngle angle;
     angle.SetAngle(angle_str, CEAngleType::HMS, delim);
-    return angle.Rad();
+    return angle;
 }
 
 
@@ -162,11 +162,11 @@ double CEAngle::Hms(const char* angle_str,
  *      [3] = (optional) seconds fraction
  * The index [3] is optional if index [2] contains the whole seconds portion
  *************************************************************************/
-double CEAngle::Hms(const std::vector<double>& angle_vec)
+CEAngle CEAngle::Hms(const std::vector<double>& angle_vec)
 {
     CEAngle angle;
     angle.SetAngle(angle_vec, CEAngleType::HMS);
-    return angle.Rad();
+    return angle;
 }
 
 
@@ -232,12 +232,12 @@ std::vector<double> CEAngle::HmsVect(void) const
  *      * ' ' = 'DD MM SS'
  *      * <any char> = The DD, MM, SS is separated by a user defined char
  *************************************************************************/
-double CEAngle::Dms(const char* angle_str, 
-                    const char& delim)
+CEAngle CEAngle::Dms(const char* angle_str, 
+                     const char& delim)
 {
     CEAngle angle;
     angle.SetAngle(angle_str, CEAngleType::DMS, delim);
-    return angle.Rad();
+    return angle;
 }
 
 
@@ -254,11 +254,11 @@ double CEAngle::Dms(const char* angle_str,
  *      [3] = (optional) seconds fraction
  * The index [3] is optional if index [2] contains the whole seconds portion
  *************************************************************************/
-double CEAngle::Dms(const std::vector<double>& angle_vec)
+CEAngle CEAngle::Dms(const std::vector<double>& angle_vec)
 {
     CEAngle angle;
     angle.SetAngle(angle_vec, CEAngleType::DMS);
-    return angle.Rad();
+    return angle;
 }
 
 
@@ -272,7 +272,7 @@ std::string CEAngle::DmsStr(const char& delim) const
 {
     // Get the angle as a vector
     std::vector<double> dms_d = DmsVect();
-    
+
     // Assemble the string using the specified delimiter
     return CppEphem::StrOpt::join_angle(dms_d, delim);
 }
@@ -315,7 +315,7 @@ std::vector<double> CEAngle::DmsVect(void) const
  * @param[in] angle             Angle in degrees
  * @return CEAngle object
  *************************************************************************/
-double CEAngle::Deg(const double& angle)
+CEAngle CEAngle::Deg(const double& angle)
 {
     return angle * DD2R;
 }
@@ -338,7 +338,7 @@ double CEAngle::Deg(void) const
  * @param[in] angle             Angle in radians
  * @return Angle constructed from a 'radians' object
  *************************************************************************/
-double CEAngle::Rad(const double& angle)
+CEAngle CEAngle::Rad(const double& angle)
 {
     return angle;
 }
@@ -361,18 +361,22 @@ double CEAngle::Rad(void) const
  * @param[in] angle             Angle value
  * @param[in] angle_type        CEAngleType (only DEGREES or RADIANS are accepted)
  * 
- * An exception is thrown if @p angle_type is neither DEGREES or RADIANS
+ * @exception CEException::invalid_value
+ *            @p angle_type is neither DEGREES nor RADIANS
+ * 
+ * This method calls the SOFA function iauAnp to ensure the angle is in the
+ * range [0, 2pi).
  *************************************************************************/
 void CEAngle::SetAngle(const double&      angle,
                        const CEAngleType& angle_type)
 {
     // Set from degree angle
     if (angle_type == CEAngleType::DEGREES) {
-        angle_ = angle * DD2R;
+        angle_ = iauAnp(angle * DD2R);
     }
     // Set from radians angle
     else if (angle_type == CEAngleType::RADIANS) {
-        angle_ = angle;
+        angle_ = iauAnp(angle);
     }
     // Otherwise throw an exception
     else {
