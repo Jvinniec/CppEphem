@@ -29,8 +29,6 @@
  */
 
 #include <algorithm>
-#include <iomanip>
-#include <sstream>
 
 #include "CEAngle.h"
 #include "CEException.h"
@@ -182,22 +180,9 @@ std::string CEAngle::HmsStr(const char& delim) const
 {
     // Get the angle as a vector
     std::vector<double> hms_d = HmsVect();
-    
-    // Make sure there are only three values
-    if (hms_d.size() == 4) {
-        hms_d[2] += hms_d[3];
-    }
 
     // Assemble the string using the specified delimiter
-    std::ostringstream ss;
-    ss << std::setfill('0') << std::setw(2) << int(hms_d[0]);
-    ss << delim;
-    ss << std::setfill('0') << std::setw(2) << int(hms_d[1]);
-    ss << delim;
-    ss << std::setfill('0') << std::setw(11) << std::fixed 
-       << std::setprecision(8) << hms_d[2];
-    
-    return std::string(ss.str());
+    return CppEphem::StrOpt::join_angle(hms_d, delim);
 }
 
 
@@ -288,22 +273,8 @@ std::string CEAngle::DmsStr(const char& delim) const
     // Get the angle as a vector
     std::vector<double> dms_d = DmsVect();
     
-    // Make sure there are only three values
-    if (dms_d.size() == 4) {
-        dms_d[2] += dms_d[3];
-    }
-
-    // Assemble the string using teh specified delimiter
     // Assemble the string using the specified delimiter
-    std::ostringstream ss;
-    ss << std::setfill('0') << std::setw(2) << int(dms_d[0]);
-    ss << delim;
-    ss << std::setfill('0') << std::setw(2) << int(dms_d[1]);
-    ss << delim;
-    ss << std::setfill('0') << std::setw(11) << std::fixed 
-       << std::setprecision(8) << dms_d[2];
-    
-    return std::string(ss.str());
+    return CppEphem::StrOpt::join_angle(dms_d, delim);
 }
 
 
@@ -443,7 +414,7 @@ void CEAngle::SetAngle(const char*        angle_str,
         if (delim != 0) {
 
             // Split the string
-            CppEphem::StrOpt::split(angle_str, delim, angle_vec);
+            CppEphem::StrOpt::split(angle_str, delim, &angle_vec);
 
             // Throw an error if the string was not properly split
             if (angle_vec.size() < 3) {
