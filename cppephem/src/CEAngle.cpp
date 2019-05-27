@@ -457,40 +457,115 @@ void CEAngle::SetAngle(const char*        angle_str,
 
 
 /**********************************************************************//**
- * Set the angle from a vector of doubles
+ * Set the angle from a vector of doubles representing HMS or DMS format
  * 
- * @param[in] angle             Angle as a vector of doubles
- * @param[in] angle_type        CEAngleType (only HMS or DMS are accepted)
+ * @param[in] angle_vec         Angle as a vector of doubles
+ * @param[in] angle_type        Angle type of @p angle_vec
  * 
  * An exception is thrown if @p angle_type is neither HMS or DMS
  *************************************************************************/
-void CEAngle::SetAngle(const std::vector<double>& angle,
+void CEAngle::SetAngle(const std::vector<double>& angle_vec,
                        const CEAngleType&         angle_type)
 {
-    // Throw an error if the provided angle type does not make sense
-    if ((angle_type != CEAngleType::HMS) && (angle_type != CEAngleType::DMS)) {
-        throw CEException::invalid_value(
-            "CEAngle::SetAngle(const std::vector&, const CEAngleType&)",
-            "[ERROR] Method cannot be called with the provided CEAngleType");
-    }
-
-    // Construct the angle as the sum of the different components
-    double full_ang( std::fabs(angle[0]) );
-    full_ang += std::fabs(angle[1]) / 60.0;
-    full_ang += std::fabs(angle[2]) / 3600.0;
-
-    // In case the angle has been 
-    if (angle.size() == 4) {
-        full_ang += std::fabs(angle[3]) / 3600.0;
-    }
-
-    // Scale the angle from hours to degrees
+    // Hours minutes seconds
     if (angle_type == CEAngleType::HMS) {
-        full_ang *= 15.0;
+        SetAngle_HmsVect(angle_vec);
+    } 
+    // Degrees arcmins arcseconds
+    else if (angle_type == CEAngleType::DMS) {
+        SetAngle_DmsVect(angle_vec);
+    }
+    // Otherwise, all done
+    else {
+        throw CEException::invalid_value(
+            "CEAngle::SetAngle(const std::vector<double>&, const CEAngleType&)",
+            "[ERROR] Unknown angle type");
+    }
+}
+
+
+/**********************************************************************//**
+ * Set the angle from a vector of doubles representing {hours, minutes, seconds}
+ * 
+ * @param[in] angle             Angle as a vector of doubles
+ * 
+ * An exception is thrown if @p angle_type is neither HMS or DMS
+ *************************************************************************/
+void CEAngle::SetAngle_HmsVect(const std::vector<double>& angle)
+{
+    // Get the angle sign
+    char pm = (angle[0] >= 0.0) ? '+' : '-';
+
+    // Do the conversion
+    double ang(0.0);
+    double sec = (angle.size() == 4) ? angle[2]+angle[3] : angle[2];
+    int err = iauTf2a(pm, std::abs(angle[0]), int(angle[1]), sec, &ang);
+
+    // Handle the error
+    if (err) {
+        std::string msg = "[ERROR] ";
+        switch(err) {
+            // Hours out of bounds
+            case 1:
+                msg += "Hour value \'" + std::to_string(angle[0]) + "\' not in range 0-23";
+                throw CEException::invalid_value("CEAngle::SetAngle", msg);
+            // Minutes out of bounds
+            case 2:
+                msg += "Minutes value \'" + std::to_string(angle[1]) + "\' not in range 0-59";
+                throw CEException::invalid_value("CEAngle::SetAngle", msg);
+            // Seconds out of bounds
+            case 3:
+                msg += "Seconds value \'" + std::to_string(sec) + "\' not in range 0-59.999...";
+                throw CEException::invalid_value("CEAngle::SetAngle", msg);
+        }
     }
 
     // Set the angle
-    SetAngle(full_ang, CEAngleType::DEGREES);
+    SetAngle(ang, CEAngleType::RADIANS);
+    return;
+}
+
+
+/**********************************************************************//**
+ * Set the angle from a vector of doubles
+ * 
+ * @param[in] angle             Angle as a vector of doubles
+ * 
+ * An exception is thrown if @p angle_type is neither HMS or DMS
+ *************************************************************************/
+void CEAngle::SetAngle_DmsVect(const std::vector<double>& angle)
+{
+    // Get the angle's sign
+    char sign = (angle[0] < 0.0) ? '-' : '+';
+
+    // Convert the values to an angle in degrees
+    double ang(0.0);
+    double sec = (angle.size() == 4) ? angle[2]+angle[3] : angle[2];
+
+    // Pass the values to the appropriate SOFA algorithm
+    int err = iauAf2a(sign, int(angle[0]), int(angle[1]), sec, &ang);
+
+    // Handle the error
+    if (err) {
+        std::string msg = "[ERROR] ";
+        switch(err) {
+            // Hours out of bounds
+            case 1:
+                msg += "Degree value \'" + std::to_string(angle[0]) + "\' not in range 0-359";
+                throw CEException::invalid_value("CECoordinates::DMSToAngle", msg);
+            // Minutes out of bounds
+            case 2:
+                msg += "Arcmin value \'" + std::to_string(angle[1]) + "\' not in range 0-59";
+                throw CEException::invalid_value("CECoordinates::DMSToAngle", msg);
+            // Seconds out of bounds
+            case 3:
+                msg += "Arcsec value \'" + std::to_string(sec) + "\' not in range 0-59.999...";
+                throw CEException::invalid_value("CECoordinates::DMSToAngle", msg);
+        }
+    }
+
+    // Set the angle
+    SetAngle(ang, CEAngleType::RADIANS);
     return;
 }
 
