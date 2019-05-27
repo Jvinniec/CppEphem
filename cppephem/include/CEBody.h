@@ -43,12 +43,14 @@ public:
      ***********************************/
 
     CEBody() ;
-    CEBody(const std::string& name, 
-           const double& xcoord, const double& ycoord,
-           const CECoordinateType& coord_type = CECoordinateType::ICRS,
-           const CEAngleType& angle_type=CEAngleType::RADIANS) ;
-    CEBody(const CEBody& other, const std::string& name="") ;
-    CEBody(const CECoordinates& coords, const std::string& name="") ;
+    CEBody(const std::string&      name, 
+           const CEAngle&          xcoord, 
+           const CEAngle&          ycoord,
+           const CECoordinateType& coord_type = CECoordinateType::ICRS) ;
+    CEBody(const CEBody&      other, 
+           const std::string& name="") ;
+    CEBody(const CECoordinates& coords, 
+           const std::string&   name="") ;
     virtual ~CEBody() ;
     
     /************************************
