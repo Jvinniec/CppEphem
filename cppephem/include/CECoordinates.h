@@ -55,10 +55,9 @@ public:
 
     /****** CONSTRUCTORS ******/
     CECoordinates() ;
-    CECoordinates(const double& xcoord, 
-                  const double& ycoord,
-                  const CECoordinateType& coord_type=CECoordinateType::ICRS,
-                  const CEAngleType& angle_type=CEAngleType::RADIANS) ;
+    CECoordinates(const CEAngle& xcoord, 
+                  const CEAngle& ycoord,
+                  const CECoordinateType& coord_type=CECoordinateType::ICRS) ;
     CECoordinates(const std::vector<double>& xcoord,
                   const std::vector<double>& ycoord,
                   const CECoordinateType& coord_type=CECoordinateType::ICRS);
@@ -86,6 +85,10 @@ public:
      * Methods for accessing the coordinate information
      **********************************************************/
     
+    virtual CEAngle XCoord(const double& jd=CppEphem::julian_date_J2000()) const;
+    virtual CEAngle YCoord(const double& jd=CppEphem::julian_date_J2000()) const;
+
+    // The following methods will be depricated in the future
     virtual double XCoordinate_Rad(double jd=CppEphem::julian_date_J2000()) const;
     virtual double XCoordinate_Deg(double jd=CppEphem::julian_date_J2000()) const;
     virtual double YCoordinate_Rad(double jd=CppEphem::julian_date_J2000()) const;
@@ -378,21 +381,19 @@ public:
     /*********************************************************
      * Methods for setting the coordinates of this object
      *********************************************************/
-    virtual void SetCoordinates(const double& xcoord, 
-                                const double& ycoord,
-                                const CECoordinateType& coord_type = CECoordinateType::ICRS,
-                                const CEAngleType& angle_type = CEAngleType::RADIANS);
+    virtual void SetCoordinates(const CEAngle& xcoord, 
+                                const CEAngle& ycoord,
+                                const CECoordinateType& coord_type = CECoordinateType::ICRS);
     virtual void SetCoordinates(const CECoordinates& coords);
 
     // Support methods
     std::string print(void) const;
-    
+
 protected:
     // Coordinate variables
-    mutable double xcoord_;         //<! X coordinate (radians)
-    mutable double ycoord_;         //<! Y coordinate (radians)
+    mutable CEAngle xcoord_;        //<! X coordinate
+    mutable CEAngle ycoord_;        //<! Y coordinate
     CECoordinateType coord_type_;   //<! Coordinate system to which 'xcoord_' and 'ycoord_' belong.
-                                    //<! Possible values are "CIRS", "ICRS", "GALACTIC", "OBSERVED", and "GEOGRAPHIC" 
 
 private:
     /*********************************************************
@@ -402,6 +403,32 @@ private:
     void free_members(void);
     void init_members(void);
 };
+
+
+/**********************************************************************//**
+ * Return x coordinate at given Julian date
+ * 
+ * @param[in] jd   Julian date (used only by derived classes)
+ * @return X-coordinate as a CEAngle
+ *************************************************************************/
+inline
+CEAngle CECoordinates::XCoord(const double& jd) const
+{
+    return xcoord_;
+}
+
+
+/**********************************************************************//**
+ * Return y coordinate at given Julian date
+ * 
+ * @param[in] jd   Julian date (used only by derived classes)
+ * @return X-coordinate as a CEAngle
+ *************************************************************************/
+inline
+CEAngle CECoordinates::YCoord(const double& jd) const
+{
+    return ycoord_;
+}
 
 
 /**********************************************************************//**

@@ -37,10 +37,9 @@ class CEPlanet : public CEBody {
 public:
     CEPlanet() ;
     CEPlanet(const std::string&      name, 
-             const double&           xcoord, 
-             const double&           ycoord,
-             const CECoordinateType& coord_type=CECoordinateType::CIRS,
-             const CEAngleType&      angle_type=CEAngleType::RADIANS) ;
+             const CEAngle&          xcoord, 
+             const CEAngle&          ycoord,
+             const CECoordinateType& coord_type=CECoordinateType::CIRS) ;
     CEPlanet(const CEPlanet& other);
     virtual ~CEPlanet() ;
     
