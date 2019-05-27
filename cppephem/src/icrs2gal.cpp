@@ -81,8 +81,9 @@ int main(int argc, char** argv)
     if (opts.ParseCommandLine(argc, argv)) return 0 ;
         
     // Create a map to store the results
-    CECoordinates input(opts.AsDouble("ra"), opts.AsDouble("dec"),
-                        CECoordinateType::ICRS, CEAngleType::DEGREES) ;
+    CECoordinates input(CEAngle::Deg(opts.AsDouble("ra")),
+                        CEAngle::Deg(opts.AsDouble("dec")),
+                        CECoordinateType::ICRS) ;
     
     // Convert the coordinates
     CECoordinates output = input.ConvertToGalactic();

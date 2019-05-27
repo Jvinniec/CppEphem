@@ -205,7 +205,7 @@ void PrintEphemeris(CEObservation& obs,
 
         // Get the observed coordinates
         obs_coords.SetCoordinates(obs.GetAzimuth_Rad(), obs.GetZenith_Rad(),
-                                  CECoordinateType::OBSERVED, CEAngleType::RADIANS);
+                                  CECoordinateType::OBSERVED);
         // Convert to RA,DEC
         appar_coords = obs_coords.ConvertToICRS(date->JD(),
                                                 observer->Longitude_Rad(),
@@ -219,8 +219,8 @@ void PrintEphemeris(CEObservation& obs,
                                                 date->ypolar(),
                                                 observer->Wavelength_um());
         // Update the coordiantes of the planet
-        ra  = CECoordinates::GetHMS( appar_coords.XCoordinate_Rad(), CEAngleType::RADIANS);
-        dec = CECoordinates::GetDMS( appar_coords.YCoordinate_Rad(), CEAngleType::RADIANS);
+        ra  = appar_coords.XCoord().HmsVect();
+        dec = appar_coords.YCoord().DmsVect();
         
         std::printf(" %11.2f  %08.1f  %2.0fh %2.0fm %4.1fs  %+3.0fd %2.0fm %4.1fs  %8.3f  %+7.3f\n",
                     double(*date), date->GetTime(observer->UTCOffset()),
