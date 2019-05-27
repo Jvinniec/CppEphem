@@ -86,8 +86,9 @@ int main (int argc, char** argv)
     if (opts.ParseCommandLine(argc, argv)) return 0 ;
     
     // Create a CECoordinates object
-    CECoordinates input(opts.AsDouble("ra"), opts.AsDouble("dec"),
-                        CECoordinateType::ICRS, CEAngleType::DEGREES) ;
+    CECoordinates input(CEAngle::Deg(opts.AsDouble("ra")), 
+                        CEAngle::Deg(opts.AsDouble("dec")),
+                        CECoordinateType::ICRS) ;
     
     // Get the coordinates as CIRS
     CECoordinates output = input.ConvertToCIRS(opts.AsDouble("juliandate")) ;
