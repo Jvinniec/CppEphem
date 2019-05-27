@@ -70,16 +70,13 @@ public:
     /*********************************************************
      * Angular separation between two coordinate positions
      *********************************************************/
-    virtual double AngularSeparation(const CECoordinates& coords,
-                                     const CEAngleType& return_angle_type=CEAngleType::DEGREES) const;
-    static double AngularSeparation(const CECoordinates& coords1, 
-                                    const CECoordinates& coords2,
-                                    const CEAngleType& return_angle_type=CEAngleType::DEGREES);
-    static double AngularSeparation(double xcoord_first, 
-                                    double ycoord_first,
-                                    double xcoord_second, 
-                                    double ycoord_second,
-                                    const CEAngleType& angle_type=CEAngleType::DEGREES);
+    virtual CEAngle AngularSeparation(const CECoordinates& coords) const;
+    static CEAngle AngularSeparation(const CECoordinates& coords1, 
+                                     const CECoordinates& coords2);
+    static CEAngle AngularSeparation(const CEAngle& xcoord_first, 
+                                     const CEAngle& ycoord_first,
+                                     const CEAngle& xcoord_second, 
+                                     const CEAngle& ycoord_second);
     
     /**********************************************************
      * Methods for accessing the coordinate information
