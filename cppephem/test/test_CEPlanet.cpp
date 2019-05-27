@@ -85,17 +85,18 @@ bool test_CEPlanet::test_construct(void)
     test(test1.GetCoordinates() == test_coord, __func__, __LINE__);
 
     // Default constructors
-    CEPlanet test2("DefaultPlanet", 123.45, 67.89, CECoordinateType::ICRS, CEAngleType::DEGREES);
+    CEPlanet test2("DefaultPlanet", CEAngle::Deg(123.45), CEAngle::Deg(67.89), 
+                   CECoordinateType::ICRS);
     test_string(test2.Name(), "DefaultPlanet", __func__, __LINE__);
-    test_double(test2.XCoordinate_Deg(), 123.45, __func__, __LINE__);
-    test_double(test2.YCoordinate_Deg(), 67.89, __func__, __LINE__);
+    test_double(test2.XCoord().Deg(), 123.45, __func__, __LINE__);
+    test_double(test2.YCoord().Deg(), 67.89, __func__, __LINE__);
     test_int(int(test2.GetCoordSystem()), int(CECoordinateType::ICRS), __func__, __LINE__);
 
     // Copy constructor
     CEPlanet test3(test2);
     test_string(test3.Name(), test2.Name(), __func__, __LINE__);
-    test_double(test3.XCoordinate_Deg(), test2.XCoordinate_Deg(), __func__, __LINE__);
-    test_double(test3.YCoordinate_Deg(), test2.YCoordinate_Deg(), __func__, __LINE__);
+    test_double(test3.XCoord().Deg(), test2.XCoord().Deg(), __func__, __LINE__);
+    test_double(test3.YCoord().Deg(), test2.YCoord().Deg(), __func__, __LINE__);
     test_int(int(test3.GetCoordSystem()), int(test2.GetCoordSystem()), __func__, __LINE__);
 
     // Copy assignment operator
@@ -123,10 +124,12 @@ bool test_CEPlanet::test_mercury(void)
 
     // Run the actual test with values derived from AstroPy
     test_planet(mercury,
-                CECoordinates(251.1840266663606371, -25.3023875289787838, 
-                              CECoordinateType::ICRS, CEAngleType::DEGREES),
-                CECoordinates(197.8036693771968260, 25.7350871794139664,
-                              CECoordinateType::OBSERVED, CEAngleType::DEGREES),
+                CECoordinates(CEAngle::Deg(251.1840266663606371), 
+                              CEAngle::Deg(-25.3023875289787838), 
+                              CECoordinateType::ICRS),
+                CECoordinates(CEAngle::Deg(197.8036693771968260), 
+                              CEAngle::Deg(25.7350871794139664),
+                              CECoordinateType::OBSERVED),
                 {-0.13721236, -0.4032437, -0.20141521},
                 {0.02137206, -0.00493223, -0.00485005});
 
@@ -148,10 +151,12 @@ bool test_CEPlanet::test_venus(void)
 
     // Run the actual test with values derived from AstroPy
     test_planet(venus,
-                CECoordinates(183.8496760951891247, 1.8722067172672485, 
-                              CECoordinateType::ICRS, CEAngleType::DEGREES),
-                CECoordinates(242.8427330437376099, 43.8958267247570220,
-                              CECoordinateType::OBSERVED, CEAngleType::DEGREES),
+                CECoordinates(CEAngle::Deg(183.8496760951891247), 
+                              CEAngle::Deg(1.8722067172672485), 
+                              CECoordinateType::ICRS),
+                CECoordinates(CEAngle::Deg(242.8427330437376099), 
+                              CEAngle::Deg(43.8958267247570220),
+                              CECoordinateType::OBSERVED),
                 {-0.72543765, -0.04893718, 0.02371176},
                 {0.00080326, -0.01849847, -0.00837267});
 
@@ -173,10 +178,12 @@ bool test_CEPlanet::test_earth(void)
 
     // Run the actual test with values derived from AstroPy
     test_planet(earth,
-                CECoordinates(101.7655134417398273, 23.0103434895188776, 
-                              CECoordinateType::ICRS, CEAngleType::DEGREES),
-                CECoordinates(89.9999999991386233, 179.9999111107912881,
-                              CECoordinateType::OBSERVED, CEAngleType::DEGREES),
+                CECoordinates(CEAngle::Deg(101.7655134417398273), 
+                              CEAngle::Deg(23.0103434895188776), 
+                              CECoordinateType::ICRS),
+                CECoordinates(CEAngle::Deg(89.9999999991386233),
+                              CEAngle::Deg(179.9999111107912881),
+                              CECoordinateType::OBSERVED),
                 {-0.18428431, 0.88477935, 0.383819},
                 {-0.01720221, -0.00290513, -0.00125952});
     
@@ -198,10 +205,12 @@ bool test_CEPlanet::test_mars(void)
 
     // Run the actual test with values derived from AstroPy
     test_planet(mars,
-                CECoordinates(359.9442433037739306, -1.5700885004650793, 
-                              CECoordinateType::ICRS, CEAngleType::DEGREES),
-                CECoordinates(106.9869245851015762, 51.3129710961485586,
-                              CECoordinateType::OBSERVED, CEAngleType::DEGREES),
+                CECoordinates(CEAngle::Deg(359.9442433037739306), 
+                              CEAngle::Deg(-1.5700885004650793), 
+                              CECoordinateType::ICRS),
+                CECoordinates(CEAngle::Deg(106.9869245851015762), 
+                              CEAngle::Deg(51.3129710961485586),
+                              CECoordinateType::OBSERVED),
                 {1.38356924, -0.0011989, -0.0378561},
                 {0.00067763, 0.01380768, 0.00631503});
 
@@ -221,8 +230,8 @@ bool test_CEPlanet::test_mars(void)
     CEPlanet mars2 = CEPlanet::Mars();
     mars2.SetAlgorithm(CEPlanetAlgo::JPL);
     mars2.UpdateCoordinates(base_date_.JD());
-    double angsep = mars.AngularSeparation(mars2, CEAngleType::DEGREES);
-    test(angsep < 0.1, __func__, __LINE__);
+    CEAngle angsep = mars.AngularSeparation(mars2);
+    test_lessthan(angsep.Deg(), 0.1, __func__, __LINE__);
 
     return pass();
 }
@@ -242,10 +251,12 @@ bool test_CEPlanet::test_jupiter(void)
 
     // Run the actual test with values derived from AstroPy
     test_planet(jupiter,
-                CECoordinates(34.3822629405528843, 12.5158780867456674, 
-                              CECoordinateType::ICRS, CEAngleType::DEGREES),
-                CECoordinates(81.1700048918871886, 103.2491992750974532, 
-                              CECoordinateType::OBSERVED, CEAngleType::DEGREES),
+                CECoordinates(CEAngle::Deg(34.3822629405528843), 
+                              CEAngle::Deg(12.5158780867456674), 
+                              CECoordinateType::ICRS),
+                CECoordinates(CEAngle::Deg(81.1700048918871886), 
+                              CEAngle::Deg(103.2491992750974532), 
+                              CECoordinateType::OBSERVED),
                 {3.99442023, 2.7334608, 1.07451899},
                 {-0.00455544, 0.00587705, 0.00263009});
     
@@ -267,10 +278,12 @@ bool test_CEPlanet::test_saturn(void)
 
     // Run the actual test with values derived from AstroPy
     test_planet(saturn,
-                CECoordinates(43.9734819060061355, 14.3451097907081060, 
-                              CECoordinateType::ICRS, CEAngleType::DEGREES),
-                CECoordinates(75.7370064470109696, 117.5753277202141760, 
-                              CECoordinateType::OBSERVED, CEAngleType::DEGREES),
+                CECoordinates(CEAngle::Deg(43.9734819060061355), 
+                              CEAngle::Deg(14.3451097907081060), 
+                              CECoordinateType::ICRS),
+                CECoordinates(CEAngle::Deg(75.7370064470109696),
+                              CEAngle::Deg(117.5753277202141760), 
+                              CECoordinateType::OBSERVED),
                 {6.39746262, 6.17262105, 2.2735304},
                 {-0.00429156, 0.00350834, 0.00163369});
     
@@ -292,10 +305,12 @@ bool test_CEPlanet::test_uranus(void)
 
     // Run the actual test with values derived from AstroPy
     test_planet(uranus,
-                CECoordinates(319.0662412483117691, -16.5756054581048744, 
-                              CECoordinateType::ICRS, CEAngleType::DEGREES),
-                CECoordinates(116.9533213948411401, 40.2264403677069211, 
-                              CECoordinateType::OBSERVED, CEAngleType::DEGREES),
+                CECoordinates(CEAngle::Deg(319.0662412483117691), 
+                              CEAngle::Deg(-16.5756054581048744), 
+                              CECoordinateType::ICRS),
+                CECoordinates(CEAngle::Deg(116.9533213948411401), 
+                              CEAngle::Deg(40.2264403677069211), 
+                              CECoordinateType::OBSERVED),
                 {14.42492523, -12.50957402, -5.6830779},
                 {0.00269067, 0.00244776, 0.00103396});
     
@@ -317,10 +332,12 @@ bool test_CEPlanet::test_neptune(void)
 
     // Run the actual test with values derived from AstroPy
     test_planet(neptune,
-                CECoordinates(306.1731137010386306, -19.0396553491478997, 
-                              CECoordinateType::ICRS, CEAngleType::DEGREES),
-                CECoordinates(129.5362400208609870, 31.1291412849027509, 
-                              CECoordinateType::OBSERVED, CEAngleType::DEGREES),
+                CECoordinates(CEAngle::Deg(306.1731137010386306), 
+                              CEAngle::Deg(-19.0396553491478997), 
+                              CECoordinateType::ICRS),
+                CECoordinates(CEAngle::Deg(129.5362400208609870),
+                              CEAngle::Deg(31.1291412849027509), 
+                              CECoordinateType::OBSERVED),
                 {16.80489053, -22.98266171, -9.82533257},
                 {0.00258607, 0.00165554, 0.00061312});
 
@@ -347,17 +364,16 @@ bool test_CEPlanet::test_planet(const CEPlanet&            test_planet,
     std::string func_name = std::string(__func__) + " (" + test_planet.Name() + ")";
 
     // Test ICRS coordinates
-    CECoordinates icrs_coords(test_planet.XCoordinate_Rad(),
-                              test_planet.YCoordinate_Rad(),
-                              CECoordinateType::ICRS,
-                              CEAngleType::RADIANS);    
+    CECoordinates icrs_coords(test_planet.XCoord(),
+                              test_planet.YCoord(),
+                              CECoordinateType::ICRS);    
     if (!test(icrs_coords == true_icrs, func_name, __LINE__)) {
         // Print information about the coordinates
         std::printf("   %s   %s", icrs_coords.print().c_str(), true_icrs.print().c_str());
-        std::printf("   X-diff: %f arcsec\n", (icrs_coords.XCoordinate_Deg()-true_icrs.XCoordinate_Deg())*3600.0);
-        std::printf("   Y-diff: %f arcsec\n", (icrs_coords.YCoordinate_Deg()-true_icrs.YCoordinate_Deg())*3600.0);
+        std::printf("   X-diff: %f arcsec\n", (icrs_coords.XCoord().Deg()-true_icrs.XCoord().Deg())*3600.0);
+        std::printf("   Y-diff: %f arcsec\n", (icrs_coords.YCoord().Deg()-true_icrs.YCoord().Deg())*3600.0);
     }
-    std::printf("      AngSep ICRS: %e arcsec\n", icrs_coords.AngularSeparation(true_icrs, CEAngleType::DEGREES)*3600.0);
+    std::printf("      AngSep ICRS: %e arcsec\n", icrs_coords.AngularSeparation(true_icrs).Deg()*3600.0);
 
     // Test observed coordinates
     CECoordinates obs_coords = test_planet.ObservedCoords(base_date_, 
@@ -366,10 +382,10 @@ bool test_CEPlanet::test_planet(const CEPlanet&            test_planet,
     if (!test(obs_coords == true_obs, func_name, __LINE__)) {
         // Print information about the coordinates
         std::printf("   %s   %s", obs_coords.print().c_str(), true_obs.print().c_str());
-        std::printf("   X-diff: %f arcsec\n", (obs_coords.XCoordinate_Deg()-true_obs.XCoordinate_Deg())*3600.0);
-        std::printf("   Y-diff: %f arcsec\n", (obs_coords.YCoordinate_Deg()-true_obs.YCoordinate_Deg())*3600.0);
+        std::printf("   X-diff: %f arcsec\n", (obs_coords.XCoord().Deg()-true_obs.XCoord().Deg())*3600.0);
+        std::printf("   Y-diff: %f arcsec\n", (obs_coords.YCoord().Deg()-true_obs.YCoord().Deg())*3600.0);
     }
-    std::printf("      AngSep Obs : %e arcsec\n", obs_coords.AngularSeparation(true_obs, CEAngleType::DEGREES)*3600.0);
+    std::printf("      AngSep Obs : %e arcsec\n", obs_coords.AngularSeparation(true_obs).Deg()*3600.0);
 
     // Update the tolerance
     double tol_old = DblTol();

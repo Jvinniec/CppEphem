@@ -37,18 +37,17 @@ test_CECoordinates::test_CECoordinates() :
 
     // The following coordinates are derived from Astopy using the script:
     // cppephem/test/astropy_scripts/test_cecoordinates_setup.py
-    base_icrs_ = CECoordinates(83.633, 22.0145, 
-                               CECoordinateType::ICRS, 
-                               CEAngleType::DEGREES);
-    base_cirs_ = CECoordinates(83.63843844654943, 22.012942530431776,
-                               CECoordinateType::CIRS,
-                               CEAngleType::DEGREES);
-    base_gal_  = CECoordinates(184.55741630955762, -5.784421958594916,
-                               CECoordinateType::GALACTIC,
-                               CEAngleType::DEGREES);
-    base_obs_  = CECoordinates(35.598599384274294, 152.55068501449307,
-                               CECoordinateType::OBSERVED,
-                               CEAngleType::DEGREES);
+    base_icrs_ = CECoordinates(CEAngle::Deg(83.633), CEAngle::Deg(22.0145), 
+                               CECoordinateType::ICRS);
+    base_cirs_ = CECoordinates(CEAngle::Deg(83.63843844654943), 
+                               CEAngle::Deg(22.012942530431776),
+                               CECoordinateType::CIRS);
+    base_gal_  = CECoordinates(CEAngle::Deg(184.55741630955762), 
+                               CEAngle::Deg(-5.784421958594916),
+                               CECoordinateType::GALACTIC);
+    base_obs_  = CECoordinates(CEAngle::Deg(35.598599384274294), 
+                               CEAngle::Deg(152.55068501449307),
+                               CECoordinateType::OBSERVED);
 
     // Create the date object
     base_date_ = CEDate(CppEphem::julian_date_J2000(), CEDateType::JD);
@@ -106,28 +105,21 @@ bool test_CECoordinates::test_construct()
     // Test the default constructor
     CECoordinates test1;
     test_double(test1.XCoordinate_Rad(), 0.0, __func__, __LINE__);
+    test_double(test1.XCoord(), 0.0, __func__, __LINE__);
     test_double(test1.YCoordinate_Rad(), 0.0, __func__, __LINE__);
+    test_double(test1.YCoord(), 0.0, __func__, __LINE__);
     
-    // Test constructor from degrees
-    double testx(83.633);
-    double testy(22.0145);
-    CECoordinates test2(testx, testy, CECoordinateType::ICRS, CEAngleType::DEGREES);
-    test_double(test2.XCoordinate_Deg(), testx, __func__, __LINE__);
-    test_double(test2.YCoordinate_Deg(), testy, __func__, __LINE__);
-
-    // Test constructor from vectors of values
-    std::vector<double> testHMS = CECoordinates::GetHMS(testx,
-                                                        CEAngleType::DEGREES);
-    std::vector<double> testDMS = CECoordinates::GetDMS(testy,
-                                                        CEAngleType::DEGREES);
-    CECoordinates test3(testHMS, testDMS, CECoordinateType::ICRS);
-    test_double(test3.XCoordinate_Deg(), testx, __func__, __LINE__);
-    test_double(test3.YCoordinate_Deg(), testy, __func__, __LINE__);
+    // Test constructor from CEAngle objects
+    CEAngle testx = CEAngle::Deg(83.633);
+    CEAngle testy = CEAngle::Deg(22.0145);
+    CECoordinates test2(testx, testy, CECoordinateType::ICRS);
+    test_double(test2.XCoordinate_Rad(), testx, __func__, __LINE__);
+    test_double(test2.YCoordinate_Rad(), testy, __func__, __LINE__);
     
     // Test copy constructor
     CECoordinates test4(test2);
-    test_double(test4.XCoordinate_Deg(), testx, __func__, __LINE__);
-    test_double(test4.YCoordinate_Deg(), testy, __func__, __LINE__);
+    test_double(test4.XCoordinate_Rad(), testx, __func__, __LINE__);
+    test_double(test4.YCoordinate_Rad(), testy, __func__, __LINE__);
     test_int(int(test4.GetCoordSystem()), int(test2.GetCoordSystem()), __func__, __LINE__);
 
     // Test print of constructed coordinates
@@ -297,7 +289,8 @@ bool test_CECoordinates::test_Convert2Observed()
                                  base_date_, base_observer_, 
                                  CEAngleType::DEGREES,
                                  base_observer_.Wavelength_um());
-    testobs.SetCoordinates(az, zen, CECoordinateType::OBSERVED, CEAngleType::DEGREES);
+    testobs.SetCoordinates(CEAngle::Deg(az), CEAngle::Deg(zen), 
+                           CECoordinateType::OBSERVED);
     test_coords(testobs, base_obs_, __func__, __LINE__);
 
     // ICRS -> Observed
@@ -321,7 +314,8 @@ bool test_CECoordinates::test_Convert2Observed()
                                  base_date_, base_observer_, 
                                  CEAngleType::DEGREES,
                                  base_observer_.Wavelength_um());
-    testobs.SetCoordinates(az, zen, CECoordinateType::OBSERVED, CEAngleType::DEGREES);
+    testobs.SetCoordinates(CEAngle::Deg(az), CEAngle::Deg(zen), 
+                           CECoordinateType::OBSERVED);
     test_coords(testobs, base_obs_, __func__, __LINE__);
 
     // Galactic -> Observed
@@ -345,7 +339,8 @@ bool test_CECoordinates::test_Convert2Observed()
                                      base_date_, base_observer_, 
                                      CEAngleType::DEGREES,
                                      base_observer_.Wavelength_um());
-    testobs.SetCoordinates(az, zen, CECoordinateType::OBSERVED, CEAngleType::DEGREES);
+    testobs.SetCoordinates(CEAngle::Deg(az), CEAngle::Deg(zen), 
+                           CECoordinateType::OBSERVED);
     test_coords(testobs, base_obs_, __func__, __LINE__);
 
     return pass();
@@ -395,22 +390,21 @@ bool test_CECoordinates::test_HmsDms2Angle(void)
 bool test_CECoordinates::test_AngularSeparation(void)
 {
     // Establish the preliminary variables that will be used 
-    double test1_x(0.0);
-    double test1_y(-1.0);
-    double test2_x(0.0);
-    double test2_y(1.0);
-    CECoordinates test1(test1_x, test1_y, CECoordinateType::ICRS, CEAngleType::DEGREES);
-    CECoordinates test2(test2_x, test2_y, CECoordinateType::ICRS, CEAngleType::DEGREES);
+    CEAngle test1_x = CEAngle::Deg(0.0);
+    CEAngle test1_y = CEAngle::Deg(-1.0);
+    CEAngle test2_x = CEAngle::Deg(0.0);
+    CEAngle test2_y = CEAngle::Deg(1.0);
+    CECoordinates test1(test1_x, test1_y, CECoordinateType::ICRS);
+    CECoordinates test2(test2_x, test2_y, CECoordinateType::ICRS);
     
     // Test the default coordinate separation
-    double angsep = test1.AngularSeparation(test2, CEAngleType::DEGREES);
-    test_double(angsep, 2.0, __func__, __LINE__);
-    angsep = CECoordinates::AngularSeparation(test1, test2, CEAngleType::DEGREES);
-    test_double(angsep, 2.0, __func__, __LINE__);
+    CEAngle angsep = test1.AngularSeparation(test2);
+    test_double(angsep.Deg(), 2.0, __func__, __LINE__);
+    angsep = CECoordinates::AngularSeparation(test1, test2);
+    test_double(angsep.Deg(), 2.0, __func__, __LINE__);
     angsep = CECoordinates::AngularSeparation(test1_x, test1_y,
-                                              test2_x, test2_y, 
-                                              CEAngleType::DEGREES);
-    test_double(angsep, 2.0, __func__, __LINE__);
+                                              test2_x, test2_y);
+    test_double(angsep.Deg(), 2.0, __func__, __LINE__);
 
     // Test that the two coordinates are not equal
     test((test1 != test2), __func__, __LINE__);
@@ -474,7 +468,7 @@ bool test_CECoordinates::test_coords(const CECoordinates& test,
                     test.YCoordinate_Deg(), expected.YCoordinate_Deg(), 
                     (test.YCoordinate_Deg()-expected.YCoordinate_Deg())*3600.0);
         std::printf("     AngSep: %e arcsec\n", 
-                    test.AngularSeparation(expected, CEAngleType::DEGREES)*3600.0);
+                    test.AngularSeparation(expected).Deg()*3600.0);
     }
     return pass;
 }

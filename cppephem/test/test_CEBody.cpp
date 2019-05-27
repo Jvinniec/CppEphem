@@ -30,9 +30,8 @@ test_CEBody::test_CEBody() :
     CETestSuite()
 {
     // Let's use the Crab Nebula
-    base_ = CEBody("Crab", 83.633, 22.0145, 
-                   CECoordinateType::ICRS, 
-                   CEAngleType::DEGREES);
+    base_ = CEBody("Crab", CEAngle::Deg(83.633), CEAngle::Deg(22.0145), 
+                   CECoordinateType::ICRS);
 }
 
 
@@ -89,8 +88,8 @@ bool test_CEBody::test_construct(void)
     
     // Basic constructor
     CEBody test4(test1.Name(),
-                 test1.XCoordinate_Rad(), test1.YCoordinate_Rad(),
-                 test1.GetCoordSystem(), CEAngleType::RADIANS);
+                 test1.XCoord(), test1.YCoord(),
+                 test1.GetCoordSystem());
     test_string(test4.Name(), test1.Name(), __func__, __LINE__);
     test(test4.GetCoordinates() == test1.GetCoordinates(), __func__, __LINE__);
 
