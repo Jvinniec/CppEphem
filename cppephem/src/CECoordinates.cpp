@@ -1166,13 +1166,11 @@ CECoordinates CECoordinates::GetObservedCoords(const CEDate& date,
  * are in different coordinate systems, use "ConvertTo()" first.
  * 
  * @param[in] coords               Another set of coordinates
- * @param[in] return_angle_type    Specify whether to return angle as DEGREES or RADIANS
  * @return Angular separation between these coordinates and 'coords'
  *************************************************************************/
-double CECoordinates::AngularSeparation(const CECoordinates& coords,
-                                        const CEAngleType& return_angle_type) const
+CEAngle CECoordinates::AngularSeparation(const CECoordinates& coords) const
 {
-    return AngularSeparation(*this, coords, return_angle_type) ;
+    return AngularSeparation(*this, coords);
 }
 
 /**********************************************************************//**
@@ -1190,9 +1188,8 @@ double CECoordinates::AngularSeparation(const CECoordinates& coords,
  * y-coordinates are expected in the range [-pi, pi]. Because of this, OBSERVED
  * coordinates first convert the zenith angle to altitude
  *************************************************************************/
-double CECoordinates::AngularSeparation(const CECoordinates& coords1, 
-                                        const CECoordinates& coords2,
-                                        const CEAngleType& return_angle_type)
+CEAngle CECoordinates::AngularSeparation(const CECoordinates& coords1, 
+                                         const CECoordinates& coords2)
 {
     // Make sure the coordinates are in the same frame
     if (coords1.GetCoordSystem() != coords2.GetCoordSystem()) {
@@ -1209,13 +1206,8 @@ double CECoordinates::AngularSeparation(const CECoordinates& coords1,
     }
 
     // Convert the second coordinates to be the same type as the first set of coordinates
-    double angsep = AngularSeparation(coords1.XCoordinate_Rad(), y1,
-                                      coords2.XCoordinate_Rad(), y2,
-                                      CEAngleType::RADIANS) ;
-    // Convert radians to degrees if a return type of degrees is requested
-    if (return_angle_type == CEAngleType::DEGREES) {
-        angsep *= DR2D ;
-    }
+    CEAngle angsep = AngularSeparation(coords1.XCoord(), y1,
+                                       coords2.XCoord(), y2) ;
     
     return angsep ;
 }
@@ -1242,30 +1234,15 @@ double CECoordinates::AngularSeparation(const CECoordinates& coords1,
  *  - GALACTIC: G.Lon, G.Lat
  *  - OBSERVED: Az, Alt (by default the y-coordinate is zenith)
  *************************************************************************/
-double CECoordinates::AngularSeparation(double xcoord_first, 
-                                        double ycoord_first,
-                                        double xcoord_second, 
-                                        double ycoord_second,
-                                        const  CEAngleType& angle_type)
+CEAngle CECoordinates::AngularSeparation(const CEAngle& xcoord_first, 
+                                         const CEAngle& ycoord_first,
+                                         const CEAngle& xcoord_second, 
+                                         const CEAngle& ycoord_second)
 {
-    // Note that the 'iauSeps' algorithm expects angles in radians,
-    // so we need to convert if angles were passed in degrees
-    if (angle_type == CEAngleType::DEGREES) {
-        // Convert the coordinates to radians
-        xcoord_first *= DD2R ;
-        ycoord_first *= DD2R ;
-        xcoord_second *= DD2R ;
-        ycoord_second *= DD2R ;
-    }
-    
     // Call the 'iauSeps' SOFA algorithm
-    double angsep = iauSeps(xcoord_first, ycoord_first,
-                            xcoord_second, ycoord_second) ;
+    CEAngle angsep = iauSeps(xcoord_first, ycoord_first,
+                             xcoord_second, ycoord_second) ;
     
-    // Convert back to degrees if requested
-    if (angle_type == CEAngleType::DEGREES) {
-        angsep *= DR2D ;
-    }
     return angsep ;
 }
 
@@ -1792,7 +1769,7 @@ bool operator==(const CECoordinates& lhs, const CECoordinates& rhs)
     // Check that the x-coordinate and the y-coordinate are the same
     else {
         // Check how far appart the coordinates are from each other
-        double angsep(CECoordinates::AngularSeparation(lhs, rhs, CEAngleType::RADIANS));
+        CEAngle angsep = CECoordinates::AngularSeparation(lhs, rhs);
         // Currently require separation < 0.03 arcsec
         double marcsec_rad = 4.848e-6;
         if (angsep > 3.0*marcsec_rad) {
