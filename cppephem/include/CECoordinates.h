@@ -437,7 +437,7 @@ CEAngle CECoordinates::YCoord(const double& jd) const
 inline
 double CECoordinates::XCoordinate_Rad(double jd) const
 {
-    return xcoord_;
+    return XCoord(jd).Rad();
 }
 
 
@@ -450,7 +450,7 @@ double CECoordinates::XCoordinate_Rad(double jd) const
 inline
 double CECoordinates::XCoordinate_Deg(double jd) const
 {
-    return XCoordinate_Rad(jd) * DR2D;
+    return XCoord(jd).Deg();
 }
 
 
@@ -463,7 +463,7 @@ double CECoordinates::XCoordinate_Deg(double jd) const
 inline
 double CECoordinates::YCoordinate_Rad(double jd) const
 {
-    return ycoord_;
+    return YCoord(jd).Rad();
 }
     
 /**********************************************************************//**
@@ -475,7 +475,7 @@ double CECoordinates::YCoordinate_Rad(double jd) const
 inline
 double CECoordinates::YCoordinate_Deg(double jd) const
 {
-    return YCoordinate_Rad(jd) * DR2D;
+    return YCoord(jd).Deg();
 }
 
 
