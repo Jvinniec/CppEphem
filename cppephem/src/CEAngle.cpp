@@ -317,7 +317,7 @@ std::vector<double> CEAngle::DmsVect(void) const
  *************************************************************************/
 CEAngle CEAngle::Deg(const double& angle)
 {
-    return angle * DD2R;
+    return CEAngle(angle * DD2R);
 }
 
 
@@ -340,7 +340,7 @@ double CEAngle::Deg(void) const
  *************************************************************************/
 CEAngle CEAngle::Rad(const double& angle)
 {
-    return angle;
+    return CEAngle(angle);
 }
 
 
@@ -372,11 +372,11 @@ void CEAngle::SetAngle(const double&      angle,
 {
     // Set from degree angle
     if (angle_type == CEAngleType::DEGREES) {
-        angle_ = iauAnp(angle * DD2R);
+        angle_ = angle * DD2R;
     }
     // Set from radians angle
     else if (angle_type == CEAngleType::RADIANS) {
-        angle_ = iauAnp(angle);
+        angle_ = angle;
     }
     // Otherwise throw an exception
     else {
