@@ -86,6 +86,9 @@ private:
     void init_members(void);
     void free_members(void);
 
+    void SetAngle_HmsVect(const std::vector<double>& angle);
+    void SetAngle_DmsVect(const std::vector<double>& angle);
+
     // Variables
     mutable double angle_;      ///< Angle stored in radians
 
