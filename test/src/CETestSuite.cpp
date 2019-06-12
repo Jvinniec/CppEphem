@@ -73,6 +73,34 @@ bool CETestSuite::test(bool  test_success,
 /**********************************************************************//**
  * Return whether value is within a specified tolerance of 'expected'
  *
+ * @param[in] test_success  A simple boolean for whether a test passed
+ * @param[in] message       Message for the test
+ * @param[in] function      Name of the function where test was run
+ * @param[in] line          Line where test was run
+ * @return The same value as @p test_success
+ *************************************************************************/
+bool CETestSuite::test(bool  test_success, 
+                       const std::string& message,
+                       const std::string& function,
+                       const int&         line)
+{
+    // Values equal within tolerance
+    if (test_success) {
+        log_success(message + " (SUCCEEDED)", function, line);
+    } 
+    // Values not within tolerance
+    else {
+        log_failure(message + " (FAILED)", function, line);
+    }
+
+    update_pass(test_success);
+    return test_success;
+}
+
+
+/**********************************************************************//**
+ * Return whether value is within a specified tolerance of 'expected'
+ *
  * @param[in] value         Value to be tested
  * @param[in] expected      Expected value to test against
  * @param[in] function      Name of the function where test was run
