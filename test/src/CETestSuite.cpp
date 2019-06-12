@@ -73,6 +73,34 @@ bool CETestSuite::test(bool  test_success,
 /**********************************************************************//**
  * Return whether value is within a specified tolerance of 'expected'
  *
+ * @param[in] test_success  A simple boolean for whether a test passed
+ * @param[in] message       Message for the test
+ * @param[in] function      Name of the function where test was run
+ * @param[in] line          Line where test was run
+ * @return The same value as @p test_success
+ *************************************************************************/
+bool CETestSuite::test(bool  test_success, 
+                       const std::string& message,
+                       const std::string& function,
+                       const int&         line)
+{
+    // Values equal within tolerance
+    if (test_success) {
+        log_success(message + " (SUCCEEDED)", function, line);
+    } 
+    // Values not within tolerance
+    else {
+        log_failure(message + " (FAILED)", function, line);
+    }
+
+    update_pass(test_success);
+    return test_success;
+}
+
+
+/**********************************************************************//**
+ * Return whether value is within a specified tolerance of 'expected'
+ *
  * @param[in] value         Value to be tested
  * @param[in] expected      Expected value to test against
  * @param[in] function      Name of the function where test was run
@@ -268,6 +296,44 @@ bool CETestSuite::test_vect(const std::vector<double>& value,
                             const int&                 line)
 {
     return test_vect_<double>(value, expected, tol_dbl_, function, line);
+}
+
+
+/**********************************************************************//**
+ * Return whether two vector<double>'s contain equivalent values
+ *
+ * @param[in] value         Value to be tested
+ * @param[in] expected      Expected value to test against
+ * @param[in] function      Name of the function where test was run
+ * @param[in] line          Line where test was run
+ * @return Whether value and expected are the same
+ *************************************************************************/
+bool CETestSuite::test_vect(const std::vector<std::string>& value,
+                            const std::vector<std::string>& expected,
+                            const std::string& function,
+                            const int&         line)
+{
+    bool isMatch = true;
+    if (value.size() == expected.size()) {
+        for (int i=0; i<value.size(); i++) {
+            if (value[i] != expected[i]) {
+                log_failure("VECTOR values at index "+std::to_string(i)+" " +
+                            "are NOT equal (input:\"" + value[i] + "\", " +
+                            "expect:\"" + expected[i] + "\")", function, line);
+                isMatch = false;
+            }
+        }
+
+        // If there is a match, then we consider the vectors to be equal
+        if (isMatch) {
+            log_success("VECTOR values and lengths ARE equal.", function, line);
+        }
+    } else {
+        log_failure("VECTOR lengths are NOT equal.", function, line);
+    }
+
+    update_pass(isMatch);
+    return isMatch;
 }
 
 

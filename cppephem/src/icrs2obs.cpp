@@ -93,8 +93,9 @@ int main(int argc, char** argv)
     if (opts.ParseCommandLine(argc, argv)) return 0;
     
     // Create the input and output coordinates
-    CECoordinates input(opts.AsDouble("ra"), opts.AsDouble("dec"),
-                        CECoordinateType::ICRS, CEAngleType::DEGREES);
+    CECoordinates input(CEAngle::Deg(opts.AsDouble("ra")), 
+                        CEAngle::Deg(opts.AsDouble("dec")),
+                        CECoordinateType::ICRS);
     
     // Define the date
     CEDate date(opts.AsDouble("juliandate"), CEDateType::JD);

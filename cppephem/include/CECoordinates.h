@@ -26,6 +26,7 @@
 #include <vector>
 
 // CppEphem HEADERS
+#include "CEAngle.h"
 #include "CEDate.h"
 #include "CENamespace.h"
 #include "CEException.h"
@@ -54,10 +55,9 @@ public:
 
     /****** CONSTRUCTORS ******/
     CECoordinates() ;
-    CECoordinates(const double& xcoord, 
-                  const double& ycoord,
-                  const CECoordinateType& coord_type=CECoordinateType::ICRS,
-                  const CEAngleType& angle_type=CEAngleType::RADIANS) ;
+    CECoordinates(const CEAngle& xcoord, 
+                  const CEAngle& ycoord,
+                  const CECoordinateType& coord_type=CECoordinateType::ICRS) ;
     CECoordinates(const std::vector<double>& xcoord,
                   const std::vector<double>& ycoord,
                   const CECoordinateType& coord_type=CECoordinateType::ICRS);
@@ -70,21 +70,22 @@ public:
     /*********************************************************
      * Angular separation between two coordinate positions
      *********************************************************/
-    virtual double AngularSeparation(const CECoordinates& coords,
-                                     const CEAngleType& return_angle_type=CEAngleType::DEGREES) const;
-    static double AngularSeparation(const CECoordinates& coords1, 
-                                    const CECoordinates& coords2,
-                                    const CEAngleType& return_angle_type=CEAngleType::DEGREES);
-    static double AngularSeparation(double xcoord_first, 
-                                    double ycoord_first,
-                                    double xcoord_second, 
-                                    double ycoord_second,
-                                    const CEAngleType& angle_type=CEAngleType::DEGREES);
+    virtual CEAngle AngularSeparation(const CECoordinates& coords) const;
+    static CEAngle AngularSeparation(const CECoordinates& coords1, 
+                                     const CECoordinates& coords2);
+    static CEAngle AngularSeparation(const CEAngle& xcoord_first, 
+                                     const CEAngle& ycoord_first,
+                                     const CEAngle& xcoord_second, 
+                                     const CEAngle& ycoord_second);
     
     /**********************************************************
      * Methods for accessing the coordinate information
      **********************************************************/
     
+    virtual CEAngle XCoord(const double& jd=CppEphem::julian_date_J2000()) const;
+    virtual CEAngle YCoord(const double& jd=CppEphem::julian_date_J2000()) const;
+
+    // The following methods will be depricated in the future
     virtual double XCoordinate_Rad(double jd=CppEphem::julian_date_J2000()) const;
     virtual double XCoordinate_Deg(double jd=CppEphem::julian_date_J2000()) const;
     virtual double YCoordinate_Rad(double jd=CppEphem::julian_date_J2000()) const;
@@ -377,21 +378,19 @@ public:
     /*********************************************************
      * Methods for setting the coordinates of this object
      *********************************************************/
-    virtual void SetCoordinates(const double& xcoord, 
-                                const double& ycoord,
-                                const CECoordinateType& coord_type = CECoordinateType::ICRS,
-                                const CEAngleType& angle_type = CEAngleType::RADIANS);
+    virtual void SetCoordinates(const CEAngle& xcoord, 
+                                const CEAngle& ycoord,
+                                const CECoordinateType& coord_type = CECoordinateType::ICRS);
     virtual void SetCoordinates(const CECoordinates& coords);
 
     // Support methods
     std::string print(void) const;
-    
+
 protected:
     // Coordinate variables
-    mutable double xcoord_;         //<! X coordinate (radians)
-    mutable double ycoord_;         //<! Y coordinate (radians)
+    mutable CEAngle xcoord_;        //<! X coordinate
+    mutable CEAngle ycoord_;        //<! Y coordinate
     CECoordinateType coord_type_;   //<! Coordinate system to which 'xcoord_' and 'ycoord_' belong.
-                                    //<! Possible values are "CIRS", "ICRS", "GALACTIC", "OBSERVED", and "GEOGRAPHIC" 
 
 private:
     /*********************************************************
@@ -404,7 +403,33 @@ private:
 
 
 /**********************************************************************//**
- * Return x coordinate at given Julian date in radius
+ * Return x coordinate at given Julian date
+ * 
+ * @param[in] jd   Julian date (used only by derived classes)
+ * @return X-coordinate as a CEAngle
+ *************************************************************************/
+inline
+CEAngle CECoordinates::XCoord(const double& jd) const
+{
+    return xcoord_;
+}
+
+
+/**********************************************************************//**
+ * Return y coordinate at given Julian date
+ * 
+ * @param[in] jd   Julian date (used only by derived classes)
+ * @return X-coordinate as a CEAngle
+ *************************************************************************/
+inline
+CEAngle CECoordinates::YCoord(const double& jd) const
+{
+    return ycoord_;
+}
+
+
+/**********************************************************************//**
+ * Return x coordinate at given Julian date in radians
  * 
  * @param[in] jd   Julian date (used only by derived classes)
  * @return X-coordinate in radians
@@ -412,7 +437,7 @@ private:
 inline
 double CECoordinates::XCoordinate_Rad(double jd) const
 {
-    return xcoord_;
+    return XCoord(jd).Rad();
 }
 
 
@@ -425,12 +450,12 @@ double CECoordinates::XCoordinate_Rad(double jd) const
 inline
 double CECoordinates::XCoordinate_Deg(double jd) const
 {
-    return XCoordinate_Rad(jd) * DR2D;
+    return XCoord(jd).Deg();
 }
 
 
 /**********************************************************************//**
- * Returns y coordinate at given Julian date in radius
+ * Returns y coordinate at given Julian date in radians
  * 
  * @param[in] jd   Julian date (used only by derived classes)
  * @return Y-coordinate in radians
@@ -438,7 +463,7 @@ double CECoordinates::XCoordinate_Deg(double jd) const
 inline
 double CECoordinates::YCoordinate_Rad(double jd) const
 {
-    return ycoord_;
+    return YCoord(jd).Rad();
 }
     
 /**********************************************************************//**
@@ -450,7 +475,7 @@ double CECoordinates::YCoordinate_Rad(double jd) const
 inline
 double CECoordinates::YCoordinate_Deg(double jd) const
 {
-    return YCoordinate_Rad(jd) * DR2D;
+    return YCoord(jd).Deg();
 }
 
 

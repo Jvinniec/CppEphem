@@ -107,6 +107,17 @@ CEException::invalid_value::invalid_value(const std::string& origin,
 
 
 /**********************************************************************//**
+ * Generate an exception of type "invalid_delimiter"
+ *  @param[in] origin       Method that threw the error
+ *  @param[in] message      Diagnostic message
+ *************************************************************************/
+CEException::invalid_delimiter::invalid_delimiter(const std::string& origin,
+                                                  const std::string& message) :
+    CEExceptionHandler(origin, message, "Invalid Delimiter")
+{}
+
+
+/**********************************************************************//**
  * Generate an exception of type "corr_file_load_error"
  *  @param[in] origin       Method that threw the error
  *  @param[in] message      Diagnostic message

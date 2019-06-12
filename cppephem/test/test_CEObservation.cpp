@@ -47,9 +47,8 @@ test_CEObservation::test_CEObservation() :
     base_date_.SetReturnType(CEDateType::JD);
 
     // Set the object that will be observed
-    base_body_ = CEBody("test", 83.663, 22.0145, 
-                        CECoordinateType::ICRS, 
-                        CEAngleType::DEGREES);
+    base_body_ = CEBody("test", CEAngle::Deg(83.663), CEAngle::Deg(22.0145), 
+                        CECoordinateType::ICRS);
     
     // Put it all together
     base_obs_ = CEObservation(&base_observer_, &base_body_, &base_date_);
@@ -166,11 +165,12 @@ bool test_CEObservation::test_cache(void)
     
     // Now we setup the actual tests for observed coordinates
     // Note: these coordinates are derived from CECoordinates tests
-    CECoordinates obs_coords(35.55160709646245, 152.5681387256824,
-                             CECoordinateType::OBSERVED, CEAngleType::DEGREES);
-    CECoordinates test2(base_obs_.GetAzimuth_Deg(),
-                        base_obs_.GetZenith_Deg(),
-                        CECoordinateType::OBSERVED, CEAngleType::DEGREES);
+    CECoordinates obs_coords(CEAngle::Deg(35.55160709646245), 
+                             CEAngle::Deg(152.5681387256824),
+                             CECoordinateType::OBSERVED);
+    CECoordinates test2(base_obs_.GetAzimuth_Rad(),
+                        base_obs_.GetZenith_Rad(),
+                        CECoordinateType::OBSERVED);
 
     // Test that the coordinates update when the date is changed
     test(obs_coords == test2, __func__, __LINE__);

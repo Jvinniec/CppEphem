@@ -20,7 +20,9 @@
  ***************************************************************************/
 
 #include <cmath>
+#include <iomanip>
 #include <stdio.h>
+#include <sstream>
 #include "CENamespace.h"
 
 
@@ -195,4 +197,91 @@ double CppEphem::dpsi(const double& mjd)
 double CppEphem::ttut1(const double& mjd)
 {
     return corrections.ttut1(mjd);
+}
+
+
+/**********************************************************************//**
+ * Method for splitting a string based on some delimiter into a vector of strings
+ * 
+ * @param[in]  s
+ * @param[in]  delim
+ * @param[out] elems
+ *************************************************************************/
+void CppEphem::StrOpt::split(const std::string&        s, 
+                             const char&               delim, 
+                             std::vector<std::string>* elems) 
+{
+    std::stringstream ss(s);
+    std::string item=std::string();
+    while (std::getline(ss, item, delim)) {
+        elems->push_back(item);
+    }
+}
+
+
+/**********************************************************************//**
+ * Method for splitting a string based on some delimiter into a vector of strings
+ *************************************************************************/
+std::vector<std::string> CppEphem::StrOpt::split(const std::string& s, 
+                                                 const char&        delim) 
+{
+    std::vector<std::string> elems;
+    split(s, delim, &elems);
+    return elems;
+}
+
+
+/**********************************************************************//**
+ * Method for joining a vector of values based on some delimiter into a string
+ * 
+ * @param[in] values            Vector of values to be joined
+ * @param[in] delim             Delimiter to use between values
+ *************************************************************************/
+template <typename T>
+std::string CppEphem::StrOpt::join(const std::vector<T>& values,
+                                   const char&           delim)
+{
+    // Assemble the first value in the string
+    std::ostringstream ss;
+    if (values.size() > 0) {
+        ss << values[0];
+    }
+
+    // Now append the rest
+    for (int i=1; i<values.size(); i++) { 
+        ss << delim << values[i];
+    }
+
+    return ss.str();
+}
+// Define the typical use cases of CppEphem::StrOpt::join
+template std::string CppEphem::StrOpt::join<std::string>(
+    const std::vector<std::string>&, const char&);
+template std::string CppEphem::StrOpt::join<double>(
+    const std::vector<double>&, const char&);
+
+
+
+/**********************************************************************//**
+ * Method for splitting a string based on some delimiter into a vector of strings
+ *************************************************************************/
+std::string CppEphem::StrOpt::join_angle(const std::vector<double>& values,
+                                         const char&                delim)
+{
+    // Make sure there are only three values
+    double sec = values[2];
+    if (values.size() == 4) {
+        sec += values[3];
+    }
+
+    // Assemble the string using the specified delimiter
+    std::ostringstream ss;
+    ss << std::setfill('0') << std::setw(2) << int(values[0]);
+    ss << delim;
+    ss << std::setfill('0') << std::setw(2) << int(values[1]);
+    ss << delim;
+    ss << std::setfill('0') << std::setw(11) << std::fixed 
+       << std::setprecision(8) << sec;
+    
+    return std::string(ss.str());
 }

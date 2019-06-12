@@ -155,11 +155,10 @@ CEPlanet::CEPlanet() :
  * @param[in] angle_type       Angle type for the coordinates passed
  *************************************************************************/
 CEPlanet::CEPlanet(const std::string&      name, 
-                   const double&           xcoord, 
-                   const double&           ycoord,
-                   const CECoordinateType& coord_type,
-                   const CEAngleType&      angle_type) :
-    CEBody(name, xcoord, ycoord, coord_type, angle_type)
+                   const CEAngle&          xcoord, 
+                   const CEAngle&          ycoord,
+                   const CECoordinateType& coord_type) :
+    CEBody(name, xcoord, ycoord, coord_type)
 {
     init_members();
 }
@@ -664,7 +663,7 @@ CECoordinates CEPlanet::ObservedCoords(const CEDate&     date,
     if (sofa_planet_id_ == 3.5) {
         coordsys = CECoordinateType::CIRS;
     }
-    CECoordinates coord(ra, dec, coordsys, CEAngleType::RADIANS);
+    CECoordinates coord(ra, dec, coordsys);
     
     return coord.ConvertTo(CECoordinateType::OBSERVED, observer, date);
 }
@@ -689,7 +688,11 @@ void CEPlanet::UpdateCoordinates(double new_jd) const
     std::vector<double> pos_delayed = PositionICRS_Obs(date);
 
     // Now compute the actual sky coordinates in ICRS
-    iauC2s(&pos_delayed[0], &xcoord_, &ycoord_);
+    double x;
+    double y;
+    iauC2s(&pos_delayed[0], &x, &y);
+    xcoord_ = x;
+    ycoord_ = y;
     
     // Make sure the x-coordinate is in the appropriate range
     xcoord_ = iauAnp(xcoord_);

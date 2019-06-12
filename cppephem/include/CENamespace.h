@@ -28,11 +28,6 @@
 #include <memory>
 #include "CECorrections.h"
 
-enum class CEAngleType 
-{
-    DEGREES=0, 
-    RADIANS=1
-};
 
 // Create a namespace with some useful stuff
 namespace CppEphem {
@@ -101,6 +96,22 @@ namespace CppEphem {
     void        SetTtUt1PredFile(const std::string& filename);
     void        CorrectionsInterp(bool set_interp);
     static      CECorrections corrections;
+
+    namespace StrOpt {
+        // Method for splitting a string based on some delimiter into a vector of strings
+        void                     split(const std::string&        s, 
+                                       const char&               delim, 
+                                       std::vector<std::string>* elems);
+        std::vector<std::string> split(const std::string& s, 
+                                       const char&        delim);
+
+        // Join strings using a set delimiter
+        template<typename T>
+        std::string join(const std::vector<T>& values,
+                         const char&           delim);
+        std::string join_angle(const std::vector<double>& values,
+                               const char&                delim);
+    }
 }
 
 #endif /* CENamespace_h */

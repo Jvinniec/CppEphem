@@ -77,6 +77,13 @@ public:
                           const std::string& message);
     };
 
+    // Invalid delimiter
+    class invalid_delimiter : public CEExceptionHandler {
+        public:
+            invalid_delimiter(const std::string& origin,
+                              const std::string& message);
+    };
+
     /* ----------------------------------------------------------- *
      *        EXCEPTIONS RELATED TO READING CORRECTIONS FILE
      * ----------------------------------------------------------- */

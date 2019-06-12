@@ -29,6 +29,7 @@
  *********************************************/
 
 CEExecOptions DefineOpts() ;
+CECoordinates ConstructCoords(const double& x, const double& y, bool isDeg);
 
 /*********************************************
  * MAIN
@@ -47,19 +48,21 @@ int main(int argc, char** argv)
     }
     
     // Find coordinates for the first object
-    double angsep = CECoordinates::AngularSeparation(opts.AsDouble("xcoord1"), opts.AsDouble("ycoord1"),
-                                                    opts.AsDouble("xcoord2"), opts.AsDouble("ycoord2"),
-                                                    in_ang_type) ;
+    CECoordinates coord1 = ConstructCoords(opts.AsDouble("xcoord1"),
+                                           opts.AsDouble("ycoord1"),
+                                           opts.AsBool("InputDegrees"));
+    CECoordinates coord2 = ConstructCoords(opts.AsDouble("xcoord2"),
+                                           opts.AsDouble("ycoord2"),
+                                           opts.AsBool("InputDegrees"));
+
+    CEAngle angsep = CECoordinates::AngularSeparation(coord1, coord2);
     
     // Figure out whether we need to convert the output angular separation
-    if (opts.AsBool("InputDegrees") && !opts.AsBool("OutputDegrees")) {
-        angsep *= DD2R;
-    } else if (!opts.AsBool("InputDegrees") && opts.AsBool("OutputDegrees")) {
-        angsep *= DR2D;
+    if (opts.AsBool("OutputDegrees")) {
+        std::cout << angsep.Deg() << std::endl;
+    } else {
+        std::cout << angsep.Rad() << std::endl;
     }
-    
-    // Print the result
-    std::cout << angsep << std::endl;
     
     return 0;
 }
@@ -97,4 +100,27 @@ CEExecOptions DefineOpts()
                         0.0);
     
     return opts;
+}
+
+
+/*****************************************//**
+ * Construct the coordinates object
+ * 
+ * @param[in] x         X-coordinate
+ * @param[in] y         Y-coordinate
+ * @param[in] isDeg     true if the coordinates are in degrees
+ * @return CECoordinates object
+ *********************************************/
+CECoordinates ConstructCoords(const double& x, const double& y, bool isDeg)
+{
+    CECoordinates coord;
+    if (isDeg) {
+        coord.SetCoordinates(CEAngle::Deg(x), CEAngle::Deg(y),
+                             CECoordinateType::ICRS);
+    } else {
+        coord.SetCoordinates(CEAngle::Rad(x), CEAngle::Rad(y),
+                             CECoordinateType::ICRS);
+    }
+
+    return coord;
 }

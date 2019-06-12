@@ -50,13 +50,12 @@ CECoordinates::CECoordinates()
  * @param[in] coord_type Coordinate type (see CECoordinateType)
  * @param[in] angle_type Angle type (either DEGREES or RADIANS)
  *************************************************************************/
-CECoordinates::CECoordinates(const double& xcoord, 
-                             const double& ycoord,
-                             const CECoordinateType& coord_type,
-                             const CEAngleType& angle_type)
+CECoordinates::CECoordinates(const CEAngle& xcoord, 
+                             const CEAngle& ycoord,
+                             const CECoordinateType& coord_type)
 {
     init_members();
-    CECoordinates::SetCoordinates(xcoord, ycoord, coord_type, angle_type);
+    CECoordinates::SetCoordinates(xcoord, ycoord, coord_type);
 }
 
 
@@ -73,9 +72,15 @@ CECoordinates::CECoordinates(const std::vector<double>& xcoord,
                              const CECoordinateType& coord_type)
 {
     init_members();
-    double x = CECoordinates::HMSToAngle(xcoord, CEAngleType::RADIANS);
-    double y = CECoordinates::DMSToAngle(ycoord, CEAngleType::RADIANS);
-    CECoordinates::SetCoordinates(x, y, coord_type, CEAngleType::RADIANS);
+    CEAngle x;
+    if ((coord_type == CECoordinateType::GALACTIC) || 
+        (coord_type == CECoordinateType::OBSERVED)) {
+        x = CEAngle::Dms(xcoord);
+    } else {
+        x = CEAngle::Hms(xcoord);
+    }
+    CEAngle y = CEAngle::Dms(ycoord);
+    CECoordinates::SetCoordinates(x, y, coord_type);
 }
 
 
@@ -1161,13 +1166,11 @@ CECoordinates CECoordinates::GetObservedCoords(const CEDate& date,
  * are in different coordinate systems, use "ConvertTo()" first.
  * 
  * @param[in] coords               Another set of coordinates
- * @param[in] return_angle_type    Specify whether to return angle as DEGREES or RADIANS
  * @return Angular separation between these coordinates and 'coords'
  *************************************************************************/
-double CECoordinates::AngularSeparation(const CECoordinates& coords,
-                                        const CEAngleType& return_angle_type) const
+CEAngle CECoordinates::AngularSeparation(const CECoordinates& coords) const
 {
-    return AngularSeparation(*this, coords, return_angle_type) ;
+    return AngularSeparation(*this, coords);
 }
 
 /**********************************************************************//**
@@ -1185,9 +1188,8 @@ double CECoordinates::AngularSeparation(const CECoordinates& coords,
  * y-coordinates are expected in the range [-pi, pi]. Because of this, OBSERVED
  * coordinates first convert the zenith angle to altitude
  *************************************************************************/
-double CECoordinates::AngularSeparation(const CECoordinates& coords1, 
-                                        const CECoordinates& coords2,
-                                        const CEAngleType& return_angle_type)
+CEAngle CECoordinates::AngularSeparation(const CECoordinates& coords1, 
+                                         const CECoordinates& coords2)
 {
     // Make sure the coordinates are in the same frame
     if (coords1.GetCoordSystem() != coords2.GetCoordSystem()) {
@@ -1204,13 +1206,8 @@ double CECoordinates::AngularSeparation(const CECoordinates& coords1,
     }
 
     // Convert the second coordinates to be the same type as the first set of coordinates
-    double angsep = AngularSeparation(coords1.XCoordinate_Rad(), y1,
-                                      coords2.XCoordinate_Rad(), y2,
-                                      CEAngleType::RADIANS) ;
-    // Convert radians to degrees if a return type of degrees is requested
-    if (return_angle_type == CEAngleType::DEGREES) {
-        angsep *= DR2D ;
-    }
+    CEAngle angsep = AngularSeparation(coords1.XCoord(), y1,
+                                       coords2.XCoord(), y2) ;
     
     return angsep ;
 }
@@ -1237,30 +1234,15 @@ double CECoordinates::AngularSeparation(const CECoordinates& coords1,
  *  - GALACTIC: G.Lon, G.Lat
  *  - OBSERVED: Az, Alt (by default the y-coordinate is zenith)
  *************************************************************************/
-double CECoordinates::AngularSeparation(double xcoord_first, 
-                                        double ycoord_first,
-                                        double xcoord_second, 
-                                        double ycoord_second,
-                                        const  CEAngleType& angle_type)
+CEAngle CECoordinates::AngularSeparation(const CEAngle& xcoord_first, 
+                                         const CEAngle& ycoord_first,
+                                         const CEAngle& xcoord_second, 
+                                         const CEAngle& ycoord_second)
 {
-    // Note that the 'iauSeps' algorithm expects angles in radians,
-    // so we need to convert if angles were passed in degrees
-    if (angle_type == CEAngleType::DEGREES) {
-        // Convert the coordinates to radians
-        xcoord_first *= DD2R ;
-        ycoord_first *= DD2R ;
-        xcoord_second *= DD2R ;
-        ycoord_second *= DD2R ;
-    }
-    
     // Call the 'iauSeps' SOFA algorithm
-    double angsep = iauSeps(xcoord_first, ycoord_first,
-                            xcoord_second, ycoord_second) ;
+    CEAngle angsep(iauSeps(xcoord_first, ycoord_first,
+                           xcoord_second, ycoord_second)) ;
     
-    // Convert back to degrees if requested
-    if (angle_type == CEAngleType::DEGREES) {
-        angsep *= DR2D ;
-    }
     return angsep ;
 }
 
@@ -1414,8 +1396,7 @@ CECoordinates CECoordinates::ConvertToCIRS(double jd,
     
     return CECoordinates(xcoord_new, 
                          ycoord_new,
-                         CECoordinateType::CIRS,
-                         CEAngleType::RADIANS) ;
+                         CECoordinateType::CIRS) ;
 }
 
 /**********************************************************************//**
@@ -1470,8 +1451,7 @@ CECoordinates CECoordinates::ConvertToICRS(double jd,
     }
     
     return CECoordinates(xcoord_new, ycoord_new,
-                         CECoordinateType::ICRS,
-                         CEAngleType::RADIANS) ;
+                         CECoordinateType::ICRS) ;
 }
 
 /**********************************************************************//**
@@ -1525,8 +1505,7 @@ CECoordinates CECoordinates::ConvertToGalactic(double jd,
         std::cerr << "[ERROR] Unknown coordinate type!\n" ;
     }
     
-    return CECoordinates(xcoord_new, ycoord_new, CECoordinateType::GALACTIC,
-                         CEAngleType::RADIANS) ;
+    return CECoordinates(xcoord_new, ycoord_new, CECoordinateType::GALACTIC) ;
 }
 
 /**********************************************************************//**
@@ -1609,8 +1588,7 @@ CECoordinates CECoordinates::ConvertToObserved(double jd,
                                          msg);
     }
  
-    return CECoordinates(xcoord_new, ycoord_new, CECoordinateType::OBSERVED,
-                         CEAngleType::RADIANS) ;
+    return CECoordinates(xcoord_new, ycoord_new, CECoordinateType::OBSERVED) ;
 }
 
 /**********************************************************************//**
@@ -1626,26 +1604,9 @@ CECoordinates CECoordinates::ConvertToObserved(double jd,
 std::vector<double> CECoordinates::GetDMS(const double& angle,
                                           const CEAngleType& angle_type)
 {
-    // Convert to degrees if passed radians
-    double ang = angle;
-    if (angle_type == CEAngleType::DEGREES) 
-        ang *= DD2R ;
-
-    // Variables for holding the results
-    char sign;
-    std::vector<int> DMS_i(4, 0.0);
-
-    // Run the appropriate SOFA value
-    iauA2af(9, ang, &sign, &DMS_i[0]);
-
-    // Fill the values into a double vector
-    std::vector<double> DMS_d(4, 0.0);
-    DMS_d[0] = DMS_i[0] * (sign == '-' ? -1.0 : 1.0);
-    DMS_d[1] = DMS_i[1];
-    DMS_d[2] = DMS_i[2];
-    DMS_d[3] = DMS_i[3] * 1.0e-9;
-
-    return DMS_d ;
+    CEAngle ang;
+    ang.SetAngle(angle, angle_type);
+    return ang.DmsVect() ;
 }
 
 /**********************************************************************//**
@@ -1663,28 +1624,9 @@ std::vector<double> CECoordinates::GetHMS(const double& angle,
                                           const CEAngleType& angle_type)
 {
     // Convert to degrees if passed radians
-    double ang(angle);
-
-    if (angle_type == CEAngleType::DEGREES) 
-        ang *= DD2R ;
-    
-    // Stores the resulting values
-    std::vector<int> HMS_i(4);
-    // Stores the sign
-    char pm;
-    iauA2tf(9, ang, &pm, &HMS_i[0]);
-    
-    // Convert the values into doubles
-    std::vector<double> HMS_d(HMS_i.size());
-    // Scale the fraction to be a true fraction
-    HMS_d[0] = double(HMS_i[0]);
-    HMS_d[1] = double(HMS_i[1]);
-    HMS_d[2] = double(HMS_i[2]);
-    HMS_d[3] = double(HMS_i[3])/1.0e9;
-    // Multiply the degree by a negative
-    if (pm == '-') HMS_d[0] *= -1;
-
-    return HMS_d;
+    CEAngle ang;
+    ang.SetAngle(angle, angle_type);
+    return ang.HmsVect();
 }
 
 
@@ -1704,37 +1646,13 @@ std::vector<double> CECoordinates::GetHMS(const double& angle,
 double CECoordinates::HMSToAngle(const std::vector<double>& angle,
                                  const CEAngleType& return_type)
 {
-    // Get the angle sign
-    char pm = (angle[0] >= 0.0) ? '+' : '-';
+    CEAngle ret_angle = CEAngle::Hms(angle);
 
-    // Do the conversion
-    double ang(0.0);
-    double sec = (angle.size() == 4) ? angle[2]+angle[3] : angle[2];
-    int err = iauTf2a(pm, std::abs(angle[0]), int(angle[1]), sec, &ang);
-
-    // Handle the error
-    if (err != 0) {
-        std::string msg = "[ERROR] ";
-        switch(err) {
-            // Hours out of bounds
-            case 1:
-                msg += "Hour value \'" + std::to_string(angle[0]) + "\' not in range 0-23";
-                throw CEException::invalid_value("CECoordinates::HMSToAngle", msg);
-            // Minutes out of bounds
-            case 2:
-                msg += "Minutes value \'" + std::to_string(angle[1]) + "\' not in range 0-59";
-                throw CEException::invalid_value("CECoordinates::HMSToAngle", msg);
-            // Seconds out of bounds
-            case 3:
-                msg += "Seconds value \'" + std::to_string(sec) + "\' not in range 0-59.999...";
-                throw CEException::invalid_value("CECoordinates::HMSToAngle", msg);
-        }
+    if (return_type == CEAngleType::DEGREES) {
+        return ret_angle.Deg();
+    } else {
+        return ret_angle.Rad();
     }
-
-    // Convert to appropriate return_type
-    if (return_type == CEAngleType::DEGREES) ang *= DR2D;
-
-    return ang;
 }
 
 
@@ -1754,19 +1672,13 @@ double CECoordinates::HMSToAngle(const std::vector<double>& angle,
 double CECoordinates::DMSToAngle(const std::vector<double>& angle,
                                  const CEAngleType& return_type)
 {
-    // Convert the values to an angle in degrees
-    double ret_angle;
-    char   sign = (angle[0] < 0.0) ? '-' : '+';
-    double sec  = (angle.size() == 3) ? angle[2] : angle[2]+angle[3];
-
-    // Pass the values to the appropriate SOFA algorithm
-    iauAf2a(sign, int(angle[0]), int(angle[1]), sec, &ret_angle);
+    CEAngle ret_angle = CEAngle::Dms(angle);
     
     if (return_type == CEAngleType::DEGREES) {
-        ret_angle *= DR2D;
+        return ret_angle.Deg();
+    } else {
+        return ret_angle.Rad();
     }
-
-    return ret_angle;
 }
 
 
@@ -1777,18 +1689,12 @@ double CECoordinates::DMSToAngle(const std::vector<double>& angle,
  * @param[in] coord_type       Coordinate type (see ::CECoordinateType)
  * @param[in] angle_type       Specifies whether xcoord & ycoord are in RADIANS or DEGREES (see ::CEAngleType)
  *************************************************************************/
-void CECoordinates::SetCoordinates(const double& xcoord, 
-                                   const double& ycoord,
-                                   const CECoordinateType& coord_type,
-                                   const CEAngleType& angle_type)
+void CECoordinates::SetCoordinates(const CEAngle& xcoord, 
+                                   const CEAngle& ycoord,
+                                   const CECoordinateType& coord_type)
 {
-    if (angle_type == CEAngleType::RADIANS) {
-        xcoord_ = xcoord ;
-        ycoord_ = ycoord ;
-    } else {
-        xcoord_ = xcoord * DD2R ;
-        ycoord_ = ycoord * DD2R ;
-    }
+    xcoord_     = xcoord ;
+    ycoord_     = ycoord ;
     coord_type_ = coord_type ;
 }
 
@@ -1863,7 +1769,7 @@ bool operator==(const CECoordinates& lhs, const CECoordinates& rhs)
     // Check that the x-coordinate and the y-coordinate are the same
     else {
         // Check how far appart the coordinates are from each other
-        double angsep(CECoordinates::AngularSeparation(lhs, rhs, CEAngleType::RADIANS));
+        CEAngle angsep = CECoordinates::AngularSeparation(lhs, rhs);
         // Currently require separation < 0.03 arcsec
         double marcsec_rad = 4.848e-6;
         if (angsep > 3.0*marcsec_rad) {

@@ -46,11 +46,11 @@ CEBody::CEBody() : CECoordinates()
  * @param[in] angle_type   Angle type (either DEGREES or RADIANS)
  * @param[in] coord_type   Coordinate type (see CECoordinateType)
  *************************************************************************/
-CEBody::CEBody(const std::string& name,
-               const double& xcoord, const double& ycoord,
-               const CECoordinateType& coord_type,
-               const CEAngleType& angle_type) :
-    CECoordinates(xcoord, ycoord, coord_type, angle_type)
+CEBody::CEBody(const std::string&      name,
+               const CEAngle&          xcoord, 
+               const CEAngle&          ycoord,
+               const CECoordinateType& coord_type) :
+    CECoordinates(xcoord, ycoord, coord_type)
 {
     init_members();
     SetName(name);
@@ -61,7 +61,8 @@ CEBody::CEBody(const std::string& name,
  * @param[in] other         CEBody object to copy from
  * @param[in] name          New object name
  *************************************************************************/
-CEBody::CEBody(const CEBody &other, const std::string& name) :
+CEBody::CEBody(const CEBody&      other, 
+               const std::string& name) :
     CECoordinates(other)
 {
     init_members();
@@ -75,7 +76,8 @@ CEBody::CEBody(const CEBody &other, const std::string& name) :
  * Copy constructor from a single set of coordinates
  * @param[in] coords       coordinates object
  *************************************************************************/
-CEBody::CEBody(const CECoordinates &coords, const std::string& name) :
+CEBody::CEBody(const CECoordinates& coords, 
+               const std::string&   name) :
     CECoordinates(coords)
 {
     init_members();

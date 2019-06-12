@@ -1,5 +1,5 @@
 /***************************************************************************
- *  test_CENamespace.h: CppEphem                                           *
+ *  test_CEAngle.h: CppEphem                                               *
  * ----------------------------------------------------------------------- *
  *  Copyright © 2019 JCardenzana                                           *
  * ----------------------------------------------------------------------- *
@@ -19,26 +19,29 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef test_CENamespace_h
-#define test_CENamespace_h
+#ifndef test_CEAngle_h
+#define test_CEAngle_h
 
-#include "CENamespace.h"
+#include "CEAngle.h"
 #include "CETestSuite.h"
 
-class test_CENamespace : public CETestSuite {
+class test_CEAngle : public CETestSuite {
 public:
-    test_CENamespace();
-    virtual ~test_CENamespace();
+    test_CEAngle();
+    virtual ~test_CEAngle();
 
-    virtual bool runtests();
+    bool runtests();
 
     /****** METHODS ******/
 
-    virtual bool test_SeaLevelVals(void);
-    virtual bool test_Conversions(void);
-    virtual bool test_Corrections(void);
-    virtual bool test_StrOpt(void);
+    bool test_construct(void);
+    bool test_setangle(void);
+    bool test_retrieve(void);
+
+private:
+
+    CEAngle base_;
 
 };
 
-#endif /* test_CENamespace_h */
+#endif /* test_CEAngle_h */
