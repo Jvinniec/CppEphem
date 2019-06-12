@@ -489,7 +489,10 @@ void CEAngle::SetAngle(const std::vector<double>& angle_vec,
  * 
  * @param[in] angle             Angle as a vector of doubles
  * 
- * An exception is thrown if @p angle_type is neither HMS or DMS
+ * The @p angle parameter should contain hours and minutes as whole numbers,
+ * as they will be be cast to integers. The seconds parameter is assumed to 
+ * be at index [2], or split across index [2] and [3] if "angle.size() == 4".
+ * This allows dividing the seconds across two indices.
  *************************************************************************/
 void CEAngle::SetAngle_HmsVect(const std::vector<double>& angle)
 {
@@ -508,15 +511,15 @@ void CEAngle::SetAngle_HmsVect(const std::vector<double>& angle)
             // Hours out of bounds
             case 1:
                 msg += "Hour value \'" + std::to_string(angle[0]) + "\' not in range 0-23";
-                throw CEException::invalid_value("CEAngle::SetAngle", msg);
+                throw CEException::invalid_value("CEAngle::SetAngle_HmsVect", msg);
             // Minutes out of bounds
             case 2:
                 msg += "Minutes value \'" + std::to_string(angle[1]) + "\' not in range 0-59";
-                throw CEException::invalid_value("CEAngle::SetAngle", msg);
+                throw CEException::invalid_value("CEAngle::SetAngle_HmsVect", msg);
             // Seconds out of bounds
             case 3:
                 msg += "Seconds value \'" + std::to_string(sec) + "\' not in range 0-59.999...";
-                throw CEException::invalid_value("CEAngle::SetAngle", msg);
+                throw CEException::invalid_value("CEAngle::SetAngle_HmsVect", msg);
         }
     }
 
@@ -527,11 +530,14 @@ void CEAngle::SetAngle_HmsVect(const std::vector<double>& angle)
 
 
 /**********************************************************************//**
- * Set the angle from a vector of doubles
+ * Set the angle from a vector of doubles of the form {degrees, arcmin, arcsec}
  * 
  * @param[in] angle             Angle as a vector of doubles
  * 
- * An exception is thrown if @p angle_type is neither HMS or DMS
+ * The @p angle parameter should contain degrees and arcmins as whole numbers,
+ * as they will be be cast to integers. The arcsecs parameter is assumed to 
+ * be at index [2], or split across index [2] and [3] if "angle.size() == 4".
+ * This allows dividing the seconds across two indices.
  *************************************************************************/
 void CEAngle::SetAngle_DmsVect(const std::vector<double>& angle)
 {
@@ -552,15 +558,15 @@ void CEAngle::SetAngle_DmsVect(const std::vector<double>& angle)
             // Hours out of bounds
             case 1:
                 msg += "Degree value \'" + std::to_string(angle[0]) + "\' not in range 0-359";
-                throw CEException::invalid_value("CECoordinates::DMSToAngle", msg);
+                throw CEException::invalid_value("CEAngle::SetAngle_DmsVect", msg);
             // Minutes out of bounds
             case 2:
                 msg += "Arcmin value \'" + std::to_string(angle[1]) + "\' not in range 0-59";
-                throw CEException::invalid_value("CECoordinates::DMSToAngle", msg);
+                throw CEException::invalid_value("CEAngle::SetAngle_DmsVect", msg);
             // Seconds out of bounds
             case 3:
                 msg += "Arcsec value \'" + std::to_string(sec) + "\' not in range 0-59.999...";
-                throw CEException::invalid_value("CECoordinates::DMSToAngle", msg);
+                throw CEException::invalid_value("CEAngle::SetAngle_DmsVect", msg);
         }
     }
 
