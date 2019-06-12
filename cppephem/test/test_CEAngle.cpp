@@ -192,7 +192,7 @@ bool test_CEAngle::test_retrieve(void)
     // Now test some of the other ways in which to get back the angle using
     // a particular format. For this, we will use 315.25 degrees
     double test_deg = 315.25;
-    CEAngle test_ang = test_deg * DD2R;
+    CEAngle test_ang(test_deg * DD2R);
 
     // Deg
     test_double(test_ang.Deg(), test_deg, __func__, __LINE__);
@@ -221,6 +221,54 @@ bool test_CEAngle::test_retrieve(void)
     const CEAngle test_ang2(test_ang);
     // Test 'const' version
     test_double(test_ang2, test_deg*DD2R, __func__, __LINE__);
+
+
+    // Test exceptions
+    CEAngle test_ang3;
+
+    // Incorrect hour
+    try {
+        test_ang3.SetAngle({25, 2, 3.3}, CEAngleType::HMS);
+        test(false, "HMS bad hours exception", __func__, __LINE__);
+    } catch (CEException::invalid_value& e) {
+        test(true, "HMS bad hours exception", __func__, __LINE__);
+    }
+    // Incorrect minutes
+    try {
+        test_ang3.SetAngle({1, -2, 3.3}, CEAngleType::HMS);
+        test(false, "HMS bad minutes exception", __func__, __LINE__);
+    } catch (CEException::invalid_value& e) {
+        test(true, "HMS bad minutes exception", __func__, __LINE__);
+    }
+    // Incorrect seconds
+    try {
+        test_ang3.SetAngle({1, 2, -3.3}, CEAngleType::HMS);
+        test(false, "HMS bad seconds exception", __func__, __LINE__);
+    } catch (CEException::invalid_value& e) {
+        test(true, "HMS bad seconds exception", __func__, __LINE__);
+    }
+
+    // Incorrect degrees
+    try {
+        test_ang3.SetAngle({370, 2, 3.3}, CEAngleType::DMS);
+        test(false, "DMS bad degrees exception", __func__, __LINE__);
+    } catch (CEException::invalid_value& e) {
+        test(true, "DMS bad degrees exception", __func__, __LINE__);
+    }
+    // Incorrect minutes
+    try {
+        test_ang3.SetAngle({1, -2, 3.3}, CEAngleType::DMS);
+        test(false, "DMS bad arcmins exception", __func__, __LINE__);
+    } catch (CEException::invalid_value& e) {
+        test(true, "DMS bad arcmins exception", __func__, __LINE__);
+    }
+    // Incorrect seconds
+    try {
+        test_ang3.SetAngle({1, 2, -3.3}, CEAngleType::DMS);
+        test(false, "DMS bad arcsecs exception", __func__, __LINE__);
+    } catch (CEException::invalid_value& e) {
+        test(true, "DMS bad arcsecs exception", __func__, __LINE__);
+    }
 
     return pass();
 }
