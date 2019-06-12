@@ -10,8 +10,9 @@ var searchData=
   ['albedo_5f',['albedo_',['../classCEPlanet.html#aa491042a13edce9f80db18245ef0ea55',1,'CEPlanet']]],
   ['algorithm',['Algorithm',['../classCEPlanet.html#af88aa54c4084ab7e906152fe9195cbb2',1,'CEPlanet']]],
   ['algorithm_5ftype_5f',['algorithm_type_',['../classCEPlanet.html#a308d03c8d8221d74ba2ed2248327dc2a',1,'CEPlanet']]],
+  ['angle_5f',['angle_',['../classCEAngle.html#a7858dfb5393f5789cff4ef3bec871dce',1,'CEAngle']]],
   ['angsep_2ecpp',['angsep.cpp',['../angsep_8cpp.html',1,'']]],
-  ['angularseparation',['AngularSeparation',['../classCECoordinates.html#ac339685c686c2a9dc309acacc10bc131',1,'CECoordinates::AngularSeparation(const CECoordinates &amp;coords, const CEAngleType &amp;return_angle_type=CEAngleType::DEGREES) const'],['../classCECoordinates.html#a9c578069f3c26a9b31922b5d896f71d5',1,'CECoordinates::AngularSeparation(const CECoordinates &amp;coords1, const CECoordinates &amp;coords2, const CEAngleType &amp;return_angle_type=CEAngleType::DEGREES)'],['../classCECoordinates.html#a7ea5226b75ffb6dd8112d8d177120e54',1,'CECoordinates::AngularSeparation(double xcoord_first, double ycoord_first, double xcoord_second, double ycoord_second, const CEAngleType &amp;angle_type=CEAngleType::DEGREES)']]],
+  ['angularseparation',['AngularSeparation',['../classCECoordinates.html#a78e4e95e47ca92fcb02f525eb0832583',1,'CECoordinates::AngularSeparation(const CECoordinates &amp;coords) const'],['../classCECoordinates.html#a1e690cec80ab6bb29759f2a00f231d41',1,'CECoordinates::AngularSeparation(const CECoordinates &amp;coords1, const CECoordinates &amp;coords2)'],['../classCECoordinates.html#a61ed12925cfb744b369de30a678c6012',1,'CECoordinates::AngularSeparation(const CEAngle &amp;xcoord_first, const CEAngle &amp;ycoord_first, const CEAngle &amp;xcoord_second, const CEAngle &amp;ycoord_second)']]],
   ['ascending_5fnode_5flon_5fdeg_5f',['ascending_node_lon_deg_',['../classCEPlanet.html#a23c297e548989b33f612cd51035a2612',1,'CEPlanet']]],
   ['ascending_5fnode_5flon_5fdeg_5fper_5fcent_5f',['ascending_node_lon_deg_per_cent_',['../classCEPlanet.html#a63404bd283a4d111fa328a8a71b2c1f0',1,'CEPlanet']]]
 ];

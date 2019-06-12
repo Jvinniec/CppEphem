@@ -2,6 +2,8 @@ var searchData=
 [
   ['cal2jd_2ecpp',['cal2jd.cpp',['../cal2jd_8cpp.html',1,'']]],
   ['cal2mjd_2ecpp',['cal2mjd.cpp',['../cal2mjd_8cpp.html',1,'']]],
+  ['ceangle_2ecpp',['CEAngle.cpp',['../CEAngle_8cpp.html',1,'']]],
+  ['ceangle_2eh',['CEAngle.h',['../CEAngle_8h.html',1,'']]],
   ['cebody_2ecpp',['CEBody.cpp',['../CEBody_8cpp.html',1,'']]],
   ['cebody_2eh',['CEBody.h',['../CEBody_8h.html',1,'']]],
   ['cecoordinates_2ecpp',['CECoordinates.cpp',['../CECoordinates_8cpp.html',1,'']]],

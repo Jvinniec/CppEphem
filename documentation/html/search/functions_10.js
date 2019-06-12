@@ -9,9 +9,12 @@ var searchData=
   ['sec_5fper_5fday',['sec_per_day',['../namespaceCppEphem.html#a5a6a700d47f3fd1a606f15738f88205c',1,'CppEphem']]],
   ['setalbedo',['SetAlbedo',['../classCEPlanet.html#a329639c1a66c642c4ccc3855ed908ae3',1,'CEPlanet']]],
   ['setalgorithm',['SetAlgorithm',['../classCEPlanet.html#a9f9438d2f902eded4b5a4176364649ea',1,'CEPlanet']]],
+  ['setangle',['SetAngle',['../classCEAngle.html#a20371d126033f91f733de5ed78d56947',1,'CEAngle::SetAngle(const double &amp;angle, const CEAngleType &amp;angle_type=CEAngleType::RADIANS)'],['../classCEAngle.html#aae5ab43fb16c76ef6b6686899d9fdbc2',1,'CEAngle::SetAngle(const char *angle_str, const CEAngleType &amp;angle_type, const char &amp;delim=0)'],['../classCEAngle.html#ab2e691424510512bcdd4b8d7e85c9966',1,'CEAngle::SetAngle(const std::vector&lt; double &gt; &amp;angle_vec, const CEAngleType &amp;angle_type)']]],
+  ['setangle_5fdmsvect',['SetAngle_DmsVect',['../classCEAngle.html#a8f965fcdf80d789731bf2132658acc5d',1,'CEAngle']]],
+  ['setangle_5fhmsvect',['SetAngle_HmsVect',['../classCEAngle.html#ac8bd49d321ba996e61abedf4337d0e2d',1,'CEAngle']]],
   ['setascendingnodelongitude',['SetAscendingNodeLongitude',['../classCEPlanet.html#a47d9f5d31aee2079e3ea224a6924c72a',1,'CEPlanet']]],
   ['setbody',['SetBody',['../classCEObservation.html#ac36ecc1e4e659684d128873fdc8dcd25',1,'CEObservation']]],
-  ['setcoordinates',['SetCoordinates',['../classCECoordinates.html#a06eb6488e5f8cda65fa5ac67c8d82c54',1,'CECoordinates::SetCoordinates(const double &amp;xcoord, const double &amp;ycoord, const CECoordinateType &amp;coord_type=CECoordinateType::ICRS, const CEAngleType &amp;angle_type=CEAngleType::RADIANS)'],['../classCECoordinates.html#aa26ddd480471eb890f5b96249f10d78d',1,'CECoordinates::SetCoordinates(const CECoordinates &amp;coords)']]],
+  ['setcoordinates',['SetCoordinates',['../classCECoordinates.html#ac5c110184632977b0cb470446cf5d7bd',1,'CECoordinates::SetCoordinates(const CEAngle &amp;xcoord, const CEAngle &amp;ycoord, const CECoordinateType &amp;coord_type=CECoordinateType::ICRS)'],['../classCECoordinates.html#aa26ddd480471eb890f5b96249f10d78d',1,'CECoordinates::SetCoordinates(const CECoordinates &amp;coords)']]],
   ['setdate',['SetDate',['../classCEDate.html#a728b7b3b4f6569c923b6b299b27d12e6',1,'CEDate::SetDate(const double &amp;date=CurrentJD(), const CEDateType &amp;time_format=CEDateType::JD)'],['../classCEDate.html#a6f913b696962f236a4b4de75eb2fd5e1',1,'CEDate::SetDate(std::vector&lt; double &gt; date)'],['../classCEObservation.html#a7f8bc11f80a7b6f36f39001f97482757',1,'CEObservation::SetDate()']]],
   ['seteccentricity',['SetEccentricity',['../classCEPlanet.html#a5b90570f22bc5e2654450d14c0cb79e1',1,'CEPlanet']]],
   ['setelevation',['SetElevation',['../classCEObserver.html#a40f4061b3c904f4e5581226c1a0a87c5',1,'CEObserver']]],
@@ -54,5 +57,6 @@ var searchData=
   ['setwavelength_5fum',['SetWavelength_um',['../classCEObserver.html#a012584e8da5c9d3dc2b1c1526f84f8c3',1,'CEObserver']]],
   ['sofa_5ferror',['sofa_error',['../classCEException_1_1sofa__error.html#ac3372e76fb971d587993ae1f0a857cc0',1,'CEException::sofa_error']]],
   ['sofa_5fexception',['sofa_exception',['../classCEException_1_1sofa__exception.html#a751cfae455aa4925a13a74297fbbb898',1,'CEException::sofa_exception']]],
+  ['split',['split',['../namespaceCppEphem_1_1StrOpt.html#ae51bd16a58e8034efdcd533e40e131c1',1,'CppEphem::StrOpt::split(const std::string &amp;s, const char &amp;delim, std::vector&lt; std::string &gt; *elems)'],['../namespaceCppEphem_1_1StrOpt.html#a62703cf02c307869d7940297850ab306',1,'CppEphem::StrOpt::split(const std::string &amp;s, const char &amp;delim)']]],
   ['systemutcoffset_5fhrs',['SystemUTCOffset_hrs',['../classCETime.html#a0ef79aadd326a95457c520318e7895e8',1,'CETime']]]
 ];

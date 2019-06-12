@@ -94,7 +94,7 @@ $(function() {
 <p>The eight planets and Pluto have predefined static methods. To create one of these predefined planet objects, it is advised to use these methods:</p>
 <div class="fragment"><div class="line"><span class="comment">// Define one of the planets:</span></div><div class="line"><a class="code" href="classCEPlanet.html">CEPlanet</a> mercury = <a class="code" href="classCEPlanet.html#a7a2cf05b1c732497ae30a8438e642169">CEPlanet::Mercury</a>();</div><div class="line"><a class="code" href="classCEPlanet.html">CEPlanet</a> venus   = <a class="code" href="classCEPlanet.html#af7e758086d83033df36b91a2fec124d3">CEPlanet::Venus</a>();</div><div class="line"><a class="code" href="classCEPlanet.html">CEPlanet</a> mars    = <a class="code" href="classCEPlanet.html#a3fdb4091a578cdb199866113d49a7f87">CEPlanet::Mars</a>();</div><div class="line"><a class="code" href="classCEPlanet.html">CEPlanet</a> jupiter = <a class="code" href="classCEPlanet.html#a2b0d49aa45238b2b826f2bce561598c5">CEPlanet::Jupiter</a>();</div><div class="line"><a class="code" href="classCEPlanet.html">CEPlanet</a> saturn  = <a class="code" href="classCEPlanet.html#aa5bf5f82c2943e805534186297063524">CEPlanet::Saturn</a>();</div><div class="line"><a class="code" href="classCEPlanet.html">CEPlanet</a> uranus  = <a class="code" href="classCEPlanet.html#a85c738a79ef43d9d5404465ff62baf34">CEPlanet::Uranus</a>();</div><div class="line"><a class="code" href="classCEPlanet.html">CEPlanet</a> neptune = <a class="code" href="classCEPlanet.html#a7bb7ee31831b9c5c3df892ee5b71c63c">CEPlanet::Neptune</a>();</div><div class="line"><a class="code" href="classCEPlanet.html">CEPlanet</a> pluto   = <a class="code" href="classCEPlanet.html#a79c688c7d6f01bbe3348e11025a8df6c">CEPlanet::Pluto</a>();</div></div><!-- fragment --><h2>Converting To Observed Coordinates</h2>
 <p>In order to get the observed coordinates of a planet, it is a simple matter of combining three objects: Observer, date, and planet. This can be done in the following way:</p>
-<div class="fragment"><div class="line"><span class="comment">// == CREATE THE INPUT OBJECTS == //</span></div><div class="line"></div><div class="line"><span class="comment">// Create a date object for the current time</span></div><div class="line"><a class="code" href="classCEDate.html">CEDate</a> date;</div><div class="line"></div><div class="line"><span class="comment">// Create a default observer, longitude and latitude in degrees. </span></div><div class="line"><span class="comment">// I&#39;m using Ames, IA, USA.</span></div><div class="line"><a class="code" href="classCEObserver.html">CEObserver</a> observer(-93.62, 42.0347, 287.0, <a class="code" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a>) ;</div><div class="line"></div><div class="line"><span class="comment">// Create a planet object representing Mercury</span></div><div class="line"><a class="code" href="classCEPlanet.html">CEPlanet</a> mercury = <a class="code" href="classCEPlanet.html#a7a2cf05b1c732497ae30a8438e642169">CEPlanet::Mercury</a>() ;</div><div class="line"></div><div class="line"><span class="comment">// Now assemble the observer and the </span></div><div class="line"><span class="comment">// planet into an observation object</span></div><div class="line"><a class="code" href="classCEObservation.html">CEObservation</a> observed_coords(&amp;observer, &amp;mercury, &amp;date) ;</div><div class="line"></div><div class="line"><span class="comment">// == ACCESS THE OBSERVED PLANET POSITION == //</span></div><div class="line"></div><div class="line"><span class="comment">// Now we can get the current positions of mercury</span></div><div class="line"><span class="keywordtype">double</span> azimuth(0.0), zenith(0.0);</div><div class="line">observed_coords.GetAzimuthZenith_Deg(&amp;azimuth, &amp;zenith) ;</div><div class="line"></div><div class="line"><span class="comment">// At this point &#39;azimuth&#39; and &#39;zenith&#39; hold the azimuth</span></div><div class="line"><span class="comment">// and zenith angle (in degrees) of mercury for &#39;observer&#39;</span></div><div class="line"><span class="comment">// at the date/time represented by &#39;date&#39;.</span></div></div><!-- fragment --><p>To get an updated position of Mercury at some other date, we simply update the value of 'date' and call again '<a class="el" href="classCEObservation.html#a2a4df067e25e5d6b5f0405f33f31e161" title="Returns both the azimuth and zenith angle of a given &#39;body_&#39; as observed by &#39;observer_&#39; on the date g...">CEObservation::GetAzimuthZenith_Deg()</a>'</p>
+<div class="fragment"><div class="line"><span class="comment">// == CREATE THE INPUT OBJECTS == //</span></div><div class="line"></div><div class="line"><span class="comment">// Create a date object for the current time</span></div><div class="line"><a class="code" href="classCEDate.html">CEDate</a> date;</div><div class="line"></div><div class="line"><span class="comment">// Create a default observer, longitude and latitude in degrees. </span></div><div class="line"><span class="comment">// I&#39;m using Ames, IA, USA.</span></div><div class="line"><a class="code" href="classCEObserver.html">CEObserver</a> observer(-93.62, 42.0347, 287.0, <a class="code" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a>) ;</div><div class="line"></div><div class="line"><span class="comment">// Create a planet object representing Mercury</span></div><div class="line"><a class="code" href="classCEPlanet.html">CEPlanet</a> mercury = <a class="code" href="classCEPlanet.html#a7a2cf05b1c732497ae30a8438e642169">CEPlanet::Mercury</a>() ;</div><div class="line"></div><div class="line"><span class="comment">// Now assemble the observer and the </span></div><div class="line"><span class="comment">// planet into an observation object</span></div><div class="line"><a class="code" href="classCEObservation.html">CEObservation</a> observed_coords(&amp;observer, &amp;mercury, &amp;date) ;</div><div class="line"></div><div class="line"><span class="comment">// == ACCESS THE OBSERVED PLANET POSITION == //</span></div><div class="line"></div><div class="line"><span class="comment">// Now we can get the current positions of mercury</span></div><div class="line"><span class="keywordtype">double</span> azimuth(0.0), zenith(0.0);</div><div class="line">observed_coords.GetAzimuthZenith_Deg(&amp;azimuth, &amp;zenith) ;</div><div class="line"></div><div class="line"><span class="comment">// At this point &#39;azimuth&#39; and &#39;zenith&#39; hold the azimuth</span></div><div class="line"><span class="comment">// and zenith angle (in degrees) of mercury for &#39;observer&#39;</span></div><div class="line"><span class="comment">// at the date/time represented by &#39;date&#39;.</span></div></div><!-- fragment --><p>To get an updated position of Mercury at some other date, we simply update the value of 'date' and call again '<a class="el" href="classCEObservation.html#a2a4df067e25e5d6b5f0405f33f31e161" title="Returns both the azimuth and zenith angle of a given &#39;body_&#39; as observed by &#39;observer_&#39; on the date g...">CEObservation::GetAzimuthZenith_Deg()</a>'</p>
 <div class="fragment"><div class="line"><span class="comment">// Change the date to June 5, 2018 at 1pm UTC</span></div><div class="line">date.<a class="code" href="classCEDate.html#a728b7b3b4f6569c923b6b299b27d12e6">SetDate</a>( 20180605 + (13.0/24.0), <a class="code" href="CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746acf325cc58a32a8798a7db3d0ef847ef7">CEDateType::GREGORIAN</a> );</div><div class="line"></div><div class="line"><span class="comment">// Get the updated positions</span></div><div class="line">observed_coords.GetAzimuthZenith_Deg(&amp;azimuth, &amp;zenith) ;</div></div><!-- fragment --><p>The following chain of computations occurs behind the scenes (i.e. you dont have to know how it's done in order to get the coordinates out).</p>
 <p>The positions are computed first for the planet in order to obtain its heliocentric (ICRS in JPL algorithm) reference frame x,y,z coordinates. Then, the x,y,z coordinates of the Earth (Earth-Moon barycenter in JPL) are computed. The planets x,y,z coordinates are then projected relative to the Earth centric (E-M barycenter in JPL algorithm) coordinates to obtain the apparent RA,Dec coordinates from the Earth.</p>
 <p>Future improvements will include correcting the coordinates for a given observer's location on the Earth relative to the E-M barycenter. </p>
@@ -110,9 +110,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af20650d245e29aa59208e8d59b7c1d77"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEPlanet.html#af20650d245e29aa59208e8d59b7c1d77">CEPlanet</a> ()</td></tr>
 <tr class="memdesc:af20650d245e29aa59208e8d59b7c1d77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#af20650d245e29aa59208e8d59b7c1d77">More...</a><br /></td></tr>
 <tr class="separator:af20650d245e29aa59208e8d59b7c1d77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adbe7c2d92db06152f302f1c054994f3c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEPlanet.html#adbe7c2d92db06152f302f1c054994f3c">CEPlanet</a> (const std::string &amp;name, const double &amp;xcoord, const double &amp;ycoord, const <a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2">CECoordinateType</a> &amp;coord_type=<a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2a4efe390156f8c58bfa109575fc5cae4c">CECoordinateType::CIRS</a>, const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>)</td></tr>
-<tr class="memdesc:adbe7c2d92db06152f302f1c054994f3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary constructor.  <a href="#adbe7c2d92db06152f302f1c054994f3c">More...</a><br /></td></tr>
-<tr class="separator:adbe7c2d92db06152f302f1c054994f3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab845ef5b61f8d97e16eaa9d06a43ba1d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEPlanet.html#ab845ef5b61f8d97e16eaa9d06a43ba1d">CEPlanet</a> (const std::string &amp;name, const <a class="el" href="classCEAngle.html">CEAngle</a> &amp;xcoord, const <a class="el" href="classCEAngle.html">CEAngle</a> &amp;ycoord, const <a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2">CECoordinateType</a> &amp;coord_type=<a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2a4efe390156f8c58bfa109575fc5cae4c">CECoordinateType::CIRS</a>)</td></tr>
+<tr class="memdesc:ab845ef5b61f8d97e16eaa9d06a43ba1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary constructor.  <a href="#ab845ef5b61f8d97e16eaa9d06a43ba1d">More...</a><br /></td></tr>
+<tr class="separator:ab845ef5b61f8d97e16eaa9d06a43ba1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22213ac905aad784454f033eb572d1d5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEPlanet.html#a22213ac905aad784454f033eb572d1d5">CEPlanet</a> (const <a class="el" href="classCEPlanet.html">CEPlanet</a> &amp;other)</td></tr>
 <tr class="memdesc:a22213ac905aad784454f033eb572d1d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="#a22213ac905aad784454f033eb572d1d5">More...</a><br /></td></tr>
 <tr class="separator:a22213ac905aad784454f033eb572d1d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,7 +158,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9f9438d2f902eded4b5a4176364649ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEPlanet.html#a9f9438d2f902eded4b5a4176364649ea">SetAlgorithm</a> (const <a class="el" href="CEPlanet_8h.html#ae0ffdf0d27cd448d21a16d3f9cb13029">CEPlanetAlgo</a> &amp;new_algo)</td></tr>
 <tr class="memdesc:a9f9438d2f902eded4b5a4176364649ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the desired planet computation algorithm.  <a href="#a9f9438d2f902eded4b5a4176364649ea">More...</a><br /></td></tr>
 <tr class="separator:a9f9438d2f902eded4b5a4176364649ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47d9f5d31aee2079e3ea224a6924c72a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEPlanet.html#a47d9f5d31aee2079e3ea224a6924c72a">SetAscendingNodeLongitude</a> (double ascending_node_lon, double ascending_node_lon_per_cent=0.0, <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a>)</td></tr>
+<tr class="memitem:a47d9f5d31aee2079e3ea224a6924c72a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEPlanet.html#a47d9f5d31aee2079e3ea224a6924c72a">SetAscendingNodeLongitude</a> (double ascending_node_lon, double ascending_node_lon_per_cent=0.0, <a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> angle_type=<a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a>)</td></tr>
 <tr class="memdesc:a47d9f5d31aee2079e3ea224a6924c72a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the longitude of the ascending node.  <a href="#a47d9f5d31aee2079e3ea224a6924c72a">More...</a><br /></td></tr>
 <tr class="separator:a47d9f5d31aee2079e3ea224a6924c72a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b90570f22bc5e2654450d14c0cb79e1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEPlanet.html#a5b90570f22bc5e2654450d14c0cb79e1">SetEccentricity</a> (double eccentricity, double eccentricity_per_cent=0.0)</td></tr>
@@ -166,17 +166,17 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a5b90570f22bc5e2654450d14c0cb79e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8092d3427d6bfbc32eb0db41f243a9ee"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEPlanet.html#a8092d3427d6bfbc32eb0db41f243a9ee">SetExtraTerms</a> (double b, double c, double s, double f)</td></tr>
 <tr class="separator:a8092d3427d6bfbc32eb0db41f243a9ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe95573b1897bd90b246bfafb11213a6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEPlanet.html#abe95573b1897bd90b246bfafb11213a6">SetInclination</a> (double inclination, double inclination_per_cent=0.0, <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a>)</td></tr>
+<tr class="memitem:abe95573b1897bd90b246bfafb11213a6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEPlanet.html#abe95573b1897bd90b246bfafb11213a6">SetInclination</a> (double inclination, double inclination_per_cent=0.0, <a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> angle_type=<a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a>)</td></tr>
 <tr class="memdesc:abe95573b1897bd90b246bfafb11213a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the inclination angle of the planets orbit.  <a href="#abe95573b1897bd90b246bfafb11213a6">More...</a><br /></td></tr>
 <tr class="separator:abe95573b1897bd90b246bfafb11213a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56e2655bbe4c5d236bc903dbd791ebe2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEPlanet.html#a56e2655bbe4c5d236bc903dbd791ebe2">SetMass_kg</a> (double new_mass)</td></tr>
 <tr class="separator:a56e2655bbe4c5d236bc903dbd791ebe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21b050f746aa3964c065a4ff988f785f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEPlanet.html#a21b050f746aa3964c065a4ff988f785f">SetMeanLongitude</a> (double mean_longitude, double mean_longitude_per_cent=0.0, <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a>)</td></tr>
+<tr class="memitem:a21b050f746aa3964c065a4ff988f785f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEPlanet.html#a21b050f746aa3964c065a4ff988f785f">SetMeanLongitude</a> (double mean_longitude, double mean_longitude_per_cent=0.0, <a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> angle_type=<a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a>)</td></tr>
 <tr class="memdesc:a21b050f746aa3964c065a4ff988f785f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the mean longitude.  <a href="#a21b050f746aa3964c065a4ff988f785f">More...</a><br /></td></tr>
 <tr class="separator:a21b050f746aa3964c065a4ff988f785f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a915387e1d3875244508a8c32861a6cb8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEPlanet.html#a915387e1d3875244508a8c32861a6cb8">SetMeanRadius_m</a> (double new_radius)</td></tr>
 <tr class="separator:a915387e1d3875244508a8c32861a6cb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a927394fa860a8302994fafce79e50a08"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEPlanet.html#a927394fa860a8302994fafce79e50a08">SetPerihelionLongitude</a> (double perihelion_lon, double perihelion_lon_per_cent=0.0, <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a>)</td></tr>
+<tr class="memitem:a927394fa860a8302994fafce79e50a08"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEPlanet.html#a927394fa860a8302994fafce79e50a08">SetPerihelionLongitude</a> (double perihelion_lon, double perihelion_lon_per_cent=0.0, <a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> angle_type=<a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a>)</td></tr>
 <tr class="memdesc:a927394fa860a8302994fafce79e50a08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the longitude at perihelion.  <a href="#a927394fa860a8302994fafce79e50a08">More...</a><br /></td></tr>
 <tr class="separator:a927394fa860a8302994fafce79e50a08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c2536de853af556b81a7be6f0f43ee9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEPlanet.html#a4c2536de853af556b81a7be6f0f43ee9">SetReference</a> (<a class="el" href="classCEPlanet.html">CEPlanet</a> *reference)</td></tr>
@@ -207,13 +207,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ab34bf7ec3e578b6cfae42c9a4013aaf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns x coordinate at given julian date in degrees.  <a href="#ab34bf7ec3e578b6cfae42c9a4013aaf5">More...</a><br /></td></tr>
 <tr class="separator:ab34bf7ec3e578b6cfae42c9a4013aaf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0df9615aaae6ec03a680fec06cb8e683"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEPlanet.html#a0df9615aaae6ec03a680fec06cb8e683">XCoordinate_Rad</a> (double new_date=-1.0e30) const</td></tr>
-<tr class="memdesc:a0df9615aaae6ec03a680fec06cb8e683"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return x coordinate at given Julian date in radius.  <a href="#a0df9615aaae6ec03a680fec06cb8e683">More...</a><br /></td></tr>
+<tr class="memdesc:a0df9615aaae6ec03a680fec06cb8e683"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return x coordinate at given Julian date in radians.  <a href="#a0df9615aaae6ec03a680fec06cb8e683">More...</a><br /></td></tr>
 <tr class="separator:a0df9615aaae6ec03a680fec06cb8e683"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad633dffe34d327da4531eef202897458"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEPlanet.html#ad633dffe34d327da4531eef202897458">YCoordinate_Deg</a> (double new_date=-1.0e30) const</td></tr>
 <tr class="memdesc:ad633dffe34d327da4531eef202897458"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns y coordinate at given Julian date in degrees.  <a href="#ad633dffe34d327da4531eef202897458">More...</a><br /></td></tr>
 <tr class="separator:ad633dffe34d327da4531eef202897458"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7f9e2e7ec6f9014fdcf8f644ab2768e"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEPlanet.html#ab7f9e2e7ec6f9014fdcf8f644ab2768e">YCoordinate_Rad</a> (double new_date=-1.0e30) const</td></tr>
-<tr class="memdesc:ab7f9e2e7ec6f9014fdcf8f644ab2768e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns y coordinate at given Julian date in radius.  <a href="#ab7f9e2e7ec6f9014fdcf8f644ab2768e">More...</a><br /></td></tr>
+<tr class="memdesc:ab7f9e2e7ec6f9014fdcf8f644ab2768e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns y coordinate at given Julian date in radians.  <a href="#ab7f9e2e7ec6f9014fdcf8f644ab2768e">More...</a><br /></td></tr>
 <tr class="separator:ab7f9e2e7ec6f9014fdcf8f644ab2768e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a9243746c1623eeb7555f04b5554923"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEPlanet.html#a4a9243746c1623eeb7555f04b5554923">~CEPlanet</a> ()</td></tr>
 <tr class="memdesc:a4a9243746c1623eeb7555f04b5554923"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#a4a9243746c1623eeb7555f04b5554923">More...</a><br /></td></tr>
@@ -222,9 +222,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abd36081ccb5770d61e2da22e3f50d552 inherit pub_methods_classCEBody"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEBody.html#abd36081ccb5770d61e2da22e3f50d552">CEBody</a> ()</td></tr>
 <tr class="memdesc:abd36081ccb5770d61e2da22e3f50d552 inherit pub_methods_classCEBody"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="classCEBody.html#abd36081ccb5770d61e2da22e3f50d552">More...</a><br /></td></tr>
 <tr class="separator:abd36081ccb5770d61e2da22e3f50d552 inherit pub_methods_classCEBody"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3c5cd8592b69cd7da63301b8921c68b inherit pub_methods_classCEBody"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEBody.html#aa3c5cd8592b69cd7da63301b8921c68b">CEBody</a> (const std::string &amp;name, const double &amp;xcoord, const double &amp;ycoord, const <a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2">CECoordinateType</a> &amp;coord_type=<a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2a37dfc89db165108163b0dd9be927434a">CECoordinateType::ICRS</a>, const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>)</td></tr>
-<tr class="memdesc:aa3c5cd8592b69cd7da63301b8921c68b inherit pub_methods_classCEBody"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary constructor.  <a href="classCEBody.html#aa3c5cd8592b69cd7da63301b8921c68b">More...</a><br /></td></tr>
-<tr class="separator:aa3c5cd8592b69cd7da63301b8921c68b inherit pub_methods_classCEBody"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e527183e2821b5ffe6683a333aa7af1 inherit pub_methods_classCEBody"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEBody.html#a8e527183e2821b5ffe6683a333aa7af1">CEBody</a> (const std::string &amp;name, const <a class="el" href="classCEAngle.html">CEAngle</a> &amp;xcoord, const <a class="el" href="classCEAngle.html">CEAngle</a> &amp;ycoord, const <a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2">CECoordinateType</a> &amp;coord_type=<a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2a37dfc89db165108163b0dd9be927434a">CECoordinateType::ICRS</a>)</td></tr>
+<tr class="memdesc:a8e527183e2821b5ffe6683a333aa7af1 inherit pub_methods_classCEBody"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary constructor.  <a href="classCEBody.html#a8e527183e2821b5ffe6683a333aa7af1">More...</a><br /></td></tr>
+<tr class="separator:a8e527183e2821b5ffe6683a333aa7af1 inherit pub_methods_classCEBody"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa38cdade286fa01a12375318d70c8fda inherit pub_methods_classCEBody"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCEBody.html#aa38cdade286fa01a12375318d70c8fda">CEBody</a> (const <a class="el" href="classCEBody.html">CEBody</a> &amp;other, const std::string &amp;name=&quot;&quot;)</td></tr>
 <tr class="memdesc:aa38cdade286fa01a12375318d70c8fda inherit pub_methods_classCEBody"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="classCEBody.html#aa38cdade286fa01a12375318d70c8fda">More...</a><br /></td></tr>
 <tr class="separator:aa38cdade286fa01a12375318d70c8fda inherit pub_methods_classCEBody"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -247,15 +247,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a48c972239b6ff122712a5771e6f6b7c1 inherit pub_methods_classCEBody"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="classCEBody.html#a48c972239b6ff122712a5771e6f6b7c1">More...</a><br /></td></tr>
 <tr class="separator:a48c972239b6ff122712a5771e6f6b7c1 inherit pub_methods_classCEBody"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classCECoordinates"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classCECoordinates')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classCECoordinates.html">CECoordinates</a></td></tr>
-<tr class="memitem:ac339685c686c2a9dc309acacc10bc131 inherit pub_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#ac339685c686c2a9dc309acacc10bc131">AngularSeparation</a> (const <a class="el" href="classCECoordinates.html">CECoordinates</a> &amp;coords, const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;return_angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a>) const</td></tr>
-<tr class="memdesc:ac339685c686c2a9dc309acacc10bc131 inherit pub_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the angular separation between the coordinates represented by this object and another coordinate object.  <a href="classCECoordinates.html#ac339685c686c2a9dc309acacc10bc131">More...</a><br /></td></tr>
-<tr class="separator:ac339685c686c2a9dc309acacc10bc131 inherit pub_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78e4e95e47ca92fcb02f525eb0832583 inherit pub_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classCEAngle.html">CEAngle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a78e4e95e47ca92fcb02f525eb0832583">AngularSeparation</a> (const <a class="el" href="classCECoordinates.html">CECoordinates</a> &amp;coords) const</td></tr>
+<tr class="memdesc:a78e4e95e47ca92fcb02f525eb0832583 inherit pub_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the angular separation between the coordinates represented by this object and another coordinate object.  <a href="classCECoordinates.html#a78e4e95e47ca92fcb02f525eb0832583">More...</a><br /></td></tr>
+<tr class="separator:a78e4e95e47ca92fcb02f525eb0832583 inherit pub_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adbaa5893da76e77dca4d1b8e630132d4 inherit pub_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#adbaa5893da76e77dca4d1b8e630132d4">CECoordinates</a> ()</td></tr>
 <tr class="memdesc:adbaa5893da76e77dca4d1b8e630132d4 inherit pub_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="classCECoordinates.html#adbaa5893da76e77dca4d1b8e630132d4">More...</a><br /></td></tr>
 <tr class="separator:adbaa5893da76e77dca4d1b8e630132d4 inherit pub_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad69fed7baf9ec975a43f6734df6d44ac inherit pub_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#ad69fed7baf9ec975a43f6734df6d44ac">CECoordinates</a> (const double &amp;xcoord, const double &amp;ycoord, const <a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2">CECoordinateType</a> &amp;coord_type=<a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2a37dfc89db165108163b0dd9be927434a">CECoordinateType::ICRS</a>, const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>)</td></tr>
-<tr class="memdesc:ad69fed7baf9ec975a43f6734df6d44ac inherit pub_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary constructor (NOTE: xcoord &amp; ycoord are expected to be in radians by default.  <a href="classCECoordinates.html#ad69fed7baf9ec975a43f6734df6d44ac">More...</a><br /></td></tr>
-<tr class="separator:ad69fed7baf9ec975a43f6734df6d44ac inherit pub_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27c6f55e2dd6af5fce4f0db800943930 inherit pub_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a27c6f55e2dd6af5fce4f0db800943930">CECoordinates</a> (const <a class="el" href="classCEAngle.html">CEAngle</a> &amp;xcoord, const <a class="el" href="classCEAngle.html">CEAngle</a> &amp;ycoord, const <a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2">CECoordinateType</a> &amp;coord_type=<a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2a37dfc89db165108163b0dd9be927434a">CECoordinateType::ICRS</a>)</td></tr>
+<tr class="memdesc:a27c6f55e2dd6af5fce4f0db800943930 inherit pub_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary constructor (NOTE: xcoord &amp; ycoord are expected to be in radians by default.  <a href="classCECoordinates.html#a27c6f55e2dd6af5fce4f0db800943930">More...</a><br /></td></tr>
+<tr class="separator:a27c6f55e2dd6af5fce4f0db800943930 inherit pub_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a232f4350366769f7e922dfd6b1f1f1d0 inherit pub_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a232f4350366769f7e922dfd6b1f1f1d0">CECoordinates</a> (const std::vector&lt; double &gt; &amp;xcoord, const std::vector&lt; double &gt; &amp;ycoord, const <a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2">CECoordinateType</a> &amp;coord_type=<a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2a37dfc89db165108163b0dd9be927434a">CECoordinateType::ICRS</a>)</td></tr>
 <tr class="memdesc:a232f4350366769f7e922dfd6b1f1f1d0 inherit pub_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary constructor.  <a href="classCECoordinates.html#a232f4350366769f7e922dfd6b1f1f1d0">More...</a><br /></td></tr>
 <tr class="separator:a232f4350366769f7e922dfd6b1f1f1d0 inherit pub_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -298,12 +298,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a054cd5011a1a70ba5234a8fc90cbdd81 inherit pub_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a054cd5011a1a70ba5234a8fc90cbdd81">print</a> (void) const</td></tr>
 <tr class="memdesc:a054cd5011a1a70ba5234a8fc90cbdd81 inherit pub_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a message string that specifies the information about this coordinate.  <a href="classCECoordinates.html#a054cd5011a1a70ba5234a8fc90cbdd81">More...</a><br /></td></tr>
 <tr class="separator:a054cd5011a1a70ba5234a8fc90cbdd81 inherit pub_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06eb6488e5f8cda65fa5ac67c8d82c54 inherit pub_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a06eb6488e5f8cda65fa5ac67c8d82c54">SetCoordinates</a> (const double &amp;xcoord, const double &amp;ycoord, const <a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2">CECoordinateType</a> &amp;coord_type=<a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2a37dfc89db165108163b0dd9be927434a">CECoordinateType::ICRS</a>, const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>)</td></tr>
-<tr class="memdesc:a06eb6488e5f8cda65fa5ac67c8d82c54 inherit pub_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the coordinates of this object.  <a href="classCECoordinates.html#a06eb6488e5f8cda65fa5ac67c8d82c54">More...</a><br /></td></tr>
-<tr class="separator:a06eb6488e5f8cda65fa5ac67c8d82c54 inherit pub_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5c110184632977b0cb470446cf5d7bd inherit pub_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#ac5c110184632977b0cb470446cf5d7bd">SetCoordinates</a> (const <a class="el" href="classCEAngle.html">CEAngle</a> &amp;xcoord, const <a class="el" href="classCEAngle.html">CEAngle</a> &amp;ycoord, const <a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2">CECoordinateType</a> &amp;coord_type=<a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2a37dfc89db165108163b0dd9be927434a">CECoordinateType::ICRS</a>)</td></tr>
+<tr class="memdesc:ac5c110184632977b0cb470446cf5d7bd inherit pub_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the coordinates of this object.  <a href="classCECoordinates.html#ac5c110184632977b0cb470446cf5d7bd">More...</a><br /></td></tr>
+<tr class="separator:ac5c110184632977b0cb470446cf5d7bd inherit pub_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa26ddd480471eb890f5b96249f10d78d inherit pub_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#aa26ddd480471eb890f5b96249f10d78d">SetCoordinates</a> (const <a class="el" href="classCECoordinates.html">CECoordinates</a> &amp;coords)</td></tr>
 <tr class="memdesc:aa26ddd480471eb890f5b96249f10d78d inherit pub_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the coordinates from another <a class="el" href="classCECoordinates.html" title="CECoordinates class is responsible for doing all of the celestial coordinate conversions.">CECoordinates</a> object.  <a href="classCECoordinates.html#aa26ddd480471eb890f5b96249f10d78d">More...</a><br /></td></tr>
 <tr class="separator:aa26ddd480471eb890f5b96249f10d78d inherit pub_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad07ab0d45bd137431eb48cee6275a11c inherit pub_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classCEAngle.html">CEAngle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#ad07ab0d45bd137431eb48cee6275a11c">XCoord</a> (const double &amp;jd=<a class="el" href="namespaceCppEphem.html#a0af24bad9d60de8e1748fb1479d3423b">CppEphem::julian_date_J2000</a>()) const</td></tr>
+<tr class="memdesc:ad07ab0d45bd137431eb48cee6275a11c inherit pub_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return x coordinate at given Julian date.  <a href="classCECoordinates.html#ad07ab0d45bd137431eb48cee6275a11c">More...</a><br /></td></tr>
+<tr class="separator:ad07ab0d45bd137431eb48cee6275a11c inherit pub_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33f6c9f22b10c992bd28ee2f8ecd73b8 inherit pub_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classCEAngle.html">CEAngle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a33f6c9f22b10c992bd28ee2f8ecd73b8">YCoord</a> (const double &amp;jd=<a class="el" href="namespaceCppEphem.html#a0af24bad9d60de8e1748fb1479d3423b">CppEphem::julian_date_J2000</a>()) const</td></tr>
+<tr class="memdesc:a33f6c9f22b10c992bd28ee2f8ecd73b8 inherit pub_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return y coordinate at given Julian date.  <a href="classCECoordinates.html#a33f6c9f22b10c992bd28ee2f8ecd73b8">More...</a><br /></td></tr>
+<tr class="separator:a33f6c9f22b10c992bd28ee2f8ecd73b8 inherit pub_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adfae4c048a969705b39c2890578862b7 inherit pub_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#adfae4c048a969705b39c2890578862b7">~CECoordinates</a> ()</td></tr>
 <tr class="memdesc:adfae4c048a969705b39c2890578862b7 inherit pub_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="classCECoordinates.html#adfae4c048a969705b39c2890578862b7">More...</a><br /></td></tr>
 <tr class="separator:adfae4c048a969705b39c2890578862b7 inherit pub_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -341,73 +347,73 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memdesc:af7e758086d83033df36b91a2fec124d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an object representing Venus.  <a href="#af7e758086d83033df36b91a2fec124d3">More...</a><br /></td></tr>
 <tr class="separator:af7e758086d83033df36b91a2fec124d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_methods_classCECoordinates"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classCECoordinates')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classCECoordinates.html">CECoordinates</a></td></tr>
-<tr class="memitem:a9c578069f3c26a9b31922b5d896f71d5 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a9c578069f3c26a9b31922b5d896f71d5">AngularSeparation</a> (const <a class="el" href="classCECoordinates.html">CECoordinates</a> &amp;coords1, const <a class="el" href="classCECoordinates.html">CECoordinates</a> &amp;coords2, const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;return_angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a>)</td></tr>
-<tr class="memdesc:a9c578069f3c26a9b31922b5d896f71d5 inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the angular separation between two coordinate objects.  <a href="classCECoordinates.html#a9c578069f3c26a9b31922b5d896f71d5">More...</a><br /></td></tr>
-<tr class="separator:a9c578069f3c26a9b31922b5d896f71d5 inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ea5226b75ffb6dd8112d8d177120e54 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a7ea5226b75ffb6dd8112d8d177120e54">AngularSeparation</a> (double xcoord_first, double ycoord_first, double xcoord_second, double ycoord_second, const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a>)</td></tr>
-<tr class="memdesc:a7ea5226b75ffb6dd8112d8d177120e54 inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the angular separation between two sets of coordinates.  <a href="classCECoordinates.html#a7ea5226b75ffb6dd8112d8d177120e54">More...</a><br /></td></tr>
-<tr class="separator:a7ea5226b75ffb6dd8112d8d177120e54 inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adaa97a7651e3a7e37088d14f77187a91 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#adaa97a7651e3a7e37088d14f77187a91">CIRS2Galactic</a> (double ra, double dec, double *glon, double *glat, const <a class="el" href="classCEDate.html">CEDate</a> &amp;date=<a class="el" href="classCEDate.html">CEDate</a>(), const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>)</td></tr>
+<tr class="memitem:a1e690cec80ab6bb29759f2a00f231d41 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classCEAngle.html">CEAngle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a1e690cec80ab6bb29759f2a00f231d41">AngularSeparation</a> (const <a class="el" href="classCECoordinates.html">CECoordinates</a> &amp;coords1, const <a class="el" href="classCECoordinates.html">CECoordinates</a> &amp;coords2)</td></tr>
+<tr class="memdesc:a1e690cec80ab6bb29759f2a00f231d41 inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the angular separation between two coordinate objects.  <a href="classCECoordinates.html#a1e690cec80ab6bb29759f2a00f231d41">More...</a><br /></td></tr>
+<tr class="separator:a1e690cec80ab6bb29759f2a00f231d41 inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61ed12925cfb744b369de30a678c6012 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classCEAngle.html">CEAngle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a61ed12925cfb744b369de30a678c6012">AngularSeparation</a> (const <a class="el" href="classCEAngle.html">CEAngle</a> &amp;xcoord_first, const <a class="el" href="classCEAngle.html">CEAngle</a> &amp;ycoord_first, const <a class="el" href="classCEAngle.html">CEAngle</a> &amp;xcoord_second, const <a class="el" href="classCEAngle.html">CEAngle</a> &amp;ycoord_second)</td></tr>
+<tr class="memdesc:a61ed12925cfb744b369de30a678c6012 inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the angular separation between two sets of coordinates.  <a href="classCECoordinates.html#a61ed12925cfb744b369de30a678c6012">More...</a><br /></td></tr>
+<tr class="separator:a61ed12925cfb744b369de30a678c6012 inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adaa97a7651e3a7e37088d14f77187a91 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#adaa97a7651e3a7e37088d14f77187a91">CIRS2Galactic</a> (double ra, double dec, double *glon, double *glat, const <a class="el" href="classCEDate.html">CEDate</a> &amp;date=<a class="el" href="classCEDate.html">CEDate</a>(), const <a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>)</td></tr>
 <tr class="memdesc:adaa97a7651e3a7e37088d14f77187a91 inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">CIRS -&gt; Galactic coordinate conversion.  <a href="classCECoordinates.html#adaa97a7651e3a7e37088d14f77187a91">More...</a><br /></td></tr>
 <tr class="separator:adaa97a7651e3a7e37088d14f77187a91 inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb91834f3a190eee0b3c41a31cd39c9e inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#acb91834f3a190eee0b3c41a31cd39c9e">CIRS2ICRS</a> (double input_ra, double input_dec, double *return_ra, double *return_dec, const <a class="el" href="classCEDate.html">CEDate</a> &amp;date=<a class="el" href="classCEDate.html">CEDate</a>(), const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>)</td></tr>
+<tr class="memitem:acb91834f3a190eee0b3c41a31cd39c9e inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#acb91834f3a190eee0b3c41a31cd39c9e">CIRS2ICRS</a> (double input_ra, double input_dec, double *return_ra, double *return_dec, const <a class="el" href="classCEDate.html">CEDate</a> &amp;date=<a class="el" href="classCEDate.html">CEDate</a>(), const <a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>)</td></tr>
 <tr class="memdesc:acb91834f3a190eee0b3c41a31cd39c9e inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">CIRS -&gt; ICRS coordinate conversion.  <a href="classCECoordinates.html#acb91834f3a190eee0b3c41a31cd39c9e">More...</a><br /></td></tr>
 <tr class="separator:acb91834f3a190eee0b3c41a31cd39c9e inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab152a62e04f7558a92ab1a3f77da57c0 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#ab152a62e04f7558a92ab1a3f77da57c0">CIRS2Observed</a> (double ra, double dec, double *az, double *zen, const <a class="el" href="classCEDate.html">CEDate</a> &amp;date, const <a class="el" href="classCEObserver.html">CEObserver</a> &amp;observer, const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>, double wavelength_um=0.5, double *observed_ra=nullptr, double *observed_dec=nullptr, double *hour_angle=nullptr)</td></tr>
+<tr class="memitem:ab152a62e04f7558a92ab1a3f77da57c0 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#ab152a62e04f7558a92ab1a3f77da57c0">CIRS2Observed</a> (double ra, double dec, double *az, double *zen, const <a class="el" href="classCEDate.html">CEDate</a> &amp;date, const <a class="el" href="classCEObserver.html">CEObserver</a> &amp;observer, const <a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>, double wavelength_um=0.5, double *observed_ra=nullptr, double *observed_dec=nullptr, double *hour_angle=nullptr)</td></tr>
 <tr class="memdesc:ab152a62e04f7558a92ab1a3f77da57c0 inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">CIRS -&gt; Observed (or observer specific) coordinate conversion This function takes in verious observation parameters The integer returned is a status code with the following meanings: +1 = dubious year (too far into the past/future to be trusted) 0 = OK status -1 = unacceptable date.  <a href="classCECoordinates.html#ab152a62e04f7558a92ab1a3f77da57c0">More...</a><br /></td></tr>
 <tr class="separator:ab152a62e04f7558a92ab1a3f77da57c0 inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51af7c1debca9588d23d00a0e19135d7 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a51af7c1debca9588d23d00a0e19135d7">CIRS2Observed</a> (double ra, double dec, double *az, double *zen, double julian_date, double longitude, double latitude, double elevation_m=0.0, double pressure_hPa=-1.0, double temperature_celsius=-1000, double relative_humidity=0.0, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength_um=0.5, double *observed_ra=nullptr, double *observed_dec=nullptr, double *hour_angle=nullptr)</td></tr>
 <tr class="memdesc:a51af7c1debca9588d23d00a0e19135d7 inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw method for converting CIRS -&gt; Observed (observer specific) coordinates (uses the SOFA 'iauAtio13' function) Note: All angles are expected to be in radians.  <a href="classCECoordinates.html#a51af7c1debca9588d23d00a0e19135d7">More...</a><br /></td></tr>
 <tr class="separator:a51af7c1debca9588d23d00a0e19135d7 inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52055b1de7684b7ce3fabf85cce3bf93 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a52055b1de7684b7ce3fabf85cce3bf93">DMSToAngle</a> (const std::vector&lt; double &gt; &amp;angle, const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;return_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a>)</td></tr>
+<tr class="memitem:a52055b1de7684b7ce3fabf85cce3bf93 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a52055b1de7684b7ce3fabf85cce3bf93">DMSToAngle</a> (const std::vector&lt; double &gt; &amp;angle, const <a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;return_type=<a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a>)</td></tr>
 <tr class="memdesc:a52055b1de7684b7ce3fabf85cce3bf93 inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a given angle vector from {degrees, minutes, seconds} to an angle.  <a href="classCECoordinates.html#a52055b1de7684b7ce3fabf85cce3bf93">More...</a><br /></td></tr>
 <tr class="separator:a52055b1de7684b7ce3fabf85cce3bf93 inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a815c23f9c41f99dd5d5400b05fe34e61 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a815c23f9c41f99dd5d5400b05fe34e61">Galactic2CIRS</a> (double glon, double glat, double *ra, double *dec, const <a class="el" href="classCEDate.html">CEDate</a> &amp;date=<a class="el" href="classCEDate.html">CEDate</a>(), const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>)</td></tr>
+<tr class="memitem:a815c23f9c41f99dd5d5400b05fe34e61 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a815c23f9c41f99dd5d5400b05fe34e61">Galactic2CIRS</a> (double glon, double glat, double *ra, double *dec, const <a class="el" href="classCEDate.html">CEDate</a> &amp;date=<a class="el" href="classCEDate.html">CEDate</a>(), const <a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>)</td></tr>
 <tr class="memdesc:a815c23f9c41f99dd5d5400b05fe34e61 inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Galactic -&gt; CIRS coordinate conversion.  <a href="classCECoordinates.html#a815c23f9c41f99dd5d5400b05fe34e61">More...</a><br /></td></tr>
 <tr class="separator:a815c23f9c41f99dd5d5400b05fe34e61 inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b4946debe768b8d3a6492b6aa2cceef inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a7b4946debe768b8d3a6492b6aa2cceef">Galactic2ICRS</a> (double glon, double glat, double *ra, double *dec, const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>)</td></tr>
+<tr class="memitem:a7b4946debe768b8d3a6492b6aa2cceef inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a7b4946debe768b8d3a6492b6aa2cceef">Galactic2ICRS</a> (double glon, double glat, double *ra, double *dec, const <a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>)</td></tr>
 <tr class="memdesc:a7b4946debe768b8d3a6492b6aa2cceef inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Galactic -&gt; ICRS coordinate conversion.  <a href="classCECoordinates.html#a7b4946debe768b8d3a6492b6aa2cceef">More...</a><br /></td></tr>
 <tr class="separator:a7b4946debe768b8d3a6492b6aa2cceef inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbac942c63224720391de4498cd0e0d3 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#afbac942c63224720391de4498cd0e0d3">Galactic2Observed</a> (double glon, double glat, double *az, double *zen, const <a class="el" href="classCEDate.html">CEDate</a> &amp;date, const <a class="el" href="classCEObserver.html">CEObserver</a> &amp;observer, const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>, double wavelength_um=0.5, double *observed_glon=nullptr, double *observed_glat=nullptr, double *hour_angle=nullptr)</td></tr>
+<tr class="memitem:afbac942c63224720391de4498cd0e0d3 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#afbac942c63224720391de4498cd0e0d3">Galactic2Observed</a> (double glon, double glat, double *az, double *zen, const <a class="el" href="classCEDate.html">CEDate</a> &amp;date, const <a class="el" href="classCEObserver.html">CEObserver</a> &amp;observer, const <a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>, double wavelength_um=0.5, double *observed_glon=nullptr, double *observed_glat=nullptr, double *hour_angle=nullptr)</td></tr>
 <tr class="memdesc:afbac942c63224720391de4498cd0e0d3 inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Galactic -&gt; Observed (i.e.  <a href="classCECoordinates.html#afbac942c63224720391de4498cd0e0d3">More...</a><br /></td></tr>
 <tr class="separator:afbac942c63224720391de4498cd0e0d3 inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8387bb0f6eb6090440f4fc4f49019e0 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#af8387bb0f6eb6090440f4fc4f49019e0">Galactic2Observed</a> (double glon, double glat, double *az, double *zen, double julian_date, double longitude, double latitude, double elevation_m=0.0, double pressure_hPa=-1.0, double temperature_celsius=-1000, double relative_humidity=0.0, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength_um=0.50, double *observed_glon=nullptr, double *observed_glat=nullptr, double *hour_angle=nullptr)</td></tr>
 <tr class="memdesc:af8387bb0f6eb6090440f4fc4f49019e0 inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw method for converting Galactic -&gt; Observed (observer specific) coordinates.  <a href="classCECoordinates.html#af8387bb0f6eb6090440f4fc4f49019e0">More...</a><br /></td></tr>
 <tr class="separator:af8387bb0f6eb6090440f4fc4f49019e0 inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88baf64f3e65044f87595d907e80c551 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a88baf64f3e65044f87595d907e80c551">GetDMS</a> (const double &amp;angle, const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a>)</td></tr>
+<tr class="memitem:a88baf64f3e65044f87595d907e80c551 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a88baf64f3e65044f87595d907e80c551">GetDMS</a> (const double &amp;angle, const <a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a>)</td></tr>
 <tr class="memdesc:a88baf64f3e65044f87595d907e80c551 inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a given angle into degrees, arcminutes, arcseconds.  <a href="classCECoordinates.html#a88baf64f3e65044f87595d907e80c551">More...</a><br /></td></tr>
 <tr class="separator:a88baf64f3e65044f87595d907e80c551 inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cc347e96748d77cbc7343c942b4f2b8 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a5cc347e96748d77cbc7343c942b4f2b8">GetHMS</a> (const double &amp;angle, const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a>)</td></tr>
+<tr class="memitem:a5cc347e96748d77cbc7343c942b4f2b8 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a5cc347e96748d77cbc7343c942b4f2b8">GetHMS</a> (const double &amp;angle, const <a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a>)</td></tr>
 <tr class="memdesc:a5cc347e96748d77cbc7343c942b4f2b8 inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a given angle into hours, minutes, seconds.  <a href="classCECoordinates.html#a5cc347e96748d77cbc7343c942b4f2b8">More...</a><br /></td></tr>
 <tr class="separator:a5cc347e96748d77cbc7343c942b4f2b8 inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9534023181a660be7a502dacb33d680d inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a9534023181a660be7a502dacb33d680d">HMSToAngle</a> (const std::vector&lt; double &gt; &amp;angle, const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;return_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a>)</td></tr>
+<tr class="memitem:a9534023181a660be7a502dacb33d680d inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a9534023181a660be7a502dacb33d680d">HMSToAngle</a> (const std::vector&lt; double &gt; &amp;angle, const <a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;return_type=<a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a>)</td></tr>
 <tr class="memdesc:a9534023181a660be7a502dacb33d680d inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert from {hours, minutes, seconds} to an angle.  <a href="classCECoordinates.html#a9534023181a660be7a502dacb33d680d">More...</a><br /></td></tr>
 <tr class="separator:a9534023181a660be7a502dacb33d680d inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5b5be7d1167fd59e523df97d1a8b93c inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#ab5b5be7d1167fd59e523df97d1a8b93c">ICRS2CIRS</a> (double input_ra, double input_dec, double *return_ra, double *return_dec, const <a class="el" href="classCEDate.html">CEDate</a> &amp;date=<a class="el" href="classCEDate.html">CEDate</a>(), const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>)</td></tr>
+<tr class="memitem:ab5b5be7d1167fd59e523df97d1a8b93c inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#ab5b5be7d1167fd59e523df97d1a8b93c">ICRS2CIRS</a> (double input_ra, double input_dec, double *return_ra, double *return_dec, const <a class="el" href="classCEDate.html">CEDate</a> &amp;date=<a class="el" href="classCEDate.html">CEDate</a>(), const <a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>)</td></tr>
 <tr class="memdesc:ab5b5be7d1167fd59e523df97d1a8b93c inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">ICRS -&gt; CIRS coordinate conversion.  <a href="classCECoordinates.html#ab5b5be7d1167fd59e523df97d1a8b93c">More...</a><br /></td></tr>
 <tr class="separator:ab5b5be7d1167fd59e523df97d1a8b93c inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a2128b3a95180e6b144b9298a751ef0 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a1a2128b3a95180e6b144b9298a751ef0">ICRS2Galactic</a> (double ra, double dec, double *glon, double *glat, const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>)</td></tr>
+<tr class="memitem:a1a2128b3a95180e6b144b9298a751ef0 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a1a2128b3a95180e6b144b9298a751ef0">ICRS2Galactic</a> (double ra, double dec, double *glon, double *glat, const <a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>)</td></tr>
 <tr class="memdesc:a1a2128b3a95180e6b144b9298a751ef0 inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">ICRS -&gt; Galactic coordinate conversion (uses the SOFA 'iauIcrs2g' function)  <a href="classCECoordinates.html#a1a2128b3a95180e6b144b9298a751ef0">More...</a><br /></td></tr>
 <tr class="separator:a1a2128b3a95180e6b144b9298a751ef0 inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a463bd50de9edecff8d322119ed921fe5 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a463bd50de9edecff8d322119ed921fe5">ICRS2Observed</a> (double ra, double dec, double *az, double *zen, const <a class="el" href="classCEDate.html">CEDate</a> &amp;date, const <a class="el" href="classCEObserver.html">CEObserver</a> &amp;observer, const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>, double wavelength_um=0.5, double *observed_ra=nullptr, double *observed_dec=nullptr, double *hour_angle=nullptr)</td></tr>
+<tr class="memitem:a463bd50de9edecff8d322119ed921fe5 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a463bd50de9edecff8d322119ed921fe5">ICRS2Observed</a> (double ra, double dec, double *az, double *zen, const <a class="el" href="classCEDate.html">CEDate</a> &amp;date, const <a class="el" href="classCEObserver.html">CEObserver</a> &amp;observer, const <a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>, double wavelength_um=0.5, double *observed_ra=nullptr, double *observed_dec=nullptr, double *hour_angle=nullptr)</td></tr>
 <tr class="memdesc:a463bd50de9edecff8d322119ed921fe5 inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">ICRS -&gt; Observed coordinate conversion.  <a href="classCECoordinates.html#a463bd50de9edecff8d322119ed921fe5">More...</a><br /></td></tr>
 <tr class="separator:a463bd50de9edecff8d322119ed921fe5 inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ca699bc58f9d7c371331cbcd1a60d5d inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a4ca699bc58f9d7c371331cbcd1a60d5d">ICRS2Observed</a> (double ra, double dec, double *az, double *zen, double julian_date, double longitude, double latitude, double elevation_m=0.0, double pressure_hPa=-1.0, double temperature_celsius=-1000, double relative_humidity=0.0, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength_um=0.5, double *observed_ra=nullptr, double *observed_dec=nullptr, double *hour_angle=nullptr)</td></tr>
 <tr class="memdesc:a4ca699bc58f9d7c371331cbcd1a60d5d inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw method for converting CIRS -&gt; Observed (observer specific) coordinates.  <a href="classCECoordinates.html#a4ca699bc58f9d7c371331cbcd1a60d5d">More...</a><br /></td></tr>
 <tr class="separator:a4ca699bc58f9d7c371331cbcd1a60d5d inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a928b41ab816602941baffb66640dda26 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a928b41ab816602941baffb66640dda26">Observed2CIRS</a> (double az, double zen, double *ra, double *dec, const <a class="el" href="classCEDate.html">CEDate</a> &amp;date, const <a class="el" href="classCEObserver.html">CEObserver</a> &amp;observer, const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>)</td></tr>
+<tr class="memitem:a928b41ab816602941baffb66640dda26 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a928b41ab816602941baffb66640dda26">Observed2CIRS</a> (double az, double zen, double *ra, double *dec, const <a class="el" href="classCEDate.html">CEDate</a> &amp;date, const <a class="el" href="classCEObserver.html">CEObserver</a> &amp;observer, const <a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>)</td></tr>
 <tr class="memdesc:a928b41ab816602941baffb66640dda26 inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert Observed -&gt; CIRS coordinates.  <a href="classCECoordinates.html#a928b41ab816602941baffb66640dda26">More...</a><br /></td></tr>
 <tr class="separator:a928b41ab816602941baffb66640dda26 inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab82aa36758f9a0861ec24b82271d0df4 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#ab82aa36758f9a0861ec24b82271d0df4">Observed2CIRS</a> (double az, double zen, double *ra, double *dec, double julian_date, double longitude, double latitude, double elevation_m=0.0, double pressure_hPa=-1.0, double temperature_celsius=-1000, double relative_humidity=0.0, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength_um=0.5)</td></tr>
 <tr class="memdesc:ab82aa36758f9a0861ec24b82271d0df4 inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw method for converting Observed (observer specific) -&gt; CIRS coordinates (uses the SOFA 'iauAtoi13' function) Note: All angles are expected to be in radians.  <a href="classCECoordinates.html#ab82aa36758f9a0861ec24b82271d0df4">More...</a><br /></td></tr>
 <tr class="separator:ab82aa36758f9a0861ec24b82271d0df4 inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a290c62a092b19807d5c8155b69557ac3 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a290c62a092b19807d5c8155b69557ac3">Observed2Galactic</a> (double az, double zen, double *glon, double *glat, const <a class="el" href="classCEDate.html">CEDate</a> &amp;date, const <a class="el" href="classCEObserver.html">CEObserver</a> &amp;observer, const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>)</td></tr>
+<tr class="memitem:a290c62a092b19807d5c8155b69557ac3 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a290c62a092b19807d5c8155b69557ac3">Observed2Galactic</a> (double az, double zen, double *glon, double *glat, const <a class="el" href="classCEDate.html">CEDate</a> &amp;date, const <a class="el" href="classCEObserver.html">CEObserver</a> &amp;observer, const <a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>)</td></tr>
 <tr class="memdesc:a290c62a092b19807d5c8155b69557ac3 inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert Observed -&gt; Galactic coordinates.  <a href="classCECoordinates.html#a290c62a092b19807d5c8155b69557ac3">More...</a><br /></td></tr>
 <tr class="separator:a290c62a092b19807d5c8155b69557ac3 inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a820c09effde1ff73e08a56dbaf94f151 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a820c09effde1ff73e08a56dbaf94f151">Observed2Galactic</a> (double az, double zen, double *glon, double *glat, double julian_date, double longitude, double latitude, double elevation_m=0.0, double pressure_hPa=-1.0, double temperature_celsius=-1000, double relative_humidity=0.0, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength_um=0.50)</td></tr>
 <tr class="memdesc:a820c09effde1ff73e08a56dbaf94f151 inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw method for converting Observed (observer specific) -&gt; Galactic coordinates Note: All angles are expected to be in radians.  <a href="classCECoordinates.html#a820c09effde1ff73e08a56dbaf94f151">More...</a><br /></td></tr>
 <tr class="separator:a820c09effde1ff73e08a56dbaf94f151 inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa33f8a244c3d7883ad7c0feb299c3f98 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#aa33f8a244c3d7883ad7c0feb299c3f98">Observed2ICRS</a> (double az, double zen, double *ra, double *dec, const <a class="el" href="classCEDate.html">CEDate</a> &amp;date, const <a class="el" href="classCEObserver.html">CEObserver</a> &amp;observer, const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>)</td></tr>
+<tr class="memitem:aa33f8a244c3d7883ad7c0feb299c3f98 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#aa33f8a244c3d7883ad7c0feb299c3f98">Observed2ICRS</a> (double az, double zen, double *ra, double *dec, const <a class="el" href="classCEDate.html">CEDate</a> &amp;date, const <a class="el" href="classCEObserver.html">CEObserver</a> &amp;observer, const <a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;angle_type=<a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a>)</td></tr>
 <tr class="memdesc:aa33f8a244c3d7883ad7c0feb299c3f98 inherit pub_static_methods_classCECoordinates"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert Observed -&gt; ICRS coordinates.  <a href="classCECoordinates.html#aa33f8a244c3d7883ad7c0feb299c3f98">More...</a><br /></td></tr>
 <tr class="separator:aa33f8a244c3d7883ad7c0feb299c3f98 inherit pub_static_methods_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f5373264ebcfec803182e0713951b28 inherit pub_static_methods_classCECoordinates"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a6f5373264ebcfec803182e0713951b28">Observed2ICRS</a> (double az, double zen, double *ra, double *dec, double julian_date, double longitude, double latitude, double elevation_m=0.0, double pressure_hPa=-1.0, double temperature_celsius=-1000, double relative_humidity=0.0, double dut1=0.0, double xp=0.0, double yp=0.0, double wavelength_um=0.5)</td></tr>
@@ -511,10 +517,10 @@ Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_attribs_classCECoordinates"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classCECoordinates')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classCECoordinates.html">CECoordinates</a></td></tr>
 <tr class="memitem:ae2ae938af879ec0aa1fb0e92537bbeed inherit pro_attribs_classCECoordinates"><td class="memItemLeft" align="right" valign="top"><a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2">CECoordinateType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#ae2ae938af879ec0aa1fb0e92537bbeed">coord_type_</a></td></tr>
 <tr class="separator:ae2ae938af879ec0aa1fb0e92537bbeed inherit pro_attribs_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab58f73988010fb779c262f7b88612fc0 inherit pro_attribs_classCECoordinates"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#ab58f73988010fb779c262f7b88612fc0">xcoord_</a></td></tr>
-<tr class="separator:ab58f73988010fb779c262f7b88612fc0 inherit pro_attribs_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad95d1b014d83e11c93be8e74eb4957df inherit pro_attribs_classCECoordinates"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#ad95d1b014d83e11c93be8e74eb4957df">ycoord_</a></td></tr>
-<tr class="separator:ad95d1b014d83e11c93be8e74eb4957df inherit pro_attribs_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99d015eada2fbe763bef91e9f4ff1d02 inherit pro_attribs_classCECoordinates"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCEAngle.html">CEAngle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#a99d015eada2fbe763bef91e9f4ff1d02">xcoord_</a></td></tr>
+<tr class="separator:a99d015eada2fbe763bef91e9f4ff1d02 inherit pro_attribs_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8c52497531291285075659bd882cc11 inherit pro_attribs_classCECoordinates"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCEAngle.html">CEAngle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCECoordinates.html#ac8c52497531291285075659bd882cc11">ycoord_</a></td></tr>
+<tr class="separator:ac8c52497531291285075659bd882cc11 inherit pro_attribs_classCECoordinates"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 
 <p><code>#include &lt;<a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>&gt;</code></p>
@@ -533,9 +539,10 @@ Collaboration diagram for CEPlanet:</div>
 <div class="dyncontent">
 <div class="center"><img src="classCEPlanet__coll__graph.png" border="0" usemap="#CEPlanet_coll__map" alt="Collaboration graph"/></div>
 <map name="CEPlanet_coll__map" id="CEPlanet_coll__map">
-<area shape="rect"  title="The CEPlanet class describes a planetary object." alt="" coords="22,155,100,180"/>
-<area shape="rect"  href="classCEBody.html" title="The CEBody class defines a celestial object." alt="" coords="26,80,96,105"/>
-<area shape="rect"  href="classCECoordinates.html" title="CECoordinates class is responsible for doing all of the celestial coordinate conversions." alt="" coords="5,5,117,31"/>
+<area shape="rect"  title="The CEPlanet class describes a planetary object." alt="" coords="22,255,100,280"/>
+<area shape="rect"  href="classCEBody.html" title="The CEBody class defines a celestial object." alt="" coords="26,180,96,205"/>
+<area shape="rect"  href="classCECoordinates.html" title="CECoordinates class is responsible for doing all of the celestial coordinate conversions." alt="" coords="5,105,117,131"/>
+<area shape="rect"  href="classCEAngle.html" title="The CEAngle class defines an angle." alt="" coords="24,5,98,31"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -560,8 +567,8 @@ Collaboration diagram for CEPlanet:</div>
 
 </div>
 </div>
-<a id="adbe7c2d92db06152f302f1c054994f3c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adbe7c2d92db06152f302f1c054994f3c">&#9670;&nbsp;</a></span>CEPlanet() <span class="overload">[2/3]</span></h2>
+<a id="ab845ef5b61f8d97e16eaa9d06a43ba1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab845ef5b61f8d97e16eaa9d06a43ba1d">&#9670;&nbsp;</a></span>CEPlanet() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -575,26 +582,20 @@ Collaboration diagram for CEPlanet:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const double &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classCEAngle.html">CEAngle</a> &amp;&#160;</td>
           <td class="paramname"><em>xcoord</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const double &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classCEAngle.html">CEAngle</a> &amp;&#160;</td>
           <td class="paramname"><em>ycoord</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2">CECoordinateType</a> &amp;&#160;</td>
-          <td class="paramname"><em>coord_type</em> = <code><a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2a4efe390156f8c58bfa109575fc5cae4c">CECoordinateType::CIRS</a></code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a> &amp;&#160;</td>
-          <td class="paramname"><em>angle_type</em> = <code><a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015">CEAngleType::RADIANS</a></code>&#160;</td>
+          <td class="paramname"><em>coord_type</em> = <code><a class="el" href="CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2a4efe390156f8c58bfa109575fc5cae4c">CECoordinateType::CIRS</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -644,7 +645,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00173">173</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00172">172</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -673,7 +674,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Destructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00184">184</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00183">183</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -702,7 +703,7 @@ Collaboration diagram for CEPlanet:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Albedo. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00242">242</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00241">241</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -731,7 +732,7 @@ Collaboration diagram for CEPlanet:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Algorithm used for computing the planet position </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00212">212</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00211">211</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -785,7 +786,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00440">440</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00439">439</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -822,7 +823,7 @@ Collaboration diagram for CEPlanet:</div>
 </dl>
 <p>Sofa planet id (note: 3.5 implies the earth-center which uses a different method than the other planets) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00911">911</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00914">914</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -852,7 +853,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Earth. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object.">CEPlanet</a> object representing Earth </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00264">264</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00263">263</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -889,7 +890,7 @@ Collaboration diagram for CEPlanet:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Distance in AU to the Earth's center </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00594">594</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00593">593</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -950,7 +951,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00848">848</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00851">851</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -980,7 +981,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing the Earth-Moon barycenter. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object.">CEPlanet</a> object representing the Earth-Moon barycenter </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00290">290</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00289">289</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1010,7 +1011,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Free allocated memory. </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l01030">1030</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l01033">1033</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1039,7 +1040,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>X velocity relative to solar system barycenter (AU/day) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00360">360</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00359">359</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -1068,7 +1069,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Y velocity relative to solar system barycenter (AU/day) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00370">370</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00369">369</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -1097,7 +1098,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Z velocity relative to solar system barycenter (AU/day) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00380">380</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00379">379</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -1126,7 +1127,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Return X distance from solar system barycenter (AU) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00320">320</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00319">319</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -1155,7 +1156,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Y distance from solar system barycenter (AU) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00330">330</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00329">329</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -1184,7 +1185,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Z distance from solar system barycenter (AU) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00340">340</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00339">339</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -1214,7 +1215,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Initialize data members. </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00973">973</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00976">976</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1244,7 +1245,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Jupiter. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object.">CEPlanet</a> object representing Jupiter </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00338">338</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00337">337</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1274,7 +1275,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Mars. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object.">CEPlanet</a> object representing Mars </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00311">311</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00310">310</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1302,7 +1303,7 @@ Collaboration diagram for CEPlanet:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Mass in kilograms. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00232">232</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00231">231</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -1357,7 +1358,7 @@ Collaboration diagram for CEPlanet:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Mean anomaly </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00827">827</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00830">830</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1387,7 +1388,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Mercury. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object.">CEPlanet</a> object representing Mercury </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00214">214</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00213">213</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1417,7 +1418,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Neptune. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object.">CEPlanet</a> object representing Neptune </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00422">422</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00421">421</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1467,7 +1468,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Reimplemented from <a class="el" href="classCEBody.html#abec577fb57b5132dce8cf82b0a2c836e">CEBody</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00642">642</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00641">641</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1496,7 +1497,7 @@ Collaboration diagram for CEPlanet:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Reference to this object post-copy </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00196">196</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00195">195</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1527,7 +1528,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Note that Pluto's position cannot be computed via the SOFA algorithms</p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object.">CEPlanet</a> object representing Pluto </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00451">451</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00450">450</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1557,7 +1558,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Z distance from solar system barycenter (AU) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00350">350</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00349">349</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -1587,7 +1588,7 @@ Collaboration diagram for CEPlanet:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Observed coordinates </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00619">619</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00618">618</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1615,7 +1616,7 @@ Collaboration diagram for CEPlanet:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Radius in meters. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00222">222</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00221">221</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -1645,7 +1646,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Saturn. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object.">CEPlanet</a> object representing Saturn </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00366">366</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00365">365</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1679,7 +1680,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00272">272</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00271">271</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -1715,7 +1716,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00425">425</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00424">424</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -1743,8 +1744,8 @@ Collaboration diagram for CEPlanet:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a>&#160;</td>
-          <td class="paramname"><em>angle_type</em> = <code><a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a></code>&#160;</td>
+          <td class="paramtype"><a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a>&#160;</td>
+          <td class="paramname"><em>angle_type</em> = <code><a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1769,7 +1770,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00574">574</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00573">573</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1816,7 +1817,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00500">500</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00499">499</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1866,7 +1867,7 @@ Collaboration diagram for CEPlanet:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00398">398</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00397">397</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -1894,8 +1895,8 @@ Collaboration diagram for CEPlanet:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a>&#160;</td>
-          <td class="paramname"><em>angle_type</em> = <code><a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a></code>&#160;</td>
+          <td class="paramtype"><a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a>&#160;</td>
+          <td class="paramname"><em>angle_type</em> = <code><a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1920,7 +1921,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00514">514</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00513">513</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -1954,7 +1955,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00262">262</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00261">261</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -1982,8 +1983,8 @@ Collaboration diagram for CEPlanet:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a>&#160;</td>
-          <td class="paramname"><em>angle_type</em> = <code><a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a></code>&#160;</td>
+          <td class="paramtype"><a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a>&#160;</td>
+          <td class="paramname"><em>angle_type</em> = <code><a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -2008,7 +2009,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00534">534</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00533">533</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -2042,7 +2043,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00252">252</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00251">251</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -2070,8 +2071,8 @@ Collaboration diagram for CEPlanet:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a>&#160;</td>
-          <td class="paramname"><em>angle_type</em> = <code><a class="el" href="CENamespace_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a></code>&#160;</td>
+          <td class="paramtype"><a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034">CEAngleType</a>&#160;</td>
+          <td class="paramname"><em>angle_type</em> = <code><a class="el" href="CEAngle_8h.html#ac3656523d606ff51136c38455aa59034afee20551b6d06fd83aa56a486e557307">CEAngleType::DEGREES</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -2096,7 +2097,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00554">554</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00553">553</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -2132,7 +2133,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00876">876</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00879">879</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -2179,7 +2180,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00482">482</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00481">481</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -2207,7 +2208,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00896">896</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00899">899</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -2243,7 +2244,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00413">413</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00412">412</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -2279,7 +2280,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00771">771</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00774">774</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -2316,7 +2317,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00726">726</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00729">729</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -2352,7 +2353,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00680">680</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00679">679</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -2388,7 +2389,7 @@ Collaboration diagram for CEPlanet:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00706">706</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00709">709</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -2418,7 +2419,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Uranus. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object.">CEPlanet</a> object representing Uranus </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00394">394</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00393">393</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -2448,7 +2449,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Vector of velocities relative to solar system barycenter (AU/day) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00390">390</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00389">389</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -2478,7 +2479,7 @@ Collaboration diagram for CEPlanet:</div>
 <p>Returns an object representing Venus. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCEPlanet.html" title="The CEPlanet class describes a planetary object.">CEPlanet</a> object representing Venus </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00239">239</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8cpp_source.html#l00238">238</a> of file <a class="el" href="CEPlanet_8cpp_source.html">CEPlanet.cpp</a>.</p>
 
 </div>
 </div>
@@ -2517,7 +2518,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Reimplemented from <a class="el" href="classCECoordinates.html#ade80dbc41d7e41abcb61528cfa6d42b7">CECoordinates</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00291">291</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00290">290</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -2545,7 +2546,7 @@ Collaboration diagram for CEPlanet:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Return x coordinate at given Julian date in radius. </p>
+<p>Return x coordinate at given Julian date in radians. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">jd</td><td>Julian date (used only by derived classes) </td></tr>
@@ -2556,7 +2557,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Reimplemented from <a class="el" href="classCECoordinates.html#aa726e9b395a17d44ed4b060b78efcfd3">CECoordinates</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00281">281</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00280">280</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -2595,7 +2596,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Reimplemented from <a class="el" href="classCECoordinates.html#a6d2ba054b5398902d773e3d86ba08d57">CECoordinates</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00310">310</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00309">309</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -2623,7 +2624,7 @@ Collaboration diagram for CEPlanet:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns y coordinate at given Julian date in radius. </p>
+<p>Returns y coordinate at given Julian date in radians. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">jd</td><td>Julian date (used only by derived classes) </td></tr>
@@ -2634,7 +2635,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Reimplemented from <a class="el" href="classCECoordinates.html#af70ffabf8de34caf9288ca3829067140">CECoordinates</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00300">300</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00299">299</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -2661,7 +2662,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Albedo (0 -&gt; 1) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00159">159</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00158">158</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -2685,7 +2686,7 @@ Collaboration diagram for CEPlanet:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00166">166</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00165">165</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -2711,7 +2712,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Omega - Longitude of ascending node (radians) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00187">187</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00186">186</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -2735,7 +2736,7 @@ Collaboration diagram for CEPlanet:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00195">195</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00194">194</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -2759,7 +2760,7 @@ Collaboration diagram for CEPlanet:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00201">201</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00200">200</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -2783,7 +2784,7 @@ Collaboration diagram for CEPlanet:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00202">202</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00201">201</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -2809,7 +2810,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Julian date of the current coordinates. </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00173">173</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00172">172</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -2833,7 +2834,7 @@ Collaboration diagram for CEPlanet:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00198">198</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00197">197</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -2859,7 +2860,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>e - Eccentricity </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00183">183</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00182">182</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -2883,7 +2884,7 @@ Collaboration diagram for CEPlanet:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00191">191</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00190">190</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -2907,7 +2908,7 @@ Collaboration diagram for CEPlanet:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00204">204</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00203">203</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -2933,7 +2934,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>I - inclination in radians. </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00184">184</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00183">183</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -2957,7 +2958,7 @@ Collaboration diagram for CEPlanet:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00192">192</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00191">191</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -2983,7 +2984,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Mass (kilograms) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00158">158</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00157">157</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -3009,7 +3010,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>L - Mean longitude (radians) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00185">185</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00184">184</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -3033,7 +3034,7 @@ Collaboration diagram for CEPlanet:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00193">193</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00192">192</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -3059,7 +3060,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>w - Longitude of perihelion (radians) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00186">186</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00185">185</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -3083,7 +3084,7 @@ Collaboration diagram for CEPlanet:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00194">194</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00193">193</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -3109,7 +3110,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>XYZ position (AU) relative to solar system barycenter. </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00174">174</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00173">173</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -3135,7 +3136,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Radius (in meters) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00157">157</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00156">156</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -3159,7 +3160,7 @@ Collaboration diagram for CEPlanet:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00163">163</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00162">162</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -3183,7 +3184,7 @@ Collaboration diagram for CEPlanet:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00203">203</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00202">202</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -3209,7 +3210,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>a - Semi major axis in Astronomical Units (AU) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00182">182</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00181">181</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -3233,7 +3234,7 @@ Collaboration diagram for CEPlanet:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00190">190</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00189">189</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -3259,7 +3260,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>Sofa planet id (note: 3.5 implies the earth-center which uses a different method than the other planets) </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00169">169</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00168">168</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -3285,7 +3286,7 @@ Collaboration diagram for CEPlanet:</div>
 
 <p>XYZ velocity (AU/day) relative to solar system barycenter. </p>
 
-<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00176">176</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CEPlanet_8h_source.html#l00175">175</a> of file <a class="el" href="CEPlanet_8h_source.html">CEPlanet.h</a>.</p>
 
 </div>
 </div>
@@ -3296,7 +3297,7 @@ Collaboration diagram for CEPlanet:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu May 16 2019 20:38:51 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jun 12 2019 17:08:35 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

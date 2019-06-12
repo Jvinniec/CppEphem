@@ -1,5 +1,7 @@
 var searchData=
 [
+  ['test_5fceangle_2ecpp',['test_CEAngle.cpp',['../test__CEAngle_8cpp.html',1,'']]],
+  ['test_5fceangle_2eh',['test_CEAngle.h',['../test__CEAngle_8h.html',1,'']]],
   ['test_5fcebody_2ecpp',['test_CEBody.cpp',['../test__CEBody_8cpp.html',1,'']]],
   ['test_5fcebody_2eh',['test_CEBody.h',['../test__CEBody_8h.html',1,'']]],
   ['test_5fcecoordinates_2ecpp',['test_CECoordinates.cpp',['../test__CECoordinates_8cpp.html',1,'']]],

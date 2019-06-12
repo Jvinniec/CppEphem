@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['ycoord_5f',['ycoord_',['../classCECoordinates.html#ad95d1b014d83e11c93be8e74eb4957df',1,'CECoordinates']]],
+  ['ycoord',['YCoord',['../classCECoordinates.html#a33f6c9f22b10c992bd28ee2f8ecd73b8',1,'CECoordinates']]],
+  ['ycoord_5f',['ycoord_',['../classCECoordinates.html#ac8c52497531291285075659bd882cc11',1,'CECoordinates']]],
   ['ycoordinate_5fdeg',['YCoordinate_Deg',['../classCECoordinates.html#a6d2ba054b5398902d773e3d86ba08d57',1,'CECoordinates::YCoordinate_Deg()'],['../classCEPlanet.html#ad633dffe34d327da4531eef202897458',1,'CEPlanet::YCoordinate_Deg()']]],
   ['ycoordinate_5frad',['YCoordinate_Rad',['../classCECoordinates.html#af70ffabf8de34caf9288ca3829067140',1,'CECoordinates::YCoordinate_Rad()'],['../classCEPlanet.html#ab7f9e2e7ec6f9014fdcf8f644ab2768e',1,'CEPlanet::YCoordinate_Rad()']]],
   ['year',['Year',['../classCEDate.html#a789944f6b9ac629f98feb4d936f1b7ca',1,'CEDate']]],

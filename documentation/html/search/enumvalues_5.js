@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['last',['LAST',['../CETime_8h.html#ab50b2d3a782e5eea768b25bfb3d7e65fa990cd45e93be2b4661f3499e0a658a33',1,'CETime.h']]],
-  ['localtime',['LOCALTIME',['../CETime_8h.html#ab50b2d3a782e5eea768b25bfb3d7e65fa10b93f5080d477452e842d90ae6a1332',1,'CETime.h']]]
+  ['jd',['JD',['../CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746aabf8d7515962e526421842e8456798cc',1,'CEDate.h']]],
+  ['jpl',['JPL',['../CEPlanet_8h.html#ae0ffdf0d27cd448d21a16d3f9cb13029a521ba29afcb1097a25cc2e2cf1b94792',1,'CEPlanet.h']]]
 ];

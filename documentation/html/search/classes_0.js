@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['ceangle',['CEAngle',['../classCEAngle.html',1,'']]],
   ['cebody',['CEBody',['../classCEBody.html',1,'']]],
   ['cecoordinates',['CECoordinates',['../classCECoordinates.html',1,'']]],
   ['cecorrections',['CECorrections',['../classCECorrections.html',1,'']]],

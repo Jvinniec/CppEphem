@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['icrs',['ICRS',['../CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2a37dfc89db165108163b0dd9be927434a',1,'CECoordinates.h']]]
+  ['hms',['HMS',['../CEAngle_8h.html#ac3656523d606ff51136c38455aa59034a5aa2ed571501055565936ff4f5887882',1,'CEAngle.h']]]
 ];

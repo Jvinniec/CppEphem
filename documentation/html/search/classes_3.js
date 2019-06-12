@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['test_5fceangle',['test_CEAngle',['../classtest__CEAngle.html',1,'']]],
   ['test_5fcebody',['test_CEBody',['../classtest__CEBody.html',1,'']]],
   ['test_5fcecoordinates',['test_CECoordinates',['../classtest__CECoordinates.html',1,'']]],
   ['test_5fcedate',['test_CEDate',['../classtest__CEDate.html',1,'']]],

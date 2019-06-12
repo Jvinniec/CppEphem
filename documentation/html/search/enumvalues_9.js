@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['sofa',['SOFA',['../CEPlanet_8h.html#ae0ffdf0d27cd448d21a16d3f9cb13029af412665fca8fbaa1b12aee04f4e722b7',1,'CEPlanet.h']]]
+  ['radians',['RADIANS',['../CEAngle_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015',1,'CEAngle.h']]]
 ];

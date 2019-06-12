@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['observed',['OBSERVED',['../CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2aa87279f7222c5264100350e6074973a2',1,'CECoordinates.h']]]
+  ['mjd',['MJD',['../CEDate_8h.html#aa6b826beca26b0712061a4afc5ad7746a6dd5d54fcae73e77cb8e73b22cbf3a0e',1,'CEDate.h']]]
 ];

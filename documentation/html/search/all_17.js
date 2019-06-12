@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['_7eceangle',['~CEAngle',['../classCEAngle.html#a3b92a5bebc602daf417d6e6b1a735d85',1,'CEAngle']]],
   ['_7ecebody',['~CEBody',['../classCEBody.html#a48c972239b6ff122712a5771e6f6b7c1',1,'CEBody']]],
   ['_7ececoordinates',['~CECoordinates',['../classCECoordinates.html#adfae4c048a969705b39c2890578862b7',1,'CECoordinates']]],
   ['_7ececorrections',['~CECorrections',['../classCECorrections.html#a9020ef8304dec792875bf11ad299f2d6',1,'CECorrections']]],
@@ -11,6 +12,7 @@ var searchData=
   ['_7eceplanet',['~CEPlanet',['../classCEPlanet.html#a4a9243746c1623eeb7555f04b5554923',1,'CEPlanet']]],
   ['_7ecerunningdate',['~CERunningDate',['../classCERunningDate.html#a3d89ca1ef5627ad0af347ce5fc2df3f8',1,'CERunningDate']]],
   ['_7ecetime',['~CETime',['../classCETime.html#ad295fb04601db862c2c0f733ce0d4a46',1,'CETime']]],
+  ['_7etest_5fceangle',['~test_CEAngle',['../classtest__CEAngle.html#ac4a1148266ccfd7e98d6982760a34473',1,'test_CEAngle']]],
   ['_7etest_5fcebody',['~test_CEBody',['../classtest__CEBody.html#a4a2a4f1ce0876af936e48c2a5a7f4c7f',1,'test_CEBody']]],
   ['_7etest_5fcecoordinates',['~test_CECoordinates',['../classtest__CECoordinates.html#ac07ef11c344803b3dfbd575f2b3c6382',1,'test_CECoordinates']]],
   ['_7etest_5fcedate',['~test_CEDate',['../classtest__CEDate.html#a67fdab3064dd1e31046ee0d23566f8a7',1,'test_CEDate']]],
