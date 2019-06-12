@@ -79,7 +79,7 @@ CECoordinates::CECoordinates(const std::vector<double>& xcoord,
     } else {
         x = CEAngle::Hms(xcoord);
     }
-    CEAngle y = CECoordinates::DMSToAngle(ycoord, CEAngleType::RADIANS);
+    CEAngle y = CEAngle::Dms(ycoord);
     CECoordinates::SetCoordinates(x, y, coord_type);
 }
 
@@ -1240,8 +1240,8 @@ CEAngle CECoordinates::AngularSeparation(const CEAngle& xcoord_first,
                                          const CEAngle& ycoord_second)
 {
     // Call the 'iauSeps' SOFA algorithm
-    CEAngle angsep = iauSeps(xcoord_first, ycoord_first,
-                             xcoord_second, ycoord_second) ;
+    CEAngle angsep(iauSeps(xcoord_first, ycoord_first,
+                           xcoord_second, ycoord_second)) ;
     
     return angsep ;
 }
