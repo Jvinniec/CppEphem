@@ -68,6 +68,10 @@ protected:
     virtual bool test(bool  test_success, 
                       const std::string& function = FUNC_DEFAULT,
                       const int&         line     = LINE_DEFAULT);
+    virtual bool test(bool  test_success, 
+                      const std::string& message,
+                      const std::string& function = FUNC_DEFAULT,
+                      const int&         line     = LINE_DEFAULT);
     virtual bool test_double(const double&      value, 
                              const double&      expected,
                              const std::string& function = FUNC_DEFAULT,
@@ -121,7 +125,7 @@ protected:
                           const int&         line);
 
     virtual void update_pass(const bool& test_passed);
-    
+
 private:
 
     /****** VARIABLES ******/
