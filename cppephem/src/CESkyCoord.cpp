@@ -31,7 +31,6 @@
  */
 
 #include "CESkyCoord.h"
-#include "CEObserver.h"
 
 /**********************************************************************//**
  * Default constructor
@@ -67,6 +66,7 @@ CESkyCoord::CESkyCoord(const CESkyCoord& other)
     init_members();
     copy_members(other);
 }
+
 
 /**********************************************************************//**
  * Destructor
@@ -105,6 +105,7 @@ CEAngle CESkyCoord::AngularSeparation(const CESkyCoord& coords) const
     return AngularSeparation(*this, coords);
 }
 
+
 /**********************************************************************//**
  * Get the angular separation between two coordinate objects.
  * NOTE: The coordinates are both expected to be in the same
@@ -141,6 +142,7 @@ CEAngle CESkyCoord::AngularSeparation(const CESkyCoord& coords1,
     return AngularSeparation(coords1.XCoord(), y1,
                              coords2.XCoord(), y2) ;
 }
+
 
 /**********************************************************************//**
  * Get the angular separation between two sets of coordinates.
@@ -229,11 +231,6 @@ void CESkyCoord::CIRS2Galactic(const CESkyCoord& in_cirs,
 
 /**********************************************************************//**
  * CIRS -> Observed (or observer specific) coordinate conversion
- * This function takes in verious observation parameters
- * The integer returned is a status code with the following meanings:
- *     +1 = dubious year (too far into the past/future to be trusted)
- *      0 = OK status
- *     -1 = unacceptable date
  * 
  * @param[in]  in_cirs          Input CIRS coordinates
  * @param[out] out_observed     Output Observed coordinates
@@ -297,6 +294,13 @@ void CESkyCoord::CIRS2Observed(const CESkyCoord& in_cirs,
 }
 
 
+/**********************************************************************//**
+ * ICRS -> CIRS coordinate conversion
+ * 
+ * @param[in]  in_icrs          Input ICRS coordinates
+ * @param[out] out_cirs         Output CIRS coordinates
+ * @param[in]  date             Date for conversion
+ *************************************************************************/
 void CESkyCoord::ICRS2CIRS(const CESkyCoord& in_icrs,
                            CESkyCoord*       out_cirs,
                            const CEDate&     date)
@@ -305,43 +309,63 @@ void CESkyCoord::ICRS2CIRS(const CESkyCoord& in_icrs,
     double eo ; // Equation of the origins
     
     // Use the sofa library to convert these coordinates
-        double tdb1(0.0);
-        double tdb2(0.0);
-        CEDate::UTC2TDB(date.MJD(), &tdb1, &tdb2);
-        double return_ra(0.0);
-        double return_dec(0.0);
-        iauAtci13(in_icrs.XCoord().Rad(), 
-                  in_icrs.YCoord().Rad(),
-                  0.0, 0.0, 0.0, 0.0, 
-                  tdb1, tdb2, 
-                  &return_ra, &return_dec, &eo);
-        
-        // Subtract the equation of the origins if J2000 coordinates are desired
-        //*return_ra -= eo ;
+    double tdb1(0.0);
+    double tdb2(0.0);
+    CEDate::UTC2TDB(date.MJD(), &tdb1, &tdb2);
+    double return_ra(0.0);
+    double return_dec(0.0);
+    iauAtci13(in_icrs.XCoord().Rad(), 
+                in_icrs.YCoord().Rad(),
+                0.0, 0.0, 0.0, 0.0, 
+                tdb1, tdb2, 
+                &return_ra, &return_dec, &eo);
+    
+    // Subtract the equation of the origins if J2000 coordinates are desired
+    //*return_ra -= eo ;
 
-        // Set the output cirs coordinates
-        out_cirs->SetCoordinates(CEAngle::Rad(return_ra),
-                                 CEAngle::Rad(return_dec),
-                                 CESkyCoordType::CIRS);
+    // Set the output cirs coordinates
+    out_cirs->SetCoordinates(CEAngle::Rad(return_ra),
+                             CEAngle::Rad(return_dec),
+                             CESkyCoordType::CIRS);
 
     return;
 }
 
+
+/**********************************************************************//**
+ * ICRS -> GALACTIC coordinate conversion
+ * 
+ * @param[in]  in_icrs          Input ICRS coordinates
+ * @param[out] out_galactic     Output GALACTIC coordinates
+ *************************************************************************/
 void CESkyCoord::ICRS2Galactic(const CESkyCoord& in_icrs,
                                CESkyCoord*       out_galactic)
 {
-        // Use the sofa method to convert the coordinates
-        double glon(0.0);
-        double glat(0.0);
-        iauIcrs2g(in_icrs.XCoord().Rad(), in_icrs.YCoord().Rad(), &glon, &glat);
-        out_galactic->SetCoordinates(CEAngle::Rad(glon),
-                                    CEAngle::Rad(glat),
-                                    CESkyCoordType::GALACTIC);
+    // Use the sofa method to convert the coordinates
+    double glon(0.0);
+    double glat(0.0);
+    iauIcrs2g(in_icrs.XCoord().Rad(), in_icrs.YCoord().Rad(), &glon, &glat);
+    out_galactic->SetCoordinates(CEAngle::Rad(glon),
+                                CEAngle::Rad(glat),
+                                CESkyCoordType::GALACTIC);
 
     return;
 }
 
 
+/**********************************************************************//**
+ * ICRS -> OBSERVED coordinate conversion
+ * 
+ * @param[in]  in_icrs          Input ICRS coordinates
+ * @param[out] out_observed     Output OBSERVED coordinates
+ * @param[in]  date             Date for conversion
+ * @param[in]  observer         Observer information
+ * @param[out] observed_cirs    'Observed' CIRS coordinates
+ * @param[out] hour_angle       Hour angle of coordinates for observer
+ * 
+ * This method takes in an optional @p observed_cirs parameter that stores
+ * the CIRS coordinates of a given object as they would be observed
+ *************************************************************************/
 void CESkyCoord::ICRS2Observed(const CESkyCoord& in_icrs,
                                CESkyCoord*       out_observed,
                                const CEDate&     date,
@@ -368,6 +392,13 @@ void CESkyCoord::ICRS2Observed(const CESkyCoord& in_icrs,
 }
 
 
+/**********************************************************************//**
+ * GALACTIC -> CIRS coordinate conversion
+ * 
+ * @param[in]  in_galactic      Input GALACTIC coordinates
+ * @param[out] out_cirs         Output CIRS coordinates
+ * @param[in]  date             Date for conversion
+ *************************************************************************/
 void CESkyCoord::Galactic2CIRS(const CESkyCoord& in_galactic,
                                CESkyCoord*       out_cirs,
                                const CEDate&     date)
@@ -383,6 +414,12 @@ void CESkyCoord::Galactic2CIRS(const CESkyCoord& in_galactic,
 }
 
 
+/**********************************************************************//**
+ * GALACTIC -> ICRS coordinate conversion
+ * 
+ * @param[in]  in_galactic      Input GALACTIC coordinates
+ * @param[out] out_icrs         Output ICRS coordinates
+ *************************************************************************/
 void CESkyCoord::Galactic2ICRS(const CESkyCoord& in_galactic,
                                CESkyCoord*       out_icrs)
 {
@@ -398,6 +435,19 @@ void CESkyCoord::Galactic2ICRS(const CESkyCoord& in_galactic,
 }
 
 
+/**********************************************************************//**
+ * GALACTIC -> OBSERVED coordinate conversion
+ * 
+ * @param[in]  in_galactic       Input GALACTIC coordinates
+ * @param[out] out_observed      Output OBSERVED coordinates
+ * @param[in]  date              Date for conversion
+ * @param[in]  observer          Observer information
+ * @param[out] observed_galactic 'Observed' GALACTIC coordinates
+ * @param[out] hour_angle        Hour angle of coordinates for observer
+ * 
+ * This method takes in an optional @p observed_galactic parameter that stores
+ * the GALACTIC coordinates of a given object as they would be observed
+ *************************************************************************/
 void CESkyCoord::Galactic2Observed(const CESkyCoord& in_galactic,
                                    CESkyCoord*       out_observed,
                                    const CEDate&     date,
@@ -423,6 +473,14 @@ void CESkyCoord::Galactic2Observed(const CESkyCoord& in_galactic,
 }
 
 
+/**********************************************************************//**
+ * OBSERVED -> CIRS coordinate conversion
+ * 
+ * @param[in]  in_observed       Input OBSERVED coordinates
+ * @param[out] out_cirs          Output CIRS coordinates
+ * @param[in]  date              Date for conversion
+ * @param[in]  observer          Observer information
+ *************************************************************************/
 void CESkyCoord::Observed2CIRS(const CESkyCoord& in_observed,
                                CESkyCoord*       out_cirs,
                                const CEDate&     date,
@@ -463,6 +521,14 @@ void CESkyCoord::Observed2CIRS(const CESkyCoord& in_observed,
 }
 
 
+/**********************************************************************//**
+ * OBSERVED -> ICRS coordinate conversion
+ * 
+ * @param[in]  in_observed       Input OBSERVED coordinates
+ * @param[out] out_icrs          Output ICRS coordinates
+ * @param[in]  date              Date for conversion
+ * @param[in]  observer          Observer information
+ *************************************************************************/
 void CESkyCoord::Observed2ICRS(const CESkyCoord& in_observed,
                                CESkyCoord*       out_icrs,
                                const CEDate&     date,
@@ -477,6 +543,14 @@ void CESkyCoord::Observed2ICRS(const CESkyCoord& in_observed,
 }
 
 
+/**********************************************************************//**
+ * OBSERVED -> GALACTIC coordinate conversion
+ * 
+ * @param[in]  in_observed       Input OBSERVED coordinates
+ * @param[out] out_galactic      Output GALACTIC coordinates
+ * @param[in]  date              Date for conversion
+ * @param[in]  observer          Observer information
+ *************************************************************************/
 void CESkyCoord::Observed2Galactic(const CESkyCoord& in_observed,
                                    CESkyCoord*       out_galactic,
                                    const CEDate&     date,
@@ -527,6 +601,15 @@ CESkyCoord CESkyCoord::ConvertTo(const CESkyCoordType&  output_coord_type,
 }
 
 
+/**********************************************************************//**
+ * Convert this coordinate to CIRS coordinates
+ * 
+ * @param[in]  date              Date for conversion
+ * @param[in]  observer          Observer information
+ * 
+ * Note that the @p date and @p observer parameters are only necessary if
+ * they are need to convert this object
+ *************************************************************************/
 CESkyCoord CESkyCoord::ConvertToCIRS(const CEDate&     date,
                                      const CEObserver& observer)
 {
@@ -552,6 +635,15 @@ CESkyCoord CESkyCoord::ConvertToCIRS(const CEDate&     date,
 }
 
 
+/**********************************************************************//**
+ * Convert this coordinate to ICRS coordinates
+ * 
+ * @param[in]  date              Date for conversion
+ * @param[in]  observer          Observer information
+ * 
+ * Note that the @p date and @p observer parameters are only necessary if
+ * they are need to convert this object
+ *************************************************************************/
 CESkyCoord CESkyCoord::ConvertToICRS(const CEDate&     date,
                                      const CEObserver& observer)
 {
@@ -577,6 +669,15 @@ CESkyCoord CESkyCoord::ConvertToICRS(const CEDate&     date,
 }
 
 
+/**********************************************************************//**
+ * Convert this coordinate to GALACTIC coordinates
+ * 
+ * @param[in]  date              Date for conversion
+ * @param[in]  observer          Observer information
+ * 
+ * Note that the @p date and @p observer parameters are only necessary if
+ * they are need to convert this object
+ *************************************************************************/
 CESkyCoord CESkyCoord::ConvertToGalactic(const CEDate&     date,
                                          const CEObserver& observer)
 {
@@ -602,6 +703,15 @@ CESkyCoord CESkyCoord::ConvertToGalactic(const CEDate&     date,
 }
 
 
+/**********************************************************************//**
+ * Convert this coordinate to OBSERVED coordinates
+ * 
+ * @param[in]  date              Date for conversion
+ * @param[in]  observer          Observer information
+ * 
+ * Note that the @p date and @p observer parameters are only necessary if
+ * they are need to convert this object
+ *************************************************************************/
 CESkyCoord CESkyCoord::ConvertToObserved(const CEDate&     date,
                                          const CEObserver& observer)
 {
@@ -629,6 +739,7 @@ CESkyCoord CESkyCoord::ConvertToObserved(const CEDate&     date,
 
 /**********************************************************************//**
  * Set the coordinates of this object
+ * 
  * @param[in] xcoord           X-coordinate
  * @param[in] ycoord           Y-coordinate
  * @param[in] coord_type       Coordinate type (see ::CESkyCoordType)
@@ -642,8 +753,10 @@ void CESkyCoord::SetCoordinates(const CEAngle& xcoord,
     coord_type_ = coord_type ;
 }
 
+
 /**********************************************************************//**
  * Set the coordinates from another CESkyCoord object
+ * 
  * @param[in] coords       Another coordinates object to copy
  *************************************************************************/
 void CESkyCoord::SetCoordinates(const CESkyCoord& coords)
@@ -654,6 +767,7 @@ void CESkyCoord::SetCoordinates(const CESkyCoord& coords)
 
 /**********************************************************************//**
  * Generate a message string that specifies the information about this coordinate
+ * 
  * @return String describing this object
  *************************************************************************/
 std::string CESkyCoord::print(void) const
@@ -668,6 +782,7 @@ std::string CESkyCoord::print(void) const
 
 /**********************************************************************//**
  * Copy data members from another CESkyCoord object
+ * 
  * @param[in] other         Another coordinates objec to copy
  *************************************************************************/
 void CESkyCoord::copy_members(const CESkyCoord& other)
@@ -728,7 +843,8 @@ bool operator==(const CESkyCoord& lhs, const CESkyCoord& rhs)
 
 /**********************************************************************//**
  * Compare two coordinate objects
- *  @return True if two coordinates are NOT equal to each other
+ * 
+ * @return True if two coordinates are NOT equal to each other
  *************************************************************************/
 bool operator!=(const CESkyCoord& lhs, const CESkyCoord& rhs)
 {
