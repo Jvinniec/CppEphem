@@ -22,6 +22,7 @@
 #include "test_CESkyCoord.h"
 #include "CEObserver.h"
 #include "CENamespace.h"
+#include "test_CECoordinates.h"
 
 
 /**********************************************************************//**
@@ -123,6 +124,13 @@ bool test_CESkyCoord::test_construct()
     // Test copy-assignment operator
     CESkyCoord test5 = test2;
     test_coords(test5, test2, __func__, __LINE__);
+
+    // Test constructor from CECoordinates
+    CECoordinates coord(testx, testy, CECoordinateType::GALACTIC);
+    CESkyCoord test6(coord);
+    test_double(test6.XCoord(), testx, __func__, __LINE__);
+    test_double(test6.YCoord(), testy, __func__, __LINE__);
+    test_int(int(test6.GetCoordSystem()), int(CECoordinateType::GALACTIC), __func__, __LINE__);
 
     // Test print of constructed coordinates
     test_greaterthan(test4.print().size(), 0, __func__, __LINE__);
