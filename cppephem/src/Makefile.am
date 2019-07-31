@@ -22,6 +22,7 @@ libcppephem_la_SOURCES = CENamespace.cpp \
                          CEObserver.cpp \
                          CEPlanet.cpp \
                          CERunningDate.cpp \
+                         CESkyCoord.cpp \
                          CETime.cpp
 
 headers = ../include/CppEphem.h \
@@ -35,6 +36,7 @@ headers = ../include/CppEphem.h \
                   ../include/CEObserver.h \
                   ../include/CEPlanet.h \
                   ../include/CERunningDate.h \
+                  ../include/CESkyCoord.h \
                   ../include/CETime.h
 
 include_HEADERS = $(headers)
