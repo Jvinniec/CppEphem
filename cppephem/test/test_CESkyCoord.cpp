@@ -112,12 +112,17 @@ bool test_CESkyCoord::test_construct()
     CESkyCoord test2(testx, testy, CESkyCoordType::ICRS);
     test_double(test2.XCoord(), testx, __func__, __LINE__);
     test_double(test2.YCoord(), testy, __func__, __LINE__);
+    test_int(int(test2.GetCoordSystem()), int(CESkyCoordType::ICRS), __func__, __LINE__);
     
     // Test copy constructor
     CESkyCoord test4(test2);
     test_double(test4.XCoord(), testx, __func__, __LINE__);
     test_double(test4.YCoord(), testy, __func__, __LINE__);
     test_int(int(test4.GetCoordSystem()), int(test2.GetCoordSystem()), __func__, __LINE__);
+
+    // Test copy-assignment operator
+    CESkyCoord test5 = test2;
+    test_coords(test5, test2, __func__, __LINE__);
 
     // Test print of constructed coordinates
     test_greaterthan(test4.print().size(), 0, __func__, __LINE__);
@@ -318,7 +323,7 @@ bool test_CESkyCoord::test_AngularSeparation(void)
     } catch (std::exception &e) {
         test(true, __func__, __LINE__);
     }
-    
+
     return pass();
 }
 
