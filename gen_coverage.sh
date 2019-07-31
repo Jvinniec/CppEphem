@@ -29,6 +29,7 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
     LLVM_PROFILE_FILE="${outdir}/CEObserver.profraw"    ./build/bin/test_CEObserver
     LLVM_PROFILE_FILE="${outdir}/CEPlanet.profraw"      ./build/bin/test_CEPlanet
     LLVM_PROFILE_FILE="${outdir}/CERunningDate.profraw" ./build/bin/test_CERunningDate
+    LLVM_PROFILE_FILE="${outdir}/CESkyCoord.profraw"    ./build/bin/test_CESkyCoord
     LLVM_PROFILE_FILE="${outdir}/CETime.profraw"        ./build/bin/test_CETime
 
     # Generic executables
@@ -95,6 +96,7 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
         -object ./build/bin/test_CEObservation \
         -object ./build/bin/test_CEObserver \
         -object ./build/bin/test_CERunningDate \
+        -object ./build/bin/test_CESkyCoord \
         -object ./build/bin/test_CETime \
         -object ./build/bin/test_angsep \
         -object ./build/bin/test_planetephem \
