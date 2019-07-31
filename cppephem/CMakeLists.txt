@@ -23,6 +23,7 @@ set (cppephem_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CEObserver.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CEPlanet.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CERunningDate.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CESkyCoord.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CETime.cpp
     )
 
@@ -39,6 +40,7 @@ set (cppephem_HEADERS
     include/CEObserver.h
     include/CEPlanet.h
     include/CERunningDate.h
+    include/CESkyCoord.h
     include/CETime.h
     )
 
