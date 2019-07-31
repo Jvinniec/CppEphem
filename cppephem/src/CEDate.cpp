@@ -545,9 +545,14 @@ double CEDate::ypolar(void) const
  *************************************************************************/
 double CEDate::GregorianVect2Gregorian(std::vector<double> gregorian)
 {
-    return gregorian[0] * 10000 +
-           gregorian[1] * 100 +
-           gregorian[2] + gregorian[3] ;
+    int sign = (gregorian[0] < 0) ? -1.0 : 1.0;
+    double ret = std::fabs(gregorian[0]) * 10000 +
+                           gregorian[1]  * 100 +
+                           gregorian[2];
+    if (gregorian.size() == 4) {
+        ret += gregorian[3];
+    }
+    return sign * ret;
 }
 
 
@@ -561,17 +566,19 @@ std::vector<double> CEDate::Gregorian2GregorianVect(double gregorian)
 {
     // Create a vector to hold the information
     std::vector<double> gregorian_vect(4,0.0) ;
-    
+    double greg = std::fabs(gregorian);
+
     // Get the day fraction
-    gregorian_vect[3] = gregorian - std::floor(gregorian) ;
+    gregorian_vect[3] = greg - std::floor(greg);
     // Get the day of the month
-    gregorian_vect[2] = int(std::floor(gregorian)) % 100 ;
+    gregorian_vect[2] = int(std::floor(greg)) % 100 ;
     // Get the month
-    gregorian_vect[1] = int(std::floor(gregorian - gregorian_vect[2]))/100 % 100 ;
+    gregorian_vect[1] = int(std::floor(greg - gregorian_vect[2])/100) % 100;
     // Get the year
-    gregorian_vect[0] = int(std::floor(gregorian - gregorian_vect[2] - gregorian_vect[1]))/10000 ;
-    
-    return gregorian_vect ;
+    gregorian_vect[0] = int(std::floor(greg - gregorian_vect[2] - 100*gregorian_vect[1]) / 10000);
+    gregorian_vect[0] *= (gregorian < 0.0) ? -1.0 : 1.0;
+
+    return gregorian_vect;
 }
 
 
