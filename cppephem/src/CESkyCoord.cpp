@@ -305,7 +305,6 @@ void CESkyCoord::ICRS2CIRS(const CESkyCoord& in_icrs,
     double eo ; // Equation of the origins
     
     // Use the sofa library to convert these coordinates
-    try {
         double tdb1(0.0);
         double tdb2(0.0);
         CEDate::UTC2TDB(date.MJD(), &tdb1, &tdb2);
@@ -324,11 +323,6 @@ void CESkyCoord::ICRS2CIRS(const CESkyCoord& in_icrs,
         out_cirs->SetCoordinates(CEAngle::Rad(return_ra),
                                  CEAngle::Rad(return_dec),
                                  CESkyCoordType::CIRS);
-    } catch (std::exception &e) {
-        throw CEException::sofa_exception("CESkyCoord::ICRS2CIRS",
-                                          "iauAtci13", 
-                                          "Exception thrown");
-    }
 
     return;
 }
@@ -336,7 +330,6 @@ void CESkyCoord::ICRS2CIRS(const CESkyCoord& in_icrs,
 void CESkyCoord::ICRS2Galactic(const CESkyCoord& in_icrs,
                                CESkyCoord*       out_galactic)
 {
-    try {
         // Use the sofa method to convert the coordinates
         double glon(0.0);
         double glat(0.0);
@@ -344,10 +337,7 @@ void CESkyCoord::ICRS2Galactic(const CESkyCoord& in_icrs,
         out_galactic->SetCoordinates(CEAngle::Rad(glon),
                                     CEAngle::Rad(glat),
                                     CESkyCoordType::GALACTIC);
-    } catch (std::exception &e) {
-        throw CEException::sofa_exception("CESkyCoord::ICRS2Galactic",
-                                          "iauIcrs2g", e.what());
-    }
+
     return;
 }
 
