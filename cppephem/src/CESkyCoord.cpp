@@ -48,7 +48,6 @@ CESkyCoord::CESkyCoord()
  * @param[in] xcoord X-Coordinate
  * @param[in] ycoord Y-Coordinate
  * @param[in] coord_type Coordinate type (see CESkyCoordType)
- * @param[in] angle_type Angle type (either DEGREES or RADIANS)
  *************************************************************************/
 CESkyCoord::CESkyCoord(const CEAngle&        xcoord, 
                        const CEAngle&        ycoord,
@@ -58,42 +57,6 @@ CESkyCoord::CESkyCoord(const CEAngle&        xcoord,
     this->SetCoordinates(xcoord, ycoord, coord_type);
 }
 
-
-/**********************************************************************//**
- * Primary constructor 
- * 
- * @param[in] xcoord X-Coordinate {hours,minutes,seconds}
- * @param[in] ycoord Y-Coordinate {degrees, arcmin, arcsec}
- * @param[in] coord_type Coordinate type (see CESkyCoordType)
- * @param[in] angle_type Angle type (either DEGREES or RADIANS)
- *************************************************************************/
-CESkyCoord::CESkyCoord(const std::vector<double>& xcoord,
-                       const std::vector<double>& ycoord,
-                       const CESkyCoordType&      coord_type)
-{
-    init_members();
-    CEAngle x;
-    if ((coord_type == CESkyCoordType::GALACTIC) || 
-        (coord_type == CESkyCoordType::OBSERVED)) {
-        x = CEAngle::Dms(xcoord);
-    } else {
-        x = CEAngle::Hms(xcoord);
-    }
-    CEAngle y = CEAngle::Dms(ycoord);
-    this->SetCoordinates(x, y, coord_type);
-}
-
-
-/**********************************************************************//**
- * Constructor from a coordinate type
- * 
- * @param[in] coord_type Coordinate type (see CESkyCoordType)
- *************************************************************************/
-CESkyCoord::CESkyCoord(const CESkyCoordType& coord_type) :
-    coord_type_(coord_type)
-{
-    init_members();
-}
 
 /**********************************************************************//**
  * Copy constructor
@@ -279,12 +242,12 @@ void CESkyCoord::CIRS2Galactic(const CESkyCoord& in_cirs,
  * @param[out] observed_cirs    'Observed' CIRS coordinates
  * @param[out] hour_angle       Hour angle of coordinates for observer
  *************************************************************************/
-int  CESkyCoord::CIRS2Observed(const CESkyCoord& in_cirs,
-                                  CESkyCoord*       out_observed,
-                                  const CEDate&     date,
-                                  const CEObserver& observer,
-                                  CESkyCoord*       observed_cirs,
-                                  double*           hour_angle)
+void CESkyCoord::CIRS2Observed(const CESkyCoord& in_cirs,
+                               CESkyCoord*       out_observed,
+                               const CEDate&     date,
+                               const CEObserver& observer,
+                               CESkyCoord*       observed_cirs,
+                               double*           hour_angle)
 {
     // Setup the observed RA, Dec and hour_angle variables
     double temp_ra(0.0);
@@ -295,11 +258,9 @@ int  CESkyCoord::CIRS2Observed(const CESkyCoord& in_cirs,
     if (hour_angle == nullptr) hour_angle = &temp_hour_angle;
 
     // Call the necessary sofa method
-    int err_code = 0;
-    try {
-        double az(0.0);
-        double zen(0.0);
-        err_code = iauAtio13(in_cirs.XCoord(), 
+    double az(0.0);
+    double zen(0.0);
+    int err_code = iauAtio13(in_cirs.XCoord(), 
                              in_cirs.YCoord(),
                              CEDate::GetMJD2JDFactor(), date.MJD(),
                              date.dut1(),
@@ -313,25 +274,26 @@ int  CESkyCoord::CIRS2Observed(const CESkyCoord& in_cirs,
                              observer.Wavelength_um(),
                              &az, &zen,
                              hour_angle, 
-                             &temp_ra, 
-                             &temp_dec);
-        
-        if (err_code == -1) {
-            throw CEException::sofa_error("CESkyCoord::CIRS2Observed",
-                                          "iauAtio13", -1,
-                                          "SOFA method was passed an unacceptable date");
-        }
-
-        // Set the output coordinates
-        out_observed->SetCoordinates(CEAngle(az), CEAngle(zen), 
-                                     CESkyCoordType::OBSERVED);
-    } catch (std::exception &e) {
-        throw CEException::sofa_exception("CESkyCoord::CIRS2Observed",
-                                          "iauAtio13",
-                                          e.what());
+                             &temp_ra, &temp_dec);
+    
+    // Handle the error code
+    if (err_code == -1) {
+        throw CEException::sofa_error("CESkyCoord::CIRS2Observed",
+                                      "iauAtio13", -1,
+                                      "SOFA method was passed an unacceptable date");
     }
 
-    return err_code ;
+    // Set the output coordinates
+    out_observed->SetCoordinates(CEAngle::Rad(az), CEAngle::Rad(zen), 
+                                 CESkyCoordType::OBSERVED);
+
+    // If passed, set the observed CIRS coordinates
+    if (observed_cirs != nullptr) {
+        observed_cirs->SetCoordinates(CEAngle::Rad(temp_ra), CEAngle::Rad(temp_dec),
+                                      CESkyCoordType::CIRS);
+    }
+
+    return;
 }
 
 
@@ -347,19 +309,21 @@ void CESkyCoord::ICRS2CIRS(const CESkyCoord& in_icrs,
         double tdb1(0.0);
         double tdb2(0.0);
         CEDate::UTC2TDB(date.MJD(), &tdb1, &tdb2);
+        double return_ra(0.0);
+        double return_dec(0.0);
         iauAtci13(in_icrs.XCoord().Rad(), 
                   in_icrs.YCoord().Rad(),
                   0.0, 0.0, 0.0, 0.0, 
                   tdb1, tdb2, 
-                  return_ra, return_dec, &eo) ;
+                  &return_ra, &return_dec, &eo);
         
-        // Set the output cirs coordinates
-        out_cirs->SetCoordinates(CEAngle::Rad(return_ra),
-                                CEAngle::Rad(return_dec),
-                                CESkyCoordType::CIRS);
-
         // Subtract the equation of the origins if J2000 coordinates are desired
         //*return_ra -= eo ;
+
+        // Set the output cirs coordinates
+        out_cirs->SetCoordinates(CEAngle::Rad(return_ra),
+                                 CEAngle::Rad(return_dec),
+                                 CESkyCoordType::CIRS);
     } catch (std::exception &e) {
         throw CEException::sofa_exception("CESkyCoord::ICRS2CIRS",
                                           "iauAtci13", 
@@ -372,38 +336,168 @@ void CESkyCoord::ICRS2CIRS(const CESkyCoord& in_icrs,
 void CESkyCoord::ICRS2Galactic(const CESkyCoord& in_icrs,
                                CESkyCoord*       out_galactic)
 {
-    // Use the sofa method to convert the coordinates
-    double glon(0.0);
-    double glat(0.0);
-    iauIcrs2g(in_icrs.XCoord().Rad(), in_icrs.YCoord().Rad(), glon, glat);
-    out_galactic->SetCoordinates(CEAngle::Rad(glon),
-                                 CEAngle::Rad(glat),
-                                 CESkyCoordType::GALACTIC);
-    return
+    try {
+        // Use the sofa method to convert the coordinates
+        double glon(0.0);
+        double glat(0.0);
+        iauIcrs2g(in_icrs.XCoord().Rad(), in_icrs.YCoord().Rad(), &glon, &glat);
+        out_galactic->SetCoordinates(CEAngle::Rad(glon),
+                                    CEAngle::Rad(glat),
+                                    CESkyCoordType::GALACTIC);
+    } catch (std::exception &e) {
+        throw CEException::sofa_exception("CESkyCoord::ICRS2Galactic",
+                                          "iauIcrs2g", e.what());
+    }
+    return;
 }
 
 
-int CESkyCoord::ICRS2Observed(const CESkyCoord&    in_icrs,
-                                 CESkyCoord*       out_observed,
-                                 const CEDate&     date,
-                                 const CEObserver& observer,
-                                 CESkyCoord*       observed_icrs,
-                                 double*           hour_angle)
+void CESkyCoord::ICRS2Observed(const CESkyCoord& in_icrs,
+                               CESkyCoord*       out_observed,
+                               const CEDate&     date,
+                               const CEObserver& observer,
+                               CESkyCoord*       observed_icrs,
+                               double*           hour_angle)
 {
     // First convert the ICRS coordinates to CIRS coordinates
     CESkyCoord tmp_cirs;
-    ICRS2CIRS(in_icrs, &tmp_cirs, date) ;
+    ICRS2CIRS(in_icrs, &tmp_cirs, date);
 
     // Now convert CIRS to Observed
     CESkyCoord obs_cirs;
-    int err_code = CIRS2Observed(tmp_cirs, out_observed,
-                                 date, observer, 
-                                 obs_cirs, hour_angle);
+    CIRS2Observed(tmp_cirs, out_observed,
+                  date, observer, 
+                  &obs_cirs, hour_angle);
     
     // Convert the apparent CIRS RA,Dec to ICRS RA,Dec
-    CIRS2ICRS(obs_cirs, observed_icrs, date) ;
+    if (observed_icrs != nullptr) {
+        CIRS2ICRS(obs_cirs, observed_icrs, date);
+    }
 
     return;
+}
+
+
+void CESkyCoord::Galactic2CIRS(const CESkyCoord& in_galactic,
+                               CESkyCoord*       out_cirs,
+                               const CEDate&     date)
+{
+    // Do the Galactic -> ICRS converstion
+    CESkyCoord tmp_icrs;
+    Galactic2ICRS(in_galactic, &tmp_icrs);
+    
+    // Now convert ICRS -> CIRS
+    ICRS2CIRS(tmp_icrs, out_cirs, date);
+    
+    return;
+}
+
+
+void CESkyCoord::Galactic2ICRS(const CESkyCoord& in_galactic,
+                               CESkyCoord*       out_icrs)
+{
+    // Do the Galactic -> ICRS converstion
+    double ra(0.0);
+    double dec(0.0);
+    iauG2icrs(in_galactic.XCoord().Rad(), 
+              in_galactic.YCoord().Rad(), 
+              &ra, &dec);
+    out_icrs->SetCoordinates(ra, dec, CESkyCoordType::ICRS);
+    
+    return;
+}
+
+
+void CESkyCoord::Galactic2Observed(const CESkyCoord& in_galactic,
+                                   CESkyCoord*       out_observed,
+                                   const CEDate&     date,
+                                   const CEObserver& observer,
+                                   CESkyCoord*       observed_galactic,
+                                   double*           hour_angle)
+{
+    // Galactic -> CIRS
+    CESkyCoord tmp_cirs;
+    Galactic2CIRS(in_galactic, &tmp_cirs, date);
+
+    // CIRS -> OBSERVED
+    CESkyCoord obs_cirs;
+    CIRS2Observed(tmp_cirs, out_observed, date, 
+                  observer, &obs_cirs, hour_angle);
+
+    // Observed CIRS -> observed Galactic
+    if (observed_galactic != nullptr) {
+        CIRS2Galactic(obs_cirs, observed_galactic, date);
+    }
+
+    return;
+}
+
+
+void CESkyCoord::Observed2CIRS(const CESkyCoord& in_observed,
+                               CESkyCoord*       out_cirs,
+                               const CEDate&     date,
+                               const CEObserver& observer)
+{
+    // Preliminary coordinates
+    double ra(0.0);
+    double dec(0.0);
+
+    // Run the SOFA method
+    int err_code = iauAtoi13("A", 
+                             in_observed.XCoord().Rad(), 
+                             in_observed.YCoord().Rad(),
+                             CEDate::GetMJD2JDFactor(), date.MJD(),
+                             date.dut1(),
+                             observer.Longitude_Rad(), 
+                             observer.Latitude_Rad(),
+                             observer.Elevation_m(),
+                             date.xpolar(), date.ypolar(),
+                             observer.Pressure_hPa(),
+                             observer.Temperature_C(),
+                             observer.RelativeHumidity(),
+                             observer.Wavelength_um(),
+                             &ra, &dec);
+
+    // Handle unacceptable date
+    if (err_code == -1) {
+        throw CEException::sofa_error("CESkyCoord::CIRS2Observed",
+                                      "iauAtio13", -1,
+                                      "SOFA method was passed an unacceptable date");
+    }
+
+    // Set ICRS coordinates
+    out_cirs->SetCoordinates(CEAngle::Rad(ra), CEAngle::Rad(dec),
+                             CESkyCoordType::CIRS);
+
+    return;
+}
+
+
+void CESkyCoord::Observed2ICRS(const CESkyCoord& in_observed,
+                               CESkyCoord*       out_icrs,
+                               const CEDate&     date,
+                               const CEObserver& observer)
+{
+    // Convert from Observed -> CIRS
+    CESkyCoord tmp_cirs;
+    Observed2CIRS(in_observed, &tmp_cirs, date, observer);
+
+    // Convert from CIRS -> ICRS
+    CIRS2ICRS(tmp_cirs, out_icrs, date);
+}
+
+
+void CESkyCoord::Observed2Galactic(const CESkyCoord& in_observed,
+                                   CESkyCoord*       out_galactic,
+                                   const CEDate&     date,
+                                   const CEObserver& observer)
+{
+    // Convert from Observed -> ICRS
+    CESkyCoord tmp_icrs;
+    Observed2ICRS(in_observed, &tmp_icrs, date, observer);
+
+    // Convert from ICRS -> Galactic
+    ICRS2Galactic(tmp_icrs, out_galactic);
 }
 
 
@@ -489,7 +583,7 @@ CESkyCoord CESkyCoord::ConvertToICRS(const CEDate&     date,
         Observed2ICRS(*this, &icrs, date, observer);
     }
     
-    return coord;
+    return icrs;
 }
 
 
@@ -499,18 +593,19 @@ CESkyCoord CESkyCoord::ConvertToGalactic(const CEDate&     date,
     // Create return coordiantes
     CESkyCoord galactic;
 
+    // Convert
     if (coord_type_ == CESkyCoordType::CIRS) {
         // CIRS -> GALACTIC
         CIRS2Galactic(*this, &galactic, date);
     } else if (coord_type_ == CESkyCoordType::ICRS) {
         // ICRS -> GALACTIC
-        ICRS2Galactic(*this, &galactic, date);
+        ICRS2Galactic(*this, &galactic);
     } else if (coord_type_ == CESkyCoordType::GALACTIC) {
         // GALACTIC -> GALACTIC
         galactic.SetCoordinates(*this);
     } else if (coord_type_ == CESkyCoordType::OBSERVED) {
         // OBSERVED -> GALACTIC
-        Observed2Galactic((this, &galactic, date, observed);
+        Observed2Galactic(*this, &galactic, date, observer);
     }
     
     return galactic;
@@ -520,7 +615,25 @@ CESkyCoord CESkyCoord::ConvertToGalactic(const CEDate&     date,
 CESkyCoord CESkyCoord::ConvertToObserved(const CEDate&     date,
                                          const CEObserver& observer)
 {
+    // Create return coordinates
+    CESkyCoord observed;
 
+    // Convert
+    if (coord_type_ == CESkyCoordType::CIRS) {
+        // CIRS -> OBSERVED
+        CIRS2Observed(*this, &observed, date, observer);
+    } else if (coord_type_ == CESkyCoordType::ICRS) {
+        // ICRS -> OBSERVED
+        ICRS2Observed(*this, &observed, date, observer);
+    } else if (coord_type_ == CESkyCoordType::GALACTIC) {
+        // GALACTIC -> OBSERVED
+        Galactic2Observed(*this, &observed, date, observer);
+    } else if (coord_type_ == CESkyCoordType::OBSERVED) {
+        // OBSERVED -> OBSERVED
+        observed.SetCoordinates(*this);
+    }
+    
+    return observed;
 }
 
 

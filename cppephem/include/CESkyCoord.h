@@ -44,7 +44,7 @@ enum class CESkyCoordType
     OBSERVED=3        ///< Azimuth, Zenith (requires additional observer information)
 };
 
-// Initiate the class that holds the coordinate information
+// Class for handling sky coordinates
 class CESkyCoord {
 
     friend bool operator==(const CESkyCoord& lhs, const CESkyCoord& rhs);
@@ -57,10 +57,6 @@ public:
     CESkyCoord(const CEAngle& xcoord, 
                const CEAngle& ycoord,
                const CESkyCoordType& coord_type=CESkyCoordType::ICRS) ;
-    CESkyCoord(const std::vector<double>& xcoord,
-               const std::vector<double>& ycoord,
-               const CESkyCoordType& coord_type=CESkyCoordType::ICRS);
-    CESkyCoord(const CESkyCoordType& coord_type) ;
     CESkyCoord(const CESkyCoord& other) ;
     virtual ~CESkyCoord() ;
     
@@ -85,7 +81,7 @@ public:
     virtual CEAngle YCoord(const CEDate& jd=CppEphem::julian_date_J2000()) const;
     
     // Return coordinate system
-    CECoordinateType GetCoordSystem(void) const;
+    CESkyCoordType GetCoordSystem(void) const;
     
     /**********************************************************
      * Methods for converting between coordinate types
@@ -101,7 +97,7 @@ public:
     static void CIRS2Galactic(const CESkyCoord& in_cirs,
                               CESkyCoord*       out_galactic,
                               const CEDate&     date=CEDate());
-    static int  CIRS2Observed(const CESkyCoord& in_cirs,
+    static void CIRS2Observed(const CESkyCoord& in_cirs,
                               CESkyCoord*       out_observed,
                               const CEDate&     date,
                               const CEObserver& observer,
@@ -114,39 +110,39 @@ public:
                           const CEDate&     date=CEDate());
     static void ICRS2Galactic(const CESkyCoord& in_icrs,
                               CESkyCoord*       out_galactic);
-    static int  ICRS2Observed(const CESkyCoord& in_icrs,
+    static void ICRS2Observed(const CESkyCoord& in_icrs,
                               CESkyCoord*       out_observed,
                               const CEDate&     date,
                               const CEObserver& observer,
                               CESkyCoord*       observed_cirs=nullptr,
-                              double*              hour_angle=nullptr);
+                              double*           hour_angle=nullptr);
 
-    // // Convert from GALACTIC to other coordinates
-    // static void Galactic2CIRS(const CECoordinates& in_galactic,
-    //                           CECoordinates*       out_cirs,
-    //                           const CEDate&        date=CEDate());
-    // static void Galactic2ICRS(const CECoordinates& in_galactic,
-    //                           CECoordinates*       out_icrs);
-    // static int Galactic2Observed(const CECoordinates& in_galactic,
-    //                              CECoordinates*       out_observed,
-    //                              const CEDate&        date,
-    //                              const CEObserver&    observer,
-    //                              CECoordinates*       observed_galactic=nullptr,
-    //                              double*              hour_angle=nullptr);
+    // Convert from GALACTIC to other coordinates
+    static void Galactic2CIRS(const CESkyCoord& in_galactic,
+                              CESkyCoord*       out_cirs,
+                              const CEDate&     date=CEDate());
+    static void Galactic2ICRS(const CESkyCoord& in_galactic,
+                              CESkyCoord*       out_icrs);
+    static void Galactic2Observed(const CESkyCoord& in_galactic,
+                                  CESkyCoord*       out_observed,
+                                  const CEDate&     date,
+                                  const CEObserver& observer,
+                                  CESkyCoord*       observed_galactic=nullptr,
+                                  double*           hour_angle=nullptr);
 
-    // // Convert from OBSERVED to other coordinates
-    // static int Observed2CIRS(const CECoordinates& in_observed,
-    //                          CECoordinates*       out_cirs,
-    //                          const CEDate&        date,
-    //                          const CEObserver&    observer);
-    // static int Observed2ICRS(const CECoordinates& in_observed,
-    //                          CECoordinates*       out_icrs,
-    //                          const CEDate&        date,
-    //                          const CEObserver&    observer);
-    // static int Observed2Galactic(const CECoordinates& in_observed,
-    //                              CECoordinates*       out_galactic,
-    //                              const CEDate&        date,
-    //                              const CEObserver&    observer);
+    // Convert from OBSERVED to other coordinates
+    static void Observed2CIRS(const CESkyCoord& in_observed,
+                              CESkyCoord*       out_cirs,
+                              const CEDate&     date,
+                              const CEObserver& observer);
+    static void Observed2ICRS(const CESkyCoord& in_observed,
+                              CESkyCoord*       out_icrs,
+                              const CEDate&     date,
+                              const CEObserver& observer);
+    static void Observed2Galactic(const CESkyCoord& in_observed,
+                                  CESkyCoord*       out_galactic,
+                                  const CEDate&     date,
+                                  const CEObserver& observer);
 
     /*********************************************************
      * More generic methods for converting between coordinate types
@@ -155,13 +151,13 @@ public:
                          const CEDate&          date=CEDate::CurrentJD(),
                          const CEObserver&      observer=CEObserver());
     CESkyCoord ConvertToCIRS(const CEDate&     date=CEDate::CurrentJD(),
-                             const CEObserver& observer=nullptr);
+                             const CEObserver& observer=CEObserver());
     CESkyCoord ConvertToICRS(const CEDate&     date=CEDate::CurrentJD(),
-                             const CEObserver& observer=nullptr);
+                             const CEObserver& observer=CEObserver());
     CESkyCoord ConvertToGalactic(const CEDate&     date=CEDate::CurrentJD(),
-                                 const CEObserver& observer=nullptr);
+                                 const CEObserver& observer=CEObserver());
     CESkyCoord ConvertToObserved(const CEDate&     date=CEDate::CurrentJD(),
-                                 const CEObserver& observer=nullptr);
+                                 const CEObserver& observer=CEObserver());
 
     /*********************************************************
      * Methods for setting the coordinates of this object
@@ -184,7 +180,7 @@ private:
     /*********************************************************
      * Private methods
      *********************************************************/
-    void copy_members(const CESkyCoordType& other);
+    void copy_members(const CESkyCoord& other);
     void free_members(void);
     void init_members(void);
 };
