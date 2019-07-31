@@ -35,6 +35,7 @@
 #include "CEObserver.h"
 #include "CEPlanet.h"
 #include "CERunningDate.h"
+#include "CESkyCoord.h"
 #include "CETime.h"
 
 #endif /* CppEphem_h */
