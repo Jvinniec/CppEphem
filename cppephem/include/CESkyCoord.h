@@ -31,6 +31,7 @@
 #include "CENamespace.h"
 #include "CEException.h"
 #include "CEObserver.h"
+#include "CECoordinates.h"
 
 // SOFA HEADER
 #include "sofa.h"
@@ -57,6 +58,7 @@ public:
     CESkyCoord(const CEAngle& xcoord, 
                const CEAngle& ycoord,
                const CESkyCoordType& coord_type=CESkyCoordType::ICRS) ;
+    CESkyCoord(const CECoordinates& other);
     CESkyCoord(const CESkyCoord& other) ;
     virtual ~CESkyCoord() ;
     

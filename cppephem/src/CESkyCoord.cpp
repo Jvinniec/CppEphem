@@ -60,6 +60,17 @@ CESkyCoord::CESkyCoord(const CEAngle&        xcoord,
 /**********************************************************************//**
  * Copy constructor
  *************************************************************************/
+CESkyCoord::CESkyCoord(const CECoordinates& other)
+{
+    this->SetCoordinates(other.XCoordinate_Rad(),
+                         other.YCoordinate_Rad(),
+                         CESkyCoordType(other.GetCoordSystem()));
+}
+
+
+/**********************************************************************//**
+ * Copy constructor
+ *************************************************************************/
 CESkyCoord::CESkyCoord(const CESkyCoord& other)
 {
     free_members();
