@@ -76,16 +76,6 @@ public:
     void SetWavelength_um(const double& new_wavelength_um);
         
     /****************************************************
-     * Methods for extracting observed coordinates for
-     * a given object or coordinate
-     ****************************************************/
-    
-    CECoordinates ObservedPosition(const CEBody& object,
-                                   const CEDate& date) ;
-    CECoordinates ObservedPosition(const CECoordinates& coords,
-                                   const CEDate&        date) ;
-    
-    /****************************************************
      * Methods for getting observer position and velocity
      * vectors relative to CIRS and ICRS coordinates
      ****************************************************/
