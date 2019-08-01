@@ -757,7 +757,7 @@ CESkyCoord CESkyCoord::ConvertToObserved(const CEDate&     date,
  *************************************************************************/
 void CESkyCoord::SetCoordinates(const CEAngle& xcoord, 
                                 const CEAngle& ycoord,
-                                const CESkyCoordType& coord_type)
+                                const CESkyCoordType& coord_type) const
 {
     xcoord_     = xcoord ;
     ycoord_     = ycoord ;

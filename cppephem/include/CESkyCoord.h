@@ -58,7 +58,7 @@ public:
     CESkyCoord(const CEAngle& xcoord, 
                const CEAngle& ycoord,
                const CESkyCoordType& coord_type=CESkyCoordType::ICRS) ;
-    CESkyCoord(const CECoordinates& other);
+    explicit CESkyCoord(const CECoordinates& other);
     CESkyCoord(const CESkyCoord& other) ;
     virtual ~CESkyCoord() ;
     
