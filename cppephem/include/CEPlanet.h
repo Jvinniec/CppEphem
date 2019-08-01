@@ -36,10 +36,10 @@ enum CEPlanetAlgo {SOFA,              ///< Use methods included in sofa software
 class CEPlanet : public CEBody {
 public:
     CEPlanet() ;
-    CEPlanet(const std::string&      name, 
-             const CEAngle&          xcoord, 
-             const CEAngle&          ycoord,
-             const CECoordinateType& coord_type=CECoordinateType::CIRS) ;
+    CEPlanet(const std::string&    name, 
+             const CEAngle&        xcoord, 
+             const CEAngle&        ycoord,
+             const CESkyCoordType& coord_type=CESkyCoordType::CIRS) ;
     CEPlanet(const CEPlanet& other);
     virtual ~CEPlanet() ;
     
@@ -62,8 +62,8 @@ public:
     virtual void   Update_SOFA(double new_date=-1.0e30) const;
     
     // Override CEBody methods
-    virtual CECoordinates  ObservedCoords(const CEDate&     date,
-                                          const CEObserver& observer) const;
+    virtual CESkyCoord ObservedCoords(const CEDate&     date,
+                                      const CEObserver& observer) const;
     
     /****************************
      * Methods for getting the current x,y,z coordinates and velocities relative to the ICRS point
@@ -280,7 +280,7 @@ inline
 double CEPlanet::XCoordinate_Rad(double new_date) const
 {
     UpdateCoordinates(new_date);
-    return CECoordinates::XCoordinate_Rad();
+    return XCoord().Rad();
 }
 
 
@@ -289,7 +289,8 @@ double CEPlanet::XCoordinate_Rad(double new_date) const
 inline
 double CEPlanet::XCoordinate_Deg(double new_date) const
 {
-    return XCoordinate_Rad(new_date)*DR2D;
+    UpdateCoordinates(new_date);
+    return XCoord().Deg();
 }
 
 
@@ -299,7 +300,7 @@ inline
 double CEPlanet::YCoordinate_Rad(double new_date) const
 {
     UpdateCoordinates(new_date) ;
-    return CECoordinates::YCoordinate_Rad();
+    return YCoord().Rad();
 }
 
 
@@ -308,7 +309,8 @@ double CEPlanet::YCoordinate_Rad(double new_date) const
 inline
 double CEPlanet::YCoordinate_Deg(double new_date) const
 {
-    return YCoordinate_Rad(new_date)*DR2D;
+    UpdateCoordinates(new_date);
+    return YCoord().Deg();
 }
 
 

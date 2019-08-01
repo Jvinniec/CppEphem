@@ -34,9 +34,9 @@
 #include <vector>
 
 // CPPEPHEM HEADERS
-#include "CECoordinates.h"
+#include "CESkyCoord.h"
 
-class CEBody : public CECoordinates {
+class CEBody : public CESkyCoord {
 public:
     /************************************
      * Basic constructors & destructors
@@ -46,12 +46,12 @@ public:
     CEBody(const std::string&      name, 
            const CEAngle&          xcoord, 
            const CEAngle&          ycoord,
-           const CECoordinateType& coord_type = CECoordinateType::ICRS) ;
+           const CESkyCoordType&   coord_type=CESkyCoordType::ICRS);
     CEBody(const CEBody&      other, 
-           const std::string& name="") ;
-    CEBody(const CECoordinates& coords, 
-           const std::string&   name="") ;
-    virtual ~CEBody() ;
+           const std::string& name="");
+    CEBody(const CESkyCoord&  coords, 
+           const std::string& name="");
+    virtual ~CEBody();
     
     /************************************
      * Overloaded operators
@@ -63,9 +63,9 @@ public:
      * Public methods
      ***********************************/
 
-    virtual CECoordinates GetCoordinates(const CEDate& date=CEDate::CurrentJD()) const;
-    virtual CECoordinates ObservedCoords(const CEDate&     date,
-                                         const CEObserver& observer) const;
+    virtual CESkyCoord GetCoordinates(const CEDate& date=CEDate::CurrentJD()) const;
+    virtual CESkyCoord ObservedCoords(const CEDate&     date,
+                                      const CEObserver& observer) const;
     std::string   Name(void) const;
     void          SetName(const std::string& new_name);
     
@@ -118,9 +118,9 @@ void CEBody::SetName(const std::string& new_name)
  * be either planets or stars with proper motion.
  *************************************************************************/
 inline
-CECoordinates CEBody::GetCoordinates(const CEDate& date) const
+CESkyCoord CEBody::GetCoordinates(const CEDate& date) const
 {
-    return CECoordinates(*this) ;
+    return CESkyCoord(*this) ;
 }
 
 #endif /* CEBody_h */

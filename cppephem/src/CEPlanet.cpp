@@ -152,12 +152,11 @@ CEPlanet::CEPlanet() :
  * @param[in] xcoord           X-coordinate
  * @param[in] ycoord           Y-coordinate
  * @param[in] coord_type       Coordinate system for passed coordinates
- * @param[in] angle_type       Angle type for the coordinates passed
  *************************************************************************/
-CEPlanet::CEPlanet(const std::string&      name, 
-                   const CEAngle&          xcoord, 
-                   const CEAngle&          ycoord,
-                   const CECoordinateType& coord_type) :
+CEPlanet::CEPlanet(const std::string&    name, 
+                   const CEAngle&        xcoord, 
+                   const CEAngle&        ycoord,
+                   const CESkyCoordType& coord_type) :
     CEBody(name, xcoord, ycoord, coord_type)
 {
     init_members();
@@ -638,8 +637,8 @@ std::vector<double> CEPlanet::PositionICRS_Obs(const CEDate& date) const
  * @param[in] observer          Observer
  * @return Observed coordinates
  *************************************************************************/
-CECoordinates CEPlanet::ObservedCoords(const CEDate&     date,
-                                       const CEObserver& observer) const
+CESkyCoord CEPlanet::ObservedCoords(const CEDate&     date,
+                                    const CEObserver& observer) const
 {
     // Update planet position
     UpdatePosition(date);
@@ -659,13 +658,13 @@ CECoordinates CEPlanet::ObservedCoords(const CEDate&     date,
     iauC2s(&offset[0], &ra, &dec);
 
     // Note that the coordinate system depends on the planet
-    CECoordinateType coordsys = CECoordinateType::ICRS;
+    CESkyCoordType coordsys = CESkyCoordType::ICRS;
     if (sofa_planet_id_ == 3.5) {
-        coordsys = CECoordinateType::CIRS;
+        coordsys = CESkyCoordType::CIRS;
     }
-    CECoordinates coord(ra, dec, coordsys);
+    CESkyCoord coord(ra, dec, coordsys);
     
-    return coord.ConvertTo(CECoordinateType::OBSERVED, observer, date);
+    return coord.ConvertTo(CESkyCoordType::OBSERVED, date, observer);
 }
 
 
@@ -691,11 +690,12 @@ void CEPlanet::UpdateCoordinates(double new_jd) const
     double x;
     double y;
     iauC2s(&pos_delayed[0], &x, &y);
-    xcoord_ = x;
-    ycoord_ = y;
     
     // Make sure the x-coordinate is in the appropriate range
-    xcoord_ = iauAnp(xcoord_);
+    x = iauAnp(x);
+
+    // Update the coordinates
+    CESkyCoord::SetCoordinates(CEAngle::Rad(x), CEAngle::Rad(y), GetCoordSystem());
 
     // Now that the coordinates are updated, reset the time
     cached_jd_ = new_jd ;

@@ -31,7 +31,7 @@ test_CEBody::test_CEBody() :
 {
     // Let's use the Crab Nebula
     base_ = CEBody("Crab", CEAngle::Deg(83.633), CEAngle::Deg(22.0145), 
-                   CECoordinateType::ICRS);
+                   CESkyCoordType::ICRS);
 }
 
 
@@ -68,7 +68,7 @@ bool test_CEBody::runtests()
 bool test_CEBody::test_construct(void)
 {
     // Default coordinates
-    CECoordinates test1_coord;
+    CESkyCoord test1_coord;
     // Default constructor
     CEBody test1;
     test_string(test1.Name(), "undefined", __func__, __LINE__);
@@ -125,7 +125,7 @@ bool test_CEBody::test_Name(void)
 bool test_CEBody::test_GetCoordinates(void)
 {
     // Test getting the coordinates
-    CECoordinates test_coords = base_.GetCoordinates();
+    CESkyCoord test_coords = base_.GetCoordinates();
     
     // Test that the coordinates are equal
     test_bool(test_coords == base_, true, __func__, __LINE__);
