@@ -32,7 +32,7 @@
 /**********************************************************************//**
  * Default constructor
  *************************************************************************/
-CEBody::CEBody() : CECoordinates()
+CEBody::CEBody() : CESkyCoord()
 {
     init_members();
 }
@@ -44,13 +44,13 @@ CEBody::CEBody() : CECoordinates()
  * @param[in] xcoord       X-coordinate
  * @param[in] ycoord       Y-coordinate
  * @param[in] angle_type   Angle type (either DEGREES or RADIANS)
- * @param[in] coord_type   Coordinate type (see CECoordinateType)
+ * @param[in] coord_type   Coordinate type (see CESkyCoordType)
  *************************************************************************/
 CEBody::CEBody(const std::string&      name,
                const CEAngle&          xcoord, 
                const CEAngle&          ycoord,
-               const CECoordinateType& coord_type) :
-    CECoordinates(xcoord, ycoord, coord_type)
+               const CESkyCoordType&   coord_type) :
+    CESkyCoord(xcoord, ycoord, coord_type)
 {
     init_members();
     SetName(name);
@@ -63,7 +63,7 @@ CEBody::CEBody(const std::string&      name,
  *************************************************************************/
 CEBody::CEBody(const CEBody&      other, 
                const std::string& name) :
-    CECoordinates(other)
+    CESkyCoord(other)
 {
     init_members();
     copy_members(other);
@@ -76,9 +76,9 @@ CEBody::CEBody(const CEBody&      other,
  * Copy constructor from a single set of coordinates
  * @param[in] coords       coordinates object
  *************************************************************************/
-CEBody::CEBody(const CECoordinates& coords, 
-               const std::string&   name) :
-    CECoordinates(coords)
+CEBody::CEBody(const CESkyCoord&  coords, 
+               const std::string& name) :
+    CESkyCoord(coords)
 {
     init_members();
     
@@ -109,7 +109,7 @@ CEBody& CEBody::operator=(const CEBody& other)
 {
     if (this != &other) {
         // Copy parent class parameters
-        this->CECoordinates::operator=(other);
+        this->CESkyCoord::operator=(other);
 
         // Reset this object and copy values from 'other'
         free_members();
@@ -127,11 +127,11 @@ CEBody& CEBody::operator=(const CEBody& other)
 /**********************************************************************//**
  * Computes the observed coordinates for this object based 
  *************************************************************************/
-CECoordinates CEBody::ObservedCoords(const CEDate&     date,
-                                     const CEObserver& observer) const
+CESkyCoord CEBody::ObservedCoords(const CEDate&     date,
+                                  const CEObserver& observer) const
 {
-    CECoordinates coords_icrs = GetCoordinates(date);
-    return coords_icrs.ConvertTo(CECoordinateType::OBSERVED, observer, date);
+    CESkyCoord coords_icrs = GetCoordinates(date);
+    return coords_icrs.ConvertTo(CESkyCoordType::OBSERVED, date, observer);
 }                                         
 
 
