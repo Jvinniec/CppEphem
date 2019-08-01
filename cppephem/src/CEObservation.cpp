@@ -205,7 +205,7 @@ void CEObservation::init_members(void)
 
     // Copy the cached values
     cached_date_           = 0.0;
-    cached_coords_         = CECoordinates();
+    cached_coords_         = CESkyCoord();
 
     // Note that these are not filled at the moment
     cached_hour_angle_     = 0.0;

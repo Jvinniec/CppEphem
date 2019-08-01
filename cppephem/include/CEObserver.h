@@ -22,7 +22,7 @@
 #ifndef CEObserver_h
 #define CEObserver_h
 
-#include "CEBody.h"
+#include "CEAngle.h"
 #include "CEDate.h"
 #include "CENamespace.h"
 
@@ -74,7 +74,7 @@ public:
     void SetTemperature_K(const double& temp_K=CppEphem::SeaLevelTemp_K());
     void SetTemperature_F(const double& temp_F=CppEphem::SeaLevelTemp_F());
     void SetWavelength_um(const double& new_wavelength_um);
-        
+    
     /****************************************************
      * Methods for getting observer position and velocity
      * vectors relative to CIRS and ICRS coordinates
