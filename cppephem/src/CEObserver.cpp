@@ -111,37 +111,8 @@ CEObserver& CEObserver::operator=(const CEObserver& other)
 
 
 /**********************************************************************//**
- * Get the local sky coordinates for an object as observed
- * by this observer
- * 
- * @param[in] object       Object that we want to find the local coordinates of
- * @return                 Local coordinates of the object
- *************************************************************************/
-CECoordinates CEObserver::ObservedPosition(const CEBody& object,
-                                           const CEDate& date)
-{
-    CECoordinates coords = object.ObservedCoords(date, *this);
-    return this->ObservedPosition(coords, date);
-}
-
-
-/**********************************************************************//**
- * Get the local sky coordinates for an object as observed
- * by this observer
- * @param[in] coords       Coordinates of an object that we want to find the local coordinates of
- * @return                 'coords' converted into the local coordinates of this observer.
- *************************************************************************/
-CECoordinates CEObserver::ObservedPosition(const CECoordinates& coords, 
-                                           const CEDate&        date)
-{
-    // Compute the observed coordinates for these coordinates
-    CECoordinates observed_coords = coords.GetObservedCoords(date,*this);
-    return observed_coords;
-}
-
-
-/**********************************************************************//**
  * Returns the observers geocentric position in meters
+ * 
  * @return Geocentric position of observer (in meters)
  * 
  * The position returned is in reference to the WGS84 coordinates
