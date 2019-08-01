@@ -48,7 +48,7 @@ test_CEObservation::test_CEObservation() :
 
     // Set the object that will be observed
     base_body_ = CEBody("test", CEAngle::Deg(83.663), CEAngle::Deg(22.0145), 
-                        CECoordinateType::ICRS);
+                        CESkyCoordType::ICRS);
     
     // Put it all together
     base_obs_ = CEObservation(&base_observer_, &base_body_, &base_date_);
@@ -164,13 +164,13 @@ bool test_CEObservation::test_cache(void)
     test_double(test1.GetHourAngle_Deg(), 0.0, __func__, __LINE__);
     
     // Now we setup the actual tests for observed coordinates
-    // Note: these coordinates are derived from CECoordinates tests
-    CECoordinates obs_coords(CEAngle::Deg(35.55160709646245), 
-                             CEAngle::Deg(152.5681387256824),
-                             CECoordinateType::OBSERVED);
-    CECoordinates test2(base_obs_.GetAzimuth_Rad(),
-                        base_obs_.GetZenith_Rad(),
-                        CECoordinateType::OBSERVED);
+    // Note: these coordinates are derived from CESkyCoord tests
+    CESkyCoord obs_coords(CEAngle::Deg(35.55160709646245), 
+                          CEAngle::Deg(152.5681387256824),
+                          CESkyCoordType::OBSERVED);
+    CESkyCoord test2(base_obs_.GetAzimuth_Rad(),
+                     base_obs_.GetZenith_Rad(),
+                     CESkyCoordType::OBSERVED);
 
     // Test that the coordinates update when the date is changed
     test(obs_coords == test2, __func__, __LINE__);
@@ -183,8 +183,8 @@ bool test_CEObservation::test_cache(void)
         
     // Test observed coordinates
     base_obs_.GetAzimuthZenith_Deg(&test_x, &test_y);
-    test_double(test_x, test2.XCoordinate_Deg(), __func__, __LINE__);
-    test_double(test_y, test2.YCoordinate_Deg(), __func__, __LINE__);
+    test_double(test_x, test2.XCoord().Deg(), __func__, __LINE__);
+    test_double(test_y, test2.YCoord().Deg(), __func__, __LINE__);
 
     // Test apparent coordinates
     base_obs_.GetApparentXYCoordinate_Deg(&test_x, &test_y);
