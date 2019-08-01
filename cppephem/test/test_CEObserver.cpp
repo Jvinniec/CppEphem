@@ -26,7 +26,7 @@
 #include <iostream>
 
 #include "test_CEObserver.h"
-#include "CECoordinates.h"
+#include "CESkyCoord.h"
 #include "CENamespace.h"
 
 
@@ -63,7 +63,6 @@ bool test_CEObserver::runtests()
     test_constructor();
     test_set_geoCoords();
     test_set_atmoPars();
-    test_get_obsCoords();
     test_time();
 
     return pass();
@@ -209,40 +208,6 @@ bool test_CEObserver::test_set_atmoPars()
 
     // Reset the tolerance
     SetDblTol(old_tol);
-    return pass();
-}
-
-
-/**********************************************************************//**
- * Test that we can get correct observed coordinates
- * 
- * @return whether or not all tests succeeded
- *************************************************************************/
-bool test_CEObserver::test_get_obsCoords(void)
-{
-    CEBody body("North Pole", CEAngle::Deg(0.0), CEAngle::Deg(90.0), 
-                CECoordinateType::ICRS);
-    CEDate date(CppEphem::julian_date_J2000(), CEDateType::JD);
-    CECoordinates obs_coords = base_obs_.ObservedPosition(body, date);
-
-    // Note that these test coordinates were derived using Astropy
-    // to ensure the values returned are correct
-    CECoordinates test_coords(CEAngle::Deg(359.9960211433963), 
-                              CEAngle::Deg(90.00137453000666), 
-                              CECoordinateType::OBSERVED);
-
-    // Make sure observed coordinates are near where we expect them to be
-    CEAngle angsep = CECoordinates::AngularSeparation(obs_coords, test_coords);
-    // Make sure the accuracy is within 0.5 arcsecond
-    if (!test_lessthan(angsep.Rad(), 0.5*DAS2R, __func__, __LINE__)) {
-        std::printf("date: %f\n", date.Gregorian());
-        std::printf("dut1,x,y: %f sec, %e rad, %e rad\n", date.dut1(), date.xpolar(), date.ypolar());
-        std::printf("Obs %s", obs_coords.print().c_str());
-        std::printf("Test %s", test_coords.print().c_str());
-        std::printf("Angsep: %e deg\n", angsep.Deg());
-        std::printf("%s", base_obs_.print().c_str());
-    }
-
     return pass();
 }
 
