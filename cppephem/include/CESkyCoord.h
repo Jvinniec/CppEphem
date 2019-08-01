@@ -166,17 +166,11 @@ public:
      *********************************************************/
     virtual void SetCoordinates(const CEAngle& xcoord, 
                                 const CEAngle& ycoord,
-                                const CESkyCoordType& coord_type = CESkyCoordType::ICRS);
+                                const CESkyCoordType& coord_type = CESkyCoordType::ICRS) const;
     virtual void SetCoordinates(const CESkyCoord& coords);
 
     // Support methods
     std::string print(void) const;
-
-protected:
-    // Coordinate variables
-    mutable CEAngle xcoord_;        //<! X coordinate
-    mutable CEAngle ycoord_;        //<! Y coordinate
-    CESkyCoordType  coord_type_;    //<! Coordinate system to which 'xcoord_' and 'ycoord_' belong.
 
 private:
     /*********************************************************
@@ -185,6 +179,11 @@ private:
     void copy_members(const CESkyCoord& other);
     void free_members(void);
     void init_members(void);
+
+    // Coordinate variables
+    mutable CEAngle         xcoord_;        //<! X coordinate
+    mutable CEAngle         ycoord_;        //<! Y coordinate
+    mutable CESkyCoordType  coord_type_;    //<! Coordinate system to which 'xcoord_' and 'ycoord_' belong.
 };
 
 
