@@ -28,6 +28,7 @@
 #define CppEphem_h
 
 // ALL THE CppEphem HEADERS
+#include "CEAngle.h"
 #include "CECoordinates.h"
 #include "CEDate.h"
 #include "CENamespace.h"
