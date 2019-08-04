@@ -255,15 +255,12 @@ void CESkyCoord::CIRS2Observed(const CESkyCoord& in_cirs,
                                const CEDate&     date,
                                const CEObserver& observer,
                                CESkyCoord*       observed_cirs,
-                               double*           hour_angle)
+                               CEAngle*          hour_angle)
 {
     // Setup the observed RA, Dec and hour_angle variables
     double temp_ra(0.0);
     double temp_dec(0.0);
     double temp_hour_angle(0.0);
-
-    // If values were not passed, point them at the temporary ones
-    if (hour_angle == nullptr) hour_angle = &temp_hour_angle;
 
     // Call the necessary sofa method
     double az(0.0);
@@ -281,7 +278,7 @@ void CESkyCoord::CIRS2Observed(const CESkyCoord& in_cirs,
                              observer.RelativeHumidity(),
                              observer.Wavelength_um(),
                              &az, &zen,
-                             hour_angle, 
+                             &temp_hour_angle, 
                              &temp_ra, &temp_dec);
     
     // Handle the error code
@@ -299,6 +296,11 @@ void CESkyCoord::CIRS2Observed(const CESkyCoord& in_cirs,
     if (observed_cirs != nullptr) {
         observed_cirs->SetCoordinates(CEAngle::Rad(temp_ra), CEAngle::Rad(temp_dec),
                                       CESkyCoordType::CIRS);
+    }
+
+    // Set the hour angle
+    if (hour_angle != nullptr) {
+        hour_angle->Rad(temp_hour_angle);
     }
 
     return;
@@ -382,7 +384,7 @@ void CESkyCoord::ICRS2Observed(const CESkyCoord& in_icrs,
                                const CEDate&     date,
                                const CEObserver& observer,
                                CESkyCoord*       observed_icrs,
-                               double*           hour_angle)
+                               CEAngle*          hour_angle)
 {
     // First convert the ICRS coordinates to CIRS coordinates
     CESkyCoord tmp_cirs;
@@ -464,7 +466,7 @@ void CESkyCoord::Galactic2Observed(const CESkyCoord& in_galactic,
                                    const CEDate&     date,
                                    const CEObserver& observer,
                                    CESkyCoord*       observed_galactic,
-                                   double*           hour_angle)
+                                   CEAngle*          hour_angle)
 {
     // Galactic -> CIRS
     CESkyCoord tmp_cirs;

@@ -104,7 +104,7 @@ public:
                               const CEDate&     date,
                               const CEObserver& observer,
                               CESkyCoord*       observed_cirs=nullptr,
-                              double*           hour_angle=nullptr);
+                              CEAngle*          hour_angle=nullptr);
 
     // Convert from ICRS to other coordinates
     static void ICRS2CIRS(const CESkyCoord& in_icrs,
@@ -117,7 +117,7 @@ public:
                               const CEDate&     date,
                               const CEObserver& observer,
                               CESkyCoord*       observed_cirs=nullptr,
-                              double*           hour_angle=nullptr);
+                              CEAngle*          hour_angle=nullptr);
 
     // Convert from GALACTIC to other coordinates
     static void Galactic2CIRS(const CESkyCoord& in_galactic,
@@ -130,7 +130,7 @@ public:
                                   const CEDate&     date,
                                   const CEObserver& observer,
                                   CESkyCoord*       observed_galactic=nullptr,
-                                  double*           hour_angle=nullptr);
+                                  CEAngle*          hour_angle=nullptr);
 
     // Convert from OBSERVED to other coordinates
     static void Observed2CIRS(const CESkyCoord& in_observed,
@@ -166,7 +166,7 @@ public:
      *********************************************************/
     virtual void SetCoordinates(const CEAngle& xcoord, 
                                 const CEAngle& ycoord,
-                                const CESkyCoordType& coord_type = CESkyCoordType::ICRS) const;
+                                const CESkyCoordType& coord_type=CESkyCoordType::ICRS) const;
     virtual void SetCoordinates(const CESkyCoord& coords);
 
     // Support methods
