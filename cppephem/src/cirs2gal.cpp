@@ -51,16 +51,16 @@ CEExecOptions DefineOpts()
 
 /**********************************************************************//**
  *************************************************************************/
-void PrintResults(CEExecOptions& opts, 
-                  const std::map<std::string, double>& results)
+void PrintResults(CEExecOptions&    opts, 
+                  const CESkyCoord& results)
 {
     std::printf("\n") ;
     std::printf("******************************************\n") ;
     std::printf("* Results of CIRS -> Galactic conversion *\n") ;
     std::printf("******************************************\n") ;
     std::printf("Galactic Coordinates (output)\n") ;
-    std::printf("    Galactic Lon.: %f degrees\n", results.at("longitude")*DR2D) ;
-    std::printf("    Galactic Lat.: %+f degrees\n", results.at("latitude")*DR2D) ;
+    std::printf("    Galactic Lon.: %f degrees\n", results.XCoord().Deg()) ;
+    std::printf("    Galactic Lat.: %+f degrees\n", results.YCoord().Deg()) ;
     std::printf("CIRS Coordinates (input)\n") ;
     std::printf("    Right Ascension: %f degrees\n", opts.AsDouble("ra")) ;
     std::printf("    Declination    : %+f degrees\n", opts.AsDouble("dec")) ;
@@ -73,24 +73,18 @@ void PrintResults(CEExecOptions& opts,
 int main(int argc, char** argv) 
 {    
     // Get the options from the command line
-    CEExecOptions opts = DefineOpts() ;
-    if (opts.ParseCommandLine(argc, argv)) return 0 ;
-    
-    // Create a map to store the results
-    std::map<std::string, double> results ;
-    results["longitude"] = 0.0 ;
-    results["latitude"]  = 0.0 ;
+    CEExecOptions opts = DefineOpts();
+    if (opts.ParseCommandLine(argc, argv)) return 0;
     
     // Convert the coordinates
     CEDate date(opts.AsDouble("juliandate"), CEDateType::JD);
-    CECoordinates::CIRS2Galactic(opts.AsDouble("ra")*DD2R,
-                                 opts.AsDouble("dec")*DD2R,
-                                 &results["longitude"],
-                                 &results["latitude"],
-                                 date);
+    CESkyCoord cirs_coord(CEAngle::Deg(opts.AsDouble("ra")),
+                          CEAngle::Deg(opts.AsDouble("dec")),
+                          CESkyCoordType::CIRS);
+    CESkyCoord gal_coord = cirs_coord.ConvertToGalactic(date);
     
     // Print the results
-    PrintResults(opts, results) ;
+    PrintResults(opts, gal_coord);
     
     return 0 ;
 }
