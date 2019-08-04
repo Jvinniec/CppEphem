@@ -54,25 +54,27 @@ CEExecOptions DefineOpts()
 
 /**********************************************************************//**
  *************************************************************************/
-void PrintResults(CEExecOptions& inputs, 
-                  const std::map<std::string, double>& results)
+void PrintResults(CEExecOptions&    inputs, 
+                  const CESkyCoord& obs_coords,
+                  const CESkyCoord& obs_cirs_coords,
+                  const CEAngle&    hour_angle)
 {
     std::printf("\n") ;
     std::printf("******************************************\n");
     std::printf("* Results of CIRS -> Observed conversion *\n");
     std::printf("******************************************\n");
     std::printf("Observed Coordinates (output)\n");
-    std::printf("    Azimuth        : %f degrees\n", results.at("azimuth")*DR2D);
-    std::printf("    Zenith         : %+f degrees\n", results.at("zenith")*DR2D);
-    std::printf("    Altitude       : %+f degrees\n", 90.0-results.at("zenith")*DR2D);
+    std::printf("    Azimuth        : %f degrees\n", obs_coords.XCoord().Deg());
+    std::printf("    Zenith         : %+f degrees\n", obs_coords.YCoord().Deg());
+    std::printf("    Altitude       : %+f degrees\n", 90.0-obs_coords.YCoord().Deg());
     std::printf("CIRS Coordinates (input)\n");
     std::printf("    Right Ascension: %f degrees\n", inputs.AsDouble("ra"));
     std::printf("    Declination    : %+f degrees\n", inputs.AsDouble("dec"));
     std::printf("    Julian Date    : %f\n", inputs.AsDouble("juliandate"));
     std::printf("Apparent CIRS Coordinates\n");
-    std::printf("    Right Ascension: %f\n", results.at("observed_ra")*DR2D);
-    std::printf("    Declination    : %+f\n", results.at("observed_dec")*DR2D);
-    std::printf("    Hour Angle     : %+f\n", results.at("hour_angle")*DR2D);
+    std::printf("    Right Ascension: %f\n", obs_cirs_coords.XCoord().Deg());
+    std::printf("    Declination    : %+f\n", obs_cirs_coords.YCoord().Deg());
+    std::printf("    Hour Angle     : %+f\n", hour_angle.Deg());
     std::printf("Observer Info\n");
     std::printf("    Longitude      : %f deg\n", inputs.AsDouble("longitude"));
     std::printf("    Latitude       : %+f deg\n", inputs.AsDouble("latitude"));
@@ -88,23 +90,23 @@ void PrintResults(CEExecOptions& inputs,
 int main(int argc, char** argv) {
     
     // Get the options from the command line
-    CEExecOptions opts = DefineOpts() ;
-    if (opts.ParseCommandLine(argc, argv)) return 0 ;
+    CEExecOptions opts = DefineOpts();
+    if (opts.ParseCommandLine(argc, argv)) return 0;
     
     // Create a map to store the results
-    std::map<std::string, double> results ;
-    results["azimuth"]      = 0.0 ;
-    results["zenith"]       = 0.0 ;
-    results["observed_ra"]  = 0.0 ;
-    results["observed_dec"] = 0.0 ;
-    results["hour_angle"]   = 0.0 ;
+    std::map<std::string, double> results;
+    results["azimuth"]      = 0.0;
+    results["zenith"]       = 0.0;
+    results["observed_ra"]  = 0.0;
+    results["observed_dec"] = 0.0;
+    results["hour_angle"]   = 0.0;
     
     // Create a date
     CEDate date(opts.AsDouble("juliandate"), CEDateType::JD);
 
     // Create the observer
-    CEObserver obs(opts.AsDouble("longitude")*DD2R,
-                   opts.AsDouble("latitude")*DD2R,
+    CEObserver obs(opts.AsDouble("longitude"),
+                   opts.AsDouble("latitude"),
                    opts.AsDouble("elevation"),
                    CEAngleType::DEGREES);
     obs.SetRelativeHumidity(opts.AsDouble("humidity"));
@@ -112,20 +114,17 @@ int main(int argc, char** argv) {
     obs.SetWavelength_um(opts.AsDouble("wavelength"));
     
     // Convert the coordinates
-    int errcode = CECoordinates::CIRS2Observed(opts.AsDouble("ra")*DD2R,
-                                               opts.AsDouble("dec")*DD2R,
-                                               &results["azimuth"],
-                                               &results["zenith"],
-                                               date,
-                                               obs,
-                                               CEAngleType::RADIANS,
-                                               obs.Wavelength_um(),
-                                               &results["observed_ra"],
-                                               &results["observed_dec"],
-                                               &results["hour_angle"]) ;
-    
+    CESkyCoord cirs_coord(CEAngle::Deg(opts.AsDouble("ra")),
+                          CEAngle::Deg(opts.AsDouble("dec")),
+                          CESkyCoordType::CIRS);
+    CESkyCoord obs_coord;
+    CESkyCoord obs_cirs_coord;
+    CEAngle    hour_angle;
+    CESkyCoord::CIRS2Observed(cirs_coord, &obs_coord, date, obs, 
+                              &obs_cirs_coord, &hour_angle);
+
     // Print the results
-    PrintResults(opts, results) ;
+    PrintResults(opts, obs_coord, obs_cirs_coord, hour_angle);
     
-    return errcode ;
+    return 0;
 }

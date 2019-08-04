@@ -50,24 +50,24 @@ CEExecOptions DefineOpts()
 /**********************************************************************//**
  * Print the results of the analysis
  *************************************************************************/
-void PrintResults(const CECoordinates& input,
-                  const CECoordinates& output)
+void PrintResults(const CESkyCoord& input,
+                  const CESkyCoord& output)
 {
     // Get the representation of the input icrs in hours, minutes, seconds
-    std::vector<double> input_hms = CECoordinates::GetHMS( input.XCoordinate_Deg() ) ;
+    std::vector<double> input_hms = input.XCoord().HmsVect();
     
     std::printf("\n") ;
     std::printf("******************************************\n") ;
     std::printf("* Results of ICRS -> Galactic conversion *\n") ;
     std::printf("******************************************\n") ;
     std::printf("Galactic Coordinates (output)\n") ;
-    std::printf("    Galactic Lon.: %f degrees\n", output.XCoordinate_Deg()) ;
-    std::printf("    Galactic Lat.: %+f degrees\n", output.YCoordinate_Deg()) ;
+    std::printf("    Galactic Lon.: %f degrees\n", output.XCoord().Deg()) ;
+    std::printf("    Galactic Lat.: %+f degrees\n", output.YCoord().Deg()) ;
     std::printf("ICRS Coordinates (input)\n") ;
     std::printf("    Right Ascension: %02dh %02dm %04.1fs (%f deg)\n",
                 int(input_hms[0]), int(input_hms[1]), input_hms[2],
-                input.XCoordinate_Deg()) ;
-    std::printf("    Declination    : %+f degrees\n", input.YCoordinate_Deg()) ;
+                input.XCoord().Deg()) ;
+    std::printf("    Declination    : %+f degrees\n", input.YCoord().Deg()) ;
     std::printf("\n") ;
 }
 
@@ -77,19 +77,19 @@ void PrintResults(const CECoordinates& input,
 int main(int argc, char** argv) 
 {    
     // Get the options from the command line
-    CEExecOptions opts = DefineOpts() ;
-    if (opts.ParseCommandLine(argc, argv)) return 0 ;
+    CEExecOptions opts = DefineOpts();
+    if (opts.ParseCommandLine(argc, argv)) return 0;
         
     // Create a map to store the results
-    CECoordinates input(CEAngle::Deg(opts.AsDouble("ra")),
-                        CEAngle::Deg(opts.AsDouble("dec")),
-                        CECoordinateType::ICRS) ;
+    CESkyCoord icrs_coords(CEAngle::Deg(opts.AsDouble("ra")),
+                          CEAngle::Deg(opts.AsDouble("dec")),
+                          CESkyCoordType::ICRS);
     
     // Convert the coordinates
-    CECoordinates output = input.ConvertToGalactic();
+    CESkyCoord gal_coords = icrs_coords.ConvertToGalactic();
     
     // Print the results
-    PrintResults(input, output) ;
+    PrintResults(icrs_coords, gal_coords);
     
     return 0 ;
 }

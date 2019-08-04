@@ -54,26 +54,26 @@ CEExecOptions DefineOpts()
 /**********************************************************************//**
  * Print the results of the analysis
  *************************************************************************/
-void PrintResults(const CECoordinates& input,
-                  const CECoordinates& output)
+void PrintResults(const CESkyCoord& input,
+                  const CESkyCoord& output)
 {
     // Get the representation of the input icrs in hours, minutes, seconds
-    std::vector<double> out_hms = CECoordinates::GetHMS( output.XCoordinate_Deg() );
-    std::vector<double> out_dms = CECoordinates::GetDMS( output.YCoordinate_Rad() );
+    std::vector<double> out_hms = output.XCoord().HmsVect();
+    std::vector<double> out_dms = output.YCoord().DmsVect();
     
-    std::printf("\n") ;
-    std::printf("******************************************\n") ;
-    std::printf("* Results of Galactic -> ICRS conversion *\n") ;
-    std::printf("******************************************\n") ;
-    std::printf("ICRS Coordinates (output)\n") ;
+    std::printf("\n");
+    std::printf("******************************************\n");
+    std::printf("* Results of Galactic -> ICRS conversion *\n");
+    std::printf("******************************************\n");
+    std::printf("ICRS Coordinates (output)\n");
     std::printf("    Right Ascension: %02dh %02dm %04.1fs (%f deg)\n",
                 int(out_hms[0]), int(out_hms[1]), out_hms[2]+out_hms[3],
-                output.XCoordinate_Deg()) ;
-    std::printf("    Declination    : %+f degrees\n", input.YCoordinate_Deg()) ;
-    std::printf("Galactic Coordinates (input)\n") ;
-    std::printf("    Galactic Lon.: %f degrees\n", input.XCoordinate_Deg()) ;
-    std::printf("    Galactic Lat.: %+f degrees\n", input.YCoordinate_Deg()) ;
-    std::printf("\n") ;
+                output.XCoord().Deg());
+    std::printf("    Declination    : %+f degrees\n", input.YCoord().Deg());
+    std::printf("Galactic Coordinates (input)\n");
+    std::printf("    Galactic Lon.: %f degrees\n", input.XCoord().Deg());
+    std::printf("    Galactic Lat.: %+f degrees\n", input.YCoord().Deg());
+    std::printf("\n");
 }
 
 /**********************************************************************//**
@@ -82,19 +82,19 @@ void PrintResults(const CECoordinates& input,
 int main(int argc, char** argv) {
     
     // Get the options from the command line
-    CEExecOptions opts = DefineOpts() ;
-    if (opts.ParseCommandLine(argc, argv)) return 0 ;
+    CEExecOptions opts = DefineOpts();
+    if (opts.ParseCommandLine(argc, argv)) return 0;
         
     // Create a map to store the results
-    CECoordinates input(CEAngle::Deg(opts.AsDouble("glon")), 
-                        CEAngle::Deg(opts.AsDouble("glat")),
-                        CECoordinateType::GALACTIC) ;
+    CESkyCoord gal_coord(CEAngle::Deg(opts.AsDouble("glon")), 
+                         CEAngle::Deg(opts.AsDouble("glat")),
+                         CESkyCoordType::GALACTIC);
     
     // Convert the coordinates
-    CECoordinates output = input.ConvertToICRS();
+    CESkyCoord output = gal_coord.ConvertToICRS();
     
     // Print the results
-    PrintResults(input, output) ;
+    PrintResults(gal_coord, output);
     
     return 0 ;
 }

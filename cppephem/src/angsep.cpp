@@ -22,14 +22,14 @@
 #include <stdio.h>
 
 #include "CEExecOptions.h"
-#include "CECoordinates.h"
+#include "CESkyCoord.h"
 
 /*********************************************
  * Forward declarations
  *********************************************/
 
 CEExecOptions DefineOpts() ;
-CECoordinates ConstructCoords(const double& x, const double& y, bool isDeg);
+CESkyCoord ConstructCoords(const double& x, const double& y, bool isDeg);
 
 /*********************************************
  * MAIN
@@ -48,14 +48,14 @@ int main(int argc, char** argv)
     }
     
     // Find coordinates for the first object
-    CECoordinates coord1 = ConstructCoords(opts.AsDouble("xcoord1"),
-                                           opts.AsDouble("ycoord1"),
-                                           opts.AsBool("InputDegrees"));
-    CECoordinates coord2 = ConstructCoords(opts.AsDouble("xcoord2"),
-                                           opts.AsDouble("ycoord2"),
-                                           opts.AsBool("InputDegrees"));
+    CESkyCoord coord1 = ConstructCoords(opts.AsDouble("xcoord1"),
+                                        opts.AsDouble("ycoord1"),
+                                        opts.AsBool("InputDegrees"));
+    CESkyCoord coord2 = ConstructCoords(opts.AsDouble("xcoord2"),
+                                        opts.AsDouble("ycoord2"),
+                                        opts.AsBool("InputDegrees"));
 
-    CEAngle angsep = CECoordinates::AngularSeparation(coord1, coord2);
+    CEAngle angsep = CESkyCoord::AngularSeparation(coord1, coord2);
     
     // Figure out whether we need to convert the output angular separation
     if (opts.AsBool("OutputDegrees")) {
@@ -111,15 +111,15 @@ CEExecOptions DefineOpts()
  * @param[in] isDeg     true if the coordinates are in degrees
  * @return CECoordinates object
  *********************************************/
-CECoordinates ConstructCoords(const double& x, const double& y, bool isDeg)
+CESkyCoord ConstructCoords(const double& x, const double& y, bool isDeg)
 {
-    CECoordinates coord;
+    CESkyCoord coord;
     if (isDeg) {
         coord.SetCoordinates(CEAngle::Deg(x), CEAngle::Deg(y),
-                             CECoordinateType::ICRS);
+                             CESkyCoordType::ICRS);
     } else {
         coord.SetCoordinates(CEAngle::Rad(x), CEAngle::Rad(y),
-                             CECoordinateType::ICRS);
+                             CESkyCoordType::ICRS);
     }
 
     return coord;

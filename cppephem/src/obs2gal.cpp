@@ -55,7 +55,7 @@ CEExecOptions DefineOpts()
 /**********************************************************************//**
  *************************************************************************/
 void PrintResults(CEExecOptions& inputs, 
-                  const std::map<std::string, double>& results)
+                  const CESkyCoord& results)
 {
     std::printf("\n") ;
     std::printf("**********************************************\n") ;
@@ -66,8 +66,8 @@ void PrintResults(CEExecOptions& inputs,
     std::printf("    Zenith         : %+f degrees\n", inputs.AsDouble("zenith")) ;
     std::printf("    Altitude       : %+f degrees\n", 90.0-inputs.AsDouble("zenith")) ;
     std::printf("Galactic Coordinates (output)\n") ;
-    std::printf("    G. Longitude   : %f degrees\n", results.at("glon")) ;
-    std::printf("    G. Latitude    : %+f degrees\n", results.at("glat")) ;
+    std::printf("    G. Longitude   : %f degrees\n", results.XCoord().Deg()) ;
+    std::printf("    G. Latitude    : %+f degrees\n", results.YCoord().Deg()) ;
     std::printf("Observer Info\n") ;
     std::printf("    Julian Date    : %f\n", inputs.AsDouble("juliandate")) ;
     std::printf("    Longitude      : %f deg\n", inputs.AsDouble("longitude")) ;
@@ -85,12 +85,7 @@ int main(int argc, char** argv) {
     
     // Parse the command line options
     CEExecOptions opts = DefineOpts() ;
-    if (opts.ParseCommandLine(argc, argv)) return 0 ;
-    
-    // Create a map to store the results
-    std::map<std::string, double> results ;
-    results["glon"] = 0.0 ;
-    results["glat"] = 0.0 ;
+    if (opts.ParseCommandLine(argc, argv)) return 0;
     
     // Define the observer
     CEObserver observer(opts.AsDouble("longitude"),
@@ -106,15 +101,13 @@ int main(int argc, char** argv) {
     CEDate date(opts.AsDouble("juliandate"), CEDateType::JD);
 
     // Convert the coordinates
-    int errcode = CECoordinates::Observed2Galactic(opts.AsDouble("azimuth")*DD2R,
-                                                   opts.AsDouble("zenith")*DD2R,
-                                                   &results["glon"], &results["glat"],
-                                                   date, observer, CEAngleType::RADIANS);
-    results["glon"] *= DR2D;
-    results["glat"] *= DR2D;
+    CESkyCoord obs_coords(CEAngle::Deg(opts.AsDouble("azimuth")),
+                          CEAngle::Deg(opts.AsDouble("zenith")),
+                          CESkyCoordType::OBSERVED);
+    CESkyCoord gal_coords = obs_coords.ConvertToGalactic(date, observer);
     
     // Print the results
-    PrintResults(opts, results) ;
+    PrintResults(opts, gal_coords);
     
-    return errcode ;
+    return 0;
 }
