@@ -53,7 +53,11 @@ CESkyCoord::CESkyCoord(const CEAngle&        xcoord,
                        const CESkyCoordType& coord_type)
 {
     init_members();
-    this->SetCoordinates(xcoord, ycoord, coord_type);
+
+    // Setup the coordinates
+    xcoord_     = xcoord;
+    ycoord_     = ycoord;
+    coord_type_ = coord_type;
 }
 
 
@@ -62,9 +66,10 @@ CESkyCoord::CESkyCoord(const CEAngle&        xcoord,
  *************************************************************************/
 CESkyCoord::CESkyCoord(const CECoordinates& other)
 {
-    this->SetCoordinates(other.XCoordinate_Rad(),
-                         other.YCoordinate_Rad(),
-                         CESkyCoordType(other.GetCoordSystem()));
+    // Set coordinates
+    xcoord_ = other.XCoord();
+    ycoord_ = other.YCoord();
+    coord_type_ = CESkyCoordType(int(other.GetCoordSystem()));
 }
 
 
