@@ -178,6 +178,10 @@ bool test_CESkyCoord::test_copy()
  *************************************************************************/
 bool test_CESkyCoord::test_Convert2Cirs()
 {
+    // CIRS -> CIRS
+    CESkyCoord cirs2cirs = base_cirs_.ConvertToCIRS();
+    test_coords(cirs2cirs, base_cirs_, __func__, __LINE__);
+
     // ICRS -> CIRS
     CESkyCoord icrs2cirs = base_icrs_.ConvertToCIRS(base_date_);
     test_coords(icrs2cirs, base_cirs_, __func__, __LINE__);
@@ -215,6 +219,10 @@ bool test_CESkyCoord::test_Convert2Icrs()
     CESkyCoord::CIRS2ICRS(base_cirs_, &cirs2icrs, base_date_);
     test_coords(cirs2icrs, base_icrs_, __func__, __LINE__);
     
+    // ICRS -> ICRS
+    CESkyCoord icrs2icrs = base_icrs_.ConvertToICRS();
+    test_coords(icrs2icrs, base_icrs_, __func__, __LINE__);
+
     // Galactic -> ICRS
     CESkyCoord gal2icrs = base_gal_.ConvertToICRS();
     test_coords(gal2icrs, base_icrs_, __func__, __LINE__);
@@ -250,6 +258,10 @@ bool test_CESkyCoord::test_Convert2Galactic()
 
     CESkyCoord::ICRS2Galactic(base_icrs_, &icrs2gal);
     test_coords(icrs2gal, base_gal_, __func__, __LINE__);
+
+    // Galactic -> Galactic
+    CESkyCoord gal2gal = base_gal_.ConvertToGalactic();
+    test_coords(gal2gal, base_gal_, __func__, __LINE__);
 
     // Observed -> Galactic
     CESkyCoord obs2gal = base_obs_.ConvertToGalactic(base_date_, base_observer_);
@@ -290,6 +302,10 @@ bool test_CESkyCoord::test_Convert2Observed()
 
     CESkyCoord::Galactic2Observed(base_gal_, &testobs, base_date_, base_observer_);
     test_coords(testobs, base_obs_, __func__, __LINE__);
+
+    // Observed -> Observed
+    CESkyCoord obs2obs = base_obs_.ConvertToObserved();
+    test_coords(obs2obs, base_obs_, __func__, __LINE__);
 
     return pass();
 }

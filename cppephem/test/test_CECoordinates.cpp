@@ -168,13 +168,36 @@ bool test_CECoordinates::test_copy()
  *************************************************************************/
 bool test_CECoordinates::test_Convert2Cirs()
 {
+    double ra(0.0);
+    double dec(0.0);
+
+    // CIRS -> CIRS
+    CECoordinates cirs2cirs = base_cirs_.ConvertToCIRS();
+    test_coords(cirs2cirs, base_cirs_, __func__, __LINE__);
+
     // ICRS -> CIRS
     CECoordinates icrs2cirs = base_icrs_.ConvertToCIRS(base_date_);
+    test_coords(icrs2cirs, base_cirs_, __func__, __LINE__);
+
+    CECoordinates::ICRS2CIRS(base_icrs_.XCoordinate_Rad(), 
+                             base_icrs_.YCoordinate_Rad(),
+                             &ra, &dec, base_date_, CEAngleType::RADIANS);
+    icrs2cirs.SetCoordinates(CEAngle::Rad(ra), CEAngle::Rad(dec), 
+                             CECoordinateType::CIRS);
     test_coords(icrs2cirs, base_cirs_, __func__, __LINE__);
 
     // Galactic -> CIRS
     CECoordinates gal2cirs = base_gal_.ConvertToCIRS(base_date_);
     test_coords(gal2cirs, base_cirs_, __func__, __LINE__);
+
+    ra  = 0.0;
+    dec = 0.0;
+    CECoordinates::Galactic2CIRS(base_gal_.XCoordinate_Rad(), 
+                                 base_gal_.YCoordinate_Rad(),
+                                 &ra, &dec, base_date_, CEAngleType::RADIANS);
+    icrs2cirs.SetCoordinates(CEAngle::Rad(ra), CEAngle::Rad(dec), 
+                             CECoordinateType::CIRS);
+    test_coords(icrs2cirs, base_cirs_, __func__, __LINE__);
 
     // Observed -> CIRS
     CECoordinates obs2cirs = base_obs_.ConvertToCIRS(
@@ -191,6 +214,37 @@ bool test_CECoordinates::test_Convert2Cirs()
                                 base_observer_.Wavelength_um());
     test_coords(obs2cirs, base_cirs_, __func__, __LINE__);
 
+    // Observed -> CIRS (direct v1)
+    ra  = 0.0;
+    dec = 0.0;
+    CECoordinates::Observed2CIRS(base_obs_.XCoordinate_Rad(), 
+                                 base_obs_.YCoordinate_Rad(),
+                                 &ra, &dec, base_date_, base_observer_,
+                                 CEAngleType::RADIANS);
+    obs2cirs.SetCoordinates(CEAngle::Rad(ra), CEAngle::Rad(dec), 
+                             CECoordinateType::CIRS);
+    test_coords(obs2cirs, base_cirs_, __func__, __LINE__);
+
+    // Observed -> CIRS (direct v2)
+    ra  = 0.0;
+    dec = 0.0;
+    CECoordinates::Observed2CIRS(base_obs_.XCoordinate_Rad(), 
+                                 base_obs_.YCoordinate_Rad(),
+                                 &ra, &dec, base_date_.JD(), 
+                                 base_observer_.Longitude_Rad(),
+                                 base_observer_.Latitude_Rad(),
+                                 base_observer_.Elevation_m(),
+                                 base_observer_.Pressure_hPa(),
+                                 base_observer_.Temperature_C(),
+                                 base_observer_.RelativeHumidity(),
+                                 base_date_.dut1(),
+                                 base_date_.xpolar(),
+                                 base_date_.ypolar(),
+                                 base_observer_.Wavelength_um());
+    obs2cirs.SetCoordinates(CEAngle::Rad(ra), CEAngle::Rad(dec), 
+                             CECoordinateType::CIRS);
+    test_coords(obs2cirs, base_cirs_, __func__, __LINE__);
+
     return pass();
 }
 
@@ -203,6 +257,10 @@ bool test_CECoordinates::test_Convert2Icrs()
     // CIRS -> ICRS
     CECoordinates cirs2icrs = base_cirs_.ConvertToICRS(base_date_);
     test_coords(cirs2icrs, base_icrs_, __func__, __LINE__);
+
+    // ICRS -> ICRS
+    CECoordinates icrs2icrs = base_icrs_.ConvertToICRS();
+    test_coords(icrs2icrs, base_icrs_, __func__, __LINE__);
 
     // Galactic -> ICRS
     CECoordinates gal2icrs = base_gal_.ConvertToICRS();
@@ -238,6 +296,10 @@ bool test_CECoordinates::test_Convert2Galactic()
     // ICRS -> Galactic
     CECoordinates icrs2gal = base_icrs_.ConvertToGalactic();
     test_coords(icrs2gal, base_gal_, __func__, __LINE__);
+
+    // Galactic -> Galactic
+    CECoordinates gal2gal = base_gal_.ConvertToGalactic();
+    test_coords(gal2gal, base_gal_, __func__, __LINE__);
 
     // Observed -> Galactic
     CECoordinates obs2gal = base_obs_.ConvertToGalactic(
@@ -342,6 +404,14 @@ bool test_CECoordinates::test_Convert2Observed()
     testobs.SetCoordinates(CEAngle::Deg(az), CEAngle::Deg(zen), 
                            CECoordinateType::OBSERVED);
     test_coords(testobs, base_obs_, __func__, __LINE__);
+
+    // Observed -> Observed
+    try {
+        CECoordinates obs2obs = base_obs_.ConvertToObserved();
+        test(false, __func__, __LINE__);
+    } catch (std::exception &e) {
+        test(true, __func__, __LINE__);
+    }
 
     return pass();
 }
