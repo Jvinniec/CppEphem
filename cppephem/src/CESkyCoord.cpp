@@ -305,7 +305,7 @@ void CESkyCoord::CIRS2Observed(const CESkyCoord& in_cirs,
 
     // Set the hour angle
     if (hour_angle != nullptr) {
-        hour_angle->Rad(temp_hour_angle);
+        hour_angle->SetAngle(temp_hour_angle, CEAngleType::RADIANS);
     }
 
     return;
@@ -611,8 +611,6 @@ CESkyCoord CESkyCoord::ConvertTo(const CESkyCoordType&  output_coord_type,
         coord = ConvertToGalactic(date, observer) ;
     } else if (output_coord_type == CESkyCoordType::OBSERVED) {
         coord = ConvertToObserved(date, observer) ;
-    } else {
-        std::cerr << "[ERROR] Unknown coordinate type passed to CESkyCoord::ConvertTo()!\n" ;
     }
 
     return coord;
