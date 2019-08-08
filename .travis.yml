@@ -38,7 +38,7 @@ matrix:
         # Test OSX with Clang (latest version)
         - os: osx
           compiler: clang
-          osx_image: xcode10.1
+          osx_image: xcode10.2
 
 
 # Allow compiling with c++11
