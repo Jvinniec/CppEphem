@@ -258,6 +258,12 @@ bool test_CECoordinates::test_Convert2Icrs()
     CECoordinates cirs2icrs = base_cirs_.ConvertToICRS(base_date_);
     test_coords(cirs2icrs, base_icrs_, __func__, __LINE__);
 
+    double ra(0.0), dec(0.0);
+    CECoordinates::CIRS2ICRS(base_cirs_.XCoord().Rad(), base_cirs_.YCoord().Rad(),
+                             &ra, &dec, base_date_, CEAngleType::RADIANS);
+    cirs2icrs.SetCoordinates(ra, dec, CECoordinateType::ICRS);
+    test_coords(cirs2icrs, base_icrs_, __func__, __LINE__);
+
     // ICRS -> ICRS
     CECoordinates icrs2icrs = base_icrs_.ConvertToICRS();
     test_coords(icrs2icrs, base_icrs_, __func__, __LINE__);
