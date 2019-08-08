@@ -47,8 +47,8 @@ dist: xenial
 # Build steps
 script:
   - cmake -Dcoverage=1 ./
-  - make
-  - make test
+  - cmake --build .
+  - cmake --build . --target test
 
 after_success:
   # Only run sonar-scanner if we're using a linux machine with clang
