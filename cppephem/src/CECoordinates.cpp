@@ -89,10 +89,10 @@ CECoordinates::CECoordinates(const std::vector<double>& xcoord,
  * 
  * @param[in] coord_type Coordinate type (see CECoordinateType)
  *************************************************************************/
-CECoordinates::CECoordinates(const CECoordinateType& coord_type) :
-    coord_type_(coord_type)
+CECoordinates::CECoordinates(const CECoordinateType& coord_type)
 {
     init_members();
+    coord_type_ = coord_type;
 }
 
 /**********************************************************************//**
