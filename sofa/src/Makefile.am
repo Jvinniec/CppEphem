@@ -99,7 +99,11 @@ libsofa_c_la_SOURCES = a2af.c \
 	fasa03.c \
 	faur03.c \
 	fave03.c \
+	fk425.c \
+	fk45z.c \
 	fk52h.c \
+	fk524.c \
+	fk54z.c \
 	fk5hip.c \
 	fk5hz.c \
 	fw2m.c \
