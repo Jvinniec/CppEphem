@@ -97,6 +97,8 @@ CECoordinates::CECoordinates(const CECoordinateType& coord_type) :
 
 /**********************************************************************//**
  * Copy constructor
+ * 
+ * @param[in] other     Coordinates object to be copied
  *************************************************************************/
 CECoordinates::CECoordinates(const CECoordinates& other)
 {
@@ -114,6 +116,9 @@ CECoordinates::~CECoordinates()
 
 /**********************************************************************//**
  * Overloaded '=' (assignment) operator
+ * 
+ * @param[in] other     Coordinates object to be copied
+ * @return Duplicated CECoordinates object
  *************************************************************************/
 CECoordinates& CECoordinates::operator=(const CECoordinates& other)
 {
@@ -135,7 +140,7 @@ CECoordinates& CECoordinates::operator=(const CECoordinates& other)
  * @param[out] return_ra    ICRS right ascension (returned)
  * @param[out] return_dec   ICRS declinaton (returned)
  * @param[in]  date         Date information
- * @param[in] angle_type    Input/output angle type (DEGREES or RADIANS)
+ * @param[in]  angle_type   Input/output angle type (DEGREES or RADIANS)
  *************************************************************************/
 void CECoordinates::CIRS2ICRS(double input_ra, double input_dec,
                               double *return_ra, double *return_dec,
@@ -259,11 +264,11 @@ int CECoordinates::CIRS2Observed(double ra, double dec,
     
     // Now convert back to degrees if that's what we were passed
     if (angle_type == CEAngleType::DEGREES) {
-        *az              *= DR2D ;
-        *zen             *= DR2D ;
-        *observed_ra     *= DR2D ;
-        *observed_dec    *= DR2D ;
-        *hour_angle      *= DR2D ;
+        *az              *= DR2D;
+        *zen             *= DR2D;
+        *observed_ra     *= DR2D;
+        *observed_dec    *= DR2D;
+        *hour_angle      *= DR2D;
     }
     
     return err_code ;
