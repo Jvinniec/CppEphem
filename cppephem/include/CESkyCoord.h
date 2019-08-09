@@ -179,15 +179,17 @@ public:
      * More generic methods for converting between coordinate types
      *********************************************************/
     CESkyCoord ConvertTo(const CESkyCoordType&  output_coord_type,
-                         const CEDate&          date=CEDate::CurrentJD(),
+                         const CEDate&          date=CEDate(),
                          const CEObserver&      observer=CEObserver());
-    CESkyCoord ConvertToCIRS(const CEDate&     date=CEDate::CurrentJD(),
+    CESkyCoord ConvertToCIRS(const CEDate&     date=CEDate(),
                              const CEObserver& observer=CEObserver());
-    CESkyCoord ConvertToICRS(const CEDate&     date=CEDate::CurrentJD(),
+    CESkyCoord ConvertToICRS(const CEDate&     date=CEDate(),
                              const CEObserver& observer=CEObserver());
-    CESkyCoord ConvertToGalactic(const CEDate&     date=CEDate::CurrentJD(),
+    CESkyCoord ConvertToGalactic(const CEDate&     date=CEDate(),
                                  const CEObserver& observer=CEObserver());
-    CESkyCoord ConvertToObserved(const CEDate&     date=CEDate::CurrentJD(),
+    CESkyCoord ConvertToObserved(const CEDate&     date=CEDate(),
+                                 const CEObserver& observer=CEObserver());
+    CESkyCoord ConvertToEcliptic(const CEDate&     date=CEDate(),
                                  const CEObserver& observer=CEObserver());
 
     /*********************************************************
