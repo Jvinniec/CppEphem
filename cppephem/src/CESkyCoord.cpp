@@ -797,6 +797,8 @@ CESkyCoord CESkyCoord::ConvertTo(const CESkyCoordType&  output_coord_type,
         coord = ConvertToGalactic(date, observer);
     } else if (output_coord_type == CESkyCoordType::OBSERVED) {
         coord = ConvertToObserved(date, observer);
+    } else if (output_coord_type == CESkyCoordType::ECLIPTIC) {
+        coord = ConvertToEcliptic(date, observer);
     }
 
     return coord;
@@ -831,6 +833,9 @@ CESkyCoord CESkyCoord::ConvertToCIRS(const CEDate&     date,
     } else if (coord_type_ == CESkyCoordType::OBSERVED) {
         // Observed -> CIRS
         Observed2CIRS(*this, &cirs, date, observer);
+    } else if (coord_type_ == CESkyCoordType::ECLIPTIC) {
+        // ECLIPTIC -> CIRS
+        Ecliptic2CIRS(*this, &cirs, date);
     }
     
     return cirs;
@@ -865,6 +870,9 @@ CESkyCoord CESkyCoord::ConvertToICRS(const CEDate&     date,
     } else if (coord_type_ == CESkyCoordType::OBSERVED) {
         // OBSERVED -> ICRS
         Observed2ICRS(*this, &icrs, date, observer);
+    } else if (coord_type_ == CESkyCoordType::ECLIPTIC) {
+        // ECLIPTIC -> ICRS
+        Ecliptic2ICRS(*this, &icrs, date);
     }
     
     return icrs;
@@ -899,6 +907,9 @@ CESkyCoord CESkyCoord::ConvertToGalactic(const CEDate&     date,
     } else if (coord_type_ == CESkyCoordType::OBSERVED) {
         // OBSERVED -> GALACTIC
         Observed2Galactic(*this, &galactic, date, observer);
+    } else if (coord_type_ == CESkyCoordType::ECLIPTIC) {
+        // ECLIPTIC -> GALACTIC
+        Ecliptic2Galactic(*this, &galactic, date);
     }
     
     return galactic;
@@ -933,9 +944,49 @@ CESkyCoord CESkyCoord::ConvertToObserved(const CEDate&     date,
     } else if (coord_type_ == CESkyCoordType::OBSERVED) {
         // OBSERVED -> OBSERVED
         observed.SetCoordinates(*this);
+    } else if (coord_type_ == CESkyCoordType::ECLIPTIC) {
+        // ECLIPTIC -> OBSERVED
+        Ecliptic2Observed(*this, &observed, date, observer);
     }
     
     return observed;
+}
+
+
+/**********************************************************************//**
+ * Convert this coordinate to ECLIPTIC coordinates
+ * 
+ * @param[in]  date              Date for conversion
+ * @param[in]  observer          Observer information
+ * 
+ * Note that the @p date and @p observer parameters are only necessary if
+ * they are need to convert this object
+ *************************************************************************/
+CESkyCoord CESkyCoord::ConvertToEcliptic(const CEDate&     date,
+                                         const CEObserver& observer)
+{
+    // Create return coordinates
+    CESkyCoord ecliptic;
+
+    // Convert
+    if (coord_type_ == CESkyCoordType::CIRS) {
+        // CIRS -> ECLIPTIC
+        CIRS2Ecliptic(*this, &ecliptic, date);
+    } else if (coord_type_ == CESkyCoordType::ICRS) {
+        // ICRS -> ECLIPTIC
+        ICRS2Ecliptic(*this, &ecliptic, date);
+    } else if (coord_type_ == CESkyCoordType::GALACTIC) {
+        // GALACTIC -> ECLIPTIC
+        Galactic2Ecliptic(*this, &ecliptic, date);
+    } else if (coord_type_ == CESkyCoordType::OBSERVED) {
+        // OBSERVED -> ECLIPTIC
+        Observed2Ecliptic(*this, &ecliptic, date, observer);
+    } else if (coord_type_ == CESkyCoordType::ECLIPTIC) {
+        // ECLIPTIC -> ECLIPTIC
+        ecliptic.SetCoordinates(*this);
+    }
+    
+    return ecliptic;
 }
 
 
