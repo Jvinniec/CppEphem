@@ -319,7 +319,7 @@ void CESkyCoord::CIRS2Observed(const CESkyCoord& in_cirs,
  * @param[out] out_ecliptic     Output ECLIPTIC coordinates
  * @param[in]  date             Date for conversion
  *************************************************************************/
-void CESkyCoord::CIRS2Galactic(const CESkyCoord& in_cirs,
+void CESkyCoord::CIRS2Ecliptic(const CESkyCoord& in_cirs,
                                CESkyCoord*       out_ecliptic,
                                const CEDate&     date)
 {
@@ -672,7 +672,7 @@ void CESkyCoord::Observed2Ecliptic(const CESkyCoord& in_observed,
     Observed2ICRS(in_observed, &tmp_icrs, date, observer);
 
     // Convert from ICRS -> ECLIPTIC
-    ICRS2Ecliptic(tmp_icrs, out_ecliptic);
+    ICRS2Ecliptic(tmp_icrs, out_ecliptic, date);
 }
 
 
