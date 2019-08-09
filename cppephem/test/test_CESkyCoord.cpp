@@ -49,6 +49,9 @@ test_CESkyCoord::test_CESkyCoord() :
     base_obs_  = CESkyCoord(CEAngle::Deg(35.598599384274294), 
                             CEAngle::Deg(152.55068501449307),
                             CESkyCoordType::OBSERVED);
+    base_ecl_  = CESkyCoord(CEAngle::Deg(84.09742873115043),
+                            CEAngle::Deg(-1.2944191660399447),
+                            CESkyCoordType::ECLIPTIC);
 
     // Create the date object
     base_date_ = CEDate(CppEphem::julian_date_J2000(), CEDateType::JD);
@@ -89,6 +92,7 @@ bool test_CESkyCoord::runtests()
     test_Convert2Icrs();
     test_Convert2Galactic();
     test_Convert2Observed();
+    test_Convert2Ecliptic();
 
     // Test dedicated methods
     test_AngularSeparation();
@@ -203,6 +207,13 @@ bool test_CESkyCoord::test_Convert2Cirs()
     CESkyCoord::Observed2CIRS(base_obs_, &obs2cirs, base_date_, base_observer_);
     test_coords(obs2cirs, base_cirs_, __func__, __LINE__);
 
+    // Ecliptic -> CIRS
+    CESkyCoord ecl2cirs = base_ecl_.ConvertToCIRS(base_date_);
+    test_coords(ecl2cirs, base_cirs_, __func__, __LINE__);
+
+    CESkyCoord::Ecliptic2CIRS(base_ecl_, &ecl2cirs, base_date_);
+    test_coords(ecl2cirs, base_cirs_, __func__, __LINE__);
+
     return pass();
 }
 
@@ -235,7 +246,14 @@ bool test_CESkyCoord::test_Convert2Icrs()
     test_coords(obs2icrs, base_icrs_, __func__, __LINE__);
 
     CESkyCoord::Observed2ICRS(base_obs_, &obs2icrs, base_date_, base_observer_);
-    test_coords(obs2icrs, base_icrs_, __func__, __LINE__);    
+    test_coords(obs2icrs, base_icrs_, __func__, __LINE__);
+
+    // Ecliptic -> ICRS
+    CESkyCoord ecl2icrs = base_ecl_.ConvertToICRS(base_date_);
+    test_coords(ecl2icrs, base_icrs_, __func__, __LINE__);
+
+    CESkyCoord::Ecliptic2ICRS(base_ecl_, &ecl2icrs, base_date_);
+    test_coords(ecl2icrs, base_icrs_, __func__, __LINE__);
 
     return pass();
 }
@@ -269,6 +287,13 @@ bool test_CESkyCoord::test_Convert2Galactic()
 
     CESkyCoord::Observed2Galactic(base_obs_, &obs2gal, base_date_, base_observer_);
     test_coords(obs2gal, base_gal_, __func__, __LINE__);
+
+    // Ecliptic -> Galactic
+    CESkyCoord ecl2gal = base_ecl_.ConvertToGalactic(base_date_);
+    test_coords(ecl2gal, base_gal_, __func__, __LINE__);
+
+    CESkyCoord::Ecliptic2Galactic(base_ecl_, &ecl2gal, base_date_);
+    test_coords(ecl2gal, base_gal_, __func__, __LINE__);
 
     return pass();
 }
@@ -306,6 +331,51 @@ bool test_CESkyCoord::test_Convert2Observed()
     // Observed -> Observed
     CESkyCoord obs2obs = base_obs_.ConvertToObserved();
     test_coords(obs2obs, base_obs_, __func__, __LINE__);
+
+    // Ecliptic -> Observed
+    CESkyCoord ecl2obs = base_ecl_.ConvertToObserved(base_date_, base_observer_);
+    test_coords(ecl2obs, base_obs_, __func__, __LINE__);
+
+    CESkyCoord::Ecliptic2Observed(base_ecl_, &ecl2obs, base_date_, base_observer_);
+    test_coords(ecl2obs, base_obs_, __func__, __LINE__);
+
+    return pass();
+}
+
+
+/**********************************************************************//**
+ * Test ability to convert to Ecliptic
+ *************************************************************************/
+bool test_CESkyCoord::test_Convert2Ecliptic()
+{
+    // CIRS -> Ecliptic
+    CESkyCoord cirs2ecl = base_cirs_.ConvertToEcliptic(base_date_);
+    test_coords(cirs2ecl, base_ecl_, __func__, __LINE__);
+
+    CESkyCoord::CIRS2Ecliptic(base_cirs_, &cirs2ecl, base_date_);
+    test_coords(cirs2ecl, base_ecl_, __func__, __LINE__);    
+
+    // ICRS -> Ecliptic
+    CESkyCoord icrs2ecl = base_icrs_.ConvertToEcliptic(base_date_);
+    test_coords(icrs2ecl, base_ecl_, __func__, __LINE__);
+
+    CESkyCoord::ICRS2Ecliptic(base_icrs_, &icrs2ecl, base_date_);
+    test_coords(icrs2ecl, base_ecl_, __func__, __LINE__);
+
+    // Galactic -> Ecliptic
+    CESkyCoord gal2ecl = base_gal_.ConvertToEcliptic(base_date_);
+    test_coords(gal2ecl, base_ecl_, __func__, __LINE__);
+
+    // Observed -> Ecliptic
+    CESkyCoord obs2ecl = base_obs_.ConvertToEcliptic(base_date_, base_observer_);
+    test_coords(obs2ecl, base_ecl_, __func__, __LINE__);
+
+    CESkyCoord::Observed2Ecliptic(base_obs_, &obs2ecl, base_date_, base_observer_);
+    test_coords(obs2ecl, base_ecl_, __func__, __LINE__);
+
+    // Ecliptic -> Ecliptic
+    CESkyCoord ecl2ecl = base_ecl_.ConvertToEcliptic();
+    test_coords(ecl2ecl, base_ecl_, __func__, __LINE__);
 
     return pass();
 }
