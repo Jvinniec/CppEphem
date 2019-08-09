@@ -42,7 +42,8 @@ enum class CESkyCoordType
     CIRS=0,           ///< RA, Dec (referenced at the center of the Earth)
     ICRS=1,           ///< RA, Dec (referenced at the barycenter of the solarsystem)
     GALACTIC=2,       ///< Galacitc longitude, latitude
-    OBSERVED=3        ///< Azimuth, Zenith (requires additional observer information)
+    OBSERVED=3,       ///< Azimuth, Zenith (requires additional observer information)
+    ECLIPTIC=4        ///< Ecliptic longitude, latitude
 };
 
 // Class for handling sky coordinates
@@ -105,6 +106,9 @@ public:
                               const CEObserver& observer,
                               CESkyCoord*       observed_cirs=nullptr,
                               CEAngle*          hour_angle=nullptr);
+    static void CIRS2Ecliptic(const CESkyCoord& in_cirs,
+                              CESkyCoord*       out_ecliptic,
+                              const CEDate&     date=CEDate());
 
     // Convert from ICRS to other coordinates
     static void ICRS2CIRS(const CESkyCoord& in_icrs,
@@ -118,6 +122,9 @@ public:
                               const CEObserver& observer,
                               CESkyCoord*       observed_cirs=nullptr,
                               CEAngle*          hour_angle=nullptr);
+    static void ICRS2Ecliptic(const CESkyCoord& in_icrs,
+                              CESkyCoord*       out_ecliptic,
+                              const CEDate&     date=CEDate());
 
     // Convert from GALACTIC to other coordinates
     static void Galactic2CIRS(const CESkyCoord& in_galactic,
@@ -131,6 +138,9 @@ public:
                                   const CEObserver& observer,
                                   CESkyCoord*       observed_galactic=nullptr,
                                   CEAngle*          hour_angle=nullptr);
+    static void Galactic2Ecliptic(const CESkyCoord& in_galactic,
+                                  CESkyCoord*       out_ecliptic,
+                                  const CEDate&     date=CEDate());
 
     // Convert from OBSERVED to other coordinates
     static void Observed2CIRS(const CESkyCoord& in_observed,
@@ -143,6 +153,25 @@ public:
                               const CEObserver& observer);
     static void Observed2Galactic(const CESkyCoord& in_observed,
                                   CESkyCoord*       out_galactic,
+                                  const CEDate&     date,
+                                  const CEObserver& observer);
+    static void Observed2Ecliptic(const CESkyCoord& in_observed,
+                                  CESkyCoord*       out_ecliptic,
+                                  const CEDate&     date,
+                                  const CEObserver& observer);
+
+    // Convert from ECLIPTIC to other coordinates
+    static void Ecliptic2CIRS(const CESkyCoord& in_ecliptic,
+                              CESkyCoord*       out_cirs,
+                              const CEDate&     date=CEDate());
+    static void Ecliptic2ICRS(const CESkyCoord& in_ecliptic,
+                              CESkyCoord*       out_icrs,
+                              const CEDate&     date=CEDate());
+    static void Ecliptic2Galactic(const CESkyCoord& in_ecliptic,
+                                  CESkyCoord*       out_galactic,
+                                  const CEDate&     date=CEDate());
+    static void Ecliptic2Observed(const CESkyCoord& in_ecliptic,
+                                  CESkyCoord*       out_observed,
                                   const CEDate&     date,
                                   const CEObserver& observer);
 

@@ -313,6 +313,26 @@ void CESkyCoord::CIRS2Observed(const CESkyCoord& in_cirs,
 
 
 /**********************************************************************//**
+ * Convert CIRS to ECLIPTIC coordinates
+ * 
+ * @param[in]  in_cirs          Input CIRS coordinates
+ * @param[out] out_ecliptic     Output ECLIPTIC coordinates
+ * @param[in]  date             Date for conversion
+ *************************************************************************/
+void CESkyCoord::CIRS2Galactic(const CESkyCoord& in_cirs,
+                               CESkyCoord*       out_ecliptic,
+                               const CEDate&     date)
+{
+    // CIRS -> ICRS
+    CESkyCoord tmp_icrs;
+    CIRS2ICRS(in_cirs, &tmp_icrs, date);
+    
+    // ICRS -> ECLIPTIC
+    ICRS2Ecliptic(tmp_icrs, out_ecliptic, date);
+}
+
+
+/**********************************************************************//**
  * ICRS -> CIRS coordinate conversion
  * 
  * @param[in]  in_icrs          Input ICRS coordinates
@@ -324,7 +344,7 @@ void CESkyCoord::ICRS2CIRS(const CESkyCoord& in_icrs,
                            const CEDate&     date)
 {
     // Store the equation of the origins
-    double eo ; // Equation of the origins
+    double eo; // Equation of the origins
     
     // Use the sofa library to convert these coordinates
     double tdb1(0.0);
@@ -411,6 +431,37 @@ void CESkyCoord::ICRS2Observed(const CESkyCoord& in_icrs,
 
 
 /**********************************************************************//**
+ * ICRS -> ECLIPTIC coordinate conversion
+ * 
+ * @param[in]  in_icrs          Input ICRS coordinates
+ * @param[out] out_ecliptic     Output ECLIPTIC coordinates
+ * @param[in]  date             Date for conversion
+ *************************************************************************/
+void CESkyCoord::ICRS2Ecliptic(const CESkyCoord& in_icrs,
+                               CESkyCoord*       out_ecliptic,
+                               const CEDate&     date)
+{
+    // Use the sofa method to convert the coordinates
+    double elon(0.0);
+    double elat(0.0);
+
+    // Get the time in TT
+    double tt1(0.0);
+    double tt2(0.0);
+    CEDate::UTC2TT(date.MJD(), &tt1, &tt2);
+
+    // Convert ICRS -> ECLIPTIC
+    iauEqec06(tt1, tt2, in_icrs.XCoord().Rad(), in_icrs.YCoord().Rad(), 
+              &elon, &elat);
+    out_ecliptic->SetCoordinates(CEAngle::Rad(elon), 
+                                 CEAngle::Rad(elat),
+                                 CESkyCoordType::ECLIPTIC);
+
+    return;
+}
+
+
+/**********************************************************************//**
  * GALACTIC -> CIRS coordinate conversion
  * 
  * @param[in]  in_galactic      Input GALACTIC coordinates
@@ -488,6 +539,26 @@ void CESkyCoord::Galactic2Observed(const CESkyCoord& in_galactic,
     }
 
     return;
+}
+
+
+/**********************************************************************//**
+ * GALACTIC -> ECLIPTIC coordinate conversion
+ * 
+ * @param[in]  in_galactic       Input GALACTIC coordinates
+ * @param[out] out_ecliptic      Output ECLIPTIC coordinates
+ * @param[in]  date              Date for conversion
+ *************************************************************************/
+void CESkyCoord::Galactic2Ecliptic(const CESkyCoord& in_galactic,
+                                   CESkyCoord*       out_ecliptic,
+                                   const CEDate&     date)
+{
+    // Galactic -> ICRS
+    CESkyCoord tmp_icrs;
+    Galactic2ICRS(in_galactic, &tmp_icrs);
+
+    // ICRS -> ECLIPTIC
+    ICRS2Ecliptic(tmp_icrs, out_ecliptic, date);
 }
 
 
@@ -580,6 +651,121 @@ void CESkyCoord::Observed2Galactic(const CESkyCoord& in_observed,
 
     // Convert from ICRS -> Galactic
     ICRS2Galactic(tmp_icrs, out_galactic);
+}
+
+
+/**********************************************************************//**
+ * OBSERVED -> ECLIPTIC coordinate conversion
+ * 
+ * @param[in]  in_observed       Input OBSERVED coordinates
+ * @param[out] out_ecliptic      Output ECLIPTIC coordinates
+ * @param[in]  date              Date for conversion
+ * @param[in]  observer          Observer information
+ *************************************************************************/
+void CESkyCoord::Observed2Ecliptic(const CESkyCoord& in_observed,
+                                   CESkyCoord*       out_ecliptic,
+                                   const CEDate&     date,
+                                   const CEObserver& observer)
+{
+    // Convert from Observed -> ICRS
+    CESkyCoord tmp_icrs;
+    Observed2ICRS(in_observed, &tmp_icrs, date, observer);
+
+    // Convert from ICRS -> ECLIPTIC
+    ICRS2Ecliptic(tmp_icrs, out_ecliptic);
+}
+
+
+/**********************************************************************//**
+ * ECLIPTIC -> CIRS coordinate conversion
+ * 
+ * @param[in]  in_ecliptic       Input ECLIPTIC coordinates
+ * @param[out] out_cirs          Output CIRS coordinates
+ * @param[in]  date              Date for conversion
+ *************************************************************************/
+void CESkyCoord::Ecliptic2CIRS(const CESkyCoord& in_ecliptic,
+                               CESkyCoord*       out_cirs,
+                               const CEDate&     date)
+{
+    // ECLIPTIC -> ICRS
+    CESkyCoord tmp_icrs;
+    Ecliptic2ICRS(in_ecliptic, &tmp_icrs, date);
+
+    // ICRS -> CIRS
+    ICRS2CIRS(tmp_icrs, out_cirs, date);
+}
+
+
+/**********************************************************************//**
+ * ECLIPTIC -> ICRS coordinate conversion
+ * 
+ * @param[in]  in_ecliptic       Input ECLIPTIC coordinates
+ * @param[out] out_icrs          Output ICRS coordinates
+ * @param[in]  date              Date for conversion
+ *************************************************************************/
+void CESkyCoord::Ecliptic2ICRS(const CESkyCoord& in_ecliptic,
+                               CESkyCoord*       out_icrs,
+                               const CEDate&     date)
+{
+    // Create the variables used for returning ICRS
+    double ra(0.0);
+    double dec(0.0);
+
+    // Get current time in TT
+    double tt1(0.0);
+    double tt2(0.0);
+    CEDate::UTC2TT(date.MJD(), &tt1, &tt2);
+
+    // Convert ECLIPTIC to ICRS
+    iauEceq06(tt1, tt2, 
+              in_ecliptic.XCoord().Rad(), in_ecliptic.YCoord().Rad(), 
+              &ra, &dec);
+
+    // Set the output ICRS
+    out_icrs->SetCoordinates(CEAngle::Rad(ra), CEAngle::Rad(dec),
+                             CESkyCoordType::ICRS);
+}
+
+
+/**********************************************************************//**
+ * ECLIPTIC -> GALACTIC coordinate conversion
+ * 
+ * @param[in]  in_ecliptic       Input ECLIPTIC coordinates
+ * @param[out] out_galactic      Output GALACTIC coordinates
+ * @param[in]  date              Date for conversion
+ *************************************************************************/
+void CESkyCoord::Ecliptic2Galactic(const CESkyCoord& in_ecliptic,
+                                   CESkyCoord*       out_galactic,
+                                   const CEDate&     date)
+{
+    // ECLIPTIC -> ICRS
+    CESkyCoord tmp_icrs;
+    Ecliptic2ICRS(in_ecliptic, &tmp_icrs, date);
+
+    // ICRS -> GALACTIC
+    ICRS2Galactic(tmp_icrs, out_galactic);
+}
+
+
+/**********************************************************************//**
+ * ECLIPTIC -> OBSERVED coordinate conversion
+ * 
+ * @param[in]  in_ecliptic       Input ECLIPTIC coordinates
+ * @param[out] out_observed      Output OBSERVED coordinates
+ * @param[in]  date              Date for conversion
+ * @param[in]  observer          Observer information
+ *************************************************************************/
+void CESkyCoord::Ecliptic2Observed(const CESkyCoord& in_ecliptic,
+                                   CESkyCoord*       out_observed,
+                                   const CEDate&     date,
+                                   const CEObserver& observer)
+{
+    // ECLIPTIC -> CIRS
+    CESkyCoord tmp_cirs;
+    Ecliptic2CIRS(in_ecliptic, &tmp_cirs, date);
+
+    // CIRS -> OBSERVED
+    CIRS2Observed(tmp_cirs, out_observed, date, observer);
 }
 
 
