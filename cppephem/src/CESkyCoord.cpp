@@ -156,7 +156,7 @@ CEAngle CESkyCoord::AngularSeparation(const CESkyCoord& coords1,
 
     // Convert the second coordinates to be the same type as the first set of coordinates
     return AngularSeparation(coords1.XCoord(), y1,
-                             coords2.XCoord(), y2) ;
+                             coords2.XCoord(), y2);
 }
 
 
@@ -202,7 +202,7 @@ void CESkyCoord::CIRS2ICRS(const CESkyCoord& in_cirs,
                            CESkyCoord*       out_icrs,
                            const CEDate&     date)
 {
-    double eo ; // Equation of the origins
+    double eo; // Equation of the origins
 
     // Compute the TDB date
     double tdb1(0.0);
@@ -217,7 +217,7 @@ void CESkyCoord::CIRS2ICRS(const CESkyCoord& in_cirs,
               &return_ra, &return_dec, &eo);
 
     // Subtract the eo from RA if J2000 coordinates are desired
-    //*return_ra -= eo ;
+    //*return_ra -= eo;
 
     out_icrs->SetCoordinates(CEAngle(return_ra), CEAngle(return_dec),
                              CESkyCoordType::ICRS);
@@ -241,7 +241,7 @@ void CESkyCoord::CIRS2Galactic(const CESkyCoord& in_cirs,
     CIRS2ICRS(in_cirs, out_galactic, date);
     
     // Now we can convert to galactic
-    ICRS2Galactic(*out_galactic, out_galactic) ;
+    ICRS2Galactic(*out_galactic, out_galactic);
 }
 
 
@@ -339,7 +339,7 @@ void CESkyCoord::ICRS2CIRS(const CESkyCoord& in_icrs,
                 &return_ra, &return_dec, &eo);
     
     // Subtract the equation of the origins if J2000 coordinates are desired
-    //*return_ra -= eo ;
+    //*return_ra -= eo;
 
     // Set the output cirs coordinates
     out_cirs->SetCoordinates(CEAngle::Rad(return_ra),
@@ -363,9 +363,9 @@ void CESkyCoord::ICRS2Galactic(const CESkyCoord& in_icrs,
     double glon(0.0);
     double glat(0.0);
     iauIcrs2g(in_icrs.XCoord().Rad(), in_icrs.YCoord().Rad(), &glon, &glat);
-    out_galactic->SetCoordinates(CEAngle::Rad(glon),
-                                CEAngle::Rad(glat),
-                                CESkyCoordType::GALACTIC);
+    out_galactic->SetCoordinates(CEAngle::Rad(glon), 
+                                 CEAngle::Rad(glat),
+                                 CESkyCoordType::GALACTIC);
 
     return;
 }
@@ -604,13 +604,13 @@ CESkyCoord CESkyCoord::ConvertTo(const CESkyCoordType&  output_coord_type,
     // Do conversion to CIRS
     CESkyCoord coord;
     if (output_coord_type == CESkyCoordType::CIRS) {
-        coord = ConvertToCIRS(date, observer) ;
+        coord = ConvertToCIRS(date, observer);
     } else if (output_coord_type == CESkyCoordType::ICRS) {
-        coord = ConvertToICRS(date, observer) ;
+        coord = ConvertToICRS(date, observer);
     } else if (output_coord_type == CESkyCoordType::GALACTIC) {
-        coord = ConvertToGalactic(date, observer) ;
+        coord = ConvertToGalactic(date, observer);
     } else if (output_coord_type == CESkyCoordType::OBSERVED) {
-        coord = ConvertToObserved(date, observer) ;
+        coord = ConvertToObserved(date, observer);
     }
 
     return coord;
@@ -675,7 +675,7 @@ CESkyCoord CESkyCoord::ConvertToICRS(const CEDate&     date,
         icrs.SetCoordinates(*this);
     } else if (coord_type_ == CESkyCoordType::GALACTIC) {
         // GALACTIC -> ICRS
-        Galactic2ICRS(*this, &icrs) ;
+        Galactic2ICRS(*this, &icrs);
     } else if (coord_type_ == CESkyCoordType::OBSERVED) {
         // OBSERVED -> ICRS
         Observed2ICRS(*this, &icrs, date, observer);
@@ -764,9 +764,9 @@ void CESkyCoord::SetCoordinates(const CEAngle& xcoord,
                                 const CEAngle& ycoord,
                                 const CESkyCoordType& coord_type) const
 {
-    xcoord_     = xcoord ;
-    ycoord_     = ycoord ;
-    coord_type_ = coord_type ;
+    xcoord_     = xcoord;
+    ycoord_     = ycoord;
+    coord_type_ = coord_type;
 }
 
 
