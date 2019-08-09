@@ -42,6 +42,7 @@ public:
     virtual bool test_Convert2Cirs(void);
     virtual bool test_Convert2Galactic(void);
     virtual bool test_Convert2Observed(void);
+    virtual bool test_Convert2Ecliptic(void);
 
     virtual bool test_AngularSeparation(void);
     virtual bool test_ConvertTo(void);
@@ -57,6 +58,7 @@ private:
     CESkyCoord base_icrs_;
     CESkyCoord base_gal_;
     CESkyCoord base_obs_;
+    CESkyCoord base_ecl_;
     CEDate     base_date_;
     CEObserver base_observer_;
 };
