@@ -71,3 +71,4 @@ set (testcppephem_SOURCES ${cppephem_SOURCES} PARENT_SCOPE)
 # Make sure all of the executables are compiled
 add_subdirectory (test)
 add_subdirectory (src)
+add_subdirectory (exec)

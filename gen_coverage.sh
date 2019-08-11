@@ -75,6 +75,28 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
     LLVM_PROFILE_FILE="${outdir}/obs2icrs.profraw"      ./build/bin/test_obs2icrs --longitude=0.0 --latitude=0.0 --azimuth=180 --zenith=20 --juliandate=2451545.0
     LLVM_PROFILE_FILE="${outdir}/obs2gal.profraw"       ./build/bin/test_obs2gal  --longitude=0.0 --latitude=0.0 --azimuth=180 --zenith=20 --juliandate=2451545.0
 
+    LLVM_PROFILE_FILE="${outdir}/cirs2gal2.profraw"     ./build/bin/test_cirs2gal2  --cirs=83.633,22.0145 --to=galactic --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/cirs2icrs2.profraw"    ./build/bin/test_cirs2icrs2 --cirs=83.633,22.0145 --to=icrs --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/cirs2obs2.profraw"     ./build/bin/test_cirs2obs2  --cirs=83.633,22.0145 --to=observed --longitude=0.0 --latitude=0.0 --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/cirs2ecl2.profraw"     ./build/bin/test_cirs2ecl2  --cirs=83.633,22.0145 --to=ecliptic --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/icrs2cirs2.profraw"    ./build/bin/test_icrs2cirs2 --icrs=83.633,22.0145 --to=cirs --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/icrs2gal2.profraw"     ./build/bin/test_icrs2gal2  --icrs=83.633,22.0145 --to=galactic
+    LLVM_PROFILE_FILE="${outdir}/icrs2obs2.profraw"     ./build/bin/test_icrs2obs2  --icrs=83.633,22.0145 --to=observed --juliandate=2451545.0 --longitude=0.0 --latitude=0.0
+    LLVM_PROFILE_FILE="${outdir}/icrs2ecl2.profraw"     ./build/bin/test_icrs2ecl2  --icrs=83.633,22.0145 --to=ecliptic --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/gal2cirs2.profraw"     ./build/bin/test_gal2cirs2  --galactic=184.553,-5.788 --to=cirs --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/gal2icrs2.profraw"     ./build/bin/test_gal2icrs2  --galactic=184.553,-5.788 --to=icrs
+    LLVM_PROFILE_FILE="${outdir}/gal2obs2.profraw"      ./build/bin/test_gal2obs2   --galactic=184.553,-5.788 --to=observed --longitude=0.0 --latitude=0.0  --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/gal2ecl2.profraw"      ./build/bin/test_gal2ecl2   --galactic=184.553,-5.788 --to=ecliptic --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/obs2cirs2.profraw"     ./build/bin/test_obs2cirs2  --observed=180,20         --to=cirs --longitude=0.0 --latitude=0.0 --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/obs2icrs2.profraw"     ./build/bin/test_obs2icrs2  --observed=180,20         --to=icrs --longitude=0.0 --latitude=0.0 --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/obs2gal2.profraw"      ./build/bin/test_obs2gal2   --observed=180,20         --to=galactic --longitude=0.0 --latitude=0.0 --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/obs2ecl2.profraw"      ./build/bin/test_obs2ecl2   --observed=180,20         --to=ecliptic --longitude=0.0 --latitude=0.0 --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/ecl2cirs2.profraw"     ./build/bin/test_ecl2cirs2  --ecliptic=84.097,-1.294 --to=cirs --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/ecl2icrs2.profraw"     ./build/bin/test_ecl2icrs2  --ecliptic=84.097,-1.294 --to=icrs --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/ecl2gal2.profraw"      ./build/bin/test_ecl2gal2   --ecliptic=84.097,-1.294 --to=galactic --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/ecl2obs2.profraw"      ./build/bin/test_ecl2obs2   --ecliptic=84.097,-1.294 --to=observed --longitude=0.0 --latitude=0.0  --juliandate=2451545.0
+
+
     # Put all the coverage output files into a single file
     ls ${outdir}/*.profraw > ${cov_reports}
 
@@ -118,6 +140,26 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
         -object ./build/bin/test_obs2cirs \
         -object ./build/bin/test_obs2icrs \
         -object ./build/bin/test_obs2gal \
+        -object ./build/bin/test_cirs2gal2 \
+        -object ./build/bin/test_cirs2icrs2 \
+        -object ./build/bin/test_cirs2obs2 \
+        -object ./build/bin/test_cirs2ecl2 \
+        -object ./build/bin/test_icrs2cirs2 \
+        -object ./build/bin/test_icrs2gal2 \
+        -object ./build/bin/test_icrs2obs2 \
+        -object ./build/bin/test_icrs2ecl2 \
+        -object ./build/bin/test_gal2cirs2 \
+        -object ./build/bin/test_gal2icrs2 \
+        -object ./build/bin/test_gal2obs2 \
+        -object ./build/bin/test_gal2ecl2 \
+        -object ./build/bin/test_obs2cirs2 \
+        -object ./build/bin/test_obs2icrs2 \
+        -object ./build/bin/test_obs2gal2 \
+        -object ./build/bin/test_obs2ecl2 \
+        -object ./build/bin/test_ecl2cirs2 \
+        -object ./build/bin/test_ecl2icrs2 \
+        -object ./build/bin/test_ecl2gal2 \
+        -object ./build/bin/test_ecl2obs2 \
         > ${outdir}/coverage_report.txt
 
     # Run sonnar scanner to analyze code and coverage statistics
