@@ -24,6 +24,7 @@
 #include <map>
 #include <string>
 #include <time.h>
+#include <algorithm>
 
 // CppEphem HEADERS
 #include "CppEphem.h"
