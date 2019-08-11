@@ -5,8 +5,6 @@
 
 #include "CppEphem.h"
 #include "CLOptions.h"
-#include "CEDate.h"
-#include "CEObserver.h"
 
 class CEExecOptions : public CLOptions {
 public:
@@ -30,7 +28,7 @@ public:
     /**********************************************************************//**
      * Deconstruct
      *************************************************************************/
-    virtual ~CEExecOptions() {};
+    virtual ~CEExecOptions() {}
 
     /**********************************************************************//**
      * Copy assignment operator
@@ -52,6 +50,12 @@ public:
     void AddIcrsPars(void);
     void AddGalacticPars(void);
     void AddObservedPars(void);
+    
+    void AddCirsPar(void);
+    void AddIcrsPar(void);
+    void AddGalacticPar(void);
+    void AddEclipticPar(void);
+    void AddObservedPar(void);
     void AddObserverPars(void);
     void AddJDPar(void);
 
@@ -168,6 +172,9 @@ void CEExecOptions::AddObserverPars(void)
     AddDoubleParam("humidity", "Observer's atmospheric humicity (0-1)", obs.RelativeHumidity());
     AddDoubleParam("temperature", "Observer's atmospheric temperature (Celsius)", obs.Temperature_C());
     AddDoubleParam("wavelength", "Observing wavelength (micrometers)", obs.Wavelength_um());
+
+    // Add date parameter
+    AddJDPar();
 }
 
 /**********************************************************************//**
@@ -182,6 +189,92 @@ inline
 void CEExecOptions::AddJDPar(void)
 {
     AddDoubleParam("j,juliandate", "Input Julian date", CEDate::CurrentJD());
+}
+
+/**********************************************************************//**
+ * Add parameters for CIRS coordinates
+ * 
+ * Adds the following parameters:
+ * ------------------------------
+ *  "cirs"
+ *      CIRS "RA,Dec" (degrees)
+ *************************************************************************/
+inline
+void CEExecOptions::AddCirsPar(void)
+{
+    AddStringParam("cirs", "Input CIRS RA,Dec coordinates (degrees)", "");
+    if (!HasPar("delim")) {
+        AddStringParam("delim", "Angle delimiter", "");
+    }
+}
+
+/**********************************************************************//**
+ * Add parameters for ICRS coordinates
+ * 
+ * Adds the following parameters:
+ * ------------------------------
+ *  "icrs"
+ *      ICRS "RA,Dec" (degrees)
+ *************************************************************************/
+inline
+void CEExecOptions::AddIcrsPar(void)
+{
+    AddStringParam("icrs", "Input ICRS RA,Dec coordinates (degrees)", "");
+    if (!HasPar("delim")) {
+        AddStringParam("delim", "Angle delimiter", "");
+    }
+}
+
+/**********************************************************************//**
+ * Add parameters for Galactic coordinates
+ * 
+ * Adds the following parameters:
+ * ------------------------------
+ *  "galactic"
+ *      Galactic "longitude,latitude" (degrees)
+ *************************************************************************/
+inline
+void CEExecOptions::AddGalacticPar(void)
+{
+    AddStringParam("galactic", "Input Galactic longitude,latitude coordinates (degrees)", 
+                   "");
+    if (!HasPar("delim")) {
+        AddStringParam("delim", "Angle delimiter", "");
+    }
+}
+
+/**********************************************************************//**
+ * Add parameters for Ecliptic coordinates
+ * 
+ * Adds the following parameters:
+ * ------------------------------
+ *  "ecliptic"
+ *      Ecliptic "longitude,latitude" (degrees)
+ *************************************************************************/
+inline
+void CEExecOptions::AddEclipticPar(void)
+{
+    AddStringParam("ecliptic", "Ecliptic longitude,latitude (degrees)", "");
+    if (!HasPar("delim")) {
+        AddStringParam("delim", "Angle delimiter", "");
+    }
+}
+
+/**********************************************************************//**
+ * Add parameters for Observed coordinates
+ * 
+ * Adds the following parameters:
+ * ------------------------------
+ *  "observed"
+ *      Observed "altitude,zenith" (degrees)
+ *************************************************************************/
+inline
+void CEExecOptions::AddObservedPar(void)
+{
+    AddStringParam("observed", "Observed altitude,zenith (degrees)", "");
+    if (!HasPar("delim")) {
+        AddStringParam("delim", "Angle delimiter (single character)", "");
+    }
 }
 
 /**********************************************************************//**
