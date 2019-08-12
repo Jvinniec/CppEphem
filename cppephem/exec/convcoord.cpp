@@ -53,24 +53,10 @@ CEExecOptions DefineOpts()
 
     opts.AddStringParam("to", "Coordinate system to convert into (\"CIRS\", \"ICRS\", \"Galactic\", \"Observed\", \"Ecliptic\")", "");
 
+    // Add parameters to modify the corrections files
+    opts.AddCorrFilePars();
+
     return opts;
-}
-
-/**********************************************************************//**
- * Generate an observer object
- *************************************************************************/
-inline
-CEObserver GenObserver(CEExecOptions& opts)
-{
-    CEObserver obs(opts.AsDouble("longitude"),
-                   opts.AsDouble("latitude"),
-                   opts.AsDouble("elevation"),
-                   CEAngleType::DEGREES);
-    obs.SetRelativeHumidity(opts.AsDouble("humidity"));
-    obs.SetPressure_hPa(opts.AsDouble("pressure"));
-    obs.SetWavelength_um(opts.AsDouble("wavelength"));
-
-    return obs;
 }
 
 /**********************************************************************//**
@@ -134,7 +120,7 @@ CESkyCoordType GetOutType(CEExecOptions& opts)
     // Get the coordinate system type (lower case)
     std::string user_type = opts.AsString("to");
     if (user_type.size() == 0) {
-        throw std::invalid_argument("Must supply coordinate system to conver to (specify the \"to\" parameter)");
+        throw std::invalid_argument("Must supply coordinate system to convert to (specify the \"to\" parameter)");
     }
     std::for_each(user_type.begin(), user_type.end(), [](char & c) {
 		c = ::tolower(c);
@@ -209,11 +195,15 @@ int main(int argc, char** argv) {
     CEExecOptions opts = DefineOpts();
     if (opts.ParseCommandLine(argc, argv)) return 0;
     
+    // Setup correction term files
+    opts.SetCorrFiles();
+    CppEphem::CorrectionsInterp(true);
+
     // Create a date
     CEDate date(opts.AsDouble("juliandate"), CEDateType::JD);
 
     // Create the observer
-    CEObserver obs = GenObserver(opts);
+    CEObserver obs = opts.GenObserver();
     
     // Get the input coordinates
     CESkyCoord incoord = GetInCoord(opts);
