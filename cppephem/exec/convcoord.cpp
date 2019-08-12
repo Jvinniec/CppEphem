@@ -170,6 +170,9 @@ void PrintCoordConvResults(const CESkyCoord& outcoord,
     std::printf("%s Coordinates (output)\n", outnames[0].c_str());
     std::printf("    %-15s: %f degrees\n", outnames[1].c_str(), outcoord.XCoord().Deg());
     std::printf("    %-15s: %+f degrees\n", outnames[2].c_str(), outcoord.YCoord().Deg());
+    if (outnames[2] == "Zenith") {
+        std::printf("    %-15s: %+f degrees\n", "Altitude", 90.0-outcoord.YCoord().Deg());
+    }
     std::printf("%s Coordinates (input)\n", innames[0].c_str());
     std::printf("    %-15s: %f degrees\n", innames[1].c_str(), incoord.XCoord().Deg());
     std::printf("    %-15s: %+f degrees\n", innames[2].c_str(), incoord.YCoord().Deg());
