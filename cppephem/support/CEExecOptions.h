@@ -51,6 +51,7 @@ public:
     void AddGalacticPars(void);
     void AddObservedPars(void);
     
+    void AddCorrFilePars(void);
     void AddCirsPar(void);
     void AddIcrsPar(void);
     void AddGalacticPar(void);
@@ -59,6 +60,9 @@ public:
     void AddObserverPars(void);
     void AddJDPar(void);
 
+    CEObserver GenObserver(void);
+
+    void SetCorrFiles(void);
     void SetProgName(const std::string& prog_name);
 
 private:
@@ -192,6 +196,25 @@ void CEExecOptions::AddJDPar(void)
 }
 
 /**********************************************************************//**
+ * Add parameter for the corrections file path
+ * 
+ * Adds the following parameters:
+ * ------------------------------
+ *  "corrfilepath""
+ *      Input path to directory containing corrections files
+ *************************************************************************/
+inline
+void CEExecOptions::AddCorrFilePars(void)
+{
+    AddStringParam("nutation", "File containing nutation corrections",
+                   "");
+    AddStringParam("ttut1hist", "File containing 'TT - UT1' corrections (historical)",
+                   "");
+    AddStringParam("ttut1pred", "File containing 'TT - UT1' corrections (predicted)",
+                   "");
+}
+
+/**********************************************************************//**
  * Add parameters for CIRS coordinates
  * 
  * Adds the following parameters:
@@ -274,6 +297,43 @@ void CEExecOptions::AddObservedPar(void)
     AddStringParam("observed", "Observed altitude,zenith (degrees)", "");
     if (!HasPar("delim")) {
         AddStringParam("delim", "Angle delimiter (single character)", "");
+    }
+}
+
+/**********************************************************************//**
+ * Generate an observer object
+ *************************************************************************/
+inline
+CEObserver CEExecOptions::GenObserver(void)
+{
+    CEObserver obs(AsDouble("longitude"),
+                   AsDouble("latitude"),
+                   AsDouble("elevation"),
+                   CEAngleType::DEGREES);
+    obs.SetRelativeHumidity(AsDouble("humidity"));
+    obs.SetPressure_hPa(AsDouble("pressure"));
+    obs.SetWavelength_um(AsDouble("wavelength"));
+
+    return obs;
+}
+
+/**********************************************************************//**
+ * Defines the corrections terms from user supplied options
+ *************************************************************************/
+inline 
+void CEExecOptions::SetCorrFiles(void)
+{
+    // Nutation
+    if (AsString("nutation").size() > 0) {
+        CppEphem::SetNutationFile(AsString("nutation"));
+    }
+    // TT - UT1 (historical)
+    if (AsString("ttut1hist").size() > 0) {
+        CppEphem::SetTtUt1HistFile(AsString("ttut1hist"));
+    }
+    // TT - UT1 (predictions)
+    if (AsString("ttut1pred").size() > 0) {
+        CppEphem::SetTtUt1PredFile(AsString("ttut1pred"));
     }
 }
 
