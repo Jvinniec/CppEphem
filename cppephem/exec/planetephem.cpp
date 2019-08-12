@@ -43,8 +43,9 @@ int main(int argc, char** argv)
     // Get the command line options
     CEExecOptions opts = DefineOpts() ;
     if (opts.ParseCommandLine(argc,argv)) return 0;
-    
-    // Turn on interpolation for correction terms
+
+    // Setup the nutation and timing corrections information
+    opts.SetCorrFiles();
     CppEphem::CorrectionsInterp(true);
 
     // Create the observed object
@@ -67,14 +68,7 @@ int main(int argc, char** argv)
     CEDate date(opts.AsDouble("startJD"), CEDateType::JD) ;
     
     // Create the observer
-    CEObserver observer(opts.AsDouble("longitude"),
-                        opts.AsDouble("latitude"),
-                        opts.AsDouble("elevation"),
-                        CEAngleType::DEGREES) ;
-    observer.SetPressure_hPa(opts.AsDouble("pressure"));
-    observer.SetTemperature_C(opts.AsDouble("temperature"));
-    observer.SetRelativeHumidity(opts.AsDouble("humidity"));
-    observer.SetWavelength_um(opts.AsDouble("wavelength"));
+    CEObserver observer = opts.GenObserver();
     observer.SetUTCOffset(CETime::SystemUTCOffset_hrs());
     
     CEObservation coords(&observer, &planet, &date) ;
@@ -120,6 +114,8 @@ CEExecOptions DefineOpts()
     opts.AddStringParam("method",
                         "Method for computing planet positions ('sofa' or 'jpl', default='sofa')",
                         "sofa");
+
+    opts.AddCorrFilePars();
     return opts ;
 }
 
