@@ -131,7 +131,7 @@ CESkyCoord CEBody::ObservedCoords(const CEDate&     date,
                                   const CEObserver& observer) const
 {
     CESkyCoord coords_icrs = GetCoordinates(date);
-    return coords_icrs.ConvertTo(CESkyCoordType::OBSERVED, date, observer);
+    return coords_icrs.ConvertToObserved(date, observer);
 }                                         
 
 
