@@ -89,14 +89,16 @@ CECoordinates::CECoordinates(const std::vector<double>& xcoord,
  * 
  * @param[in] coord_type Coordinate type (see CECoordinateType)
  *************************************************************************/
-CECoordinates::CECoordinates(const CECoordinateType& coord_type) :
-    coord_type_(coord_type)
+CECoordinates::CECoordinates(const CECoordinateType& coord_type)
 {
     init_members();
+    coord_type_ = coord_type;
 }
 
 /**********************************************************************//**
  * Copy constructor
+ * 
+ * @param[in] other     Coordinates object to be copied
  *************************************************************************/
 CECoordinates::CECoordinates(const CECoordinates& other)
 {
@@ -114,6 +116,9 @@ CECoordinates::~CECoordinates()
 
 /**********************************************************************//**
  * Overloaded '=' (assignment) operator
+ * 
+ * @param[in] other     Coordinates object to be copied
+ * @return Duplicated CECoordinates object
  *************************************************************************/
 CECoordinates& CECoordinates::operator=(const CECoordinates& other)
 {
@@ -135,7 +140,7 @@ CECoordinates& CECoordinates::operator=(const CECoordinates& other)
  * @param[out] return_ra    ICRS right ascension (returned)
  * @param[out] return_dec   ICRS declinaton (returned)
  * @param[in]  date         Date information
- * @param[in] angle_type    Input/output angle type (DEGREES or RADIANS)
+ * @param[in]  angle_type   Input/output angle type (DEGREES or RADIANS)
  *************************************************************************/
 void CECoordinates::CIRS2ICRS(double input_ra, double input_dec,
                               double *return_ra, double *return_dec,
@@ -259,11 +264,11 @@ int CECoordinates::CIRS2Observed(double ra, double dec,
     
     // Now convert back to degrees if that's what we were passed
     if (angle_type == CEAngleType::DEGREES) {
-        *az              *= DR2D ;
-        *zen             *= DR2D ;
-        *observed_ra     *= DR2D ;
-        *observed_dec    *= DR2D ;
-        *hour_angle      *= DR2D ;
+        *az              *= DR2D;
+        *zen             *= DR2D;
+        *observed_ra     *= DR2D;
+        *observed_dec    *= DR2D;
+        *hour_angle      *= DR2D;
     }
     
     return err_code ;
@@ -1125,9 +1130,6 @@ CECoordinates CECoordinates::GetObservedCoords(const double& julian_date,
     } else if (coord_type_ == CECoordinateType::OBSERVED) {
         azimuth = xcoord_;
         zenith  = ycoord_; 
-    } else {
-        std::string msg = "Unrecognized coordinate type";
-        throw CEException::invalid_value("CECoordinates::GetObservedCoords", msg);
     }
     
     // Create the CECoordinates object to be returned
@@ -1311,31 +1313,33 @@ CECoordinates CECoordinates::ConvertTo(CECoordinateType output_coord_type,
                                        double xp, double yp,
                                        double wavelength_um)
 {
+    // Create return coordinate object
+    CECoordinates out_coord;
+
     // Do conversion to CIRS
     if (output_coord_type == CECoordinateType::CIRS) {
-        return ConvertToCIRS(jd, longitude, latitude,
-                             elevation_m, pressure_hPa,
-                             temperature_celsius, relative_humidity,
-                             dut1, xp, yp, wavelength_um) ;
+        out_coord = ConvertToCIRS(jd, longitude, latitude,
+                                  elevation_m, pressure_hPa,
+                                  temperature_celsius, relative_humidity,
+                                  dut1, xp, yp, wavelength_um) ;
     } else if (output_coord_type == CECoordinateType::ICRS) {
-        return ConvertToICRS(jd, longitude, latitude,
-                             elevation_m, pressure_hPa,
-                             temperature_celsius, relative_humidity,
-                             dut1, xp, yp, wavelength_um) ;
+        out_coord = ConvertToICRS(jd, longitude, latitude,
+                                  elevation_m, pressure_hPa,
+                                  temperature_celsius, relative_humidity,
+                                  dut1, xp, yp, wavelength_um) ;
     } else if (output_coord_type == CECoordinateType::GALACTIC) {
-        return ConvertToGalactic(jd, longitude, latitude,
-                                 elevation_m, pressure_hPa,
-                                 temperature_celsius, relative_humidity,
-                                 dut1, xp, yp, wavelength_um) ;
+        out_coord = ConvertToGalactic(jd, longitude, latitude,
+                                      elevation_m, pressure_hPa,
+                                      temperature_celsius, relative_humidity,
+                                      dut1, xp, yp, wavelength_um) ;
     } else if (output_coord_type == CECoordinateType::OBSERVED) {
-        return ConvertToObserved(jd, longitude, latitude,
-                                 elevation_m, pressure_hPa,
-                                 temperature_celsius, relative_humidity,
-                                 dut1, xp, yp, wavelength_um) ;
-    } else {
-        std::cerr << "[ERROR] Unknown coordinate type passed to CECoordinates::ConvertTo()!\n" ;
-        return CECoordinates() ;
+        out_coord = ConvertToObserved(jd, longitude, latitude,
+                                      elevation_m, pressure_hPa,
+                                      temperature_celsius, relative_humidity,
+                                      dut1, xp, yp, wavelength_um) ;
     }
+
+    return out_coord;
 }
 
 /**********************************************************************//**
@@ -1390,8 +1394,6 @@ CECoordinates CECoordinates::ConvertToCIRS(double jd,
                       elevation_m, pressure_hPa,
                       temperature_celsius, relative_humidity,
                       dut1, xp, yp, wavelength_um) ;
-    } else {
-        std::cerr << "[ERROR] Unknown coordinate type!\n" ;
     }
     
     return CECoordinates(xcoord_new, 
@@ -1446,8 +1448,6 @@ CECoordinates CECoordinates::ConvertToICRS(double jd,
                       elevation_m, pressure_hPa,
                       temperature_celsius, relative_humidity,
                       dut1, xp, yp, wavelength_um) ;
-    } else {
-        std::cerr << "[ERROR] Unknown coordinate type!\n" ;
     }
     
     return CECoordinates(xcoord_new, ycoord_new,
@@ -1501,8 +1501,6 @@ CECoordinates CECoordinates::ConvertToGalactic(double jd,
                           elevation_m, pressure_hPa,
                           temperature_celsius, relative_humidity,
                           dut1, xp, yp, wavelength_um) ;
-    } else {
-        std::cerr << "[ERROR] Unknown coordinate type!\n" ;
     }
     
     return CECoordinates(xcoord_new, ycoord_new, CECoordinateType::GALACTIC) ;
@@ -1579,10 +1577,6 @@ CECoordinates CECoordinates::ConvertToObserved(double jd,
             // Cant convert from observed to observed without additional
             // observer information
             msg += "Unable to convert to OBSERVED from OBSERVED";
-        } else {
-            // The coordinate type of this object is unknown... this shouldn't
-            // happen if the developers have done their job.
-            msg += "Unrecognized coordinate type";
         }
         throw CEException::invalid_value("CECoordinates::ConvertToObserved(long form)",
                                          msg);

@@ -54,8 +54,8 @@ CEExecOptions DefineOpts()
 
 /**********************************************************************//**
  *************************************************************************/
-void PrintResults(CEExecOptions& inputs, 
-                  const std::map<std::string, double>& results)
+void PrintResults(CEExecOptions&    inputs, 
+                  const CESkyCoord& results)
 {
     std::printf("\n") ;
     std::printf("******************************************\n") ;
@@ -66,8 +66,8 @@ void PrintResults(CEExecOptions& inputs,
     std::printf("    Zenith         : %+f degrees\n", inputs.AsDouble("zenith")) ;
     std::printf("    Altitude       : %+f degrees\n", 90.0-inputs.AsDouble("zenith")) ;
     std::printf("CIRS Coordinates (output)\n") ;
-    std::printf("    Right Ascension: %f degrees\n", results.at("ra")) ;
-    std::printf("    Declination    : %+f degrees\n", results.at("dec")) ;
+    std::printf("    Right Ascension: %f degrees\n", results.XCoord().Deg()) ;
+    std::printf("    Declination    : %+f degrees\n", results.YCoord().Deg()) ;
     std::printf("Observer Info\n") ;
     std::printf("    Julian Date    : %f\n", inputs.AsDouble("juliandate")) ;
     std::printf("    Longitude      : %f deg\n", inputs.AsDouble("longitude")) ;
@@ -86,11 +86,6 @@ int main(int argc, char** argv) {
     // Parse the command line options
     CEExecOptions opts = DefineOpts() ;
     if (opts.ParseCommandLine(argc, argv)) return 0 ;
-    
-    // Create a map to store the results
-    std::map<std::string, double> results ;
-    results["ra"] = 0.0 ;
-    results["dec"]  = 0.0 ;
 
     // Define the observer
     CEObserver observer(opts.AsDouble("longitude"),
@@ -106,17 +101,13 @@ int main(int argc, char** argv) {
     CEDate date(opts.AsDouble("juliandate"), CEDateType::JD);
 
     // Convert the coordinates
-    int errcode = CECoordinates::Observed2CIRS(opts.AsDouble("azimuth")*DD2R,
-                                               opts.AsDouble("zenith")*DD2R,
-                                               &results["ra"], &results["dec"],
-                                               date, observer, CEAngleType::RADIANS);
-    
-    // Convert back to degrees
-    results["ra"]  *= DR2D;
-    results["dec"] *= DR2D;
+    CESkyCoord obs_coords(CEAngle::Deg(opts.AsDouble("azimuth")),
+                          CEAngle::Deg(opts.AsDouble("zenith")),
+                          CESkyCoordType::OBSERVED);
+    CESkyCoord cirs_coords = obs_coords.ConvertToCIRS(date, observer);
     
     // Print the results
-    PrintResults(opts, results) ;
+    PrintResults(opts, cirs_coords) ;
     
-    return errcode ;
+    return 0;
 }

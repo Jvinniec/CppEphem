@@ -24,12 +24,12 @@ classes, so that astronomers can quickly and easily compute
 the quantities they need in their own programs.
 
 Here is a list of purposes I wish this code to serve:
-* Basic coordinate conversion routines (see [CECoordinates](http://jvinniec.github.io/CppEphem/documentation/html/classCECoordinates.html), fully implemented except for ecliptic coordinates)
+* Basic coordinate conversion routines (see [CESkyCoord](http://jvinniec.github.io/CppEphem/documentation/html/classCESkyCoord.html), fully implemented)
   - [CIRS](https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#cirs) (Earth centric RA,Dec)
   - [ICRS](https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#icrs) (Solarsystem barycentric RA, Dec)
   - [Galactic](https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#galactic) (Long, Lat)
   - [Observed](https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#observed) (Azimuth, Zenith angle) (Note: Zenith angle = 90&deg; - Altitude)
-  - ~~[Ecliptic](https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#ecliptic)~~ (Not yet implemented, Long, Lat) Will allow for either heliocentric or Earth centric variants
+  - [Ecliptic](https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#ecliptic) (Long, Lat) Mean barycentric ecliptic coordinates
 * Star & Planet ephemeris
   - __Star positions__ for a given observer at a given time (not accounting for proper motion yet)
   - __Planet positions__ for a given observer at a given time (implemented in [CEPlanet](http://jvinniec.github.io/CppEphem/documentation/html/classCEPlanet.html), see tutorials ce101, ce104, planetephem.cpp, and planetpositions.cpp)
@@ -38,7 +38,7 @@ Here is a list of purposes I wish this code to serve:
   - __Local time__ (Current local time obtained from system clock, however user can hand set "UTC offset" if desired)
   - Greenwich apparent sidereal time
   - Local apparent sidereal time
-  - Note: Methods also exist for passing in value for "DUT1" (i.e. UT1-UTC)
+  - Note: Methods also exist for automatically computing and using "DUT1" (i.e. UT1-UTC), x/y polar motions, and TT-UT1
 * Date conversion routines (see [CEDate](http://jvinniec.github.io/CppEphem/documentation/html/classCEDate.html), fully implemented)
   - __Julian Date__
   - __Modified Julian Date__
@@ -58,16 +58,10 @@ executables which can be run from the command line:
   - __jd2mjd__: Julian date to modified Julian date
   - __mjd2cal__: Modified Julian date to Gregorian calendar date
   - __mjd2jd__: Modified Julian date to Julian date
-* Coordinate conversion routines (all angles are expected in degrees)
-  - __cirs2icrs__: CIRS to ICRS coordinates
-  - __cirs2obs__: CIRS to Observed coordinates
-  - __cirs2gal__: CIRS to Galactic coordinates
-  - __gal2icrs__: Galactic to ICRS coordinates
-  - __gal2cirs__: Galactic to CIRS coordinates
-  - __gal2obs__: Galactic to Observed coordinates
-  - __obs2cirs__: Observed to CIRS coordinates
-  - __obs2icrs__: Observed to ICRS coordinates
-  - __obs2gal__: Observed to Galactic coordinates
+* Coordinate conversion routines (all angles are expected in degrees or HMS/DMS format)
+  - __convcoord__: Convert from any coordinate system to any other
+  - NOTE: Older executables exist for coordinate conversions, but they are more limited than `convcoord` and are considered deprecated.
+* Angular separation between two coordinates in the same coordinate system:
   - __angsep__: Compute the angular separation between two coordinates
 * Planet ephemeris producer
   - [__planetephem__](https://github.com/Jvinniec/CppEphem/wiki/planetephem): Computes the ephemeris for a given planet using user supplied geographic and time values.

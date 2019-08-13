@@ -50,8 +50,8 @@ public:
 
     // Run the actual tests
     virtual bool test_planet(const CEPlanet&            test_planet,
-                             const CECoordinates&       true_icrs,
-                             const CECoordinates&       true_obs,
+                             const CESkyCoord&          true_icrs,
+                             const CESkyCoord&          true_obs,
                              const std::vector<double>& true_pos,
                              const std::vector<double>& true_vel);
 

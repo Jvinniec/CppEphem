@@ -50,12 +50,12 @@ CEExecOptions DefineOpts()
 /**********************************************************************//**
  * Print the results of the conversion
  *************************************************************************/
-void PrintResults(const  CECoordinates& input,
-                  const  CECoordinates& output,
+void PrintResults(const  CESkyCoord& input,
+                  const  CESkyCoord& output,
                   double jd)
 {
-    std::vector<double> input_hms = CECoordinates::GetHMS( input.XCoordinate_Deg() ) ;
-    std::vector<double> output_hms = CECoordinates::GetHMS( output.XCoordinate_Deg() ) ;
+    std::vector<double> input_hms = input.XCoord().HmsVect();
+    std::vector<double> output_hms = output.XCoord().HmsVect();
     
     std::printf("\n") ;
     std::printf("**********************************************\n") ;
@@ -65,13 +65,13 @@ void PrintResults(const  CECoordinates& input,
     std::printf("    Julian Date    : %f\n", jd) ;
     std::printf("    Right Ascension: %02dh %02dm %04.1fs (%f deg)\n",
                 int(output_hms[0]), int(output_hms[1]), output_hms[2]+output_hms[3],
-                output.XCoordinate_Deg()) ;
-    std::printf("    Declination    : %+f degrees\n", output.YCoordinate_Deg()) ;
+                output.XCoord().Deg()) ;
+    std::printf("    Declination    : %+f degrees\n", output.YCoord().Deg()) ;
     std::printf("CIRS Coordinates (input)\n") ;
     std::printf("    Right Ascension: %02dh %02dm %04.1fs (%f deg)\n",
                 int(input_hms[0]), int(input_hms[1]), input_hms[2]+input_hms[3],
-                input.XCoordinate_Deg()) ;
-    std::printf("    Declination    : %+f degrees\n", input.YCoordinate_Deg()) ;
+                input.XCoord().Deg()) ;
+    std::printf("    Declination    : %+f degrees\n", input.YCoord().Deg()) ;
     std::printf("\n") ;
 }
 
@@ -86,12 +86,12 @@ int main (int argc, char** argv)
     if (opts.ParseCommandLine(argc, argv)) return 0 ;
     
     // Create a CECoordinates object
-    CECoordinates input(CEAngle::Deg(opts.AsDouble("ra")), 
-                        CEAngle::Deg(opts.AsDouble("dec")),
-                        CECoordinateType::CIRS) ;
+    CESkyCoord input(CEAngle::Deg(opts.AsDouble("ra")), 
+                     CEAngle::Deg(opts.AsDouble("dec")),
+                     CESkyCoordType::CIRS) ;
     
     // Get the coordinates as CIRS
-    CECoordinates output = input.ConvertToICRS(opts.AsDouble("juliandate")) ;
+    CESkyCoord output = input.ConvertToICRS(opts.AsDouble("juliandate")) ;
     
     // Print the result
     PrintResults(input, output, opts.AsDouble("juliandate")) ;

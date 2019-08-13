@@ -53,27 +53,27 @@ CEExecOptions DefineOpts()
 
 /**********************************************************************//**
  *************************************************************************/
-void PrintResults(const CECoordinates& input_icrs,
-                  const CECoordinates& observed_altaz,
-                  const CECoordinates& observed_icrs,
-                  const CEObserver&    observer,
-                  const CEDate    &    date)
+void PrintResults(const CESkyCoord& input_icrs,
+                  const CESkyCoord& observed_altaz,
+                  const CESkyCoord& observed_icrs,
+                  const CEObserver& observer,
+                  const CEDate    & date)
 {
     std::printf("\n") ;
     std::printf("******************************************\n") ;
     std::printf("* Results of ICRS -> Observed conversion *\n") ;
     std::printf("******************************************\n") ;
     std::printf("Observed Coordinates (output)\n") ;
-    std::printf("    Azimuth        : %f deg\n", observed_altaz.XCoordinate_Deg()) ;
-    std::printf("    Zenith         : %+f deg\n", observed_altaz.YCoordinate_Deg()) ;
-    std::printf("    Altitude       : %+f deg\n", 90.0-observed_altaz.YCoordinate_Deg()) ;
+    std::printf("    Azimuth        : %f deg\n", observed_altaz.XCoord().Deg()) ;
+    std::printf("    Zenith         : %+f deg\n", observed_altaz.YCoord().Deg()) ;
+    std::printf("    Altitude       : %+f deg\n", 90.0-observed_altaz.YCoord().Deg()) ;
     std::printf("ICRS Coordinates (input)\n") ;
-    std::printf("    Right Ascension: %f deg\n", input_icrs.XCoordinate_Deg()) ;
-    std::printf("    Declination    : %+f deg\n", input_icrs.YCoordinate_Deg()) ;
+    std::printf("    Right Ascension: %f deg\n", input_icrs.XCoord().Deg()) ;
+    std::printf("    Declination    : %+f deg\n", input_icrs.YCoord().Deg()) ;
     std::printf("    Julian Date    : %f\n", date.JD()) ;
     std::printf("Apparent ICRS Coordinates\n");
-    std::printf("    Right Ascension: %f deg\n", observed_icrs.XCoordinate_Deg());
-    std::printf("    Declination    : %f deg\n", observed_icrs.YCoordinate_Deg());
+    std::printf("    Right Ascension: %f deg\n", observed_icrs.XCoord().Deg());
+    std::printf("    Declination    : %f deg\n", observed_icrs.YCoord().Deg());
     std::printf("Observer Info\n") ;
     std::printf("    Longitude      : %f deg\n", observer.Longitude_Deg()) ;
     std::printf("    Latitude       : %+f deg\n", observer.Latitude_Deg()) ;
@@ -93,9 +93,9 @@ int main(int argc, char** argv)
     if (opts.ParseCommandLine(argc, argv)) return 0;
     
     // Create the input and output coordinates
-    CECoordinates input(CEAngle::Deg(opts.AsDouble("ra")), 
-                        CEAngle::Deg(opts.AsDouble("dec")),
-                        CECoordinateType::ICRS);
+    CESkyCoord icrs_coords(CEAngle::Deg(opts.AsDouble("ra")), 
+                           CEAngle::Deg(opts.AsDouble("dec")),
+                           CESkyCoordType::ICRS);
     
     // Define the date
     CEDate date(opts.AsDouble("juliandate"), CEDateType::JD);
@@ -111,15 +111,12 @@ int main(int argc, char** argv)
     observer.SetWavelength_um(opts.AsDouble("wavelength"));
 
     // Convert the coordinates
-    CECoordinates output;
-    try {
-        output = input.GetObservedCoords(date, observer);
-    } catch (CEException & e) {
-        std::cerr << e.what() << std::endl;
-    }
+    CESkyCoord obs_coords;
+    CESkyCoord obs_icrs_coords;
+    CESkyCoord::ICRS2Observed(icrs_coords, &obs_coords, date, observer, &obs_icrs_coords);
     
     // Print the results
-    PrintResults(input, output, output, observer, date) ;
+    PrintResults(icrs_coords, obs_coords, obs_icrs_coords, observer, date);
     
     return 0 ;
 }

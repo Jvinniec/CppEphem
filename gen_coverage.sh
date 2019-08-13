@@ -19,6 +19,10 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
     # Run all of the individual tests with output
     # NOTE: Make sure the coverage files end with '.profraw'
     echo "Running coverage"
+
+    # Define corrections files for testing
+    CORRFILES="--nutation=build/share/cppephem/nutation.txt --ttut1hist=build/share/cppephem/ttut1_historic.txt --ttut1pred=build/share/cppephem/ttut1_predicted.txt"
+
     LLVM_PROFILE_FILE="${outdir}/CEAngle.profraw"       ./build/bin/test_CEAngle
     LLVM_PROFILE_FILE="${outdir}/CEBody.profraw"        ./build/bin/test_CEBody
     LLVM_PROFILE_FILE="${outdir}/CECoordinates.profraw" ./build/bin/test_CECoordinates
@@ -29,36 +33,37 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
     LLVM_PROFILE_FILE="${outdir}/CEObserver.profraw"    ./build/bin/test_CEObserver
     LLVM_PROFILE_FILE="${outdir}/CEPlanet.profraw"      ./build/bin/test_CEPlanet
     LLVM_PROFILE_FILE="${outdir}/CERunningDate.profraw" ./build/bin/test_CERunningDate
+    LLVM_PROFILE_FILE="${outdir}/CESkyCoord.profraw"    ./build/bin/test_CESkyCoord
     LLVM_PROFILE_FILE="${outdir}/CETime.profraw"        ./build/bin/test_CETime
 
     # Generic executables
-    LLVM_PROFILE_FILE="${outdir}/angsep1.profraw"       ./build/bin/test_angsep --xcoord1=0.0 --ycoord1=0.0 --xcoord2=0.0 --ycoord2=1.0
-    LLVM_PROFILE_FILE="${outdir}/angsep2.profraw"       ./build/bin/test_angsep --xcoord1=0.0 --ycoord1=0.0 --xcoord2=0.0 --ycoord2=0.01745329251 --InputDegrees=0 --OutputDegrees=0
+    LLVM_PROFILE_FILE="${outdir}/angsep1.profraw"       ./build/bin/angsep --xcoord1=0.0 --ycoord1=0.0 --xcoord2=0.0 --ycoord2=1.0
+    LLVM_PROFILE_FILE="${outdir}/angsep2.profraw"       ./build/bin/angsep --xcoord1=0.0 --ycoord1=0.0 --xcoord2=0.0 --ycoord2=0.01745329251 --InputDegrees=0 --OutputDegrees=0
 
-    LLVM_PROFILE_FILE="${outdir}/planetephem.profraw"   ./build/bin/test_planetephem --planet=4 --longitude=0 --latitude=42 --elevation=0 --startJD=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/planetephem.profraw"   ./build/bin/planetephem $CORRFILES --planet=4 --longitude=0 --latitude=42 --elevation=0 --startJD=2451545.0
 
     # Date conversions (multiple versions to allow testing all the code)
-    LLVM_PROFILE_FILE="${outdir}/cal2jd1.profraw"       ./build/bin/test_cal2jd
-    LLVM_PROFILE_FILE="${outdir}/cal2jd2.profraw"       ./build/bin/test_cal2jd 20000101.5
-    LLVM_PROFILE_FILE="${outdir}/cal2jd3.profraw"       ./build/bin/test_cal2jd 2000 1 1.5
+    LLVM_PROFILE_FILE="${outdir}/cal2jd1.profraw"       ./build/bin/cal2jd
+    LLVM_PROFILE_FILE="${outdir}/cal2jd2.profraw"       ./build/bin/cal2jd 20000101.5
+    LLVM_PROFILE_FILE="${outdir}/cal2jd3.profraw"       ./build/bin/cal2jd 2000 1 1.5
 
-    LLVM_PROFILE_FILE="${outdir}/cal2mjd1.profraw"      ./build/bin/test_cal2mjd
-    LLVM_PROFILE_FILE="${outdir}/cal2mjd2.profraw"      ./build/bin/test_cal2mjd 20000101.5
-    LLVM_PROFILE_FILE="${outdir}/cal2mjd3.profraw"      ./build/bin/test_cal2mjd 2000 1 1.5
+    LLVM_PROFILE_FILE="${outdir}/cal2mjd1.profraw"      ./build/bin/cal2mjd
+    LLVM_PROFILE_FILE="${outdir}/cal2mjd2.profraw"      ./build/bin/cal2mjd 20000101.5
+    LLVM_PROFILE_FILE="${outdir}/cal2mjd3.profraw"      ./build/bin/cal2mjd 2000 1 1.5
 
-    LLVM_PROFILE_FILE="${outdir}/jd2cal1.profraw"       ./build/bin/test_jd2cal
-    LLVM_PROFILE_FILE="${outdir}/jd2cal2.profraw"       ./build/bin/test_jd2cal 2458516.0
-    LLVM_PROFILE_FILE="${outdir}/jd2cal3.profraw"       ./build/bin/test_jd2cal 2458516.0 1
+    LLVM_PROFILE_FILE="${outdir}/jd2cal1.profraw"       ./build/bin/jd2cal
+    LLVM_PROFILE_FILE="${outdir}/jd2cal2.profraw"       ./build/bin/jd2cal 2458516.0
+    LLVM_PROFILE_FILE="${outdir}/jd2cal3.profraw"       ./build/bin/jd2cal 2458516.0 1
 
-    LLVM_PROFILE_FILE="${outdir}/jd2mjd1.profraw"       ./build/bin/test_jd2mjd
-    LLVM_PROFILE_FILE="${outdir}/jd2mjd2.profraw"       ./build/bin/test_jd2mjd 2458516.0
+    LLVM_PROFILE_FILE="${outdir}/jd2mjd1.profraw"       ./build/bin/jd2mjd
+    LLVM_PROFILE_FILE="${outdir}/jd2mjd2.profraw"       ./build/bin/jd2mjd 2458516.0
 
-    LLVM_PROFILE_FILE="${outdir}/mjd2cal1.profraw"      ./build/bin/test_mjd2cal
-    LLVM_PROFILE_FILE="${outdir}/mjd2cal2.profraw"      ./build/bin/test_mjd2cal 58515.5
-    LLVM_PROFILE_FILE="${outdir}/mjd2cal3.profraw"      ./build/bin/test_mjd2cal 58515.5 1
+    LLVM_PROFILE_FILE="${outdir}/mjd2cal1.profraw"      ./build/bin/mjd2cal
+    LLVM_PROFILE_FILE="${outdir}/mjd2cal2.profraw"      ./build/bin/mjd2cal 58515.5
+    LLVM_PROFILE_FILE="${outdir}/mjd2cal3.profraw"      ./build/bin/mjd2cal 58515.5 1
 
-    LLVM_PROFILE_FILE="${outdir}/mjd2jd1.profraw"       ./build/bin/test_mjd2jd
-    LLVM_PROFILE_FILE="${outdir}/mjd2jd2.profraw"       ./build/bin/test_mjd2jd 58515.5
+    LLVM_PROFILE_FILE="${outdir}/mjd2jd1.profraw"       ./build/bin/mjd2jd
+    LLVM_PROFILE_FILE="${outdir}/mjd2jd2.profraw"       ./build/bin/mjd2jd 58515.5
 
     # Coordinate conversion tests
     LLVM_PROFILE_FILE="${outdir}/cirs2gal.profraw"      ./build/bin/test_cirs2gal --ra=83.633 --dec=22.0145 --juliandate=2451545.0
@@ -73,6 +78,28 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
     LLVM_PROFILE_FILE="${outdir}/obs2cirs.profraw"      ./build/bin/test_obs2cirs --longitude=0.0 --latitude=0.0 --azimuth=180 --zenith=20 --juliandate=2451545.0
     LLVM_PROFILE_FILE="${outdir}/obs2icrs.profraw"      ./build/bin/test_obs2icrs --longitude=0.0 --latitude=0.0 --azimuth=180 --zenith=20 --juliandate=2451545.0
     LLVM_PROFILE_FILE="${outdir}/obs2gal.profraw"       ./build/bin/test_obs2gal  --longitude=0.0 --latitude=0.0 --azimuth=180 --zenith=20 --juliandate=2451545.0
+
+    LLVM_PROFILE_FILE="${outdir}/cirs2gal2.profraw"     ./build/bin/convcoord $CORRFILES --cirs=83.633,22.0145 --to=galactic --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/cirs2icrs2.profraw"    ./build/bin/convcoord $CORRFILES --cirs=83.633,22.0145 --to=icrs --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/cirs2obs2.profraw"     ./build/bin/convcoord $CORRFILES --cirs=83.633,22.0145 --to=observed --longitude=0.0 --latitude=0.0 --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/cirs2ecl2.profraw"     ./build/bin/convcoord $CORRFILES --cirs=83.633,22.0145 --to=ecliptic --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/icrs2cirs2.profraw"    ./build/bin/convcoord $CORRFILES --icrs=83.633,22.0145 --to=cirs --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/icrs2gal2.profraw"     ./build/bin/convcoord $CORRFILES --icrs=83.633,22.0145 --to=galactic
+    LLVM_PROFILE_FILE="${outdir}/icrs2obs2.profraw"     ./build/bin/convcoord $CORRFILES --icrs=83.633,22.0145 --to=observed --juliandate=2451545.0 --longitude=0.0 --latitude=0.0
+    LLVM_PROFILE_FILE="${outdir}/icrs2ecl2.profraw"     ./build/bin/convcoord $CORRFILES --icrs=83.633,22.0145 --to=ecliptic --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/gal2cirs2.profraw"     ./build/bin/convcoord $CORRFILES --galactic=184.553,-5.788 --to=cirs --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/gal2icrs2.profraw"     ./build/bin/convcoord $CORRFILES --galactic=184.553,-5.788 --to=icrs
+    LLVM_PROFILE_FILE="${outdir}/gal2obs2.profraw"      ./build/bin/convcoord $CORRFILES --galactic=184.553,-5.788 --to=observed --longitude=0.0 --latitude=0.0  --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/gal2ecl2.profraw"      ./build/bin/convcoord $CORRFILES --galactic=184.553,-5.788 --to=ecliptic --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/obs2cirs2.profraw"     ./build/bin/convcoord $CORRFILES --observed=180,20         --to=cirs --longitude=0.0 --latitude=0.0 --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/obs2icrs2.profraw"     ./build/bin/convcoord $CORRFILES --observed=180,20         --to=icrs --longitude=0.0 --latitude=0.0 --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/obs2gal2.profraw"      ./build/bin/convcoord $CORRFILES --observed=180,20         --to=galactic --longitude=0.0 --latitude=0.0 --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/obs2ecl2.profraw"      ./build/bin/convcoord $CORRFILES --observed=180,20         --to=ecliptic --longitude=0.0 --latitude=0.0 --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/ecl2cirs2.profraw"     ./build/bin/convcoord $CORRFILES --ecliptic=84.097,-1.294 --to=cirs --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/ecl2icrs2.profraw"     ./build/bin/convcoord $CORRFILES --ecliptic=84.097,-1.294 --to=icrs --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/ecl2gal2.profraw"      ./build/bin/convcoord $CORRFILES --ecliptic=84.097,-1.294 --to=galactic --juliandate=2451545.0
+    LLVM_PROFILE_FILE="${outdir}/ecl2obs2.profraw"      ./build/bin/convcoord $CORRFILES --ecliptic=84.097,-1.294 --to=observed --longitude=0.0 --latitude=0.0  --juliandate=2451545.0
+
 
     # Put all the coverage output files into a single file
     ls ${outdir}/*.profraw > ${cov_reports}
@@ -95,15 +122,16 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
         -object ./build/bin/test_CEObservation \
         -object ./build/bin/test_CEObserver \
         -object ./build/bin/test_CERunningDate \
+        -object ./build/bin/test_CESkyCoord \
         -object ./build/bin/test_CETime \
-        -object ./build/bin/test_angsep \
-        -object ./build/bin/test_planetephem \
-        -object ./build/bin/test_cal2jd \
-        -object ./build/bin/test_cal2mjd \
-        -object ./build/bin/test_jd2cal \
-        -object ./build/bin/test_jd2mjd \
-        -object ./build/bin/test_mjd2cal \
-        -object ./build/bin/test_mjd2jd \
+        -object ./build/bin/angsep \
+        -object ./build/bin/planetephem \
+        -object ./build/bin/cal2jd \
+        -object ./build/bin/cal2mjd \
+        -object ./build/bin/jd2cal \
+        -object ./build/bin/jd2mjd \
+        -object ./build/bin/mjd2cal \
+        -object ./build/bin/mjd2jd \
         -object ./build/bin/test_cirs2gal \
         -object ./build/bin/test_cirs2icrs \
         -object ./build/bin/test_cirs2obs \
@@ -116,6 +144,7 @@ if [[ "$TRAVIS_OS_NAME" == "linux" && "$CC" == "clang" ]] ; then
         -object ./build/bin/test_obs2cirs \
         -object ./build/bin/test_obs2icrs \
         -object ./build/bin/test_obs2gal \
+        -object ./build/bin/convcoord \
         > ${outdir}/coverage_report.txt
 
     # Run sonnar scanner to analyze code and coverage statistics

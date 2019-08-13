@@ -53,24 +53,25 @@ CEExecOptions DefineOpts()
 
 /**********************************************************************//**
  *************************************************************************/
-void PrintResults(CEExecOptions& inputs, 
-                  const std::map<std::string, double>& results)
+void PrintResults(CEExecOptions& inputs,
+                  const CESkyCoord& obs_coords,
+                  const CESkyCoord& obs_gal_coords)
 {
     std::printf("\n");
     std::printf("**********************************************\n");
     std::printf("* Results of GALACTIC -> Observed conversion *\n");
     std::printf("**********************************************\n");
     std::printf("Observed Coordinates (output)\n");
-    std::printf("    Azimuth        : %f degrees\n", results.at("azimuth")*DR2D);
-    std::printf("    Zenith         : %+f degrees\n", results.at("zenith")*DR2D);
-    std::printf("    Altitude       : %+f degrees\n", 90.0-results.at("zenith")*DR2D);
+    std::printf("    Azimuth        : %f degrees\n", obs_coords.XCoord().Deg());
+    std::printf("    Zenith         : %+f degrees\n", obs_coords.YCoord().Deg());
+    std::printf("    Altitude       : %+f degrees\n", 90.0-obs_coords.YCoord().Deg());
     std::printf("Galactic Coordinates (input)\n");
     std::printf("    Gal. Longitude : %f degrees\n", inputs.AsDouble("glon"));
     std::printf("    Gal. Latitude  : %+f degrees\n", inputs.AsDouble("glat"));
     std::printf("    Julian Date    : %f\n", inputs.AsDouble("juliandate"));
     std::printf("Apparent Galactic Coordinates\n");
-    std::printf("    Gal. Longitude : %f\n", results.at("observed_glon")*DR2D);
-    std::printf("    Gal. Latitude  : %+f\n", results.at("observed_glat")*DR2D);
+    std::printf("    Gal. Longitude : %f\n", obs_gal_coords.XCoord().Deg());
+    std::printf("    Gal. Latitude  : %+f\n", obs_gal_coords.YCoord().Deg());
     std::printf("Observer Info\n");
     std::printf("    Longitude      : %f deg\n", inputs.AsDouble("longitude"));
     std::printf("    Latitude       : %+f deg\n", inputs.AsDouble("latitude"));
@@ -89,13 +90,6 @@ int main(int argc, char** argv)
     CEExecOptions opts = DefineOpts() ;
     if (opts.ParseCommandLine(argc, argv)) return 0 ;
     
-    // Create a map to store the results
-    std::map<std::string, double> results ;
-    results["azimuth"]       = 0.0;
-    results["zenith"]        = 0.0;
-    results["observed_glon"] = 0.0;
-    results["observed_glat"] = 0.0;
-    
     // Create a date
     CEDate date(opts.AsDouble("juliandate"), CEDateType::JD);
 
@@ -109,19 +103,16 @@ int main(int argc, char** argv)
     obs.SetWavelength_um(opts.AsDouble("wavelength"));
 
     // Convert the coordinates
-    int errcode = CECoordinates::Galactic2Observed(opts.AsDouble("glon")*DD2R, 
-                                                   opts.AsDouble("glat")*DD2R,
-                                                   &results["azimuth"], 
-                                                   &results["zenith"],
-                                                   date,
-                                                   obs,
-                                                   CEAngleType::RADIANS,
-                                                   obs.Wavelength_um(),
-                                                   &results["observed_glon"],
-                                                   &results["observed_glat"]);
+    CESkyCoord gal_coords(CEAngle::Deg(opts.AsDouble("glon")),
+                          CEAngle::Deg(opts.AsDouble("glat")),
+                          CESkyCoordType::GALACTIC);
+    CESkyCoord obs_gal_coords;
+    CESkyCoord obs_coords;
+    CESkyCoord::Galactic2Observed(gal_coords, &obs_coords,
+                                  date, obs, &obs_gal_coords);
     
     // Print the results
-    PrintResults(opts, results) ;
+    PrintResults(opts, obs_coords, obs_gal_coords);
     
-    return errcode ;
+    return 0;
 }

@@ -38,7 +38,7 @@ matrix:
         # Test OSX with Clang (latest version)
         - os: osx
           compiler: clang
-          osx_image: xcode10.1
+          osx_image: xcode10.2
 
 
 # Allow compiling with c++11
@@ -47,8 +47,8 @@ dist: xenial
 # Build steps
 script:
   - cmake -Dcoverage=1 ./
-  - make
-  - make test
+  - cmake --build .
+  - cmake --build . --target test
 
 after_success:
   # Only run sonar-scanner if we're using a linux machine with clang

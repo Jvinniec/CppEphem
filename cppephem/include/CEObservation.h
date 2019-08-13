@@ -23,11 +23,11 @@
 #define CEObservation_h
 
 // CppEphem HEAD
-#include "CECoordinates.h"
 #include "CEBody.h"
 #include "CEDate.h"
 #include "CEObserver.h"
 #include "CENamespace.h"
+#include "CESkyCoord.h"
 
 
 class CEObservation {
@@ -85,8 +85,8 @@ private:
     // Cached the observed parameters to make subsequent calls faster,
     // i.e. since they all get computed at the same time there's no need
     // to recompute them unless something changes.
-    double        cached_date_;   //<! Cached date, observed params recomputed if this has changed
-    CECoordinates cached_coords_; //<! Cached observed coordinates
+    double     cached_date_;   //<! Cached date, observed params recomputed if this has changed
+    CESkyCoord cached_coords_; //<! Cached observed coordinates
     
     // Cache the apparent coordinates
     double cached_hour_angle_;   //<! Cached hour angle (radians)
@@ -167,7 +167,7 @@ inline
 double CEObservation::GetAzimuth_Rad()
 {
     UpdateCoordinates();
-    return cached_coords_.XCoordinate_Rad();
+    return cached_coords_.XCoord().Rad();
 }
 
 
@@ -177,7 +177,7 @@ double CEObservation::GetAzimuth_Rad()
 inline
 double CEObservation::GetAzimuth_Deg() 
 {
-    return GetAzimuth_Rad() * DR2D;
+    return cached_coords_.XCoord().Deg();
 }
 
 
@@ -188,7 +188,7 @@ inline
 double CEObservation::GetZenith_Rad()
 {
     UpdateCoordinates();
-    return cached_coords_.YCoordinate_Rad();
+    return cached_coords_.YCoord().Rad();
 }
 
 
@@ -198,7 +198,7 @@ double CEObservation::GetZenith_Rad()
 inline
 double CEObservation::GetZenith_Deg() 
 {
-    return GetZenith_Rad() * DR2D;
+    return cached_coords_.YCoord().Deg();
 }
 
 
