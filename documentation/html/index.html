@@ -79,17 +79,17 @@ $(function() {
 <h2>PURPOSE: </h2>
 <p>The purpose of this package is to leverage the Standards Of Fundamental Astronomy (SOFA) package in order to compute several astrophysical quantities regarding the positions of objects. <a class="el" href="namespaceCppEphem.html">CppEphem</a> wraps the SOFA functions in easy to use classes, so that astronomers can quickly and easily compute the quantities they need in their own programs.</p>
 <p>Here is a list of purposes I wish this code to serve:</p><ul>
-<li>Basic coordinate conversion routines (see <a href="http://jvinniec.github.io/CppEphem/documentation/html/classCECoordinates.html">CECoordinates</a>, fully implemented except for ecliptic coordinates)<ul>
+<li>Basic coordinate conversion routines (see <a href="http://jvinniec.github.io/CppEphem/documentation/html/classCESkyCoord.html">CESkyCoord</a>, fully implemented)<ul>
 <li><a href="https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#cirs">CIRS</a> (Earth centric RA,Dec)</li>
 <li><a href="https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#icrs">ICRS</a> (Solarsystem barycentric RA, Dec)</li>
 <li><a href="https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#galactic">Galactic</a> (Long, Lat)</li>
 <li><a href="https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#observed">Observed</a> (Azimuth, Zenith angle) (Note: Zenith angle = 90&deg; - Altitude)</li>
-<li><strike><a href="https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#ecliptic">Ecliptic</a></strike> (Not yet implemented, Long, Lat) Will allow for either heliocentric or Earth centric variants</li>
+<li><a href="https://github.com/Jvinniec/CppEphem/wiki/Coordinate-Systems#ecliptic">Ecliptic</a> (Long, Lat) Mean barycentric ecliptic coordinates</li>
 </ul>
 </li>
 <li>Star &amp; Planet ephemeris<ul>
 <li><b>Star positions</b> for a given observer at a given time (not accounting for proper motion yet)</li>
-<li><b>Planet positions</b> for a given observer at a given time (implemented in <a href="http://jvinniec.github.io/CppEphem/documentation/html/classCEPlanet.html">CEPlanet</a>, see tutorials ce101, ce104, <a class="el" href="planetephem_8cpp.html">planetephem.cpp</a>, and <a class="el" href="planetpositions_8cpp.html" title="This script allows viewing the current coordinates of a given solar system planet for dates within 30...">planetpositions.cpp</a>)</li>
+<li><b>Planet positions</b> for a given observer at a given time (implemented in <a href="http://jvinniec.github.io/CppEphem/documentation/html/classCEPlanet.html">CEPlanet</a>, see tutorials ce101, ce104, planetephem.cpp, and <a class="el" href="planetpositions_8cpp.html" title="This script allows viewing the current coordinates of a given solar system planet for dates within 30...">planetpositions.cpp</a>)</li>
 </ul>
 </li>
 <li>Basic time conversion routines (partially implemented, next priority)<ul>
@@ -97,7 +97,7 @@ $(function() {
 <li><b>Local time</b> (Current local time obtained from system clock, however user can hand set "UTC offset" if desired)</li>
 <li>Greenwich apparent sidereal time</li>
 <li>Local apparent sidereal time</li>
-<li>Note: Methods also exist for passing in value for "DUT1" (i.e. UT1-UTC)</li>
+<li>Note: Methods also exist for automatically computing and using "DUT1" (i.e. UT1-UTC), x/y polar motions, and TT-UT1</li>
 </ul>
 </li>
 <li>Date conversion routines (see <a href="http://jvinniec.github.io/CppEphem/documentation/html/classCEDate.html">CEDate</a>, fully implemented)<ul>
@@ -118,16 +118,12 @@ $(function() {
 <li><b>mjd2jd</b>: Modified Julian date to Julian date</li>
 </ul>
 </li>
-<li>Coordinate conversion routines (all angles are expected in degrees)<ul>
-<li><b>cirs2icrs</b>: CIRS to ICRS coordinates</li>
-<li><b>cirs2obs</b>: CIRS to Observed coordinates</li>
-<li><b>cirs2gal</b>: CIRS to Galactic coordinates</li>
-<li><b>gal2icrs</b>: Galactic to ICRS coordinates</li>
-<li><b>gal2cirs</b>: Galactic to CIRS coordinates</li>
-<li><b>gal2obs</b>: Galactic to Observed coordinates</li>
-<li><b>obs2cirs</b>: Observed to CIRS coordinates</li>
-<li><b>obs2icrs</b>: Observed to ICRS coordinates</li>
-<li><b>obs2gal</b>: Observed to Galactic coordinates</li>
+<li>Coordinate conversion routines (all angles are expected in degrees or HMS/DMS format)<ul>
+<li><b>convcoord</b>: Convert from any coordinate system to any other</li>
+<li>NOTE: Older executables exist for coordinate conversions, but they are more limited than <code>convcoord</code> and are considered deprecated.</li>
+</ul>
+</li>
+<li>Angular separation between two coordinates in the same coordinate system:<ul>
 <li><b>angsep</b>: Compute the angular separation between two coordinates</li>
 </ul>
 </li>
@@ -170,7 +166,7 @@ the code". Second, make sure that the "configure" file exists in the top directo
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 12 2019 17:08:36 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Aug 13 2019 10:38:37 for CppEphem by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

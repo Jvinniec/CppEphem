@@ -3,7 +3,7 @@
 <area shape="rect" id="node2" title=" " alt="" coords="5,267,100,292"/>
 <area shape="rect" id="node3" href="$classCEBody.html" title="The CEBody class defines a celestial object." alt="" coords="163,180,233,205"/>
 <area shape="rect" id="node6" href="$classCEObservation.html" title="The CEObservation class serves as a constant link between an observer, a specified time,..." alt="" coords="370,267,482,292"/>
-<area shape="rect" id="node4" href="$classCECoordinates.html" title="CECoordinates class is responsible for doing all of the celestial coordinate conversions." alt="" coords="230,105,342,131"/>
+<area shape="rect" id="node4" href="$classCESkyCoord.html" title="CESkyCoord class is responsible for doing all of the celestial coordinate conversions." alt="" coords="237,105,335,131"/>
 <area shape="rect" id="node5" href="$classCEAngle.html" title="The CEAngle class defines an angle." alt="" coords="249,5,323,31"/>
 <area shape="rect" id="node7" href="$classCEObserver.html" title="CEObserver class is a self contained object for describing an observer." alt="" coords="500,180,595,205"/>
 <area shape="rect" id="node8" href="$classCEDate.html" title="CEDate class handles conversion between different date formats." alt="" coords="257,180,325,205"/>

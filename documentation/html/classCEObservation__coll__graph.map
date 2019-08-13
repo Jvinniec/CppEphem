@@ -1,8 +1,8 @@
 <map id="CEObservation" name="CEObservation">
-<area shape="rect" id="node1" title="The CEObservation class serves as a constant link between an observer, a specified time,..." alt="" coords="221,267,333,292"/>
-<area shape="rect" id="node2" href="$classCEBody.html" title="The CEBody class defines a celestial object." alt="" coords="171,180,242,205"/>
-<area shape="rect" id="node3" href="$classCECoordinates.html" title="CECoordinates class is responsible for doing all of the celestial coordinate conversions." alt="" coords="5,105,117,131"/>
-<area shape="rect" id="node4" href="$classCEAngle.html" title="The CEAngle class defines an angle." alt="" coords="24,5,98,31"/>
-<area shape="rect" id="node5" href="$classCEObserver.html" title="CEObserver class is a self contained object for describing an observer." alt="" coords="266,180,361,205"/>
-<area shape="rect" id="node6" href="$classCEDate.html" title="CEDate class handles conversion between different date formats." alt="" coords="385,180,453,205"/>
+<area shape="rect" id="node1" title="The CEObservation class serves as a constant link between an observer, a specified time,..." alt="" coords="215,267,326,292"/>
+<area shape="rect" id="node2" href="$classCEBody.html" title="The CEBody class defines a celestial object." alt="" coords="165,180,235,205"/>
+<area shape="rect" id="node3" href="$classCESkyCoord.html" title="CESkyCoord class is responsible for doing all of the celestial coordinate conversions." alt="" coords="5,105,104,131"/>
+<area shape="rect" id="node4" href="$classCEAngle.html" title="The CEAngle class defines an angle." alt="" coords="18,5,92,31"/>
+<area shape="rect" id="node5" href="$classCEObserver.html" title="CEObserver class is a self contained object for describing an observer." alt="" coords="259,180,354,205"/>
+<area shape="rect" id="node6" href="$classCEDate.html" title="CEDate class handles conversion between different date formats." alt="" coords="378,180,446,205"/>
 </map>

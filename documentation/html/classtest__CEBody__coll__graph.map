@@ -2,6 +2,6 @@
 <area shape="rect" id="node1" title=" " alt="" coords="24,267,124,292"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,180,100,205"/>
 <area shape="rect" id="node3" href="$classCEBody.html" title="The CEBody class defines a celestial object." alt="" coords="124,180,194,205"/>
-<area shape="rect" id="node4" href="$classCECoordinates.html" title="CECoordinates class is responsible for doing all of the celestial coordinate conversions." alt="" coords="103,105,215,131"/>
+<area shape="rect" id="node4" href="$classCESkyCoord.html" title="CESkyCoord class is responsible for doing all of the celestial coordinate conversions." alt="" coords="110,105,209,131"/>
 <area shape="rect" id="node5" href="$classCEAngle.html" title="The CEAngle class defines an angle." alt="" coords="122,5,196,31"/>
 </map>

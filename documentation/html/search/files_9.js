@@ -20,6 +20,8 @@ var searchData=
   ['test_5fceplanet_2eh',['test_CEPlanet.h',['../test__CEPlanet_8h.html',1,'']]],
   ['test_5fcerunningdate_2ecpp',['test_CERunningDate.cpp',['../test__CERunningDate_8cpp.html',1,'']]],
   ['test_5fcerunningdate_2eh',['test_CERunningDate.h',['../test__CERunningDate_8h.html',1,'']]],
+  ['test_5fceskycoord_2ecpp',['test_CESkyCoord.cpp',['../test__CESkyCoord_8cpp.html',1,'']]],
+  ['test_5fceskycoord_2eh',['test_CESkyCoord.h',['../test__CESkyCoord_8h.html',1,'']]],
   ['test_5fcetime_2ecpp',['test_CETime.cpp',['../test__CETime_8cpp.html',1,'']]],
   ['test_5fcetime_2eh',['test_CETime.h',['../test__CETime_8h.html',1,'']]]
 ];

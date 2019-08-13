@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['radians',['RADIANS',['../CEAngle_8h.html#ac3656523d606ff51136c38455aa59034aea3c82298fac1c706a4076b4aff53015',1,'CEAngle.h']]]
+  ['observed',['OBSERVED',['../CECoordinates_8h.html#a2198dc50406b64707964f5c1e8b32db2aa87279f7222c5264100350e6074973a2',1,'OBSERVED():&#160;CECoordinates.h'],['../CESkyCoord_8h.html#a309f65cf65746453b73978ef75b9fa61aa87279f7222c5264100350e6074973a2',1,'OBSERVED():&#160;CESkyCoord.h']]]
 ];

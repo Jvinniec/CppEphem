@@ -10,5 +10,6 @@ var searchData=
   ['test_5fceobserver',['test_CEObserver',['../classtest__CEObserver.html',1,'']]],
   ['test_5fceplanet',['test_CEPlanet',['../classtest__CEPlanet.html',1,'']]],
   ['test_5fcerunningdate',['test_CERunningDate',['../classtest__CERunningDate.html',1,'']]],
+  ['test_5fceskycoord',['test_CESkyCoord',['../classtest__CESkyCoord.html',1,'']]],
   ['test_5fcetime',['test_CETime',['../classtest__CETime.html',1,'']]]
 ];

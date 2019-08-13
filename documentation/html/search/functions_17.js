@@ -11,6 +11,7 @@ var searchData=
   ['_7eceobserver',['~CEObserver',['../classCEObserver.html#ab284cd43a5aca48131d493b8aa3d7041',1,'CEObserver']]],
   ['_7eceplanet',['~CEPlanet',['../classCEPlanet.html#a4a9243746c1623eeb7555f04b5554923',1,'CEPlanet']]],
   ['_7ecerunningdate',['~CERunningDate',['../classCERunningDate.html#a3d89ca1ef5627ad0af347ce5fc2df3f8',1,'CERunningDate']]],
+  ['_7eceskycoord',['~CESkyCoord',['../classCESkyCoord.html#a6a342d9eeb220d1518db43ce7f208aca',1,'CESkyCoord']]],
   ['_7ecetime',['~CETime',['../classCETime.html#ad295fb04601db862c2c0f733ce0d4a46',1,'CETime']]],
   ['_7etest_5fceangle',['~test_CEAngle',['../classtest__CEAngle.html#ac4a1148266ccfd7e98d6982760a34473',1,'test_CEAngle']]],
   ['_7etest_5fcebody',['~test_CEBody',['../classtest__CEBody.html#a4a2a4f1ce0876af936e48c2a5a7f4c7f',1,'test_CEBody']]],
@@ -22,5 +23,6 @@ var searchData=
   ['_7etest_5fceobserver',['~test_CEObserver',['../classtest__CEObserver.html#aad8ac818c8103fe9639f695e9fd9e0cb',1,'test_CEObserver']]],
   ['_7etest_5fceplanet',['~test_CEPlanet',['../classtest__CEPlanet.html#a3a5021e96e663eb17af5919d55c7c904',1,'test_CEPlanet']]],
   ['_7etest_5fcerunningdate',['~test_CERunningDate',['../classtest__CERunningDate.html#aa235a8e032ed90603b24670146eb5e45',1,'test_CERunningDate']]],
+  ['_7etest_5fceskycoord',['~test_CESkyCoord',['../classtest__CESkyCoord.html#a5c6efaa41b00df847177f35cfa59a017',1,'test_CESkyCoord']]],
   ['_7etest_5fcetime',['~test_CETime',['../classtest__CETime.html#ad8d515932d10abf1679fced293057ada',1,'test_CETime']]]
 ];

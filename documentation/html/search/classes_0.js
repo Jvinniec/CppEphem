@@ -12,6 +12,7 @@ var searchData=
   ['ceobserver',['CEObserver',['../classCEObserver.html',1,'']]],
   ['ceplanet',['CEPlanet',['../classCEPlanet.html',1,'']]],
   ['cerunningdate',['CERunningDate',['../classCERunningDate.html',1,'']]],
+  ['ceskycoord',['CESkyCoord',['../classCESkyCoord.html',1,'']]],
   ['cetime',['CETime',['../classCETime.html',1,'']]],
   ['corr_5ffile_5fload_5ferror',['corr_file_load_error',['../classCEException_1_1corr__file__load__error.html',1,'CEException']]]
 ];
