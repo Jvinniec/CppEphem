@@ -36,10 +36,11 @@
 /**********************************************************************//**
  * Date enum
  *************************************************************************/
-enum CEDateType {JD,              ///< Julian Date
-                 MJD,             ///< Modified Julian Date
-                 GREGORIAN        ///< Gregorian calendar (year, month, day)
-                } ;
+enum class CEDateType : unsigned int {
+    JD=0,              ///< Julian Date
+    MJD=1,             ///< Modified Julian Date
+    GREGORIAN=2        ///< Gregorian calendar (year, month, day)
+};
 
 class CEDate {
 public:

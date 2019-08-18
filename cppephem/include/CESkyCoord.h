@@ -37,8 +37,7 @@
 #include "sofa.h"
 
 /** The following enum specifies what coordinates this object represents */
-enum class CESkyCoordType
-{
+enum class CESkyCoordType : unsigned int {
     CIRS=0,           ///< RA, Dec (referenced at the center of the Earth)
     ICRS=1,           ///< RA, Dec (referenced at the barycenter of the solarsystem)
     GALACTIC=2,       ///< Galacitc longitude, latitude

@@ -28,12 +28,15 @@
 
 #include "CENamespace.h"
 
-// Time types are defined as:
-//      UTC   - Coordinate Universal Time
-//      GAST  - Greenwich Apparent Sidereal Time
-//      LAST  - Local Apparent Sidereal Time
-//      LOCALTIME - Local time (defined as the UTC + timezone_shift_)
-enum CETimeType {UTC, GAST, LAST, LOCALTIME} ;
+/**********************************************************************//**
+ * Time type enum
+ *************************************************************************/
+enum class CETimeType : unsigned int {
+    UTC       = 0,          ///< Coordinate Universal Time
+    GAST      = 1,          ///< Greenwich Apparent Sidereal Time
+    LAST      = 2,          ///< Local Apparent Sidereal Time
+    LOCALTIME = 3           ///< Local time (defined as the UTC + timezone_shift_)
+};
 
 class CETime {
 public:

@@ -26,11 +26,13 @@
 #include "CEBody.h"
 #include "CEObserver.h"
 
-/////////////////////////////////////////////
-/// Date enum
-enum CEPlanetAlgo {SOFA,              ///< Use methods included in sofa software
-                   JPL                ///< Use Keplerian algorithm outlined by JPL
-                   } ;
+/**********************************************************************//**
+ * Planet position algorithm enum
+ *************************************************************************/
+enum class CEPlanetAlgo : unsigned int {
+    SOFA = 0,       ///< Use methods included in sofa software
+    JPL  = 1        ///< Use Keplerian algorithm outlined by JPL
+};
 
 
 class CEPlanet : public CEBody {

@@ -27,12 +27,14 @@
 
 #include "CENamespace.h"
 
-enum class CEAngleType 
-{
-    DEGREES=0, 
-    RADIANS=1,
-    HMS=2,
-    DMS=3
+/**********************************************************************//**
+ * Angle type enum
+ *************************************************************************/
+enum class CEAngleType : unsigned int {
+    DEGREES=0,      ///< Degrees
+    RADIANS=1,      ///< Radians
+    HMS=2,          ///< Hours, minutes, seconds
+    DMS=3           ///< Degrees, arcmin, arcsec
 };
 
 class CEAngle {
