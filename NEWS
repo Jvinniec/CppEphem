@@ -1,3 +1,19 @@
+v1.3.0
+------
+The CECoordinates class has been DEPRECATED and replaced by the CESkyCoord 
+class. The CESkyCoord class has a simpler interface with fewer methods for 
+converting between coordinate systems. It also supports ecliptic coordinates.
+All classes and executables have been rewritten to use CESkyCoord. A constructor
+has been provided to make the transition a little simpler.
+
+As the number of supported coordinate systems is growing, the existing 
+executables for converting between these systems have been replaced by a single
+executable 'convcoord' which is capable of converting between any of the 
+supported coordinate systems. This method also supports passing angles in the 
+form of HH:MM:SS and DD:MM:SS using a user specified delimiter (see the 'delim'
+parameter).
+
+
 v1.2.0
 -------
 This represents the most significant change to the code base since its creation.

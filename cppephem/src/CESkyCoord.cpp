@@ -28,6 +28,7 @@
  - ICRS: Solar system barycentric coordinate system
  - Galactic: Galactic coordinates
  - Observed: Observer specific coordinate system
+ - Ecliptic: Solarsystem barycentric ecliptic coordinates
  */
 
 #include "CESkyCoord.h"
