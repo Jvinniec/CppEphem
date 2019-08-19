@@ -822,6 +822,7 @@ WARN_LOGFILE           =
 INPUT                  = README.md \
                          cppephem/src \
                          cppephem/include \
+                         cppephem/exec \
                          cppephem/test \
                          test \
                          cppephem/support
