@@ -115,8 +115,8 @@ public:
     virtual double GetSecondsSinceMidnight(const double& utc_offset=0.0) ;
     virtual double GetTime(const double& utc_offset=0.0) const;
     virtual double GetTime_UTC() const;
-    static double CurrentJD();
-    void          SetReturnType(CEDateType return_type);
+    static double  CurrentJD();
+    void           SetReturnType(CEDateType return_type);
     
     /************************************************************
      * Overloaded operators
@@ -134,10 +134,10 @@ private:
     /************************************************************
      * Variables that hold the time information
      ************************************************************/
-    double julian_date_ ;                   ///< Julian date formated
-    double mod_julian_date_ ;               ///< Modified Julian date formated
-    double gregorian_date_ ;                ///< Gregorian calendar date. Format as YYYYMMDD.DD
-    std::vector<double> gregorian_date_vect_ ;   ///< Vector containing the gregorian calendar date
+    double julian_date_ ;                       ///< Julian date formated
+    double mod_julian_date_ ;                   ///< Modified Julian date formated
+    double gregorian_date_ ;                    ///< Gregorian calendar date. Format as YYYYMMDD.DD
+    std::vector<double> gregorian_date_vect_ ;  ///< Vector containing the gregorian calendar date
                                                 ///< 0 - Year, 1 - Month, 2 - date, 3 - date fraction
     CEDateType return_type_ = CEDateType::JD ;  ///< what format the 'operator double' will return
     
