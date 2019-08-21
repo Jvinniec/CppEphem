@@ -1,0 +1,6 @@
+<map id="test_CEPlanet" name="test_CEPlanet">
+<area shape="rect" id="node1" title=" " alt="" coords="118,92,225,117"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,100,31"/>
+<area shape="rect" id="node3" href="$classCEObserver.html" title=" " alt="" coords="124,5,219,31"/>
+<area shape="rect" id="node4" href="$classCEDate.html" title=" " alt="" coords="267,5,335,31"/>
+</map>

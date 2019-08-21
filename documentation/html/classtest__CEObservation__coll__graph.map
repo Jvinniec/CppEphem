@@ -1,0 +1,10 @@
+<map id="test_CEObservation" name="test_CEObservation">
+<area shape="rect" id="node1" title=" " alt="" coords="202,353,343,379"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,267,100,292"/>
+<area shape="rect" id="node3" href="$classCEBody.html" title=" " alt="" coords="163,180,233,205"/>
+<area shape="rect" id="node6" href="$classCEObservation.html" title=" " alt="" coords="370,267,482,292"/>
+<area shape="rect" id="node4" href="$classCESkyCoord.html" title=" " alt="" coords="237,105,335,131"/>
+<area shape="rect" id="node5" href="$classCEAngle.html" title=" " alt="" coords="249,5,323,31"/>
+<area shape="rect" id="node7" href="$classCEObserver.html" title=" " alt="" coords="500,180,595,205"/>
+<area shape="rect" id="node8" href="$classCEDate.html" title=" " alt="" coords="257,180,325,205"/>
+</map>
