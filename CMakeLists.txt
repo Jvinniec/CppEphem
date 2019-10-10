@@ -1,7 +1,28 @@
+#**************************************************************************
+#  CMakeLists.txt: CppEphem                                               *
+# ----------------------------------------------------------------------- *
+#  Copyright © 2016-2019 JCardenzana                                      *
+# ----------------------------------------------------------------------- *
+#                                                                         *
+#  This program is free software: you can redistribute it and/or modify   *
+#  it under the terms of the GNU General Public License as published by   *
+#  the Free Software Foundation, either version 3 of the License, or      *
+#  (at your option) any later version.                                    *
+#                                                                         *
+#  This program is distributed in the hope that it will be useful,        *
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of         *
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
+#  GNU General Public License for more details.                           *
+#                                                                         *
+#  You should have received a copy of the GNU General Public License      *
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.  *
+#                                                                         *
+#**************************************************************************
+
 cmake_minimum_required (VERSION 3.0)
 project (CppEphem)
 set(CMAKE_BUILD_TYPE Release)
-#set(CMAKE_VERBOSE_MAKEFILE ON)
+#set(CMAKE_VERBOSE_MAKEFILE ON)     # This enables verbose printing during build
 
 # Add Version number
 set (CppEphem_VERSION_MAJOR 1)
@@ -38,9 +59,6 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/lib)
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/bin)
 set (CPPEPHEM_SHARE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/share/cppephem)
 set (HEADER_OUTPUT_PATH ${CMAKE_BINARY_DIR}/build/include)
-
-# Define some of the default compiler flags
-#set (CMAKE_CXX_FLAGS "-std=c++11 ${CMake_CXX_FLAGS}")
 
 # Define the sofa directory
 set (SOFA_DIRECTORY ${CMAKE_SOURCE_DIR}/sofa/src)
@@ -98,7 +116,6 @@ enable_testing ()
 add_subdirectory (cppephem)
 add_subdirectory (test)
 
-
 #-------------------------------------------
 
 # Define installation directories
@@ -121,7 +138,7 @@ install(DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
 	USE_SOURCE_PERMISSIONS
 	DESTINATION ${CMAKE_INSTALL_PREFIX}
     PATTERN "libtest*" EXCLUDE
-    PATTERN "*.so" EXCLUDE)
+    PATTERN "_*.so" EXCLUDE)
 
 install(DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
 	USE_SOURCE_PERMISSIONS
