@@ -25,6 +25,7 @@
 #include <string> 
 #include <vector>
 
+#include "CEBase.h"
 #include "CENamespace.h"
 
 /**********************************************************************//**
@@ -37,7 +38,7 @@ enum class CEAngleType : unsigned int {
     DMS=3           ///< Degrees, arcmin, arcsec
 };
 
-class CEAngle {
+class CEAngle : public CEBase {
 public:
     // Constructors
     CEAngle();
@@ -81,6 +82,10 @@ public:
     void SetAngle(const std::vector<double>& angle_vec,
                   const CEAngleType&         angle_type);
 
+    // Necessary methods
+    const std::string ClassName(void) const;
+    const std::string describe(void) const;
+
 private:
 
     // Methods
@@ -95,5 +100,15 @@ private:
     mutable double angle_;      ///< Angle stored in radians
 
 };
+
+
+/**********************************************************************//**
+ * Return name of this class
+ *************************************************************************/
+inline
+const std::string CEAngle::ClassName() const
+{
+    return std::string("CEAngle");
+}
 
 #endif /* CEAngle_h */

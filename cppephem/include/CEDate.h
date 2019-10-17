@@ -27,6 +27,7 @@
 #include <vector>
 
 // CppEphem HEADERS
+#include "CEBase.h"
 #include "CETime.h"
 #include <CENamespace.h>
 
@@ -42,7 +43,7 @@ enum class CEDateType : unsigned int {
     GREGORIAN=2        ///< Gregorian calendar (year, month, day)
 };
 
-class CEDate {
+class CEDate : public CEBase {
 public:
     // Default constructor
     CEDate(double date=CurrentJD(), CEDateType date_format=CEDateType::JD) ;
@@ -126,6 +127,10 @@ public:
     operator double();
     operator double() const;
     
+    // Necessary methods
+    virtual const std::string ClassName(void) const;
+    virtual const std::string describe(void) const;
+
 private:
     
     void free_members(void);
@@ -143,6 +148,16 @@ private:
     CEDateType return_type_ = CEDateType::JD ;  ///< what format the 'operator double' will return
     
 };
+
+
+/**********************************************************************//**
+ * Return name of this class
+ *************************************************************************/
+inline
+const std::string CEDate::ClassName() const
+{
+    return std::string("CEDate");
+}
 
 
 /**********************************************************************//**

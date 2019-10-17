@@ -138,6 +138,8 @@ bool test_CESkyCoord::test_construct()
 
     // Test print of constructed coordinates
     test_greaterthan(test4.print().size(), 0, __func__, __LINE__);
+    test_string(test4.ClassName(), "CESkyCoord", __func__, __LINE__);
+    test_greaterthan(test4.describe().size(), 0, __func__, __LINE__);
 
     return pass();
 }

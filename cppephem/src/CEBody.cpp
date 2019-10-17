@@ -135,6 +135,16 @@ CESkyCoord CEBody::ObservedCoords(const CEDate&     date,
 }                                         
 
 
+/**********************************************************************//**
+ * Computes the observed coordinates for this object based 
+ *************************************************************************/
+const std::string CEBody::describe() const
+{
+    std::string msg = CESkyCoord::describe();
+    msg += "   name: " + this->Name();
+    return msg;
+}
+
 /*--------------------------------------------------*
  *                  Private methods
  *--------------------------------------------------*/

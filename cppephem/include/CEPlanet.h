@@ -132,6 +132,10 @@ public:
     void         SetAlgorithm(const CEPlanetAlgo& new_algo);
     void         SetSofaID(const double& new_id);
     
+    // Necessary methods
+    const std::string ClassName(void) const;
+    virtual const std::string describe(void) const;
+
 private:
     
     void copy_members(const CEPlanet& other);
@@ -204,6 +208,16 @@ private:
     double s_;
     double f_;    
 };
+
+
+/**********************************************************************//**
+ * Return name of this class
+ *************************************************************************/
+inline
+const std::string CEPlanet::ClassName() const
+{
+    return std::string("CEPlanet");
+}
 
 
 /**********************************************************************//**

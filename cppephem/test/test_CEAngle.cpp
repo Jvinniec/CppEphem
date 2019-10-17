@@ -92,6 +92,10 @@ bool test_CEAngle::test_construct(void)
     test5 = base_;
     test_double(test5, base_, __func__, __LINE__);
 
+    // Make sure support methods work
+    test_string(base_.ClassName(), "CEAngle", __func__, __LINE__);
+    test_greaterthan(base_.describe().size(), 0, __func__, __LINE__);
+
     return pass();
 }
 

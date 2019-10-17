@@ -178,7 +178,17 @@ std::vector<double> CEObserver::VelocityICRS(const CEDate& date) const
  * Returns a string containing information about this object
  * @return Formatted string containing information about this observer
  *************************************************************************/
-std::string CEObserver::print(void) const
+const std::string CEObserver::print(void) const
+{
+    return this->describe();
+}
+
+
+/**********************************************************************//**
+ * Returns a string containing information about this object
+ * @return Formatted string containing information about this observer
+ *************************************************************************/
+const std::string CEObserver::describe(void) const
 {
     // Fill in the returned string with formatted strings
     std::string msg("Observer:\n");
@@ -188,7 +198,7 @@ std::string CEObserver::print(void) const
     msg += "   Temp      = " + std::to_string(Temperature_C()) + " C\n";
     msg += "   Pressure  = " + std::to_string(Pressure_hPa()) + " hPa\n";
     msg += "   Humidity  = " + std::to_string(RelativeHumidity()) + " %%\n";
-    msg += "   Wavelength= " + std::to_string(Wavelength_um()) + " um\n";
+    msg += "   Wavelength= " + std::to_string(Wavelength_um()) + " um";
     return msg;
 }
 

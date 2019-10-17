@@ -1024,12 +1024,23 @@ void CESkyCoord::SetCoordinates(const CESkyCoord& coords)
  * 
  * @return String describing this object
  *************************************************************************/
-std::string CESkyCoord::print(void) const
+const std::string CESkyCoord::print(void) const
 {
-    std::string msg = "Coordinates:\n";
-    msg += "   - System : " + std::to_string(int(coord_type_)) + "\n";
-    msg += "   - X-coord: " + std::to_string(xcoord_.Deg()) + " deg\n";
-    msg += "   - Y-coord: " + std::to_string(ycoord_.Deg()) + " deg\n";
+    return this->describe();
+}
+
+
+/**********************************************************************//**
+ * Generate a message string that specifies the information about this coordinate
+ * 
+ * @return String describing this object
+ *************************************************************************/
+const std::string CESkyCoord::describe(void) const
+{
+    std::string msg = CEBase::describe() + "\n";
+    msg += "   System : " + std::to_string(int(coord_type_)) + "\n";
+    msg += "   X-coord: " + std::to_string(xcoord_.Deg()) + " deg\n";
+    msg += "   Y-coord: " + std::to_string(ycoord_.Deg()) + " deg\n";
     return msg;
 }
 

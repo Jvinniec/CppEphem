@@ -246,7 +246,19 @@ void CETime::UTC2LOCALTIME()
     
 }
 
-# pragma mark - Protected Methods
+
+/**********************************************************************//**
+ * Return a description of this object
+ * 
+ * @return Description of this object
+ *************************************************************************/
+const std::string CETime::describe(void) const
+{
+    std::string msg = CEBase::describe() + "\n";
+    msg += "   Time: " + this->HmsStr();
+    return msg;
+}
+
 
 /**********************************************************************//**
  * Convert a time formatted as HHMMSS.SS into a vector.

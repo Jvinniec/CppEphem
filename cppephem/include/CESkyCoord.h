@@ -26,6 +26,7 @@
 #include <vector>
 
 // CppEphem HEADERS
+#include "CEBase.h"
 #include "CEAngle.h"
 #include "CEDate.h"
 #include "CENamespace.h"
@@ -46,7 +47,7 @@ enum class CESkyCoordType : unsigned int {
 };
 
 // Class for handling sky coordinates
-class CESkyCoord {
+class CESkyCoord : public CEBase {
 
     friend bool operator==(const CESkyCoord& lhs, const CESkyCoord& rhs);
     friend bool operator!=(const CESkyCoord& lhs, const CESkyCoord& rhs);
@@ -200,7 +201,9 @@ public:
     virtual void SetCoordinates(const CESkyCoord& coords);
 
     // Support methods
-    std::string print(void) const;
+    const std::string print(void) const;
+    const std::string ClassName(void) const;
+    virtual const std::string describe(void) const;
 
 private:
     /*********************************************************
@@ -215,6 +218,16 @@ private:
     mutable CEAngle         ycoord_;        //<! Y coordinate
     mutable CESkyCoordType  coord_type_;    //<! Coordinate system to which 'xcoord_' and 'ycoord_' belong.
 };
+
+
+/**********************************************************************//**
+ * Return name of this class
+ *************************************************************************/
+inline
+const std::string CESkyCoord::ClassName() const
+{
+    return std::string("CESkyCoord");
+}
 
 
 /**********************************************************************//**
