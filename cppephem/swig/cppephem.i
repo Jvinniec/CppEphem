@@ -25,7 +25,7 @@
  * @author JCardenzana
  */
 %module cppephem
-%feature("autodoc", "1");
+%feature("autodoc", "3");
 
 /* Standard typemaps */
 %include stl.i
