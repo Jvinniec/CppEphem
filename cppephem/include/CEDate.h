@@ -118,6 +118,7 @@ public:
     virtual double GetTime(const double& utc_offset=0.0) const;
     virtual double GetTime_UTC() const;
     static double  CurrentJD();
+    const CEDateType ReturnType() const;
     void           SetReturnType(CEDateType return_type);
     
     /************************************************************
@@ -253,6 +254,17 @@ inline
 double CEDate::GetMJD2JDFactor(void) 
 {
     return DJM0;
+}
+
+
+/**********************************************************************//**
+ * Get the return type used in the overloaded 'double' operators
+ * @return ::CEDateType for the returned double
+ *************************************************************************/
+inline
+const CEDateType CEDate::ReturnType() const
+{
+    return return_type_;
 }
 
 

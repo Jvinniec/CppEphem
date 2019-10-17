@@ -145,7 +145,7 @@ void CEDate::SetDate(const double&     date,
  *************************************************************************/
 void CEDate::SetDate(std::vector<double> date)
 {
-    SetDate(GregorianVect2JD(date)) ;
+    SetDate(GregorianVect2JD(date), CEDateType::JD) ;
 }
 
 /**********************************************************************//**
