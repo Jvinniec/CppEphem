@@ -243,7 +243,20 @@ void CETime::UTC2LAST()
  *************************************************************************/
 void CETime::UTC2LOCALTIME()
 {
-    
+    // TODO
+}
+
+
+/**********************************************************************//**
+ * Return string representing the angle in HH:MM:SS
+ * 
+ * @param[in] delim             Delimiter to use in output string
+ * @return Angle formatted as a string HH:MM:SS
+ *************************************************************************/
+std::string CETime::HmsStr(const char& delim) const
+{
+    // Assemble the string using the specified delimiter
+    return CppEphem::StrOpt::join_angle(time_, delim);
 }
 
 

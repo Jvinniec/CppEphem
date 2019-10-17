@@ -113,6 +113,8 @@ public:
     
     // GAST conversions
     
+    // Printing time
+    std::string HmsStr(const char& delim=':') const;
 
     // Support methods
     const std::string ClassName(void) const;
