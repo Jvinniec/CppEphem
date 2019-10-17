@@ -39,7 +39,12 @@ enum class CEDateType : unsigned int {
     GREGORIAN=2        ///< Gregorian calendar (year, month, day)
 };
 
-class CEDate {
+/***********************************************************************//**
+ * @class CEDate
+ *
+ * @brief CEDate class SWIG interface definition
+ ***************************************************************************/
+class CEDate : public CEBase {
 public:
     // Default constructor
     CEDate(double date=CurrentJD(), CEDateType date_format=CEDateType::JD) ;
@@ -111,7 +116,45 @@ public:
     virtual double GetSecondsSinceMidnight(const double& utc_offset=0.0) ;
     virtual double GetTime(const double& utc_offset=0.0) const;
     virtual double GetTime_UTC() const;
-    static double CurrentJD();
-    void          SetReturnType(CEDateType return_type);
+    static double  CurrentJD();
+    const CEDateType ReturnType() const;
+    void           SetReturnType(CEDateType return_type);
 
+    // Necessary methods
+    const std::string ClassName(void) const;
+    const std::string describe(void) const;
+
+};
+
+
+/**********************************************************************//**
+ * Add some extra functionality
+ *************************************************************************/
+%extend CEDate {
+
+    // Add python specific functions
+    %pythoncode {
+        import datetime
+        def SetDatetime(self, date):
+            """
+            Set the CEDate object from a Python datetime.datetime object
+
+            Parameters
+            ----------
+            date : datetime.datetime
+                Python datetime.datetime object
+            """
+            day_frac = ((date.hour / 24.0) + 
+                        (date.minute / 1440.0) +
+                        (date.second / 86400.0))
+            gregorian_day = [date.year, date.month, date.day, day_frac]
+                            
+            self.SetDate(gregorian_day)
+
+        def __float__(self):
+            """
+            Returns a float representation of this object
+            """
+            return self.GetDate(self.ReturnType())
+    }
 };

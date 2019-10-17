@@ -82,4 +82,26 @@ public:
                   const char&        delim=0);
     void SetAngle(const std::vector<double>& angle_vec,
                   const CEAngleType&         angle_type);
+
+    // Necessary methods
+    const std::string ClassName(void) const;
+    const std::string describe(void) const;
+
+};
+
+
+/***********************************************************************//**
+ * @brief CEAngle class extension
+ ***************************************************************************/
+%extend CEAngle {
+
+    // Add python specific functions
+    %pythoncode {
+        def __float__(self):
+            """
+            Return the angle in radians
+            """
+            return self.Rad()
+    }
+    
 };

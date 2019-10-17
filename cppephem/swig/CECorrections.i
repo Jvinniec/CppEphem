@@ -1,5 +1,5 @@
 /***************************************************************************
- *  cppephem.i: CppEphem                                                   *
+ *  CECorrections.i: CppEphem                                              *
  * ----------------------------------------------------------------------- *
  *  Copyright © 2019 JCardenzana                                           *
  * ----------------------------------------------------------------------- *
@@ -20,32 +20,43 @@
  ***************************************************************************/
 
 /**
- * @file cppephem.i
- * @brief Top level CppEphem SWIG file
+ * @file CECorrections.i
+ * @brief SWIG file for CECorrections class
  * @author JCardenzana
  */
-%module(directors="1") cppephem
+%{
+/* Put headers and other declarations here that are needed for compilation */
+// CppEphem HEADERS
+#include "CECorrections.h"
+%}
 
-// Generate very detailed documentation
-%feature("autodoc", "3");
-%feature("director");
 
-/* Standard typemaps */
-%include stl.i
-%include std_string.i
-%include std_vector.i
-%template(VecDouble) std::vector<double>;
+/***********************************************************************//**
+ * @class CECorrections
+ *
+ * @brief CECorrections class SWIG interface definition
+ ***************************************************************************/
+class CECorrections {
+public:
+    CECorrections();
+    CECorrections(const CECorrections& other);
+    virtual ~CECorrections() {}
 
-/* Load all of the classes here */
-%include "CEBase.i"
-%include "CEAngle.i"
-%include "CECorrections.i"
-%include "CEDate.i"
-%include "CEException.i"
-%include "CENamespace.i"
-%include "CEObserver.i"
-%include "CERunningDate.i"
-%include "CESkyCoord.i"
-%include "CEBody.i"
-%include "CETime.i"
-%include "CEObservation.i"
+    double      dut1(const double& mjd) const;
+    double      xpolar(const double& mjd) const;
+    double      ypolar(const double& mjd) const;
+    double      deps(const double& mjd) const;
+    double      dpsi(const double& mjd) const;
+    double      ttut1(const double& mjd) const;
+    std::string NutationFile(void) const;
+    std::string TtUt1HistFile(void) const;
+    std::string TtUt1PredFile(void) const;
+    void        SetNutationFile(const std::string& filename);
+    void        SetTtUt1HistFile(const std::string& filename);
+    void        SetTtUt1PredFile(const std::string& filename);
+    void        SetInterp(bool set_interp);
+
+    // Necessary methods
+    const std::string ClassName(void) const;
+    const std::string describe(void) const;
+};

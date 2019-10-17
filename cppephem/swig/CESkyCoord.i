@@ -27,24 +27,28 @@
 %{
 /* Put headers and other declarations here that are needed for compilation */
 // CppEphem HEADERS
-#include "CEAngle.h"
-#include "CEDate.h"
-#include "CENamespace.h"
-#include "CEException.h"
-#include "CEObserver.h"
-#include "CECoordinates.h"
-
-// SOFA HEADER
-#include "sofa.h"
+#include "CESkyCoord.h"
 %}
+
+/***********************************************************************//**
+ * @enum CESkyCoordType
+ *
+ * @brief CESkyCoordType enum class interface definition
+ ***************************************************************************/
+enum class CESkyCoordType : unsigned int {
+    CIRS=0,           ///< RA, Dec (referenced at the center of the Earth)
+    ICRS=1,           ///< RA, Dec (referenced at the barycenter of the solarsystem)
+    GALACTIC=2,       ///< Galacitc longitude, latitude
+    OBSERVED=3,       ///< Azimuth, Zenith (requires additional observer information)
+    ECLIPTIC=4        ///< Ecliptic longitude, latitude
+};
 
 /***********************************************************************//**
  * @class CESkyCoord
  *
  * @brief CESkyCoord class SWIG interface definition
  ***************************************************************************/
- class CESkyCoord {
-
+class CESkyCoord {
 public:
 
     /****** CONSTRUCTORS ******/
@@ -59,9 +63,7 @@ public:
     /*********************************************************
      * Angular separation between two coordinate positions
      *********************************************************/
-    virtual CEAngle AngularSeparation(const CESkyCoord& coords) const;
-    static  CEAngle AngularSeparation(const CESkyCoord& coords1, 
-                                      const CESkyCoord& coords2);
+    virtual CEAngle Separation(const CESkyCoord& coords) const;
     static  CEAngle AngularSeparation(const CEAngle& xcoord_first, 
                                       const CEAngle& ycoord_first,
                                       const CEAngle& xcoord_second, 
@@ -87,10 +89,10 @@ public:
     // Convert from CIRS to other coordinates
     static void CIRS2ICRS(const CESkyCoord& in_cirs, 
                           CESkyCoord*       out_icrs,
-                          const CEDate&     date=CEDate());
+                          const CEDate&     date);
     static void CIRS2Galactic(const CESkyCoord& in_cirs,
                               CESkyCoord*       out_galactic,
-                              const CEDate&     date=CEDate());
+                              const CEDate&     date);
     static void CIRS2Observed(const CESkyCoord& in_cirs,
                               CESkyCoord*       out_observed,
                               const CEDate&     date,
@@ -99,12 +101,12 @@ public:
                               CEAngle*          hour_angle=nullptr);
     static void CIRS2Ecliptic(const CESkyCoord& in_cirs,
                               CESkyCoord*       out_ecliptic,
-                              const CEDate&     date=CEDate());
+                              const CEDate&     date);
 
     // Convert from ICRS to other coordinates
     static void ICRS2CIRS(const CESkyCoord& in_icrs,
                           CESkyCoord*       out_cirs,
-                          const CEDate&     date=CEDate());
+                          const CEDate&     date);
     static void ICRS2Galactic(const CESkyCoord& in_icrs,
                               CESkyCoord*       out_galactic);
     static void ICRS2Observed(const CESkyCoord& in_icrs,
@@ -191,6 +193,5 @@ public:
                                 const CESkyCoordType& coord_type=CESkyCoordType::ICRS) const;
     virtual void SetCoordinates(const CESkyCoord& coords);
 
-    // Support methods
-    std::string print(void) const;
+    virtual const std::string describe(void) const;
 };

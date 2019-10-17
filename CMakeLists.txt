@@ -31,6 +31,10 @@ set (CppEphem_VERSION_PATCH 99)
 set (cppephem_version "${CppEphem_VERSION_MAJOR}.${CppEphem_VERSION_MINOR}.${CppEphem_VERSION_PATCH}")
 message ("\nCOMPILING CPPEPHEM VERSION ${cppephem_version}\n")
 
+# Set SWIG policies
+cmake_policy(SET CMP0086 NEW)
+cmake_policy(SET CMP0078 NEW)
+
 # Set some flags necessary for the MAC OS builds
 if (CMAKE_SYSTEM_NAME MATCHES Darwin)
    set(CMAKE_MACOSX_RPATH 1)

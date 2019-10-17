@@ -1,5 +1,5 @@
 #**************************************************************************
-#  cppephem/swig/CMakeLists.txt: CppEphem                                 *
+#  cppephem/swig/pyext/CMakeLists.txt: CppEphem                           *
 # ----------------------------------------------------------------------- *
 #  Copyright © 2019 JCardenzana                                           *
 # ----------------------------------------------------------------------- *
@@ -19,42 +19,32 @@
 #                                                                         *
 #**************************************************************************
 
-if (python-bindings OR javascript-bindings)
+######################################################
+# This builds the Python wrappers for the code
+######################################################
 
-    FIND_PACKAGE(SWIG REQUIRED)
-    INCLUDE(${SWIG_USE_FILE})
+FIND_PACKAGE(PythonLibs)
+FIND_PACKAGE(Python3 COMPONENTS Interpreter)
 
-    # Set the include directories
-    INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH})
 
-    SET(swig_files
-        cppephem.i
-        CEBase.i
-        CEAngle.i
-        CEBody.i
-        CECorrections.i
-        CEDate.i
-        CEException.i
-        CENamespace.i
-        CEObservation.i
-        CEObserver.i
-        CERunningDate.i
-        CESkyCoord.i
-        CETime.i)
+# Pre-configure the python files
+configure_file(cppephem/__init__.py.in 
+               ${CMAKE_CURRENT_BINARY_DIR}/cppephem/__init__.py)
+configure_file(setup.py.in 
+               ${CMAKE_CURRENT_BINARY_DIR}/setup.py)
 
-    add_custom_target(swig-target ALL DEPENDS ${swig_files})
+set_property(SOURCE ../cppephem.i PROPERTY CPLUSPLUS ON)
+set_property(SOURCE ../cppephem.i PROPERTY SWIG_FLAGS "-doxygen")
 
-    foreach(item IN LISTS swig_files)
-        add_custom_command(
-            TARGET swig-target PRE_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/${item}" "${CMAKE_CURRENT_BINARY_DIR}/${item}"
-            DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${item}"
-        )
-    endforeach()
+SWIG_ADD_LIBRARY(cppephem_pywrap
+                 LANGUAGE    python
+                 OUTPUT_DIR  cppephem
+                 SOURCES     ../cppephem.i)
 
-    # Python wrapper
-    if (python-bindings)
-        add_subdirectory (pyext)
-    endif()
+SWIG_LINK_LIBRARIES(cppephem_pywrap cppephem ${PYTHON_LIBRARIES})
 
-endif()
+add_custom_command(TARGET cppephem_pywrap 
+                   POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/_cppephem_pywrap.so" "${CMAKE_CURRENT_BINARY_DIR}/cppephem/_cppephem_pywrap.so"
+                   COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/setup.py install --prefix=${CMAKE_INSTALL_PREFIX})

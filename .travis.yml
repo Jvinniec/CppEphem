@@ -45,7 +45,7 @@ dist: xenial
 
 # Build steps
 script:
-  - cmake -Dcoverage=1 ./
+  - cmake -Dcoverage=1 -Dpython-bindings=1 ./
   - cmake --build .
   - cmake --build . --target test
 

@@ -1,5 +1,5 @@
 /***************************************************************************
- *  cppephem.i: CppEphem                                                   *
+ *  CEException.i: CppEphem                                                *
  * ----------------------------------------------------------------------- *
  *  Copyright © 2019 JCardenzana                                           *
  * ----------------------------------------------------------------------- *
@@ -20,32 +20,44 @@
  ***************************************************************************/
 
 /**
- * @file cppephem.i
- * @brief Top level CppEphem SWIG file
+ * @file CEException.i
+ * @brief SWIG file for CEException class
  * @author JCardenzana
  */
-%module(directors="1") cppephem
+%{
+/* Put headers and other declarations here that are needed for compilation */
+// CppEphem HEADERS
+#include "CEException.h"
+%}
+%include exception.i
 
-// Generate very detailed documentation
-%feature("autodoc", "3");
-%feature("director");
+%exception {
+    try {
+        $action
+    }
+    catch (const CEException::invalid_value& e) {
+        SWIG_exception(SWIG_ValueError, e.what());
+    }
+    catch (const CEException::invalid_delimiter& e) {
+        SWIG_exception(SWIG_ValueError, e.what());
+    }
+    catch (const CEException::corr_file_load_error& e) {
+        SWIG_exception(SWIG_IOError, e.what());
+    }
+    catch (const CEException::sofa_error& e) {
+        SWIG_exception(SWIG_ValueError, e.what());
+    }
+    catch (const CEException::sofa_exception& e) {
+        SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+    catch (const CEException& e) {
+        SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+    catch (const std::exception& e) {
+        SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+    catch (...) {
+        SWIG_exception(SWIG_RuntimeError, "unknown exception");
+    }
+};
 
-/* Standard typemaps */
-%include stl.i
-%include std_string.i
-%include std_vector.i
-%template(VecDouble) std::vector<double>;
-
-/* Load all of the classes here */
-%include "CEBase.i"
-%include "CEAngle.i"
-%include "CECorrections.i"
-%include "CEDate.i"
-%include "CEException.i"
-%include "CENamespace.i"
-%include "CEObserver.i"
-%include "CERunningDate.i"
-%include "CESkyCoord.i"
-%include "CEBody.i"
-%include "CETime.i"
-%include "CEObservation.i"

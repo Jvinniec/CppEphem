@@ -24,7 +24,11 @@
 #include "CECorrections.h"
 %}
 
-// Create a namespace with some useful stuff
+/***********************************************************************//**
+ * CENamespace
+ *
+ * @brief CENamespace namespace SWIG interface definition
+ ***************************************************************************/
 namespace CppEphem {
     // Define an angle type so that we can differentiate between degrees or radians
 
@@ -91,4 +95,6 @@ namespace CppEphem {
     void        SetTtUt1PredFile(const std::string& filename);
     void        CorrectionsInterp(bool set_interp);
     static      CECorrections corrections;
+    void        UseCorrections(bool use_corr);
+    static      bool use_corrections_ = true;
 }

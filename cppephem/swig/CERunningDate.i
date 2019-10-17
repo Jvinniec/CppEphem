@@ -1,5 +1,5 @@
 /***************************************************************************
- *  cppephem.i: CppEphem                                                   *
+ *  CERunningDate.i: CppEphem                                              *
  * ----------------------------------------------------------------------- *
  *  Copyright © 2019 JCardenzana                                           *
  * ----------------------------------------------------------------------- *
@@ -20,32 +20,38 @@
  ***************************************************************************/
 
 /**
- * @file cppephem.i
- * @brief Top level CppEphem SWIG file
+ * @file CERunningDate.i
+ * @brief SWIG file for CERunningDate class
  * @author JCardenzana
  */
-%module(directors="1") cppephem
+%{
+/* Put headers and other declarations here that are needed for compilation */
+// CppEphem HEADERS
+#include "CERunningDate.h"
+%}
 
-// Generate very detailed documentation
-%feature("autodoc", "3");
-%feature("director");
+/***********************************************************************//**
+ * @class CERunningDate
+ *
+ * @brief CERunningDate class SWIG interface definition
+ ***************************************************************************/
+class CERunningDate : public CEDate {
+public:
+    CERunningDate() ;
+    CERunningDate(const CERunningDate& other);
+    virtual ~CERunningDate() ;
+    
+    // Some overloaded methods to make sure that the current
+    // values are obtained first
+    virtual double JD() const;
+    virtual double MJD() const;
+    virtual double Gregorian() const;
+    
+    /// Method for getting the number of seconds since this object was created or reset
+    virtual double RunTime(void) const;
+    double         ScaledRunTime(void) const;
+    void           ResetTime(void);
+    virtual double GetTimerSpeed(void) const;
+    virtual void   SetTimerSpeed(const double& scale=1.0);
 
-/* Standard typemaps */
-%include stl.i
-%include std_string.i
-%include std_vector.i
-%template(VecDouble) std::vector<double>;
-
-/* Load all of the classes here */
-%include "CEBase.i"
-%include "CEAngle.i"
-%include "CECorrections.i"
-%include "CEDate.i"
-%include "CEException.i"
-%include "CENamespace.i"
-%include "CEObserver.i"
-%include "CERunningDate.i"
-%include "CESkyCoord.i"
-%include "CEBody.i"
-%include "CETime.i"
-%include "CEObservation.i"
+};

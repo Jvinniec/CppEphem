@@ -1,5 +1,5 @@
 /***************************************************************************
- *  cppephem.i: CppEphem                                                   *
+ *  CEBase.i: CppEphem                                                     *
  * ----------------------------------------------------------------------- *
  *  Copyright © 2019 JCardenzana                                           *
  * ----------------------------------------------------------------------- *
@@ -20,32 +20,45 @@
  ***************************************************************************/
 
 /**
- * @file cppephem.i
- * @brief Top level CppEphem SWIG file
+ * @file CEBase.i
+ * @brief SWIG file for CEBase class
  * @author JCardenzana
  */
-%module(directors="1") cppephem
+%{
+/* Put headers and other declarations here that are needed for compilation */
+// CppEphem HEADERS
+#include "CEBase.h"
+%}
 
-// Generate very detailed documentation
-%feature("autodoc", "3");
-%feature("director");
 
-/* Standard typemaps */
-%include stl.i
-%include std_string.i
-%include std_vector.i
-%template(VecDouble) std::vector<double>;
+/***********************************************************************//**
+ * @class CEBase
+ *
+ * @brief CEBase class SWIG interface definition
+ ***************************************************************************/
+class CEBase {
+public:
+    // Constructors
+    CEBase();
+    virtual ~CEBase();
 
-/* Load all of the classes here */
-%include "CEBase.i"
-%include "CEAngle.i"
-%include "CECorrections.i"
-%include "CEDate.i"
-%include "CEException.i"
-%include "CENamespace.i"
-%include "CEObserver.i"
-%include "CERunningDate.i"
-%include "CESkyCoord.i"
-%include "CEBody.i"
-%include "CETime.i"
-%include "CEObservation.i"
+    virtual const std::string ClassName(void) const = 0;
+    virtual const std::string describe(void) const;
+
+};
+
+
+/***********************************************************************//**
+ * Extend CEBase class
+ ***************************************************************************/
+%extend CEBase {
+
+    %pythoncode {
+        def __str__(self):
+            """
+            Returns a description of this object
+            """
+            return (self.describe())
+    }
+
+};
