@@ -68,9 +68,7 @@ public:
     /*********************************************************
      * Angular separation between two coordinate positions
      *********************************************************/
-    virtual CEAngle AngularSeparation(const CESkyCoord& coords) const;
-    static  CEAngle AngularSeparation(const CESkyCoord& coords1, 
-                                      const CESkyCoord& coords2);
+    virtual CEAngle Separation(const CESkyCoord& coords) const;
     static  CEAngle AngularSeparation(const CEAngle& xcoord_first, 
                                       const CEAngle& ycoord_first,
                                       const CEAngle& xcoord_second, 
