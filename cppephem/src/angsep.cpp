@@ -55,7 +55,7 @@ int main(int argc, char** argv)
                                         opts.AsDouble("ycoord2"),
                                         opts.AsBool("InputDegrees"));
 
-    CEAngle angsep = CESkyCoord::AngularSeparation(coord1, coord2);
+    CEAngle angsep = coord1.Separation(coord2);
     
     // Figure out whether we need to convert the output angular separation
     if (opts.AsBool("OutputDegrees")) {
