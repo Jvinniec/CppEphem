@@ -33,6 +33,7 @@ include_directories (${CMAKE_CURRENT_SOURCE_DIR}/include
 #------------------------------------------
 set (cppephem_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CENamespace.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CEBase.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CEAngle.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CEBody.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CECoordinates.cpp
@@ -50,6 +51,7 @@ set (cppephem_SOURCES
 set (cppephem_HEADERS
     include/CppEphem.h
     include/CENamespace.h
+    include/CEBase.h
     include/CEAngle.h
     include/CEBody.h
     include/CECoordinates.h

@@ -1,7 +1,7 @@
 /***************************************************************************
- *  CppEphem.h: CppEphem                                                   *
+ *  CEBase.cpp: CppEphem                                                   *
  * ----------------------------------------------------------------------- *
- *  Copyright © 2016-2019 JCardenzana                                      *
+ *  Copyright © 2019 JCardenzana                                           *
  * ----------------------------------------------------------------------- *
  *                                                                         *
  *  This program is free software: you can redistribute it and/or modify   *
@@ -19,25 +19,37 @@
  *                                                                         *
  ***************************************************************************/
 
-/**
- This file is mainly used for including all of the headers in the
- CppEphem library.
+/** \class CEBase
+ The CEBase class defines the essential base methods for all classes
  */
 
-#ifndef CppEphem_h
-#define CppEphem_h
+#include <stdio.h>
 
-// ALL THE CppEphem HEADERS
-#include "CEAngle.h"
 #include "CEBase.h"
-#include "CECoordinates.h"
-#include "CEDate.h"
-#include "CENamespace.h"
-#include "CEObservation.h"
-#include "CEObserver.h"
-#include "CEPlanet.h"
-#include "CERunningDate.h"
-#include "CESkyCoord.h"
-#include "CETime.h"
 
-#endif /* CppEphem_h */
+
+/**********************************************************************//**
+ * Default constructor
+ *************************************************************************/
+CEBase::CEBase()
+{
+    return;
+}
+
+
+/**********************************************************************//**
+ * Destructor
+ *************************************************************************/
+CEBase::~CEBase()
+{
+    return;
+}
+
+
+/**********************************************************************//**
+ * Return a text description of this object
+ *************************************************************************/
+const std::string CEBase::describe(void) const
+{
+    return std::string(this->ClassName() + " object:");
+}

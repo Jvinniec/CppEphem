@@ -1,7 +1,7 @@
 /***************************************************************************
- *  CppEphem.h: CppEphem                                                   *
+ *  CEBase.h: CppEphem                                                     *
  * ----------------------------------------------------------------------- *
- *  Copyright © 2016-2019 JCardenzana                                      *
+ *  Copyright © 2019 JCardenzana                                           *
  * ----------------------------------------------------------------------- *
  *                                                                         *
  *  This program is free software: you can redistribute it and/or modify   *
@@ -19,25 +19,21 @@
  *                                                                         *
  ***************************************************************************/
 
-/**
- This file is mainly used for including all of the headers in the
- CppEphem library.
- */
+#ifndef CEBase_h
+#define CEBase_h
 
-#ifndef CppEphem_h
-#define CppEphem_h
+#include <string> 
+#include <vector>
 
-// ALL THE CppEphem HEADERS
-#include "CEAngle.h"
-#include "CEBase.h"
-#include "CECoordinates.h"
-#include "CEDate.h"
-#include "CENamespace.h"
-#include "CEObservation.h"
-#include "CEObserver.h"
-#include "CEPlanet.h"
-#include "CERunningDate.h"
-#include "CESkyCoord.h"
-#include "CETime.h"
+class CEBase {
+public:
+    // Constructors
+    CEBase();
+    virtual ~CEBase();
 
-#endif /* CppEphem_h */
+    virtual const std::string ClassName(void) const = 0;
+    virtual const std::string describe(void) const;
+
+};
+
+#endif /* CEBase_h */
