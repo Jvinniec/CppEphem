@@ -48,9 +48,9 @@ public:
     CEPlanet& operator=(const CEPlanet& other);
 
     /******  Methods  ******/
-    double         Radius_m();
-    double         Mass_kg();
-    double         Albedo();
+    double         Radius_m() const;
+    double         Mass_kg() const;
+    double         Albedo() const;
     void           SetMeanRadius_m(double new_radius);
     void           SetMass_kg(double new_mass);
     void           SetAlbedo(double new_albedo);
@@ -234,7 +234,7 @@ CEPlanetAlgo CEPlanet::Algorithm(void) const
  * @return Radius in meters.
  *************************************************************************/
 inline
-double CEPlanet::Radius_m() 
+double CEPlanet::Radius_m() const
 {
     return radius_m_;
 }
@@ -244,7 +244,7 @@ double CEPlanet::Radius_m()
  * @return Mass in kilograms.
  *************************************************************************/
 inline
-double CEPlanet::Mass_kg() 
+double CEPlanet::Mass_kg() const
 {
     return mass_kg_;
 }
@@ -254,7 +254,7 @@ double CEPlanet::Mass_kg()
  * @return Albedo.
  *************************************************************************/
 inline
-double CEPlanet::Albedo() 
+double CEPlanet::Albedo() const
 {
     return albedo_;
 }

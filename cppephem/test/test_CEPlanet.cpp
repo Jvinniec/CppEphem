@@ -106,6 +106,10 @@ bool test_CEPlanet::test_construct(void)
     test_double(test4.YCoordinate_Deg(), test2.YCoordinate_Deg(), __func__, __LINE__);
     test_int(int(test4.GetCoordSystem()), int(test2.GetCoordSystem()), __func__, __LINE__);
 
+    // Make sure support methods work
+    test_string(test4.ClassName(), "CEPlanet", __func__, __LINE__);
+    test_greaterthan(test4.describe().size(), 0, __func__, __LINE__);
+
     return pass();
 }
 
