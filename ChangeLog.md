@@ -4,6 +4,11 @@ All notable changes to the CppEphem package will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.3.99 : DEVELOPMENT
+ - Add SWIG wrappers for Python bindings
+ - Fix ambiguity in CESkyCoord::AngularSeparation methods
+
+
 ## v1.3.0 : 2019-08-19
  - Add executable 'convcoord' for converting between any coordinate systems
  - Add support for Ecliptic coordinates [#18]
