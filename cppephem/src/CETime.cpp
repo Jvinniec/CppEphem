@@ -333,10 +333,25 @@ double CETime::TimeSec2Time(const double& seconds)
 
     // Now do the actual conversion to a vector
     double fracsec = secs - std::floor(secs) ;          // Fractions of a second
-    double sec = int(std::floor(secs)) % 60 ;           // Whole seconds
-    double min = int(std::floor(secs-sec)/60) % 60 ;    // Whole minutes
-    double hrs = int(std::floor(secs-sec)/60)/60 ;      // Whole hours
-    return (hrs*10000) + (min*100) + sec + fracsec ;    // Formatted double (HHMMSS.S)
+    int sec = int(std::floor(secs)) % 60 ;           // Whole seconds
+    int min = int(std::floor(secs-sec)/60) % 60 ;    // Whole minutes
+    int hrs = int(std::floor(secs-sec)/60)/60 ;      // Whole hours
+
+    // Format the output and handle precision issues
+    double result = (hrs*10000) + (min*100) + sec + fracsec ;    // Formatted double (HHMMSS.S)
+    if (int(result) % 100 >= 60.0) {
+        result -= 60;
+        result += 100;
+    }
+    if (int(result) % 10000 >= 6000) {
+        result -= 6000;
+        result += 10000;
+    }
+    if (result > 240000) {
+        result -= 240000;
+    }
+
+    return result;
 }
 
 /**********************************************************************//**

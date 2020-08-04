@@ -24,7 +24,13 @@
 ######################################################
 
 FIND_PACKAGE(PythonLibs)
-FIND_PACKAGE(Python3 COMPONENTS Interpreter)
+FIND_PACKAGE(PythonInterp 3.5)
+
+# Ensure SWIG is installed
+FIND_PACKAGE(SWIG 3.0 COMPONENTS python)
+if(SWIG_FOUND)
+  MESSAGE("SWIG found: ${SWIG_EXECUTABLE} ${SWIG_VERSION}")
+endif()
 
 INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH})
 
@@ -35,7 +41,11 @@ configure_file(setup.py.in
                ${CMAKE_CURRENT_BINARY_DIR}/setup.py)
 
 set_property(SOURCE ../cppephem.i PROPERTY CPLUSPLUS ON)
-set_property(SOURCE ../cppephem.i PROPERTY SWIG_FLAGS "-doxygen")
+
+# Add special doxygen formatting if SWIG version supports it
+if (${SWIG_VERSION} GREATER_EQUAL 4)
+    set_property(SOURCE ../cppephem.i PROPERTY SWIG_FLAGS -doxygen)# -debug-doxygen-translator)
+endif()
 
 SWIG_ADD_LIBRARY(cppephem_pywrap
                  LANGUAGE    python
@@ -47,4 +57,4 @@ SWIG_LINK_LIBRARIES(cppephem_pywrap cppephem ${PYTHON_LIBRARIES})
 add_custom_command(TARGET cppephem_pywrap 
                    POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/_cppephem_pywrap.so" "${CMAKE_CURRENT_BINARY_DIR}/cppephem/_cppephem_pywrap.so"
-                   COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/setup.py install --prefix=${CMAKE_INSTALL_PREFIX})
+                   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/setup.py install --prefix=${CMAKE_INSTALL_PREFIX})

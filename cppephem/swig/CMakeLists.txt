@@ -25,11 +25,11 @@ if (python-bindings OR javascript-bindings)
     INCLUDE(${SWIG_USE_FILE})
 
     # Set the include directories
-    INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+    INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}
+                        ${CMAKE_SOURCE_DIR}/cppephem/include)
 
     SET(swig_files
         cppephem.i
-        CEBase.i
         CEAngle.i
         CEBody.i
         CECorrections.i

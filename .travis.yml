@@ -20,25 +20,43 @@ matrix:
         # Test Linux with GCC
         - os: linux
           compiler: gcc
+          before_install:
+              - sudo apt-get install swig
 
         # Test Linux with Clang
         - os: linux
           compiler: clang
+          before_install:
+              - sudo apt-get install swig
 
         # Test OSX with GCC
         - os: osx
           compiler: gcc
+          addons:
+            homebrew:
+              packages:
+              - swig
+              update: true
 
         # Test OSX with previous Clang
         - os: osx
           compiler: clang
           osx_image: xcode9.4
+          addons:
+            homebrew:
+              packages:
+              - swig
+              update: true
 
         # Test OSX with Clang (latest version)
         - os: osx
           compiler: clang
           osx_image: xcode10.2
-
+          addons:
+            homebrew:
+              packages:
+              - swig
+              update: true
 
 # Allow compiling with c++11
 dist: xenial
