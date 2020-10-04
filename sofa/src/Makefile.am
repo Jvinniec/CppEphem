@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 #
-# Author: Josh V. Cardenzana, jvinniec <at> gmail.com
-# Date: April, 2016
+# Author: J. V. Cardenzana, jvinniec <at> gmail.com
+# 2016-2019
 #
 
 #AM_CXXFLAGS = -std=c++11 -I../include -I./ $(sofa_CXXFLAGS) -I$(SOFADIR)
