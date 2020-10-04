@@ -117,7 +117,7 @@ installation directories (or alternatively the directory specified in
 
 
 ## Autotools Build
-**NOTE:** *The code has grown to a point where it is no longer feasible to maintain two build systems. Because of this, it has been decided to depricate the autotools build system and remove it completely in a future version.*
+**NOTE:** *The code has grown to a point where it is no longer feasible to maintain two build systems. Because of this, it has been decided to deprecate the autotools build system and remove it completely in a future version.*
 
 To install via autotools, you should be able to build the software 
 very easily using the standard "./configure -> make -> make install" 
@@ -143,7 +143,7 @@ Fourth, build the code:
 make 
 ```
 
-Finally, to install the code in an accesible manner (i.e. so that 
+Finally, to install the code in an accessible manner (i.e. so that 
 your PATH and (DY)LD_LIBRARY_PATH environment variables know where
 the executables and libraries are) type:
 
@@ -165,6 +165,11 @@ CMake Error at cmake_install.cmake:44 (file):
 Make sure that you pass the full path to the installation directory (i.e. don't
 use relative paths with '`~/`').
 
+### Support for old compilers
+The expectation is that compilers within the last few years should be supported.
+At the bare minimum your compiler should support C++11. At some point, CppEphem
+will move to requiring C++14.
+
 Uninstalling the code:
 ----------------------------------------------------------
 To uninstall the code, it is advised to first run
@@ -184,10 +189,10 @@ DISCLAIMER:
 The author above had no connection or involvement in the
 development of the SOFA software. Their software is included
 in this package because it is the standard provided by the
-International Astronomical Union (IAU). I dont claim to own
+International Astronomical Union (IAU). I don't claim to own
 their code. You can view the readme file in the sofa directory
 for more information on this software. (Can I not be sued now?)
 
 In all seriousness, the SOFA software package is a rather
-impressive and phenominally useful piece of code. I am really
+impressive and phenomenally useful piece of code. I am really
 grateful to the authors of that package for putting it together.
