@@ -5,6 +5,7 @@ set (sofa_sources
    	a2af.c
    	a2tf.c
 	ab.c
+	ae2hd.c
 	af2a.c
 	anp.c
 	anpm.c
@@ -92,7 +93,11 @@ set (sofa_sources
 	fasa03.c
 	faur03.c
 	fave03.c
+	fk425.c
+	fk45z.c
 	fk52h.c
+	fk524.c
+	fk54z.c
 	fk5hip.c
 	fk5hz.c
 	fw2m.c
@@ -111,6 +116,8 @@ set (sofa_sources
 	gst06a.c
 	gst94.c
 	h2fk5.c
+	hd2ae.c
+	hd2pa.c
 	hfk5z.c
 	icrs2g.c
 	ir.c
@@ -215,6 +222,12 @@ set (sofa_sources
 	tdbtt.c
 	tf2a.c
 	tf2d.c
+	tpors.c
+	tporv.c
+	tpsts.c
+	tpstv.c
+	tpxes.c
+	tpxev.c
 	tr.c
 	trxp.c
 	trxpv.c

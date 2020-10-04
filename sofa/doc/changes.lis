@@ -1,33 +1,18 @@
-            Updates for SOFA Release 15 : 2019 July 22
-            - - - - - - - - - - - - - - - - - - - - - - -
+            Updates for SOFA Release 16 : 2020 July 21
+            - - - - - - - - - - - - - - - - - - - - - -
 
 Summary of Changes
 ------------------
 The changes fall into the following categories:
 
-1. Wrong sign in the ANSI C function iauTdbtcb corrected.
+1. Correction of a sign in routine P06E.
 
-2. Update DAT release year.
+2. Correction in the ANSI C macro function dnint in the include file
+   sofam.h, to improve rounding.
 
-3. Implementation of four new routines that have been added to the
-   Star Catalog Conversions section dealing with the transformation
-   between the FK4 and the FK5 reference systems.  These routines
-   have have been included partly for completeness but mainly so that
-   positions in publications pre-1984 can be properly handled.  They
-   cover conversions between B1950.0 FK4 and J2000.0 FK5, with and
-   without proper motion.
+3. Improvements in precision and rounding (see 2 and 3 below).
 
-4. Enhancement of 17 routines that compare the two components of
-   given date/time arguments to minimize rounding errors, so that
-   optimum results are achieved even when one of the arguments is
-   negative.  (SOFA is grateful to the Astropy group for drawing
-   attention to the deficiency.)
-
-5. Due to introducing these new routines, the Astrometry Tools
-   Cookbook, the test program and other supporting files have also
-   been updated.
-
-6. Miscellaneous typographical corrections and improvements to
+4. Miscellaneous typographical corrections and improvements to
    various other documents.
 
 + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
@@ -35,79 +20,76 @@ The changes fall into the following categories:
 FORTRAN 77 Library
 ------------------
 
-1.  iau_DAT      Year ....
+1. iau_P06E      Correction. The series are taken from Table 1 of
+                 Hilton, J. et al., 2006, Celest. Mech. Dyn. Astron.
+                 94, 351., and it has been discovered that the one
+                 for general precession, p_A, had the wrong sign for
+                 the t^5 coefficient. The error in the paper has
+                 been corrected in the SOFA code. The correct value
+                 is -0.0000000383 arcsec. (Even after five centuries
+                 the error would be lower than 250 microarcsec.)
 
-2.  iau_FK425    Convert B1950.0 FK4 star catalog data to J2000.0 FK5.
-    iau_FK524    Convert J2000.0 FK5 star catalog data to B1950.0 FK4.
-    iau_FK45Z    Convert a B1950.0 FK4 star position to J2000.0 FK5,
-                 assuming zero proper motion in the FK5 system.
-    iau_FK54Z    Convert a J2000.0 FK5 star position to B1950.0 FK4,
-                 assuming zero proper motion in FK5 and zero parallax.
+2. iau_PB06      Improvements in the method of decomposing the rotation
+                 matrix by ensuring that angles near zero are preferred.
 
-3. iau_JD2CAL    In all these routines the Fortran function ABS was
-   iau_JD2CALF   included when comparing the two argument data/time
-   iau_TAITT     parameter.
-   iau_TAIUT1
-   iau_TAIUTC
-   iau_TCBTDB
-   iau_TCGTT
-   iau_TDBTCB
-   iau_TDBTT
-   iau_TTTAI
-   iau_TTTCG
-   iau_TTTDB
-   IAU_TTUT1
-   iau_UT1TAI
-   iau_UT1TT
-   iau_UT1UTC
-   iau_UTCTAI
+3. iau_JD2CAL    Improvements by ensuring precision is not lost when
+   iau_JDCALF    splitting date and time.
 
-4. t_sofa_f.for     Addition of new routines.
+4. iau_DAT       Release year updated.
+
+5. t_sofa_f.for  Updated due to the correction in iau_P06E.
+
+6. iau_FK524     Minor corrections/improvements to the documentation.
+   iau_FW2M
+   iau_GMST82
+   iau_TRXP
+   iau_XYS00A
 
 + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
 
 ANSI C Library
 --------------
 
-1.  iauTdbtcb.c Replace
-                    *tcb1 = f - ( d - ( f - t77tf ) ) * elbb;
-                by
-                    *tcb1 = f + ( d - ( f - t77tf ) ) * elbb;
+1. iauP06e       Correction. The series are taken from Table 1 of
+                 Hilton, J. et al., 2006, Celest. Mech. Dyn. Astron.
+                 94, 351., and it has been discovered that the one
+                 for general precession, p_A, had the wrong sign for
+                 the t^5 coefficient. The error in the paper has
+                 been corrected in the SOFA code. The correct value
+                 is -0.0000000383 arcsec. (Even after five centuries
+                 the error would be lower than 250 microarcsec.)
 
-                n.b. the sign error affects only one of two paths
-                through the code.
+2. sofam.h       Correction to dnint(A).
 
-2. iauDat       Release year.
+                 The existing dnint macro could incorrectly round
+                 numbers just over -0.5 and just under +0.5 due to
+                 the loss of precision when calculating ceil(A-0.5)
+                 or floor(A+0.5). A preliminary test for |A|<0.5
+                 has been added to ensure that such numbers always
+                 round to zero.  As none of the SOFA C functions
+                 depend critically on perfect rounding, the change
+                 is unlikely to affect user applications noticeably,
+                 though critical round-trip tests may see an
+                 improvement.
 
-3. iauFk425     Convert B1950.0 FK4 star catalog data to J2000.0 FK5.
-   iauFk524     Convert J2000.0 FK5 star catalog data to B1950.0 FK4.
-   iauFk45z     Convert a B1950.0 FK4 star position to J2000.0 FK5,
-                assuming zero proper motion in the FK5 system.
-   iauFk54z     Convert a J2000.0 FK5 star position to B1950.0 FK4,
-                assuming zero proper motion in FK5 and zero parallax.
-   sofa.h       Inclusion of the above routines' prototype
-                declarations.
+3. iauPb06       Improvements in the method of decomposing the rotation
+                 matrix by ensuring that angles near zero are preferred.
 
-4. iauJd2cal    In these 17 routines the ANSI C function fabs() was
-   iauJd2calf   included when comparing the two argument data/time
-   iauJd2calf   parameter.
-   iauTaitt
-   iauTaiut1
-   iauTaiutc
-   iauTcbtdb
-   iauTcgtt
-   iauTdbtcb
-   iauTdbtt
-   iauTttai
-   iauTttcg
-   iauTttdb
-   IAUTtut1
-   iauUt1tai
-   iauUt1tt
-   iauUt1utc
-   iauUtctai
+4. iauJd2cal     Improvements by ensuring precision is not lost when
+   iauJdcalf     splitting date and time.
 
-5. t_sofa_c.c   Addition of new routines.
+5. iauDat        Release year updated.
+
+6. t_sofa_c.c    Updated due to the correction in iauP06e.
+
+7. iauA2af       Minor corrections/improvements to the documentation.
+   iauA2tf
+   iauD2tf
+   iauFk524
+   iauFw2m
+   iauGmst82
+   iauTrxp
+   iauXys00a
 
 + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
 + SOFA thanks all those who have reported the various issues that go
@@ -115,6 +97,5 @@ ANSI C Library
 + relevant.
 +
 + End of updates
-+ 2019 June 30
++ 2020 June 22
 + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
-
