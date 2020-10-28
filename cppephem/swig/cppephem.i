@@ -27,7 +27,7 @@
 %module(directors="1") cppephem
 
 // Generate very detailed documentation
-%feature("autodoc", "3");
+//%feature("autodoc", "3");
 %feature("director");
 
 /* Standard typemaps */

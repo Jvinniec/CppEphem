@@ -42,12 +42,10 @@ enum class CEAngleType : unsigned int {
     DMS=3           ///< Degrees, arcmin, arcsec
 };
 
-/***********************************************************************//**
- * @class CEAngle
- *
- * @brief CEAngle class interface definition
- ***************************************************************************/
-class CEAngle {
+/**
+ * CEAngle class
+ */
+class CEAngle : public CEBase {
 public:
     // Constructors
     CEAngle();
@@ -67,6 +65,12 @@ public:
     static CEAngle Rad(const double& angle);
 
     // Methods to return a formatted value for the angle
+    /*!<
+     * Get the HMS formatted as a string
+     *
+     * \param delim delimiter
+     * \param not not a real par
+     */
     std::string         HmsStr(const char& delim=':') const;
     std::vector<double> HmsVect(void) const;
     std::string         DmsStr(const char& delim=':') const;
