@@ -19,15 +19,17 @@ matrix:
     include:
         # Test Linux with GCC
         - os: linux
+          dist: focal
           compiler: gcc
           before_install:
-              - sudo apt-get install swig
+              - sudo apt-get install -y swig
 
         # Test Linux with Clang
         - os: linux
+          dist: focal
           compiler: clang
           before_install:
-              - sudo apt-get install swig
+              - sudo apt-get install -y swig
 
         # Test OSX with GCC
         - os: osx
@@ -57,9 +59,6 @@ matrix:
               packages:
               - swig
               update: true
-
-# Allow compiling with c++11
-dist: xenial
 
 # Build steps
 script:
