@@ -23,11 +23,13 @@
 # This builds the Python wrappers for the code
 ######################################################
 
-FIND_PACKAGE(PythonLibs)
-FIND_PACKAGE(PythonInterp 3.5)
+FIND_PACKAGE(PythonInterp)
+if(PYTHONINTERP_FOUND)
+  FIND_PACKAGE(PythonLibs)
+endif()
 
 # Ensure SWIG is installed
-FIND_PACKAGE(SWIG 3.0 COMPONENTS python)
+FIND_PACKAGE(SWIG 4.0 COMPONENTS python)
 if(SWIG_FOUND)
   MESSAGE("SWIG found: ${SWIG_EXECUTABLE} ${SWIG_VERSION}")
 endif()
