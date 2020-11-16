@@ -32,7 +32,7 @@
 test_CEAngle::test_CEAngle() :
     CETestSuite()
 {
-    // Let's use 45 degrees for the tests, or PI/2
+    // Let's use 90 degrees for the tests, or PI/2
     base_ = CEAngle(M_PI_2);
 }
 
