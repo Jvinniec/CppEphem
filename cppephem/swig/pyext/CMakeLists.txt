@@ -59,3 +59,15 @@ SWIG_LINK_LIBRARIES(cppephem_pywrap cppephem ${PYTHON_LIBRARIES})
 add_custom_command(TARGET cppephem_pywrap 
                    POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/_cppephem_pywrap.so" "${CMAKE_CURRENT_BINARY_DIR}/cppephem/_cppephem_pywrap.so")
+
+# Testing code
+add_custom_command(TARGET cppephem_pywrap 
+                   POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/test" "${CMAKE_CURRENT_BINARY_DIR}/test"
+                   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/test/*.py" "${CMAKE_CURRENT_BINARY_DIR}/test/"
+                   )
+
+add_test (NAME python-tests
+          COMMAND ${PYTHON_EXECUTABLE} -m unittest test
+          WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+          )
