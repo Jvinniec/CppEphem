@@ -87,6 +87,10 @@ bool test_CERunningDate::test_construct(void)
     // Make sure the timer has run
     test_greaterthan(test1.RunTime(), naptime_ms_/1000.0, __func__, __LINE__);
 
+    // Make sure support methods work
+    test_string(base_.ClassName(), "CERunningDate", __func__, __LINE__);
+    test_greaterthan(base_.describe().size(), 0, __func__, __LINE__);
+
     return pass();
 }
 

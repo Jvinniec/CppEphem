@@ -95,11 +95,33 @@ void CppEphem::SetTtUt1PredFile(const std::string& filename)
 /**********************************************************************//**
  * Set the corrections object to use interpolation
  * 
- * @param[in] set_interp        Specifiy whether or not to use interpolation
+ * @param[in] set_interp        Specify whether or not to use interpolation
  *************************************************************************/
 void CppEphem::CorrectionsInterp(bool set_interp)
 {
     CppEphem::corrections.SetInterp(set_interp);
+}
+
+
+/**********************************************************************//**
+ * Turn on/off application of nutation correction values
+ * 
+ * @param[in] use_nut          Whether or not to use nutation corrections
+ *************************************************************************/
+void CppEphem::UseNutation(bool use_nut)
+{
+    CppEphem::use_nutation_ = use_nut;
+}
+
+
+/**********************************************************************//**
+ * Turn on/off application of TT-UT1 correction values
+ * 
+ * @param[in] use_ttut1          Whether or not to use TT-UT1 corrections
+ *************************************************************************/
+void CppEphem::UseTtUt1(bool use_ttut1)
+{
+    CppEphem::use_nutation_ = use_ttut1;
 }
 
 
@@ -114,7 +136,9 @@ double CppEphem::dut1(const double& mjd)
     double dut1(0.0);
 
     // Fill dut1 if support dir has been defined
-    dut1 = CppEphem::corrections.dut1(mjd);
+    if (use_nutation_) {
+        dut1 = CppEphem::corrections.dut1(mjd);
+    }
 
     return dut1;
 }
@@ -148,7 +172,11 @@ double CppEphem::dut1Calc(const double& mjd)
  *************************************************************************/
 double CppEphem::xp(const double& mjd) 
 {
-    return corrections.xpolar(mjd) ;
+    double xpolar(0.0);
+    if (use_nutation_) {
+        xpolar = corrections.xpolar(mjd);
+    }
+    return xpolar;
 }
 
 
@@ -160,7 +188,11 @@ double CppEphem::xp(const double& mjd)
  *************************************************************************/
 double CppEphem::yp(const double& mjd) 
 {
-    return corrections.ypolar(mjd);
+    double ypolar(0.0);
+    if (use_nutation_) {
+        ypolar = corrections.ypolar(mjd);
+    }
+    return ypolar;
 }
 
 
@@ -172,7 +204,11 @@ double CppEphem::yp(const double& mjd)
  *************************************************************************/
 double CppEphem::deps(const double& mjd)
 {
-    return corrections.deps(mjd);
+    double deps(0.0);
+    if (use_nutation_) {
+        deps = corrections.deps(mjd);
+    }
+    return deps;
 }
 
 
@@ -184,7 +220,11 @@ double CppEphem::deps(const double& mjd)
  *************************************************************************/
 double CppEphem::dpsi(const double& mjd)
 {
-    return corrections.dpsi(mjd);
+    double dpsi(0.0);
+    if (use_nutation_) {
+        dpsi = corrections.dpsi(mjd);
+    }
+    return dpsi;
 }
 
 
@@ -196,7 +236,11 @@ double CppEphem::dpsi(const double& mjd)
  *************************************************************************/
 double CppEphem::ttut1(const double& mjd)
 {
-    return corrections.ttut1(mjd);
+    double ttut1(0.0);
+    if (use_ttut1_) {
+        ttut1 = corrections.ttut1(mjd);
+    }
+    return ttut1;
 }
 
 

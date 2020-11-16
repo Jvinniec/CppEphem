@@ -26,6 +26,7 @@
 #include <vector>
 
 // CppEphem HEADERS
+#include "CEBase.h"
 #include "CEAngle.h"
 #include "CEDate.h"
 #include "CENamespace.h"
@@ -37,8 +38,7 @@
 #include "sofa.h"
 
 /** The following enum specifies what coordinates this object represents */
-enum class CESkyCoordType
-{
+enum class CESkyCoordType : unsigned int {
     CIRS=0,           ///< RA, Dec (referenced at the center of the Earth)
     ICRS=1,           ///< RA, Dec (referenced at the barycenter of the solarsystem)
     GALACTIC=2,       ///< Galacitc longitude, latitude
@@ -47,7 +47,7 @@ enum class CESkyCoordType
 };
 
 // Class for handling sky coordinates
-class CESkyCoord {
+class CESkyCoord : public CEBase {
 
     friend bool operator==(const CESkyCoord& lhs, const CESkyCoord& rhs);
     friend bool operator!=(const CESkyCoord& lhs, const CESkyCoord& rhs);
@@ -68,9 +68,7 @@ public:
     /*********************************************************
      * Angular separation between two coordinate positions
      *********************************************************/
-    virtual CEAngle AngularSeparation(const CESkyCoord& coords) const;
-    static  CEAngle AngularSeparation(const CESkyCoord& coords1, 
-                                      const CESkyCoord& coords2);
+    virtual CEAngle Separation(const CESkyCoord& coords) const;
     static  CEAngle AngularSeparation(const CEAngle& xcoord_first, 
                                       const CEAngle& ycoord_first,
                                       const CEAngle& xcoord_second, 
@@ -201,7 +199,9 @@ public:
     virtual void SetCoordinates(const CESkyCoord& coords);
 
     // Support methods
-    std::string print(void) const;
+    const std::string print(void) const;
+    const std::string ClassName(void) const;
+    virtual const std::string describe(void) const;
 
 private:
     /*********************************************************
@@ -216,6 +216,16 @@ private:
     mutable CEAngle         ycoord_;        //<! Y coordinate
     mutable CESkyCoordType  coord_type_;    //<! Coordinate system to which 'xcoord_' and 'ycoord_' belong.
 };
+
+
+/**********************************************************************//**
+ * Return name of this class
+ *************************************************************************/
+inline
+const std::string CESkyCoord::ClassName() const
+{
+    return std::string("CESkyCoord");
+}
 
 
 /**********************************************************************//**

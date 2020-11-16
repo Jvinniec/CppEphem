@@ -6,6 +6,10 @@
 #include "CppEphem.h"
 #include "CLOptions.h"
 
+/** \class CEExecOptions
+ Class for providing options to CppEphem executables
+ */
+
 class CEExecOptions : public CLOptions {
 public:
 

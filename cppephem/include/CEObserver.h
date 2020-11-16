@@ -23,10 +23,11 @@
 #define CEObserver_h
 
 #include "CEAngle.h"
+#include "CEBase.h"
 #include "CEDate.h"
 #include "CENamespace.h"
 
-class CEObserver {
+class CEObserver : public CEBase {
 public:
     CEObserver(void) ;
     CEObserver(const double& longitude, 
@@ -86,7 +87,9 @@ public:
     std::vector<double> VelocityICRS(const CEDate& date) const;
 
     // Print information about the observer
-    std::string print(void) const;
+    const std::string print(void) const;
+    const std::string ClassName(void) const;
+    const std::string describe(void) const;
 
 private:
 
@@ -118,6 +121,16 @@ private:
     // Variables defining the time of the observer
     double  utc_offset_;            ///< UTC offset in hours (set by default to system offset)
 };
+
+
+/**********************************************************************//**
+ * Return name of this class
+ *************************************************************************/
+inline
+const std::string CEObserver::ClassName() const
+{
+    return std::string("CEObserver");
+}
 
 
 /**********************************************************************//**

@@ -1706,12 +1706,22 @@ void CECoordinates::SetCoordinates(const CECoordinates& coords)
  * Generate a message string that specifies the information about this coordinate
  * @return String describing this object
  *************************************************************************/
-std::string CECoordinates::print(void) const
+const std::string CECoordinates::print(void) const
 {
-    std::string msg = "Coordinates:\n";
-    msg += "   - System : " + std::to_string(int(coord_type_)) + "\n";
-    msg += "   - X-coord: " + std::to_string(XCoordinate_Deg()) + " deg\n";
-    msg += "   - Y-coord: " + std::to_string(YCoordinate_Deg()) + " deg\n";
+    return this->describe();
+}
+
+
+/**********************************************************************//**
+ * Generate a message string that specifies the information about this coordinate
+ * @return String describing this object
+ *************************************************************************/
+const std::string CECoordinates::describe(void) const
+{
+    std::string msg = CEBase::describe() + "\n";
+    msg += "   System : " + std::to_string(int(coord_type_)) + "\n";
+    msg += "   X-coord: " + std::to_string(XCoordinate_Deg()) + " deg\n";
+    msg += "   Y-coord: " + std::to_string(YCoordinate_Deg()) + " deg\n";
     return msg;
 }
 

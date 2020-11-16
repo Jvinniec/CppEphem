@@ -93,6 +93,10 @@ bool test_CEBody::test_construct(void)
     test_string(test4.Name(), test1.Name(), __func__, __LINE__);
     test(test4.GetCoordinates() == test1.GetCoordinates(), __func__, __LINE__);
 
+    // Make sure support methods work
+    test_string(base_.ClassName(), "CEBody", __func__, __LINE__);
+    test_greaterthan(base_.describe().size(), 0, __func__, __LINE__);
+
     return pass();
 }
 

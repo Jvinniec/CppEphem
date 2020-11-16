@@ -235,6 +235,21 @@ void CECorrections::SetInterp(bool set_interp)
 
 
 /**********************************************************************//**
+ * Returns a message of the 
+ * 
+ * @param[in] set_interp        New interpolation boolean
+ *************************************************************************/
+const std::string CECorrections::describe(void) const
+{
+    std::string msg = CEBase::describe() + "\n";
+    msg += "   Nutation File    : " + this->NutationFile() + "\n";
+    msg += "   Historical TT-UT1: " + this->TtUt1HistFile() + "\n";
+    msg += "   Predicted TT-UT1 : " + this->TtUt1PredFile();
+    return msg;
+}
+
+
+/**********************************************************************//**
  * Free data member objects
  *************************************************************************/
 void CECorrections::free_members(void)

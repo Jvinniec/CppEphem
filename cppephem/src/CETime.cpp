@@ -243,10 +243,35 @@ void CETime::UTC2LAST()
  *************************************************************************/
 void CETime::UTC2LOCALTIME()
 {
-    
+    // TODO
 }
 
-# pragma mark - Protected Methods
+
+/**********************************************************************//**
+ * Return string representing the angle in HH:MM:SS
+ * 
+ * @param[in] delim             Delimiter to use in output string
+ * @return Angle formatted as a string HH:MM:SS
+ *************************************************************************/
+std::string CETime::HmsStr(const char& delim) const
+{
+    // Assemble the string using the specified delimiter
+    return CppEphem::StrOpt::join_angle(time_, delim);
+}
+
+
+/**********************************************************************//**
+ * Return a description of this object
+ * 
+ * @return Description of this object
+ *************************************************************************/
+const std::string CETime::describe(void) const
+{
+    std::string msg = CEBase::describe() + "\n";
+    msg += "   Time: " + this->HmsStr();
+    return msg;
+}
+
 
 /**********************************************************************//**
  * Convert a time formatted as HHMMSS.SS into a vector.
@@ -308,10 +333,25 @@ double CETime::TimeSec2Time(const double& seconds)
 
     // Now do the actual conversion to a vector
     double fracsec = secs - std::floor(secs) ;          // Fractions of a second
-    double sec = int(std::floor(secs)) % 60 ;           // Whole seconds
-    double min = int(std::floor(secs-sec)/60) % 60 ;    // Whole minutes
-    double hrs = int(std::floor(secs-sec)/60)/60 ;      // Whole hours
-    return (hrs*10000) + (min*100) + sec + fracsec ;    // Formatted double (HHMMSS.S)
+    int sec = int(std::floor(secs)) % 60 ;           // Whole seconds
+    int min = int(std::floor(secs-sec)/60) % 60 ;    // Whole minutes
+    int hrs = int(std::floor(secs-sec)/60)/60 ;      // Whole hours
+
+    // Format the output and handle precision issues
+    double result = (hrs*10000) + (min*100) + sec + fracsec ;    // Formatted double (HHMMSS.S)
+    if (int(result) % 100 >= 60.0) {
+        result -= 60;
+        result += 100;
+    }
+    if (int(result) % 10000 >= 6000) {
+        result -= 6000;
+        result += 10000;
+    }
+    if (result > 240000) {
+        result -= 240000;
+    }
+
+    return result;
 }
 
 /**********************************************************************//**

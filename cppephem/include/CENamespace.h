@@ -96,6 +96,11 @@ namespace CppEphem {
     void        SetTtUt1PredFile(const std::string& filename);
     void        CorrectionsInterp(bool set_interp);
     static      CECorrections corrections;
+    void        UseNutation(bool use_nut);
+    void        UseTtUt1(bool use_ttut1);
+    static      bool use_nutation_ = true;
+    static      bool use_ttut1_ = true;
+    
 
     namespace StrOpt {
         // Method for splitting a string based on some delimiter into a vector of strings
@@ -112,6 +117,6 @@ namespace CppEphem {
         std::string join_angle(const std::vector<double>& values,
                                const char&                delim);
     }
-}
+};
 
 #endif /* CENamespace_h */

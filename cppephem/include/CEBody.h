@@ -69,6 +69,10 @@ public:
     std::string   Name(void) const;
     void          SetName(const std::string& new_name);
     
+    // Necessary methods
+    const std::string ClassName(void) const;
+    virtual const std::string describe(void) const;
+    
 private:
     
     /************************************
@@ -84,6 +88,16 @@ private:
     std::string name_;        ///< Name of this object
     
 };
+
+
+/**********************************************************************//**
+ * Return name of this class
+ *************************************************************************/
+inline
+const std::string CEBody::ClassName() const
+{
+    return std::string("CEBody");
+}
 
 
 /**********************************************************************//**

@@ -106,6 +106,10 @@ bool test_CEPlanet::test_construct(void)
     test_double(test4.YCoordinate_Deg(), test2.YCoordinate_Deg(), __func__, __LINE__);
     test_int(int(test4.GetCoordSystem()), int(test2.GetCoordSystem()), __func__, __LINE__);
 
+    // Make sure support methods work
+    test_string(test4.ClassName(), "CEPlanet", __func__, __LINE__);
+    test_greaterthan(test4.describe().size(), 0, __func__, __LINE__);
+
     return pass();
 }
 
@@ -230,7 +234,7 @@ bool test_CEPlanet::test_mars(void)
     CEPlanet mars2 = CEPlanet::Mars();
     mars2.SetAlgorithm(CEPlanetAlgo::JPL);
     mars2.UpdateCoordinates(base_date_.JD());
-    CEAngle angsep = mars.AngularSeparation(mars2);
+    CEAngle angsep = mars.Separation(mars2);
     test_lessthan(angsep.Deg(), 0.1, __func__, __LINE__);
 
     return pass();
@@ -373,7 +377,7 @@ bool test_CEPlanet::test_planet(const CEPlanet&            test_planet,
         std::printf("   X-diff: %f arcsec\n", (icrs_coords.XCoord().Deg()-true_icrs.XCoord().Deg())*3600.0);
         std::printf("   Y-diff: %f arcsec\n", (icrs_coords.YCoord().Deg()-true_icrs.YCoord().Deg())*3600.0);
     }
-    std::printf("      AngSep ICRS: %e arcsec\n", icrs_coords.AngularSeparation(true_icrs).Deg()*3600.0);
+    std::printf("      AngSep ICRS: %e arcsec\n", icrs_coords.Separation(true_icrs).Deg()*3600.0);
 
     // Test observed coordinates
     CESkyCoord obs_coords = test_planet.ObservedCoords(base_date_, 
@@ -385,7 +389,7 @@ bool test_CEPlanet::test_planet(const CEPlanet&            test_planet,
         std::printf("   X-diff: %f arcsec\n", (obs_coords.XCoord().Deg()-true_obs.XCoord().Deg())*3600.0);
         std::printf("   Y-diff: %f arcsec\n", (obs_coords.YCoord().Deg()-true_obs.YCoord().Deg())*3600.0);
     }
-    std::printf("      AngSep Obs : %e arcsec\n", obs_coords.AngularSeparation(true_obs).Deg()*3600.0);
+    std::printf("      AngSep Obs : %e arcsec\n", obs_coords.Separation(true_obs).Deg()*3600.0);
 
     // Update the tolerance
     double tol_old = DblTol();

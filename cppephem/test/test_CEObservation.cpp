@@ -110,6 +110,10 @@ bool test_CEObservation::test_constructor(void)
     test(test4.Date() == &base_date_, __func__, __LINE__);
     test(test4.Observer() == &base_observer_, __func__, __LINE__);
 
+    // Make sure support methods work
+    test_string(base_obs_.ClassName(), "CEObservation", __func__, __LINE__);
+    test_greaterthan(base_obs_.describe().size(), 0, __func__, __LINE__);
+
     return pass();
 }
 
