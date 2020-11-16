@@ -56,5 +56,4 @@ SWIG_LINK_LIBRARIES(cppephem_pywrap cppephem ${PYTHON_LIBRARIES})
 
 add_custom_command(TARGET cppephem_pywrap 
                    POST_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/_cppephem_pywrap.so" "${CMAKE_CURRENT_BINARY_DIR}/cppephem/_cppephem_pywrap.so"
-                   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/setup.py install --prefix=${CMAKE_INSTALL_PREFIX})
+                   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/_cppephem_pywrap.so" "${CMAKE_CURRENT_BINARY_DIR}/cppephem/_cppephem_pywrap.so")
