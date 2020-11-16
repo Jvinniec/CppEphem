@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## v1.3.99 : DEVELOPMENT
  - Add SWIG wrappers for Python bindings
  - Fix ambiguity in CESkyCoord::AngularSeparation methods
+ - Updated Travis-CI build configuration
+ - Updated SOFA to latest release (2019-07)
 
 
 ## v1.3.0 : 2019-08-19

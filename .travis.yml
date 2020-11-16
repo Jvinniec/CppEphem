@@ -15,7 +15,7 @@ branches:
   - gh-pages
 
 # Establish which builds we wish to test
-matrix:
+jobs:
     include:
         # Test Linux with GCC
         - os: linux
