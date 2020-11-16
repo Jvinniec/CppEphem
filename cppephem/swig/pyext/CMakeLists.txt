@@ -23,7 +23,7 @@
 # This builds the Python wrappers for the code
 ######################################################
 
-FIND_PACKAGE(PythonInterp)
+FIND_PACKAGE(PythonInterp 3.5)
 if(PYTHONINTERP_FOUND)
   FIND_PACKAGE(PythonLibs)
 endif()
