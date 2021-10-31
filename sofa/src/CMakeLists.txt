@@ -21,6 +21,8 @@ set (sofa_sources
 	aper13.c
 	apio.c
 	apio13.c
+	atcc13.c
+	atccq.c
 	atci13.c
 	atciq.c
 	atciqn.c
@@ -133,6 +135,7 @@ set (sofa_sources
 	ltpb.c
 	ltpecl.c
 	ltpequ.c
+	moon98.c
 	num00a.c
 	num00b.c
 	num06a.c
