@@ -25,6 +25,7 @@
 #include <cmath>
 #include <map>
 #include <sofa.h>
+#include <sofam.h>
 #include <memory>
 #include "CECorrections.h"
 
