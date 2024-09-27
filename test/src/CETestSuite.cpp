@@ -262,7 +262,9 @@ bool CETestSuite::test_vect_(const std::vector<T>& value,
             T diff    = std::fabs(value[i] - expected[i]);
             if (diff > rel_tol) {
                 log_failure("VECTOR values at index "+std::to_string(i)+" " +
-                            "are NOT equal (difference = " + 
+                            "are NOT equal (" + 
+                            std::to_string(value[i]) + " != " +
+                            std::to_string(expected[i]) + ", difference = " + 
                             std::to_string(diff) + ")", function, line);
                 isMatch = false;
             }

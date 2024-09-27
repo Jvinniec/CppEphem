@@ -117,47 +117,28 @@ CESkyCoord& CESkyCoord::operator=(const CESkyCoord& other)
  * @param[in] coords               Another set of coordinates
  * @return Angular separation between these coordinates and 'coords'
  *************************************************************************/
-CEAngle CESkyCoord::AngularSeparation(const CESkyCoord& coords) const
-{
-    return AngularSeparation(*this, coords);
-}
-
-
-/**********************************************************************//**
- * Get the angular separation between two coordinate objects.
- * NOTE: The coordinates are both expected to be in the same
- * coordinate system! If they are in different coordinate systems,
- * use "ConvertTo()" first.
- * 
- * @param[in] coords1              First set of coordinates
- * @param[in] coords2              Second set of coordinates
- * @param[in] return_angle_type    Specify whether to return angle as DEGREES or RADIANS
- * @return Angular separation between two coordiantes
- * 
- * Note that the x-coordinates are expected in the range [0, 2pi] and the
- * y-coordinates are expected in the range [-pi, pi]. Because of this, OBSERVED
- * coordinates first convert the zenith angle to altitude
- *************************************************************************/
-CEAngle CESkyCoord::AngularSeparation(const CESkyCoord& coords1, 
-                                      const CESkyCoord& coords2)
+CEAngle CESkyCoord::Separation(const CESkyCoord& coords) const
 {
     // Make sure the coordinates are in the same frame
-    if (coords1.GetCoordSystem() != coords2.GetCoordSystem()) {
-        throw CEException::invalid_value("CESkyCoord::AngularSeparation(CESkyCoord&, CESkyCoord&)",
-                                         "Supplied coordinates are in different frames");
+    if (this->GetCoordSystem() != coords.GetCoordSystem()) {
+        std::string msg = std::string("Supplied coordinates are in different frames") +
+                          " (this => " + std::to_string(int(this->GetCoordSystem())) + 
+                          ", coords => " + std::to_string(int(coords.GetCoordSystem())) + ")";
+        throw CEException::invalid_value("CESkyCoord::Separation(CESkyCoord&)",
+                                         msg);
     }
 
     // Get the appropriate Y-Coordinates
-    double y1 = coords1.YCoord().Rad();
-    double y2 = coords2.YCoord().Rad();
-    if (coords1.GetCoordSystem() == CESkyCoordType::OBSERVED) {
+    double y1 = this->YCoord().Rad();
+    double y2 = coords.YCoord().Rad();
+    if (this->GetCoordSystem() == CESkyCoordType::OBSERVED) {
         y1 = M_PI_2 - y1;
         y2 = M_PI_2 - y2;
     }
 
     // Convert the second coordinates to be the same type as the first set of coordinates
-    return AngularSeparation(coords1.XCoord(), y1,
-                             coords2.XCoord(), y2);
+    return AngularSeparation(this->XCoord(), y1,
+                             coords.XCoord(), y2);
 }
 
 
@@ -1024,12 +1005,23 @@ void CESkyCoord::SetCoordinates(const CESkyCoord& coords)
  * 
  * @return String describing this object
  *************************************************************************/
-std::string CESkyCoord::print(void) const
+const std::string CESkyCoord::print(void) const
 {
-    std::string msg = "Coordinates:\n";
-    msg += "   - System : " + std::to_string(int(coord_type_)) + "\n";
-    msg += "   - X-coord: " + std::to_string(xcoord_.Deg()) + " deg\n";
-    msg += "   - Y-coord: " + std::to_string(ycoord_.Deg()) + " deg\n";
+    return this->describe();
+}
+
+
+/**********************************************************************//**
+ * Generate a message string that specifies the information about this coordinate
+ * 
+ * @return String describing this object
+ *************************************************************************/
+const std::string CESkyCoord::describe(void) const
+{
+    std::string msg = CEBase::describe() + "\n";
+    msg += "   System : " + std::to_string(int(coord_type_)) + "\n";
+    msg += "   X-coord: " + std::to_string(xcoord_.Deg()) + " deg\n";
+    msg += "   Y-coord: " + std::to_string(ycoord_.Deg()) + " deg\n";
     return msg;
 }
 
@@ -1083,7 +1075,7 @@ bool operator==(const CESkyCoord& lhs, const CESkyCoord& rhs)
     // Check that the x-coordinate and the y-coordinate are the same
     else {
         // Check how far appart the coordinates are from each other
-        CEAngle angsep = CESkyCoord::AngularSeparation(lhs, rhs);
+        CEAngle angsep = lhs.Separation(rhs);
         // Currently require separation < 0.03 arcsec
         double marcsec_rad = 4.848e-6;
         if (angsep > 3.0*marcsec_rad) {

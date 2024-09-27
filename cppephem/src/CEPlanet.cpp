@@ -472,6 +472,23 @@ CEPlanet CEPlanet::Pluto()
 
 
 /**********************************************************************//**
+ * Generate a message string that specifies the information about this planet
+ * 
+ * @return String describing this object
+ *************************************************************************/
+const std::string CEPlanet::describe(void) const
+{
+    std::string msg = CEBase::describe() + "\n";
+    msg += "   Name     : " + this->Name() + "\n";
+    msg += "   Algorithm: " + std::to_string(int(this->Algorithm())) + "\n";
+    msg += "   Radius   : " + std::to_string(Radius_m()) + " meters\n";
+    msg += "   Mass     : " + std::to_string(Mass_kg()) + " kg\n";
+    msg += "   Albedo   : " + std::to_string(Albedo());
+    return msg;
+}
+
+
+/**********************************************************************//**
  * Set the semi-major axis (in AU) and it's derivative
  * 
  * @param[in] semi_major_axis_au           Semi-major axis (units of AU)

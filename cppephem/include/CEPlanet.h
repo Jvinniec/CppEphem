@@ -26,11 +26,13 @@
 #include "CEBody.h"
 #include "CEObserver.h"
 
-/////////////////////////////////////////////
-/// Date enum
-enum CEPlanetAlgo {SOFA,              ///< Use methods included in sofa software
-                   JPL                ///< Use Keplerian algorithm outlined by JPL
-                   } ;
+/**********************************************************************//**
+ * Planet position algorithm enum
+ *************************************************************************/
+enum class CEPlanetAlgo : unsigned int {
+    SOFA = 0,       ///< Use methods included in sofa software
+    JPL  = 1        ///< Use Keplerian algorithm outlined by JPL
+};
 
 
 class CEPlanet : public CEBody {
@@ -46,9 +48,9 @@ public:
     CEPlanet& operator=(const CEPlanet& other);
 
     /******  Methods  ******/
-    double         Radius_m();
-    double         Mass_kg();
-    double         Albedo();
+    double         Radius_m() const;
+    double         Mass_kg() const;
+    double         Albedo() const;
     void           SetMeanRadius_m(double new_radius);
     void           SetMass_kg(double new_mass);
     void           SetAlbedo(double new_albedo);
@@ -130,6 +132,10 @@ public:
     void         SetAlgorithm(const CEPlanetAlgo& new_algo);
     void         SetSofaID(const double& new_id);
     
+    // Necessary methods
+    const std::string ClassName(void) const;
+    virtual const std::string describe(void) const;
+
 private:
     
     void copy_members(const CEPlanet& other);
@@ -205,6 +211,16 @@ private:
 
 
 /**********************************************************************//**
+ * Return name of this class
+ *************************************************************************/
+inline
+const std::string CEPlanet::ClassName() const
+{
+    return std::string("CEPlanet");
+}
+
+
+/**********************************************************************//**
  * @return Algorithm used for computing the planet position
  *************************************************************************/
 inline
@@ -218,7 +234,7 @@ CEPlanetAlgo CEPlanet::Algorithm(void) const
  * @return Radius in meters.
  *************************************************************************/
 inline
-double CEPlanet::Radius_m() 
+double CEPlanet::Radius_m() const
 {
     return radius_m_;
 }
@@ -228,7 +244,7 @@ double CEPlanet::Radius_m()
  * @return Mass in kilograms.
  *************************************************************************/
 inline
-double CEPlanet::Mass_kg() 
+double CEPlanet::Mass_kg() const
 {
     return mass_kg_;
 }
@@ -238,7 +254,7 @@ double CEPlanet::Mass_kg()
  * @return Albedo.
  *************************************************************************/
 inline
-double CEPlanet::Albedo() 
+double CEPlanet::Albedo() const
 {
     return albedo_;
 }

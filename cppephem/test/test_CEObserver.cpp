@@ -103,6 +103,11 @@ bool test_CEObserver::test_constructor(void)
     test_double(test3.RelativeHumidity(), base_obs_.RelativeHumidity(), __func__, __LINE__);
     test_double(test3.Wavelength_um(), base_obs_.Wavelength_um(), __func__, __LINE__);
 
+    // Make sure support methods work
+    test_string(base_obs_.ClassName(), "CEObserver", __func__, __LINE__);
+    test_greaterthan(base_obs_.print().size(), 0, __func__, __LINE__);
+    test_greaterthan(base_obs_.describe().size(), 0, __func__, __LINE__);
+
     return pass();
 }
 
@@ -202,9 +207,6 @@ bool test_CEObserver::test_set_atmoPars()
     double wavelength = obs.Wavelength_um() + 10.0;
     obs.SetWavelength_um(wavelength);
     test_double(obs.Wavelength_um(), wavelength, __func__, __LINE__);
-
-    // Make sure the print statement actually does something
-    test(obs.print().size() > 0, __func__, __LINE__);
 
     // Reset the tolerance
     SetDblTol(old_tol);

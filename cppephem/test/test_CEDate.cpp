@@ -93,6 +93,10 @@ bool test_CEDate::test_constructor(void)
     CEDate test5(jd_20190101);
     test_double(test5.JD(), jd_20190101, __func__, __LINE__);
 
+    // Make sure support methods work
+    test_string(base_date_.ClassName(), "CEDate", __func__, __LINE__);
+    test_greaterthan(base_date_.describe().size(), 0, __func__, __LINE__);
+
     return pass();
 }
 

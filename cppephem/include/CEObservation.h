@@ -23,6 +23,7 @@
 #define CEObservation_h
 
 // CppEphem HEAD
+#include "CEBase.h"
 #include "CEBody.h"
 #include "CEDate.h"
 #include "CEObserver.h"
@@ -30,7 +31,7 @@
 #include "CESkyCoord.h"
 
 
-class CEObservation {
+class CEObservation : public CEBase {
 public:
     // Constructors
     CEObservation() ;
@@ -68,6 +69,10 @@ public:
     virtual void   GetApparentXYCoordinate_Deg(double *apparent_X, double *apparent_Y);
     bool           UpdateCoordinates();
     
+    // Necessary methods
+    const std::string ClassName(void) const;
+    const std::string describe(void) const;
+    
 private:
     
     // Member functions for setup and tear down
@@ -93,6 +98,16 @@ private:
     double cached_apparentxcoord_;
     double cached_apparentycoord_;
 };
+
+
+/**********************************************************************//**
+ * Return name of this class
+ *************************************************************************/
+inline
+const std::string CEObservation::ClassName() const
+{
+    return std::string("CEObservation");
+}
 
 
 /**********************************************************************//**

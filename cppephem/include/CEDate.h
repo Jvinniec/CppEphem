@@ -27,6 +27,7 @@
 #include <vector>
 
 // CppEphem HEADERS
+#include "CEBase.h"
 #include "CETime.h"
 #include <CENamespace.h>
 
@@ -36,12 +37,13 @@
 /**********************************************************************//**
  * Date enum
  *************************************************************************/
-enum CEDateType {JD,              ///< Julian Date
-                 MJD,             ///< Modified Julian Date
-                 GREGORIAN        ///< Gregorian calendar (year, month, day)
-                } ;
+enum class CEDateType : unsigned int {
+    JD=0,              ///< Julian Date
+    MJD=1,             ///< Modified Julian Date
+    GREGORIAN=2        ///< Gregorian calendar (year, month, day)
+};
 
-class CEDate {
+class CEDate : public CEBase {
 public:
     // Default constructor
     CEDate(double date=CurrentJD(), CEDateType date_format=CEDateType::JD) ;
@@ -116,6 +118,7 @@ public:
     virtual double GetTime(const double& utc_offset=0.0) const;
     virtual double GetTime_UTC() const;
     static double  CurrentJD();
+    const CEDateType ReturnType() const;
     void           SetReturnType(CEDateType return_type);
     
     /************************************************************
@@ -125,6 +128,10 @@ public:
     operator double();
     operator double() const;
     
+    // Necessary methods
+    virtual const std::string ClassName(void) const;
+    virtual const std::string describe(void) const;
+
 private:
     
     void free_members(void);
@@ -142,6 +149,16 @@ private:
     CEDateType return_type_ = CEDateType::JD ;  ///< what format the 'operator double' will return
     
 };
+
+
+/**********************************************************************//**
+ * Return name of this class
+ *************************************************************************/
+inline
+const std::string CEDate::ClassName() const
+{
+    return std::string("CEDate");
+}
 
 
 /**********************************************************************//**
@@ -237,6 +254,17 @@ inline
 double CEDate::GetMJD2JDFactor(void) 
 {
     return DJM0;
+}
+
+
+/**********************************************************************//**
+ * Get the return type used in the overloaded 'double' operators
+ * @return ::CEDateType for the returned double
+ *************************************************************************/
+inline
+const CEDateType CEDate::ReturnType() const
+{
+    return return_type_;
 }
 
 

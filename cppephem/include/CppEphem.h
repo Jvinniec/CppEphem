@@ -1,7 +1,7 @@
 /***************************************************************************
  *  CppEphem.h: CppEphem                                                   *
  * ----------------------------------------------------------------------- *
- *  Copyright © 2016 JCardenzana                                           *
+ *  Copyright © 2016-2019 JCardenzana                                      *
  * ----------------------------------------------------------------------- *
  *                                                                         *
  *  This program is free software: you can redistribute it and/or modify   *
@@ -29,6 +29,7 @@
 
 // ALL THE CppEphem HEADERS
 #include "CEAngle.h"
+#include "CEBase.h"
 #include "CECoordinates.h"
 #include "CEDate.h"
 #include "CENamespace.h"

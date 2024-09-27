@@ -173,6 +173,21 @@ bool CEObservation::UpdateCoordinates()
 
 
 /**********************************************************************//**
+ * Return description of this object
+ * 
+ * @return Description of this object
+ *************************************************************************/
+const std::string CEObservation::describe(void) const
+{
+    std::string msg = CEBase::describe() + "\n";
+    msg += date_->describe() + "\n";
+    msg += observer_->describe() + "\n";
+    msg += body_->describe();
+    return msg;
+}
+
+
+/**********************************************************************//**
  * Copy data members from another object
  * 
  * @param[in] other             CEObservation object to copy from

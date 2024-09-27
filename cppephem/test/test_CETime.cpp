@@ -91,6 +91,10 @@ bool test_CETime::test_construct(void)
 
     // Default constructor
 
+    // Make sure support methods work
+    test_string(test1.ClassName(), "CETime", __func__, __LINE__);
+    test_greaterthan(test1.describe().size(), 0, __func__, __LINE__);
+
     return pass();
 }
 

@@ -138,6 +138,8 @@ bool test_CESkyCoord::test_construct()
 
     // Test print of constructed coordinates
     test_greaterthan(test4.print().size(), 0, __func__, __LINE__);
+    test_string(test4.ClassName(), "CESkyCoord", __func__, __LINE__);
+    test_greaterthan(test4.describe().size(), 0, __func__, __LINE__);
 
     return pass();
 }
@@ -395,11 +397,7 @@ bool test_CESkyCoord::test_AngularSeparation(void)
     CESkyCoord test2(test2_x, test2_y, CESkyCoordType::ICRS);
     
     // Test the default coordinate separation
-    CEAngle angsep = test1.AngularSeparation(test2);
-    test_double(angsep.Deg(), 2.0, __func__, __LINE__);
-
-    // Static method
-    angsep = CESkyCoord::AngularSeparation(test1, test2);
+    CEAngle angsep = test1.Separation(test2);
     test_double(angsep.Deg(), 2.0, __func__, __LINE__);
 
     // 2nd static Method not requiring CESkyCoord objects
@@ -412,7 +410,7 @@ bool test_CESkyCoord::test_AngularSeparation(void)
     
     // Test that it fails if the coordinates are not the same type
     try {
-        angsep = CESkyCoord::AngularSeparation(base_icrs_, base_gal_);
+        angsep = base_icrs_.Separation(base_gal_);
         test(false, __func__, __LINE__);
     } catch (std::exception &e) {
         test(true, __func__, __LINE__);
@@ -477,7 +475,7 @@ bool test_CESkyCoord::test_coords(const CESkyCoord&  test,
                     test.YCoord().Deg(), expected.YCoord().Deg(), 
                     (test.YCoord().Deg()-expected.YCoord().Deg())*3600.0);
         std::printf("     AngSep: %e arcsec\n", 
-                    test.AngularSeparation(expected).Deg()*3600.0);
+                    test.Separation(expected).Deg()*3600.0);
     }
     return pass;
 }

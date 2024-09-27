@@ -26,7 +26,9 @@
 #include <string>
 #include <vector>
 
-class CECorrections {
+#include "CEBase.h"
+
+class CECorrections : public CEBase {
 public:
     CECorrections();
     CECorrections(const CECorrections& other);
@@ -47,6 +49,10 @@ public:
     void        SetTtUt1HistFile(const std::string& filename);
     void        SetTtUt1PredFile(const std::string& filename);
     void        SetInterp(bool set_interp);
+
+    // Necessary methods
+    const std::string ClassName(void) const;
+    const std::string describe(void) const;
 
 private:
 
@@ -97,6 +103,16 @@ private:
     mutable double cache_ttut1_mjd_;
     mutable double cache_ttut1_delt_;
 };
+
+
+/**********************************************************************//**
+ * Return name of this class
+ *************************************************************************/
+inline
+const std::string CECorrections::ClassName() const
+{
+    return std::string("CECorrections");
+}
 
 
 /**********************************************************************//**

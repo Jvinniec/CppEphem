@@ -88,7 +88,7 @@ Once the code is downloaded, the advised method for compiling the code is via `c
 2. Now run `cmake` with your desired configuration options to build the code:
    ```bash
    # configure
-   cmake [-DCMAKE_INSTALL_PREFIX=/your/install/directory/] /path/to/cloned/CppEphem
+   cmake [-Dpython-bindings=1] [-DCMAKE_INSTALL_PREFIX=/your/install/directory/] /path/to/cloned/CppEphem
    # build (N = number of threads for compilation)
    cmake --build . [-- -jN]
    ```
@@ -115,9 +115,12 @@ installation directories (or alternatively the directory specified in
    export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/install/dir/lib 
    ```
 
+## Support for Python (*experimental*)
+Python bindings can also be generated that allow running the code within Python. This can be done by adding `-Dpython-bindings=1` in the cmake configuration (step 2 above). Note that this requires SWIG (v4 or greater) and Python (v3.5 or greater) to be installed on your system.
+
 
 ## Autotools Build
-**NOTE:** *The code has grown to a point where it is no longer feasible to maintain two build systems. Because of this, it has been decided to deprecate the autotools build system and remove it completely in a future version.*
+**NOTE:** *The code has grown to a point where it is no longer feasible to maintain two build systems. Because of this, it has been decided to deprecate the autotools build system and remove it completely in a future version. It is not guaranteed to work.*
 
 To install via autotools, you should be able to build the software 
 very easily using the standard "./configure -> make -> make install" 

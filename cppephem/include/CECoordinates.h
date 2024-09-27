@@ -27,6 +27,7 @@
 
 // CppEphem HEADERS
 #include "CEAngle.h"
+#include "CEBase.h"
 #include "CEDate.h"
 #include "CENamespace.h"
 #include "CEException.h"
@@ -46,7 +47,7 @@ enum class CECoordinateType
 };
 
 // Initiate the class that holds the coordinate information
-class CECoordinates {
+class CECoordinates : public CEBase {
 
     friend bool operator==(const CECoordinates& lhs, const CECoordinates& rhs);
     friend bool operator!=(const CECoordinates& lhs, const CECoordinates& rhs);
@@ -384,7 +385,11 @@ public:
     virtual void SetCoordinates(const CECoordinates& coords);
 
     // Support methods
-    std::string print(void) const;
+    const std::string print(void) const;
+
+    // Necessary methods
+    const std::string ClassName(void) const;
+    const std::string describe(void) const;
 
 protected:
     // Coordinate variables
@@ -400,6 +405,16 @@ private:
     void free_members(void);
     void init_members(void);
 };
+
+
+/**********************************************************************//**
+ * Return name of this class
+ *************************************************************************/
+inline
+const std::string CECoordinates::ClassName() const
+{
+    return std::string("CECoordinates");
+}
 
 
 /**********************************************************************//**

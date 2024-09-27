@@ -26,16 +26,20 @@
 #include <stdio.h>
 #include <vector>
 
+#include "CEBase.h"
 #include "CENamespace.h"
 
-// Time types are defined as:
-//      UTC   - Coordinate Universal Time
-//      GAST  - Greenwich Apparent Sidereal Time
-//      LAST  - Local Apparent Sidereal Time
-//      LOCALTIME - Local time (defined as the UTC + timezone_shift_)
-enum CETimeType {UTC, GAST, LAST, LOCALTIME} ;
+/**********************************************************************//**
+ * Time type enum
+ *************************************************************************/
+enum class CETimeType : unsigned int {
+    UTC       = 0,          ///< Coordinate Universal Time
+    GAST      = 1,          ///< Greenwich Apparent Sidereal Time
+    LAST      = 2,          ///< Local Apparent Sidereal Time
+    LOCALTIME = 3           ///< Local time (defined as the UTC + timezone_shift_)
+};
 
-class CETime {
+class CETime : public CEBase {
 public:
     // Default constructor
     CETime() ;
@@ -109,6 +113,13 @@ public:
     
     // GAST conversions
     
+    // Printing time
+    std::string HmsStr(const char& delim=':') const;
+
+    // Support methods
+    const std::string ClassName(void) const;
+    virtual const std::string describe(void) const;
+
 private:
 
     void copy_members(const CETime& other);
@@ -131,6 +142,16 @@ private:
     std::vector<double> time_ ;
     CETimeType time_type_ ;
 };
+
+
+/**********************************************************************//**
+ * Return name of this class
+ *************************************************************************/
+inline
+const std::string CETime::ClassName() const
+{
+    return std::string("CETime");
+}
 
 
 /**********************************************************************//**

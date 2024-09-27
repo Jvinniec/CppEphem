@@ -47,6 +47,9 @@ public:
     void           ResetTime(void);
     virtual double GetTimerSpeed(void) const;
     virtual void   SetTimerSpeed(const double& scale=1.0);
+
+    // Necessary methods
+    virtual const std::string ClassName(void) const;
     
 private:
 
@@ -61,6 +64,16 @@ private:
     /// Variable that can be used to speed up, slow down, or reverse the rate of time
     double timer_speed_factor_;
 };
+
+
+/**********************************************************************//**
+ * Return name of this class
+ *************************************************************************/
+inline
+const std::string CERunningDate::ClassName() const
+{
+    return std::string("CERunningDate");
+}
 
 
 /**********************************************************************//**

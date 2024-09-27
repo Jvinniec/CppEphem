@@ -485,6 +485,20 @@ void CEAngle::SetAngle(const std::vector<double>& angle_vec,
 
 
 /**********************************************************************//**
+ * Returns description of this angle
+ * 
+ * @return description of this angle
+ *************************************************************************/
+const std::string CEAngle::describe(void) const
+{
+    std::string msg("CEAngle object:\n");
+    msg += "   radians: " + std::to_string(this->Rad()) + "\n";
+    msg += "   degrees: " + std::to_string(this->Deg());
+    return msg;
+}
+
+
+/**********************************************************************//**
  * Set the angle from a vector of doubles representing {hours, minutes, seconds}
  * 
  * @param[in] angle             Angle as a vector of doubles

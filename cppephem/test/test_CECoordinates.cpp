@@ -136,8 +136,9 @@ bool test_CECoordinates::test_construct()
     CECoordinates test5(CECoordinateType::GALACTIC);
     test_int(int(test5.GetCoordSystem()), int(CECoordinateType::GALACTIC), __func__, __LINE__);
 
-    // Test print of constructed coordinates
-    test_greaterthan(test4.print().size(), 0, __func__, __LINE__);
+    // Make sure support methods work
+    test_string(test5.ClassName(), "CECoordinates", __func__, __LINE__);
+    test_greaterthan(test5.describe().size(), 0, __func__, __LINE__);
 
     return pass();
 }

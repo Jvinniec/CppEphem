@@ -145,7 +145,7 @@ void CEDate::SetDate(const double&     date,
  *************************************************************************/
 void CEDate::SetDate(std::vector<double> date)
 {
-    SetDate(GregorianVect2JD(date)) ;
+    SetDate(GregorianVect2JD(date), CEDateType::JD) ;
 }
 
 /**********************************************************************//**
@@ -667,6 +667,36 @@ CEDate::operator double() const
 {
     // Return the date formatted according to the 'return_type_' variable
     return GetDate(return_type_) ;
+}
+
+
+/**********************************************************************//**
+ * Returns a string description of this date object
+ * @return description of this date object
+ *************************************************************************/
+const std::string CEDate::describe(void) const
+{
+    std::string msg(CEBase::describe() + "\n");
+    msg += "   value: " + std::to_string(double(*this)) + "\n";
+    msg += "   units: ";
+
+    // Append the coordinate type
+    switch (return_type_) {
+        case(CEDateType::JD):
+            msg += "julian date";
+            break;
+        case(CEDateType::MJD):
+            msg += "modified julian date";
+            break;
+        case(CEDateType::GREGORIAN):
+            msg += "Gregorian";
+            break;
+        default:
+            msg += "unknown";
+            break;
+    }
+
+    return msg;
 }
 
 

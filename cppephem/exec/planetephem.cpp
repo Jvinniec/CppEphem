@@ -178,10 +178,7 @@ void PrintEphemeris(CEObservation& obs,
 
     // Print some basic information regarding the planet itself
     std::printf("= PLANET =====================\n");
-    std::printf("  Name  : %s\n", planet->Name().c_str());
-    std::printf("  Mass  : %e kg\n", planet->Mass_kg());
-    std::printf("  Radius: %f km\n", planet->Radius_m()/1000.0);
-    std::printf("  Albedo: %f\n\n", planet->Albedo());
+    std::printf("%s\n\n", planet->describe().c_str());
     
     std::vector<double> ra;
     std::vector<double> dec;
